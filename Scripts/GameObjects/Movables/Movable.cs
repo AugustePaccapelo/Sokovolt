@@ -4,7 +4,7 @@ using System.Data.Common;
 
 // Author : Ferlat Thibaud 
 
-namespace Com.IsartDigital.ProjectName {
+namespace Com.IsartDigital.Sokoban.GameObjects.Movables {
 	
 	public partial class Movable : GameObject
 	{

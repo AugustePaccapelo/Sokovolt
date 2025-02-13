@@ -3,7 +3,7 @@ using System;
 
 // Author : Ferlat Thibaud 
 
-namespace Com.IsartDigital.ProjectName {
+namespace Com.IsartDigital.Sokoban.GameObjects {
 	
 	public partial class Cell : Node2D
 	{

@@ -3,19 +3,19 @@ using System;
 
 // Author : Auguste Paccapelo
 
-namespace Com.IsartDigital.Sokoban.GameObjects
+namespace Com.IsartDigital.Sokoban.Managers
 {
-	public partial class Door : GameObject
-    {
+	public partial class GameManager : Manager
+	{
 		// ---------- VARIABLES ---------- \\
 
 		#region // ----- Singleton ----- \\
 
-		static private Door instance;
+		static private GameManager instance;
 
-		static public Door GetInstance()
+		static public GameManager GetInstance()
 		{
-			if (instance == null) instance = new Door();
+			if (instance == null) instance = new GameManager();
 			return instance;
 		}
 
@@ -29,9 +29,9 @@ namespace Com.IsartDigital.Sokoban.GameObjects
 
 		// ---------- FONCTIONS ---------- \\
 
-		// ----- Constructor & Ready & Process ----- \\
+		// ----- Constructor & Ready & Init & Process ----- \\
 
-		private Door() : base() { }
+		private GameManager() : base() { }
 
 		public override void _Ready()
 		{
@@ -51,6 +51,8 @@ namespace Com.IsartDigital.Sokoban.GameObjects
 			base._Ready();
 		}
 
+		public override void Init() { }
+
 		public override void _Process(double pDelta)
 		{
 			float lDelta = (float)pDelta;
@@ -64,13 +66,13 @@ namespace Com.IsartDigital.Sokoban.GameObjects
 
 		protected override void Dispose(bool pDisposing)
 		{
-			#region // ----- Singleton ----- \\
+            #region // ----- Singleton ----- \\
 
-			if (pDisposing && instance == this) instance = null;
+            if (pDisposing && instance == this) instance = null;
 
-			#endregion
+            #endregion
 
-			base.Dispose(pDisposing);
+            base.Dispose(pDisposing);
 		}
 	}
 }

@@ -1,10 +1,12 @@
 using Godot;
 using System;
+using Com.IsartDigital.Sokoban.GameObjects;
+using Com.IsartDigital.Sokoban.GameObjects.Movables;
 
 //Author : Ferlat Thibaud 
-namespace Com.IsartDigital.ProjectName{
+namespace Com.IsartDigital.Sokoban.Managers {
 	
-	public partial class GridManager : Node2D
+	public partial class GridManager : Manager
 	{
 		#region GetInstance
 		static private GridManager instance;

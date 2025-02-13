@@ -3,7 +3,7 @@ using System;
 using System.Runtime.CompilerServices;
 
 //Author : Ferlat Thibaud 
-namespace Com.IsartDigital.ProjectName{
+namespace Com.IsartDigital.Sokoban.GameObjects.Movables {
 	
 	public partial class Player : Movable
 	{

@@ -1,9 +1,10 @@
 using Godot;
 using System;
+using Com.IsartDigital.Sokoban.Managers;
 
 // Author : Ferlat Thibaud 
 
-namespace Com.IsartDigital.ProjectName {
+namespace Com.IsartDigital.Sokoban {
 	
 	public static class Utils 
 	{
