@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://0lujf2t1gugn"]
+
+[ext_resource type="Script" path="res://Scripts/GameObjects/Wall.cs" id="1_0oqpj"]
+
+[node name="Wall" type="Node2D"]
+script = ExtResource("1_0oqpj")
+
+[node name="Visual" type="Node2D" parent="."]
+scale = Vector2(0.8, 0.8)
+
+[node name="Polygon2D" type="Polygon2D" parent="Visual"]
+color = Color(0.433594, 0.342265, 0.0304871, 1)
+polygon = PackedVector2Array(-31, -31, 31, -31, 31, 31, -31, 31)

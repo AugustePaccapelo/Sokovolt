@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=3 uid="uid://dnebalk5gppv0"]
+
+[ext_resource type="Script" path="res://Scripts/GameObjects/Movables/BoxTesla.cs" id="1_c7f4a"]
+
+[node name="BoxTesla" type="Node2D"]
+script = ExtResource("1_c7f4a")
+
+[node name="Visual" type="Node2D" parent="."]
+scale = Vector2(0.8, 0.8)
+
+[node name="Polygon2D" type="Polygon2D" parent="Visual"]
+position = Vector2(0, -15)
+color = Color(0.382813, 0.375056, 0.348419, 1)
+polygon = PackedVector2Array(0, -12.5, 31, 31, -31, 31)
+
+[node name="Polygon2D2" type="Polygon2D" parent="Visual"]
+position = Vector2(0, -1.90735e-06)
+scale = Vector2(0.356061, 0.278226)
+color = Color(0.771459, 0.763478, 0, 1)
+polygon = PackedVector2Array(-8, -31, 10, -31, -6, -2, 15, 12, -7, 31, -2, 16, -18, 0)
