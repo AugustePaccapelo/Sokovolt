@@ -1,10 +1,10 @@
 using Godot;
 using System;
-using Com.IsartDigital.Sokoban.Managers;
+using Com.IsartDigital.SokoVolt.Managers;
 
 // Author : Ferlat Thibaud 
 
-namespace Com.IsartDigital.Sokoban {
+namespace Com.IsartDigital.SokoVolt {
 	
 	public static class Utils 
 	{

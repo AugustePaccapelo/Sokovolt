@@ -3,7 +3,7 @@ using System;
 
 // Author : Ferlat Thibaud 
 
-namespace Com.IsartDigital.Sokoban.GameObjects { 
+namespace Com.IsartDigital.SokoVolt.GameObjects { 
 	
 	public partial class Generator : GameObject
 	{

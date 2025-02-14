@@ -1,10 +1,10 @@
 using Godot;
 using System;
-using Com.IsartDigital.Sokoban.GameObjects;
-using Com.IsartDigital.Sokoban.GameObjects.Movables;
+using Com.IsartDigital.SokoVolt.GameObjects;
+using Com.IsartDigital.SokoVolt.GameObjects.Movables;
 
 //Author : Ferlat Thibaud 
-namespace Com.IsartDigital.Sokoban.Managers {
+namespace Com.IsartDigital.SokoVolt.Managers {
 	
 	public partial class GridManager : Manager
 	{

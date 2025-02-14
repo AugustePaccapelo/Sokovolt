@@ -4,7 +4,7 @@ using System;
 
 // Author : PACCAPELO Auguste
 
-namespace Com.IsartDigital.Sokoban.Managers
+namespace Com.IsartDigital.SokoVolt.Managers
 {
 	public partial class Manager : Node2D
 	{

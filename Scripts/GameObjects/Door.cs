@@ -3,7 +3,7 @@ using System;
 
 // Author : Auguste Paccapelo
 
-namespace Com.IsartDigital.Sokoban.GameObjects
+namespace Com.IsartDigital.SokoVolt.GameObjects
 {
 	public partial class Door : GameObject
     {

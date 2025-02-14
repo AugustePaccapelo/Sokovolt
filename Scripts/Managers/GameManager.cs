@@ -3,7 +3,7 @@ using System;
 
 // Author : Auguste Paccapelo
 
-namespace Com.IsartDigital.Sokoban.Managers
+namespace Com.IsartDigital.SokoVolt.Managers
 {
 	public partial class GameManager : Manager
 	{

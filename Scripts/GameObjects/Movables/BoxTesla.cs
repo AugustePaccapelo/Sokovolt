@@ -3,7 +3,7 @@ using System;
 
 // Author : Ferlat Thibaud 
 
-namespace Com.IsartDigital.Sokoban.GameObjects.Movables {
+namespace Com.IsartDigital.SokoVolt.GameObjects.Movables {
 	
 	public partial class BoxTesla : Movable
 	{
