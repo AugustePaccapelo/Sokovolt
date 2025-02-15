@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Data.SqlTypes;
 
 // Author : Ferlat Thibaud 
 
@@ -18,7 +19,16 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables {
 
 		}
 
-		protected override void Dispose(bool pDisposing)
+        public override void MoveTo(int pX, int pY, Cell[,] pGrid)
+        {
+            base.MoveTo(pX, pY, pGrid);
+
+			CustomSignals lSignals = CustomSignals.GetInstance();
+
+			lSignals.EmitSignal(CustomSignals.SignalName.BoxTeslaMoved);
+        }
+
+        protected override void Dispose(bool pDisposing)
 		{
 
 		}

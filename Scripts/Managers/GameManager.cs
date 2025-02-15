@@ -1,5 +1,7 @@
+using Com.IsartDigital.SokoVolt.GameObjects;
 using Godot;
 using System;
+using System.Collections.Generic;
 
 // Author : Auguste Paccapelo
 
@@ -24,6 +26,12 @@ namespace Com.IsartDigital.SokoVolt.Managers
 		// ----- Paths ----- \\
 
 		// ----- Nodes ----- \\
+
+		// Managers
+		private GridManager gridManager;
+
+		// GameObjects
+		private List<GoalBulb> allGoalBulbs = new List<GoalBulb>();
 
 		// ----- Others ----- \\
 
@@ -51,7 +59,12 @@ namespace Com.IsartDigital.SokoVolt.Managers
 			base._Ready();
 		}
 
-		public override void Init() { }
+		public override void Init()
+		{
+            gridManager = GridManager.GetInstance();
+
+			foreach(GoalBulb lGoalBulb in allGoalBulbs) lGoalBulb.Init();
+        }
 
 		public override void _Process(double pDelta)
 		{
@@ -61,6 +74,11 @@ namespace Com.IsartDigital.SokoVolt.Managers
 		}
 
 		// ----- My Fonctions ----- \\
+
+		public void AddGoalBulb(GoalBulb pGoalbulb)
+		{
+			allGoalBulbs.Add(pGoalbulb);
+		}
 
 		// ----- Destructor ----- \\
 

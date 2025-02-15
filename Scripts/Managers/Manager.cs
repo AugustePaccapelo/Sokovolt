@@ -37,6 +37,7 @@ namespace Com.IsartDigital.SokoVolt.Managers
 		private void InitAllManagers()
 		{
 			foreach (Manager lManager in allManagers) lManager.Init();
+			CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.AllManagersReady);
 		}
 
 

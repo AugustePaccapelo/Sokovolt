@@ -31,7 +31,7 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 
 		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-		private Cell[,] grid = new Cell[GRID_WIDTH, GRID_HEIGHT];
+		public Cell[,] grid { get; private set; } = new Cell[GRID_WIDTH, GRID_HEIGHT];
 		public static Vector2 gridOffset; 
 		private Player player;
 
@@ -46,7 +46,8 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 		}
 		instance = this;
 		#endregion
-			LoadLevel();
+			
+			base._Ready();
 		}
 
 		public override void _Process(double pDelta)
@@ -61,7 +62,13 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 			//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 		}
 
-		public void LoadLevel() // ====================================> A basculer dans un LevelLoader
+        public override void Init()
+        {
+            base.Init();
+            LoadLevel();
+        }
+
+        public void LoadLevel() // ====================================> A basculer dans un LevelLoader
 		{
 			CenterGrid();
 
@@ -208,7 +215,6 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 
 			GD.Print(lGridString);
 		}
-
 
 		#region dispose
 		protected override void Dispose(bool pDisposing)
