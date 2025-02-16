@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://dkbx646vvyaig"]
+[gd_scene load_steps=4 format=3 uid="uid://dkbx646vvyaig"]
 
 [ext_resource type="PackedScene" uid="uid://bnv0kco0ylr0e" path="res://Scenes/Managers/GridManager.tscn" id="1_d671q"]
 [ext_resource type="PackedScene" uid="uid://cbrehv31qfb0r" path="res://Scenes/Managers/GameManager.tscn" id="2_eu31m"]
+[ext_resource type="Script" path="res://Scripts/Managers/InputManager.cs" id="3_3tpao"]
 
 [node name="MAIN" type="Node2D"]
 
@@ -11,6 +12,9 @@
 objectsContainer = NodePath("../../Containers/ObjectsContainer")
 
 [node name="GameManager" parent="Managers" instance=ExtResource("2_eu31m")]
+
+[node name="InputManager" type="Node2D" parent="Managers"]
+script = ExtResource("3_3tpao")
 
 [node name="Containers" type="Node2D" parent="."]
 

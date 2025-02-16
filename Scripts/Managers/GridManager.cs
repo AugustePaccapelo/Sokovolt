@@ -23,7 +23,6 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 
 		[Export] private Node2D objectsContainer;  
 
- 
 		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 		private const int GRID_WIDTH = 9; // ==================================> A mettre dans le Json du level loader
@@ -48,19 +47,13 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 		#endregion
 			
 			base._Ready();
-		}
 
-		public override void _Process(double pDelta)
+        }
+
+        public override void _Process(double pDelta)
 		{
-			//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-			if (Input.IsActionJustPressed("ui_right")) MovePlayer(1, 0);
-			if (Input.IsActionJustPressed("ui_left")) MovePlayer(-1, 0); //=================================> Besoin d'un input manager 
-			if (Input.IsActionJustPressed("ui_down")) MovePlayer(0, 1);
-			if (Input.IsActionJustPressed("ui_up")) MovePlayer(0, -1);
-
-			//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-		}
+        }
 
         public override void Init()
         {
@@ -147,10 +140,14 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 			);
 		}
 
+		public void OnMovePlayer(Vector2 pPlayerDirection)
+		{
+			MovePlayer((int)pPlayerDirection.X, (int)pPlayerDirection.Y);
+		}
 
 		private void MovePlayer(int pDx, int pDy)
 		{
-			int lNewX = player.x + pDx;
+            int lNewX = player.x + pDx;
 			int lNewY = player.y + pDy;
 
 			if (lNewX < 0 || lNewX >= GRID_WIDTH || lNewY < 0 || lNewY >= GRID_HEIGHT)
@@ -181,7 +178,6 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 
 			PrintGrid();
 		}
-
 	
 		private void PrintGrid()	//=================================> Provisoir pour test 
 		{
