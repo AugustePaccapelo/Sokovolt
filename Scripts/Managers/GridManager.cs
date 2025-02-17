@@ -48,10 +48,10 @@ namespace Com.IsartDigital.SokoVolt.Managers {
         {
             base.Init();
 
-            LoadNewLevel(5); 
+            LoadNewLevel(0); 
         }
 
-		public void LoadNewLevel(int pLevelToLoad)
+		public void LoadNewLevel(int pLevelToLoad) // ==================> Charger un niveau avec son index 
 		{
 			LevelLoader.GetInstance().LoadLevel(pLevelToLoad);
 			CenterGrid(); 

@@ -2,8 +2,6 @@ using Com.IsartDigital.SokoVolt.GameObjects;
 using Com.IsartDigital.SokoVolt.GameObjects.Movables;
 using Com.IsartDigital.SokoVolt.Managers;
 using Godot;
-using System;
-using System.Dynamic;
 
 //Author : Ferlat Thibaud 
 namespace Com.IsartDigital.SokoVolt {
@@ -58,7 +56,6 @@ namespace Com.IsartDigital.SokoVolt {
 		{
 			string lJsonContent = JsonTool.ReadFileContents(LEVELS_JSONS_PATH);
 
-			 // Parser le JSON
 			if (!JsonTool.TryParseJson(lJsonContent, out Godot.Collections.Dictionary lRootDict))
 			{
 				GD.PrintErr("Erreur : Impossible de parser le fichier JSON.");
@@ -94,8 +91,8 @@ namespace Com.IsartDigital.SokoVolt {
 			}
 
 
-			levelWidth = lMapArray.Count;
-			levelHeight = lMapArray.Count > 0 ? lMapArray[0].ToString().Length : 0;
+			levelWidth = lMapArray.Count > 0 ? lMapArray[0].ToString().Length : 0;
+			levelHeight = lMapArray.Count;
 
 			// Redimensionner la grille dynamiquement
 			gridInstance.SetNewLevel(new Cell[levelWidth, levelHeight]);
