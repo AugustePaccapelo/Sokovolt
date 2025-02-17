@@ -188,7 +188,6 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 			stepLabel.Text = STEP_LABEL_PREFIXE + step;
 		}
 
-	
 		private void PrintGrid()	//=================================> Provisoir pour test 
 		{
 			string lGridString = "";
