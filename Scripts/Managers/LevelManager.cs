@@ -18,6 +18,8 @@ namespace Com.IsartDigital.SokoVolt.Managers
 		}
 
         #endregion
+        [Signal] public delegate void LoadLevelEventHandler();
+
 
         public override void _Ready()
         {
@@ -37,6 +39,8 @@ namespace Com.IsartDigital.SokoVolt.Managers
         public void LevelLoader(int pLevel)
 		{
 			GD.Print("Level : " + pLevel);
+            EmitSignal(nameof(LoadLevel));
+            LevelSelector.GetInstance().QueueFree();
 		}
 
         protected override void Dispose(bool pDisposing)

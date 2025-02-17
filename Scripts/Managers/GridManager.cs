@@ -46,7 +46,7 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 		}
 		instance = this;
 		#endregion
-			LoadLevel();
+			LevelManager.GetInstance().LoadLevel += LoadLevel;
 		}
 
 		public override void _Process(double pDelta)

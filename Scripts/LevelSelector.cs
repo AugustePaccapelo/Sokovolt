@@ -21,7 +21,7 @@ namespace Com.IsartDigital.SokoVolt
 		private Vector2 buttonSize = new Vector2(60, 40);
         private bool alreadyPress = false;
 
-        [Signal] public delegate void LoadLevelEventHandler(int pLevel);
+        [Signal] public delegate void ButtonLoadLevelEventHandler(int pLevel);
 
 
         #region Singleton
@@ -50,7 +50,7 @@ namespace Com.IsartDigital.SokoVolt
 			instance = this;
             #endregion
 
-            LoadLevel += LevelManager.GetInstance().LevelLoader;
+            ButtonLoadLevel += LevelManager.GetInstance().LevelLoader;
 
 
             screenSize = GetViewportRect().Size;
@@ -111,7 +111,7 @@ namespace Com.IsartDigital.SokoVolt
             lButton.PivotOffset = buttonSize/2;
 			lButton.Position = pPos;
 			lButton.Text = LEVEL_PREFIXE + levelNumb;
-			lButton.Pressed += () => EmitSignal(nameof(LoadLevel), levelNumb);
+			lButton.Pressed += () => EmitSignal(nameof(ButtonLoadLevel), levelNumb);
             Tween lTween = CreateTween();
             lTween.TweenProperty(lButton, "position", new Vector2(screenSize.X / 2, screenSize.Y / 2), 1);
 			lTween.Finished += () => alreadyPress = false;
