@@ -50,7 +50,7 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 			return;
 		}
 		instance = this;
-		#endregion
+			#endregion
 			LevelManager.GetInstance().LoadLevel += LoadLevel;
 		}
 
@@ -69,6 +69,7 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 		public void LoadLevel() // ====================================> A basculer dans un LevelLoader
 		{
 			CenterGrid();
+			stepLabel.Show();
 
 			string [] lTestLevel = 
 			{

@@ -63,15 +63,8 @@ namespace Com.IsartDigital.SokoVolt
 			lTweenNextButton.Finished += () => levelButton.Disabled = false;
 
 
-            buttonRight.Pressed += () =>
-			{
-				SwitchLevel(buttonRight);
-                alreadyPress = true;
-            };
-			buttonLeft.Pressed += () => {
-                SwitchLevel(buttonLeft);
-                alreadyPress = true;
-            };
+            buttonRight.Pressed += () => SwitchLevel(buttonRight);
+			buttonLeft.Pressed += () => SwitchLevel(buttonLeft);
 
 
             buttonLeft.GlobalPosition = new Vector2(0 + MARGIN, screenSize.Y / 2);
@@ -82,6 +75,8 @@ namespace Com.IsartDigital.SokoVolt
 		{
 			if (!alreadyPress)
 			{
+                alreadyPress = true;
+
                 Tween lTweenButton = CreateTween();
                 lTweenButton.TweenProperty(pButton, "scale", new Vector2(0.6f, 0.6f), 0.2f);
                 lTweenButton.TweenProperty(pButton, "scale", new Vector2(1f, 1f), 0.2f).SetEase(Tween.EaseType.Out).SetTrans(Tween.TransitionType.Elastic);
@@ -119,7 +114,9 @@ namespace Com.IsartDigital.SokoVolt
 				{
 					alreadyPress = false;
 					lTween.Kill();
-				}
+                    lTweenButton.Kill();
+
+                }
 
                 lTween.Finished += () => {
                     levelButton.QueueFree();
@@ -128,6 +125,13 @@ namespace Com.IsartDigital.SokoVolt
                 };
                 
             }
+        }
+
+        public override void _Process(double delta)
+        {
+            GD.Print(levelNumb);
+            GD.Print(alreadyPress);
+            GD.Print(levelButton.Disabled);
         }
 
         private Button CreateButton(Vector2 pPos)

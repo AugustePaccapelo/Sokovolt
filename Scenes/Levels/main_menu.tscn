@@ -1,0 +1,22 @@
+[gd_scene load_steps=2 format=3 uid="uid://bolt2foa3kkh1"]
+
+[ext_resource type="Script" path="res://Scripts/MainMenu.cs" id="1_3kguo"]
+
+[node name="MainMenu" type="Control" node_paths=PackedStringArray("startButton")]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_3kguo")
+startButton = NodePath("Button")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+offset_right = 1154.0
+offset_bottom = 662.0
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 545.0
+offset_top = 308.0
+offset_right = 601.0
+offset_bottom = 339.0
+text = "START"
