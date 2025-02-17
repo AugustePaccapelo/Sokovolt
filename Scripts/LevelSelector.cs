@@ -1,3 +1,4 @@
+using Com.IsartDigital.SokoVolt.Managers;
 using Godot;
 using System;
 
@@ -20,8 +21,11 @@ namespace Com.IsartDigital.SokoVolt
 		private Vector2 buttonSize = new Vector2(60, 40);
         private bool alreadyPress = false;
 
-		#region Singleton
-		static private LevelSelector instance;
+        [Signal] public delegate void LoadLevelEventHandler(int pLevel);
+
+
+        #region Singleton
+        static private LevelSelector instance;
 
 		private LevelSelector() { }
 
@@ -44,16 +48,20 @@ namespace Com.IsartDigital.SokoVolt
 			}
 
 			instance = this;
-			#endregion
-			screenSize = GetViewportRect().Size;
+            #endregion
+
+            LoadLevel += LevelManager.GetInstance().LevelLoader;
+
+
+            screenSize = GetViewportRect().Size;
 			levelButton = CreateButton(new Vector2(screenSize.X + buttonSize.X, screenSize.Y / 2));
 
 			buttonRight.Pressed += () => SwitchLevel(buttonRight);
 			buttonLeft.Pressed += () => SwitchLevel(buttonLeft);
 
 
-            buttonLeft.Position += new Vector2(MARGIN, 0);
-			buttonRight.Position += new Vector2(-MARGIN, 0);
+            buttonLeft.GlobalPosition = new Vector2(0 + MARGIN, screenSize.Y / 2);
+			buttonRight.GlobalPosition = new Vector2(screenSize.X-MARGIN-buttonSize.X, screenSize.Y / 2);
         }
 
 		private void SwitchLevel(Button pButton)
@@ -103,6 +111,7 @@ namespace Com.IsartDigital.SokoVolt
             lButton.PivotOffset = buttonSize/2;
 			lButton.Position = pPos;
 			lButton.Text = LEVEL_PREFIXE + levelNumb;
+			lButton.Pressed += () => EmitSignal(nameof(LoadLevel), levelNumb);
             Tween lTween = CreateTween();
             lTween.TweenProperty(lButton, "position", new Vector2(screenSize.X / 2, screenSize.Y / 2), 1);
 			lTween.Finished += () => alreadyPress = false;
@@ -110,7 +119,7 @@ namespace Com.IsartDigital.SokoVolt
             return lButton;
 		}
 
-		protected override void Dispose(bool pDisposing)
+        protected override void Dispose(bool pDisposing)
 		{
 			instance = null;
 			base.Dispose(pDisposing);
