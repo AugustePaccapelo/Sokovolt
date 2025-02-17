@@ -1,0 +1,39 @@
+[gd_scene load_steps=2 format=3 uid="uid://cv5g7xhpqf2e0"]
+
+[ext_resource type="Script" path="res://Scripts/LevelSelector.cs" id="1_7onrw"]
+
+[node name="LevelSelector" type="Control" node_paths=PackedStringArray("buttonRight", "buttonLeft")]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_7onrw")
+buttonRight = NodePath("Button2")
+buttonLeft = NodePath("Button")
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 40.0
+offset_top = 299.0
+offset_right = 100.0
+offset_bottom = 339.0
+grow_vertical = 2
+pivot_offset = Vector2(30, 20)
+text = "<--"
+
+[node name="Button2" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 1020.0
+offset_top = 315.0
+offset_right = 1080.0
+offset_bottom = 355.0
+grow_horizontal = 0
+grow_vertical = 2
+pivot_offset = Vector2(30, 20)
+text = "-->"

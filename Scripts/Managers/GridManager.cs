@@ -21,13 +21,18 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 		
 		[Export] private PackedScene cellScene, playerScene, boxScene, wallScene, electricWallScene, goalBulbScene, generatorScene, doorScene; 
 
-		[Export] private Node2D objectsContainer;  
+		[Export] private Node2D objectsContainer;
+
+		[Export] private Label stepLabel;
+
+		private int step = 0;
 
  
 		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 		private const int GRID_WIDTH = 9; // ==================================> A mettre dans le Json du level loader
 		private const int GRID_HEIGHT = 7;
+		private const string STEP_LABEL_PREFIXE = "STEP : ";
 
 		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -46,8 +51,7 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 		}
 		instance = this;
 		#endregion
-			
-			base._Ready();
+			LevelManager.GetInstance().LoadLevel += LoadLevel;
 		}
 
 		public override void _Process(double pDelta)
@@ -62,13 +66,7 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 			//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 		}
 
-        public override void Init()
-        {
-            base.Init();
-            LoadLevel();
-        }
-
-        public void LoadLevel() // ====================================> A basculer dans un LevelLoader
+		public void LoadLevel() // ====================================> A basculer dans un LevelLoader
 		{
 			CenterGrid();
 
@@ -162,6 +160,7 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 			if (lContent == null || lContent is Door)
 			{
 				player.MoveTo(lNewX, lNewY, grid);
+				UpdateStepLabel();
 			}
 			else if (lContent is BoxTesla lBox)
 			{
@@ -176,10 +175,17 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 				{
 					lBox.MoveTo(lNewBoxX, lNewBoxY, grid);
 					player.MoveTo(lNewX, lNewY, grid);
+					UpdateStepLabel();
 				}
 			}
 
 			PrintGrid();
+		}
+
+		private void UpdateStepLabel()
+		{
+			step++;
+			stepLabel.Text = STEP_LABEL_PREFIXE + step;
 		}
 
 	
@@ -215,6 +221,7 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 
 			GD.Print(lGridString);
 		}
+
 
 		#region dispose
 		protected override void Dispose(bool pDisposing)
