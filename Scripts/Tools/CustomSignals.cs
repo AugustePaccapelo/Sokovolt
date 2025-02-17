@@ -22,7 +22,6 @@ namespace Com.IsartDigital.SokoVolt
 
 		#endregion
 
-		[Signal] public delegate void AllManagersReadyEventHandler();
 		[Signal] public delegate void PlayerMovedEventHandler();
 		[Signal] public delegate void BoxTeslaMovedEventHandler();
 	}

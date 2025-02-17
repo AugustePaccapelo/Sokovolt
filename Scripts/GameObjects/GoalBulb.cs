@@ -19,46 +19,73 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
 		GridManager gridManager;
 		CustomSignals signals;
 
-		// ----- Others ----- \\
+		[Export] Polygon2D OnPol;
+        [Export] Polygon2D OffPol;
+
+        // ----- Others ----- \\
+        Action<float> doAction;
 
 		// ---------- FONCTIONS ---------- \\
 
-		// ----- Constructor & Ready & Process ----- \\
-
-		protected GoalBulb () : base()
-		{
-            signals = CustomSignals.GetInstance();
-            signals.AllManagersReady += Init;
-        }
+		// ----- Ready & Process ----- \\
 
 		public override void _Ready()
 		{
 			base._Ready();
+			signals = CustomSignals.GetInstance();
             signals.BoxTeslaMoved += BoxTeslaMoved;
-		}
 
-		public void Init()
-		{
             gameManager = GameManager.GetInstance();
 			gameManager.AddGoalBulb(this);
-			gridManager = GridManager.GetInstance();
-		}
+            gridManager = GridManager.GetInstance();
+
+			InitTurnedOff();
+        }
 
 		public override void _Process(double pDelta)
 		{
 			float lDelta = (float)pDelta;
 
 			base._Process(lDelta);
+
+			doAction(lDelta);
 		}
 
 		// ----- My Fonctions ----- \\
+
+		private void InitTurnedOff()
+		{
+            doAction = TurnedOff;
+
+			OnPol.Hide();
+			OffPol.Show();
+        }
+
+		private void TurnedOff(float pDelta)
+		{
+
+		}
+
+		private void InitTurnOn()
+		{
+            doAction = TurnedOn;
+
+			OffPol.Hide();
+			OnPol.Show();
+		}
+
+		private void TurnedOn(float pDelta)
+		{
+
+		}
 
 		private void BoxTeslaMoved()
 		{
 			Cell[,] lGrid = gridManager.grid;
 			List<BoxTesla> lAllTeslasClose = GetCloseTeslas(lGrid);
 
-			if (lAllTeslasClose.Count > 0) GD.Print(lAllTeslasClose.Count);
+			if (lAllTeslasClose.Count > 0) InitTurnOn();
+			else InitTurnedOff();
         }
 
 		private List<BoxTesla> GetCloseTeslas(Cell[,] pGrid)

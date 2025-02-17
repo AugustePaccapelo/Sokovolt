@@ -29,6 +29,7 @@ namespace Com.IsartDigital.SokoVolt.Managers
 
 		// Managers
 		private GridManager gridManager;
+		private CustomSignals signals;
 
 		// GameObjects
 		private List<GoalBulb> allGoalBulbs = new List<GoalBulb>();
@@ -37,9 +38,7 @@ namespace Com.IsartDigital.SokoVolt.Managers
 
 		// ---------- FONCTIONS ---------- \\
 
-		// ----- Constructor & Ready & Init & Process ----- \\
-
-		private GameManager() : base() { }
+		// ----- Ready & Init & Process ----- \\
 
 		public override void _Ready()
 		{
@@ -62,8 +61,6 @@ namespace Com.IsartDigital.SokoVolt.Managers
 		public override void Init()
 		{
             gridManager = GridManager.GetInstance();
-
-			foreach(GoalBulb lGoalBulb in allGoalBulbs) lGoalBulb.Init();
         }
 
 		public override void _Process(double pDelta)
