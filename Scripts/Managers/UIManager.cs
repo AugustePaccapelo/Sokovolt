@@ -37,7 +37,7 @@ namespace Com.IsartDigital.SokoVolt.Managers
 			MainMenu.GetInstance().StartGame += GameStart;
 		}
 
-		private void GameStart()
+		private void GameStart() //Execute when StartButton is press in MainMenu
 		{
 			MainMenu.GetInstance().QueueFree();
 			levelSelector = levelSelectorScene.Instantiate() as LevelSelector;
