@@ -18,17 +18,8 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 
 		private GridManager ():base() {}
 		#endregion
-		
 
-
-		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-		private const int GRID_WIDTH = 9; // ==================================> A mettre dans le Json du level loader
-		private const int GRID_HEIGHT = 7;
-
-		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-		public Cell[,] grid { get; set; } = new Cell[GRID_WIDTH, GRID_HEIGHT];
+		public Cell[,] grid { get; private set;}
 		public static Vector2 gridOffset; 
 		public Player player;
 
@@ -56,80 +47,26 @@ namespace Com.IsartDigital.SokoVolt.Managers {
         public override void Init()
         {
             base.Init();
-            // LoadLevel();
+
+            LoadNewLevel(5); 
         }
 
-        // public void LoadLevel() // ====================================> A basculer dans un LevelLoader
-		// {
-		// 	CenterGrid();
+		public void LoadNewLevel(int pLevelToLoad)
+		{
+			LevelLoader.GetInstance().LoadLevel(pLevelToLoad);
+			CenterGrid(); 
+		}
 
-		// 	string [] lTestLevel = 
-		// 	{
-		// 		"#########",
-		// 		"#/    # #",
-		// 		"# . $   #",
-		// 		"#   @ * #",
-		// 		"#   $ . #",
-		// 		"#  #   |#",
-		// 		"#########"
-		// 	};
-
-		// 	for(int y = 0; y < GRID_HEIGHT; y++)
-		// 	{
-		// 		for(int x = 0; x < GRID_WIDTH; x++)
-		// 		{
-		// 			char lTile = lTestLevel[y][x];
-
-		// 			Cell lCell = Utils.Spawner(cellScene, x, y, objectsContainer) as Cell;
-
-		// 			grid[x, y] = lCell;
-
-		// 			GameObject lObj = null; 
-
-		// 			switch(lTile)
-		// 			{
-		// 				case '@':
-		// 					lObj = Utils.Spawner(playerScene, x, y, objectsContainer) as Player;
-		// 					player = lObj as Player;
-		// 					break;
-		// 				case '$':
-		// 					lObj = Utils.Spawner(boxScene, x, y, objectsContainer) as BoxTesla;
-		// 					break;
-		// 				case '#':
-		// 					lObj = Utils.Spawner(wallScene, x, y, objectsContainer) as Wall;
-		// 					break;
-		// 				case '*':
-		// 					lObj = Utils.Spawner(electricWallScene, x, y, objectsContainer) as ElectricWall;
-		// 					break;
-		// 				case '.':
-		// 					lObj = Utils.Spawner(goalBulbScene, x, y, objectsContainer) as GoalBulb;
-		// 					break;
-		// 				case '/':
-		// 					lObj = Utils.Spawner(generatorScene, x, y, objectsContainer) as Generator;
-		// 					break;
-		// 				case '|':
-		// 					lObj = Utils.Spawner(doorScene, x, y, objectsContainer) as Door;
-		// 					break;
-		// 			}
-
-		// 			if(lObj != null)
-		// 			{
-		// 				lCell.SetContent(lObj);
-		// 				lObj.SetCell(lCell);
-		// 				lObj.Init(x, y);
-		// 			}
-		// 		}
-		// 	}
-
-		// 	PrintGrid();
-				
-		// }
+		public void SetNewLevel(Cell[,] pNewGrid)
+		{
+			grid = pNewGrid;
+		}
 
 		public void CenterGrid()
 		{
 			Vector2 lScreenSize = GetViewportRect().Size; 
-			float lGridWidth = GRID_WIDTH * Utils.TILE_SIZE - Utils.TILE_SIZE;  
-			float lGridHeight = GRID_HEIGHT * Utils.TILE_SIZE - Utils.TILE_SIZE; 
+			float lGridWidth = LevelLoader.levelWidth * Utils.TILE_SIZE - Utils.TILE_SIZE;  
+			float lGridHeight = LevelLoader.levelHeight * Utils.TILE_SIZE - Utils.TILE_SIZE; 
 
 			gridOffset = new Vector2
 			(
@@ -141,7 +78,6 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 		public void OnMovePlayer(Vector2 pPlayerDirection)
 		{
 			MovePlayer((int)pPlayerDirection.X, (int)pPlayerDirection.Y);
-			GD.PrintErr("zgeg"); 
 		}
 
 		private void MovePlayer(int pDx, int pDy)
@@ -149,8 +85,12 @@ namespace Com.IsartDigital.SokoVolt.Managers {
             int lNewX = player.x + pDx;
 			int lNewY = player.y + pDy;
 
-			// if (lNewX < 0 || lNewX >= GRID_WIDTH || lNewY < 0 || lNewY >= GRID_HEIGHT)
-			// 	return;
+			if(OutOfGrid(lNewX, lNewY))
+			{
+				GD.PrintErr("Player to far from map"); 
+				return;
+			}
+				
 
 			Cell lNewCell = grid[lNewX, lNewY];
 			GameObject lContent = lNewCell.GetContent();
@@ -164,27 +104,39 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 				int lNewBoxX = lNewX + pDx;
 				int lNewBoxY = lNewY + pDy;
 
-				if (lNewBoxX < 0 || lNewBoxX >= GRID_WIDTH || lNewBoxY < 0 || lNewBoxY >= GRID_HEIGHT)
+				if (OutOfGrid(lNewBoxX, lNewBoxY))
+				{
+					GD.PrintErr("Box to far from map"); 
 					return;
+				}
+					
 
 				Cell lNewBoxCell = grid[lNewBoxX, lNewBoxY];
 				if (lNewBoxCell.GetContent() == null)
 				{
+					GD.PrintErr("Moved box"); 
 					lBox.MoveTo(lNewBoxX, lNewBoxY, grid);
 					player.MoveTo(lNewX, lNewY, grid);
 				}
+				else GD.PrintErr(lNewBoxCell.GetContent().ToString());
 			}
+			else return;
 
 			PrintGrid();
+		}
+
+		private bool OutOfGrid(int pX, int pY)
+		{
+			return pX < 0 || pX >= LevelLoader.levelWidth || pY < 0 || pY >= LevelLoader.levelHeight;
 		}
 	
 		private void PrintGrid()	//=================================> Provisoir pour test 
 		{
 			string lGridString = "";
 
-			for (int y = 0; y < GRID_HEIGHT; y++)
+			for (int y = 0; y < LevelLoader.levelHeight; y++)
 			{
-				for (int x = 0; x < GRID_WIDTH; x++)
+				for (int x = 0; x < LevelLoader.levelWidth; x++)
 				{
 					GameObject lContent = grid[x, y].GetContent();
 					

@@ -19,11 +19,6 @@
 
 [node name="GridManager" parent="Managers" instance=ExtResource("1_d671q")]
 
-[node name="GameManager" parent="Managers" instance=ExtResource("2_eu31m")]
-
-[node name="InputManager" type="Node2D" parent="Managers"]
-script = ExtResource("3_3tpao")
-
 [node name="LevelLoader" type="Node2D" parent="Managers" node_paths=PackedStringArray("objectsContainer")]
 script = ExtResource("4_ly116")
 cellScene = ExtResource("5_8xedd")
@@ -35,6 +30,11 @@ goalBulbScene = ExtResource("10_cjqye")
 generatorScene = ExtResource("11_lsk15")
 doorScene = ExtResource("12_pyytn")
 objectsContainer = NodePath("../../Containers/ObjectsContainer")
+
+[node name="GameManager" parent="Managers" instance=ExtResource("2_eu31m")]
+
+[node name="InputManager" type="Node2D" parent="Managers"]
+script = ExtResource("3_3tpao")
 
 [node name="Containers" type="Node2D" parent="."]
 

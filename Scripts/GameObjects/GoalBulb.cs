@@ -34,7 +34,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
 		public override void _Ready()
 		{
 			base._Ready();
-            signals.BoxTeslaMoved += BoxTeslaMoved;
+            // signals.BoxTeslaMoved += BoxTeslaMoved;
 		}
 
 		public void Init()
