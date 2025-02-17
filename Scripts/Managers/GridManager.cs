@@ -36,7 +36,7 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 
 		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-		private Cell[,] grid = new Cell[GRID_WIDTH, GRID_HEIGHT];
+		public Cell[,] grid { get; private set; } = new Cell[GRID_WIDTH, GRID_HEIGHT];
 		public static Vector2 gridOffset; 
 		private Player player;
 
@@ -189,7 +189,6 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 			stepLabel.Text = STEP_LABEL_PREFIXE + step;
 		}
 
-	
 		private void PrintGrid()	//=================================> Provisoir pour test 
 		{
 			string lGridString = "";

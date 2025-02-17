@@ -2,12 +2,21 @@
 
 [ext_resource type="Script" path="res://Scripts/GameObjects/GoalBulb.cs" id="1_o63n1"]
 
-[node name="GoalBulb" type="Node2D"]
+[node name="GoalBulb" type="Node2D" node_paths=PackedStringArray("OnPol", "OffPol")]
 script = ExtResource("1_o63n1")
+OnPol = NodePath("Visual/On")
+OffPol = NodePath("Visual/Off")
 
 [node name="Visual" type="Node2D" parent="."]
 
-[node name="Polygon2D" type="Polygon2D" parent="Visual"]
+[node name="Off" type="Polygon2D" parent="Visual"]
+visible = false
 position = Vector2(0, 12)
 color = Color(0.673465, 0.669856, 0, 1)
+polygon = PackedVector2Array(-1, -41, 11, -39, 17, -32, 19, -20, 11, -11, 7, -9, 7, 14, 0, 19, -8, 14, -10, -9, -17, -10, -23, -23, -19, -32, -11, -38)
+
+[node name="On" type="Polygon2D" parent="Visual"]
+visible = false
+position = Vector2(0, 12)
+color = Color(0.915991, 0.834384, 0, 1)
 polygon = PackedVector2Array(-1, -41, 11, -39, 17, -32, 19, -20, 11, -11, 7, -9, 7, 14, 0, 19, -8, 14, -10, -9, -17, -10, -23, -23, -19, -32, -11, -38)

@@ -2,7 +2,7 @@ using Godot;
 using System;
 
 //Author : Ferlat Thibaud 
-namespace Com.IsartDigital.Sokoban {
+namespace Com.IsartDigital.SokoVolt {
 	
 	public partial class LevelLoader : Node
 	{
