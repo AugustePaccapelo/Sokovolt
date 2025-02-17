@@ -1,15 +1,21 @@
-[gd_scene load_steps=4 format=3 uid="uid://dkbx646vvyaig"]
+[gd_scene load_steps=5 format=3 uid="uid://dkbx646vvyaig"]
 
 [ext_resource type="PackedScene" uid="uid://bnv0kco0ylr0e" path="res://Scenes/Managers/GridManager.tscn" id="1_d671q"]
 [ext_resource type="PackedScene" uid="uid://bix7hbs5g2ia3" path="res://Scenes/Managers/level_manager.tscn" id="2_g28jy"]
 [ext_resource type="PackedScene" uid="uid://cv5g7xhpqf2e0" path="res://Scenes/Levels/level_selector.tscn" id="3_8r1yo"]
 
+[sub_resource type="LabelSettings" id="LabelSettings_eqk5y"]
+font_size = 32
+outline_size = 5
+outline_color = Color(0, 0, 0, 1)
+
 [node name="MAIN" type="Node2D"]
 
 [node name="Managers" type="Node" parent="."]
 
-[node name="GridManager" parent="Managers" node_paths=PackedStringArray("objectsContainer") instance=ExtResource("1_d671q")]
+[node name="GridManager" parent="Managers" node_paths=PackedStringArray("objectsContainer", "stepLabel") instance=ExtResource("1_d671q")]
 objectsContainer = NodePath("../../Containers/ObjectsContainer")
+stepLabel = NodePath("../../StepLabel")
 
 [node name="LevelManager" parent="Managers" instance=ExtResource("2_g28jy")]
 
@@ -18,3 +24,9 @@ objectsContainer = NodePath("../../Containers/ObjectsContainer")
 [node name="ObjectsContainer" type="Node2D" parent="Containers"]
 
 [node name="LevelSelector" parent="." instance=ExtResource("3_8r1yo")]
+
+[node name="StepLabel" type="Label" parent="."]
+offset_right = 100.0
+offset_bottom = 44.0
+text = "STEP : 0"
+label_settings = SubResource("LabelSettings_eqk5y")
