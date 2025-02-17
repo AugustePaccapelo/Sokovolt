@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://dkbx646vvyaig"]
+[gd_scene load_steps=8 format=3 uid="uid://dkbx646vvyaig"]
 
-[ext_resource type="PackedScene" path="res://Scenes/Managers/ui_manager.tscn" id="1_4603a"]
+[ext_resource type="PackedScene" uid="uid://dyk47lo67a1tp" path="res://Scenes/Managers/ui_manager.tscn" id="1_4603a"]
 [ext_resource type="PackedScene" uid="uid://bnv0kco0ylr0e" path="res://Scenes/Managers/GridManager.tscn" id="1_d671q"]
-[ext_resource type="PackedScene" path="res://Scenes/Managers/level_manager.tscn" id="2_g28jy"]
+[ext_resource type="PackedScene" uid="uid://bix7hbs5g2ia3" path="res://Scenes/Managers/level_manager.tscn" id="2_g28jy"]
 [ext_resource type="PackedScene" uid="uid://dht3qeqhib1rk" path="res://Scenes/Levels/level_selector.tscn" id="3_8r1yo"]
-[ext_resource type="PackedScene" path="res://Scenes/Levels/main_menu.tscn" id="5_0gm45"]
+[ext_resource type="PackedScene" uid="uid://bolt2foa3kkh1" path="res://Scenes/Levels/main_menu.tscn" id="5_0gm45"]
+[ext_resource type="Script" path="res://Scripts/Managers/InputManager.cs" id="6_kx2mo"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_eqk5y"]
 font_size = 32
@@ -14,6 +15,9 @@ outline_color = Color(0, 0, 0, 1)
 [node name="MAIN" type="Node2D"]
 
 [node name="Managers" type="Node" parent="."]
+
+[node name="InputManager" type="Node2D" parent="Managers"]
+script = ExtResource("6_kx2mo")
 
 [node name="UIManager" parent="Managers" instance=ExtResource("1_4603a")]
 levelSelectorScene = ExtResource("3_8r1yo")

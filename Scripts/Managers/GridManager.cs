@@ -52,21 +52,15 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 		instance = this;
 			#endregion
 			LevelManager.GetInstance().LoadLevel += LoadLevel;
-		}
+            InputManager.GetInstance().Move += OnMovePlayer;
+        }
 
-		public override void _Process(double pDelta)
-		{
-			//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        //public override void _Process(double pDelta)
+        //{
 
-			if (Input.IsActionJustPressed("ui_right")) MovePlayer(1, 0);
-			if (Input.IsActionJustPressed("ui_left")) MovePlayer(-1, 0); //=================================> Besoin d'un input manager 
-			if (Input.IsActionJustPressed("ui_down")) MovePlayer(0, 1);
-			if (Input.IsActionJustPressed("ui_up")) MovePlayer(0, -1);
+        //}
 
-			//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-		}
-
-		public void LoadLevel() // ====================================> A basculer dans un LevelLoader
+        public void LoadLevel() // ====================================> A basculer dans un LevelLoader
 		{
 			CenterGrid();
 			stepLabel.Show();
@@ -146,8 +140,12 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 			);
 		}
 
+        public void OnMovePlayer(Vector2 pPlayerDirection)
+        {
+            MovePlayer((int)pPlayerDirection.X, (int)pPlayerDirection.Y);
+        }
 
-		private void MovePlayer(int pDx, int pDy)
+        private void MovePlayer(int pDx, int pDy)
 		{
 			int lNewX = player.x + pDx;
 			int lNewY = player.y + pDy;
