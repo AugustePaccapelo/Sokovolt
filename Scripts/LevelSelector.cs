@@ -1,6 +1,7 @@
 using Com.IsartDigital.SokoVolt.Managers;
 using Godot;
 using System;
+using System.Collections.Generic;
 
 // Author : Noé Sales
 
@@ -23,6 +24,7 @@ namespace Com.IsartDigital.SokoVolt
 
         [Signal] public delegate void ButtonLoadLevelEventHandler(int pLevel);
 
+		private List<Button> buttonOn = new List<Button>();
 
         #region Singleton
         static private LevelSelector instance;
@@ -54,10 +56,22 @@ namespace Com.IsartDigital.SokoVolt
 
 
             screenSize = GetViewportRect().Size;
-			levelButton = CreateButton(new Vector2(screenSize.X + buttonSize.X, screenSize.Y / 2));
 
-			buttonRight.Pressed += () => SwitchLevel(buttonRight);
-			buttonLeft.Pressed += () => SwitchLevel(buttonLeft);
+            levelButton = CreateButton(new Vector2(screenSize.X + buttonSize.X, screenSize.Y / 2));
+            Tween lTweenNextButton = CreateTween();
+            lTweenNextButton.TweenProperty(levelButton, "position", new Vector2(screenSize.X / 2, screenSize.Y / 2), 1).SetEase(Tween.EaseType.InOut).SetTrans(Tween.TransitionType.Elastic);
+			lTweenNextButton.Finished += () => levelButton.Disabled = false;
+
+
+            buttonRight.Pressed += () =>
+			{
+				SwitchLevel(buttonRight);
+                alreadyPress = true;
+            };
+			buttonLeft.Pressed += () => {
+                SwitchLevel(buttonLeft);
+                alreadyPress = true;
+            };
 
 
             buttonLeft.GlobalPosition = new Vector2(0 + MARGIN, screenSize.Y / 2);
@@ -68,10 +82,9 @@ namespace Com.IsartDigital.SokoVolt
 		{
 			if (!alreadyPress)
 			{
-                alreadyPress = true;
                 Tween lTweenButton = CreateTween();
                 lTweenButton.TweenProperty(pButton, "scale", new Vector2(0.6f, 0.6f), 0.2f);
-                lTweenButton.TweenProperty(pButton, "scale", new Vector2(1f, 1f), 0.2f);
+                lTweenButton.TweenProperty(pButton, "scale", new Vector2(1f, 1f), 0.2f).SetEase(Tween.EaseType.Out).SetTrans(Tween.TransitionType.Elastic);
                 lTweenButton.Finished += lTweenButton.Kill;
 
                 Tween lTween = CreateTween();
@@ -79,14 +92,28 @@ namespace Com.IsartDigital.SokoVolt
                 if (pButton.Name == buttonLeft.Name && levelNumb > 0)
 				{
 					levelNumb--;
-					lTween.TweenProperty(levelButton, "position", new Vector2(screenSize.X + levelButton.Size.X, 0), 1).AsRelative();
-                    nextButton = CreateButton(new Vector2(0 - buttonSize.X, screenSize.Y / 2));
+					lTween.TweenProperty(levelButton, "position", new Vector2(screenSize.X + levelButton.Size.X, 0), 0.5f).AsRelative();
+                    nextButton = CreateButton(new Vector2(-50 - buttonSize.X, screenSize.Y / 2));
+                    Tween lTweenNextButton = CreateTween();
+                    lTweenNextButton.TweenProperty(nextButton, "position", new Vector2(screenSize.X / 2, screenSize.Y / 2), 1).SetEase(Tween.EaseType.InOut).SetTrans(Tween.TransitionType.Elastic);
+					lTweenNextButton.Finished += () =>
+					{
+                        levelButton.Disabled = false;
+						alreadyPress = false;
+					};
                 }
                 else if (pButton.Name == buttonRight.Name && levelNumb < levelNumbMax)
 				{
 					levelNumb++;
-                    lTween.TweenProperty(levelButton, "position", new Vector2(-screenSize.X - levelButton.Size.X, 0), 1).AsRelative();
+                    lTween.TweenProperty(levelButton, "position", new Vector2(-screenSize.X - levelButton.Size.X, 0), 0.5f).AsRelative();
                     nextButton = CreateButton(new Vector2(screenSize.X + buttonSize.X, screenSize.Y / 2));
+                    Tween lTweenNextButton = CreateTween();
+                    lTweenNextButton.TweenProperty(nextButton, "position", new Vector2(screenSize.X / 2, screenSize.Y / 2), 1).SetEase(Tween.EaseType.InOut).SetTrans(Tween.TransitionType.Elastic);
+					lTweenNextButton.Finished += () =>
+					{
+                        levelButton.Disabled = false;
+						alreadyPress = false;
+					};
                 }
 				else
 				{
@@ -106,15 +133,14 @@ namespace Com.IsartDigital.SokoVolt
         private Button CreateButton(Vector2 pPos)
 		{
 			Button lButton = new Button();
+			lButton.Disabled = true;
 			AddChild(lButton);
             lButton.Size = buttonSize;
             lButton.PivotOffset = buttonSize/2;
 			lButton.Position = pPos;
 			lButton.Text = LEVEL_PREFIXE + levelNumb;
 			lButton.Pressed += () => EmitSignal(nameof(ButtonLoadLevel), levelNumb);
-            Tween lTween = CreateTween();
-            lTween.TweenProperty(lButton, "position", new Vector2(screenSize.X / 2, screenSize.Y / 2), 1);
-			lTween.Finished += () => alreadyPress = false;
+			buttonOn.Add(lButton);
 
             return lButton;
 		}
