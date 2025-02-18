@@ -18,7 +18,6 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables {
 		public override void _Process(double pDelta)
 		{
 			float lDelta = (float)pDelta;
-
 		}
 
 		private void Init()

@@ -140,10 +140,11 @@ namespace Com.IsartDigital.SokoVolt {
 							lObj = Utils.Spawner(boxScene, x, y, objectsContainer) as BoxTesla;
 
 							// Vérifier qu'on a une portée disponible et l'appliquer
-							if (lBoxIndex < lBoxRanges.Length)
+							if (lBoxIndex < lBoxRanges.Length && lObj != null)
 							{
 								((BoxTesla)lObj).range = lBoxRanges[lBoxIndex]; // Assigner la portée
 								GD.Print($"BoxTesla spawn à ({x},{y}) avec range: {((BoxTesla)lObj).range}");
+								GD.PrintErr(lBoxRanges[lBoxIndex]); 
 								lBoxIndex++; // Passer à la portée suivante
 							}
 							else

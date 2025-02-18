@@ -23,6 +23,11 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 		public static Vector2 gridOffset; 
 		public Player player;
 
+		//Step Counter 
+		private const string STEP_LABEL_PREFIXE = "STEP : "; 
+		[Export] private Label stepLabel; 
+		private int step = 0; 
+
 
 		public override void _Ready()
 		{
@@ -37,7 +42,8 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 
 			base._Ready();
 
-			LevelManager.GetInstance().LoadLevel += LoadLevel;
+			LevelManager.GetInstance().LoadLevel += () => LoadNewLevel(4);
+
             InputManager.GetInstance().Move += OnMovePlayer;
         }
 
@@ -49,8 +55,6 @@ namespace Com.IsartDigital.SokoVolt.Managers {
         public override void Init()
         {
             base.Init();
-
-            LoadNewLevel(3); 
         }
 
 		public void LoadNewLevel(int pLevelToLoad) // ==================> Charger un niveau avec son index (commence à 0)
@@ -120,15 +124,15 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 			PrintGrid();
 		}
 
+		private bool OutOfGrid(int pX, int pY)
+		{
+			return pX < 0 || pX >= LevelLoader.levelWidth || pY < 0 || pY >= LevelLoader.levelHeight;
+		}
+
 		private void UpdateStepLabel()
 		{
 			step++;
 			stepLabel.Text = STEP_LABEL_PREFIXE + step;
-		}
-
-		private bool OutOfGrid(int pX, int pY)
-		{
-			return pX < 0 || pX >= LevelLoader.levelWidth || pY < 0 || pY >= LevelLoader.levelHeight;
 		}
 	
 		private void PrintGrid()	//=================================> Provisoir pour test 
