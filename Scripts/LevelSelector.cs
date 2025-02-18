@@ -12,6 +12,10 @@ namespace Com.IsartDigital.SokoVolt
 	{
 		[Export] private Button buttonRight;
 		[Export] private Button buttonLeft;
+        [Export] private CompressedTexture2D texture;
+        [Export] private PackedScene teslaScene;
+        private Sprite2D tesla;
+        private Sprite2D nextTesla;
 		private Button levelButton;
 		private Button nextButton;
 		private Vector2 screenSize = new Vector2();
@@ -20,6 +24,7 @@ namespace Com.IsartDigital.SokoVolt
 		private const string LEVEL_PREFIXE = "Level : ";
 		private const float MARGIN = 50.0f;
 		private Vector2 buttonSize = new Vector2(60, 40);
+		private Vector2 teslaSize = new Vector2(855, 1071);
         private bool alreadyPress = false;
 
         [Signal] public delegate void ButtonLoadLevelEventHandler(int pLevel);
@@ -55,9 +60,10 @@ namespace Com.IsartDigital.SokoVolt
             #region FirstButtonInit
             ButtonLoadLevel += LevelManager.GetInstance().LevelLoader;
 
-            levelButton = CreateButton(new Vector2(screenSize.X + buttonSize.X, screenSize.Y / 2));
+            tesla = CreateTesla(new Vector2(screenSize.X + teslaSize.X, 310));
+            //levelButton = CreateButton(new Vector2(screenSize.X + buttonSize.X, screenSize.Y / 2));
             Tween lTweenNextButton = CreateTween();
-            lTweenNextButton.TweenProperty(levelButton, "position", new Vector2(screenSize.X / 2, screenSize.Y / 2), 1).SetEase(Tween.EaseType.InOut).SetTrans(Tween.TransitionType.Elastic);
+            lTweenNextButton.TweenProperty(tesla, "position", new Vector2(577, 310), 0.5f).SetEase(Tween.EaseType.InOut).SetTrans(Tween.TransitionType.Elastic);
 			lTweenNextButton.Finished += () => levelButton.Disabled = false;
             #endregion
 
@@ -107,16 +113,16 @@ namespace Com.IsartDigital.SokoVolt
         private void MoveLevelButton(int pDirection)
         {
             Tween lTween = CreateTween();
-            lTween.TweenProperty(levelButton, "position", new Vector2(pDirection * (-screenSize.X - levelButton.Size.X), 0), 0.5f).AsRelative();
+            lTween.TweenProperty(tesla, "position", new Vector2(pDirection * (-screenSize.X - teslaSize.X), 0), 0.3f).AsRelative();
 
-            Vector2 newButtonPosition = (pDirection == -1)
-                ? new Vector2(-50 - buttonSize.X, screenSize.Y / 2) //if it's left button the nextButton will spawn on the left of the screen
-                : new Vector2(screenSize.X + buttonSize.X, screenSize.Y / 2);// if it's right button the next button will spawn on the right 
+            Vector2 newTeslaPosition = (pDirection == -1)
+                ? new Vector2(-50 - teslaSize.X, 310) //if it's left button the nextButton will spawn on the left of the screen
+                : new Vector2(screenSize.X + teslaSize.X, 310);// if it's right button the next button will spawn on the right 
 
-            nextButton = CreateButton(newButtonPosition); //Give position to the Create fonction
+            nextTesla = CreateTesla(newTeslaPosition);
 
             Tween lTweenNextButton = CreateTween();
-            lTweenNextButton.TweenProperty(nextButton, "position", new Vector2(screenSize.X / 2, screenSize.Y / 2), 1)
+            lTweenNextButton.TweenProperty(nextTesla, "position", new Vector2(screenSize.X / 2, 310), 0.5f)
                             .SetEase(Tween.EaseType.InOut)
                             .SetTrans(Tween.TransitionType.Elastic); //Entrance animation for the button
 
@@ -127,25 +133,30 @@ namespace Com.IsartDigital.SokoVolt
             };
 
             lTween.Finished += () => {
-                levelButton.QueueFree();
-                levelButton = nextButton;
-                nextButton = new Button();
+                tesla.QueueFree();
+                tesla = nextTesla;
+                nextTesla = new Sprite2D();
             };
         }
 
-        private Button CreateButton(Vector2 pPos)
-		{
-			Button lButton = new Button();
-			lButton.Disabled = true;
-			AddChild(lButton);
-            lButton.Size = buttonSize;
-            lButton.PivotOffset = buttonSize/2;
-			lButton.Position = pPos;
-			lButton.Text = LEVEL_PREFIXE + levelNumb;
-			lButton.Pressed += () => EmitSignal(nameof(ButtonLoadLevel), levelNumb); //Connect Button to a signal for launch the good level
-
+        private Button GetTeslaButton(Sprite2D pTesla)
+        {
+            Button lButton = pTesla.GetNode<Button>("Button");
+            lButton.Pressed += () => EmitSignal(nameof(ButtonLoadLevel), levelNumb); //Connect Button to a signal for launch the good level
             return lButton;
-		}
+        }
+        private Sprite2D CreateTesla(Vector2 pPos)
+        {
+            Sprite2D lTesla = new Sprite2D();
+            lTesla = teslaScene.Instantiate() as Sprite2D;
+            AddChild(lTesla);
+            lTesla.Position = pPos;
+            levelButton = GetTeslaButton(lTesla);
+            Label lLabel = lTesla.GetNode<Label>("Label");
+            lLabel.Text = LEVEL_PREFIXE + levelNumb;
+
+            return lTesla;
+        }
 
         protected override void Dispose(bool pDisposing)
 		{

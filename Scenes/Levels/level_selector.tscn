@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://dht3qeqhib1rk"]
+[gd_scene load_steps=4 format=3 uid="uid://dht3qeqhib1rk"]
 
 [ext_resource type="Script" path="res://Scripts/LevelSelector.cs" id="1_7onrw"]
+[ext_resource type="Texture2D" uid="uid://dyr30pkkewie" path="res://LevelScreen.png" id="2_u4r7s"]
+[ext_resource type="PackedScene" uid="uid://cxe00equ86k4" path="res://Scenes/GameObjects/LevelSelectorTesla.tscn" id="3_con42"]
 
 [node name="LevelSelector" type="Control" node_paths=PackedStringArray("buttonRight", "buttonLeft")]
 layout_mode = 3
@@ -8,6 +10,8 @@ anchors_preset = 0
 script = ExtResource("1_7onrw")
 buttonRight = NodePath("Button2")
 buttonLeft = NodePath("Button")
+texture = ExtResource("2_u4r7s")
+teslaScene = ExtResource("3_con42")
 
 [node name="Button" type="Button" parent="."]
 layout_mode = 1
