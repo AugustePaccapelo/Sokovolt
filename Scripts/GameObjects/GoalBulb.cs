@@ -15,15 +15,19 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
 		// ----- Paths ----- \\
 
 		// ----- Nodes ----- \\
-		GameManager gameManager;
-		GridManager gridManager;
-		CustomSignals signals;
+		private GameManager gameManager;
+		private GridManager gridManager;
+		private CustomSignals signals;
 
-		[Export] Polygon2D OnPol;
-        [Export] Polygon2D OffPol;
+		[Export] private Polygon2D OnPol;
+        [Export] private Polygon2D OffPol;
+		[Export] private Node2D allLights;
+		[Export] private Light2D rotatingLight;
 
         // ----- Others ----- \\
         Action<float> doAction;
+
+		private float lightRotatingSpeed = 30f;
 
 		// ---------- FONCTIONS ---------- \\
 
@@ -59,6 +63,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
 
 			OnPol.Hide();
 			OffPol.Show();
+			allLights.Hide();
         }
 
 		private void TurnedOff(float pDelta)
@@ -72,11 +77,12 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
 
 			OffPol.Hide();
 			OnPol.Show();
+			allLights.Show();
 		}
 
 		private void TurnedOn(float pDelta)
 		{
-
+			rotatingLight.Rotation += Mathf.DegToRad(lightRotatingSpeed) * pDelta;
 		}
 
 		private void BoxTeslaMoved()

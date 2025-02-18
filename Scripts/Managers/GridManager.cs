@@ -50,11 +50,16 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 			return;
 		}
 		instance = this;
-		#endregion
-			LevelManager.GetInstance().LoadLevel += LoadLevel;
-		}
+            #endregion
+            LevelManager.GetInstance().LoadLevel += LoadLevel;
+        }
 
-		public override void _Process(double pDelta)
+        public override void Init()
+        {
+            base.Init();
+        }
+
+        public override void _Process(double pDelta)
 		{
 			//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -86,14 +91,14 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 				for(int x = 0; x < GRID_WIDTH; x++)
 				{
 					char lTile = lTestLevel[y][x];
-
+					
 					Cell lCell = Utils.Spawner(cellScene, x, y, objectsContainer) as Cell;
 
-					grid[x, y] = lCell;
+                    grid[x, y] = lCell;
 
-					GameObject lObj = null; 
+					GameObject lObj = null;
 
-					switch(lTile)
+                    switch(lTile)
 					{
 						case '@':
 							lObj = Utils.Spawner(playerScene, x, y, objectsContainer) as Player;
@@ -121,7 +126,7 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 
 					if(lObj != null)
 					{
-						lCell.SetContent(lObj);
+                        lCell.SetContent(lObj);
 						lObj.SetCell(lCell);
 						lObj.Init(x, y);
 					}
