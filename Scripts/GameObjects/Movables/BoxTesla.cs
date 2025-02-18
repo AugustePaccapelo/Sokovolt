@@ -1,42 +1,66 @@
-using Godot;
+﻿using Godot;
 using System;
+using System.Collections.Generic;
 using System.Data.SqlTypes;
+using Com.IsartDigital.SokoVolt.Managers;
 
 // Author : Ferlat Thibaud 
 
 namespace Com.IsartDigital.SokoVolt.GameObjects.Movables {
 	
-	public partial class BoxTesla : Movable
-	{
-		[Export] private Label rangeLabel; 
-		public int range; 
-		public override void _Ready()
-		{	
-			Init(); 
-		}
-
-		public override void _Process(double pDelta)
-		{
-			float lDelta = (float)pDelta;
-		}
-
-		private void Init()
-		{
-			rangeLabel.Text = range.ToString();
-		}
-
-        public override void MoveTo(int pX, int pY, Cell[,] pGrid)
+    namespace Com.IsartDigital.SokoVolt.GameObjects.Movables {
+	
+        public partial class BoxTesla : Movable
         {
-            base.MoveTo(pX, pY, pGrid);
+            static List<BoxTesla> boxTeslasList = new List<BoxTesla>();
+            [Export] private int teslaRange;
+            [Export] public bool  energize { get; private set; }
+            GridManager gridManager = GridManager.GetInstance();
+            public override void _Ready()
+            {
 
-			CustomSignals lSignals = CustomSignals.GetInstance();
+                ConnectionSearch();
 
-			lSignals.EmitSignal(CustomSignals.SignalName.BoxTeslaMoved);
+
+            }
+
+            public override void _Process(double pDelta)
+            {
+                float lDelta = (float)pDelta;
+
+            }
+
+            public override void MoveTo(int pX, int pY, Cell[,] pGrid)
+            {
+                base.MoveTo(pX, pY, pGrid);
+
+                CustomSignals lSignals = CustomSignals.GetInstance();
+
+                lSignals.EmitSignal(CustomSignals.SignalName.BoxTeslaMoved);
+            }
+
+            private void ConnectionSearch()
+            {
+                Vector2 cellPosition = Utils.GetCellPos(this);
+
+
+                int x = (int)cellPosition.X;
+                int y = (int)cellPosition.Y;
+
+            
+                GD.Print(x+","+y);
+
+
+
+            }
+
+
+
+            protected override void Dispose(bool pDisposing)
+            {
+
+            }
         }
+    }
 
-        protected override void Dispose(bool pDisposing)
-		{
-
-		}
-	}
 }
