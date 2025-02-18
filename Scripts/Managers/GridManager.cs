@@ -41,10 +41,6 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 			#endregion
 
 			base._Ready();
-
-			LevelManager.GetInstance().LoadLevel += () => LoadNewLevel(4);
-
-            InputManager.GetInstance().Move += OnMovePlayer;
         }
 
         public override void _Process(double pDelta)
@@ -55,6 +51,8 @@ namespace Com.IsartDigital.SokoVolt.Managers {
         public override void Init()
         {
             base.Init();
+			LevelManager.GetInstance().LoadLevel += () => LoadNewLevel(0);
+            InputManager.GetInstance().Move += OnMovePlayer;
         }
 
 		public void LoadNewLevel(int pLevelToLoad) // ==================> Charger un niveau avec son index (commence à 0)

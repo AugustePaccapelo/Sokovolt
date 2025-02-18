@@ -60,7 +60,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
 			GameManager.GetInstance().door = this;
 			signals = CustomSignals.GetInstance();
 			signals.PlayerMoved += PlayerHasMoved;
-			player = Player.GetInstance();
+			player = Player.GetInstance(); //================================> S'instancie avant quand la porte est plus haute que le player
 		}
 
 		public override void _Process(double pDelta)
