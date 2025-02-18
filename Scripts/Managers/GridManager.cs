@@ -51,6 +51,9 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 		}
 		instance = this;
 			#endregion
+
+			base._Ready();
+
 			LevelManager.GetInstance().LoadLevel += LoadLevel;
             InputManager.GetInstance().Move += OnMovePlayer;
         }
