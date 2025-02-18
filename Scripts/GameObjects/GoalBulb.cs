@@ -15,50 +15,86 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
 		// ----- Paths ----- \\
 
 		// ----- Nodes ----- \\
-		GameManager gameManager;
-		GridManager gridManager;
-		CustomSignals signals;
+		private GameManager gameManager;
+		private GridManager gridManager;
+		private CustomSignals signals;
 
-		// ----- Others ----- \\
+		[Export] private Polygon2D onPol;
+        [Export] private Polygon2D offPol;
+		[Export] private Node2D allLights;
+		[Export] private Light2D rotatingLight;
 
-		// ---------- FONCTIONS ---------- \\
+        // ----- Others ----- \\
+        Action<float> doAction;
 
-		// ----- Constructor & Ready & Process ----- \\
+		public bool isTurnedOn { get; private set; }
+		private float lightRotatingSpeed = 30f;
 
-		protected GoalBulb () : base()
-		{
-            signals = CustomSignals.GetInstance();
-            signals.AllManagersReady += Init;
-        }
+		// ---------- FUNCTIONS ---------- \\
+
+		// ----- Ready & Process ----- \\
 
 		public override void _Ready()
 		{
 			base._Ready();
-            // signals.BoxTeslaMoved += BoxTeslaMoved;
-		}
+			signals = CustomSignals.GetInstance();
+            signals.BoxTeslaMoved += BoxTeslaMoved;
 
-		public void Init()
-		{
             gameManager = GameManager.GetInstance();
 			gameManager.AddGoalBulb(this);
-			gridManager = GridManager.GetInstance();
-		}
+            gridManager = GridManager.GetInstance();
+
+			BoxTeslaMoved();
+        }
 
 		public override void _Process(double pDelta)
 		{
 			float lDelta = (float)pDelta;
 
 			base._Process(lDelta);
+
+			doAction(lDelta);
 		}
 
-		// ----- My Fonctions ----- \\
+		// ----- My Functions ----- \\
+
+		private void InitTurnedOff()
+		{
+            doAction = TurnedOff;
+			isTurnedOn = false;
+			onPol.Hide();
+			offPol.Show();
+			allLights.Hide();
+            signals.EmitSignal(CustomSignals.SignalName.GoalBulbStateChanged);
+        }
+
+		private void TurnedOff(float pDelta)
+		{
+
+		}
+
+		private void InitTurnOn()
+		{
+            doAction = TurnedOn;
+			isTurnedOn = true;
+			offPol.Hide();
+			onPol.Show();
+			allLights.Show();
+            signals.EmitSignal(CustomSignals.SignalName.GoalBulbStateChanged);
+        }
+
+		private void TurnedOn(float pDelta)
+		{
+			rotatingLight.Rotation += Mathf.DegToRad(lightRotatingSpeed) * pDelta;
+		}
 
 		private void BoxTeslaMoved()
 		{
 			Cell[,] lGrid = gridManager.grid;
 			List<BoxTesla> lAllTeslasClose = GetCloseTeslas(lGrid);
 
-			if (lAllTeslasClose.Count > 0) GD.Print(lAllTeslasClose.Count);
+			if (lAllTeslasClose.Count > 0) InitTurnOn();
+			else InitTurnedOff();
         }
 
 		private List<BoxTesla> GetCloseTeslas(Cell[,] pGrid)

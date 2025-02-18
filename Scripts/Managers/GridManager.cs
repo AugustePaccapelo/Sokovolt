@@ -33,10 +33,12 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 			return;
 		}
 		instance = this;
-		#endregion
-			
+			#endregion
+
 			base._Ready();
 
+			LevelManager.GetInstance().LoadLevel += LoadLevel;
+            InputManager.GetInstance().Move += OnMovePlayer;
         }
 
         public override void _Process(double pDelta)
@@ -80,7 +82,7 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 			MovePlayer((int)pPlayerDirection.X, (int)pPlayerDirection.Y);
 		}
 
-		private void MovePlayer(int pDx, int pDy)
+        private void MovePlayer(int pDx, int pDy)
 		{
             int lNewX = player.x + pDx;
 			int lNewY = player.y + pDy;
@@ -94,6 +96,7 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 			if (lContent == null || lContent is Door)
 			{
 				player.MoveTo(lNewX, lNewY, grid);
+				UpdateStepLabel();
 			}
 			else if (lContent is BoxTesla lBox)
 			{
@@ -109,11 +112,18 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 				{
 					lBox.MoveTo(lNewBoxX, lNewBoxY, grid);
 					player.MoveTo(lNewX, lNewY, grid);
+					UpdateStepLabel();
 				}
 			}
 			else return;
 
 			PrintGrid();
+		}
+
+		private void UpdateStepLabel()
+		{
+			step++;
+			stepLabel.Text = STEP_LABEL_PREFIXE + step;
 		}
 
 		private bool OutOfGrid(int pX, int pY)
@@ -153,6 +163,7 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 
 			GD.Print(lGridString);
 		}
+
 
 		#region dispose
 		protected override void Dispose(bool pDisposing)
