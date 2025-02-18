@@ -44,6 +44,7 @@ namespace Com.IsartDigital.SokoVolt {
 		}
 		instance = this;
 		#endregion
+			
 			Init(); 
 		}
 
@@ -90,6 +91,16 @@ namespace Com.IsartDigital.SokoVolt {
 				lLevelMap[i] = lMapArray[i].ToString();
 			}
 
+			// Lire la portée des caisses Tesla (si elle est définie dans le JSON)
+			Godot.Collections.Array lBoxRangesArray = lLevelData.ContainsKey("boxRange") ? (Godot.Collections.Array)lLevelData["boxRange"] : new Godot.Collections.Array();
+			int[] lBoxRanges = new int[lBoxRangesArray.Count];
+
+			// Convertir les valeurs en int
+			for (int i = 0; i < lBoxRangesArray.Count; i++)
+			{
+				lBoxRanges[i] = (int)lBoxRangesArray[i];
+			}
+
 
 			levelWidth = lMapArray.Count > 0 ? lMapArray[0].ToString().Length : 0;
 			levelHeight = lMapArray.Count;
@@ -100,6 +111,8 @@ namespace Com.IsartDigital.SokoVolt {
 			gridInstance.CenterGrid(); 
 
 			GD.Print($"Chargement du niveau {pLevel} - Taille : {levelWidth}x{levelHeight}");
+
+			int lBoxIndex = 0; 
 
 			// Charger le niveau
 			for (int y = 0; y < levelHeight; y++)
@@ -125,6 +138,18 @@ namespace Com.IsartDigital.SokoVolt {
 							break;
 						case '$':
 							lObj = Utils.Spawner(boxScene, x, y, objectsContainer) as BoxTesla;
+
+							// Vérifier qu'on a une portée disponible et l'appliquer
+							if (lBoxIndex < lBoxRanges.Length)
+							{
+								((BoxTesla)lObj).range = lBoxRanges[lBoxIndex]; // Assigner la portée
+								GD.Print($"BoxTesla spawn à ({x},{y}) avec range: {((BoxTesla)lObj).range}");
+								lBoxIndex++; // Passer à la portée suivante
+							}
+							else
+							{
+								GD.PrintErr($"Aucune portée définie pour la BoxTesla à ({x},{y}) !");
+							}
 							break;
 						case '#':
 							lObj = Utils.Spawner(wallScene, x, y, objectsContainer) as Wall;
@@ -152,12 +177,7 @@ namespace Com.IsartDigital.SokoVolt {
 				}
 			}
 		}
-
-			
-
-
-
-		
+	
 
 		#region dispose
 		protected override void Dispose(bool pDisposing)

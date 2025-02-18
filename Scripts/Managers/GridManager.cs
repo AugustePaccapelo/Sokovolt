@@ -48,10 +48,10 @@ namespace Com.IsartDigital.SokoVolt.Managers {
         {
             base.Init();
 
-            LoadNewLevel(0); 
+            LoadNewLevel(3); 
         }
 
-		public void LoadNewLevel(int pLevelToLoad) // ==================> Charger un niveau avec son index 
+		public void LoadNewLevel(int pLevelToLoad) // ==================> Charger un niveau avec son index (commence à 0)
 		{
 			LevelLoader.GetInstance().LoadLevel(pLevelToLoad);
 			CenterGrid(); 
@@ -86,12 +86,8 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 			int lNewY = player.y + pDy;
 
 			if(OutOfGrid(lNewX, lNewY))
-			{
-				GD.PrintErr("Player to far from map"); 
 				return;
-			}
-				
-
+			
 			Cell lNewCell = grid[lNewX, lNewY];
 			GameObject lContent = lNewCell.GetContent();
 
@@ -105,20 +101,15 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 				int lNewBoxY = lNewY + pDy;
 
 				if (OutOfGrid(lNewBoxX, lNewBoxY))
-				{
-					GD.PrintErr("Box to far from map"); 
 					return;
-				}
-					
-
+				
 				Cell lNewBoxCell = grid[lNewBoxX, lNewBoxY];
+
 				if (lNewBoxCell.GetContent() == null)
 				{
-					GD.PrintErr("Moved box"); 
 					lBox.MoveTo(lNewBoxX, lNewBoxY, grid);
 					player.MoveTo(lNewX, lNewY, grid);
 				}
-				else GD.PrintErr(lNewBoxCell.GetContent().ToString());
 			}
 			else return;
 

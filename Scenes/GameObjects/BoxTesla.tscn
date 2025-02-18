@@ -2,8 +2,9 @@
 
 [ext_resource type="Script" path="res://Scripts/GameObjects/Movables/BoxTesla.cs" id="1_c7f4a"]
 
-[node name="BoxTesla" type="Node2D"]
+[node name="BoxTesla" type="Node2D" node_paths=PackedStringArray("rangeLabel")]
 script = ExtResource("1_c7f4a")
+rangeLabel = NodePath("Label")
 
 [node name="Visual" type="Node2D" parent="."]
 scale = Vector2(0.8, 0.8)
@@ -18,3 +19,19 @@ position = Vector2(0, -1.90735e-06)
 scale = Vector2(0.356061, 0.278226)
 color = Color(0.771459, 0.763478, 0, 1)
 polygon = PackedVector2Array(-8, -31, 10, -31, -6, -2, 15, 12, -7, 31, -2, 16, -18, 0)
+
+[node name="Label" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+horizontal_alignment = 1
