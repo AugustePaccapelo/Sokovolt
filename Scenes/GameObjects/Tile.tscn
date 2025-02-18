@@ -21,3 +21,4 @@ grow_vertical = 2
 pivot_offset = Vector2(31, 31)
 size_flags_horizontal = 4
 size_flags_vertical = 4
+color = Color(0.133196, 0.133196, 0.133196, 1)

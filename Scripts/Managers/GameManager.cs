@@ -32,11 +32,12 @@ namespace Com.IsartDigital.SokoVolt.Managers
 		private CustomSignals signals;
 
 		// GameObjects
+		public Door door;
 		private List<GoalBulb> allGoalBulbs = new List<GoalBulb>();
 
 		// ----- Others ----- \\
 
-		// ---------- FONCTIONS ---------- \\
+		// ---------- FUNCTIONS ---------- \\
 
 		// ----- Ready & Init & Process ----- \\
 
@@ -60,6 +61,8 @@ namespace Com.IsartDigital.SokoVolt.Managers
 
 		public override void Init()
 		{
+            signals = CustomSignals.GetInstance();
+            signals.GoalBulbStateChanged += GoalBulbStateChanged;
             gridManager = GridManager.GetInstance();
         }
 
@@ -70,11 +73,25 @@ namespace Com.IsartDigital.SokoVolt.Managers
 			base._Process(lDelta);
 		}
 
-		// ----- My Fonctions ----- \\
+		// ----- My Functions ----- \\
 
 		public void AddGoalBulb(GoalBulb pGoalbulb)
 		{
 			allGoalBulbs.Add(pGoalbulb);
+		}
+
+		private void GoalBulbStateChanged()
+		{
+            foreach (GoalBulb lGoalBulb in allGoalBulbs)
+			{
+				if (!lGoalBulb.isTurnedOn)
+				{
+					door?.Close();
+                    return;
+                }
+			}
+
+			door?.Open();
 		}
 
 		// ----- Destructor ----- \\

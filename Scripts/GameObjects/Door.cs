@@ -1,5 +1,8 @@
+using Com.IsartDigital.SokoVolt.GameObjects.Movables;
+using Com.IsartDigital.SokoVolt.Managers;
 using Godot;
 using System;
+using System.Runtime.CompilerServices;
 
 // Author : Auguste Paccapelo
 
@@ -24,14 +27,18 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
 		// ----- Paths ----- \\
 
 		// ----- Nodes ----- \\
+		private CustomSignals signals;
+		private Player player;
 
-		// ----- Others ----- \\
+		[Export] private Node2D closedVisual;
+        [Export] private Node2D openedVisual;
 
-		// ---------- FONCTIONS ---------- \\
+        // ----- Others ----- \\
+		public bool isOpen { get; private set; }
 
-		// ----- Constructor & Ready & Process ----- \\
+        // ---------- FONCTIONS ---------- \\
 
-		private Door() : base() { }
+        // ----- Constructor & Ready & Process ----- \\
 
 		public override void _Ready()
 		{
@@ -49,6 +56,11 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
 			#endregion
 
 			base._Ready();
+
+			GameManager.GetInstance().door = this;
+			signals = CustomSignals.GetInstance();
+			signals.PlayerMoved += PlayerHasMoved;
+			player = Player.GetInstance();
 		}
 
 		public override void _Process(double pDelta)
@@ -58,7 +70,26 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
 			base._Process(lDelta);
 		}
 
-		// ----- My Fonctions ----- \\
+		// ----- My Functions ----- \\
+
+		private void PlayerHasMoved()
+		{
+			if (isOpen && curentCell.GetContent() is Player) GD.Print("Player has exited!");
+		}
+
+		public void Open()
+		{
+			isOpen = true;
+			openedVisual.Show();
+			closedVisual.Hide();
+		}
+
+        public void Close()
+		{
+			isOpen = false;
+            openedVisual.Hide();
+            closedVisual.Show();
+        }
 
 		// ----- Destructor ----- \\
 

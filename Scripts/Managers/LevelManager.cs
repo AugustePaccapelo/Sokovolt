@@ -20,7 +20,6 @@ namespace Com.IsartDigital.SokoVolt.Managers
         #endregion
         [Signal] public delegate void LoadLevelEventHandler();
 
-
         public override void _Ready()
         {
             #region Singelton
@@ -34,6 +33,12 @@ namespace Com.IsartDigital.SokoVolt.Managers
             instance = this;
             #endregion
             
+            base._Ready();
+        }
+
+        public override void Init()
+        {
+            base.Init();
         }
 
         public void LevelLoader(int pLevel)
