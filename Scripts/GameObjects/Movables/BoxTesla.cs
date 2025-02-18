@@ -70,14 +70,19 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables {
                 int x = (int)lCellPosition.X;
                 int y = (int)lCellPosition.Y;
 
-            int x = (int)cellPosition.X;
-            int y = (int)cellPosition.Y;
             
                 // GD.Print(x+","+y);
 
-        protected override void Dispose(bool pDisposing)
-        {
-            base.Dispose(pDisposing);
+
+
+            }
+
+
+
+            protected override void Dispose(bool pDisposing)
+            {
+
+            }
         }
     }
 
