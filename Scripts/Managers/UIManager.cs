@@ -34,6 +34,9 @@ namespace Com.IsartDigital.SokoVolt.Managers
 
 			instance = this;
 			#endregion
+
+			base._Ready();
+
 			MainMenu.GetInstance().StartGame += GameStart;
 		}
 

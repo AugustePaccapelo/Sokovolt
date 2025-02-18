@@ -19,17 +19,18 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
 		private GridManager gridManager;
 		private CustomSignals signals;
 
-		[Export] private Polygon2D OnPol;
-        [Export] private Polygon2D OffPol;
+		[Export] private Polygon2D onPol;
+        [Export] private Polygon2D offPol;
 		[Export] private Node2D allLights;
 		[Export] private Light2D rotatingLight;
 
         // ----- Others ----- \\
         Action<float> doAction;
 
+		public bool isTurnedOn { get; private set; }
 		private float lightRotatingSpeed = 30f;
 
-		// ---------- FONCTIONS ---------- \\
+		// ---------- FUNCTIONS ---------- \\
 
 		// ----- Ready & Process ----- \\
 
@@ -43,7 +44,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
 			gameManager.AddGoalBulb(this);
             gridManager = GridManager.GetInstance();
 
-			InitTurnedOff();
+			BoxTeslaMoved();
         }
 
 		public override void _Process(double pDelta)
@@ -55,15 +56,16 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
 			doAction(lDelta);
 		}
 
-		// ----- My Fonctions ----- \\
+		// ----- My Functions ----- \\
 
 		private void InitTurnedOff()
 		{
             doAction = TurnedOff;
-
-			OnPol.Hide();
-			OffPol.Show();
+			isTurnedOn = false;
+			onPol.Hide();
+			offPol.Show();
 			allLights.Hide();
+            signals.EmitSignal(CustomSignals.SignalName.GoalBulbStateChanged);
         }
 
 		private void TurnedOff(float pDelta)
@@ -74,11 +76,12 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
 		private void InitTurnOn()
 		{
             doAction = TurnedOn;
-
-			OffPol.Hide();
-			OnPol.Show();
+			isTurnedOn = true;
+			offPol.Hide();
+			onPol.Show();
 			allLights.Show();
-		}
+            signals.EmitSignal(CustomSignals.SignalName.GoalBulbStateChanged);
+        }
 
 		private void TurnedOn(float pDelta)
 		{

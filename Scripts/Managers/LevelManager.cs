@@ -33,6 +33,7 @@ namespace Com.IsartDigital.SokoVolt.Managers
             instance = this;
             #endregion
             
+            base._Ready();
         }
 
         public override void Init()

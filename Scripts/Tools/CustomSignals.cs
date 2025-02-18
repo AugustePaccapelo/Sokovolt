@@ -24,5 +24,6 @@ namespace Com.IsartDigital.SokoVolt
 
 		[Signal] public delegate void PlayerMovedEventHandler();
 		[Signal] public delegate void BoxTeslaMovedEventHandler();
-	}
+        [Signal] public delegate void GoalBulbStateChangedEventHandler();
+    }
 }
