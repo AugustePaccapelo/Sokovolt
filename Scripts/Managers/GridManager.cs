@@ -57,6 +57,7 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 
 		public void LoadNewLevel(int pLevelToLoad) // ==================> Charger un niveau avec son index (commence à 0)
 		{
+			ResetStepCounter();
 			LevelLoader.GetInstance().LoadLevel(pLevelToLoad);
 			CenterGrid(); 
 		}
@@ -132,7 +133,9 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 			step++;
 			stepLabel.Text = STEP_LABEL_PREFIXE + step;
 		}
-	
+
+
+		#region // ----- Provisoir pour test ----- \\
 		private void PrintGrid()	//=================================> Provisoir pour test 
 		{
 			string lGridString = "";
@@ -164,6 +167,14 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 			}
 
 			GD.Print(lGridString);
+		}
+		#endregion
+
+		private void ResetStepCounter()
+		{
+			step = 0;
+			stepLabel.Visible = true;
+			stepLabel.Text = STEP_LABEL_PREFIXE + step;
 		}
 
 

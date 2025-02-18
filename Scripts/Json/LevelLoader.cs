@@ -9,17 +9,12 @@ namespace Com.IsartDigital.SokoVolt {
 	public partial class LevelLoader : Node
 	{
 		[Export] private PackedScene cellScene, playerScene, boxScene, wallScene, electricWallScene, goalBulbScene, generatorScene, doorScene; 
-		[Export] private Node2D objectsContainer;  
-
-		//Keys 
-		private const string LEVEL_DESIGN_KEY = "levelDesign"; 
-		private const string MAP_KEY = "map"; 
-		private const string LEVELS_JSONS_PATH = "res://Scripts/Json/Levels.json"; 
-
-		GridManager gridInstance; 
+		[Export] private Node2D objectsContainer;  		
 
 		public static int  levelHeight{get; private set;}
 		public static int levelWidth{get; private set;}
+
+		GridManager gridInstance; 
 
 
 
@@ -55,7 +50,7 @@ namespace Com.IsartDigital.SokoVolt {
 
 		public void LoadLevel(int pLevel)
 		{
-			string lJsonContent = JsonTool.ReadFileContents(LEVELS_JSONS_PATH);
+			string lJsonContent = JsonTool.ReadFileContents(JsonKeys.LEVELS_JSONS_PATH);
 
 			if (!JsonTool.TryParseJson(lJsonContent, out Godot.Collections.Dictionary lRootDict))
 			{
@@ -64,13 +59,13 @@ namespace Com.IsartDigital.SokoVolt {
 			}
 
 			// Vérifier si le JSON contient les niveaux
-			if (!lRootDict.ContainsKey(LEVEL_DESIGN_KEY))
+			if (!lRootDict.ContainsKey(JsonKeys.LEVEL_DESIGN_KEY))
 			{
 				GD.PrintErr("Erreur : Pas de clé 'levelDesign' dans le JSON.");
 				return;
 			}
 
-			Godot.Collections.Array lLevelList = (Godot.Collections.Array)lRootDict[LEVEL_DESIGN_KEY]; 
+			Godot.Collections.Array lLevelList = (Godot.Collections.Array)lRootDict[JsonKeys.LEVEL_DESIGN_KEY]; 
 
 			if (pLevel < 0 || pLevel >= lLevelList.Count)
 			{
@@ -82,7 +77,7 @@ namespace Com.IsartDigital.SokoVolt {
 			Godot.Collections.Dictionary lLevelData = (Godot.Collections.Dictionary)lLevelList[pLevel];
 
 			// Récupérer la map
-			Godot.Collections.Array lMapArray = (Godot.Collections.Array)lLevelData[MAP_KEY];
+			Godot.Collections.Array lMapArray = (Godot.Collections.Array)lLevelData[JsonKeys.MAP_KEY];
 
 			// Convertir la map en tableau de strings
 			string[] lLevelMap = new string[lMapArray.Count];
@@ -92,9 +87,11 @@ namespace Com.IsartDigital.SokoVolt {
 			}
 
 			// Lire la portée des caisses Tesla (si elle est définie dans le JSON)
-			Godot.Collections.Array lBoxRangesArray = lLevelData.ContainsKey("boxRange") ? (Godot.Collections.Array)lLevelData["boxRange"] : new Godot.Collections.Array();
-			int[] lBoxRanges = new int[lBoxRangesArray.Count];
+			Godot.Collections.Array lBoxRangesArray = lLevelData.ContainsKey(JsonKeys.BOX_RANGE_KEY) ? 
+			(Godot.Collections.Array)lLevelData[JsonKeys.BOX_RANGE_KEY] : new Godot.Collections.Array();
 
+			//BoxRange
+			int[] lBoxRanges = new int[lBoxRangesArray.Count];
 			// Convertir les valeurs en int
 			for (int i = 0; i < lBoxRangesArray.Count; i++)
 			{
@@ -132,19 +129,18 @@ namespace Com.IsartDigital.SokoVolt {
 
 					switch(lTile)
 					{
-						case '@':
+						case JsonKeys.PLAYER :
 							lObj = Utils.Spawner(playerScene, x, y, objectsContainer) as Player;
 							GridManager.GetInstance().player = lObj as Player;
 							break;
-						case '$':
+
+						case JsonKeys.BOX :
 							lObj = Utils.Spawner(boxScene, x, y, objectsContainer) as BoxTesla;
 
 							// Vérifier qu'on a une portée disponible et l'appliquer
 							if (lBoxIndex < lBoxRanges.Length && lObj != null)
 							{
-								((BoxTesla)lObj).range = lBoxRanges[lBoxIndex]; // Assigner la portée
-								GD.Print($"BoxTesla spawn à ({x},{y}) avec range: {((BoxTesla)lObj).range}");
-								GD.PrintErr(lBoxRanges[lBoxIndex]); 
+								((BoxTesla)lObj).SetRange(lBoxRanges[lBoxIndex]); // Assigner la portée
 								lBoxIndex++; // Passer à la portée suivante
 							}
 							else
@@ -152,19 +148,24 @@ namespace Com.IsartDigital.SokoVolt {
 								GD.PrintErr($"Aucune portée définie pour la BoxTesla à ({x},{y}) !");
 							}
 							break;
-						case '#':
+
+						case JsonKeys.WALL :
 							lObj = Utils.Spawner(wallScene, x, y, objectsContainer) as Wall;
 							break;
-						case '*':
+
+						case JsonKeys.ELECTRIC_WALL :
 							lObj = Utils.Spawner(electricWallScene, x, y, objectsContainer) as ElectricWall;
 							break;
-						case '.':
+
+						case JsonKeys.GOAL_BULB :
 							lObj = Utils.Spawner(goalBulbScene, x, y, objectsContainer) as GoalBulb;
 							break;
-						case '/':
+
+						case JsonKeys.GENERATOR :
 							lObj = Utils.Spawner(generatorScene, x, y, objectsContainer) as Generator;
 							break;
-						case '|':
+
+						case JsonKeys.DOOR :
 							lObj = Utils.Spawner(doorScene, x, y, objectsContainer) as Door;
 							break;
 					}
