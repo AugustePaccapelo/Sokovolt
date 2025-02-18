@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://c46bqjn4wfblh"]
 
-[ext_resource type="Texture2D" uid="uid://yvrywq2jtxvd" path="res://LevelSelectorBobine.png" id="1_o717j"]
-[ext_resource type="Texture2D" path="res://LevelScreen.png" id="2_yf10q"]
+[ext_resource type="Texture2D" uid="uid://yvrywq2jtxvd" path="res://Assets/UI/MainMenu/LevelSelectorBobine.png" id="1_o717j"]
+[ext_resource type="Texture2D" uid="uid://dyr30pkkewie" path="res://Assets/UI/MainMenu/LevelScreen.png" id="2_yf10q"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_6nt13"]
 font_size = 42

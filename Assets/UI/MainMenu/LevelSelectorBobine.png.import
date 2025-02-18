@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cruflxwqxkrn3"
-path="res://.godot/imported/Ellipse.png-325f4462939592e267ebc1ae973804a3.ctex"
+uid="uid://yvrywq2jtxvd"
+path="res://.godot/imported/LevelSelectorBobine.png-f5d4e81f965e99930ea6f2002afb664d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Ellipse.png"
-dest_files=["res://.godot/imported/Ellipse.png-325f4462939592e267ebc1ae973804a3.ctex"]
+source_file="res://Assets/UI/MainMenu/LevelSelectorBobine.png"
+dest_files=["res://.godot/imported/LevelSelectorBobine.png-f5d4e81f965e99930ea6f2002afb664d.ctex"]
 
 [params]
 
