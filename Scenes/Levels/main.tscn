@@ -1,13 +1,44 @@
-[gd_scene load_steps=2 format=3 uid="uid://dkbx646vvyaig"]
+[gd_scene load_steps=9 format=3 uid="uid://dkbx646vvyaig"]
 
+[ext_resource type="PackedScene" uid="uid://dyk47lo67a1tp" path="res://Scenes/Managers/ui_manager.tscn" id="1_4603a"]
 [ext_resource type="PackedScene" uid="uid://bnv0kco0ylr0e" path="res://Scenes/Managers/GridManager.tscn" id="1_d671q"]
+[ext_resource type="PackedScene" uid="uid://bix7hbs5g2ia3" path="res://Scenes/Managers/level_manager.tscn" id="2_g28jy"]
+[ext_resource type="PackedScene" uid="uid://dht3qeqhib1rk" path="res://Scenes/Levels/level_selector.tscn" id="3_8r1yo"]
+[ext_resource type="PackedScene" uid="uid://bsl1nyen453ty" path="res://Scenes/Levels/main_menu.tscn" id="5_0gm45"]
+[ext_resource type="Script" path="res://Scripts/Managers/InputManager.cs" id="6_kx2mo"]
+[ext_resource type="PackedScene" uid="uid://cbrehv31qfb0r" path="res://Scenes/Managers/GameManager.tscn" id="7_vkagg"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_eqk5y"]
+font_size = 32
+outline_size = 5
+outline_color = Color(0, 0, 0, 1)
 
 [node name="MAIN" type="Node2D"]
 
 [node name="Managers" type="Node" parent="."]
 
-[node name="GridManager" parent="Managers" node_paths=PackedStringArray("objectsContainer") instance=ExtResource("1_d671q")]
+[node name="InputManager" type="Node2D" parent="Managers"]
+script = ExtResource("6_kx2mo")
+
+[node name="UIManager" parent="Managers" instance=ExtResource("1_4603a")]
+levelSelectorScene = ExtResource("3_8r1yo")
+
+[node name="MainMenu" parent="Managers/UIManager" instance=ExtResource("5_0gm45")]
+
+[node name="LevelManager" parent="Managers/UIManager" instance=ExtResource("2_g28jy")]
+
+[node name="GridManager" parent="Managers" node_paths=PackedStringArray("objectsContainer", "stepLabel") instance=ExtResource("1_d671q")]
 objectsContainer = NodePath("../../Containers/ObjectsContainer")
+stepLabel = NodePath("StepLabel")
+
+[node name="StepLabel" type="Label" parent="Managers/GridManager"]
+visible = false
+offset_right = 117.0
+offset_bottom = 45.0
+text = "STEP : 0"
+label_settings = SubResource("LabelSettings_eqk5y")
+
+[node name="GameManager" parent="Managers" instance=ExtResource("7_vkagg")]
 
 [node name="Containers" type="Node2D" parent="."]
 

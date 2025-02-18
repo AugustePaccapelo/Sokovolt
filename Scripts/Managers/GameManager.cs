@@ -1,5 +1,7 @@
+using Com.IsartDigital.SokoVolt.GameObjects;
 using Godot;
 using System;
+using System.Collections.Generic;
 
 // Author : Auguste Paccapelo
 
@@ -25,13 +27,19 @@ namespace Com.IsartDigital.SokoVolt.Managers
 
 		// ----- Nodes ----- \\
 
+		// Managers
+		private GridManager gridManager;
+		private CustomSignals signals;
+
+		// GameObjects
+		public Door door;
+		private List<GoalBulb> allGoalBulbs = new List<GoalBulb>();
+
 		// ----- Others ----- \\
 
-		// ---------- FONCTIONS ---------- \\
+		// ---------- FUNCTIONS ---------- \\
 
-		// ----- Constructor & Ready & Init & Process ----- \\
-
-		private GameManager() : base() { }
+		// ----- Ready & Init & Process ----- \\
 
 		public override void _Ready()
 		{
@@ -51,7 +59,12 @@ namespace Com.IsartDigital.SokoVolt.Managers
 			base._Ready();
 		}
 
-		public override void Init() { }
+		public override void Init()
+		{
+            signals = CustomSignals.GetInstance();
+            signals.GoalBulbStateChanged += GoalBulbStateChanged;
+            gridManager = GridManager.GetInstance();
+        }
 
 		public override void _Process(double pDelta)
 		{
@@ -60,7 +73,26 @@ namespace Com.IsartDigital.SokoVolt.Managers
 			base._Process(lDelta);
 		}
 
-		// ----- My Fonctions ----- \\
+		// ----- My Functions ----- \\
+
+		public void AddGoalBulb(GoalBulb pGoalbulb)
+		{
+			allGoalBulbs.Add(pGoalbulb);
+		}
+
+		private void GoalBulbStateChanged()
+		{
+            foreach (GoalBulb lGoalBulb in allGoalBulbs)
+			{
+				if (!lGoalBulb.isTurnedOn)
+				{
+					door?.Close();
+                    return;
+                }
+			}
+
+			door?.Open();
+		}
 
 		// ----- Destructor ----- \\
 

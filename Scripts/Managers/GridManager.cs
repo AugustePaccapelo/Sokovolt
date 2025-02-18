@@ -21,17 +21,22 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 		
 		[Export] private PackedScene cellScene, playerScene, boxScene, wallScene, electricWallScene, goalBulbScene, generatorScene, doorScene; 
 
-		[Export] private Node2D objectsContainer;  
+		[Export] private Node2D objectsContainer;
+
+		[Export] private Label stepLabel;
+
+		private int step = 0;
 
  
 		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 		private const int GRID_WIDTH = 9; // ==================================> A mettre dans le Json du level loader
 		private const int GRID_HEIGHT = 7;
+		private const string STEP_LABEL_PREFIXE = "STEP : ";
 
 		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-		private Cell[,] grid = new Cell[GRID_WIDTH, GRID_HEIGHT];
+		public Cell[,] grid { get; private set; } = new Cell[GRID_WIDTH, GRID_HEIGHT];
 		public static Vector2 gridOffset; 
 		private Player player;
 
@@ -45,25 +50,23 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 			return;
 		}
 		instance = this;
-		#endregion
-			LoadLevel();
-		}
+			#endregion
 
-		public override void _Process(double pDelta)
-		{
-			//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+			base._Ready();
 
-			if (Input.IsActionJustPressed("ui_right")) MovePlayer(1, 0);
-			if (Input.IsActionJustPressed("ui_left")) MovePlayer(-1, 0); //=================================> Besoin d'un input manager 
-			if (Input.IsActionJustPressed("ui_down")) MovePlayer(0, 1);
-			if (Input.IsActionJustPressed("ui_up")) MovePlayer(0, -1);
+			LevelManager.GetInstance().LoadLevel += LoadLevel;
+            InputManager.GetInstance().Move += OnMovePlayer;
+        }
 
-			//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-		}
+        //public override void _Process(double pDelta)
+        //{
 
-		public void LoadLevel() // ====================================> A basculer dans un LevelLoader
+        //}
+
+        public void LoadLevel() // ====================================> A basculer dans un LevelLoader
 		{
 			CenterGrid();
+			stepLabel.Show();
 
 			string [] lTestLevel = 
 			{
@@ -140,8 +143,12 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 			);
 		}
 
+        public void OnMovePlayer(Vector2 pPlayerDirection)
+        {
+            MovePlayer((int)pPlayerDirection.X, (int)pPlayerDirection.Y);
+        }
 
-		private void MovePlayer(int pDx, int pDy)
+        private void MovePlayer(int pDx, int pDy)
 		{
 			int lNewX = player.x + pDx;
 			int lNewY = player.y + pDy;
@@ -155,6 +162,7 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 			if (lContent == null || lContent is Door)
 			{
 				player.MoveTo(lNewX, lNewY, grid);
+				UpdateStepLabel();
 			}
 			else if (lContent is BoxTesla lBox)
 			{
@@ -169,13 +177,19 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 				{
 					lBox.MoveTo(lNewBoxX, lNewBoxY, grid);
 					player.MoveTo(lNewX, lNewY, grid);
+					UpdateStepLabel();
 				}
 			}
 
 			PrintGrid();
 		}
 
-	
+		private void UpdateStepLabel()
+		{
+			step++;
+			stepLabel.Text = STEP_LABEL_PREFIXE + step;
+		}
+
 		private void PrintGrid()	//=================================> Provisoir pour test 
 		{
 			string lGridString = "";

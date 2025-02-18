@@ -1,0 +1,95 @@
+[gd_scene load_steps=6 format=3 uid="uid://c46bqjn4wfblh"]
+
+[ext_resource type="Texture2D" uid="uid://yvrywq2jtxvd" path="res://Assets/UI/MainMenu/LevelSelectorBobine.png" id="1_o717j"]
+[ext_resource type="Texture2D" uid="uid://dyr30pkkewie" path="res://Assets/UI/MainMenu/LevelScreen.png" id="2_yf10q"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_6nt13"]
+font_size = 42
+font_color = Color(1, 1, 0.160784, 1)
+outline_size = 10
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ac56c"]
+particle_flag_disable_z = true
+emission_shape_scale = Vector3(10, 3, 1)
+emission_shape = 1
+emission_sphere_radius = 26.59
+radial_velocity_max = 383.33
+gravity = Vector3(0, 0, 0)
+scale_min = 10.0
+scale_max = 20.0
+color = Color(0, 1, 1, 1)
+turbulence_enabled = true
+turbulence_noise_strength = 3.54
+turbulence_noise_scale = 5.428
+turbulence_noise_speed_random = 0.96
+turbulence_influence_min = 0.481
+turbulence_influence_max = 0.481
+turbulence_initial_displacement_min = -100.0
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ps8f6"]
+particle_flag_disable_z = true
+emission_shape = 6
+emission_ring_axis = Vector3(0, 0, 1)
+emission_ring_height = 100.0
+emission_ring_radius = 1000.0
+emission_ring_inner_radius = 1000.0
+orbit_velocity_max = 0.867
+radial_velocity_max = 1000.0
+gravity = Vector3(0, 0, 0)
+scale_min = 10.0
+scale_max = 30.0
+color = Color(0, 1, 1, 1)
+turbulence_enabled = true
+turbulence_noise_strength = 12.43
+turbulence_noise_speed_random = 1.95
+turbulence_influence_min = 0.322
+turbulence_influence_max = 0.809
+
+[node name="Tesla" type="Sprite2D"]
+position = Vector2(577, 310)
+scale = Vector2(0.584211, 0.584211)
+texture = ExtResource("1_o717j")
+
+[node name="Button" type="Button" parent="."]
+offset_left = -198.558
+offset_top = 140.36
+offset_right = 1085.44
+offset_bottom = 1139.36
+scale = Vector2(0.309999, 0.33189)
+icon = ExtResource("2_yf10q")
+
+[node name="Label" type="Label" parent="."]
+offset_left = -108.0
+offset_top = 51.0
+offset_right = 91.0
+offset_bottom = 118.0
+text = "LEVEL : "
+label_settings = SubResource("LabelSettings_6nt13")
+horizontal_alignment = 1
+
+[node name="ParticlesGroup" type="Node2D" parent="."]
+position = Vector2(-3.42342, -61.6216)
+scale = Vector2(0.993244, 1)
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="ParticlesGroup"]
+position = Vector2(-3.8147e-06, 7.62939e-06)
+scale = Vector2(0.563601, 0.157624)
+emitting = false
+amount = 3
+process_material = SubResource("ParticleProcessMaterial_ac56c")
+lifetime = 5.0
+speed_scale = 10.0
+fixed_fps = 60
+local_coords = true
+trail_enabled = true
+
+[node name="GPUParticles2D2" type="GPUParticles2D" parent="ParticlesGroup"]
+position = Vector2(-2.14577e-06, -5.36442e-06)
+scale = Vector2(0.230421, 0.0456649)
+emitting = false
+amount = 20
+process_material = SubResource("ParticleProcessMaterial_ps8f6")
+fixed_fps = 60
+local_coords = true
+trail_enabled = true

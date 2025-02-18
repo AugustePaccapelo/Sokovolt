@@ -42,8 +42,14 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables {
 
 		}
 
-		#region dispose
-		protected override void Dispose(bool pDisposing)
+        public override void MoveTo(int pX, int pY, Cell[,] pGrid)
+        {
+            base.MoveTo(pX, pY, pGrid);
+			CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.PlayerMoved);
+        }
+
+        #region dispose
+        protected override void Dispose(bool pDisposing)
 		{
 			if (pDisposing && instance == this) instance = null;
 			base.Dispose(pDisposing);

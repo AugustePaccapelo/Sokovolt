@@ -1,13 +1,76 @@
-[gd_scene load_steps=2 format=3 uid="uid://d2jvky1qy0gg"]
+[gd_scene load_steps=6 format=3 uid="uid://d2jvky1qy0gg"]
 
 [ext_resource type="Script" path="res://Scripts/GameObjects/GoalBulb.cs" id="1_o63n1"]
+[ext_resource type="Texture2D" uid="uid://dvbsdp4st47hh" path="res://Assets/GameObjects/GoalBulb/LightInBars.png" id="2_c7q4w"]
 
-[node name="GoalBulb" type="Node2D"]
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_mc1yl"]
+polygon = PackedVector2Array(-10, 3, 7, 3, 7, 26, 0, 31, -8, 26)
+
+[sub_resource type="Gradient" id="Gradient_2eqbe"]
+offsets = PackedFloat32Array(0.178571, 0.458333, 0.660714)
+colors = PackedColorArray(0.917647, 0.835294, 0, 1, 0.913725, 0.780392, 0.196078, 0.705882, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_cl24s"]
+gradient = SubResource("Gradient_2eqbe")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0, 0)
+
+[node name="GoalBulb" type="Node2D" node_paths=PackedStringArray("onPol", "offPol", "allLights", "rotatingLight")]
 script = ExtResource("1_o63n1")
+onPol = NodePath("Visual/On")
+offPol = NodePath("Visual/Off")
+allLights = NodePath("Light")
+rotatingLight = NodePath("Light/WhiteLight")
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+visible = false
+modulate = Color(1, 1, 1, 0.392157)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -543.0
+offset_top = -417.0
+offset_right = 519.0
+offset_bottom = 353.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(31, 31)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+color = Color(0.169245, 0.169245, 0.169245, 1)
+
+[node name="Light" type="Node2D" parent="."]
+
+[node name="Occluder" type="LightOccluder2D" parent="Light"]
+occluder = SubResource("OccluderPolygon2D_mc1yl")
+
+[node name="WhiteLight" type="PointLight2D" parent="Light"]
+position = Vector2(-1, -14)
+energy = 5.0
+shadow_enabled = true
+texture = ExtResource("2_c7q4w")
+texture_scale = 0.5
+
+[node name="YellowLight" type="PointLight2D" parent="Light"]
+position = Vector2(-1, -12)
+energy = 2.0
+shadow_enabled = true
+shadow_color = Color(0, 0, 0, 1)
+texture = SubResource("GradientTexture2D_cl24s")
+texture_scale = 3.0
 
 [node name="Visual" type="Node2D" parent="."]
 
-[node name="Polygon2D" type="Polygon2D" parent="Visual"]
+[node name="Off" type="Polygon2D" parent="Visual"]
 position = Vector2(0, 12)
 color = Color(0.673465, 0.669856, 0, 1)
+polygon = PackedVector2Array(-1, -41, 11, -39, 17, -32, 19, -20, 11, -11, 7, -9, 7, 14, 0, 19, -8, 14, -10, -9, -17, -10, -23, -23, -19, -32, -11, -38)
+
+[node name="On" type="Polygon2D" parent="Visual"]
+visible = false
+position = Vector2(0, 12)
+color = Color(0.915991, 0.834384, 0, 1)
 polygon = PackedVector2Array(-1, -41, 11, -39, 17, -32, 19, -20, 11, -11, 7, -9, 7, 14, 0, 19, -8, 14, -10, -9, -17, -10, -23, -23, -19, -32, -11, -38)
