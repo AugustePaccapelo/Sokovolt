@@ -26,6 +26,7 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 		[Export] private Label stepLabel;
 
 		private int step = 0;
+
  
 		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -50,19 +51,16 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 		}
 		instance = this;
 			#endregion
-
-			base._Ready();
-
 			LevelManager.GetInstance().LoadLevel += LoadLevel;
             InputManager.GetInstance().Move += OnMovePlayer;
         }
 
-		/*public override void _Process(double pDelta)
-		{
-			
-		}*/
+        //public override void _Process(double pDelta)
+        //{
 
-		public void LoadLevel() // ====================================> A basculer dans un LevelLoader
+        //}
+
+        public void LoadLevel() // ====================================> A basculer dans un LevelLoader
 		{
 			CenterGrid();
 			stepLabel.Show();
