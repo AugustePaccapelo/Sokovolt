@@ -24,7 +24,8 @@ namespace Com.IsartDigital.SokoVolt {
 
 		public static Vector2 GetCellPos(Node2D pNode)
 		{
-			return new Vector2((int)(pNode.GlobalPosition.X / TILE_SIZE), (int)(pNode.GlobalPosition.Y / TILE_SIZE));
+			Vector2 lNodePos = pNode.GlobalPosition - GridManager.gridOffset;
+			return new Vector2((int)(lNodePos.X / TILE_SIZE), (int)(lNodePos.Y / TILE_SIZE));
 		}
 	}
 }
