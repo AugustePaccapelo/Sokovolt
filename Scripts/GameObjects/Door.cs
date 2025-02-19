@@ -28,7 +28,6 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
 
 		// ----- Nodes ----- \\
 		private CustomSignals signals;
-		private Player player;
 
 		[Export] private Node2D closedVisual;
         [Export] private Node2D openedVisual;
@@ -60,7 +59,6 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
 			GameManager.GetInstance().door = this;
 			signals = CustomSignals.GetInstance();
 			signals.PlayerMoved += PlayerHasMoved;
-			player = Player.GetInstance();
 		}
 
 		public override void _Process(double pDelta)

@@ -1,0 +1,46 @@
+[gd_scene load_steps=4 format=3 uid="uid://bsl0bvhb270nq"]
+
+[ext_resource type="Script" path="res://Scripts/Controls/TitleCard.cs" id="1_vqp81"]
+[ext_resource type="Texture2D" uid="uid://blf1plrysetpd" path="res://Assets/UI/LogoISART.png" id="1_wxio0"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_iu45x"]
+font_size = 60
+
+[node name="TitleCard" type="Control" node_paths=PackedStringArray("logoISART", "logoGame")]
+layout_mode = 3
+anchors_preset = 0
+offset_top = -128.0
+offset_right = 1152.0
+offset_bottom = 800.0
+script = ExtResource("1_vqp81")
+logoISART = NodePath("ISARTLogo")
+logoGame = NodePath("GameLogo")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+offset_right = 1223.0
+offset_bottom = 913.0
+color = Color(0, 0, 0, 1)
+
+[node name="GameLogo" type="TextureRect" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+offset_right = 1154.0
+offset_bottom = 912.0
+stretch_mode = 3
+
+[node name="Label" type="Label" parent="GameLogo"]
+layout_mode = 0
+offset_left = 325.0
+offset_top = 386.0
+offset_right = 816.0
+offset_bottom = 469.0
+text = "ADD GAME LOGO"
+label_settings = SubResource("LabelSettings_iu45x")
+
+[node name="ISARTLogo" type="TextureRect" parent="."]
+layout_mode = 1
+offset_right = 1154.0
+offset_bottom = 912.0
+texture = ExtResource("1_wxio0")
+stretch_mode = 3
