@@ -12,14 +12,16 @@ namespace Com.IsartDigital.SokoVolt {
 		public static Node2D Spawner(PackedScene pScene, int pX, int pY, Node2D pParent)
 		{
 			Node2D lNode = (Node2D)pScene.Instantiate();
-			SetPosition(lNode, pX, pY);
+			SetPosition(lNode, pX, pY, true);
 			pParent.AddChild(lNode);
 			return lNode;
 		}
 
-		public static void SetPosition(Node2D pNode, int pX, int pY)
+		public static Vector2 SetPosition(Node2D pNode, int pX, int pY, bool pAsignPos)
 		{
-			pNode.GlobalPosition = GridManager.gridOffset + TILE_SIZE * new Vector2(pX, pY);
+			Vector2 lPos = GridManager.gridOffset + TILE_SIZE * new Vector2(pX, pY);
+			if(pAsignPos) pNode.GlobalPosition = lPos;
+			return lPos; 
 		}
 
 		public static Vector2 GetCellPos(Node2D pNode)

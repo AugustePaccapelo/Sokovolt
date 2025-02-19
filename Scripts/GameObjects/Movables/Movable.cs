@@ -8,7 +8,10 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables {
 	
 	public partial class Movable : GameObject
 	{
-
+		//Animation Lerp 
+		private Vector2 targetPosition; 
+		private bool isMoving; 
+		private float moveSpeed = 15; 
 		public virtual void MoveTo(int pX, int pY, Cell[,] pGrid)
 		{
 			Cell lOldCell = pGrid[x, y];
@@ -21,8 +24,9 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables {
 			y = pY;
 
 			lNewCell.SetContent(this);
-			
-			Utils.SetPosition(this, x, y); 
+
+			targetPosition = Utils.SetPosition(this, x, y, false); 
+			isMoving = true; 
 
 			UpdateZindex();
 		}
@@ -31,5 +35,20 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables {
 		{
 			ZIndex = y;
 		}
-	}
+
+        public override void _Process(double pDelta)
+        {
+			float lDelta = (float)pDelta;
+			if(isMoving)
+			{
+				GlobalPosition = GlobalPosition.Lerp(targetPosition, moveSpeed * lDelta); 
+
+				if(GlobalPosition.DistanceTo(targetPosition) < 1f)
+				{
+					GlobalPosition = targetPosition; 
+					isMoving = false; 
+				}
+			}
+        }
+    }
 }
