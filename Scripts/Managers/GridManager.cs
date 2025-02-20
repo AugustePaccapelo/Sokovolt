@@ -2,6 +2,7 @@ using Godot;
 using System;
 using Com.IsartDigital.SokoVolt.GameObjects;
 using Com.IsartDigital.SokoVolt.GameObjects.Movables;
+using System.Collections.Generic;
 
 //Author : Ferlat Thibaud 
 namespace Com.IsartDigital.SokoVolt.Managers {
@@ -19,7 +20,10 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 		private GridManager ():base() {}
 		#endregion
 
+		//Grid Gestion 
 		public Cell[,] grid { get; private set;}
+		public List<Cell[,]> gridStates = new List<Cell[,]>();
+		private int actualGridStateIndex = 0; 
 		public static Vector2 gridOffset; 
 		public Player player;
 
@@ -45,7 +49,9 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 
         public override void _Process(double pDelta)
 		{
-
+			if(Input.IsActionJustPressed("Undo")) SetGridState(actualGridStateIndex - 1); //=================> Undo to put in InputManager
+			else
+			if(Input.IsActionJustPressed("Redo")) SetGridState(actualGridStateIndex + 1); //=================> Redo	to put in InputManager
         }
 
         public override void Init()
@@ -54,6 +60,10 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 			LevelManager.GetInstance().LoadLevel  += LoadNewLevel;
             InputManager.GetInstance().Move += OnMovePlayer;
         }
+
+
+
+		#region // ----- Load Level ----- \\
 
 		public void LoadNewLevel(int pLevelToLoad) // ==================> Charger un niveau avec son index (commence à 0)
 		{
@@ -65,8 +75,14 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 		public void SetNewLevel(Cell[,] pNewGrid)
 		{
 			grid = pNewGrid;
+			gridStates.Clear();
+			actualGridStateIndex = 0; 
 		}
+		#endregion
 
+
+
+		#region // ----- Grid Centering ----- \\
 		public void CenterGrid()
 		{
 			Vector2 lScreenSize = GetViewportRect().Size; 
@@ -79,7 +95,11 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 				(lScreenSize.Y - lGridHeight) / 2
 			);
 		}
+		#endregion
 
+
+
+		#region // ----- Player and Boxs Movement ----- \\
 		public void OnMovePlayer(Vector2 pPlayerDirection)
 		{
 			MovePlayer((int)pPlayerDirection.X, (int)pPlayerDirection.Y);
@@ -100,6 +120,7 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 			{
 				player.MoveTo(lNewX, lNewY, grid);
 				UpdateStepLabel();
+				StockGridState();
 			}
 			else if (lContent is BoxTesla lBox)
 			{
@@ -116,6 +137,7 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 					lBox.MoveTo(lNewBoxX, lNewBoxY, grid);
 					player.MoveTo(lNewX, lNewY, grid);
 					UpdateStepLabel();
+					StockGridState();
 				}
 			}
 			else return;
@@ -127,12 +149,96 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 		{
 			return pX < 0 || pX >= LevelLoader.levelWidth || pY < 0 || pY >= LevelLoader.levelHeight;
 		}
+		#endregion
 
+
+
+		#region // ----- Undo/Redo ----- \\
+		private Cell[,] CopyGrid(Cell[,] pOriginalGrid)
+		{
+			int lWidth = LevelLoader.levelWidth;
+			int lHeight = LevelLoader.levelHeight;
+			Cell[,] lNewGrid = new Cell[lWidth, lHeight];
+
+			for (int y = 0; y < lHeight; y++)
+			{
+				for (int x = 0; x < lWidth; x++)
+				{
+					if (pOriginalGrid[x, y] != null)
+					{
+						lNewGrid[x, y] = new Cell();
+						lNewGrid[x, y].SetContent(pOriginalGrid[x, y].GetContent());
+					}
+					else
+					{
+						lNewGrid[x, y] = null; 
+					}
+				}
+			}
+
+			return lNewGrid;
+		}
+
+		
+		private void StockGridState()
+		{
+			
+			if (actualGridStateIndex < gridStates.Count - 1)
+				gridStates.RemoveRange(actualGridStateIndex + 1, gridStates.Count - (actualGridStateIndex + 1));
+			
+			gridStates.Add(CopyGrid(grid));
+			actualGridStateIndex = gridStates.Count - 1;
+		}
+
+
+		public void SetGridState(int pIndexState)
+		{
+			if (pIndexState < 0 || pIndexState >= gridStates.Count)
+				return;
+
+			grid = CopyGrid(gridStates[pIndexState]);
+
+			actualGridStateIndex = pIndexState;
+
+			UpdateObjectsFromGrid();
+			PrintGrid();
+		}
+
+
+		private void UpdateObjectsFromGrid()
+		{
+			for (int y = 0; y < LevelLoader.levelHeight; y++)
+			{
+				for (int x = 0; x < LevelLoader.levelWidth; x++)
+				{
+					Cell lCell = grid[x, y];
+					GameObject lContent = lCell.GetContent();
+
+					if (lContent != null && lContent is Movable lMovable)
+					{
+						lMovable.MoveTo(x, y, grid);
+					}
+				}
+			}
+		}
+		#endregion
+		
+
+
+		#region // ----- Step Counter ----- \\
 		private void UpdateStepLabel()
 		{
 			step++;
 			stepLabel.Text = STEP_LABEL_PREFIXE + step;
 		}
+		private void ResetStepCounter()
+		{
+			step = 0;
+			stepLabel.Visible = true;
+			stepLabel.Text = STEP_LABEL_PREFIXE + step;
+		}
+		#endregion
+
 
 
 		#region // ----- Provisoir pour test ----- \\
@@ -170,12 +276,7 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 		}
 		#endregion
 
-		private void ResetStepCounter()
-		{
-			step = 0;
-			stepLabel.Visible = true;
-			stepLabel.Text = STEP_LABEL_PREFIXE + step;
-		}
+	
 
 
 		#region dispose
