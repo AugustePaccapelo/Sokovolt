@@ -10,6 +10,7 @@ namespace Com.IsartDigital.SokoVolt.Managers
 	public partial class GameManager : Manager
 	{
 		// ---------- VARIABLES ---------- \\
+		[Export] public Node2D objectsContainer;
 
 		#region // ----- Singleton ----- \\
 

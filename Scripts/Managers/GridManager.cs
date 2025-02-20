@@ -32,6 +32,9 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 		[Export] private Label stepLabel; 
 		private int step = 0; 
 
+		//Ref 
+		private GameManager gameManager;
+
 
 		public override void _Ready()
 		{
@@ -59,6 +62,7 @@ namespace Com.IsartDigital.SokoVolt.Managers {
             base.Init();
 			LevelManager.GetInstance().LoadLevel  += LoadNewLevel;
             InputManager.GetInstance().Move += OnMovePlayer;
+			gameManager = GameManager.GetInstance();	
         }
 
 
@@ -78,6 +82,43 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 			gridStates.Clear();
 			actualGridStateIndex = 0; 
 		}
+
+		public void ClearGrid()
+		{
+			if (grid != null)
+			{
+				for (int y = 0; y < LevelLoader.levelHeight; y++)
+				{
+					for (int x = 0; x < LevelLoader.levelWidth; x++)
+					{
+						if (grid[x, y] != null)
+						{
+							grid[x, y].SetContent(null);
+							grid[x, y] = null; 
+						}
+					}
+				}
+			}
+
+			foreach (Node lChild in gameManager.objectsContainer.GetChildren())
+			{
+				if (lChild is GameObject || lChild is Cell)
+				{
+					lChild.QueueFree(); 
+				}
+			}
+
+			// Réinitialise la grille et l'historique
+			grid = null;
+			gridStates.Clear();
+			actualGridStateIndex = 0;
+
+			// Rendre le stepLabel invisible
+			stepLabel.Visible = false;
+
+			GD.Print("ClearGrid: Niveau supprimé !");
+		}
+
 		#endregion
 
 
