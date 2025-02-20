@@ -51,7 +51,7 @@ namespace Com.IsartDigital.SokoVolt.Managers {
         public override void Init()
         {
             base.Init();
-			LevelManager.GetInstance().LoadLevel  += (int p) => LoadNewLevel(2);
+			LevelManager.GetInstance().LoadLevel  += LoadNewLevel;
             InputManager.GetInstance().Move += OnMovePlayer;
         }
 
