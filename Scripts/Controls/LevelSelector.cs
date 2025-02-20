@@ -21,6 +21,7 @@ namespace Com.IsartDigital.SokoVolt
         private const float MARGIN = 50.0f;
         private Vector2 buttonSize = new Vector2(60, 40);
         private Vector2 teslaSize = new Vector2(855, 1071);
+        private int teslaPosY = 339;
         private bool alreadyPress = false;
         private Vector2 screenSize;
 
@@ -58,7 +59,7 @@ namespace Com.IsartDigital.SokoVolt
             // Initialisation des niveaux dès le départ
             for (int i = 0; i <= levelNumbMax; i++)
             {
-                Vector2 lTeslaPosition = (i == 0) ? new Vector2(screenSize.X / 2, 310) : new Vector2(screenSize.X + teslaSize.X * i, 310);
+                Vector2 lTeslaPosition = (i == 0) ? new Vector2(screenSize.X / 2, teslaPosY) : new Vector2(screenSize.X + teslaSize.X * i, teslaPosY);
                 LevelSelectorTesla lTesla = CreateTesla(lTeslaPosition, i);
                 teslaList.Add(lTesla);
             }
@@ -85,7 +86,7 @@ namespace Com.IsartDigital.SokoVolt
 
                 for (int i = 0; i < teslaList.Count; i++)
                 {
-                    Vector2 lNewPos = new Vector2((i - levelNumb) * screenSize.X + screenSize.X / 2, 310);
+                    Vector2 lNewPos = new Vector2((i - levelNumb) * screenSize.X + screenSize.X / 2, teslaPosY);
                     Tween lTween = CreateTween();
                     lTween.TweenProperty(teslaList[i], "position", lNewPos, 0.5f).SetEase(Tween.EaseType.InOut).SetTrans(Tween.TransitionType.Elastic);
                 }

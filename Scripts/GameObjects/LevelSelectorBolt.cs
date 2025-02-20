@@ -9,5 +9,16 @@ namespace Com.IsartDigital.SokoVolt.GameObjects {
 	{
 		[Export] public AnimationPlayer animationPlayer;
         [Export] public Line2D bolt;
+        [Export] public GpuParticles2D sparks;
+        [Export] public GpuParticles2D flare;
+        [Export] public PointLight2D light;
+
+        public override void _Ready()
+        {
+            sparks.Emitting = false;
+            flare.Emitting = false;
+            bolt.Hide();
+            light.Energy = 0;
+        }
     }
 }

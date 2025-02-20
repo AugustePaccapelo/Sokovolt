@@ -15,6 +15,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects {
 		public bool isConnected = false;
 		public bool levelUnlocked = false;
 		public int level;
+        private static bool isPressed = false;
 
         [Signal] public delegate void ButtonLoadLevelEventHandler(int pLevel);
 
@@ -29,7 +30,17 @@ namespace Com.IsartDigital.SokoVolt.GameObjects {
             LevelSelector.GetInstance().UnlockAllLevel += UnlockLevel;
             ButtonLoadLevel += LevelManager.GetInstance().LevelLoader;
 
-            levelButton.Pressed += () => EmitSignal(nameof(ButtonLoadLevel), level);
+            levelButton.Pressed += LevelUnlockedCheck;
+
+            levelUnlocked = (level == 0) ? true : false;
+        }
+
+        private void LevelUnlockedCheck()
+        {
+            if (levelUnlocked)
+            {
+                EmitSignal(nameof(ButtonLoadLevel), level);
+            }
         }
 
         private void UnlockLevel()
@@ -47,7 +58,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects {
         public override void _Process(double delta)
         {
 			isConnected = (levelUnlocked == true) ? true : false;
-            impactEffect.Visible = (isConnected == true) ? true : false;
+            impactEffect.Visible = (isConnected == true && level != 0) ? true : false;
         }
     }
 }

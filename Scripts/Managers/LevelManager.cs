@@ -20,6 +20,8 @@ namespace Com.IsartDigital.SokoVolt.Managers
         #endregion
         [Signal] public delegate void LoadLevelEventHandler(int pLevel);
 
+        [Export] private Node2D objectContainer;
+
         public override void _Ready()
         {
             #region Singelton
@@ -39,6 +41,8 @@ namespace Com.IsartDigital.SokoVolt.Managers
         public override void Init()
         {
             base.Init();
+
+            UIManager.GetInstance().MainMenuButton += UnLoadLevel;
         }
 
         public void LevelLoader(int pLevel)

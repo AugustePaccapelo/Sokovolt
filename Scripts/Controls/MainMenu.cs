@@ -1,3 +1,4 @@
+using Com.IsartDigital.SokoVolt.Managers;
 using Godot;
 using System;
 
@@ -23,6 +24,8 @@ namespace Com.IsartDigital.SokoVolt
 
 		[Signal] public delegate void StartGameEventHandler();
 
+		private UIManager uiManager;
+
 		public override void _Ready()
 		{
 			#region Singelton
@@ -35,8 +38,13 @@ namespace Com.IsartDigital.SokoVolt
 
 			instance = this;
 			#endregion
-			startButton.Pressed += () => EmitSignal(nameof(StartGame));
-		}
+
+			uiManager = GetParent<UIManager>();
+
+            StartGame += uiManager.GameStart;
+
+            startButton.Pressed += () => EmitSignal(nameof(StartGame));
+        }
 		
 
 		protected override void Dispose(bool pDisposing)

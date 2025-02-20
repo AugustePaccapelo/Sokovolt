@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scripts/Controls/LevelSelector.cs" id="1_7onrw"]
 [ext_resource type="Texture2D" uid="uid://dyr30pkkewie" path="res://Assets/UI/MainMenu/LevelScreen.png" id="2_u4r7s"]
-[ext_resource type="PackedScene" uid="uid://c46bqjn4wfblh" path="res://Scenes/GameObjects/LevelSelectorTesla.tscn" id="3_con42"]
+[ext_resource type="PackedScene" uid="uid://c46bqjn4wfblh" path="res://Scenes/GameObjects/LevelSelectorObject/LevelSelectorTesla.tscn" id="3_31hu0"]
 
 [node name="LevelSelector" type="Control" node_paths=PackedStringArray("buttonRight", "buttonLeft", "UnlockAll")]
 layout_mode = 3
@@ -12,7 +12,7 @@ buttonRight = NodePath("Right")
 buttonLeft = NodePath("Left")
 UnlockAll = NodePath("UnlockButton")
 texture = ExtResource("2_u4r7s")
-teslaScene = ExtResource("3_con42")
+teslaScene = ExtResource("3_31hu0")
 
 [node name="Left" type="Button" parent="."]
 layout_mode = 1

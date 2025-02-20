@@ -1,10 +1,10 @@
 [gd_scene load_steps=7 format=3 uid="uid://c46bqjn4wfblh"]
 
-[ext_resource type="Texture2D" uid="uid://yvrywq2jtxvd" path="res://Assets/UI/MainMenu/LevelSelectorBobine.png" id="1_o717j"]
-[ext_resource type="Script" path="res://Scripts/GameObjects/LevelSelectorTesla.cs" id="2_sfdbh"]
-[ext_resource type="Texture2D" uid="uid://dyr30pkkewie" path="res://Assets/UI/MainMenu/LevelScreen.png" id="2_yf10q"]
-[ext_resource type="PackedScene" uid="uid://durins5kr70i5" path="res://Scenes/GameObjects/LevelSelectorBolt.tscn" id="3_k8otf"]
-[ext_resource type="PackedScene" uid="uid://b2rk4oonvfvn5" path="res://Scenes/GameObjects/impact_effect.tscn" id="5_m2mq8"]
+[ext_resource type="Texture2D" uid="uid://yvrywq2jtxvd" path="res://Assets/UI/MainMenu/LevelSelectorBobine.png" id="1_mj4sl"]
+[ext_resource type="Script" path="res://Scripts/GameObjects/LevelSelectorTesla.cs" id="2_5t3fx"]
+[ext_resource type="Texture2D" uid="uid://dyr30pkkewie" path="res://Assets/UI/MainMenu/LevelScreen.png" id="3_vqwhd"]
+[ext_resource type="PackedScene" uid="uid://b2rk4oonvfvn5" path="res://Scenes/GameObjects/LevelSelectorObject/impact_effect.tscn" id="4_nlo82"]
+[ext_resource type="PackedScene" uid="uid://durins5kr70i5" path="res://Scenes/GameObjects/LevelSelectorObject/LevelSelectorBolt.tscn" id="5_yysv7"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_6nt13"]
 font_size = 42
@@ -13,10 +13,10 @@ outline_size = 10
 outline_color = Color(0, 0, 0, 1)
 
 [node name="Tesla" type="Sprite2D" node_paths=PackedStringArray("electricBolt", "impactEffect", "levelButton")]
-position = Vector2(577, 310)
+position = Vector2(581, 339)
 scale = Vector2(0.584211, 0.584211)
-texture = ExtResource("1_o717j")
-script = ExtResource("2_sfdbh")
+texture = ExtResource("1_mj4sl")
+script = ExtResource("2_5t3fx")
 electricBolt = NodePath("ParticlesGroup")
 impactEffect = NodePath("ImpactEffect")
 levelButton = NodePath("Button")
@@ -27,7 +27,7 @@ offset_top = 140.36
 offset_right = 1085.44
 offset_bottom = 1139.36
 scale = Vector2(0.309999, 0.33189)
-icon = ExtResource("2_yf10q")
+icon = ExtResource("3_vqwhd")
 
 [node name="Label" type="Label" parent="."]
 offset_left = -108.0
@@ -38,9 +38,9 @@ text = "LEVEL : "
 label_settings = SubResource("LabelSettings_6nt13")
 horizontal_alignment = 1
 
-[node name="ParticlesGroup" parent="." instance=ExtResource("3_k8otf")]
-position = Vector2(2143.96, -909.47)
-
-[node name="ImpactEffect" parent="." instance=ExtResource("5_m2mq8")]
+[node name="ImpactEffect" parent="." instance=ExtResource("4_nlo82")]
 visible = false
 position = Vector2(-326.937, 75.3153)
+
+[node name="ParticlesGroup" parent="." instance=ExtResource("5_yysv7")]
+position = Vector2(333.783, 77.027)
