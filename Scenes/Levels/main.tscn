@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://dkbx646vvyaig"]
+[gd_scene load_steps=19 format=3 uid="uid://dkbx646vvyaig"]
 
 [ext_resource type="PackedScene" uid="uid://dyk47lo67a1tp" path="res://Scenes/Managers/ui_manager.tscn" id="1_4603a"]
 [ext_resource type="PackedScene" uid="uid://bnv0kco0ylr0e" path="res://Scenes/Managers/GridManager.tscn" id="1_d671q"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://bsl1nyen453ty" path="res://Scenes/Levels/main_menu.tscn" id="5_0gm45"]
 [ext_resource type="PackedScene" uid="uid://d2u6414qoawnr" path="res://Scenes/GameObjects/Tile.tscn" id="5_8xedd"]
 [ext_resource type="PackedScene" uid="uid://yr5dy4bj5sby" path="res://Scenes/GameObjects/Player.tscn" id="6_65akx"]
+[ext_resource type="PackedScene" uid="uid://bsl0bvhb270nq" path="res://Scenes/Screen/title_card.tscn" id="6_kcr3l"]
 [ext_resource type="PackedScene" uid="uid://dnebalk5gppv0" path="res://Scenes/GameObjects/BoxTesla.tscn" id="7_i3dso"]
 [ext_resource type="PackedScene" uid="uid://cbrehv31qfb0r" path="res://Scenes/Managers/GameManager.tscn" id="7_vkagg"]
 [ext_resource type="PackedScene" uid="uid://0lujf2t1gugn" path="res://Scenes/GameObjects/Wall.tscn" id="8_najj4"]
@@ -36,10 +37,13 @@ levelSelectorScene = ExtResource("3_8r1yo")
 
 [node name="LevelManager" parent="Managers/UIManager" instance=ExtResource("2_g28jy")]
 
+[node name="TitleCard" parent="Managers/UIManager" instance=ExtResource("6_kcr3l")]
+
 [node name="GridManager" parent="Managers" node_paths=PackedStringArray("stepLabel") instance=ExtResource("1_d671q")]
 stepLabel = NodePath("StepLabel")
 
 [node name="StepLabel" type="Label" parent="Managers/GridManager"]
+visible = false
 offset_right = 117.0
 offset_bottom = 45.0
 text = "STEP : 0"

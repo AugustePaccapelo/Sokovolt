@@ -20,7 +20,7 @@ namespace Com.IsartDigital.SokoVolt
 		private Button nextButton;
 		private Vector2 screenSize = new Vector2();
 		private int levelNumb = 0;
-		private int levelNumbMax = 10;
+		private int levelNumbMax = 5;
 		private const string LEVEL_PREFIXE = "Level : ";
 		private const float MARGIN = 50.0f;
 		private Vector2 buttonSize = new Vector2(60, 40);

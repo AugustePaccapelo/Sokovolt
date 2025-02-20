@@ -91,18 +91,15 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
 		private void BoxTeslaMoved()
 		{
 			Cell[,] lGrid = gridManager.grid;
-			List<BoxTesla> lAllTeslasClose = GetCloseTeslas(lGrid);
 
-			if (lAllTeslasClose.Count > 0) InitTurnOn();
+			if (HasConnectedTeslaClose(lGrid)) InitTurnOn();
 			else InitTurnedOff();
         }
 
-		private List<BoxTesla> GetCloseTeslas(Cell[,] pGrid)
+		private bool HasConnectedTeslaClose(Cell[,] pGrid)
 		{
-			int lLength = pGrid.GetLength(1);
-			int lHeight = pGrid.GetLength(0);
-
-			List<BoxTesla> lCloseTeslas = new List<BoxTesla>();
+			int lLength = pGrid.GetLength(0);
+			int lHeight = pGrid.GetLength(1);
 
 			for (int j = -1; j < 2; j++)
 			{
@@ -114,11 +111,11 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
 
 					GameObject lContent = pGrid[x + i, y + j].GetContent();
 
-					if (lContent is BoxTesla lBoxTesla) lCloseTeslas.Add(lBoxTesla);
+					if (lContent is BoxTesla lBoxTesla) return true;
                 }
             }
 
-			return lCloseTeslas;
+			return false;
 		}
 
 		// ----- Destructor ----- \\
