@@ -172,6 +172,11 @@ namespace Com.IsartDigital.SokoVolt {
 
 					if (lObj != null)
 					{
+						if (lCell == null)
+						{
+							GD.PrintErr($"Erreur: lCell est null à la position ({x}, {y}) !");
+							return; // Évite l'erreur en quittant la fonction
+						}
 						lCell.SetContent(lObj);
 						lObj.SetCell(lCell);
 						lObj.Init(x, y);

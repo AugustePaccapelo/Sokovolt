@@ -60,7 +60,8 @@ generatorScene = ExtResource("11_lsk15")
 doorScene = ExtResource("12_pyytn")
 objectsContainer = NodePath("../../Containers/ObjectsContainer")
 
-[node name="GameManager" parent="Managers" instance=ExtResource("7_vkagg")]
+[node name="GameManager" parent="Managers" node_paths=PackedStringArray("objectsContainer") instance=ExtResource("7_vkagg")]
+objectsContainer = NodePath("../../Containers/ObjectsContainer")
 
 [node name="Containers" type="Node2D" parent="."]
 
