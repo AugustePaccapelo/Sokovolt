@@ -32,7 +32,6 @@ namespace Com.IsartDigital.SokoVolt.GameObjects {
 
             levelButton.Pressed += LevelUnlockedCheck;
 
-            levelUnlocked = (level == 0) ? true : false;
         }
 
         private void LevelUnlockedCheck()
@@ -45,7 +44,6 @@ namespace Com.IsartDigital.SokoVolt.GameObjects {
 
         private void UnlockLevel()
         {
-            GD.Print("Level unlocked");
             electricBolt.animationPlayer.Play("start_animation");
             levelUnlocked = true;
         }

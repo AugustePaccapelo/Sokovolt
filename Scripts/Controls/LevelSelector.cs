@@ -101,6 +101,7 @@ namespace Com.IsartDigital.SokoVolt
             AddChild(lTesla);
             lTesla.Position = pPos;
             lTesla.level = pIndex;
+            lTesla.levelUnlocked = (lTesla.level == 0) ? true : false;
 
 
             Label lLabel = lTesla.GetNode<Label>("Label");

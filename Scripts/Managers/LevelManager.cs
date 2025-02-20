@@ -42,7 +42,12 @@ namespace Com.IsartDigital.SokoVolt.Managers
         {
             base.Init();
 
-            //UIManager.GetInstance().MainMenuButton += UnLoadLevel;
+            UIManager.GetInstance().MainMenuButton += UnLoadLevel;
+        }
+
+        private void UnLoadLevel()
+        {
+            GridManager.GetInstance().ClearGrid();
         }
 
         public void LevelLoader(int pLevel)

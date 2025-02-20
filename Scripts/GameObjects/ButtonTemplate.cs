@@ -15,7 +15,6 @@ namespace Com.IsartDigital.SokoVolt {
         public override void _Ready()
         {
 			Pressed += TweenInit;
-			
         }
 
         private void TweenInit()
@@ -23,8 +22,6 @@ namespace Com.IsartDigital.SokoVolt {
 			Tween lTween = CreateTween();
 			lTween.TweenProperty(this, "scale", Scale * scaleMultiplicator, during / 2).SetEase(easeType).SetTrans(transitionType);
 			lTween.TweenProperty(this, "scale", new Vector2(1,1), during / 2).SetEase(easeType).SetTrans(transitionType);
-
-
         }
 	}
 }
