@@ -4,16 +4,17 @@
 [ext_resource type="Texture2D" uid="uid://dyr30pkkewie" path="res://Assets/UI/MainMenu/LevelScreen.png" id="2_u4r7s"]
 [ext_resource type="PackedScene" uid="uid://c46bqjn4wfblh" path="res://Scenes/GameObjects/LevelSelectorTesla.tscn" id="3_con42"]
 
-[node name="LevelSelector" type="Control" node_paths=PackedStringArray("buttonRight", "buttonLeft")]
+[node name="LevelSelector" type="Control" node_paths=PackedStringArray("buttonRight", "buttonLeft", "UnlockAll")]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_7onrw")
-buttonRight = NodePath("Button2")
-buttonLeft = NodePath("Button")
+buttonRight = NodePath("Right")
+buttonLeft = NodePath("Left")
+UnlockAll = NodePath("UnlockButton")
 texture = ExtResource("2_u4r7s")
 teslaScene = ExtResource("3_con42")
 
-[node name="Button" type="Button" parent="."]
+[node name="Left" type="Button" parent="."]
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -26,7 +27,7 @@ grow_vertical = 2
 pivot_offset = Vector2(30, 20)
 text = "<--"
 
-[node name="Button2" type="Button" parent="."]
+[node name="Right" type="Button" parent="."]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
@@ -41,3 +42,11 @@ grow_horizontal = 0
 grow_vertical = 2
 pivot_offset = Vector2(30, 20)
 text = "-->"
+
+[node name="UnlockButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 23.0
+offset_top = 25.0
+offset_right = 109.0
+offset_bottom = 56.0
+text = "Unlock All"
