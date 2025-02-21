@@ -74,6 +74,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects {
             levelButton.Disabled = true;
             electricBolt.animationPlayer.Play("end_animation");
             padLock.Close();
+            levelUnlocked = false;
         }
 
         public override void _Process(double delta)
