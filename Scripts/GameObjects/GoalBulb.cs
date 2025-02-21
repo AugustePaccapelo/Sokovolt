@@ -38,10 +38,6 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
 		{
 			base._Ready();
 
-			Node2D lVisual = GetNode<Node2D>("Visual");
-			onPol = lVisual.GetNode<Polygon2D>("On");
-            offPol = lVisual.GetNode<Polygon2D>("Off");
-
             signals = CustomSignals.GetInstance();
             signals.BoxTeslaMoved += BoxTeslaMoved;
 
