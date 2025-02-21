@@ -10,12 +10,15 @@ namespace Com.IsartDigital.SokoVolt.GameObjects {
 	{
 		[Export] public LevelSelectorBolt electricBolt;
 		[Export] public Node2D impactEffect;
+		[Export] public Padlock padLock;
 		[Export] public Button levelButton;
 
+        public LevelSelectorTesla nextTesla;
 		public bool isConnected = false;
 		public bool levelUnlocked = false;
 		public int level;
         private static bool isPressed = false;
+        private bool allLevelAreUnlocked = false;
 
         [Signal] public delegate void ButtonLoadLevelEventHandler(int pLevel);
 
@@ -27,7 +30,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects {
 
         private void Init()
         {
-            LevelSelector.GetInstance().UnlockAllLevel += UnlockLevel;
+            LevelSelector.GetInstance().UnlockAllLevel += UnlockAll;
             ButtonLoadLevel += LevelManager.GetInstance().LevelLoader;
 
             levelButton.Pressed += LevelUnlockedCheck;
@@ -42,15 +45,35 @@ namespace Com.IsartDigital.SokoVolt.GameObjects {
             }
         }
 
-        private void UnlockLevel()
+        private void UnlockAll()
         {
+            if (!allLevelAreUnlocked)
+            {
+                UnlockLevel();
+                LevelSelector.GetInstance().buttonUnlockAll.Text = "LockAll";
+                allLevelAreUnlocked = true;
+            }
+            else if (allLevelAreUnlocked && level != 0)
+            {
+                LockLevel();
+                LevelSelector.GetInstance().buttonUnlockAll.Text = "UnlockAll";
+                allLevelAreUnlocked = false;
+            }
+        }
+
+        public void UnlockLevel()
+        {
+            levelButton.Disabled = false;
             electricBolt.animationPlayer.Play("start_animation");
+            padLock.Open();
             levelUnlocked = true;
         }
 
         private void LockLevel()
         {
+            levelButton.Disabled = true;
             electricBolt.animationPlayer.Play("end_animation");
+            padLock.Close();
         }
 
         public override void _Process(double delta)

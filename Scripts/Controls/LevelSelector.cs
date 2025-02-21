@@ -11,7 +11,7 @@ namespace Com.IsartDigital.SokoVolt
     {
         [Export] private Button buttonRight;
         [Export] private Button buttonLeft;
-        [Export] private Button UnlockAll;
+        [Export] public Button buttonUnlockAll;
         [Export] private CompressedTexture2D texture;
         [Export] private PackedScene teslaScene;
         private List<LevelSelectorTesla> teslaList = new List<LevelSelectorTesla>();
@@ -67,11 +67,13 @@ namespace Com.IsartDigital.SokoVolt
             for (int i = 0; i < teslaList.Count; i++)
             {
                 teslaList[i].electricBolt.bolt.AddPoint(new Vector2(screenSize.X + 80 + teslaSize.X/2, 135));
+                if (i != 5) teslaList[i].nextTesla = teslaList[i + 1];
+                else teslaList[i].nextTesla = null;
             }
 
             buttonRight.Pressed += () => SwitchLevel(1);
             buttonLeft.Pressed += () => SwitchLevel(-1);
-            UnlockAll.Pressed += () => EmitSignal(nameof(UnlockAllLevel));
+            buttonUnlockAll.Pressed += () => EmitSignal(nameof(UnlockAllLevel));
 
             buttonLeft.GlobalPosition = new Vector2(0 + MARGIN, screenSize.Y / 2);
             buttonRight.GlobalPosition = new Vector2(screenSize.X - MARGIN - buttonSize.X, screenSize.Y / 2);
@@ -101,7 +103,7 @@ namespace Com.IsartDigital.SokoVolt
             AddChild(lTesla);
             lTesla.Position = pPos;
             lTesla.level = pIndex;
-            lTesla.levelUnlocked = (lTesla.level == 0) ? true : false;
+            if(lTesla.level == 0) lTesla.UnlockLevel();
 
 
             Label lLabel = lTesla.GetNode<Label>("Label");
