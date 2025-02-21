@@ -123,11 +123,16 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
 			return false;
 		}
 
-		// ----- Destructor ----- \\
+        // ----- Destructor ----- \\
 
-		protected override void Dispose(bool pDisposing)
-		{
-			base.Dispose(pDisposing);
-		}
-	}
+        protected override void Dispose(bool pDisposing)
+        {
+            if (pDisposing)
+            {
+                signals.BoxTeslaMoved -= BoxTeslaMoved; // Déconnecte le signal pour éviter qu'il appelle un objet supprimé
+            }
+            base.Dispose(pDisposing);
+        }
+
+    }
 }
