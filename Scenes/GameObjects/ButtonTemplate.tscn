@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://dylv88figecre"]
+
+[ext_resource type="Script" path="res://Scripts/GameObjects/ButtonTemplate.cs" id="1_ka7j5"]
+
+[node name="ButtonTemplate" type="Button"]
+offset_right = 60.0
+offset_bottom = 40.0
+pivot_offset = Vector2(30, 20)
+text = "<--"
+script = ExtResource("1_ka7j5")

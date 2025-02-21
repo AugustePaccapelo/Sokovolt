@@ -55,7 +55,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
 			#endregion
 
 			base._Ready();
-
+			
 			GameManager.GetInstance().door = this;
 			signals = CustomSignals.GetInstance();
 			signals.PlayerMoved += PlayerHasMoved;
@@ -98,6 +98,8 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
 			if (pDisposing && instance == this) instance = null;
 
 			#endregion
+
+			GameManager.GetInstance().door = null;
 
 			base.Dispose(pDisposing);
 		}

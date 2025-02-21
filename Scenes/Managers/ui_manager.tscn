@@ -1,6 +1,19 @@
-[gd_scene load_steps=2 format=3 uid="uid://dyk47lo67a1tp"]
+[gd_scene load_steps=4 format=3 uid="uid://dyk47lo67a1tp"]
 
 [ext_resource type="Script" path="res://Scripts/Managers/UIManager.cs" id="1_m0s5s"]
+[ext_resource type="PackedScene" uid="uid://dht3qeqhib1rk" path="res://Scenes/Levels/level_selector.tscn" id="2_7ktqe"]
+[ext_resource type="PackedScene" uid="uid://bsl1nyen453ty" path="res://Scenes/Levels/main_menu.tscn" id="3_ytyeb"]
 
-[node name="UIManager" type="Node2D"]
+[node name="UIManager" type="Node2D" node_paths=PackedStringArray("mainMenuButton")]
 script = ExtResource("1_m0s5s")
+levelSelectorScene = ExtResource("2_7ktqe")
+mainMenuScene = ExtResource("3_ytyeb")
+mainMenuButton = NodePath("Button")
+
+[node name="Button" type="Button" parent="."]
+visible = false
+offset_left = 10.0
+offset_top = 591.0
+offset_right = 114.0
+offset_bottom = 622.0
+text = "MAIN MENU"

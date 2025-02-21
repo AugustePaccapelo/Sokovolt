@@ -1,0 +1,70 @@
+[gd_scene load_steps=10 format=3 uid="uid://c46bqjn4wfblh"]
+
+[ext_resource type="Texture2D" uid="uid://yvrywq2jtxvd" path="res://Assets/UI/MainMenu/LevelSelectorBobine.png" id="1_mj4sl"]
+[ext_resource type="Script" path="res://Scripts/GameObjects/LevelSelectorTesla.cs" id="2_5t3fx"]
+[ext_resource type="Texture2D" uid="uid://dyr30pkkewie" path="res://Assets/UI/MainMenu/LevelScreen.png" id="3_vqwhd"]
+[ext_resource type="PackedScene" uid="uid://b2rk4oonvfvn5" path="res://Scenes/GameObjects/LevelSelectorObject/impact_effect.tscn" id="4_nlo82"]
+[ext_resource type="PackedScene" uid="uid://durins5kr70i5" path="res://Scenes/GameObjects/LevelSelectorObject/LevelSelectorBolt.tscn" id="5_yysv7"]
+[ext_resource type="Script" path="res://Scripts/GameObjects/Padlock.cs" id="6_lj2er"]
+[ext_resource type="Texture2D" uid="uid://bftn23e4cud1p" path="res://Assets/UI/MainMenu/PadlockTop.png" id="6_spfcw"]
+[ext_resource type="Texture2D" uid="uid://cao2wcwn60lng" path="res://Assets/UI/MainMenu/PadlockBottom.png" id="7_q6xe4"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_6nt13"]
+font_size = 42
+font_color = Color(1, 1, 0.160784, 1)
+outline_size = 10
+outline_color = Color(0, 0, 0, 1)
+
+[node name="Tesla" type="Sprite2D" node_paths=PackedStringArray("electricBolt", "impactEffect", "padLock", "levelButton")]
+modulate = Color(0.366595, 0.366595, 0.366595, 1)
+position = Vector2(581, 339)
+scale = Vector2(0.584211, 0.584211)
+texture = ExtResource("1_mj4sl")
+script = ExtResource("2_5t3fx")
+electricBolt = NodePath("ParticlesGroup")
+impactEffect = NodePath("ImpactEffect")
+padLock = NodePath("Padlock")
+levelButton = NodePath("Button")
+
+[node name="Button" type="Button" parent="."]
+offset_left = -198.558
+offset_top = 140.36
+offset_right = 1085.44
+offset_bottom = 1139.36
+scale = Vector2(0.309999, 0.33189)
+icon = ExtResource("3_vqwhd")
+
+[node name="Label" type="Label" parent="."]
+offset_left = -108.0
+offset_top = 51.0
+offset_right = 91.0
+offset_bottom = 118.0
+text = "LEVEL : "
+label_settings = SubResource("LabelSettings_6nt13")
+horizontal_alignment = 1
+
+[node name="ImpactEffect" parent="." instance=ExtResource("4_nlo82")]
+visible = false
+position = Vector2(-326.937, 75.3153)
+
+[node name="ParticlesGroup" parent="." instance=ExtResource("5_yysv7")]
+position = Vector2(333.783, 77.027)
+
+[node name="Padlock" type="Node2D" parent="." node_paths=PackedStringArray("topLock", "botLock", "tesla")]
+modulate = Color(3, 3, 3, 1)
+position = Vector2(0, 302.973)
+scale = Vector2(0.503503, 0.503503)
+script = ExtResource("6_lj2er")
+topLock = NodePath("PadlockTop")
+botLock = NodePath("PadlockBottom")
+tesla = NodePath("..")
+
+[node name="PadlockTop" type="Sprite2D" parent="Padlock"]
+self_modulate = Color(0.625207, 0.107052, 0.0971844, 1)
+position = Vector2(-6.30621, -76.3286)
+texture = ExtResource("6_spfcw")
+
+[node name="PadlockBottom" type="Sprite2D" parent="Padlock"]
+self_modulate = Color(0.625207, 0.107052, 0.0971844, 1)
+position = Vector2(0.540649, 65.7433)
+texture = ExtResource("7_q6xe4")

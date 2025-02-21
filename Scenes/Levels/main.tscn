@@ -1,10 +1,9 @@
-[gd_scene load_steps=19 format=3 uid="uid://dkbx646vvyaig"]
+[gd_scene load_steps=18 format=3 uid="uid://dkbx646vvyaig"]
 
 [ext_resource type="PackedScene" uid="uid://dyk47lo67a1tp" path="res://Scenes/Managers/ui_manager.tscn" id="1_4603a"]
 [ext_resource type="PackedScene" uid="uid://bnv0kco0ylr0e" path="res://Scenes/Managers/GridManager.tscn" id="1_d671q"]
 [ext_resource type="PackedScene" uid="uid://bix7hbs5g2ia3" path="res://Scenes/Managers/level_manager.tscn" id="2_g28jy"]
 [ext_resource type="Script" path="res://Scripts/Managers/InputManager.cs" id="3_3tpao"]
-[ext_resource type="PackedScene" uid="uid://dht3qeqhib1rk" path="res://Scenes/Levels/level_selector.tscn" id="3_8r1yo"]
 [ext_resource type="Script" path="res://Scripts/Json/LevelLoader.cs" id="4_ly116"]
 [ext_resource type="PackedScene" uid="uid://bsl1nyen453ty" path="res://Scenes/Levels/main_menu.tscn" id="5_0gm45"]
 [ext_resource type="PackedScene" uid="uid://d2u6414qoawnr" path="res://Scenes/GameObjects/Tile.tscn" id="5_8xedd"]
@@ -31,7 +30,6 @@ outline_color = Color(0, 0, 0, 1)
 script = ExtResource("3_3tpao")
 
 [node name="UIManager" parent="Managers" instance=ExtResource("1_4603a")]
-levelSelectorScene = ExtResource("3_8r1yo")
 
 [node name="MainMenu" parent="Managers/UIManager" instance=ExtResource("5_0gm45")]
 
@@ -61,7 +59,8 @@ generatorScene = ExtResource("11_lsk15")
 doorScene = ExtResource("12_pyytn")
 objectsContainer = NodePath("../../Containers/ObjectsContainer")
 
-[node name="GameManager" parent="Managers" instance=ExtResource("7_vkagg")]
+[node name="GameManager" parent="Managers" node_paths=PackedStringArray("objectsContainer") instance=ExtResource("7_vkagg")]
+objectsContainer = NodePath("../../Containers/ObjectsContainer")
 
 [node name="Containers" type="Node2D" parent="."]
 
