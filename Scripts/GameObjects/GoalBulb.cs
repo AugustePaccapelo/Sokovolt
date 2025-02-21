@@ -37,13 +37,18 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
 		public override void _Ready()
 		{
 			base._Ready();
-			signals = CustomSignals.GetInstance();
+
+			Node2D lVisual = GetNode<Node2D>("Visual");
+			onPol = lVisual.GetNode<Polygon2D>("On");
+            offPol = lVisual.GetNode<Polygon2D>("Off");
+
+            signals = CustomSignals.GetInstance();
             signals.BoxTeslaMoved += BoxTeslaMoved;
 
             gameManager = GameManager.GetInstance();
 			gameManager.AddGoalBulb(this);
             gridManager = GridManager.GetInstance();
-
+			
 			BoxTeslaMoved();
         }
 
@@ -62,9 +67,9 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
 		{
             doAction = TurnedOff;
 			isTurnedOn = false;
-			onPol.Hide();
-			offPol.Show();
-			allLights.Hide();
+            onPol.Hide();
+            offPol.Show();
+            allLights.Hide();
             signals.EmitSignal(CustomSignals.SignalName.GoalBulbStateChanged);
         }
 

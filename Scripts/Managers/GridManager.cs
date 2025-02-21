@@ -62,7 +62,7 @@ namespace Com.IsartDigital.SokoVolt.Managers {
             base.Init();
 			LevelManager.GetInstance().LoadLevel  += LoadNewLevel;
             InputManager.GetInstance().Move += OnMovePlayer;
-			gameManager = GameManager.GetInstance();	
+			gameManager = GameManager.GetInstance();
         }
 
 

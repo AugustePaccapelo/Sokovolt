@@ -16,10 +16,8 @@ fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0, 0)
 
-[node name="GoalBulb" type="Node2D" node_paths=PackedStringArray("onPol", "offPol", "allLights", "rotatingLight")]
+[node name="GoalBulb" type="Node2D" node_paths=PackedStringArray("allLights", "rotatingLight")]
 script = ExtResource("1_o63n1")
-onPol = NodePath("Visual/On")
-offPol = NodePath("Visual/Off")
 allLights = NodePath("Light")
 rotatingLight = NodePath("Light/WhiteLight")
 

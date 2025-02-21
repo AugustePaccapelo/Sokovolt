@@ -33,8 +33,7 @@ script = ExtResource("3_3tpao")
 
 [node name="MainMenu" parent="Managers/UIManager" instance=ExtResource("5_0gm45")]
 
-[node name="LevelManager" parent="Managers/UIManager" node_paths=PackedStringArray("objectContainer") instance=ExtResource("2_g28jy")]
-objectContainer = NodePath("../../../Containers/ObjectsContainer")
+[node name="LevelManager" parent="Managers/UIManager" instance=ExtResource("2_g28jy")]
 
 [node name="TitleCard" parent="Managers/UIManager" instance=ExtResource("6_kcr3l")]
 
