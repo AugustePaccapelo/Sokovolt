@@ -52,6 +52,8 @@ position = Vector2(333.783, 77.027)
 
 [node name="Padlock" type="Node2D" parent="." node_paths=PackedStringArray("topLock", "botLock", "tesla")]
 modulate = Color(3, 3, 3, 1)
+position = Vector2(0, 302.973)
+scale = Vector2(0.503503, 0.503503)
 script = ExtResource("6_lj2er")
 topLock = NodePath("PadlockTop")
 botLock = NodePath("PadlockBottom")
