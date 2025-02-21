@@ -6,13 +6,13 @@
 [ext_resource type="Script" path="res://Scripts/GameObjects/ButtonTemplate.cs" id="4_tfihn"]
 [ext_resource type="PackedScene" uid="uid://dylv88figecre" path="res://Scenes/GameObjects/ButtonTemplate.tscn" id="4_yj50a"]
 
-[node name="LevelSelector" type="Control" node_paths=PackedStringArray("buttonRight", "buttonLeft", "UnlockAll")]
+[node name="LevelSelector" type="Control" node_paths=PackedStringArray("buttonRight", "buttonLeft", "buttonUnlockAll")]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_7onrw")
 buttonRight = NodePath("Right")
 buttonLeft = NodePath("Left")
-UnlockAll = NodePath("UnlockButton")
+buttonUnlockAll = NodePath("UnlockButton")
 texture = ExtResource("2_u4r7s")
 teslaScene = ExtResource("3_31hu0")
 
