@@ -13,7 +13,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables {
         public partial class BoxTesla : Movable
         {
             static List<BoxTesla> boxTeslasList = new List<BoxTesla>();
-          
+            [Export] private Line2D electriLine2D;
             [Export] public bool  energize { get; private set; }
             GridManager gridManager = GridManager.GetInstance();
             private List<Vector2> directionScan = new List<Vector2>()
@@ -48,7 +48,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables {
                 
                 if (LastPos!=Utils.GetCellPos(this))
                 {
-                   LastPos = Utils.GetCellPos(this);;
+                   LastPos = Utils.GetCellPos(this);
                    ConnectionSearch();
                 }
             }
@@ -76,15 +76,13 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables {
             {
                 
                 base.MoveTo(pX, pY, pGrid);
-
                 CustomSignals lSignals = CustomSignals.GetInstance();
-
                 lSignals.EmitSignal(CustomSignals.SignalName.BoxTeslaMoved);
                 
             }
 
 
-            private void ConnectionSearch()
+            public void ConnectionSearch()
             {
 
                 Cell[,] lGrid = gridManager.grid;
@@ -93,7 +91,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables {
                 List<Vector2> lcurentDirectionScan = new List<Vector2>(directionScan);
                 List<int> indicesToRemove = new List<int>();
 
-                for (int i =1 ; i <= range; i++)
+                for (int i =1 ; i <= range+1; i++)
                 {
                     for (int j = lcurentDirectionScan.Count - 1; j >= 0; j--)
                     {
@@ -108,10 +106,11 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables {
                         GameObject GOToScan = lGrid[x,y ].GetContent();
                         if ( GOToScan is BoxTesla lTesla)
                         { 
-                            GD.Print("Tesla");
                             if (lTesla.energize is true)
                             {
-
+                                LineConnection(GOToScan);
+                                GD.Print("Tesla");
+                                return;
                             }
                         }
                         else if (GOToScan is null)
@@ -122,18 +121,21 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables {
                         else if (GOToScan is Generator)
                         {
                             GD.Print("Generator");
+                            LineConnection(GOToScan);
+                            return;
                         }
                         else if (GOToScan is GoalBulb)
                         {
                             GD.Print("GoalBulb");
-                            if (energize)
-                            {
-                            }
+                            continue;
+                           
                         }
                         else if (GOToScan is Wall)
                         {
                             GD.Print("Wall");
                             indicesToRemove.Add(j);
+                            continue;
+
                         }
                     }
                     indicesToRemove.Sort((a, b) => b.CompareTo(a));
@@ -144,6 +146,19 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables {
                     }
                     indicesToRemove.Clear();
                 }
+            }
+
+            private void LineConnection(GameObject objToConnect)
+            {
+                GD.Print("dro");
+                electriLine2D.AddPoint(ToLocal(objToConnect.GlobalPosition));
+                electriLine2D.Visible = true;
+            }
+
+            private void LineDeconnection()
+            {
+                electriLine2D.ClearPoints();
+
             }
            
 
