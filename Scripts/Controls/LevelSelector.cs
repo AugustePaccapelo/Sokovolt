@@ -66,7 +66,7 @@ namespace Com.IsartDigital.SokoVolt
 
             for (int i = 0; i < teslaList.Count; i++)
             {
-                teslaList[i].electricBolt.bolt.AddPoint(new Vector2(screenSize.X + 80 + teslaSize.X/2, 135));
+                teslaList[i].electricBolt.bolt.AddPoint(new Vector2(screenSize.X - 60 + teslaSize.X/2, 135));
                 if (i != 5) teslaList[i].nextTesla = teslaList[i + 1];
                 else teslaList[i].nextTesla = null;
             }
