@@ -9,6 +9,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects {
 	public partial class LevelSelectorTesla : Sprite2D
 	{
 		[Export] public LevelSelectorBolt electricBolt;
+		[Export] public Node2D electricBoltConstant;
 		[Export] public Node2D impactEffect;
 		[Export] public Padlock padLock;
 		[Export] public Button levelButton;
@@ -16,7 +17,6 @@ namespace Com.IsartDigital.SokoVolt.GameObjects {
         public LevelSelectorTesla nextTesla;
 		public bool levelUnlocked = false;
 		public int level;
-        private static bool isPressed = false;
         private bool allLevelAreUnlocked = false;
 
         [Signal] public delegate void ButtonLoadLevelEventHandler(int pLevel);
@@ -31,9 +31,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects {
         {
             LevelSelector.GetInstance().UnlockAllLevel += UnlockAll;
             ButtonLoadLevel += LevelManager.GetInstance().LevelLoader;
-
             levelButton.Pressed += LevelUnlockedCheck;
-
         }
 
         private void LevelUnlockedCheck()
@@ -44,7 +42,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects {
             }
         }
 
-        private void UnlockAll()
+        public void UnlockAll()
         {
             if (!allLevelAreUnlocked)
             {
@@ -63,8 +61,13 @@ namespace Com.IsartDigital.SokoVolt.GameObjects {
         public void UnlockLevel()
         {
             levelButton.Disabled = false;
-            if(level != LevelSelector.GetInstance().teslaList.Count - 1)electricBolt.animationPlayer.Play("start_animation");
+            electricBolt.animationPlayer.Play("start_animation");
             padLock.Open();
+            if (level == 0)
+            {
+                electricBolt.Hide();
+                electricBoltConstant.Show();
+            }
             levelUnlocked = true;
         }
 

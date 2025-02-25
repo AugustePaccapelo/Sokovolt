@@ -22,6 +22,7 @@ namespace Com.IsartDigital.SokoVolt
         private Vector2 buttonSize = new Vector2(60, 40);
         private Vector2 teslaSize = new Vector2(855, 1071);
         private int teslaPosY = 339;
+        private int newTeslaPointPosY = 223;
         private bool alreadyPress = false;
         private Vector2 screenSize;
 
@@ -64,19 +65,29 @@ namespace Com.IsartDigital.SokoVolt
                 teslaList.Add(lTesla);
             }
 
-            for (int i = 0; i < teslaList.Count; i++)
+            for (int i = 0; i < teslaList.Count -1; i++)
             {
-                teslaList[i].electricBolt.bolt.AddPoint(new Vector2(screenSize.X - 60 + teslaSize.X/2, 135));
+                teslaList[i].electricBolt.bolt.AddPoint(new Vector2(screenSize.X + teslaSize.X/2, newTeslaPointPosY));
                 if (i != 5) teslaList[i].nextTesla = teslaList[i + 1];
                 else teslaList[i].nextTesla = null;
             }
 
             buttonRight.Pressed += () => SwitchLevel(1);
             buttonLeft.Pressed += () => SwitchLevel(-1);
-            buttonUnlockAll.Pressed += () => EmitSignal(nameof(UnlockAllLevel));
+            buttonUnlockAll.Pressed += UnlockAll;
 
             buttonLeft.GlobalPosition = new Vector2(0 + MARGIN, screenSize.Y / 2);
             buttonRight.GlobalPosition = new Vector2(screenSize.X - MARGIN - buttonSize.X, screenSize.Y / 2);
+        }
+
+        private void UnlockAll()
+        {
+            if (!alreadyPress)
+            {
+                alreadyPress = true;
+                EmitSignal(nameof(UnlockAllLevel));
+                GetTree().CreateTimer(1f).Timeout += () => alreadyPress = false;
+            }
         }
 
         private void SwitchLevel(int pDirection)
@@ -103,7 +114,10 @@ namespace Com.IsartDigital.SokoVolt
             AddChild(lTesla);
             lTesla.Position = pPos;
             lTesla.level = pIndex;
-            if(lTesla.level == 0) lTesla.UnlockLevel();
+            if (lTesla.level == 0)
+            {
+                lTesla.UnlockLevel();
+            }
 
 
             Label lLabel = lTesla.GetNode<Label>("Label");

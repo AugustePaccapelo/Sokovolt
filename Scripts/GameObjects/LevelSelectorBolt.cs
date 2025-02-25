@@ -16,7 +16,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects {
 
         public override void _Ready()
         {
-            animationPlayer.Active = animationActive;
+            //animationPlayer.Active = animationActive;
             sparks.Emitting = false;
             flare.Emitting = false;
             bolt.Hide();
