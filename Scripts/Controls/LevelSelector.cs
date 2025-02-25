@@ -90,7 +90,7 @@ namespace Com.IsartDigital.SokoVolt
                 {
                     Vector2 lNewPos = new Vector2((i - levelNumb) * screenSize.X + screenSize.X / 2, teslaPosY);
                     Tween lTween = CreateTween();
-                    lTween.TweenProperty(teslaList[i], "position", lNewPos, 0.5f).SetEase(Tween.EaseType.InOut).SetTrans(Tween.TransitionType.Elastic);
+                    lTween.TweenProperty(teslaList[i], "position", lNewPos, 0.5f).SetEase(Tween.EaseType.Out).SetTrans(Tween.TransitionType.Back);
                 }
 
                 GetTree().CreateTimer(0.5f).Timeout += () => alreadyPress = false;

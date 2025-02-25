@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://c46bqjn4wfblh"]
+[gd_scene load_steps=11 format=3 uid="uid://c46bqjn4wfblh"]
 
 [ext_resource type="Texture2D" uid="uid://yvrywq2jtxvd" path="res://Assets/UI/MainMenu/LevelSelectorBobine.png" id="1_mj4sl"]
 [ext_resource type="Script" path="res://Scripts/GameObjects/LevelSelectorTesla.cs" id="2_5t3fx"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://Scripts/GameObjects/Padlock.cs" id="6_lj2er"]
 [ext_resource type="Texture2D" uid="uid://bftn23e4cud1p" path="res://Assets/UI/MainMenu/PadlockTop.png" id="6_spfcw"]
 [ext_resource type="Texture2D" uid="uid://cao2wcwn60lng" path="res://Assets/UI/MainMenu/PadlockBottom.png" id="7_q6xe4"]
+[ext_resource type="Texture2D" uid="uid://c767fcajnj2yi" path="res://Assets/Shaders/Effects/Glow.png" id="11_fqf0e"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_6nt13"]
 font_size = 42
@@ -16,7 +17,7 @@ outline_size = 10
 outline_color = Color(0, 0, 0, 1)
 
 [node name="Tesla" type="Sprite2D" node_paths=PackedStringArray("electricBolt", "impactEffect", "padLock", "levelButton")]
-modulate = Color(0.366595, 0.366595, 0.366595, 1)
+modulate = Color(0.364706, 0.364706, 0.364706, 1)
 position = Vector2(581, 339)
 scale = Vector2(0.584211, 0.584211)
 texture = ExtResource("1_mj4sl")
@@ -50,7 +51,7 @@ position = Vector2(-326.937, 75.3153)
 [node name="ParticlesGroup" parent="." instance=ExtResource("5_yysv7")]
 position = Vector2(333.783, 77.027)
 
-[node name="Padlock" type="Node2D" parent="." node_paths=PackedStringArray("topLock", "botLock", "tesla")]
+[node name="Padlock" type="Node2D" parent="." node_paths=PackedStringArray("topLock", "botLock", "tesla", "light", "topLight", "electricLight1", "electricLight2", "electricLight3")]
 modulate = Color(3, 3, 3, 1)
 position = Vector2(0, 302.973)
 scale = Vector2(0.503503, 0.503503)
@@ -58,6 +59,11 @@ script = ExtResource("6_lj2er")
 topLock = NodePath("PadlockTop")
 botLock = NodePath("PadlockBottom")
 tesla = NodePath("..")
+light = NodePath("../LevelLight")
+topLight = NodePath("../ElectricLight/TopLight")
+electricLight1 = NodePath("../ElectricLight/StageLight1")
+electricLight2 = NodePath("../ElectricLight/StageLight2")
+electricLight3 = NodePath("../ElectricLight/StageLight3")
 
 [node name="PadlockTop" type="Sprite2D" parent="Padlock"]
 self_modulate = Color(0.625207, 0.107052, 0.0971844, 1)
@@ -68,3 +74,41 @@ texture = ExtResource("6_spfcw")
 self_modulate = Color(0.625207, 0.107052, 0.0971844, 1)
 position = Vector2(0.540649, 65.7433)
 texture = ExtResource("7_q6xe4")
+
+[node name="LevelLight" type="PointLight2D" parent="."]
+position = Vector2(-1.71171, 273.874)
+energy = 0.0
+texture = ExtResource("11_fqf0e")
+texture_scale = 0.7
+
+[node name="ElectricLight" type="Node2D" parent="."]
+
+[node name="TopLight" type="PointLight2D" parent="ElectricLight"]
+position = Vector2(-1.71173, -436.486)
+energy = 0.0
+texture = ExtResource("11_fqf0e")
+texture_scale = 0.3
+
+[node name="StageLight1" type="PointLight2D" parent="ElectricLight"]
+position = Vector2(5.13511, -292.702)
+scale = Vector2(2.14542, 0.449708)
+color = Color(1, 1, 0.462745, 1)
+energy = 0.0
+texture = ExtResource("11_fqf0e")
+texture_scale = 0.3
+
+[node name="StageLight2" type="PointLight2D" parent="ElectricLight"]
+position = Vector2(-18.8288, -181.441)
+scale = Vector2(2.14542, 0.449708)
+color = Color(1, 1, 0.462745, 1)
+energy = 0.0
+texture = ExtResource("11_fqf0e")
+texture_scale = 0.3
+
+[node name="StageLight3" type="PointLight2D" parent="ElectricLight"]
+position = Vector2(-32.5225, -63.3333)
+scale = Vector2(2.14542, 0.449708)
+color = Color(1, 1, 0.462745, 1)
+energy = 0.0
+texture = ExtResource("11_fqf0e")
+texture_scale = 0.3

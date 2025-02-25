@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://bul8tb4pxxaym"]
+
+[ext_resource type="Shader" uid="uid://bum2gqlmpu2kv" path="res://Assets/Shaders/ElectricBoltShader.tres" id="1_2is5d"]
+[ext_resource type="Texture2D" uid="uid://c66l3g8bbn3hb" path="res://Assets/Shaders/Effects/VFX Thunder.jpg" id="2_hky3a"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_y8asw"]
+shader = ExtResource("1_2is5d")
+shader_parameter/VanishingValue = 0.0
+shader_parameter/Speed = Vector2(-2, 0)
+shader_parameter/basic_texture = ExtResource("2_hky3a")
+
+[node name="Bolt" type="Line2D"]
+material = SubResource("ShaderMaterial_y8asw")
+position = Vector2(-325.197, -136)
+points = PackedVector2Array(325.714, 135)
+width = 150.0
+default_color = Color(0, 1.00784, 1.8, 1)
+texture_mode = 2
