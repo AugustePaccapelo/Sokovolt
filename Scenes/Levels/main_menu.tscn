@@ -9,6 +9,7 @@ script = ExtResource("1_3kguo")
 startButton = NodePath("Button")
 
 [node name="Panel" type="Panel" parent="."]
+visible = false
 layout_mode = 1
 offset_right = 1154.0
 offset_bottom = 662.0

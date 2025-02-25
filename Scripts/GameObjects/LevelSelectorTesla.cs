@@ -14,7 +14,6 @@ namespace Com.IsartDigital.SokoVolt.GameObjects {
 		[Export] public Button levelButton;
 
         public LevelSelectorTesla nextTesla;
-		public bool isConnected = false;
 		public bool levelUnlocked = false;
 		public int level;
         private static bool isPressed = false;
@@ -64,7 +63,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects {
         public void UnlockLevel()
         {
             levelButton.Disabled = false;
-            electricBolt.animationPlayer.Play("start_animation");
+            if(level != LevelSelector.GetInstance().teslaList.Count - 1)electricBolt.animationPlayer.Play("start_animation");
             padLock.Open();
             levelUnlocked = true;
         }
@@ -79,8 +78,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects {
 
         public override void _Process(double delta)
         {
-			isConnected = (levelUnlocked == true) ? true : false;
-            impactEffect.Visible = (isConnected == true && level != 0) ? true : false;
+            impactEffect.Visible = (levelUnlocked == true && level != 0) ? true : false;
         }
     }
 }

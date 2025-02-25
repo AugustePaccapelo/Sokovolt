@@ -14,7 +14,7 @@ namespace Com.IsartDigital.SokoVolt
         [Export] public Button buttonUnlockAll;
         [Export] private CompressedTexture2D texture;
         [Export] private PackedScene teslaScene;
-        private List<LevelSelectorTesla> teslaList = new List<LevelSelectorTesla>();
+        public List<LevelSelectorTesla> teslaList = new List<LevelSelectorTesla>();
         private int levelNumb = 0;
         private int levelNumbMax = 5;
         private const string LEVEL_PREFIXE = "Level : ";
