@@ -51,7 +51,7 @@ position = Vector2(-326.937, 75.3153)
 [node name="ParticlesGroup" parent="." instance=ExtResource("5_yysv7")]
 position = Vector2(333.783, 77.027)
 
-[node name="Padlock" type="Node2D" parent="." node_paths=PackedStringArray("topLock", "botLock", "tesla", "light", "topLight", "electricLight1", "electricLight2", "electricLight3")]
+[node name="Padlock" type="Node2D" parent="." node_paths=PackedStringArray("topLock", "botLock", "tesla", "light", "topLight", "listLock", "listLight")]
 modulate = Color(3, 3, 3, 1)
 position = Vector2(0, 302.973)
 scale = Vector2(0.503503, 0.503503)
@@ -61,9 +61,8 @@ botLock = NodePath("PadlockBottom")
 tesla = NodePath("..")
 light = NodePath("../LevelLight")
 topLight = NodePath("../ElectricLight/TopLight")
-electricLight1 = NodePath("../ElectricLight/StageLight1")
-electricLight2 = NodePath("../ElectricLight/StageLight2")
-electricLight3 = NodePath("../ElectricLight/StageLight3")
+listLock = [NodePath("PadlockTop"), NodePath("PadlockBottom")]
+listLight = [NodePath("../ElectricLight/StageLight1"), NodePath("../ElectricLight/StageLight2"), NodePath("../ElectricLight/StageLight3"), NodePath("../LevelLight")]
 
 [node name="PadlockTop" type="Sprite2D" parent="Padlock"]
 self_modulate = Color(0.625207, 0.107052, 0.0971844, 1)
