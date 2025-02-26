@@ -109,6 +109,8 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables {
                             if (lTesla.energize is true)
                             {
                                 LineConnection(GOToScan);
+                                energize = true;
+                                boxTeslasList.Add(this);
                                 GD.Print("Tesla");
                                 return;
                             }
@@ -122,6 +124,8 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables {
                         {
                             GD.Print("Generator");
                             LineConnection(GOToScan);
+                            energize = true;
+                            boxTeslasList.Add(this);
                             return;
                         }
                         else if (GOToScan is GoalBulb)
@@ -150,21 +154,17 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables {
 
             private void LineConnection(GameObject objToConnect)
             {
-                GD.Print("dro");
-                electriLine2D.AddPoint(ToLocal(objToConnect.GlobalPosition));
+
+                LineDeconnection();
+                electriLine2D.AddPoint(ToLocal(objToConnect.GlobalPosition),1);
                 electriLine2D.Visible = true;
             }
 
             private void LineDeconnection()
             {
-                electriLine2D.ClearPoints();
-
+                electriLine2D.RemovePoint(1);
             }
-           
-
-
-
-
+            
             protected override void Dispose(bool pDisposing)
             {
 
