@@ -1,15 +1,15 @@
 [gd_scene load_steps=20 format=3 uid="uid://durins5kr70i5"]
 
 [ext_resource type="Script" path="res://Scripts/GameObjects/LevelSelectorBolt.cs" id="1_poe8b"]
-[ext_resource type="Shader" uid="uid://bum2gqlmpu2kv" path="res://Assets/Shaders/ElectricBoltShader.tres" id="1_y2hts"]
-[ext_resource type="Texture2D" uid="uid://c66l3g8bbn3hb" path="res://Assets/Shaders/Effects/VFX Thunder.jpg" id="2_wq4ii"]
+[ext_resource type="Shader" uid="uid://bum2gqlmpu2kv" path="res://Assets/Shaders/ElectricBoltShader.tres" id="2_8k7yt"]
+[ext_resource type="Texture2D" uid="uid://c66l3g8bbn3hb" path="res://Assets/Shaders/Effects/VFX Thunder.jpg" id="3_c3sln"]
 [ext_resource type="Texture2D" uid="uid://c767fcajnj2yi" path="res://Assets/Shaders/Effects/Glow.png" id="3_shtsl"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_y8asw"]
-shader = ExtResource("1_y2hts")
+shader = ExtResource("2_8k7yt")
 shader_parameter/VanishingValue = 0.0
 shader_parameter/Speed = Vector2(-2, 0)
-shader_parameter/basic_texture = ExtResource("2_wq4ii")
+shader_parameter/basic_texture = ExtResource("3_c3sln")
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_r36vq"]
 blend_mode = 1
@@ -27,7 +27,7 @@ point_count = 2
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_6hh5n"]
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_a3vvu"]
 curve_x = SubResource("Curve_w41vn")
 curve_y = SubResource("Curve_1kdmu")
 curve_z = SubResource("Curve_vx6to")
@@ -47,7 +47,7 @@ radial_velocity_max = 700.0
 gravity = Vector3(0, 98, 0)
 scale_min = 0.01
 scale_max = 0.05
-scale_curve = SubResource("CurveXYZTexture_6hh5n")
+scale_curve = SubResource("CurveXYZTexture_a3vvu")
 color = Color(0.5, 1.3, 2.2, 1)
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_hklq1"]
@@ -58,7 +58,7 @@ light_mode = 1
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.292683, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 3
 
-[sub_resource type="CurveTexture" id="CurveTexture_wll2f"]
+[sub_resource type="CurveTexture" id="CurveTexture_euagi"]
 curve = SubResource("Curve_1w2lf")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_v8vr1"]
@@ -66,7 +66,7 @@ particle_flag_disable_z = true
 gravity = Vector3(0, 0, 0)
 scale_min = 0.08
 scale_max = 0.3
-scale_curve = SubResource("CurveTexture_wll2f")
+scale_curve = SubResource("CurveTexture_euagi")
 color = Color(0.5, 1, 1.2, 1)
 
 [sub_resource type="Animation" id="Animation_73oql"]
@@ -253,20 +253,20 @@ _data = {
 "start_animation": SubResource("Animation_gd07k")
 }
 
-[node name="ParticlesGroup" type="Node2D" node_paths=PackedStringArray("animationPlayer", "bolt", "sparks", "flare", "light")]
+[node name="ParticlesGroup" type="Node2D" node_paths=PackedStringArray("animationPlayer", "sparks", "flare", "bolt", "light")]
 scale = Vector2(0.993244, 1)
 script = ExtResource("1_poe8b")
 animationPlayer = NodePath("AnimationPlayer")
-bolt = NodePath("Bolt")
 sparks = NodePath("ImpactEffect/Sparks")
 flare = NodePath("ImpactEffect/Flare")
+bolt = NodePath("Bolt")
 light = NodePath("ImpactEffect/PointLight2D")
 
 [node name="Bolt" type="Line2D" parent="."]
 material = SubResource("ShaderMaterial_y8asw")
-position = Vector2(-325.197, -136)
-points = PackedVector2Array(325.714, 135)
-width = 150.0
+position = Vector2(-399.7, -225)
+points = PackedVector2Array(315.556, 223.333, 343.333, 136.667, 241.111, 125.556, 268.889, 72.2222, 334.444, 26.6667, 348.889, 24.4445, 325.556, 2.22222, 264.444, -5.55556, 311.111, -36.6667, 275.556, -85.5556, 321.111, -124.444, 350, -65.5556, 405.556, -102.222, 383.333, -46.6667, 422.222, -37.7778, 378.889, -22.2222, 411.111, 11.1111, 365.556, -4.44444, 355.556, 24.4445, 375.556, 26.6667, 432.222, 73.3333, 452.222, 127.778, 356.667, 137.778, 387.778, 223.333)
+width = 50.0
 default_color = Color(0, 1.00784, 1.8, 1)
 texture_mode = 2
 
@@ -295,7 +295,6 @@ position = Vector2(0, -1)
 color = Color(0.231373, 1, 1, 1)
 energy = 3.0
 texture = ExtResource("3_shtsl")
-texture_scale = 0.5
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

@@ -14,7 +14,7 @@ namespace Com.IsartDigital.SokoVolt
         [Export] public Button buttonUnlockAll;
         [Export] private CompressedTexture2D texture;
         [Export] private PackedScene teslaScene;
-        private List<LevelSelectorTesla> teslaList = new List<LevelSelectorTesla>();
+        public List<LevelSelectorTesla> teslaList = new List<LevelSelectorTesla>();
         private int levelNumb = 0;
         private int levelNumbMax = 5;
         private const string LEVEL_PREFIXE = "Level : ";
@@ -22,6 +22,7 @@ namespace Com.IsartDigital.SokoVolt
         private Vector2 buttonSize = new Vector2(60, 40);
         private Vector2 teslaSize = new Vector2(855, 1071);
         private int teslaPosY = 339;
+        private int newTeslaPointPosY = 223;
         private bool alreadyPress = false;
         private Vector2 screenSize;
 
@@ -64,19 +65,29 @@ namespace Com.IsartDigital.SokoVolt
                 teslaList.Add(lTesla);
             }
 
-            for (int i = 0; i < teslaList.Count; i++)
+            for (int i = 0; i < teslaList.Count -1; i++)
             {
-                teslaList[i].electricBolt.bolt.AddPoint(new Vector2(screenSize.X + 80 + teslaSize.X/2, 135));
+                teslaList[i].electricBolt.bolt.AddPoint(new Vector2(screenSize.X + teslaSize.X/2, newTeslaPointPosY));
                 if (i != 5) teslaList[i].nextTesla = teslaList[i + 1];
                 else teslaList[i].nextTesla = null;
             }
 
             buttonRight.Pressed += () => SwitchLevel(1);
             buttonLeft.Pressed += () => SwitchLevel(-1);
-            buttonUnlockAll.Pressed += () => EmitSignal(nameof(UnlockAllLevel));
+            buttonUnlockAll.Pressed += UnlockAll;
 
             buttonLeft.GlobalPosition = new Vector2(0 + MARGIN, screenSize.Y / 2);
             buttonRight.GlobalPosition = new Vector2(screenSize.X - MARGIN - buttonSize.X, screenSize.Y / 2);
+        }
+
+        private void UnlockAll()
+        {
+            if (!alreadyPress)
+            {
+                alreadyPress = true;
+                EmitSignal(nameof(UnlockAllLevel));
+                GetTree().CreateTimer(1f).Timeout += () => alreadyPress = false;
+            }
         }
 
         private void SwitchLevel(int pDirection)
@@ -90,7 +101,7 @@ namespace Com.IsartDigital.SokoVolt
                 {
                     Vector2 lNewPos = new Vector2((i - levelNumb) * screenSize.X + screenSize.X / 2, teslaPosY);
                     Tween lTween = CreateTween();
-                    lTween.TweenProperty(teslaList[i], "position", lNewPos, 0.5f).SetEase(Tween.EaseType.InOut).SetTrans(Tween.TransitionType.Elastic);
+                    lTween.TweenProperty(teslaList[i], "position", lNewPos, 0.5f).SetEase(Tween.EaseType.Out).SetTrans(Tween.TransitionType.Back);
                 }
 
                 GetTree().CreateTimer(0.5f).Timeout += () => alreadyPress = false;
@@ -103,7 +114,10 @@ namespace Com.IsartDigital.SokoVolt
             AddChild(lTesla);
             lTesla.Position = pPos;
             lTesla.level = pIndex;
-            if(lTesla.level == 0) lTesla.UnlockLevel();
+            if (lTesla.level == 0)
+            {
+                lTesla.UnlockLevel();
+            }
 
 
             Label lLabel = lTesla.GetNode<Label>("Label");
