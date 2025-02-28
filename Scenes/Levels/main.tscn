@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://d2u6414qoawnr" path="res://Scenes/GameObjects/Tile.tscn" id="5_8xedd"]
 [ext_resource type="PackedScene" uid="uid://yr5dy4bj5sby" path="res://Scenes/GameObjects/Player.tscn" id="6_65akx"]
 [ext_resource type="PackedScene" uid="uid://bsl0bvhb270nq" path="res://Scenes/Screen/title_card.tscn" id="6_kcr3l"]
+[ext_resource type="PackedScene" uid="uid://31ew226yj11n" path="res://Scenes/Screen/LoginScreen.tscn" id="6_vn404"]
 [ext_resource type="PackedScene" uid="uid://dnebalk5gppv0" path="res://Scenes/GameObjects/BoxTesla.tscn" id="7_i3dso"]
 [ext_resource type="PackedScene" uid="uid://cbrehv31qfb0r" path="res://Scenes/Managers/GameManager.tscn" id="7_vkagg"]
 [ext_resource type="PackedScene" uid="uid://0lujf2t1gugn" path="res://Scenes/GameObjects/Wall.tscn" id="8_najj4"]
@@ -32,7 +33,16 @@ script = ExtResource("3_3tpao")
 
 [node name="UIManager" parent="Managers" instance=ExtResource("1_4603a")]
 
+[node name="LoginScreen" parent="Managers/UIManager" instance=ExtResource("6_vn404")]
+custom_minimum_size = Vector2(1152, 648)
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+grow_horizontal = 1
+grow_vertical = 1
+
 [node name="MainMenu" parent="Managers/UIManager" instance=ExtResource("5_0gm45")]
+visible = false
 
 [node name="LevelManager" parent="Managers/UIManager" instance=ExtResource("2_g28jy")]
 
