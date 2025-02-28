@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scripts/Controls/LoginScreen.cs" id="1_skjs4"]
 
-[node name="LoginScreen" type="Control"]
+[node name="LoginScreen" type="Control" node_paths=PackedStringArray("loginNode", "inputLoginUsername", "inputLoginPassword", "buttonLoginConfirm", "buttonLoginGoCreate", "createNode", "inputCreateUsername", "inputCreatePassword", "inputCreateConfirmPassword", "buttonCreateConfirm", "buttonCreateGoLogin")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -10,6 +10,17 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_skjs4")
+loginNode = NodePath("Login")
+inputLoginUsername = NodePath("Login/VBoxContainer/InputUsername")
+inputLoginPassword = NodePath("Login/VBoxContainer/InputPassword")
+buttonLoginConfirm = NodePath("Login/VBoxContainer/ButtonLogin")
+buttonLoginGoCreate = NodePath("Login/VBoxContainer/ButtonCreateAccount")
+createNode = NodePath("Create")
+inputCreateUsername = NodePath("Create/VBoxContainer/InputUsername")
+inputCreatePassword = NodePath("Create/VBoxContainer/InputPassword")
+inputCreateConfirmPassword = NodePath("Create/VBoxContainer/InputPassword2")
+buttonCreateConfirm = NodePath("Create/VBoxContainer/ButtonLogin")
+buttonCreateGoLogin = NodePath("Create/VBoxContainer/ButtonCreateAccount")
 
 [node name="Login" type="Control" parent="."]
 layout_mode = 1
@@ -71,3 +82,74 @@ text = "Login"
 [node name="ButtonCreateAccount" type="Button" parent="Login/VBoxContainer"]
 layout_mode = 2
 text = "Create an Acccount"
+
+[node name="Create" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LabelLogin" type="Label" parent="Create"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -21.0
+offset_right = 21.0
+offset_bottom = 23.0
+grow_horizontal = 2
+text = "
+
+Create an Account"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Create"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LabelUsername" type="Label" parent="Create/VBoxContainer"]
+layout_mode = 2
+text = "Username:"
+
+[node name="InputUsername" type="TextEdit" parent="Create/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+placeholder_text = "MyUsername"
+
+[node name="LabelPassword" type="Label" parent="Create/VBoxContainer"]
+layout_mode = 2
+text = "Password:"
+
+[node name="InputPassword" type="TextEdit" parent="Create/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+placeholder_text = "MyPassword"
+
+[node name="LabelPassword2" type="Label" parent="Create/VBoxContainer"]
+layout_mode = 2
+text = "Confirm your Password:"
+
+[node name="InputPassword2" type="TextEdit" parent="Create/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+placeholder_text = "MyPassword"
+
+[node name="ButtonLogin" type="Button" parent="Create/VBoxContainer"]
+layout_mode = 2
+text = "Create account"
+
+[node name="ButtonCreateAccount" type="Button" parent="Create/VBoxContainer"]
+layout_mode = 2
+text = "Login"
