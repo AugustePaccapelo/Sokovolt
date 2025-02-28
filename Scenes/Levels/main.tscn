@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://dkbx646vvyaig"]
+[gd_scene load_steps=19 format=3 uid="uid://dkbx646vvyaig"]
 
 [ext_resource type="PackedScene" uid="uid://dyk47lo67a1tp" path="res://Scenes/Managers/ui_manager.tscn" id="1_4603a"]
 [ext_resource type="PackedScene" uid="uid://bnv0kco0ylr0e" path="res://Scenes/Managers/GridManager.tscn" id="1_d671q"]
@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://d2jvky1qy0gg" path="res://Scenes/GameObjects/GoalBulb.tscn" id="10_cjqye"]
 [ext_resource type="PackedScene" uid="uid://c8dyeykp6x8yf" path="res://Scenes/GameObjects/Generator.tscn" id="11_lsk15"]
 [ext_resource type="PackedScene" uid="uid://b2wx1538laoqc" path="res://Scenes/GameObjects/Door.tscn" id="12_pyytn"]
+[ext_resource type="PackedScene" uid="uid://br3qeg3kaqfqk" path="res://Scenes/user_gestion.tscn" id="17_3ylmq"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_eqk5y"]
 font_size = 32
@@ -59,8 +60,9 @@ generatorScene = ExtResource("11_lsk15")
 doorScene = ExtResource("12_pyytn")
 objectsContainer = NodePath("../../Containers/ObjectsContainer")
 
-[node name="GameManager" parent="Managers" node_paths=PackedStringArray("objectsContainer") instance=ExtResource("7_vkagg")]
-objectsContainer = NodePath("../../Containers/ObjectsContainer")
+[node name="GameManager" parent="Managers" instance=ExtResource("7_vkagg")]
+
+[node name="UserGestion" parent="Managers" instance=ExtResource("17_3ylmq")]
 
 [node name="Containers" type="Node2D" parent="."]
 

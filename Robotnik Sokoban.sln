@@ -1,6 +1,6 @@
 ﻿Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Robotnik Sokoban", "Robotnik Sokoban.csproj", "{6146C305-ED7E-4881-B622-33A0C7F9FD3D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Robotnik Sokoban", "Robotnik Sokoban.csproj", "{E9352820-8D40-4C7A-8B2B-13DC9FDFE0C4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,11 +9,11 @@ Global
 	ExportRelease|Any CPU = ExportRelease|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{6146C305-ED7E-4881-B622-33A0C7F9FD3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6146C305-ED7E-4881-B622-33A0C7F9FD3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6146C305-ED7E-4881-B622-33A0C7F9FD3D}.ExportDebug|Any CPU.ActiveCfg = ExportDebug|Any CPU
-		{6146C305-ED7E-4881-B622-33A0C7F9FD3D}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
-		{6146C305-ED7E-4881-B622-33A0C7F9FD3D}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
-		{6146C305-ED7E-4881-B622-33A0C7F9FD3D}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
+		{E9352820-8D40-4C7A-8B2B-13DC9FDFE0C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E9352820-8D40-4C7A-8B2B-13DC9FDFE0C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E9352820-8D40-4C7A-8B2B-13DC9FDFE0C4}.ExportDebug|Any CPU.ActiveCfg = ExportDebug|Any CPU
+		{E9352820-8D40-4C7A-8B2B-13DC9FDFE0C4}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
+		{E9352820-8D40-4C7A-8B2B-13DC9FDFE0C4}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
+		{E9352820-8D40-4C7A-8B2B-13DC9FDFE0C4}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
 	EndGlobalSection
 EndGlobal
