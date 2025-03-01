@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 // Author : A. Dylan Montenegro Utrela
 
@@ -38,16 +39,30 @@ namespace Com.IsartDigital.SokoVolt.Managers
 			base._Ready();
 		}
 
-        public override void _Process(double pDelta)
+        public override void _Input(InputEvent @event)
 		{
-			float lDelta = (float)pDelta;
-            if (Input.IsActionJustPressed("ui_right")) EmitSignal(SignalName.Move, new Vector2(1, 0));
-            if (Input.IsActionJustPressed("ui_left")) EmitSignal(SignalName.Move, new Vector2(-1, 0));
-            if (Input.IsActionJustPressed("ui_down")) EmitSignal(SignalName.Move, new Vector2(0, 1));
-            if (Input.IsActionJustPressed("ui_up")) EmitSignal(SignalName.Move, new Vector2(0, -1));
-        }
+			if (@event is InputEventKey eventKey && eventKey.Pressed)
+			{
+				var lInputMap = new Dictionary<string, Vector2>
+				{
+					{"ui_right", Vector2.Right},
+					{"ui_left", Vector2.Left},
+					{"ui_down", Vector2.Down},
+					{"ui_up", Vector2.Up}
+				};
 
-		protected override void Dispose(bool pDisposing)
+				foreach (var pInput in lInputMap)
+				{
+					if(Input.IsActionJustPressed(pInput.Key))
+					{
+                        EmitSignal(SignalName.Move, pInput.Value);
+						break;
+                    }
+				}
+            }
+		}
+
+        protected override void Dispose(bool pDisposing)
 		{
 			instance = null;
 			base.Dispose(pDisposing);
