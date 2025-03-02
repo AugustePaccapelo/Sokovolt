@@ -1,3 +1,4 @@
+using Com.IsartDigital.ProjectName;
 using Com.IsartDigital.SokoVolt.Managers;
 using Godot;
 using System;
@@ -40,14 +41,10 @@ namespace Com.IsartDigital.SokoVolt
 		[Export] private Button buttonCreateGoLogin;
 
 		private UIManager uiManager;
+		private UserGestion userGestion;
 
         // ----- Others ----- \\
         [Signal] public delegate void StartGameEventHandler();
-
-        private const string USERNAME_KEY = "Username";
-		private const string PASSWORD_KEY = "Password";
-
-		private Dictionary<string, string> loginInfo = new Dictionary<string, string>();
 
         // ---------- FUNCTIONS ---------- \\
 
@@ -76,10 +73,9 @@ namespace Com.IsartDigital.SokoVolt
 
             StartGame += uiManager.GameStart;
 
-            loginInfo.Add(USERNAME_KEY, "");
-			loginInfo.Add(PASSWORD_KEY, "");
+            userGestion = UserGestion.GetInstance();
 
-			buttonLoginGoCreate.Pressed += ButtonChangeToCreate;
+            buttonLoginGoCreate.Pressed += ButtonChangeToCreate;
 			buttonCreateGoLogin.Pressed += ButtonChangeToLogin;
             buttonLoginConfirm.Pressed += ButtonPressedLogin;
 			buttonCreateConfirm.Pressed += ButtonPressedCreate;
@@ -96,28 +92,40 @@ namespace Com.IsartDigital.SokoVolt
 
 		private void ButtonPressedLogin()
 		{
-			loginInfo[USERNAME_KEY] = inputLoginUsername.Text;
-			loginInfo[PASSWORD_KEY] = inputLoginPassword.Text;
-			GD.Print("Trying to login with: ", loginInfo[USERNAME_KEY], " and ", loginInfo[PASSWORD_KEY]);
-			EmitSignal(SignalName.StartGame);
-			QueueFree();
+			string lUsername = inputLoginUsername.Text;
+			string lPassword = inputLoginPassword.Text;
+
+			if (userGestion.LoginUser(lUsername, lPassword))
+			{
+				GD.Print("Login successful");
+                EmitSignal(SignalName.StartGame);
+                QueueFree();
+            }
+
+            else GD.Print("Invalid username or password");
 		}
 
 		private void ButtonPressedCreate()
 		{
-			string lPassword = inputCreatePassword.Text;
+			string lUsername = inputCreateUsername.Text;
+            string lPassword = inputCreatePassword.Text;
 			string lPasswordConfirm = inputCreateConfirmPassword.Text;
+
 			if (lPassword != lPasswordConfirm)
 			{
-				GD.Print("Not same password !");
+				GD.Print("Passwords do not match!");
 				return;
 			}
 
-			loginInfo[USERNAME_KEY] = inputCreateUsername.Text;
-            loginInfo[PASSWORD_KEY] = inputCreatePassword.Text;
-			GD.Print("creating account with: ", loginInfo[USERNAME_KEY], " and ", loginInfo[PASSWORD_KEY]);
-            EmitSignal(SignalName.StartGame);
-			QueueFree();
+			if (userGestion.RegisterUser(lUsername, lPassword))
+			{
+				GD.Print("Account successfully created");
+				ButtonChangeToLogin();
+			}
+			else GD.Print("Username already taken!");
+
+   //         EmitSignal(SignalName.StartGame);
+			//QueueFree(); ask Auguste about this
         }
 
 		private void ButtonChangeToLogin()
