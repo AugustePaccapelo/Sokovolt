@@ -51,7 +51,6 @@ namespace Com.IsartDigital.SokoVolt.Managers
 			MainMenu.GetInstance().QueueFree();
 			levelSelector = levelSelectorScene.Instantiate() as LevelSelector;
 			AddChild(levelSelector);
-			hud.mainMenuButton.Show();
 		}
 
 		private void BackToMainMenu()
@@ -59,7 +58,6 @@ namespace Com.IsartDigital.SokoVolt.Managers
 			LevelSelector.GetInstance().QueueFree();
 			mainMenu = mainMenuScene.Instantiate() as MainMenu;
 			AddChild(mainMenu);
-			hud.mainMenuButton.Hide();
 		}
 
 		protected override void Dispose(bool pDisposing)
