@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://dyr30pkkewie" path="res://Assets/UI/MainMenu/LevelScreen.png" id="2_u4r7s"]
 [ext_resource type="PackedScene" uid="uid://c46bqjn4wfblh" path="res://Scenes/GameObjects/LevelSelectorObject/LevelSelectorTesla.tscn" id="3_31hu0"]
 [ext_resource type="Script" path="res://Scripts/GameObjects/ButtonTemplate.cs" id="4_tfihn"]
-[ext_resource type="PackedScene" path="res://Scenes/GameObjects/ButtonTemplate.tscn" id="4_yj50a"]
+[ext_resource type="PackedScene" uid="uid://36dp5dq6hmqq" path="res://Scenes/GameObjects/ButtonTemplate.tscn" id="4_yj50a"]
 
 [node name="LevelSelector" type="Control" node_paths=PackedStringArray("buttonRight", "buttonLeft", "buttonUnlockAll")]
 layout_mode = 3
