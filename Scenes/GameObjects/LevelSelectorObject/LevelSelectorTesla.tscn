@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://yvrywq2jtxvd" path="res://Assets/UI/MainMenu/LevelSelectorBobine.png" id="1_mj4sl"]
 [ext_resource type="Script" path="res://Scripts/GameObjects/LevelSelectorTesla.cs" id="2_5t3fx"]
 [ext_resource type="Texture2D" uid="uid://dyr30pkkewie" path="res://Assets/UI/MainMenu/LevelScreen.png" id="3_vqwhd"]
-[ext_resource type="PackedScene" uid="uid://dylv88figecre" path="res://Scenes/GameObjects/ButtonTemplate.tscn" id="3_yb2p4"]
+[ext_resource type="PackedScene" path="res://Scenes/GameObjects/ButtonTemplate.tscn" id="3_yb2p4"]
 [ext_resource type="PackedScene" uid="uid://b2rk4oonvfvn5" path="res://Scenes/GameObjects/LevelSelectorObject/impact_effect.tscn" id="4_nlo82"]
 [ext_resource type="PackedScene" uid="uid://durins5kr70i5" path="res://Scenes/GameObjects/LevelSelectorObject/LevelSelectorBolt.tscn" id="5_yysv7"]
 [ext_resource type="Script" path="res://Scripts/GameObjects/Padlock.cs" id="6_lj2er"]
