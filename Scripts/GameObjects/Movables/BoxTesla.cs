@@ -13,6 +13,8 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
 
     public partial class BoxTesla : Movable
     {
+        [Signal] public delegate void PlayerCollideEventHandler(BoxTesla lTesla);
+        RayCast2D rayCast;
         static List<BoxTesla> boxTeslasList = new List<BoxTesla>();
         [Export] private Line2D electriLine2D;
         public BoxTesla nextBoxTesla = null;
@@ -32,6 +34,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
         };
 
         private int length;
+        private bool signalEmit = false;
         Vector2 LastPos = Vector2.Zero;
 
         //Range tesla gestion 
@@ -50,7 +53,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
             float lDelta = (float)pDelta;
             base._Process(pDelta);
 
-
+            RayCastDetector();
         }
 
         private void Init()
@@ -91,6 +94,16 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
             }
         }
 
+        private RayCast2D CreateRayCast(Vector2 pPos, Vector2 pTargetPos)
+        {
+            RayCast2D lRay = new RayCast2D();
+            AddChild(lRay);
+            PlayerCollide += Player.GetInstance().InsideTesla;
+            lRay.Position = pPos;
+            lRay.TargetPosition = pTargetPos;
+            lRay.CollideWithAreas = true;
+            return lRay;
+        }
 
         public void ConnectionSearch()
         {
@@ -155,6 +168,20 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
             LineDeconnection();
             energize = false;
             nextBoxTesla = null;
+        }
+        private void RayCastDetector()
+        {
+            if (rayCast != null && !signalEmit && rayCast.IsColliding())
+            {
+                GodotObject lArea = rayCast.GetCollider();
+                if (IsInstanceValid(lArea))
+                {
+                    EmitSignal(nameof(PlayerCollide), this);
+                    GD.Print("Emit signal");
+                    signalEmit = true;
+                }
+            }
+            if (rayCast != null && !rayCast.IsColliding()) signalEmit = false;
         }
 
         private void LineConnection(GameObject objToConnect)

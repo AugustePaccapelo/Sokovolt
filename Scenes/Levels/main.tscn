@@ -12,7 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://31ew226yj11n" path="res://Scenes/Screen/LoginScreen.tscn" id="6_vn404"]
 [ext_resource type="PackedScene" uid="uid://dnebalk5gppv0" path="res://Scenes/GameObjects/BoxTesla.tscn" id="7_i3dso"]
 [ext_resource type="PackedScene" uid="uid://csiqphobxyguh" path="res://Scenes/UI/HUD.tscn" id="7_js22e"]
-[ext_resource type="PackedScene" uid="uid://cbrehv31qfb0r" path="res://Scenes/Managers/GameManager.tscn" id="7_vkagg"]
+[ext_resource type="PackedScene" path="res://Scenes/Managers/GameManager.tscn" id="7_vkagg"]
 [ext_resource type="PackedScene" uid="uid://0lujf2t1gugn" path="res://Scenes/GameObjects/Wall.tscn" id="8_najj4"]
 [ext_resource type="PackedScene" uid="uid://cncewljhx47s3" path="res://Scenes/GameObjects/ElectricWall.tscn" id="9_34m77"]
 [ext_resource type="PackedScene" uid="uid://d2jvky1qy0gg" path="res://Scenes/GameObjects/GoalBulb.tscn" id="10_cjqye"]

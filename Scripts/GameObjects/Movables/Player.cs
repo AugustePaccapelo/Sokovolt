@@ -38,7 +38,12 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables {
 		public override void _Process(double pDelta)
 		{
 			base._Process(pDelta); 
-		}	
+		}
+
+        public void InsideTesla(BoxTesla pTesla)
+		{
+			GD.Print(pTesla.Name + " emit");
+		}
 
         public override void MoveTo(int pX, int pY, Cell[,] pGrid)
         {
