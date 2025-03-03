@@ -152,7 +152,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables {
             }
 
             private void LineConnection(GameObject objToConnect)
-            {
+            { 
                 int lPointCount = electriLine2D.GetPointCount();
                 if (electriLine2D.GetPointCount()>=1)LineDeconnection();
                 GD.Print(electriLine2D.GetPointCount());
