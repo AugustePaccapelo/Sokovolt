@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://dylv88figecre"]
+[gd_scene load_steps=2 format=3 uid="uid://36dp5dq6hmqq"]
 
 [ext_resource type="Script" path="res://Scripts/GameObjects/ButtonTemplate.cs" id="1_ka7j5"]
 

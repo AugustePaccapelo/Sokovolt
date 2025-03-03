@@ -72,7 +72,13 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
 
 		private void PlayerHasMoved()
 		{
-			if (isOpen && curentCell.GetContent() is Player) GD.Print("Player has exited!");
+			if (isOpen && curentCell.GetContent() is Player)
+			{
+				GD.Print("Player has exited!");
+				HUD.GetInstance().GameFinished();
+				/*HUD lHud = HUD.GetInstance();
+				lHud.EmitSignal(HUD.SignalName.MainMenuButton);*/
+			}
 		}
 
 		public void Open()

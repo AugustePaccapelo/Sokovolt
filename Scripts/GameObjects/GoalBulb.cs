@@ -112,7 +112,8 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
 
 					GameObject lContent = pGrid[x + i, y + j].GetContent();
 
-					if (lContent is BoxTesla lBoxTesla) return true;
+					if (lContent is BoxTesla lBoxTesla)
+						if (lBoxTesla.energize) return true;
                 }
             }
 

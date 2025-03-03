@@ -55,7 +55,7 @@ namespace Com.IsartDigital.ProjectName
 		private static string PasswordHashing(string pPassword) // to encrypt the password ==== pour Auguste
 		{
 			using (SHA256 pSha256 = SHA256.Create()) ; // to use
-
+			return "tkt";
 		}
 
 		//private void SaveTextToFile() // to finish

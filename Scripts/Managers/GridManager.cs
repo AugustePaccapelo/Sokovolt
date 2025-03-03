@@ -3,6 +3,8 @@ using System;
 using Com.IsartDigital.SokoVolt.GameObjects;
 using Com.IsartDigital.SokoVolt.GameObjects.Movables;
 using System.Collections.Generic;
+using Com.IsartDigital.ProjectName;
+using System.Data;
 
 //Author : Ferlat Thibaud 
 namespace Com.IsartDigital.SokoVolt.Managers {
@@ -29,11 +31,11 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 
 		//Step Counter 
 		private const string STEP_LABEL_PREFIXE = "STEP : "; 
-		[Export] private Label stepLabel; 
 		private int step = 0; 
 
 		//Ref 
 		private GameManager gameManager;
+		private HUD hud; 
 
 
 		public override void _Ready()
@@ -55,15 +57,27 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 			if(Input.IsActionJustPressed("Undo")) SetGridState(actualGridStateIndex - 1); //=================> Undo to put in InputManager
 			else
 			if(Input.IsActionJustPressed("Redo")) SetGridState(actualGridStateIndex + 1); //=================> Redo	to put in InputManager
+
+			if(Input.IsActionJustPressed("Retry")) Retry(); 
+
         }
 
         public override void Init()
         {
             base.Init();
-			LevelManager.GetInstance().LoadLevel  += LoadNewLevel;
-            InputManager.GetInstance().Move += OnMovePlayer;
+			hud = HUD.GetInstance();
 			gameManager = GameManager.GetInstance();
+
+			SignalsConnetion();
         }
+
+		private void  SignalsConnetion()
+		{
+			LevelManager.GetInstance().LoadLevel  += LoadNewLevel;
+			InputManager.GetInstance().Move += OnMovePlayer;
+			hud.UndoButton += () => SetGridState(actualGridStateIndex - 1);
+			hud.RedoButton += () => SetGridState(actualGridStateIndex + 1);
+		}
 
 
 
@@ -72,16 +86,23 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 		public void LoadNewLevel(int pLevelToLoad) // ==================> Charger un niveau avec son index (commence à 0)
 		{
 			ResetStepCounter();
+			HUD.GetInstance().Visible = true;
 			LevelLoader.GetInstance().LoadLevel(pLevelToLoad);
 			CenterGrid(); 
+
+			if (grid == null)  // Évite d'ajouter un état vide
+				return;
+
+			StockGridState();
 		}
 
 		public void SetNewLevel(Cell[,] pNewGrid)
 		{
 			grid = pNewGrid;
 			gridStates.Clear();
-			actualGridStateIndex = 0; 
+			actualGridStateIndex = 0;
 		}
+
 
 		public void ClearGrid()
 		{
@@ -113,8 +134,8 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 			gridStates.Clear();
 			actualGridStateIndex = 0;
 
-			// Rendre le stepLabel invisible
-			stepLabel.Visible = false;
+			// Rendre le HUD invisible
+			hud.Visible = false;
 
 			GD.Print("ClearGrid: Niveau supprimé !");
 		}
@@ -160,7 +181,6 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 			if (lContent == null || lContent is Door)
 			{
 				player.MoveTo(lNewX, lNewY, grid);
-				UpdateStepLabel();
 				StockGridState();
 			}
 			else if (lContent is BoxTesla lBox)
@@ -177,7 +197,6 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 				{
 					lBox.MoveTo(lNewBoxX, lNewBoxY, grid);
 					player.MoveTo(lNewX, lNewY, grid);
-					UpdateStepLabel();
 					StockGridState();
 				}
 			}
@@ -194,7 +213,7 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 
 
 
-		#region // ----- Undo/Redo ----- \\
+		#region // ----- Undo/Redo/Retry ----- \\
 		private Cell[,] CopyGrid(Cell[,] pOriginalGrid)
 		{
 			int lWidth = LevelLoader.levelWidth;
@@ -213,6 +232,7 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 					else
 					{
 						lNewGrid[x, y] = null; 
+						GD.PrintErr("grid is null !!"); 
 					}
 				}
 			}
@@ -229,6 +249,7 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 			
 			gridStates.Add(CopyGrid(grid));
 			actualGridStateIndex = gridStates.Count - 1;
+			UpdateStepLabel();
 		}
 
 
@@ -240,7 +261,7 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 			grid = CopyGrid(gridStates[pIndexState]);
 
 			actualGridStateIndex = pIndexState;
-
+			UpdateStepLabel();
 			UpdateObjectsFromGrid();
 			PrintGrid();
 		}
@@ -253,6 +274,10 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 				for (int x = 0; x < LevelLoader.levelWidth; x++)
 				{
 					Cell lCell = grid[x, y];
+
+					if (lCell == null)  // Évite le crash en cas de cellule absente
+						continue;
+
 					GameObject lContent = lCell.GetContent();
 
 					if (lContent != null && lContent is Movable lMovable)
@@ -262,6 +287,12 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 				}
 			}
 		}
+
+		private void Retry()
+		{
+			SetGridState(0); 
+		}
+
 		#endregion
 		
 
@@ -269,14 +300,13 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 		#region // ----- Step Counter ----- \\
 		private void UpdateStepLabel()
 		{
-			step++;
-			stepLabel.Text = STEP_LABEL_PREFIXE + step;
+			step = actualGridStateIndex;
+			hud.stepLabel.Text = STEP_LABEL_PREFIXE + step;
 		}
 		private void ResetStepCounter()
 		{
 			step = 0;
-			stepLabel.Visible = true;
-			stepLabel.Text = STEP_LABEL_PREFIXE + step;
+			hud.stepLabel.Text = STEP_LABEL_PREFIXE + step;
 		}
 		#endregion
 

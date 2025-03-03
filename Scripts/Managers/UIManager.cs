@@ -20,12 +20,10 @@ namespace Com.IsartDigital.SokoVolt.Managers
 		#endregion
 		[Export] PackedScene levelSelectorScene;
 		[Export] PackedScene mainMenuScene;
-		[Export] Button mainMenuButton;
 
 		private LevelSelector levelSelector;
 		private MainMenu mainMenu;
-
-		[Signal] public delegate void MainMenuButtonEventHandler();
+		private HUD hud; 
 
 		public override void _Ready()
 		{
@@ -43,10 +41,9 @@ namespace Com.IsartDigital.SokoVolt.Managers
 			base._Ready();
 
 			MainMenu.GetInstance();
+			hud = HUD.GetInstance();
 
-			mainMenuButton.Pressed += () => EmitSignal(nameof(MainMenuButton));
-
-			MainMenuButton += BackToMainMenu;
+			hud.MainMenuButton += BackToMainMenu;
 		}
 
 		public void GameStart() //Execute when StartButton is press in MainMenu
@@ -54,7 +51,6 @@ namespace Com.IsartDigital.SokoVolt.Managers
 			MainMenu.GetInstance().QueueFree();
 			levelSelector = levelSelectorScene.Instantiate() as LevelSelector;
 			AddChild(levelSelector);
-			mainMenuButton.Show();
 		}
 
 		private void BackToMainMenu()
@@ -62,7 +58,6 @@ namespace Com.IsartDigital.SokoVolt.Managers
 			LevelSelector.GetInstance().QueueFree();
 			mainMenu = mainMenuScene.Instantiate() as MainMenu;
 			AddChild(mainMenu);
-			mainMenuButton.Hide();
 		}
 
 		protected override void Dispose(bool pDisposing)

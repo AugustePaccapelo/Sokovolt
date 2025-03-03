@@ -2,8 +2,9 @@
 
 [ext_resource type="Script" path="res://Scripts/GameObjects/Movables/BoxTesla.cs" id="1_c7f4a"]
 
-[node name="BoxTesla" type="Node2D" node_paths=PackedStringArray("rangeLabel")]
+[node name="BoxTesla" type="Node2D" node_paths=PackedStringArray("electriLine2D", "rangeLabel")]
 script = ExtResource("1_c7f4a")
+electriLine2D = NodePath("Line2D")
 rangeLabel = NodePath("Label")
 
 [node name="Visual" type="Node2D" parent="."]
@@ -35,3 +36,7 @@ grow_vertical = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 horizontal_alignment = 1
+
+[node name="Line2D" type="Line2D" parent="."]
+position = Vector2(0, -1)
+points = PackedVector2Array(0, 0)
