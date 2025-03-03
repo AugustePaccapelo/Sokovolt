@@ -58,6 +58,8 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 			else
 			if(Input.IsActionJustPressed("Redo")) SetGridState(actualGridStateIndex + 1); //=================> Redo	to put in InputManager
 
+			if(Input.IsActionJustPressed("Retry")) Retry(); 
+
         }
 
         public override void Init()
@@ -211,7 +213,7 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 
 
 
-		#region // ----- Undo/Redo ----- \\
+		#region // ----- Undo/Redo/Retry ----- \\
 		private Cell[,] CopyGrid(Cell[,] pOriginalGrid)
 		{
 			int lWidth = LevelLoader.levelWidth;
@@ -284,6 +286,11 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 					}
 				}
 			}
+		}
+
+		private void Retry()
+		{
+			SetGridState(0); 
 		}
 
 		#endregion
