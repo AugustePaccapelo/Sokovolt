@@ -41,22 +41,22 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables {
             }
 
 
-        public override void _Process(double pDelta)
+            public override void _Process(double pDelta)
             {
                 float lDelta = (float)pDelta;
                 base._Process(pDelta);
                 
-                if (LastPos!=Utils.GetCellPos(this))
-                {
-                   LastPos = Utils.GetCellPos(this);
-                   ConnectionSearch();
-                }
+               
             }
 
 			private void Init()
 			{
-				CallDeferred(nameof(UpdateRangeLabel));
-               length=directionScan.Count;
+			    CallDeferred(nameof(UpdateRangeLabel));
+                length = directionScan.Count;
+                MovableHaveFinish += (Movable pSender) => 
+                {
+                    Searching(pSender);
+                };
 
             }
 
@@ -79,6 +79,15 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables {
                 CustomSignals lSignals = CustomSignals.GetInstance();
                 lSignals.EmitSignal(CustomSignals.SignalName.BoxTeslaMoved);
                 
+            }
+
+            private void Searching(Movable pMovable)
+            {
+                if (LastPos!=Utils.GetCellPos(this) && pMovable is BoxTesla)
+                {
+                   LastPos = Utils.GetCellPos(this);
+                   ConnectionSearch();
+                }
             }
 
 
