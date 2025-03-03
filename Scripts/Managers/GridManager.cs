@@ -67,7 +67,6 @@ namespace Com.IsartDigital.SokoVolt.Managers {
             base.Init();
 			hud = HUD.GetInstance();
 			gameManager = GameManager.GetInstance();
-
 			SignalsConnetion();
         }
 
@@ -174,6 +173,8 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 
 			if(OutOfGrid(lNewX, lNewY))
 				return;
+
+			Vector2 lIsoPosition = IsoManager.ModelToIsoView(new Vector2(lNewX, lNewY));
 			
 			Cell lNewCell = grid[lNewX, lNewY];
 			GameObject lContent = lNewCell.GetContent();

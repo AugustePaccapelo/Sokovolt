@@ -9,6 +9,9 @@ namespace Com.IsartDigital.SokoVolt {
 	public static class Utils 
 	{
 		public const int TILE_SIZE = 64;
+
+		public const int TILE_WIDTH = 94;
+		public const int TILE_HEIGHT = 54;
 		public static Node2D Spawner(PackedScene pScene, int pX, int pY, Node2D pParent)
 		{
 			Node2D lNode = (Node2D)pScene.Instantiate();
@@ -19,15 +22,28 @@ namespace Com.IsartDigital.SokoVolt {
 
 		public static Vector2 SetPosition(Node2D pNode, int pX, int pY, bool pAsignPos)
 		{
-			Vector2 lPos = GridManager.gridOffset + TILE_SIZE * new Vector2(pX, pY);
-			if(pAsignPos) pNode.GlobalPosition = lPos;
-			return lPos; 
+			Vector2 lModelPoint = new Vector2(pX, pY);
+			Vector2 lIsoPos = IsoManager.ModelToIsoView(lModelPoint); 
+
+			lIsoPos += GridManager.gridOffset;
+
+			if (pAsignPos)
+			{
+				pNode.GlobalPosition = lIsoPos;
+			}
+
+			return lIsoPos;
 		}
+
 
 		public static Vector2 GetCellPos(Node2D pNode)
 		{
 			Vector2 lNodePos = pNode.GlobalPosition - GridManager.gridOffset;
-			return new Vector2((int)(lNodePos.X / TILE_SIZE), (int)(lNodePos.Y / TILE_SIZE));
+
+			Vector2 lModelPos = IsoManager.IsoViewToModel(lNodePos);
+
+			return new Vector2((int)(lModelPos.X), (int)(lModelPos.Y));
 		}
+
 	}
 }

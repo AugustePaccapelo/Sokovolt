@@ -37,7 +37,8 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables {
 
 		private void UpdateZindex()
 		{
-			ZIndex = y;
+			ZIndex = IsoManager.GetZIndex(new Vector2(x, y));
+			// GD.Print(ZIndex); 
 		}
 
         public override void _Process(double pDelta)
