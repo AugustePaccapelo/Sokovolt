@@ -35,6 +35,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
 
         private int length;
         private bool signalEmit = false;
+        public bool playerCanBeDetected = true;
         Vector2 LastPos = Vector2.Zero;
 
         //Range tesla gestion 
@@ -132,7 +133,8 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
                         LineConnection(GOToScan);
                         energize = true;
                         boxTeslasList.Add(this);
-                        nextBoxTesla = lTesla;
+                        lTesla.nextBoxTesla = this;
+                        GD.Print("NextTEsla is connected");
                         return;
                     }
                     else if (GOToScan is null)
@@ -171,7 +173,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
         }
         private void RayCastDetector()
         {
-            if (rayCast != null && !signalEmit && rayCast.IsColliding())
+            if (rayCast != null && !signalEmit && rayCast.IsColliding() && playerCanBeDetected)
             {
                 GodotObject lArea = rayCast.GetCollider();
                 if (IsInstanceValid(lArea))
@@ -181,7 +183,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
                     signalEmit = true;
                 }
             }
-            if (rayCast != null && !rayCast.IsColliding()) signalEmit = false;
+            else if (rayCast != null && !rayCast.IsColliding()) signalEmit = false;
         }
 
         private void LineConnection(GameObject objToConnect)
@@ -190,11 +192,13 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
             if (electriLine2D.GetPointCount() >= 1) LineDeconnection();
             GD.Print(electriLine2D.GetPointCount());
             electriLine2D.AddPoint(ToLocal(objToConnect.GlobalPosition), 1);
+            rayCast = CreateRayCast(electriLine2D.Points[0], electriLine2D.Points[1]);
             electriLine2D.Visible = true;
         }
 
         private void LineDeconnection()
         {
+            if(rayCast != null) rayCast.QueueFree();
             electriLine2D.Visible = false;
             if (electriLine2D.GetPointCount() >= 1) electriLine2D.RemovePoint(1);
 

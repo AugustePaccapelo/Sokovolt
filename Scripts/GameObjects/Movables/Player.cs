@@ -1,3 +1,4 @@
+using Com.IsartDigital.SokoVolt.Managers;
 using Godot;
 using System;
 using System.Runtime.CompilerServices;
@@ -19,8 +20,10 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables {
 
         }
 		private Player() : base(){}
-		
+
 		#endregion
+
+		[Export] Area2D dectetor;
 
 		public override void _Ready()
 		{
@@ -42,8 +45,16 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables {
 
         public void InsideTesla(BoxTesla pTesla)
 		{
-			GD.Print(pTesla.Name + " emit");
-		}
+			if (pTesla.nextBoxTesla != null && pTesla.playerCanBeDetected)
+			{
+				GD.Print("Player TP to NExtTEsla");
+				dectetor.Monitorable = false;
+				pTesla.playerCanBeDetected = false;
+				MoveTo(pTesla.nextBoxTesla.x, pTesla.nextBoxTesla.y, GridManager.GetInstance().grid);
+				GetTree().CreateTimer(1).Timeout += () => pTesla.playerCanBeDetected = true;
+            }
+			else if (pTesla.nextBoxTesla == null) GD.Print("nextTEsla est null");
+        }
 
         public override void MoveTo(int pX, int pY, Cell[,] pGrid)
         {
