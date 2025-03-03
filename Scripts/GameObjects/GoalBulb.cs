@@ -37,13 +37,14 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
 		public override void _Ready()
 		{
 			base._Ready();
-			signals = CustomSignals.GetInstance();
+
+            signals = CustomSignals.GetInstance();
             signals.BoxTeslaMoved += BoxTeslaMoved;
 
             gameManager = GameManager.GetInstance();
 			gameManager.AddGoalBulb(this);
             gridManager = GridManager.GetInstance();
-
+			
 			BoxTeslaMoved();
         }
 
@@ -62,9 +63,9 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
 		{
             doAction = TurnedOff;
 			isTurnedOn = false;
-			onPol.Hide();
-			offPol.Show();
-			allLights.Hide();
+            onPol.Hide();
+            offPol.Show();
+            allLights.Hide();
             signals.EmitSignal(CustomSignals.SignalName.GoalBulbStateChanged);
         }
 
@@ -118,11 +119,16 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
 			return false;
 		}
 
-		// ----- Destructor ----- \\
+        // ----- Destructor ----- \\
 
-		protected override void Dispose(bool pDisposing)
-		{
-			base.Dispose(pDisposing);
-		}
-	}
+        protected override void Dispose(bool pDisposing)
+        {
+            if (pDisposing)
+            {
+                signals.BoxTeslaMoved -= BoxTeslaMoved; // Déconnecte le signal pour éviter qu'il appelle un objet supprimé
+            }
+            base.Dispose(pDisposing);
+        }
+
+    }
 }

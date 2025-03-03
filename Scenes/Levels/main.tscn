@@ -1,27 +1,24 @@
-[gd_scene load_steps=19 format=3 uid="uid://dkbx646vvyaig"]
+[gd_scene load_steps=20 format=3 uid="uid://dkbx646vvyaig"]
 
 [ext_resource type="PackedScene" uid="uid://dyk47lo67a1tp" path="res://Scenes/Managers/ui_manager.tscn" id="1_4603a"]
 [ext_resource type="PackedScene" uid="uid://bnv0kco0ylr0e" path="res://Scenes/Managers/GridManager.tscn" id="1_d671q"]
 [ext_resource type="PackedScene" uid="uid://bix7hbs5g2ia3" path="res://Scenes/Managers/level_manager.tscn" id="2_g28jy"]
 [ext_resource type="Script" path="res://Scripts/Managers/InputManager.cs" id="3_3tpao"]
-[ext_resource type="PackedScene" uid="uid://dht3qeqhib1rk" path="res://Scenes/Levels/level_selector.tscn" id="3_8r1yo"]
 [ext_resource type="Script" path="res://Scripts/Json/LevelLoader.cs" id="4_ly116"]
 [ext_resource type="PackedScene" uid="uid://bsl1nyen453ty" path="res://Scenes/Levels/main_menu.tscn" id="5_0gm45"]
 [ext_resource type="PackedScene" uid="uid://d2u6414qoawnr" path="res://Scenes/GameObjects/Tile.tscn" id="5_8xedd"]
 [ext_resource type="PackedScene" uid="uid://yr5dy4bj5sby" path="res://Scenes/GameObjects/Player.tscn" id="6_65akx"]
 [ext_resource type="PackedScene" uid="uid://bsl0bvhb270nq" path="res://Scenes/Screen/title_card.tscn" id="6_kcr3l"]
+[ext_resource type="PackedScene" uid="uid://31ew226yj11n" path="res://Scenes/Screen/LoginScreen.tscn" id="6_vn404"]
 [ext_resource type="PackedScene" uid="uid://dnebalk5gppv0" path="res://Scenes/GameObjects/BoxTesla.tscn" id="7_i3dso"]
+[ext_resource type="PackedScene" uid="uid://csiqphobxyguh" path="res://Scenes/UI/HUD.tscn" id="7_js22e"]
 [ext_resource type="PackedScene" uid="uid://cbrehv31qfb0r" path="res://Scenes/Managers/GameManager.tscn" id="7_vkagg"]
 [ext_resource type="PackedScene" uid="uid://0lujf2t1gugn" path="res://Scenes/GameObjects/Wall.tscn" id="8_najj4"]
 [ext_resource type="PackedScene" uid="uid://cncewljhx47s3" path="res://Scenes/GameObjects/ElectricWall.tscn" id="9_34m77"]
 [ext_resource type="PackedScene" uid="uid://d2jvky1qy0gg" path="res://Scenes/GameObjects/GoalBulb.tscn" id="10_cjqye"]
 [ext_resource type="PackedScene" uid="uid://c8dyeykp6x8yf" path="res://Scenes/GameObjects/Generator.tscn" id="11_lsk15"]
 [ext_resource type="PackedScene" uid="uid://b2wx1538laoqc" path="res://Scenes/GameObjects/Door.tscn" id="12_pyytn"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_eqk5y"]
-font_size = 32
-outline_size = 5
-outline_color = Color(0, 0, 0, 1)
+[ext_resource type="PackedScene" uid="uid://br3qeg3kaqfqk" path="res://Scenes/user_gestion.tscn" id="17_3ylmq"]
 
 [node name="MAIN" type="Node2D"]
 
@@ -31,23 +28,34 @@ outline_color = Color(0, 0, 0, 1)
 script = ExtResource("3_3tpao")
 
 [node name="UIManager" parent="Managers" instance=ExtResource("1_4603a")]
-levelSelectorScene = ExtResource("3_8r1yo")
+
+[node name="LoginScreen" parent="Managers/UIManager" instance=ExtResource("6_vn404")]
+custom_minimum_size = Vector2(1152, 648)
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+grow_horizontal = 1
+grow_vertical = 1
 
 [node name="MainMenu" parent="Managers/UIManager" instance=ExtResource("5_0gm45")]
+visible = false
 
-[node name="LevelManager" parent="Managers/UIManager" instance=ExtResource("2_g28jy")]
+[node name="LevelManager" parent="Managers/UIManager" node_paths=PackedStringArray("objectContainer") instance=ExtResource("2_g28jy")]
+objectContainer = NodePath("../../../Containers/ObjectsContainer")
 
 [node name="TitleCard" parent="Managers/UIManager" instance=ExtResource("6_kcr3l")]
 
-[node name="GridManager" parent="Managers" node_paths=PackedStringArray("stepLabel") instance=ExtResource("1_d671q")]
-stepLabel = NodePath("StepLabel")
-
-[node name="StepLabel" type="Label" parent="Managers/GridManager"]
+[node name="Hud" parent="Managers/UIManager" instance=ExtResource("7_js22e")]
 visible = false
-offset_right = 117.0
-offset_bottom = 45.0
-text = "STEP : 0"
-label_settings = SubResource("LabelSettings_eqk5y")
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_right = 1152.0
+offset_bottom = 648.0
+grow_horizontal = 1
+grow_vertical = 1
+
+[node name="GridManager" parent="Managers" instance=ExtResource("1_d671q")]
 
 [node name="LevelLoader" type="Node2D" parent="Managers" node_paths=PackedStringArray("objectsContainer")]
 script = ExtResource("4_ly116")
@@ -61,7 +69,10 @@ generatorScene = ExtResource("11_lsk15")
 doorScene = ExtResource("12_pyytn")
 objectsContainer = NodePath("../../Containers/ObjectsContainer")
 
-[node name="GameManager" parent="Managers" instance=ExtResource("7_vkagg")]
+[node name="GameManager" parent="Managers" node_paths=PackedStringArray("objectsContainer") instance=ExtResource("7_vkagg")]
+objectsContainer = NodePath("../../Containers/ObjectsContainer")
+
+[node name="UserGestion" parent="Managers" instance=ExtResource("17_3ylmq")]
 
 [node name="Containers" type="Node2D" parent="."]
 

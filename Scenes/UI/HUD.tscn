@@ -1,0 +1,105 @@
+[gd_scene load_steps=5 format=3 uid="uid://csiqphobxyguh"]
+
+[ext_resource type="Texture2D" uid="uid://bwo2d06o2b0ky" path="res://Assets/UI/HUD/UndoRedoArrow.png" id="1_8d4ph"]
+[ext_resource type="Script" path="res://Scripts/Controls/HUD.cs" id="1_ivlib"]
+[ext_resource type="Script" path="res://Scripts/GameObjects/ButtonTemplate.cs" id="2_hiajr"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_spsqj"]
+font_size = 32
+outline_size = 5
+outline_color = Color(0, 0, 0, 1)
+
+[node name="Hud" type="Control" node_paths=PackedStringArray("undoButton", "redoButton", "mainMenuButton", "scoreLabel", "stepLabel")]
+custom_minimum_size = Vector2(1152, 648)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ivlib")
+undoButton = NodePath("Undo")
+redoButton = NodePath("Redo")
+mainMenuButton = NodePath("MainMenu")
+scoreLabel = NodePath("ScoreLabel")
+stepLabel = NodePath("StepLabel")
+
+[node name="StepLabel" type="Label" parent="."]
+offset_left = 14.0
+offset_right = 131.0
+offset_bottom = 45.0
+text = "STEP : 0"
+label_settings = SubResource("LabelSettings_spsqj")
+
+[node name="ScoreLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 23.0
+grow_horizontal = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 30
+text = "SCORE : 0"
+horizontal_alignment = 1
+
+[node name="Undo" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -391.0
+offset_top = -327.0
+offset_right = 129.0
+offset_bottom = 193.0
+grow_horizontal = 0
+grow_vertical = 0
+scale = Vector2(0.15, 0.15)
+pivot_offset = Vector2(260, 273.333)
+icon = ExtResource("1_8d4ph")
+flat = true
+script = ExtResource("2_hiajr")
+scaleMultiplicator = 0.6
+during = 0.2
+
+[node name="Redo" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -311.0
+offset_top = -354.0
+offset_right = 209.0
+offset_bottom = 166.0
+grow_horizontal = 0
+grow_vertical = 0
+scale = Vector2(-0.15, 0.15)
+pivot_offset = Vector2(264.881, 304.102)
+icon = ExtResource("1_8d4ph")
+flat = true
+script = ExtResource("2_hiajr")
+scaleMultiplicator = 0.6
+during = 0.2
+
+[node name="MainMenu" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 33.0
+offset_top = -54.0
+offset_right = 137.0
+offset_bottom = -23.0
+grow_vertical = 0
+pivot_offset = Vector2(52, 17)
+text = "MAIN MENU"
+script = ExtResource("2_hiajr")
+scaleMultiplicator = 0.2
+during = 0.6
