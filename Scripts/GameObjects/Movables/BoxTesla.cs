@@ -1,4 +1,4 @@
-﻿using Godot;
+using Godot;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlTypes;
@@ -113,16 +113,12 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables {
 
 
                         GameObject GOToScan = lGrid[x,y ].GetContent();
-                        if ( GOToScan is BoxTesla lTesla)
+                        if ( GOToScan is BoxTesla lTesla && lTesla.energize)
                         { 
-                            if (lTesla.energize is true)
-                            {
                                 LineConnection(GOToScan);
                                 energize = true;
                                 boxTeslasList.Add(this);
-                                GD.Print("Tesla");
                                 return;
-                            }
                         }
                         else if (GOToScan is null)
                         {
@@ -131,24 +127,16 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables {
                         
                         else if (GOToScan is Generator)
                         {
-                            GD.Print("Generator");
                             LineConnection(GOToScan);
                             energize = true;
                             boxTeslasList.Add(this);
                             return;
                         }
-                        else if (GOToScan is GoalBulb)
-                        {
-                            GD.Print("GoalBulb");
-                            continue;
-                           
-                        }
+                        else if (GOToScan is GoalBulb) continue;
                         else if (GOToScan is Wall)
                         {
-                            GD.Print("Wall");
                             indicesToRemove.Add(j);
                             continue;
-
                         }
                     }
                     indicesToRemove.Sort((a, b) => b.CompareTo(a));
@@ -159,19 +147,24 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables {
                     }
                     indicesToRemove.Clear();
                 }
+                LineDeconnection();
+                energize=false;
             }
 
             private void LineConnection(GameObject objToConnect)
             {
-
-                LineDeconnection();
+                int lPointCount = electriLine2D.GetPointCount();
+                if (electriLine2D.GetPointCount()>=1)LineDeconnection();
+                GD.Print(electriLine2D.GetPointCount());
                 electriLine2D.AddPoint(ToLocal(objToConnect.GlobalPosition),1);
-                electriLine2D.Visible = true;
+                electriLine2D.Visible=true;
             }
 
             private void LineDeconnection()
             {
-                electriLine2D.RemovePoint(1);
+                electriLine2D.Visible=false;
+               if (electriLine2D.GetPointCount()>=1)electriLine2D.RemovePoint(1);
+               
             }
             
             protected override void Dispose(bool pDisposing)
