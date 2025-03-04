@@ -1,57 +1,101 @@
-[gd_scene load_steps=6 format=3 uid="uid://dht3qeqhib1rk"]
+[gd_scene load_steps=17 format=3 uid="uid://dht3qeqhib1rk"]
 
 [ext_resource type="Script" path="res://Scripts/Controls/LevelSelector.cs" id="1_7onrw"]
 [ext_resource type="Texture2D" uid="uid://dyr30pkkewie" path="res://Assets/UI/MainMenu/LevelScreen.png" id="2_u4r7s"]
 [ext_resource type="PackedScene" uid="uid://c46bqjn4wfblh" path="res://Scenes/GameObjects/LevelSelectorObject/LevelSelectorTesla.tscn" id="3_31hu0"]
 [ext_resource type="Script" path="res://Scripts/GameObjects/ButtonTemplate.cs" id="4_tfihn"]
-[ext_resource type="PackedScene" uid="uid://36dp5dq6hmqq" path="res://Scenes/GameObjects/ButtonTemplate.tscn" id="4_yj50a"]
+[ext_resource type="Texture2D" uid="uid://6ogwctw6dhxl" path="res://Assets/UI/MainMenu/Manette.png" id="6_8hpna"]
+[ext_resource type="Texture2D" uid="uid://c767fcajnj2yi" path="res://Assets/Shaders/Effects/Glow.png" id="7_c1v7e"]
+[ext_resource type="Texture2D" uid="uid://cyr4o5fwatqn6" path="res://Assets/UI/MainMenu/ManetteButtonLeft.png" id="7_pfdtp"]
+[ext_resource type="Texture2D" uid="uid://cnndesag05dud" path="res://Assets/UI/MainMenu/ButtonLeftPressed.png" id="8_kmrbs"]
+[ext_resource type="Texture2D" uid="uid://v4dwd3oinj6" path="res://Assets/UI/MainMenu/ManetteButtonRight.png" id="9_mhunn"]
+[ext_resource type="Texture2D" uid="uid://do5divm0ix4rl" path="res://Assets/UI/MainMenu/ButtonRightPressed.png" id="10_naqst"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5qe13"]
+texture = ExtResource("7_pfdtp")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hlsy8"]
+texture = ExtResource("7_pfdtp")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_q45k0"]
+texture = ExtResource("8_kmrbs")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_58gse"]
+texture = ExtResource("9_mhunn")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dvuri"]
+texture = ExtResource("9_mhunn")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_oncao"]
+texture = ExtResource("10_naqst")
 
 [node name="LevelSelector" type="Control" node_paths=PackedStringArray("buttonRight", "buttonLeft", "buttonUnlockAll")]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_7onrw")
-buttonRight = NodePath("Right")
-buttonLeft = NodePath("Left")
+buttonRight = NodePath("TextureRect/Right")
+buttonLeft = NodePath("TextureRect/Left")
 buttonUnlockAll = NodePath("UnlockButton")
 texture = ExtResource("2_u4r7s")
 teslaScene = ExtResource("3_31hu0")
 
-[node name="Left" parent="." instance=ExtResource("4_yj50a")]
+[node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 0
-offset_left = 27.0
-offset_top = 342.0
-offset_right = 87.0
-offset_bottom = 382.0
-during = 0.2
-easeType = 2
-transitionType = 7
+offset_left = 407.0
+offset_top = 469.0
+offset_right = 1258.0
+offset_bottom = 839.0
+scale = Vector2(0.459219, 0.459219)
+texture = ExtResource("6_8hpna")
 
-[node name="Right" type="Button" parent="."]
+[node name="Left" type="Button" parent="TextureRect"]
+layout_mode = 0
+offset_left = 111.058
+offset_top = 23.9537
+offset_right = 292.058
+offset_bottom = 168.954
+pivot_offset = Vector2(90, 72)
+theme_override_styles/normal = SubResource("StyleBoxTexture_5qe13")
+theme_override_styles/hover = SubResource("StyleBoxTexture_hlsy8")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_q45k0")
+icon_alignment = 1
+
+[node name="PointLight2D" type="PointLight2D" parent="TextureRect/Left"]
+position = Vector2(97.9924, 80.5717)
+color = Color(1, 0, 0, 1)
+texture = ExtResource("7_c1v7e")
+texture_scale = 0.32
+
+[node name="Right" type="Button" parent="TextureRect"]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = 1020.0
-offset_top = 315.0
-offset_right = 1080.0
-offset_bottom = 355.0
+offset_left = -273.933
+offset_top = -156.691
+offset_right = -92.9332
+offset_bottom = -11.6911
 grow_horizontal = 0
 grow_vertical = 2
-pivot_offset = Vector2(30, 20)
-text = "-->"
-script = ExtResource("4_tfihn")
-during = 0.2
-easeType = 2
-transitionType = 7
+pivot_offset = Vector2(90, 72)
+theme_override_styles/normal = SubResource("StyleBoxTexture_58gse")
+theme_override_styles/hover = SubResource("StyleBoxTexture_dvuri")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_oncao")
+
+[node name="PointLight2D2" type="PointLight2D" parent="TextureRect/Right"]
+position = Vector2(76.2163, 69.6836)
+color = Color(1, 0, 0, 1)
+texture = ExtResource("7_c1v7e")
+texture_scale = 0.32
 
 [node name="UnlockButton" type="Button" parent="."]
 layout_mode = 1
-offset_left = 23.0
-offset_top = 25.0
-offset_right = 109.0
-offset_bottom = 56.0
+offset_left = 544.0
+offset_top = 580.0
+offset_right = 630.0
+offset_bottom = 611.0
 pivot_offset = Vector2(43, 15.5)
 text = "Unlock All"
 script = ExtResource("4_tfihn")

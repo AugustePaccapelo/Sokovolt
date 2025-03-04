@@ -18,10 +18,10 @@ namespace Com.IsartDigital.SokoVolt
         private int levelNumb = 0;
         private int levelNumbMax = 5;
         private const string LEVEL_PREFIXE = "Level : ";
-        private const float MARGIN = 50.0f;
-        private Vector2 buttonSize = new Vector2(60, 40);
+        private const float MARGIN = 350.0f;
+        private Vector2 buttonSize = new Vector2(60, 100);
         private Vector2 teslaSize = new Vector2(855, 1071);
-        private int teslaPosY = 339;
+        private int teslaPosY = 253;
         private int newTeslaPointPosY = 223;
         private bool alreadyPress = false;
         private Vector2 screenSize;
@@ -76,8 +76,8 @@ namespace Com.IsartDigital.SokoVolt
             buttonLeft.Pressed += () => SwitchLevel(-1);
             buttonUnlockAll.Pressed += UnlockAll;
 
-            buttonLeft.GlobalPosition = new Vector2(0 + MARGIN, screenSize.Y / 2);
-            buttonRight.GlobalPosition = new Vector2(screenSize.X - MARGIN - buttonSize.X, screenSize.Y / 2);
+            //buttonLeft.GlobalPosition = new Vector2(0 + MARGIN, screenSize.Y - 200);
+            //buttonRight.GlobalPosition = new Vector2(screenSize.X - MARGIN - buttonSize.X, screenSize.Y - 200);
         }
 
         private void UnlockAll()
