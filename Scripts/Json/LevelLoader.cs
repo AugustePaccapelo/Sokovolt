@@ -46,6 +46,7 @@ namespace Com.IsartDigital.SokoVolt {
 		private void Init()
 		{
 			gridInstance = GridManager.GetInstance(); 
+			IsoManager.Init(Utils.TILE_WIDTH, Utils.TILE_HEIGHT); 
 		}
 
 		public void LoadLevel(int pLevel)
@@ -100,7 +101,7 @@ namespace Com.IsartDigital.SokoVolt {
 
 
 			levelWidth = lMapArray.Count > 0 ? lMapArray[0].ToString().Length : 0;
-			levelHeight = lMapArray.Count;
+			levelHeight = lMapArray.Count; 
 
 			// Redimensionner la grille dynamiquement
 			gridInstance.SetNewLevel(new Cell[levelWidth, levelHeight]);
@@ -180,6 +181,7 @@ namespace Com.IsartDigital.SokoVolt {
 						lCell.SetContent(lObj);
 						lObj.SetCell(lCell);
 						lObj.Init(x, y);
+						lObj.ZIndex = IsoManager.GetZIndex(new Vector2(x,y));
 					}
 				}
 			}

@@ -23,7 +23,7 @@ namespace Com.IsartDigital.SokoVolt{
 		[Signal] public delegate void RedoButtonEventHandler();
 		[Signal] public delegate void MainMenuButtonEventHandler();
 		[Export] public Button undoButton, redoButton, mainMenuButton;
-		[Export] public Label scoreLabel, stepLabel; 
+		[Export] public Label scoreLabel, stepLabel, winLabel; 
 		public override void _Ready()
 		{
 			#region instance
@@ -43,6 +43,16 @@ namespace Com.IsartDigital.SokoVolt{
 			undoButton.Pressed += () => EmitSignal(nameof(UndoButton));
 			redoButton.Pressed += () => EmitSignal(nameof(RedoButton));
 			mainMenuButton.Pressed += () => EmitSignal(nameof(MainMenuButton));
+			winLabel.Hide();
+		}
+
+		public void GameFinished()
+		{
+			winLabel.Show();
+			Tween lTween = CreateTween();
+			lTween.Finished += () => EmitSignal(nameof(MainMenuButton));
+			lTween.TweenProperty(winLabel, "modulate", Colors.White, 2).From(Colors.Transparent);
+			lTween.Play();
 		}
 
 		public override void _Process(double pDelta)

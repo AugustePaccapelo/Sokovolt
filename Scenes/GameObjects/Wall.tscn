@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://0lujf2t1gugn"]
+[gd_scene load_steps=3 format=3 uid="uid://0lujf2t1gugn"]
 
 [ext_resource type="Script" path="res://Scripts/GameObjects/Wall.cs" id="1_0oqpj"]
+[ext_resource type="Texture2D" uid="uid://cwb4ypc3twdp2" path="res://Assets/GameObjects/IsoTiles/basetiles.png" id="2_1jp1w"]
 
 [node name="Wall" type="Node2D"]
 script = ExtResource("1_0oqpj")
@@ -9,5 +10,11 @@ script = ExtResource("1_0oqpj")
 scale = Vector2(0.8, 0.8)
 
 [node name="Polygon2D" type="Polygon2D" parent="Visual"]
+visible = false
 color = Color(0.433594, 0.342265, 0.0304871, 1)
 polygon = PackedVector2Array(-31, -31, 31, -31, 31, 31, -31, 31)
+
+[node name="Sprite2D" type="Sprite2D" parent="Visual"]
+position = Vector2(-4.76837e-07, -2.38419e-07)
+scale = Vector2(0.455834, 0.455834)
+texture = ExtResource("2_1jp1w")

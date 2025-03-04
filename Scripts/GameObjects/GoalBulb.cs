@@ -19,8 +19,6 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
 		private GridManager gridManager;
 		private CustomSignals signals;
 
-		[Export] private Polygon2D onPol;
-        [Export] private Polygon2D offPol;
 		[Export] private Node2D allLights;
 		[Export] private Light2D rotatingLight;
 
@@ -63,8 +61,6 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
 		{
             doAction = TurnedOff;
 			isTurnedOn = false;
-            onPol.Hide();
-            offPol.Show();
             allLights.Hide();
             signals.EmitSignal(CustomSignals.SignalName.GoalBulbStateChanged);
         }
@@ -78,8 +74,6 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
 		{
             doAction = TurnedOn;
 			isTurnedOn = true;
-			offPol.Hide();
-			onPol.Show();
 			allLights.Show();
             signals.EmitSignal(CustomSignals.SignalName.GoalBulbStateChanged);
         }
@@ -112,7 +106,8 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
 
 					GameObject lContent = pGrid[x + i, y + j].GetContent();
 
-					if (lContent is BoxTesla lBoxTesla) return true;
+					if (lContent is BoxTesla lBoxTesla)
+						if (lBoxTesla.energize) return true;
                 }
             }
 

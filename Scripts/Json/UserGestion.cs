@@ -8,6 +8,8 @@ using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
+using Com.IsartDigital.SokoVolt;
+using System.Runtime.Intrinsics.Arm;
 
 // Author : A. Dylan Montenegro Utrela
 
@@ -42,6 +44,8 @@ namespace Com.IsartDigital.ProjectName
 
 			instance = this;
 			#endregion
+
+			LoginScreen.GetInstance().userGestion = this;
 		}
 
 		private class User
@@ -50,35 +54,41 @@ namespace Com.IsartDigital.ProjectName
 			public string password { get; set; }
 		}
 
-		private static string PasswordHashing(string pPassword) // to encrypt the password ==== pour Imperator Augustus aka Gaius Julius Caesar Octavianus le GOAT
+		private static string PasswordHashing(string pPassword) // to encrypt the password ==== pour Auguste
 		{
 			using (SHA256 pSha256 = SHA256.Create()) ; // to use
-			return "tkt";
+			return pPassword;
 		}
 
-		private void SaveTextToFile() // to finish
-		{
+		//private void SaveTextToFile() // to finish
+		//{
 
-		}
+		//}
 
 		private void SaveUsers(List<User> pUsers) // this saves users in a list in a json file
 		{
 			json = JsonSerializer.Serialize(pUsers, new JsonSerializerOptions { WriteIndented = true });
-			File.WriteAllText(jsonFilePath, json);
+			JsonTool.WriteToFile(jsonFilePath, json); // use JsonTool instead of File.WriteAllText
 		}
 
 		private List<User> GetUsers() // this fetches registered users by reading the json file
 		{
-			if (!File.Exists(jsonFilePath)) return new List<User>();
+			if (!File.Exists(jsonFilePath))
+			{
+				GD.Print("Creating new users file");
+				//JsonTool.WriteToFile(jsonFilePath); // ??
+			}
 
-			json = File.ReadAllText(jsonFilePath);
-			return JsonSerializer.Deserialize<List<User>>(json) ?? new List<User>();
+            json = JsonTool.ReadFileContents(jsonFilePath);
+			//json = File.ReadAllText(jsonFilePath);
+			if (string.IsNullOrEmpty(jsonFilePath)) return new List<User>();
+            return JsonSerializer.Deserialize<List<User>>(json) ?? new List<User>();
 		}
 
-		public bool RegistedUser(string pName, string pPassword) // register new users 
+		public bool RegisterUser(string pName, string pPassword) // register new users 
 		{
 			List<User> pUsers = GetUsers();
-			if (pUsers.Exists(u => u.name == pName))
+			if (pUsers.Exists(pU => pU.name == pName))
 			{
 				GD.Print("Username already taken!");
 				return false;
@@ -94,7 +104,7 @@ namespace Com.IsartDigital.ProjectName
 		{
 			List<User> pUsers = GetUsers();
 			string pHashedPwd = PasswordHashing(pPassword);
-			if (pUsers.Exists(u => u.name == pName && u.password == pPassword))
+			if (pUsers.Exists(pU => pU.name == pName && pU.password == pPassword))
 			{
 				GD.Print("Login successful");
 				return true;
