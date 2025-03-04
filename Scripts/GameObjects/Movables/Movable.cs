@@ -21,7 +21,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables {
 			Cell lOldCell = pGrid[x, y];
 			Cell lNewCell = pGrid[pX, pY];
 
-			if(lOldCell.GetContent() == this && !Player.isTraveling)
+			//if(lOldCell.GetContent() == this && !Player.isTraveling)
 				lOldCell.SetContent(null);
 
 			x = pX;

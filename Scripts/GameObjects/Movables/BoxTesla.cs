@@ -136,7 +136,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
                             {
                                 ObjToConecte= lTesla;
                                 boxTeslasList.Add(this);
-                                nextBoxTesla = lTesla;
+                                lTesla.nextBoxTesla = this;
                             }
                             else
                             {
@@ -215,7 +215,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
 
         private void LineDeconnection()
         {
-            if(rayCast != null) rayCast.QueueFree();
+            //if(rayCast != null) rayCast.QueueFree();
             electriLine2D.Visible = false;
             if (electriLine2D.GetPointCount() > 1) electriLine2D.RemovePoint(1);
 
