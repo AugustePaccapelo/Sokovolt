@@ -27,24 +27,27 @@ namespace Com.IsartDigital.SokoVolt
 		// ----- Paths ----- \\
 
 		// ----- Nodes ----- \\
+		[ExportGroup("LoginScreen")]
 		[Export] private Control loginNode;
-		[Export] private TextEdit inputLoginUsername;
-        [Export] private TextEdit inputLoginPassword;
-        [Export] private Button buttonLoginConfirm;
-        [Export] private Button buttonLoginGoCreate;
+		[Export] private TextEdit inputLoginUsername, inputLoginPassword;
+        [Export] private Button buttonLoginConfirm, buttonLoginGoCreate;
+		[Export] private Label labelLoginName, labelLoginUsername, labelLoginPassword;
 
-		[Export] private Control createNode;
-		[Export] private TextEdit inputCreateUsername;
-        [Export] private TextEdit inputCreatePassword;
-        [Export] private TextEdit inputCreateConfirmPassword;
-		[Export] private Button buttonCreateConfirm;
-		[Export] private Button buttonCreateGoLogin;
+        [ExportGroup("CreateScreen")]
+        [Export] private Control createNode;
+		[Export] private TextEdit inputCreateUsername, inputCreatePassword, inputCreateConfirmPassword;
+		[Export] private Button buttonCreateConfirm, buttonCreateGoLogin;
+		[Export] private Label labelCreateName, labelCreateUsername, labelCreatePassword, labelCreateConfirmPassword;
 
 		private UIManager uiManager;
-		private UserGestion userGestion;
 
         // ----- Others ----- \\
         [Signal] public delegate void StartGameEventHandler();
+
+		private string username = "";
+		private string password = "";
+
+		UserGestion userGestion;
 
         // ---------- FUNCTIONS ---------- \\
 
@@ -67,18 +70,23 @@ namespace Com.IsartDigital.SokoVolt
 
 			base._Ready();
 
+			createNode.Hide();
+			loginNode.Hide();
+
 			CustomMinimumSize = GetViewportRect().Size;
 
 			uiManager = GetParent<UIManager>();
 
             StartGame += uiManager.GameStart;
 
-            userGestion = UserGestion.GetInstance();
-
-            buttonLoginGoCreate.Pressed += ButtonChangeToCreate;
+			buttonLoginGoCreate.Pressed += ButtonChangeToCreate;
 			buttonCreateGoLogin.Pressed += ButtonChangeToLogin;
             buttonLoginConfirm.Pressed += ButtonPressedLogin;
 			buttonCreateConfirm.Pressed += ButtonPressedCreate;
+
+			userGestion = UserGestion.GetInstance();
+
+			ButtonChangeToLogin();
 		}
 
 		public override void _Process(double pDelta)
@@ -92,41 +100,46 @@ namespace Com.IsartDigital.SokoVolt
 
 		private void ButtonPressedLogin()
 		{
-			string lUsername = inputLoginUsername.Text;
-			string lPassword = inputLoginPassword.Text;
-
-			if (userGestion.LoginUser(lUsername, lPassword))
+			username = inputLoginUsername.Text;
+			password = inputLoginPassword.Text;
+			
+			if (userGestion.LoginUser(username, password))
 			{
-				GD.Print("Login successful");
                 EmitSignal(SignalName.StartGame);
-                QueueFree();
+                Hide();
             }
-
-            else GD.Print("Invalid username or password");
 		}
 
 		private void ButtonPressedCreate()
 		{
-			string lUsername = inputCreateUsername.Text;
-            string lPassword = inputCreatePassword.Text;
+			string lPassword = inputCreatePassword.Text;
 			string lPasswordConfirm = inputCreateConfirmPassword.Text;
-
 			if (lPassword != lPasswordConfirm)
 			{
-				GD.Print("Passwords do not match!");
+				GD.Print("Not same password !");
 				return;
 			}
 
-			if (userGestion.RegisterUser(lUsername, lPassword))
+			username = inputCreateUsername.Text;
+            password = inputCreatePassword.Text;
+            
+			if (userGestion.RegistedUser(username, password))
 			{
-				GD.Print("Account successfully created");
-				ButtonChangeToLogin();
-			}
-			else GD.Print("Username already taken!");
-
-   //         EmitSignal(SignalName.StartGame);
-			//QueueFree(); ask Auguste about this
+                EmitSignal(SignalName.StartGame);
+                Hide();
+            }
         }
+
+		private void AnimationLoginEnter()
+		{
+			foreach (Control lControl in loginNode.GetChildren())
+			{
+				lControl.Hide();
+			}
+
+			Tween lTween = CreateTween();
+
+		}
 
 		private void ButtonChangeToLogin()
 		{
