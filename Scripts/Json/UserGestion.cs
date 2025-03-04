@@ -53,7 +53,7 @@ namespace Com.IsartDigital.ProjectName
 		private static string PasswordHashing(string pPassword) // to encrypt the password ==== pour Imperator Augustus aka Gaius Julius Caesar Octavianus le GOAT
 		{
 			using (SHA256 pSha256 = SHA256.Create()) ; // to use
-			return "tkt";
+			return pPassword;
 		}
 
 		private void SaveTextToFile() // to finish

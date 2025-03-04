@@ -1,3 +1,4 @@
+using Com.IsartDigital.ProjectName;
 using Com.IsartDigital.SokoVolt.Managers;
 using Godot;
 using System;
@@ -26,28 +27,27 @@ namespace Com.IsartDigital.SokoVolt
 		// ----- Paths ----- \\
 
 		// ----- Nodes ----- \\
+		[ExportGroup("LoginScreen")]
 		[Export] private Control loginNode;
-		[Export] private TextEdit inputLoginUsername;
-        [Export] private TextEdit inputLoginPassword;
-        [Export] private Button buttonLoginConfirm;
-        [Export] private Button buttonLoginGoCreate;
+		[Export] private TextEdit inputLoginUsername, inputLoginPassword;
+        [Export] private Button buttonLoginConfirm, buttonLoginGoCreate;
+		[Export] private Label labelLoginName, labelLoginUsername, labelLoginPassword;
 
-		[Export] private Control createNode;
-		[Export] private TextEdit inputCreateUsername;
-        [Export] private TextEdit inputCreatePassword;
-        [Export] private TextEdit inputCreateConfirmPassword;
-		[Export] private Button buttonCreateConfirm;
-		[Export] private Button buttonCreateGoLogin;
+        [ExportGroup("CreateScreen")]
+        [Export] private Control createNode;
+		[Export] private TextEdit inputCreateUsername, inputCreatePassword, inputCreateConfirmPassword;
+		[Export] private Button buttonCreateConfirm, buttonCreateGoLogin;
+		[Export] private Label labelCreateName, labelCreateUsername, labelCreatePassword, labelCreateConfirmPassword;
 
 		private UIManager uiManager;
 
         // ----- Others ----- \\
         [Signal] public delegate void StartGameEventHandler();
 
-        private const string USERNAME_KEY = "Username";
-		private const string PASSWORD_KEY = "Password";
+		private string username = "";
+		private string password = "";
 
-		private Dictionary<string, string> loginInfo = new Dictionary<string, string>();
+		UserGestion userGestion;
 
         // ---------- FUNCTIONS ---------- \\
 
@@ -70,19 +70,23 @@ namespace Com.IsartDigital.SokoVolt
 
 			base._Ready();
 
+			createNode.Hide();
+			loginNode.Hide();
+
 			CustomMinimumSize = GetViewportRect().Size;
 
 			uiManager = GetParent<UIManager>();
 
             StartGame += uiManager.GameStart;
 
-            loginInfo.Add(USERNAME_KEY, "");
-			loginInfo.Add(PASSWORD_KEY, "");
-
 			buttonLoginGoCreate.Pressed += ButtonChangeToCreate;
 			buttonCreateGoLogin.Pressed += ButtonChangeToLogin;
             buttonLoginConfirm.Pressed += ButtonPressedLogin;
 			buttonCreateConfirm.Pressed += ButtonPressedCreate;
+
+			userGestion = UserGestion.GetInstance();
+
+			ButtonChangeToLogin();
 		}
 
 		public override void _Process(double pDelta)
@@ -96,11 +100,14 @@ namespace Com.IsartDigital.SokoVolt
 
 		private void ButtonPressedLogin()
 		{
-			loginInfo[USERNAME_KEY] = inputLoginUsername.Text;
-			loginInfo[PASSWORD_KEY] = inputLoginPassword.Text;
-			GD.Print("Trying to login with: ", loginInfo[USERNAME_KEY], " and ", loginInfo[PASSWORD_KEY]);
-			EmitSignal(SignalName.StartGame);
-			QueueFree();
+			username = inputLoginUsername.Text;
+			password = inputLoginPassword.Text;
+			
+			if (userGestion.LoginUser(username, password))
+			{
+                EmitSignal(SignalName.StartGame);
+                Hide();
+            }
 		}
 
 		private void ButtonPressedCreate()
@@ -113,12 +120,26 @@ namespace Com.IsartDigital.SokoVolt
 				return;
 			}
 
-			loginInfo[USERNAME_KEY] = inputCreateUsername.Text;
-            loginInfo[PASSWORD_KEY] = inputCreatePassword.Text;
-			GD.Print("creating account with: ", loginInfo[USERNAME_KEY], " and ", loginInfo[PASSWORD_KEY]);
-            EmitSignal(SignalName.StartGame);
-			QueueFree();
+			username = inputCreateUsername.Text;
+            password = inputCreatePassword.Text;
+            
+			if (userGestion.RegistedUser(username, password))
+			{
+                EmitSignal(SignalName.StartGame);
+                Hide();
+            }
         }
+
+		private void AnimationLoginEnter()
+		{
+			foreach (Control lControl in loginNode.GetChildren())
+			{
+				lControl.Hide();
+			}
+
+			Tween lTween = CreateTween();
+
+		}
 
 		private void ButtonChangeToLogin()
 		{
