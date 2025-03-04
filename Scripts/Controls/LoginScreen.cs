@@ -100,8 +100,13 @@ namespace Com.IsartDigital.SokoVolt
 		{
 			username = inputLoginUsername.Text;
 			password = inputLoginPassword.Text;
-			
-			if (userGestion.LoginUser(username, password))
+
+			//To remove when UserGestion finished
+            EmitSignal(SignalName.StartGame);
+            Hide();
+			return;
+
+            if (userGestion.LoginUser(username, password))
 			{
                 EmitSignal(SignalName.StartGame);
                 Hide();
@@ -120,8 +125,13 @@ namespace Com.IsartDigital.SokoVolt
 
 			username = inputCreateUsername.Text;
             password = inputCreatePassword.Text;
-            
-			if (userGestion.RegisterUser(username, password))
+
+            //To remove when UserGestion finished
+            EmitSignal(SignalName.StartGame);
+            Hide();
+            return;
+
+            if (userGestion.RegisterUser(username, password))
 			{
                 EmitSignal(SignalName.StartGame);
                 Hide();
@@ -130,16 +140,15 @@ namespace Com.IsartDigital.SokoVolt
 
 		public void AnimationLoginEnter()
 		{
-			foreach (Control lControl in loginNode.GetChildren())
-			{
-				lControl.Hide();
-			}
+			
 
 			Tween lTween = CreateTween();
 
-			lTween.TweenProperty(labelLoginName, "position", labelLoginName.Position, 2f).From(Vector2.Zero);
-			lTween.Play();
-			lTween.Finished += () => { GD.Print("test"); };
+			lTween.TweenProperty(labelLoginName, "scale", Vector2.One, 1f).From(Vector2.Zero)
+				.SetTrans(Tween.TransitionType.Elastic).SetEase(Tween.EaseType.Out);
+            lTween.Parallel().TweenProperty(labelLoginUsername, "global_position", labelLoginUsername.GlobalPosition, 0.25f).From(Vector2.Zero)
+                .SetTrans(Tween.TransitionType.Back).SetEase(Tween.EaseType.Out);
+            lTween.Play();
 		}
 
 		private void ButtonChangeToLogin()

@@ -49,12 +49,12 @@ namespace Com.IsartDigital.ProjectName
 
         public override void _Process(double delta)
         {
-            if(Input.IsMouseButtonPressed(MouseButton.Left)) QueueFree();
+            if(Input.IsMouseButtonPressed(MouseButton.Left)) AnimationFinished();
         }
 
 		public void AnimationFinished()
 		{
-			//LoginScreen.GetInstance().AnimationLoginEnter();
+			LoginScreen.GetInstance().AnimationLoginEnter();
 			QueueFree();
 		}
 
