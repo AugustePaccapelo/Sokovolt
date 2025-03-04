@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://bsl0bvhb270nq"]
+[gd_scene load_steps=6 format=3 uid="uid://bsl0bvhb270nq"]
 
 [ext_resource type="Script" path="res://Scripts/Controls/TitleCard.cs" id="1_vqp81"]
 [ext_resource type="Texture2D" uid="uid://blf1plrysetpd" path="res://Assets/UI/LogoISART.png" id="1_wxio0"]
@@ -6,7 +6,14 @@
 [sub_resource type="LabelSettings" id="LabelSettings_iu45x"]
 font_size = 60
 
-[node name="TitleCard" type="Control" node_paths=PackedStringArray("logoISART", "logoGame")]
+[sub_resource type="Gradient" id="Gradient_xxhjr"]
+offsets = PackedFloat32Array(0, 0.50655, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.620087, 0.620087, 0.620087, 1, 0.027078, 0.027078, 0.027078, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_1torj"]
+gradient = SubResource("Gradient_xxhjr")
+
+[node name="TitleCard" type="Control" node_paths=PackedStringArray("logoISART", "logoGame", "pointLight2D", "directionalLight2D")]
 layout_mode = 3
 anchors_preset = 0
 offset_top = -128.0
@@ -15,6 +22,8 @@ offset_bottom = 800.0
 script = ExtResource("1_vqp81")
 logoISART = NodePath("ISARTLogo")
 logoGame = NodePath("GameLogo")
+pointLight2D = NodePath("PointLight2D")
+directionalLight2D = NodePath("DirectionalLight2D")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
@@ -44,3 +53,13 @@ offset_right = 1154.0
 offset_bottom = 912.0
 texture = ExtResource("1_wxio0")
 stretch_mode = 3
+
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
+blend_mode = 1
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(600, 443)
+scale = Vector2(1.65889, 0.839025)
+energy = 0.0
+texture = SubResource("GradientTexture2D_1torj")
+texture_scale = 8.09
