@@ -1,10 +1,9 @@
-using Com.IsartDigital.SokoVolt;
 using Godot;
 using System;
 
 //author : Noe Sales
 
-namespace Com.IsartDigital.ProjectName
+namespace Com.IsartDigital.SokoVolt
 {
 	public partial class TitleCard : Control
 	{
@@ -22,6 +21,8 @@ namespace Com.IsartDigital.ProjectName
 
 		[Export] TextureRect logoISART;
 		[Export] TextureRect logoGame;
+		[Export] PointLight2D pointLight2D;
+		[Export] DirectionalLight2D directionalLight2D;
 
 		private Color finalColor = new Color(1, 1, 1, 1);
 		private Color startColor = new Color(1, 1, 1, 0);
@@ -40,8 +41,13 @@ namespace Com.IsartDigital.ProjectName
 			#endregion
 			logoISART.Modulate = startColor;
 			Tween lTween = CreateTween();
+			lTween.SetParallel(true);
 			lTween.TweenProperty(logoISART, "modulate", finalColor, 0.7f);
-			lTween.TweenProperty(logoISART, "modulate", startColor, 0.7f);
+            //lTween.TweenProperty(pointLight2D, "position", new Vector2(+1200,0), 1f).AsRelative();
+            lTween.TweenProperty(pointLight2D, "energy", 3, 1f);
+            lTween.SetParallel(false);
+            lTween.TweenProperty(logoISART, "modulate", startColor, 0.7f);
+            //lTween.TweenProperty(directionalLight2D, "energy", 0, 0.1f);
             lTween.TweenProperty(logoGame, "modulate", finalColor, 0.7f);
             lTween.TweenProperty(logoGame, "modulate", startColor, 0.7f);
             lTween.Finished += AnimationFinished;
@@ -49,10 +55,11 @@ namespace Com.IsartDigital.ProjectName
 
         public override void _Process(double delta)
         {
+			float lDelta = (float)delta;
             if(Input.IsMouseButtonPressed(MouseButton.Left)) AnimationFinished();
         }
 
-		public void AnimationFinished()
+        public void AnimationFinished()
 		{
 			LoginScreen.GetInstance().AnimationLoginEnter();
 			QueueFree();
