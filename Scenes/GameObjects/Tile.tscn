@@ -1,11 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://d2u6414qoawnr"]
+[gd_scene load_steps=3 format=3 uid="uid://d2u6414qoawnr"]
 
 [ext_resource type="Script" path="res://Scripts/GameObjects/Cell.cs" id="1_acgh3"]
+[ext_resource type="Texture2D" uid="uid://bdve04vewbuy4" path="res://Assets/GameObjects/IsoTiles/grasswatertilesjoinsflat.png" id="2_loord"]
 
 [node name="Tile" type="Node2D"]
 script = ExtResource("1_acgh3")
 
 [node name="ColorRect" type="ColorRect" parent="."]
+visible = false
 modulate = Color(1, 1, 1, 0.392157)
 anchors_preset = 8
 anchor_left = 0.5
@@ -22,3 +24,8 @@ pivot_offset = Vector2(31, 31)
 size_flags_horizontal = 4
 size_flags_vertical = 4
 color = Color(0.133196, 0.133196, 0.133196, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-9.09495e-13, 0)
+scale = Vector2(0.358108, 0.358108)
+texture = ExtResource("2_loord")

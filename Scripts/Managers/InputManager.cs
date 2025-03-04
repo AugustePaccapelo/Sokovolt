@@ -18,12 +18,12 @@ namespace Com.IsartDigital.SokoVolt.Managers
 			if (instance == null) instance = new InputManager();
 			return instance;
 		}
-        #endregion
+		#endregion
 
-        [Signal] public delegate void MoveEventHandler(Vector2 pDirection);
-        [Signal] public delegate void RedoEventHandler();
+		[Signal] public delegate void MoveEventHandler(Vector2 pDirection);
+		[Signal] public delegate void RedoEventHandler();
 
-        public override void _Ready()
+		public override void _Ready()
 		{
 			#region Singleton
 			if (instance != null)
@@ -39,7 +39,7 @@ namespace Com.IsartDigital.SokoVolt.Managers
 			base._Ready();
 		}
 
-        public override void _Input(InputEvent @event)
+		public override void _Input(InputEvent @event)
 		{
 			if (@event is InputEventKey eventKey && eventKey.Pressed)
 			{
@@ -55,14 +55,14 @@ namespace Com.IsartDigital.SokoVolt.Managers
 				{
 					if(Input.IsActionJustPressed(pInput.Key))
 					{
-                        EmitSignal(SignalName.Move, pInput.Value);
+						EmitSignal(SignalName.Move, pInput.Value);
 						break;
-                    }
+					}
 				}
-            }
+			}
 		}
 
-        protected override void Dispose(bool pDisposing)
+		protected override void Dispose(bool pDisposing)
 		{
 			instance = null;
 			base.Dispose(pDisposing);

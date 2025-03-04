@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://cncewljhx47s3"]
+[gd_scene load_steps=3 format=3 uid="uid://cncewljhx47s3"]
 
 [ext_resource type="Script" path="res://Scripts/GameObjects/ElectricWall.cs" id="1_cep36"]
+[ext_resource type="Texture2D" uid="uid://cwb4ypc3twdp2" path="res://Assets/GameObjects/IsoTiles/basetiles.png" id="2_kcd3g"]
 
 [node name="ElectricWall" type="Node2D"]
 script = ExtResource("1_cep36")
@@ -8,10 +9,13 @@ script = ExtResource("1_cep36")
 [node name="Visual" type="Node2D" parent="."]
 scale = Vector2(0.8, 0.8)
 
-[node name="Polygon2D" type="Polygon2D" parent="Visual"]
-color = Color(0.433594, 0.342265, 0.0304871, 1)
-polygon = PackedVector2Array(-31, -31, 31, -31, 31, 31, -31, 31)
+[node name="Sprite2D" type="Sprite2D" parent="Visual"]
+position = Vector2(-4.76837e-07, -2.38419e-07)
+scale = Vector2(0.455834, 0.455834)
+texture = ExtResource("2_kcd3g")
 
-[node name="Polygon2D2" type="Polygon2D" parent="Visual"]
-color = Color(0.771459, 0.763478, 0, 1)
-polygon = PackedVector2Array(-8, -31, 10, -31, -6, -2, 15, 12, -7, 31, -2, 16, -18, 0)
+[node name="Polygon2D" type="Polygon2D" parent="Visual"]
+position = Vector2(15, -8.75)
+scale = Vector2(1, 1)
+color = Color(0.794841, 0.839219, 0.010149, 1)
+polygon = PackedVector2Array(-28.75, -25, -21.25, -6.25, -3.75001, -3.75, -2.50001, 27.5, -10, 6.25, -33.75, 6.25, -41.25, -17.5)
