@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://d2jvky1qy0gg"]
+[gd_scene load_steps=7 format=3 uid="uid://d2jvky1qy0gg"]
 
 [ext_resource type="Script" path="res://Scripts/GameObjects/GoalBulb.cs" id="1_o63n1"]
 [ext_resource type="Texture2D" uid="uid://dvbsdp4st47hh" path="res://Assets/GameObjects/GoalBulb/LightInBars.png" id="2_c7q4w"]
+[ext_resource type="Texture2D" uid="uid://cso1lvmegm86r" path="res://Assets/GameObjects/IsoObjects/pngtree-light-bulb-icon-isometric-vector-png-image_4979718.png" id="3_62rl4"]
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_mc1yl"]
-polygon = PackedVector2Array(-10, 3, 7, 3, 7, 26, 0, 31, -8, 26)
+polygon = PackedVector2Array(-10, 3, -7, 8, 0, 10, 6, 9, 10, 5, 10, 12, 11, 16, 7, 21, 6, 23, 1, 25, -6, 24, -10, 17, -11, 13)
 
 [sub_resource type="Gradient" id="Gradient_2eqbe"]
 offsets = PackedFloat32Array(0.178571, 0.458333, 0.660714)
@@ -16,10 +17,9 @@ fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0, 0)
 
-[node name="GoalBulb" type="Node2D" node_paths=PackedStringArray("onPol", "offPol", "allLights", "rotatingLight")]
+[node name="GoalBulb" type="Node2D" node_paths=PackedStringArray("allLights", "rotatingLight")]
+position = Vector2(0, -25)
 script = ExtResource("1_o63n1")
-onPol = NodePath("Visual/On")
-offPol = NodePath("Visual/Off")
 allLights = NodePath("Light")
 rotatingLight = NodePath("Light/WhiteLight")
 
@@ -48,15 +48,14 @@ color = Color(0.169245, 0.169245, 0.169245, 1)
 occluder = SubResource("OccluderPolygon2D_mc1yl")
 
 [node name="WhiteLight" type="PointLight2D" parent="Light"]
-position = Vector2(-1, -14)
-energy = 5.0
+position = Vector2(0, -9)
+energy = 2.0
 shadow_enabled = true
 texture = ExtResource("2_c7q4w")
 texture_scale = 0.5
 
 [node name="YellowLight" type="PointLight2D" parent="Light"]
-position = Vector2(-1, -12)
-energy = 2.0
+position = Vector2(0, -11)
 shadow_enabled = true
 shadow_color = Color(0, 0, 0, 1)
 texture = SubResource("GradientTexture2D_cl24s")
@@ -64,13 +63,6 @@ texture_scale = 3.0
 
 [node name="Visual" type="Node2D" parent="."]
 
-[node name="Off" type="Polygon2D" parent="Visual"]
-position = Vector2(0, 12)
-color = Color(0.673465, 0.669856, 0, 1)
-polygon = PackedVector2Array(-1, -41, 11, -39, 17, -32, 19, -20, 11, -11, 7, -9, 7, 14, 0, 19, -8, 14, -10, -9, -17, -10, -23, -23, -19, -32, -11, -38)
-
-[node name="On" type="Polygon2D" parent="Visual"]
-visible = false
-position = Vector2(0, 12)
-color = Color(0.915991, 0.834384, 0, 1)
-polygon = PackedVector2Array(-1, -41, 11, -39, 17, -32, 19, -20, 11, -11, 7, -9, 7, 14, 0, 19, -8, 14, -10, -9, -17, -10, -23, -23, -19, -32, -11, -38)
+[node name="Sprite2D" type="Sprite2D" parent="Visual"]
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("3_62rl4")

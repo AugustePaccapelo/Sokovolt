@@ -15,6 +15,6 @@ color = Color(0.433594, 0.342265, 0.0304871, 1)
 polygon = PackedVector2Array(-31, -31, 31, -31, 31, 31, -31, 31)
 
 [node name="Sprite2D" type="Sprite2D" parent="Visual"]
-self_modulate = Color(0.959296, 0.943457, 0, 1)
-scale = Vector2(0.424826, 0.424826)
+position = Vector2(-4.76837e-07, -2.38419e-07)
+scale = Vector2(0.455834, 0.455834)
 texture = ExtResource("2_1jp1w")
