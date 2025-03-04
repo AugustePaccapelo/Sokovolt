@@ -146,16 +146,20 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 		#region // ----- Grid Centering ----- \\
 		public void CenterGrid()
 		{
-			Vector2 lScreenSize = GetViewportRect().Size; 
-			float lGridWidth = LevelLoader.levelWidth * Utils.TILE_SIZE - Utils.TILE_SIZE;  
-			float lGridHeight = LevelLoader.levelHeight * Utils.TILE_SIZE - Utils.TILE_SIZE; 
+			Vector2 lScreenSize = GetViewportRect().Size;
 
-			gridOffset = new Vector2
-			(
-				(lScreenSize.X - lGridWidth) / 2,
-				(lScreenSize.Y - lGridHeight) / 2
+			Vector2 lIsoTopLeft = IsoManager.ModelToIsoView(Vector2.Zero);
+			Vector2 lIsoBottomRight = IsoManager.ModelToIsoView(new Vector2(LevelLoader.levelWidth - 1, LevelLoader.levelHeight - 1));
+
+			float lIsoWidth = Math.Abs(lIsoBottomRight.X - lIsoTopLeft.X);
+			float lIsoHeight = Math.Abs(lIsoBottomRight.Y - lIsoTopLeft.Y);
+
+			gridOffset = new Vector2(
+				(lScreenSize.X - lIsoWidth) / 2,
+				(lScreenSize.Y - lIsoHeight) / 2
 			);
 		}
+
 		#endregion
 
 
@@ -174,7 +178,6 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 			if(OutOfGrid(lNewX, lNewY))
 				return;
 
-			Vector2 lIsoPosition = IsoManager.ModelToIsoView(new Vector2(lNewX, lNewY));
 			
 			Cell lNewCell = grid[lNewX, lNewY];
 			GameObject lContent = lNewCell.GetContent();
