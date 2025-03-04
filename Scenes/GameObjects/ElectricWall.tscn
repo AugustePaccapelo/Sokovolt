@@ -16,6 +16,5 @@ texture = ExtResource("2_kcd3g")
 
 [node name="Polygon2D" type="Polygon2D" parent="Visual"]
 position = Vector2(15, -8.75)
-scale = Vector2(1, 1)
 color = Color(0.794841, 0.839219, 0.010149, 1)
 polygon = PackedVector2Array(-28.75, -25, -21.25, -6.25, -3.75001, -3.75, -2.50001, 27.5, -10, 6.25, -33.75, 6.25, -41.25, -17.5)

@@ -21,13 +21,13 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables {
 			Cell lOldCell = pGrid[x, y];
 			Cell lNewCell = pGrid[pX, pY];
 
-			if(lOldCell.GetContent() == this)
+			if(lOldCell.GetContent() == this && !Player.isTraveling)
 				lOldCell.SetContent(null);
 
 			x = pX;
 			y = pY;
 
-			lNewCell.SetContent(this);
+			if(!Player.isTraveling)lNewCell.SetContent(this);
 
 			targetPosition = Utils.SetPosition(this, x, y, false); 
 			isMoving = true; 

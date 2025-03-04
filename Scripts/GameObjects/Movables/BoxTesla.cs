@@ -53,15 +53,14 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
         {
             float lDelta = (float)pDelta;
             base._Process(pDelta);
-
-            RayCastDetector();
+            RayCastDetector(); 
         }
 
         private void Init()
         {
             CallDeferred(nameof(UpdateRangeLabel));
             length = directionScan.Count;
-            MovableHaveFinish += (Movable pSender) => { Searching(pSender); };
+            MovableHaveFinish += (Movable pSender) => { Searching(pSender);};
 
         }
 

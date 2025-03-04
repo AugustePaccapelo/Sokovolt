@@ -25,6 +25,8 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables {
 
 		[Export] Area2D dectetor;
 
+		public static bool isTraveling{get; private set;} 
+
 		public override void _Ready()
 		{
 			#region instance
@@ -47,11 +49,13 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables {
 		{
 			if (pTesla.nextBoxTesla != null && pTesla.playerCanBeDetected)
 			{
+				isTraveling = true; 
 				GD.Print("Player TP to NExtTEsla");
 				dectetor.Monitorable = false;
 				pTesla.playerCanBeDetected = false;
 				MoveTo(pTesla.nextBoxTesla.x, pTesla.nextBoxTesla.y, GridManager.GetInstance().grid);
 				GetTree().CreateTimer(1).Timeout += () => pTesla.playerCanBeDetected = true;
+				isTraveling = false; 
             }
 			else if (pTesla.nextBoxTesla == null) GD.Print("nextTEsla est null");
         }
