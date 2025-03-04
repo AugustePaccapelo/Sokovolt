@@ -4,12 +4,12 @@
 [ext_resource type="Texture2D" uid="uid://dyr30pkkewie" path="res://Assets/UI/MainMenu/LevelScreen.png" id="2_u4r7s"]
 [ext_resource type="PackedScene" uid="uid://c46bqjn4wfblh" path="res://Scenes/GameObjects/LevelSelectorObject/LevelSelectorTesla.tscn" id="3_31hu0"]
 [ext_resource type="Script" path="res://Scripts/GameObjects/ButtonTemplate.cs" id="4_tfihn"]
-[ext_resource type="Texture2D" uid="uid://6ogwctw6dhxl" path="res://Assets/UI/MainMenu/Manette.png" id="6_8hpna"]
+[ext_resource type="Texture2D" path="res://Assets/UI/MainMenu/Manette.png" id="6_8hpna"]
 [ext_resource type="Texture2D" uid="uid://c767fcajnj2yi" path="res://Assets/Shaders/Effects/Glow.png" id="7_c1v7e"]
-[ext_resource type="Texture2D" uid="uid://cyr4o5fwatqn6" path="res://Assets/UI/MainMenu/ManetteButtonLeft.png" id="7_pfdtp"]
-[ext_resource type="Texture2D" uid="uid://cnndesag05dud" path="res://Assets/UI/MainMenu/ButtonLeftPressed.png" id="8_kmrbs"]
-[ext_resource type="Texture2D" uid="uid://v4dwd3oinj6" path="res://Assets/UI/MainMenu/ManetteButtonRight.png" id="9_mhunn"]
-[ext_resource type="Texture2D" uid="uid://do5divm0ix4rl" path="res://Assets/UI/MainMenu/ButtonRightPressed.png" id="10_naqst"]
+[ext_resource type="Texture2D" path="res://Assets/UI/MainMenu/ManetteButtonLeft.png" id="7_pfdtp"]
+[ext_resource type="Texture2D" path="res://Assets/UI/MainMenu/ButtonLeftPressed.png" id="8_kmrbs"]
+[ext_resource type="Texture2D" path="res://Assets/UI/MainMenu/ManetteButtonRight.png" id="9_mhunn"]
+[ext_resource type="Texture2D" path="res://Assets/UI/MainMenu/ButtonRightPressed.png" id="10_naqst"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5qe13"]
 texture = ExtResource("7_pfdtp")
