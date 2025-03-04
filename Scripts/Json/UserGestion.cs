@@ -44,6 +44,8 @@ namespace Com.IsartDigital.ProjectName
 
 			instance = this;
 			#endregion
+
+			LoginScreen.GetInstance().userGestion = this;
 		}
 
 		private class User

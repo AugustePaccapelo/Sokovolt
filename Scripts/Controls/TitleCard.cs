@@ -1,3 +1,4 @@
+using Com.IsartDigital.SokoVolt;
 using Godot;
 using System;
 
@@ -43,13 +44,19 @@ namespace Com.IsartDigital.ProjectName
 			lTween.TweenProperty(logoISART, "modulate", startColor, 0.7f);
             lTween.TweenProperty(logoGame, "modulate", finalColor, 0.7f);
             lTween.TweenProperty(logoGame, "modulate", startColor, 0.7f);
-            lTween.Finished += QueueFree;
+            lTween.Finished += AnimationFinished;
 		}
 
         public override void _Process(double delta)
         {
             if(Input.IsMouseButtonPressed(MouseButton.Left)) QueueFree();
         }
+
+		public void AnimationFinished()
+		{
+			//LoginScreen.GetInstance().AnimationLoginEnter();
+			QueueFree();
+		}
 
         protected override void Dispose(bool pDisposing)
 		{

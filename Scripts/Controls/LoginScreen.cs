@@ -47,7 +47,7 @@ namespace Com.IsartDigital.SokoVolt
 		private string username = "";
 		private string password = "";
 
-		UserGestion userGestion;
+		public UserGestion userGestion;
 
         // ---------- FUNCTIONS ---------- \\
 
@@ -84,10 +84,8 @@ namespace Com.IsartDigital.SokoVolt
             buttonLoginConfirm.Pressed += ButtonPressedLogin;
 			buttonCreateConfirm.Pressed += ButtonPressedCreate;
 
-			userGestion = UserGestion.GetInstance();
-
 			ButtonChangeToLogin();
-		}
+        }
 
 		public override void _Process(double pDelta)
 		{
@@ -116,21 +114,21 @@ namespace Com.IsartDigital.SokoVolt
 			string lPasswordConfirm = inputCreateConfirmPassword.Text;
 			if (lPassword != lPasswordConfirm)
 			{
-				GD.Print("Not same password !");
+				GD.Print("Passwords does not match !");
 				return;
 			}
 
 			username = inputCreateUsername.Text;
             password = inputCreatePassword.Text;
             
-			if (userGestion.RegistedUser(username, password))
+			if (userGestion.RegisterUser(username, password))
 			{
                 EmitSignal(SignalName.StartGame);
                 Hide();
             }
         }
 
-		private void AnimationLoginEnter()
+		public void AnimationLoginEnter()
 		{
 			foreach (Control lControl in loginNode.GetChildren())
 			{
@@ -139,6 +137,9 @@ namespace Com.IsartDigital.SokoVolt
 
 			Tween lTween = CreateTween();
 
+			lTween.TweenProperty(labelLoginName, "position", labelLoginName.Position, 2f).From(Vector2.Zero);
+			lTween.Play();
+			lTween.Finished += () => { GD.Print("test"); };
 		}
 
 		private void ButtonChangeToLogin()
