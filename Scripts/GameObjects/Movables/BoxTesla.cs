@@ -14,9 +14,8 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
     public partial class BoxTesla : Movable
     {
         [Signal] public delegate void PlayerCollideEventHandler(BoxTesla lTesla);
-        RayCast2D rayCast;
         static List<BoxTesla> boxTeslasList = new List<BoxTesla>();
-        private List<RayCast2D> rayCastList = new List<RayCast2D>();
+        [Export] private RayCast2D rayCast;
         [Export] private Line2D electriLine2D;
         public BoxTesla nextBoxTesla = null;
         [Export] public bool energize { get; private set; }
@@ -47,7 +46,6 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
         public override void _Ready()
         {
             Init();
-
         }
 
 
@@ -56,21 +54,15 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
             float lDelta = (float)pDelta;
             base._Process(pDelta);
             RayCastDetector(); 
-            if(rayCastList.Count >= 2)
-            {
-                for (int i = 0; i < rayCastList.Count - 2; i++)
-                {
-                    rayCastList[i].QueueFree();
-                }
-            }
         }
 
         private void Init()
         {
             CallDeferred(nameof(UpdateRangeLabel));
             length = directionScan.Count;
-            MovableHaveFinish += (Movable pSender) => { Searching(pSender);};
-
+            MovableHaveFinish += (Movable pSender) => { Searching(pSender);
+            };
+            CallDeferred(nameof(ConnectPlayer));
         }
 
         private void UpdateRangeLabel()
@@ -103,16 +95,14 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
             }
         }
 
-        private RayCast2D CreateRayCast(Vector2 pPos, Vector2 pTargetPos)
+        private void UpdateRayCast(Vector2 pTargetPos)
         {
-            RayCast2D lRay = new RayCast2D();
-            AddChild(lRay);
+            rayCast.TargetPosition = pTargetPos;
+        }
+
+        private void ConnectPlayer()
+        {
             PlayerCollide += Player.GetInstance().InsideTesla;
-            lRay.Position = pPos;
-            lRay.TargetPosition = pTargetPos;
-            lRay.CollideWithAreas = true;
-            rayCastList.Add(lRay);
-            return lRay;
         }
 
         public void ConnectionSearch()
@@ -216,7 +206,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
             GD.Print(electriLine2D.GetPointCount());
             electriLine2D.AddPoint(ToLocal(objToConnect.GlobalPosition), 1);
             energize = true;
-            rayCast = CreateRayCast(electriLine2D.Points[0], electriLine2D.Points[1]);
+            UpdateRayCast(electriLine2D.Points[1]);
             electriLine2D.Visible = true;
         }
 
@@ -224,7 +214,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
 
         private void LineDeconnection()
         {
-            //if(rayCast != null) rayCast.QueueFree();
+            UpdateRayCast(electriLine2D.Points[0]);
             electriLine2D.Visible = false;
             if (electriLine2D.GetPointCount() > 1) electriLine2D.RemovePoint(1);
 
