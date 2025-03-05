@@ -18,19 +18,20 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables {
 		[Signal] public delegate void MovableHaveFinishEventHandler(Movable sender); 
 		public virtual void MoveTo(int pX, int pY, Cell[,] pGrid)
 		{
-			Cell lOldCell = pGrid[x, y];
+			Cell lOldCell = pGrid[x, y]; 
 			Cell lNewCell = pGrid[pX, pY];
 
-			if(lOldCell.GetContent() == this && !Player.isTraveling)
-				lOldCell.SetContent(null);
+			if (lOldCell.GetContent() == this)
+				lOldCell.SetContent(null);  
 
 			x = pX;
 			y = pY;
 
-			if(!Player.isTraveling)lNewCell.SetContent(this);
+			if (!Player.isTraveling)
+				lNewCell.SetContent(this);
 
-			targetPosition = Utils.SetPosition(this, x, y, false); 
-			isMoving = true; 
+			targetPosition = Utils.SetPosition(this, x, y, false);
+			isMoving = true;
 
 			UpdateZindex();
 		}
@@ -38,7 +39,6 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables {
 		private void UpdateZindex()
 		{
 			ZIndex = IsoManager.GetZIndex(new Vector2(x, y));
-			// GD.Print(ZIndex); 
 		}
 
         public override void _Process(double pDelta)

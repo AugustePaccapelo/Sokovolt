@@ -37,7 +37,6 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables {
 		}
 		instance = this;
 		#endregion
-
 		}
 
 		public override void _Process(double pDelta)
