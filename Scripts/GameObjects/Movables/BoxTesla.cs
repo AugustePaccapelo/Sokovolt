@@ -16,6 +16,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
         [Signal] public delegate void PlayerCollideEventHandler(BoxTesla lTesla);
         RayCast2D rayCast;
         static List<BoxTesla> boxTeslasList = new List<BoxTesla>();
+        private List<RayCast2D> rayCastList = new List<RayCast2D>();
         [Export] private Line2D electriLine2D;
         public BoxTesla nextBoxTesla = null;
         [Export] public bool energize { get; private set; }
@@ -55,6 +56,13 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
             float lDelta = (float)pDelta;
             base._Process(pDelta);
             RayCastDetector(); 
+            if(rayCastList.Count >= 2)
+            {
+                for (int i = 0; i < rayCastList.Count - 2; i++)
+                {
+                    rayCastList[i].QueueFree();
+                }
+            }
         }
 
         private void Init()
@@ -103,6 +111,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
             lRay.Position = pPos;
             lRay.TargetPosition = pTargetPos;
             lRay.CollideWithAreas = true;
+            rayCastList.Add(lRay);
             return lRay;
         }
 
