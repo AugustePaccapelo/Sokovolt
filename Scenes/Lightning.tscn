@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://cfqq10c08ay30"]
+
+[ext_resource type="Script" path="res://Scripts/LightningNode.cs" id="1_dme1m"]
+[ext_resource type="PackedScene" uid="uid://fcrs0icl4dct" path="res://Scenes/LightningLine2D.tscn" id="2_es1e0"]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_dme1m")
+singleLighningScene = ExtResource("2_es1e0")
+cellSize = Vector2(91.648, 91.648)
+minAngle = 30.0
+maxAngle = 80.0
+speed = 3.0
+numLigthning = 3
+marginStart = 15
+marginSide = 35

@@ -13,6 +13,9 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
 
     public partial class BoxTesla : Movable
     {
+        [Export] private PackedScene lightningNodeScene;
+        LightningNode lLightning;
+
         [Signal] public delegate void PlayerCollideEventHandler(BoxTesla lTesla);
         RayCast2D rayCast;
         static List<BoxTesla> boxTeslasList = new List<BoxTesla>();
@@ -60,8 +63,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
         {
             CallDeferred(nameof(UpdateRangeLabel));
             length = directionScan.Count;
-            MovableHaveFinish += (Movable pSender) => { Searching(pSender);};
-
+            MovableHaveFinish += (Movable pSender) => { Searching(pSender); };
         }
 
         private void UpdateRangeLabel()
@@ -187,20 +189,37 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
 
         private void LineConnection(GameObject objToConnect)
         {
-            int lPointCount = electriLine2D.GetPointCount();
+            lLightning = lightningNodeScene.Instantiate<LightningNode>();
+            lLightning.endPoint = ToLocal(GlobalPosition);
+            lLightning.startPoint = ToLocal(objToConnect.GlobalPosition);
+            //lLightning.startPoint = ToLocal(Utils.GetCellPos(objToConnect));
+            
+            rayCast = CreateRayCast(Vector2.Zero, ToLocal(objToConnect.GlobalPosition));
+
+            AddChild(lLightning);
+
+            /*int lPointCount = electriLine2D.GetPointCount();
             if (electriLine2D.GetPointCount() >= 1) LineDeconnection();
             GD.Print(electriLine2D.GetPointCount());
             electriLine2D.AddPoint(ToLocal(objToConnect.GlobalPosition), 1);
             rayCast = CreateRayCast(electriLine2D.Points[0], electriLine2D.Points[1]);
-            electriLine2D.Visible = true;
+            electriLine2D.Visible = true;*/
         }
 
         private void LineDeconnection()
         {
             if(rayCast != null) rayCast.QueueFree();
-            electriLine2D.Visible = false;
-            if (electriLine2D.GetPointCount() >= 1) electriLine2D.RemovePoint(1);
+            //electriLine2D.Visible = false;
+            //if (electriLine2D.GetPointCount() >= 1) electriLine2D.RemovePoint(1);
 
+            //temp to see if it's good
+            if (lLightning != null) 
+            {
+                foreach (SingleLigthning lSingle in lLightning.GetChildren())
+                {
+                    lSingle.lifeTime = 0.1f;
+                }
+            }
         }
 
         protected override void Dispose(bool pDisposing)
