@@ -6,10 +6,9 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_tsyav"]
 radius = 27.0185
 
-[node name="Player" type="Node2D" node_paths=PackedStringArray("dectetor")]
+[node name="Player" type="Node2D"]
 scale = Vector2(1, 1.0957)
 script = ExtResource("1_05ekn")
-dectetor = NodePath("DetectionZone")
 
 [node name="Visual" type="Node2D" parent="."]
 
