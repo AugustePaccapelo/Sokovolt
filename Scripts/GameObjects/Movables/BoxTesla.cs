@@ -186,6 +186,8 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
                 nextBoxTesla = null;   
             }
             GD.Print("in range"+bonxInRangeList.Count);
+
+            CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.BoxTeslaCalculsDone);
         }
         private void RayCastDetector()
         {

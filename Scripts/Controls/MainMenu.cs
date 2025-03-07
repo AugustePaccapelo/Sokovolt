@@ -22,7 +22,7 @@ namespace Com.IsartDigital.SokoVolt
 
 		[Export] private Button startButton;
 
-		[Signal] public delegate void StartGameEventHandler();
+		//[Signal] public delegate void StartGameEventHandler();
 
 		private UIManager uiManager;
 
@@ -41,9 +41,11 @@ namespace Com.IsartDigital.SokoVolt
 
 			uiManager = GetParent<UIManager>();
 
-            StartGame += uiManager.GameStart;
+            //StartGame += uiManager.GameStart;
 
-            startButton.Pressed += () => EmitSignal(nameof(StartGame));
+            //startButton.Pressed += () => EmitSignal(nameof(StartGame));
+
+            startButton.Pressed += () => CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.GoToLevelSelector);
         }
 		
 

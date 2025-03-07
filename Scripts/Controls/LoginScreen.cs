@@ -107,14 +107,14 @@ namespace Com.IsartDigital.SokoVolt
             username = inputLoginUsername.Text;
 			password = inputLoginPassword.Text;
 
-			//To remove when UserGestion finished
-            EmitSignal(SignalName.StartGame);
+            //To remove when UserGestion finished
+            CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.GoToMainMenu);
             Hide();
 			return;
 
 			if (userGestion.LoginUser(username, password))
 			{
-				EmitSignal(SignalName.StartGame);
+				CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.GoToMainMenu);
 				Hide();
 			}
 			else labelLoginError.Show();
@@ -142,8 +142,8 @@ namespace Com.IsartDigital.SokoVolt
 
 			if (userGestion.RegisterUser(username, password))
 			{
-				EmitSignal(SignalName.StartGame);
-				Hide();
+                CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.GoToMainMenu);
+                Hide();
 			}
 			else labelCreateErrorUsername.Show();
         }

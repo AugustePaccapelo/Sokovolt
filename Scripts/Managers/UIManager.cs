@@ -40,15 +40,18 @@ namespace Com.IsartDigital.SokoVolt.Managers
 
 			base._Ready();
 
-			MainMenu.GetInstance();
-			hud = HUD.GetInstance();
+			mainMenu = MainMenu.GetInstance();
+			//hud = HUD.GetInstance();
 
-			hud.MainMenuButton += BackToMainMenu;
-		}
+			//hud.MainMenuButton += BackToMainMenu;
+			CustomSignals.GetInstance().GoToMainMenu += BackToMainMenu;
+            CustomSignals.GetInstance().GoToLevelSelector += GameStart;
+        }
 
 		public void GameStart() //Execute when StartButton is press in MainMenu
 		{
-			MainMenu.GetInstance().QueueFree();
+			//MainMenu.GetInstance().QueueFree();
+			mainMenu.Hide();
 			levelSelector = levelSelectorScene.Instantiate() as LevelSelector;
 			AddChild(levelSelector);
 		}
@@ -56,8 +59,9 @@ namespace Com.IsartDigital.SokoVolt.Managers
 		private void BackToMainMenu()
 		{
 			LevelSelector.GetInstance().QueueFree();
-			mainMenu = mainMenuScene.Instantiate() as MainMenu;
-			AddChild(mainMenu);
+			//mainMenu = mainMenuScene.Instantiate() as MainMenu;
+			//AddChild(mainMenu);
+			mainMenu.Show();
 		}
 
 		protected override void Dispose(bool pDisposing)

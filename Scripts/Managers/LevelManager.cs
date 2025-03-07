@@ -42,7 +42,8 @@ namespace Com.IsartDigital.SokoVolt.Managers
         {
             base.Init();
 
-            HUD.GetInstance().MainMenuButton += UnLoadLevel;
+            //HUD.GetInstance().MainMenuButton += UnLoadLevel;
+            CustomSignals.GetInstance().GoToMainMenu += UnLoadLevel;
         }
 
         private void UnLoadLevel()

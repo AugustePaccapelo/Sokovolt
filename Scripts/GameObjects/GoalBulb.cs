@@ -37,7 +37,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
 			base._Ready();
 
             signals = CustomSignals.GetInstance();
-            signals.BoxTeslaMoved += BoxTeslaMoved;
+            signals.BoxTeslaCalculsDone += BoxTeslaMoved;
 
             gameManager = GameManager.GetInstance();
 			gameManager.AddGoalBulb(this);

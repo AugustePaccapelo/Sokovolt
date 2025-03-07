@@ -21,7 +21,7 @@ namespace Com.IsartDigital.SokoVolt{
 
 		[Signal] public delegate void UndoButtonEventHandler();
 		[Signal] public delegate void RedoButtonEventHandler();
-		[Signal] public delegate void MainMenuButtonEventHandler();
+
 		[Export] public Button undoButton, redoButton, mainMenuButton;
 		[Export] public Label scoreLabel, stepLabel, winLabel; 
 		public override void _Ready()
@@ -42,7 +42,7 @@ namespace Com.IsartDigital.SokoVolt{
 			CustomMinimumSize = GetViewportRect().Size;	
 			undoButton.Pressed += () => EmitSignal(nameof(UndoButton));
 			redoButton.Pressed += () => EmitSignal(nameof(RedoButton));
-			mainMenuButton.Pressed += () => EmitSignal(nameof(MainMenuButton));
+			mainMenuButton.Pressed += () => CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.GoToMainMenu);
 			winLabel.Hide();
 		}
 
@@ -50,7 +50,7 @@ namespace Com.IsartDigital.SokoVolt{
 		{
 			winLabel.Show();
 			Tween lTween = CreateTween();
-			lTween.Finished += () => EmitSignal(nameof(MainMenuButton));
+			lTween.Finished += () => CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.GoToMainMenu);
 			lTween.TweenProperty(winLabel, "modulate", Colors.White, 2).From(Colors.Transparent);
 			lTween.Play();
 		}
