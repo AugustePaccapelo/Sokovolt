@@ -41,8 +41,6 @@ namespace Com.IsartDigital.SokoVolt
         [Export] private Button buttonCreateConfirm, buttonCreateGoLogin;
 		[Export] private Label labelCreateName, labelCreateUsername, labelCreatePassword, labelCreateConfirmPassword, labelCreateErrorPasswords, labelCreateErrorUsername;
 
-		private UIManager uiManager;
-
         // ----- Others ----- \\
         [Signal] public delegate void StartGameEventHandler();
 
@@ -82,10 +80,6 @@ namespace Com.IsartDigital.SokoVolt
 
             CustomMinimumSize = GetViewportRect().Size;
 
-			uiManager = GetParent<UIManager>();
-
-            StartGame += uiManager.GameStart;
-
 			buttonLoginGoCreate.Pressed += ButtonChangeToCreate;
 			buttonCreateGoLogin.Pressed += ButtonChangeToLogin;
             buttonLoginConfirm.Pressed += ButtonPressedLogin;
@@ -106,11 +100,6 @@ namespace Com.IsartDigital.SokoVolt
 			labelLoginError.Hide();
             username = inputLoginUsername.Text;
 			password = inputLoginPassword.Text;
-
-            //To remove when UserGestion finished
-            CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.GoToMainMenu);
-            Hide();
-			return;
 
 			if (userGestion.LoginUser(username, password))
 			{
@@ -134,11 +123,6 @@ namespace Com.IsartDigital.SokoVolt
 
 			username = inputCreateUsername.Text;
             password = inputCreatePassword.Text;
-
-            //To remove when UserGestion finished
-            EmitSignal(SignalName.StartGame);
-            Hide();
-            return;
 
 			if (userGestion.RegisterUser(username, password))
 			{

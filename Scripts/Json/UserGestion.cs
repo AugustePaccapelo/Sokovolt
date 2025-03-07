@@ -40,13 +40,6 @@ namespace Com.IsartDigital.ProjectName
 			#endregion
 
 			LoginScreen.GetInstance().userGestion = this;
-            GD.Print(jsonFilePath);
-			
-			string testName = "test";
-            string testPassword = "test123";
-
-            bool registered = RegisterUser(testName, testPassword);
-            GD.Print(registered ? "User 'Bruh' added." : "User 'Bruh' already exist!");
         }
 
 		private class User
