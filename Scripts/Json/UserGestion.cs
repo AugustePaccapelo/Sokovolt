@@ -1,10 +1,15 @@
 using Godot;
 using System;
+using System.IO;
+using System.Reflection.Metadata;
+using System.Xml.Linq;
+using System.Text.Json.Serialization;
+using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.Json;
 using Com.IsartDigital.SokoVolt;
-using System.Text.RegularExpressions;
-using Godot.Collections;
+using System.Runtime.Intrinsics.Arm;
 
 // Author : A. Dylan Montenegro Utrela
 
@@ -24,7 +29,8 @@ namespace Com.IsartDigital.ProjectName
 		}
 		#endregion
 
-		private string jsonFilePath = ProjectSettings.GlobalizePath("user://Json//UserData.Json");
+		private string jsonFilePath = ProjectSettings.GlobalizePath("user://"); // GlobalizePath gives the correct path for each operating system, "user://" is the static path for where the game/games data is saved
+		private string json;
 
 		public override void _Ready()
 		{
@@ -40,72 +46,71 @@ namespace Com.IsartDigital.ProjectName
 			#endregion
 
 			LoginScreen.GetInstance().userGestion = this;
-            GD.Print(jsonFilePath);
+		}
 
-            string testName = "test";
-            string testPassword = "test123";
-
-			bool registered = RegisterUser(testName, testPassword);
-			GD.Print(registered ? "User 'Bruh' added." : "User 'Bruh' already exist!");
-        }
-
-        private class User
+		private class User
 		{
 			public string name { get; set; }
 			public string password { get; set; }
 		}
 
-        private static string PasswordHashing(string pPassword) // to encrypt the password par Auguste
-        {
-            SHA256 lSha256 = SHA256.Create();
+		private static string PasswordHashing(string pPassword) // to encrypt the password ==== pour Auguste
+		{
+			using (SHA256 pSha256 = SHA256.Create()) ; // to use
+			return pPassword;
+		}
 
-            byte[] lBytes = lSha256.ComputeHash(Encoding.UTF8.GetBytes(pPassword));
+		//private void SaveTextToFile() // to finish
+		//{
 
-            string lHashedPassword = "";
-            foreach (byte lByte in lBytes)
-            {
-                lHashedPassword += (lByte.ToString("x2"));
-            }
+		//}
 
-            return lHashedPassword;
-        }
+		private void SaveUsers(List<User> pUsers) // this saves users in a list in a json file
+		{
+			json = JsonSerializer.Serialize(pUsers, new JsonSerializerOptions { WriteIndented = true });
+			JsonTool.WriteToFile(jsonFilePath, json); // use JsonTool instead of File.WriteAllText
+		}
+
+		private List<User> GetUsers() // this fetches registered users by reading the json file
+		{
+			if (!File.Exists(jsonFilePath))
+			{
+				GD.Print("Creating new users file");
+				//JsonTool.WriteToFile(jsonFilePath); // ??
+			}
+
+            json = JsonTool.ReadFileContents(jsonFilePath);
+			//json = File.ReadAllText(jsonFilePath);
+			if (string.IsNullOrEmpty(jsonFilePath)) return new List<User>();
+            return JsonSerializer.Deserialize<List<User>>(json) ?? new List<User>();
+		}
 
 		public bool RegisterUser(string pName, string pPassword) // register new users 
 		{
-			string lDirectoryPath = jsonFilePath.GetBaseDir();
-
-			if (!DirAccess.DirExistsAbsolute(lDirectoryPath)) DirAccess.MakeDirRecursiveAbsolute(lDirectoryPath);
-
-			if (!FileAccess.FileExists(jsonFilePath))
+			List<User> pUsers = GetUsers();
+			if (pUsers.Exists(pU => pU.name == pName))
 			{
-				using var lCreatFile = FileAccess.Open(jsonFilePath, FileAccess.ModeFlags.Write);
-				lCreatFile.StoreString("{}");
-				GD.Print("File created!!");
+				GD.Print("Username already taken!");
+				return false;
 			}
 
-			string lJsonContent = FileAccess.Open(jsonFilePath, FileAccess.ModeFlags.Read).GetAsText();
-			Dictionary lUsersData;
-
-			if (string.IsNullOrEmpty(lJsonContent) || !JsonTool.TryParseJson(lJsonContent, out lUsersData))
-			{
-				lUsersData = new Dictionary();
-            }
-			if (lUsersData.ContainsKey(pName)) return false;
-
-			lUsersData[pName] = pPassword;
-			string lNewJsonContent = Json.Stringify(lUsersData, "\t");
-			using var lFile = FileAccess.Open(jsonFilePath, FileAccess.ModeFlags.Write);
-			lFile.StoreString(lNewJsonContent);
+			pUsers.Add(new User { name = pName, password = PasswordHashing(pPassword) });
+			SaveUsers(pUsers);
+			GD.Print("User registered");
 			return true;
 		}
 
 		public bool LoginUser(string pName, string pPassword) // connects the users 
 		{
-			string lJsonContent = JsonTool.ReadFileContents(jsonFilePath);
-            Dictionary lUsersData;
-
-            if (string.IsNullOrEmpty(lJsonContent) || !JsonTool.TryParseJson(lJsonContent, out lUsersData)) return false;
-			return lUsersData.ContainsKey(pName) && lUsersData[pName].ToString() == pPassword;
-        }
+			List<User> pUsers = GetUsers();
+			string pHashedPwd = PasswordHashing(pPassword);
+			if (pUsers.Exists(pU => pU.name == pName && pU.password == pPassword))
+			{
+				GD.Print("Login successful");
+				return true;
+			}
+			GD.Print("The name or password is incorrect");
+			return false;
+		}
 	}
 }
