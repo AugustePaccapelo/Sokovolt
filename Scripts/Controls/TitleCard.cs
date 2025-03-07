@@ -61,7 +61,7 @@ namespace Com.IsartDigital.SokoVolt
 
         public void AnimationFinished()
 		{
-			LoginScreen.GetInstance().AnimationLoginEnter();
+			CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.GoToLoginScreen);
 			QueueFree();
 		}
 

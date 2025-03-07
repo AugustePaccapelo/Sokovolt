@@ -29,15 +29,17 @@ namespace Com.IsartDigital.SokoVolt
 		// ----- Nodes ----- \\
 		[ExportGroup("LoginScreen")]
 		[Export] private Control loginNode;
-		[Export] private TextEdit inputLoginUsername, inputLoginPassword;
+		[Export] private TextEdit inputLoginUsername;
+		[Export] private LineEdit inputLoginPassword;
         [Export] private Button buttonLoginConfirm, buttonLoginGoCreate;
-		[Export] private Label labelLoginName, labelLoginUsername, labelLoginPassword;
+		[Export] private Label labelLoginName, labelLoginUsername, labelLoginPassword, labelLoginError;
 
         [ExportGroup("CreateScreen")]
         [Export] private Control createNode;
-		[Export] private TextEdit inputCreateUsername, inputCreatePassword, inputCreateConfirmPassword;
-		[Export] private Button buttonCreateConfirm, buttonCreateGoLogin;
-		[Export] private Label labelCreateName, labelCreateUsername, labelCreatePassword, labelCreateConfirmPassword;
+		[Export] private TextEdit inputCreateUsername;
+		[Export] private LineEdit inputCreatePassword, inputCreateConfirmPassword;
+        [Export] private Button buttonCreateConfirm, buttonCreateGoLogin;
+		[Export] private Label labelCreateName, labelCreateUsername, labelCreatePassword, labelCreateConfirmPassword, labelCreateErrorPasswords, labelCreateErrorUsername;
 
 		private UIManager uiManager;
 
@@ -70,10 +72,15 @@ namespace Com.IsartDigital.SokoVolt
 
 			base._Ready();
 
-			createNode.Hide();
-			loginNode.Hide();
+			CustomSignals.GetInstance().GoToLoginScreen += () =>
+			{
+                loginNode.Show();
+                AnimationLoginEnter();
+            };
 
-			CustomMinimumSize = GetViewportRect().Size;
+			createNode.Hide();
+
+            CustomMinimumSize = GetViewportRect().Size;
 
 			uiManager = GetParent<UIManager>();
 
@@ -83,8 +90,6 @@ namespace Com.IsartDigital.SokoVolt
 			buttonCreateGoLogin.Pressed += ButtonChangeToLogin;
             buttonLoginConfirm.Pressed += ButtonPressedLogin;
 			buttonCreateConfirm.Pressed += ButtonPressedCreate;
-
-			ButtonChangeToLogin();
         }
 
 		public override void _Process(double pDelta)
@@ -98,7 +103,8 @@ namespace Com.IsartDigital.SokoVolt
 
 		private void ButtonPressedLogin()
 		{
-			username = inputLoginUsername.Text;
+			labelLoginError.Hide();
+            username = inputLoginUsername.Text;
 			password = inputLoginPassword.Text;
 
 			//To remove when UserGestion finished
@@ -106,20 +112,23 @@ namespace Com.IsartDigital.SokoVolt
             Hide();
 			return;
 
-            if (userGestion.LoginUser(username, password))
+			if (userGestion.LoginUser(username, password))
 			{
-                EmitSignal(SignalName.StartGame);
-                Hide();
-            }
+				EmitSignal(SignalName.StartGame);
+				Hide();
+			}
+			else labelLoginError.Show();
 		}
 
 		private void ButtonPressedCreate()
 		{
-			string lPassword = inputCreatePassword.Text;
+			labelCreateErrorPasswords.Hide();
+			labelCreateErrorUsername.Hide();
+            string lPassword = inputCreatePassword.Text;
 			string lPasswordConfirm = inputCreateConfirmPassword.Text;
 			if (lPassword != lPasswordConfirm)
 			{
-				GD.Print("Passwords does not match !");
+				labelCreateErrorPasswords.Show();
 				return;
 			}
 
@@ -131,36 +140,47 @@ namespace Com.IsartDigital.SokoVolt
             Hide();
             return;
 
-            if (userGestion.RegisterUser(username, password))
+			if (userGestion.RegisterUser(username, password))
 			{
-                EmitSignal(SignalName.StartGame);
-                Hide();
-            }
+				EmitSignal(SignalName.StartGame);
+				Hide();
+			}
+			else labelCreateErrorUsername.Show();
         }
 
-		public void AnimationLoginEnter()
+		private void AnimationLoginEnter()
 		{
 			
-
-			Tween lTween = CreateTween();
-
-			lTween.TweenProperty(labelLoginName, "scale", Vector2.One, 1f).From(Vector2.Zero)
-				.SetTrans(Tween.TransitionType.Elastic).SetEase(Tween.EaseType.Out);
-            lTween.Parallel().TweenProperty(labelLoginUsername, "global_position", labelLoginUsername.GlobalPosition, 0.25f).From(Vector2.Zero)
-                .SetTrans(Tween.TransitionType.Back).SetEase(Tween.EaseType.Out);
-            lTween.Play();
 		}
 
-		private void ButtonChangeToLogin()
+		private void AnimationLoginExit()
+		{
+
+		}
+
+        private void AnimationCreateEnter()
+        {
+
+        }
+
+        private void AnimationCreateExit()
+        {
+
+        }
+
+        private void ButtonChangeToLogin()
 		{
 			createNode.Hide();
-			loginNode.Show();
+            labelLoginError.Hide();
+            loginNode.Show();
 		}
 
 		private void ButtonChangeToCreate()
 		{
 			loginNode.Hide();
-			createNode.Show();
+            labelCreateErrorPasswords.Hide();
+            labelCreateErrorUsername.Hide();
+            createNode.Show();
 		}
 
 		// ----- Destructor ----- \\

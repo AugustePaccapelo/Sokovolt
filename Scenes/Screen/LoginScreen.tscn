@@ -1,8 +1,17 @@
-[gd_scene load_steps=2 format=3 uid="uid://31ew226yj11n"]
+[gd_scene load_steps=5 format=3 uid="uid://31ew226yj11n"]
 
 [ext_resource type="Script" path="res://Scripts/Controls/LoginScreen.cs" id="1_skjs4"]
 
-[node name="LoginScreen" type="Control" node_paths=PackedStringArray("loginNode", "inputLoginUsername", "inputLoginPassword", "buttonLoginConfirm", "buttonLoginGoCreate", "labelLoginName", "labelLoginUsername", "labelLoginPassword", "createNode", "inputCreateUsername", "inputCreatePassword", "inputCreateConfirmPassword", "buttonCreateConfirm", "buttonCreateGoLogin", "labelCreateName", "labelCreateUsername", "labelCreatePassword", "labelCreateConfirmPassword")]
+[sub_resource type="LabelSettings" id="LabelSettings_al77a"]
+font_color = Color(0.992157, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_cntyw"]
+font_color = Color(1, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_g75en"]
+font_color = Color(1, 0, 0, 1)
+
+[node name="LoginScreen" type="Control" node_paths=PackedStringArray("loginNode", "inputLoginUsername", "inputLoginPassword", "buttonLoginConfirm", "buttonLoginGoCreate", "labelLoginName", "labelLoginUsername", "labelLoginPassword", "labelLoginError", "createNode", "inputCreateUsername", "inputCreatePassword", "inputCreateConfirmPassword", "buttonCreateConfirm", "buttonCreateGoLogin", "labelCreateName", "labelCreateUsername", "labelCreatePassword", "labelCreateConfirmPassword", "labelCreateErrorPasswords", "labelCreateErrorUsername")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -15,39 +24,31 @@ inputLoginUsername = NodePath("Login/VBoxContainer/InputUsername")
 inputLoginPassword = NodePath("Login/VBoxContainer/InputPassword")
 buttonLoginConfirm = NodePath("Login/VBoxContainer/ButtonLogin")
 buttonLoginGoCreate = NodePath("Login/VBoxContainer/ButtonCreateAccount")
-labelLoginName = NodePath("Login/LabelLogin")
+labelLoginName = NodePath("Login/VBoxContainer/LabelLogin")
 labelLoginUsername = NodePath("Login/VBoxContainer/LabelUsername")
 labelLoginPassword = NodePath("Login/VBoxContainer/LabelPassword")
+labelLoginError = NodePath("Login/VBoxContainer/LabelError")
 createNode = NodePath("Create")
 inputCreateUsername = NodePath("Create/VBoxContainer/InputUsername")
 inputCreatePassword = NodePath("Create/VBoxContainer/InputPassword")
-inputCreateConfirmPassword = NodePath("Create/VBoxContainer/InputPassword2")
+inputCreateConfirmPassword = NodePath("Create/VBoxContainer/InputPasswordConfirm")
 buttonCreateConfirm = NodePath("Create/VBoxContainer/ButtonLogin")
 buttonCreateGoLogin = NodePath("Create/VBoxContainer/ButtonCreateAccount")
-labelCreateName = NodePath("Create/LabelLogin")
+labelCreateName = NodePath("Create/VBoxContainer/LabelLogin")
 labelCreateUsername = NodePath("Create/VBoxContainer/LabelUsername")
 labelCreatePassword = NodePath("Create/VBoxContainer/LabelPassword")
 labelCreateConfirmPassword = NodePath("Create/VBoxContainer/LabelPassword2")
+labelCreateErrorPasswords = NodePath("Create/VBoxContainer/LabelErrorPasswords")
+labelCreateErrorUsername = NodePath("Create/VBoxContainer/LabelErrorUsername")
 
 [node name="Login" type="Control" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="LabelLogin" type="Label" parent="Login"]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -21.0
-offset_top = 50.0
-offset_right = 21.0
-offset_bottom = 73.0
-grow_horizontal = 2
-text = "Login"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Login"]
 layout_mode = 1
@@ -63,6 +64,11 @@ offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="LabelLogin" type="Label" parent="Login/VBoxContainer"]
+layout_mode = 2
+text = "Login"
+horizontal_alignment = 1
+
 [node name="LabelUsername" type="Label" parent="Login/VBoxContainer"]
 layout_mode = 2
 text = "Username:"
@@ -76,10 +82,17 @@ placeholder_text = "MyUsername"
 layout_mode = 2
 text = "Password:"
 
-[node name="InputPassword" type="TextEdit" parent="Login/VBoxContainer"]
-custom_minimum_size = Vector2(0, 50)
+[node name="InputPassword" type="LineEdit" parent="Login/VBoxContainer"]
 layout_mode = 2
 placeholder_text = "MyPassword"
+secret = true
+
+[node name="LabelError" type="Label" parent="Login/VBoxContainer"]
+visible = false
+layout_mode = 2
+text = "Wrong Username 
+or Password"
+label_settings = SubResource("LabelSettings_al77a")
 
 [node name="ButtonLogin" type="Button" parent="Login/VBoxContainer"]
 layout_mode = 2
@@ -90,26 +103,12 @@ layout_mode = 2
 text = "Create an Acccount"
 
 [node name="Create" type="Control" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="LabelLogin" type="Label" parent="Create"]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -21.0
-offset_right = 21.0
-offset_bottom = 23.0
-grow_horizontal = 2
-text = "
-
-Create an Account"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Create"]
 layout_mode = 1
@@ -125,6 +124,11 @@ offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="LabelLogin" type="Label" parent="Create/VBoxContainer"]
+layout_mode = 2
+text = "Create an Account"
+horizontal_alignment = 1
+
 [node name="LabelUsername" type="Label" parent="Create/VBoxContainer"]
 layout_mode = 2
 text = "Username:"
@@ -138,19 +142,33 @@ placeholder_text = "MyUsername"
 layout_mode = 2
 text = "Password:"
 
-[node name="InputPassword" type="TextEdit" parent="Create/VBoxContainer"]
-custom_minimum_size = Vector2(0, 50)
+[node name="InputPassword" type="LineEdit" parent="Create/VBoxContainer"]
 layout_mode = 2
 placeholder_text = "MyPassword"
+secret = true
 
 [node name="LabelPassword2" type="Label" parent="Create/VBoxContainer"]
 layout_mode = 2
 text = "Confirm your Password:"
 
-[node name="InputPassword2" type="TextEdit" parent="Create/VBoxContainer"]
-custom_minimum_size = Vector2(0, 50)
+[node name="LabelErrorPasswords" type="Label" parent="Create/VBoxContainer"]
+visible = false
+layout_mode = 2
+text = "Passwords does
+not match !"
+label_settings = SubResource("LabelSettings_cntyw")
+
+[node name="LabelErrorUsername" type="Label" parent="Create/VBoxContainer"]
+visible = false
+layout_mode = 2
+text = "This Username
+already exist !"
+label_settings = SubResource("LabelSettings_g75en")
+
+[node name="InputPasswordConfirm" type="LineEdit" parent="Create/VBoxContainer"]
 layout_mode = 2
 placeholder_text = "MyPassword"
+secret = true
 
 [node name="ButtonLogin" type="Button" parent="Create/VBoxContainer"]
 layout_mode = 2
