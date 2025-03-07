@@ -8,10 +8,9 @@ namespace Com.IsartDigital.SokoVolt {
 	
 	public static class Utils 
 	{
-		public const int TILE_SIZE = 64;
-
 		public const int TILE_WIDTH = 94;
 		public const int TILE_HEIGHT = 54;
+
 		public static Node2D Spawner(PackedScene pScene, int pX, int pY, Node2D pParent)
 		{
 			Node2D lNode = (Node2D)pScene.Instantiate();
@@ -19,6 +18,7 @@ namespace Com.IsartDigital.SokoVolt {
 			pParent.AddChild(lNode);
 			return lNode;
 		}
+
 
 		public static Vector2 SetPosition(Node2D pNode, int pX, int pY, bool pAsignPos)
 		{

@@ -11,20 +11,10 @@ namespace Com.IsartDigital.SokoVolt.GameObjects {
 		public int x, y;
 		protected Cell curentCell;
 
-		public override void _Ready()
-		{
-
-		}
-
 		public void Init(int pX, int pY)
 		{
 			x = pX;
 			y = pY;
-		}
-
-		public override void _Process(double pDelta)
-		{
-			float lDelta = (float)pDelta; 
 		}
 
 		public void SetCell(Cell pNewCell)
