@@ -11,7 +11,7 @@ font_color = Color(1, 0, 0, 1)
 [sub_resource type="LabelSettings" id="LabelSettings_g75en"]
 font_color = Color(1, 0, 0, 1)
 
-[node name="LoginScreen" type="Control" node_paths=PackedStringArray("loginNode", "inputLoginUsername", "inputLoginPassword", "buttonLoginConfirm", "buttonLoginGoCreate", "labelLoginName", "labelLoginUsername", "labelLoginPassword", "labelLoginError", "createNode", "inputCreateUsername", "inputCreatePassword", "inputCreateConfirmPassword", "buttonCreateConfirm", "buttonCreateGoLogin", "labelCreateName", "labelCreateUsername", "labelCreatePassword", "labelCreateConfirmPassword", "labelCreateErrorPasswords", "labelCreateErrorUsername")]
+[node name="LoginScreen" type="Control" node_paths=PackedStringArray("loginNode", "inputLoginUsername", "inputLoginPassword", "buttonLoginConfirm", "buttonLoginGoCreate", "labelLoginName", "labelLoginUsername", "labelLoginPassword", "createNode", "inputCreateUsername", "inputCreatePassword", "inputCreateConfirmPassword", "buttonCreateConfirm", "buttonCreateGoLogin", "labelCreateName", "labelCreateUsername", "labelCreatePassword", "labelCreateConfirmPassword")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -27,7 +27,6 @@ buttonLoginGoCreate = NodePath("Login/VBoxContainer/ButtonCreateAccount")
 labelLoginName = NodePath("Login/VBoxContainer/LabelLogin")
 labelLoginUsername = NodePath("Login/VBoxContainer/LabelUsername")
 labelLoginPassword = NodePath("Login/VBoxContainer/LabelPassword")
-labelLoginError = NodePath("Login/VBoxContainer/LabelError")
 createNode = NodePath("Create")
 inputCreateUsername = NodePath("Create/VBoxContainer/InputUsername")
 inputCreatePassword = NodePath("Create/VBoxContainer/InputPassword")
@@ -38,8 +37,6 @@ labelCreateName = NodePath("Create/VBoxContainer/LabelLogin")
 labelCreateUsername = NodePath("Create/VBoxContainer/LabelUsername")
 labelCreatePassword = NodePath("Create/VBoxContainer/LabelPassword")
 labelCreateConfirmPassword = NodePath("Create/VBoxContainer/LabelPassword2")
-labelCreateErrorPasswords = NodePath("Create/VBoxContainer/LabelErrorPasswords")
-labelCreateErrorUsername = NodePath("Create/VBoxContainer/LabelErrorUsername")
 
 [node name="Login" type="Control" parent="."]
 visible = false

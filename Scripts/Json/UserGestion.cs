@@ -42,50 +42,43 @@ namespace Com.IsartDigital.ProjectName
 			LoginScreen.GetInstance().userGestion = this;
         }
 
-		private class User
-		{
-			public string name { get; set; }
-			public string password { get; set; }
-		}
-
         private static string PasswordHashing(string pPassword) // to encrypt the password by Auguste
         {
-            SHA256 lSha256 = SHA256.Create();
+			SHA256 lSha256 = SHA256.Create();
 
-            byte[] lBytes = lSha256.ComputeHash(Encoding.UTF8.GetBytes(pPassword));
+			byte[] lBytes = lSha256.ComputeHash(Encoding.UTF8.GetBytes(pPassword));
 
-            string lHashedPassword = "";
-            foreach (byte lByte in lBytes)
-            {
-                lHashedPassword += (lByte.ToString("x2"));
-            }
+			string lHashedPassword = "";
+			foreach (byte lByte in lBytes)
+			{
+				lHashedPassword += (lByte.ToString("x2"));
+			}
 
-            return lHashedPassword;
+			return lHashedPassword;
         }
 
-		public bool RegisterUser(string pName, string pPassword) // register new users 
+		public bool RegisterUser(string pName, string pPassword) // registers new users 
 		{
 			string lDirectoryPath = jsonFilePath.GetBaseDir();
 
 			if (!DirAccess.DirExistsAbsolute(lDirectoryPath)) DirAccess.MakeDirRecursiveAbsolute(lDirectoryPath);
-
 			if (!FileAccess.FileExists(jsonFilePath))
 			{
 				using var lCreatFile = FileAccess.Open(jsonFilePath, FileAccess.ModeFlags.Write);
 				lCreatFile.StoreString("{}");
-				GD.Print("File created!!");
 			}
 
             string lJsonContent = FileAccess.Open(jsonFilePath, FileAccess.ModeFlags.Read).GetAsText();
             Dictionary lUsersData;
 
-            if (string.IsNullOrEmpty(lJsonContent) || !JsonTool.TryParseJson(lJsonContent, out lUsersData))
-            {
-				lUsersData = new Dictionary();
+            if (string.IsNullOrEmpty(lJsonContent) || !JsonTool.TryParseJson(lJsonContent, out lUsersData)) lUsersData = new Dictionary();
+			if (lUsersData.ContainsKey(pName))
+			{
+				return false;
 			}
-			if (lUsersData.ContainsKey(pName)) return false;
 
-            lUsersData[pName] = pPassword;
+			string lHashedPassword = PasswordHashing(pPassword); // this will encrypte the password
+            lUsersData[pName] = lHashedPassword;
             string lNewJsonContent = Json.Stringify(lUsersData, "\t");
             using var lFile = FileAccess.Open(jsonFilePath, FileAccess.ModeFlags.Write);
             lFile.StoreString(lNewJsonContent);
@@ -98,7 +91,7 @@ namespace Com.IsartDigital.ProjectName
             Dictionary lUsersData;
 
             if (string.IsNullOrEmpty(lJsonContent) || !JsonTool.TryParseJson(lJsonContent, out lUsersData)) return false;
-            return lUsersData.ContainsKey(pName) && lUsersData[pName].ToString() == pPassword;
+            return lUsersData.ContainsKey(pName) && lUsersData[pName].ToString() == PasswordHashing(pPassword);
         }
     }
 }
