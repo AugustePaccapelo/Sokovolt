@@ -21,7 +21,7 @@ namespace Com.IsartDigital.SokoVolt
         private const float MARGIN = 350.0f;
         private Vector2 buttonSize = new Vector2(60, 100);
         private Vector2 teslaSize = new Vector2(855, 1071);
-        private int teslaPosY = 253;
+        [Export] private int teslaPosY = 253;
         private int newTeslaPointPosY = 223;
         private bool alreadyPress = false;
         private Vector2 screenSize;
