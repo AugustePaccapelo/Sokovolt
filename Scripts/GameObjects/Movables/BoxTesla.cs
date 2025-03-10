@@ -191,7 +191,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
         }
         private void RayCastDetector()
         {
-            if (rayCast != null && !signalEmit && rayCast.IsColliding() && playerCanBeDetected)
+            if (rayCast != null && !signalEmit && rayCast.IsColliding() && playerCanBeDetected && !GridManager.currentlyUndoRedo)
             {
                 GodotObject lArea = rayCast.GetCollider();
                 if (IsInstanceValid(lArea))

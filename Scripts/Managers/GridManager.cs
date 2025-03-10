@@ -54,9 +54,9 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 
         public override void _Process(double pDelta)
 		{
-			if(Input.IsActionJustPressed("Undo")) SetGridState(actualGridStateIndex - 1); //=================> Undo to put in InputManager
+			if(Input.IsActionJustPressed("Undo")) UndoRedo(-1); //=================> Undo to put in InputManager
 			else
-			if(Input.IsActionJustPressed("Redo")) SetGridState(actualGridStateIndex + 1); //=================> Redo	to put in InputManager
+			if(Input.IsActionJustPressed("Redo")) UndoRedo(1); //=================> Redo	to put in InputManager
 
 			if(Input.IsActionJustPressed("Retry")) Retry(); 
 
@@ -74,8 +74,8 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 		{
 			LevelManager.GetInstance().LoadLevel  += LoadNewLevel;
 			InputManager.GetInstance().Move += OnMovePlayer;
-			hud.UndoButton += () => SetGridState(actualGridStateIndex - 1);
-			hud.RedoButton += () => SetGridState(actualGridStateIndex + 1);
+			hud.UndoButton += () => UndoRedo(-1);
+			hud.RedoButton += () => UndoRedo(1);
 		}
 
 
@@ -218,6 +218,18 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 
 
 		#region // ----- Undo/Redo/Retry ----- \\
+		public static bool currentlyUndoRedo; 
+		private void UndoRedo(int pAmount)
+		{
+			int lAmount = pAmount; 
+			currentlyUndoRedo = true; 
+			if(!(player.curentCell.GetContent() is BoxTesla)) lAmount *= 2; 
+			SetGridState(actualGridStateIndex + lAmount);
+			
+			GetTree().CreateTimer(1).Timeout += () => currentlyUndoRedo = false;	
+		}
+
+	
 		private Cell[,] CopyGrid(Cell[,] pOriginalGrid)
 		{
 			int lWidth = LevelLoader.levelWidth;
