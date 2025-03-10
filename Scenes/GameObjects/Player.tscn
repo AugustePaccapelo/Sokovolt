@@ -1,10 +1,56 @@
-[gd_scene load_steps=4 format=3 uid="uid://yr5dy4bj5sby"]
+[gd_scene load_steps=10 format=3 uid="uid://yr5dy4bj5sby"]
 
 [ext_resource type="Script" path="res://Scripts/GameObjects/Movables/Player.cs" id="1_05ekn"]
 [ext_resource type="Texture2D" uid="uid://ddl6potg3whdy" path="res://Assets/GameObjects/IsoObjects/pngegg (3).png" id="2_x7461"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_tsyav"]
 radius = 4.1028
+
+[sub_resource type="Gradient" id="Gradient_rvo8j"]
+colors = PackedColorArray(0, 1, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_pshl0"]
+gradient = SubResource("Gradient_rvo8j")
+
+[sub_resource type="Curve" id="Curve_gtcqf"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.251185, 0), 0.0, 0.0, 0, 0, Vector2(0.49763, 1), 0.0, 0.0, 0, 0, Vector2(0.758294, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 5
+
+[sub_resource type="CurveTexture" id="CurveTexture_8imnm"]
+curve = SubResource("Curve_gtcqf")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_voq2u"]
+particle_flag_disable_z = true
+initial_velocity_max = 158.73
+orbit_velocity_min = -2.0
+orbit_velocity_max = 2.0
+radial_velocity_max = 25.0
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_8imnm")
+color_ramp = SubResource("GradientTexture1D_pshl0")
+turbulence_enabled = true
+turbulence_noise_speed_random = 2.44
+turbulence_influence_min = 0.024
+turbulence_influence_max = 0.373
+turbulence_initial_displacement_min = -53.0
+turbulence_initial_displacement_max = -34.8
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_41b4s"]
+particle_flag_disable_z = true
+initial_velocity_max = 158.73
+orbit_velocity_min = -2.0
+orbit_velocity_max = 2.0
+radial_velocity_min = -100.0
+radial_velocity_max = 100.0
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_8imnm")
+color_ramp = SubResource("GradientTexture1D_pshl0")
+turbulence_enabled = true
+turbulence_noise_speed_random = 2.44
+turbulence_influence_min = 0.024
+turbulence_influence_max = 0.373
+turbulence_initial_displacement_min = -53.0
+turbulence_initial_displacement_max = -34.8
 
 [node name="Player" type="Node2D" node_paths=PackedStringArray("dectetor")]
 scale = Vector2(1, 1.0957)
@@ -30,3 +76,18 @@ texture = ExtResource("2_x7461")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionZone"]
 shape = SubResource("CircleShape2D_tsyav")
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="Node2D"]
+process_material = SubResource("ParticleProcessMaterial_voq2u")
+fixed_fps = 60
+local_coords = true
+trail_enabled = true
+
+[node name="GPUParticles2D2" type="GPUParticles2D" parent="Node2D"]
+amount = 4
+process_material = SubResource("ParticleProcessMaterial_41b4s")
+fixed_fps = 60
+local_coords = true
+trail_enabled = true
