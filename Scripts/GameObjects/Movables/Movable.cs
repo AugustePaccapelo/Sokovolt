@@ -35,9 +35,9 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables {
 			targetPosition = Utils.SetPosition(this, x, y, false);
 			isMoving = true;
 
-			SetCell(lNewCell);
+            SetCell(lNewCell);
 
-			UpdateZindex();
+            UpdateZindex();
 		}
 
 
@@ -56,10 +56,10 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables {
 
 				if(GlobalPosition.DistanceTo(targetPosition) < 1f)
 				{
-					GlobalPosition = targetPosition; 
-					EmitSignal(nameof(MovableHaveFinish), this); 
-					isMoving = false; 
-				}
+					GlobalPosition = targetPosition;
+                    EmitSignal(nameof(MovableHaveFinish), this); 
+					isMoving = false;
+                }
 			}
         }
     }

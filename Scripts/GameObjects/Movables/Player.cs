@@ -46,13 +46,13 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables {
 
         public void InsideTesla(BoxTesla pTesla)
 		{
-			if (pTesla.nextBoxTesla != null && pTesla.playerCanBeDetected)
+			if (pTesla.playerCanBeDetected)
 			{
 				isTraveling = true; 
 				GD.Print("Player TP to NExtTEsla");
 				dectetor.Monitorable = false;
 				pTesla.playerCanBeDetected = false;
-				MoveTo(pTesla.nextBoxTesla.x, pTesla.nextBoxTesla.y, GridManager.GetInstance().grid);
+				MoveTo(pTesla.x, pTesla.y, GridManager.GetInstance().grid);
 				GetTree().CreateTimer(1).Timeout += () => pTesla.playerCanBeDetected = true;
 				isTraveling = false; 
             }

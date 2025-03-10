@@ -20,7 +20,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects {
 		public void SetCell(Cell pNewCell)
 		{
 			curentCell = pNewCell;
-			GlobalPosition = pNewCell.GlobalPosition;
+			//GlobalPosition = pNewCell.GlobalPosition;
 		}
 
 		protected override void Dispose(bool pDisposing)
