@@ -24,6 +24,8 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables {
 		#endregion
 
 		[Export] Area2D dectetor;
+		[Export] GpuParticles2D inTeslaParticles;
+		private float timer;
 
 		public static bool isTraveling{get; private set;} 
 
@@ -41,22 +43,28 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables {
 
 		public override void _Process(double pDelta)
 		{
-			base._Process(pDelta); 
-		}
+			base._Process(pDelta);
+			float lDelta = (float)pDelta;
+			timer += lDelta;
+			if (timer > 0.2f && inTeslaParticles.Visible) inTeslaParticles.Hide();
+			if (timer > 3) timer = 0;
+        }
 
         public void InsideTesla(BoxTesla pTesla)
 		{
 			if (pTesla.playerCanBeDetected)
 			{
-				isTraveling = true; 
-				GD.Print("Player TP to NExtTEsla");
+				timer = 0;
+				isTraveling = true;
+                inTeslaParticles.Show();
+                GD.Print("Player TP to NExtTEsla");
 				dectetor.Monitorable = false;
 				pTesla.playerCanBeDetected = false;
 				MoveTo(pTesla.x, pTesla.y, GridManager.GetInstance().grid);
 				GetTree().CreateTimer(1).Timeout += () => pTesla.playerCanBeDetected = true;
-				isTraveling = false; 
+				isTraveling = false;
             }
-			else if (pTesla.nextBoxTesla == null) GD.Print("nextTEsla est null");
+            else if (pTesla.nextBoxTesla == null) GD.Print("nextTEsla est null");
         }
 
         public override void MoveTo(int pX, int pY, Cell[,] pGrid)
