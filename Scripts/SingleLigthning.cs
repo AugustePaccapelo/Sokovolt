@@ -101,8 +101,6 @@ namespace Com.IsartDigital.SokoVolt
 
             AddPoint(lPoint, 1);
 
-            Points = spawningPoints.ToArray();
-
             if ((spawningPoints[spawningPoints.Count - 1] - startPoint).Length() >= (endPoint - startPoint).Length())
             {
                 currentState = Moving;
@@ -149,13 +147,16 @@ namespace Com.IsartDigital.SokoVolt
 
         private void MovePoints(float pDelta)
         {
-            float lAngle;
-            
+            Vector2 lPoint;
+
             for (int i = allPointsList.Count - 2; i > 0; i--)
             {
                 allPointsList[i] += vectorDirector * speed * pDelta;
-                lAngle = (endPoint - allPointsList[i]).Angle();
-                if (lAngle < vectorDirector.Angle() - Mathf.Pi * 0.5f || lAngle > vectorDirector.Angle() + Mathf.Pi * 0.5f)
+
+                lPoint = CalculateIntersection(endPoint, vectorDirector.Angle() + Mathf.Pi * 0.5f, 
+                    allPointsList[i], endPoint);
+                
+                if ((allPointsList[i] - lPoint).Dot(vectorDirector) > 0f)
                 {
                     allPointsList.RemoveAt(i);
                 }
@@ -168,12 +169,16 @@ namespace Com.IsartDigital.SokoVolt
 
             nextPoint = pListPoints[1] - nextPointVector;
             lPoint = CalculateIntersection(startPoint + Vector2.Right.Rotated(vectorDirector.Angle()) * marginStart, 
-                vectorDirector.Angle() + Mathf.Pi * 0.5f * side, pListPoints[1], nextPoint);
+                vectorDirector.Angle() + Mathf.Pi * 0.5f, pListPoints[1], nextPoint);
 
-            if ((startPoint - lPoint).Length() > cellSize.X * 0.5f - marginSide)
+            Vector2 lProjOrtho = CalculateIntersection(lPoint, vectorDirector.Angle() + Mathf.Pi * 0.5f, startPoint, endPoint);
+
+            float lVectorLength = (lPoint - lProjOrtho).Length();
+
+            if (lVectorLength > cellSize.X * 0.5f - marginSide)
             {
-                Vector2 lDirectionToPoint = (lPoint - startPoint).Normalized();
-                lPoint = startPoint + lDirectionToPoint * (cellSize.X * 0.5f - marginSide);
+                Vector2 lDirectionToPoint = (lPoint - lProjOrtho).Normalized();
+                lPoint = lProjOrtho + lDirectionToPoint * (cellSize.X * 0.5f - marginSide);
             }
 
             if ((pListPoints[1] - lPoint).Length() >= nextPointVector.Length())
