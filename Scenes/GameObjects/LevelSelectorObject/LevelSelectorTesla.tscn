@@ -143,8 +143,7 @@ color = Color(0.5, 1, 1.2, 1)
 
 [node name="Tesla" type="Sprite2D" node_paths=PackedStringArray("electricBolt", "electricBoltConstant", "impactEffect", "padLock", "levelButton")]
 modulate = Color(0.364706, 0.364706, 0.364706, 1)
-position = Vector2(581, 253)
-scale = Vector2(0.581172, 0.581172)
+scale = Vector2(1.04427, 1.04427)
 texture = ExtResource("1_mj4sl")
 script = ExtResource("2_5t3fx")
 electricBolt = NodePath("ElectricEffect/ParticlesGroup")

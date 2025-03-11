@@ -59,7 +59,7 @@ namespace Com.IsartDigital.SokoVolt
 
 			//endPoint = startPoint + numCellToTravel * cellSize * direction;
 			direction = (endPoint - startPoint).Normalized();
-			vectorDirector = direction * cellSize;
+			vectorDirector = direction * cellSize.X;
 
 			SingleLigthning lSingleLightning;
 

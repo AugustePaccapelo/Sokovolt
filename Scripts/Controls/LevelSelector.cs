@@ -12,6 +12,7 @@ namespace Com.IsartDigital.SokoVolt
         [Export] private Button buttonRight;
         [Export] private Button buttonLeft;
         [Export] public Button buttonUnlockAll;
+        [Export] public Sprite2D carpetTexture;
         [Export] private CompressedTexture2D texture;
         [Export] private PackedScene teslaScene;
         public List<LevelSelectorTesla> teslaList = new List<LevelSelectorTesla>();
@@ -21,7 +22,7 @@ namespace Com.IsartDigital.SokoVolt
         private const float MARGIN = 350.0f;
         private Vector2 buttonSize = new Vector2(60, 100);
         private Vector2 teslaSize = new Vector2(855, 1071);
-        private int teslaPosY = 253;
+        [Export] private int teslaPosY = 253;
         private int newTeslaPointPosY = 223;
         private bool alreadyPress = false;
         private Vector2 screenSize;
@@ -103,6 +104,8 @@ namespace Com.IsartDigital.SokoVolt
                     Tween lTween = CreateTween();
                     lTween.TweenProperty(teslaList[i], "position", lNewPos, 0.5f).SetEase(Tween.EaseType.Out).SetTrans(Tween.TransitionType.Back);
                 }
+                Tween lTween2 = CreateTween();
+                lTween2.TweenProperty(carpetTexture, "position", new Vector2(carpetTexture.Position.X + ((screenSize.X / 2) * -pDirection), carpetTexture.Position.Y), 0.5f).SetEase(Tween.EaseType.Out).SetTrans(Tween.TransitionType.Back);
 
                 GetTree().CreateTimer(0.5f).Timeout += () => alreadyPress = false;
             }

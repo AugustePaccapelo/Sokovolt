@@ -120,7 +120,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
         {
             if (pDisposing)
             {
-                signals.BoxTeslaMoved -= BoxTeslaMoved; // Déconnecte le signal pour éviter qu'il appelle un objet supprimé
+                signals.BoxTeslaCalculsDone -= BoxTeslaMoved; // Déconnecte le signal pour éviter qu'il appelle un objet supprimé
             }
             base.Dispose(pDisposing);
         }

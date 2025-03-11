@@ -50,10 +50,16 @@ namespace Com.IsartDigital.SokoVolt{
 		{
 			winLabel.Show();
 			Tween lTween = CreateTween();
-			lTween.Finished += () => CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.GoToMainMenu);
+			lTween.Finished += () => ReturnToMenu();
 			lTween.TweenProperty(winLabel, "modulate", Colors.White, 2).From(Colors.Transparent);
 			lTween.Play();
 		}
+
+		private void ReturnToMenu()
+		{
+			CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.GoToMainMenu);
+			winLabel.Hide();
+        }
 
 		public override void _Process(double pDelta)
 		{
