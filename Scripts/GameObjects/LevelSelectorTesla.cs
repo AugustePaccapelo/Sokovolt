@@ -13,6 +13,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects {
 		[Export] public Node2D impactEffect;
 		[Export] public Padlock padLock;
 		[Export] public Button levelButton;
+		[Export] public PointLight2D lightEmission;
 
         public LevelSelectorTesla nextTesla;
 		public bool levelUnlocked = false;
@@ -62,12 +63,9 @@ namespace Com.IsartDigital.SokoVolt.GameObjects {
         {
             levelButton.Disabled = false;
             electricBolt.animationPlayer.Play("start_animation");
+            Tween lTween = CreateTween();
+            lTween.TweenProperty(lightEmission, "energy", 3, 0.5f);
             padLock.Open();
-            if (level == 0)
-            {
-                electricBolt.Hide();
-                electricBoltConstant.Show();
-            }
             levelUnlocked = true;
         }
 
@@ -75,6 +73,8 @@ namespace Com.IsartDigital.SokoVolt.GameObjects {
         {
             levelButton.Disabled = true;
             electricBolt.animationPlayer.Play("end_animation");
+            Tween lTween = CreateTween();
+            lTween.TweenProperty(lightEmission, "energy", 0, 0.5f);
             padLock.Close();
             levelUnlocked = false;
         }

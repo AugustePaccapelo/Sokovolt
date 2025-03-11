@@ -15,6 +15,7 @@ namespace Com.IsartDigital.SokoVolt
         [Export] public Sprite2D carpetTexture;
         [Export] private CompressedTexture2D texture;
         [Export] private PackedScene teslaScene;
+        [Export] private Node2D teslaContainer;
         public List<LevelSelectorTesla> teslaList = new List<LevelSelectorTesla>();
         private int levelNumb = 0;
         private int levelNumbMax = 5;
@@ -61,14 +62,16 @@ namespace Com.IsartDigital.SokoVolt
             // Initialisation des niveaux dès le départ
             for (int i = 0; i <= levelNumbMax; i++)
             {
-                Vector2 lTeslaPosition = (i == 0) ? new Vector2(screenSize.X / 2, teslaPosY) : new Vector2(screenSize.X + teslaSize.X * i, teslaPosY);
+                Vector2 lTeslaPosition = (i == 0) ? new Vector2(screenSize.X / 2, teslaPosY) 
+                    : new Vector2((screenSize.X / 2) + (screenSize.X * i), teslaPosY);
+
                 LevelSelectorTesla lTesla = CreateTesla(lTeslaPosition, i);
                 teslaList.Add(lTesla);
             }
 
             for (int i = 0; i < teslaList.Count -1; i++)
             {
-                teslaList[i].electricBolt.bolt.AddPoint(new Vector2(screenSize.X + teslaSize.X/2, newTeslaPointPosY));
+                //teslaList[i].electricBolt.bolt.AddPoint(new Vector2(screenSize.X, newTeslaPointPosY));
                 if (i != 5) teslaList[i].nextTesla = teslaList[i + 1];
                 else teslaList[i].nextTesla = null;
             }
@@ -101,11 +104,11 @@ namespace Com.IsartDigital.SokoVolt
                 for (int i = 0; i < teslaList.Count; i++)
                 {
                     Vector2 lNewPos = new Vector2((i - levelNumb) * screenSize.X + screenSize.X / 2, teslaPosY);
-                    Tween lTween = CreateTween();
-                    lTween.TweenProperty(teslaList[i], "position", lNewPos, 0.5f).SetEase(Tween.EaseType.Out).SetTrans(Tween.TransitionType.Back);
+                    Tween lTween = CreateTween().SetParallel(true);
+                    lTween.TweenProperty(teslaList[i], "position", lNewPos, 1f).SetEase(Tween.EaseType.Out).SetTrans(Tween.TransitionType.Elastic);
                 }
                 Tween lTween2 = CreateTween();
-                lTween2.TweenProperty(carpetTexture, "position", new Vector2(carpetTexture.Position.X + ((screenSize.X / 2) * -pDirection), carpetTexture.Position.Y), 0.5f).SetEase(Tween.EaseType.Out).SetTrans(Tween.TransitionType.Back);
+                lTween2.TweenProperty(carpetTexture, "position", new Vector2(carpetTexture.Position.X + ((screenSize.X / 2) * -pDirection), carpetTexture.Position.Y), 1f).SetEase(Tween.EaseType.Out).SetTrans(Tween.TransitionType.Elastic);
 
                 GetTree().CreateTimer(0.5f).Timeout += () => alreadyPress = false;
             }
@@ -114,14 +117,14 @@ namespace Com.IsartDigital.SokoVolt
         private LevelSelectorTesla CreateTesla(Vector2 pPos, int pIndex)
         {
             LevelSelectorTesla lTesla = teslaScene.Instantiate<LevelSelectorTesla>();
-            AddChild(lTesla);
+            teslaContainer.AddChild(lTesla);
             lTesla.Position = pPos;
             lTesla.level = pIndex;
+            lTesla.padLock.Show();
             if (lTesla.level == 0)
             {
                 lTesla.UnlockLevel();
             }
-
 
             Label lLabel = lTesla.GetNode<Label>("Label");
             lLabel.Text = LEVEL_PREFIXE + pIndex;
