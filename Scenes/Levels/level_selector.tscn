@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://dht3qeqhib1rk"]
+[gd_scene load_steps=18 format=3 uid="uid://dht3qeqhib1rk"]
 
 [ext_resource type="Script" path="res://Scripts/Controls/LevelSelector.cs" id="1_7onrw"]
 [ext_resource type="Texture2D" uid="uid://dyr30pkkewie" path="res://Assets/UI/MainMenu/LevelScreen.png" id="2_u4r7s"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://cnndesag05dud" path="res://Assets/UI/MainMenu/ButtonLeftPressed.png" id="8_kmrbs"]
 [ext_resource type="Texture2D" uid="uid://v4dwd3oinj6" path="res://Assets/UI/MainMenu/ManetteButtonRight.png" id="9_mhunn"]
 [ext_resource type="Texture2D" uid="uid://do5divm0ix4rl" path="res://Assets/UI/MainMenu/ButtonRightPressed.png" id="10_naqst"]
+[ext_resource type="Texture2D" uid="uid://d027gw6ax6ujo" path="res://Assets/UI/MainMenu/Carpet.png" id="11_cogra"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5qe13"]
 texture = ExtResource("7_pfdtp")
@@ -29,23 +30,30 @@ texture = ExtResource("9_mhunn")
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_oncao"]
 texture = ExtResource("10_naqst")
 
-[node name="LevelSelector" type="Control" node_paths=PackedStringArray("buttonRight", "buttonLeft", "buttonUnlockAll")]
+[node name="LevelSelector" type="Control" node_paths=PackedStringArray("buttonRight", "buttonLeft", "buttonUnlockAll", "carpetTexture")]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_7onrw")
 buttonRight = NodePath("TextureRect/Right")
 buttonLeft = NodePath("TextureRect/Left")
 buttonUnlockAll = NodePath("UnlockButton")
+carpetTexture = NodePath("Carpet")
 texture = ExtResource("2_u4r7s")
 teslaScene = ExtResource("3_31hu0")
+teslaPosY = 530
+
+[node name="Carpet" type="Sprite2D" parent="."]
+position = Vector2(5686, 882)
+texture = ExtResource("11_cogra")
 
 [node name="TextureRect" type="TextureRect" parent="."]
-layout_mode = 0
-offset_left = 407.0
-offset_top = 469.0
-offset_right = 1258.0
-offset_bottom = 839.0
+layout_mode = 1
+offset_left = 535.0
+offset_top = 815.0
+offset_right = 1386.0
+offset_bottom = 1185.0
 scale = Vector2(0.459219, 0.459219)
+pivot_offset = Vector2(425, 185)
 texture = ExtResource("6_8hpna")
 
 [node name="Left" type="Button" parent="TextureRect"]
@@ -92,11 +100,18 @@ texture_scale = 0.32
 
 [node name="UnlockButton" type="Button" parent="."]
 layout_mode = 1
-offset_left = 544.0
-offset_top = 580.0
-offset_right = 630.0
-offset_bottom = 611.0
-pivot_offset = Vector2(43, 15.5)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 871.0
+offset_top = 1019.0
+offset_right = 1021.0
+offset_bottom = 1069.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(75, 25)
 text = "Unlock All"
 script = ExtResource("4_tfihn")
 during = 0.2

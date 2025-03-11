@@ -9,7 +9,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects {
 	public partial class GameObject : Node2D
 	{
 		public int x, y;
-		protected Cell curentCell;
+		public Cell curentCell;
 
 		public void Init(int pX, int pY)
 		{
