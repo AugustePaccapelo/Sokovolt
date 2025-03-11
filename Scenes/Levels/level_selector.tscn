@@ -181,6 +181,7 @@ scale = Vector2(1.03458, 1)
 texture = ExtResource("11_cogra")
 
 [node name="CarpetBorder" type="TextureRect" parent="."]
+layout_mode = 0
 offset_left = -46.0
 offset_top = 919.0
 offset_right = 1987.0
@@ -188,6 +189,7 @@ offset_bottom = 1117.0
 texture = ExtResource("5_8e1ql")
 
 [node name="CarpetBorder2" type="TextureRect" parent="."]
+layout_mode = 0
 offset_left = -79.0
 offset_top = 756.0
 offset_right = 2048.0
