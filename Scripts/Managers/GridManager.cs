@@ -54,11 +54,11 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 
         public override void _Process(double pDelta)
 		{
-			if(Input.IsActionJustPressed("Undo")) SetGridState(actualGridStateIndex - 1); //=================> Undo to put in InputManager
-			else
-			if(Input.IsActionJustPressed("Redo")) SetGridState(actualGridStateIndex + 1); //=================> Redo	to put in InputManager
+			//if(Input.IsActionJustPressed("Undo")) SetGridState(actualGridStateIndex - 1); //=================> Undo to put in InputManager
+			//else
+			//if(Input.IsActionJustPressed("Redo")) SetGridState(actualGridStateIndex + 1); //=================> Redo	to put in InputManager
 
-			if(Input.IsActionJustPressed("Retry")) Retry(); 
+			//if(Input.IsActionJustPressed("Retry")) Retry(); 
 
         }
 
@@ -67,15 +67,18 @@ namespace Com.IsartDigital.SokoVolt.Managers {
             base.Init();
 			hud = HUD.GetInstance();
 			gameManager = GameManager.GetInstance();
-			SignalsConnetion();
+			SignalsConnection();
         }
 
-		private void  SignalsConnetion()
-		{
+		private void  SignalsConnection() 
+        {
 			LevelManager.GetInstance().LoadLevel  += LoadNewLevel;
 			InputManager.GetInstance().Move += OnMovePlayer;
-			hud.UndoButton += () => SetGridState(actualGridStateIndex - 1);
-			hud.RedoButton += () => SetGridState(actualGridStateIndex + 1);
+			InputManager.GetInstance().UndoRedo += SetGridState;
+			InputManager.GetInstance().Retry += Retry;
+
+            hud.UndoButton += () => SetGridState(- 1);
+			hud.RedoButton += () => SetGridState(1);
 		}
 
 
