@@ -77,11 +77,11 @@ namespace Com.IsartDigital.SokoVolt.Managers {
         {
 			LevelManager.GetInstance().LoadLevel  += LoadNewLevel;
 			InputManager.GetInstance().Move += OnMovePlayer;
-			InputManager.GetInstance().UndoRedo += SetGridState;
+			InputManager.GetInstance().UndoRedo += UndoRedo;
 			InputManager.GetInstance().Retry += Retry;
 
-            hud.UndoButton += () => SetGridState(- 1);
-			hud.RedoButton += () => SetGridState(1);
+            hud.UndoButton += () => UndoRedo(-1);
+			hud.RedoButton += () => UndoRedo(1);
 		}
 
 

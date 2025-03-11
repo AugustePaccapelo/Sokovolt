@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://8vcio7y6idoy" path="res://Assets/Shaders/Effects/SparksParticles.PNG" id="3_0yexb"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_tsyav"]
-radius = 4.1028
+radius = 27.0185
 
 [sub_resource type="Gradient" id="Gradient_rvo8j"]
 colors = PackedColorArray(1, 0.866667, 0.0117647, 1, 1, 1, 1, 1)
