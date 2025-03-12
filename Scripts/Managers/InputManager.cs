@@ -44,27 +44,13 @@ namespace Com.IsartDigital.SokoVolt.Managers
 		{
 			if (@event is InputEventKey eventKey && eventKey.Pressed)
 			{
-				var lInputMap = new Dictionary<string, Vector2>
-				{
-					{"Right", Vector2.Right},
-					{"Left", Vector2.Left},
-					{"Down", Vector2.Down},
-					{"Up", Vector2.Up}
-				};
-
-				foreach (var pInput in lInputMap)
-				{
-					if(Input.IsActionJustPressed(pInput.Key))
-					{
-						EmitSignal(SignalName.Move, pInput.Value);
-						break;
-					}
-				}
-
-				if (Input.IsActionJustPressed("Undo")) EmitSignal(SignalName.UndoRedo, -1);
+                if (Input.IsActionJustPressed("Up")) EmitSignal(SignalName.Move, Vector2.Up);
+                if (Input.IsActionJustPressed("Down")) EmitSignal(SignalName.Move, Vector2.Down);
+                if (Input.IsActionJustPressed("Left")) EmitSignal(SignalName.Move, Vector2.Left);
+                if (Input.IsActionJustPressed("Right")) EmitSignal(SignalName.Move, Vector2.Right);
+                if (Input.IsActionJustPressed("Undo")) EmitSignal(SignalName.UndoRedo, -1);
 				else if (Input.IsActionJustPressed("Redo")) EmitSignal(SignalName.UndoRedo, 1);
-				else if (Input.IsActionJustPressed("Retry")) EmitSignal(SignalName.Retry);
-
+				else if(Input.IsActionJustPressed("Retry")) EmitSignal(SignalName.Retry);
             }
 		}
 
