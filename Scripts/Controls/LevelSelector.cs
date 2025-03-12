@@ -15,6 +15,7 @@ namespace Com.IsartDigital.SokoVolt
         [Export] public Sprite2D carpetTexture;
         [Export] private CompressedTexture2D texture;
         [Export] private PackedScene teslaScene;
+        [Export] private PackedScene smokeParticlesScene;
         [Export] private Node2D teslaContainer;
         public List<LevelSelectorTesla> teslaList = new List<LevelSelectorTesla>();
         private int levelNumb = 0;
@@ -23,6 +24,7 @@ namespace Com.IsartDigital.SokoVolt
         private const float MARGIN = 350.0f;
         private Vector2 buttonSize = new Vector2(60, 100);
         private Vector2 teslaSize = new Vector2(855, 1071);
+        private GpuParticles2D buttonSmokeParticles;
         [Export] private int teslaPosY = 253;
         private int newTeslaPointPosY = 223;
         private bool alreadyPress = false;
@@ -109,6 +111,18 @@ namespace Com.IsartDigital.SokoVolt
                 }
                 Tween lTween2 = CreateTween();
                 lTween2.TweenProperty(carpetTexture, "position", new Vector2(carpetTexture.Position.X + ((screenSize.X / 2) * -pDirection), carpetTexture.Position.Y), 1f).SetEase(Tween.EaseType.Out).SetTrans(Tween.TransitionType.Elastic);
+
+                buttonSmokeParticles = smokeParticlesScene.Instantiate() as GpuParticles2D;
+                if (pDirection == 1)
+                {
+                    buttonRight.AddChild(buttonSmokeParticles);
+                    buttonSmokeParticles.Position = new Vector2(88, 143);
+                }
+                if (pDirection == -1)
+                {
+                    buttonLeft.AddChild(buttonSmokeParticles);
+                    buttonSmokeParticles.Position = new Vector2(88, 143);
+                }
 
                 GetTree().CreateTimer(0.5f).Timeout += () => alreadyPress = false;
             }

@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://dht3qeqhib1rk"]
+[gd_scene load_steps=44 format=3 uid="uid://dht3qeqhib1rk"]
 
 [ext_resource type="Script" path="res://Scripts/Controls/LevelSelector.cs" id="1_7onrw"]
 [ext_resource type="Texture2D" uid="uid://dyr30pkkewie" path="res://Assets/UI/MainMenu/LevelScreen.png" id="2_u4r7s"]
@@ -14,6 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://do5divm0ix4rl" path="res://Assets/UI/MainMenu/ButtonRightPressed.png" id="10_naqst"]
 [ext_resource type="Texture2D" uid="uid://d027gw6ax6ujo" path="res://Assets/UI/MainMenu/Carpet.png" id="11_cogra"]
 [ext_resource type="Texture2D" uid="uid://cjdpi2sp6bb4u" path="res://Assets/UI/MainMenu/LevelSelectorLampe.png" id="14_5wxcs"]
+[ext_resource type="PackedScene" uid="uid://dty5a7hnd1fve" path="res://Scenes/GameObjects/LevelSelectorObject/button_smoke_particles.tscn" id="15_53pe0"]
 [ext_resource type="Texture2D" uid="uid://dw208iyoc71pe" path="res://Assets/UI/MainMenu/LightProjection.png" id="15_cy604"]
 [ext_resource type="Texture2D" uid="uid://dc3or7fnkox6b" path="res://Assets/UI/MainMenu/Smoke.png" id="16_oywvd"]
 
@@ -148,6 +149,7 @@ buttonUnlockAll = NodePath("ButtonBox/UnlockButton")
 carpetTexture = NodePath("Carpet")
 texture = ExtResource("2_u4r7s")
 teslaScene = ExtResource("3_31hu0")
+smokeParticlesScene = ExtResource("15_53pe0")
 teslaContainer = NodePath("TeslaContainer")
 teslaPosY = 650
 
