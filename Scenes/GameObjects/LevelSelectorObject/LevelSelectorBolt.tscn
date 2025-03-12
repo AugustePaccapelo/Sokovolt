@@ -291,6 +291,7 @@ lifetime = 0.15
 fixed_fps = 60
 
 [node name="PointLight2D" type="PointLight2D" parent="ImpactEffect"]
+visible = false
 position = Vector2(0, -1)
 color = Color(0.231373, 1, 1, 1)
 energy = 3.0

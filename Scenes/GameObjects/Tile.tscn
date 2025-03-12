@@ -26,6 +26,6 @@ size_flags_vertical = 4
 color = Color(0.133196, 0.133196, 0.133196, 1)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(-9.09495e-13, 0)
-scale = Vector2(0.6, 0.6)
+position = Vector2(-0.499997, 9.7)
+scale = Vector2(0.566406, 0.577027)
 texture = ExtResource("2_loord")

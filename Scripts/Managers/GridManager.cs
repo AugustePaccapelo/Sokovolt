@@ -55,16 +55,6 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 			base._Ready();
         }
 
-        public override void _Process(double pDelta)
-		{
-			//if(Input.IsActionJustPressed("Undo")) SetGridState(actualGridStateIndex - 1); //=================> Undo to put in InputManager
-			//else
-			//if(Input.IsActionJustPressed("Redo")) SetGridState(actualGridStateIndex + 1); //=================> Redo	to put in InputManager
-
-			//if(Input.IsActionJustPressed("Retry")) Retry(); 
-
-        }
-
         public override void Init()
         {
             base.Init();

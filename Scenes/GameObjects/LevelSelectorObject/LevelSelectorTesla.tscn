@@ -141,9 +141,9 @@ scale_max = 0.3
 scale_curve = SubResource("CurveTexture_myre1")
 color = Color(0.5, 1, 1.2, 1)
 
-[node name="Tesla" type="Sprite2D" node_paths=PackedStringArray("electricBolt", "electricBoltConstant", "impactEffect", "padLock", "levelButton")]
+[node name="Tesla" type="Sprite2D" node_paths=PackedStringArray("electricBolt", "electricBoltConstant", "impactEffect", "padLock", "levelButton", "lightEmission")]
 modulate = Color(0.364706, 0.364706, 0.364706, 1)
-scale = Vector2(1.04427, 1.04427)
+scale = Vector2(0.691801, 0.691801)
 texture = ExtResource("1_mj4sl")
 script = ExtResource("2_5t3fx")
 electricBolt = NodePath("ElectricEffect/ParticlesGroup")
@@ -151,6 +151,14 @@ electricBoltConstant = NodePath("ElectricEffect/ParticlesGroup2")
 impactEffect = NodePath("ElectricEffect/ConnectionEffectLeft")
 padLock = NodePath("Padlock")
 levelButton = NodePath("ButtonTemplate")
+lightEmission = NodePath("ImpactEffect/LightEmission")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+offset_left = -691.0
+offset_top = -653.0
+offset_right = 918.0
+offset_bottom = 502.0
 
 [node name="ButtonTemplate" parent="." instance=ExtResource("3_yb2p4")]
 offset_left = -157.778
@@ -294,8 +302,8 @@ texture = ExtResource("11_fqf0e")
 lifetime = 0.15
 fixed_fps = 60
 
-[node name="PointLight2D" type="PointLight2D" parent="ImpactEffect"]
+[node name="LightEmission" type="PointLight2D" parent="ImpactEffect"]
 position = Vector2(0, -1)
 color = Color(0.231373, 1, 1, 1)
-energy = 3.0
+energy = 0.0
 texture = ExtResource("11_fqf0e")
