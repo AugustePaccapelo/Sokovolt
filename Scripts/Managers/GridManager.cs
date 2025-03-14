@@ -37,6 +37,9 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 		private GameManager gameManager;
 		private HUD hud; 
 
+		//UndoRedo 
+		private bool playerWasOnTesla; 
+
 
 		public override void _Ready()
 		{
@@ -52,30 +55,23 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 			base._Ready();
         }
 
-        public override void _Process(double pDelta)
-		{
-			if(Input.IsActionJustPressed("Undo")) SetGridState(actualGridStateIndex - 1); //=================> Undo to put in InputManager
-			else
-			if(Input.IsActionJustPressed("Redo")) SetGridState(actualGridStateIndex + 1); //=================> Redo	to put in InputManager
-
-			if(Input.IsActionJustPressed("Retry")) Retry(); 
-
-        }
-
         public override void Init()
         {
             base.Init();
 			hud = HUD.GetInstance();
 			gameManager = GameManager.GetInstance();
-			SignalsConnetion();
+			SignalsConnection();
         }
 
-		private void  SignalsConnetion()
-		{
+		private void  SignalsConnection() 
+        {
 			LevelManager.GetInstance().LoadLevel  += LoadNewLevel;
 			InputManager.GetInstance().Move += OnMovePlayer;
-			hud.UndoButton += () => SetGridState(actualGridStateIndex - 1);
-			hud.RedoButton += () => SetGridState(actualGridStateIndex + 1);
+			InputManager.GetInstance().UndoRedo += UndoRedo;
+			InputManager.GetInstance().Retry += Retry;
+
+            hud.UndoButton += () => UndoRedo(-1);
+			hud.RedoButton += () => UndoRedo(1);
 		}
 
 
@@ -172,6 +168,7 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 
         private void MovePlayer(int pDx, int pDy)
 		{
+			playerWasOnTesla = grid[player.x, player.y].GetContent() is BoxTesla; 
             int lNewX = player.x + pDx;
 			int lNewY = player.y + pDy;
 
@@ -218,6 +215,18 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 
 
 		#region // ----- Undo/Redo/Retry ----- \\
+		public static bool currentlyUndoRedo; 
+		private void UndoRedo(int pAmount)
+		{
+			int lAmount = pAmount; 
+			currentlyUndoRedo = true; 
+			if(!(player.curentCell.GetContent() is BoxTesla) && playerWasOnTesla) lAmount *= 2; 
+			SetGridState(actualGridStateIndex + lAmount);
+			
+			GetTree().CreateTimer(1).Timeout += () => currentlyUndoRedo = false;	
+		}
+
+	
 		private Cell[,] CopyGrid(Cell[,] pOriginalGrid)
 		{
 			int lWidth = LevelLoader.levelWidth;

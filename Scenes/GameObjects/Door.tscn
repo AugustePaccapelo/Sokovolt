@@ -8,9 +8,12 @@ closedVisual = NodePath("Visual/Close")
 openedVisual = NodePath("Visual/Open")
 
 [node name="Visual" type="Node2D" parent="."]
+position = Vector2(0, 8)
 scale = Vector2(1.45355, 0.8)
 
 [node name="Close" type="Node2D" parent="Visual"]
+position = Vector2(-5.96046e-08, 1.25)
+scale = Vector2(1.65, 1.65)
 
 [node name="Polygon2D" type="Polygon2D" parent="Visual/Close"]
 position = Vector2(0, -7.64175)

@@ -21,7 +21,8 @@ namespace Com.IsartDigital.SokoVolt.Managers
 		#endregion
 
 		[Signal] public delegate void MoveEventHandler(Vector2 pDirection);
-		[Signal] public delegate void RedoEventHandler();
+		[Signal] public delegate void UndoRedoEventHandler(int pPosition);
+		[Signal] public delegate void RetryEventHandler();
 
 		public override void _Ready()
 		{
@@ -43,23 +44,14 @@ namespace Com.IsartDigital.SokoVolt.Managers
 		{
 			if (@event is InputEventKey eventKey && eventKey.Pressed)
 			{
-				var lInputMap = new Dictionary<string, Vector2>
-				{
-					{"ui_right", Vector2.Right},
-					{"ui_left", Vector2.Left},
-					{"ui_down", Vector2.Down},
-					{"ui_up", Vector2.Up}
-				};
-
-				foreach (var pInput in lInputMap)
-				{
-					if(Input.IsActionJustPressed(pInput.Key))
-					{
-						EmitSignal(SignalName.Move, pInput.Value);
-						break;
-					}
-				}
-			}
+                if (Input.IsActionJustPressed("Up")) EmitSignal(SignalName.Move, Vector2.Up);
+                if (Input.IsActionJustPressed("Down")) EmitSignal(SignalName.Move, Vector2.Down);
+                if (Input.IsActionJustPressed("Left")) EmitSignal(SignalName.Move, Vector2.Left);
+                if (Input.IsActionJustPressed("Right")) EmitSignal(SignalName.Move, Vector2.Right);
+                if (Input.IsActionJustPressed("Undo")) EmitSignal(SignalName.UndoRedo, -1);
+				else if (Input.IsActionJustPressed("Redo")) EmitSignal(SignalName.UndoRedo, 1);
+				else if(Input.IsActionJustPressed("Retry")) EmitSignal(SignalName.Retry);
+            }
 		}
 
 		protected override void Dispose(bool pDisposing)

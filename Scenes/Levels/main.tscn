@@ -36,6 +36,8 @@ custom_minimum_size = Vector2(1152, 648)
 anchors_preset = 0
 anchor_right = 0.0
 anchor_bottom = 0.0
+offset_right = 1920.0
+offset_bottom = 1080.0
 grow_horizontal = 1
 grow_vertical = 1
 
@@ -52,8 +54,8 @@ visible = false
 anchors_preset = 0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_right = 1152.0
-offset_bottom = 648.0
+offset_right = 1920.0
+offset_bottom = 1080.0
 grow_horizontal = 1
 grow_vertical = 1
 

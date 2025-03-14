@@ -33,6 +33,14 @@ namespace Com.IsartDigital.SokoVolt
 		[Export] private LineEdit inputLoginPassword;
         [Export] private Button buttonLoginConfirm, buttonLoginGoCreate;
 		[Export] private Label labelLoginName, labelLoginUsername, labelLoginPassword, labelLoginError;
+		[Export] private VBoxContainer vContLoginUser, vContLoginPass;
+
+		[Export] private Control vContLogPosParent, vLabNameLogPosParent, vButCreateLogPosParent, vContLogPassPosParent;
+
+		private List<Control> vContLoginUserPos = new List<Control>();
+		private List<Control> labelLoginNamePos = new List<Control>();
+        private List<Control> buttonGoCreateNamePos = new List<Control>();
+        private List<Control> vContLogPassPos = new List<Control>();
 
         [ExportGroup("CreateScreen")]
         [Export] private Control createNode;
@@ -48,6 +56,8 @@ namespace Com.IsartDigital.SokoVolt
 		private string password = "";
 
 		public UserGestion userGestion;
+
+		private Vector2 screenSize;
 
         // ---------- FUNCTIONS ---------- \\
 
@@ -70,6 +80,14 @@ namespace Com.IsartDigital.SokoVolt
 
 			base._Ready();
 
+			foreach (Control lPos in vContLogPosParent.GetChildren()) vContLoginUserPos.Add(lPos);
+            foreach (Control lPos in vLabNameLogPosParent.GetChildren()) labelLoginNamePos.Add(lPos);
+            foreach (Control lPos in vButCreateLogPosParent.GetChildren()) buttonGoCreateNamePos.Add(lPos);
+            foreach (Control lPos in vContLogPassPosParent.GetChildren()) vContLogPassPos.Add(lPos);
+			
+            screenSize = GetWindow().Size;
+            Size = screenSize;
+
 			CustomSignals.GetInstance().GoToLoginScreen += () =>
 			{
                 loginNode.Show();
@@ -89,8 +107,8 @@ namespace Com.IsartDigital.SokoVolt
 		public override void _Process(double pDelta)
 		{
 			float lDelta = (float)pDelta;
-
-			base._Process(lDelta);
+            
+            base._Process(lDelta);
 		}
 
 		// ----- My Functions ----- \\
@@ -134,8 +152,38 @@ namespace Com.IsartDigital.SokoVolt
 
 		private void AnimationLoginEnter()
 		{
-			
-		}
+			Tween lTween = CreateTween().SetParallel();
+
+			// Label Login animation
+			lTween.TweenProperty(labelLoginName, "global_position", labelLoginName.GlobalPosition, 0.5f).From(labelLoginNamePos[0].GlobalPosition)
+				.SetTrans(Tween.TransitionType.Quart).SetEase(Tween.EaseType.Out);
+			lTween.TweenProperty(labelLoginName, "scale", labelLoginName.Scale, 0.5f).From(new Vector2(labelLoginName.Scale.X * 0.75f, 0))
+				.SetTrans(Tween.TransitionType.Quart).SetEase(Tween.EaseType.Out);
+
+			// Button Login animation
+			lTween.TweenProperty(buttonLoginConfirm, "global_position", buttonLoginConfirm.GlobalPosition, 0.5f).From(new Vector2(0, buttonLoginConfirm.GlobalPosition.Y))
+                .SetTrans(Tween.TransitionType.Quart).SetEase(Tween.EaseType.Out);
+            lTween.TweenProperty(buttonLoginConfirm, "scale", buttonLoginConfirm.Scale, 0.5f).From(new Vector2(buttonLoginConfirm.Scale.X * 0.75f, 0))
+                .SetTrans(Tween.TransitionType.Quart).SetEase(Tween.EaseType.Out);
+
+			// Button create animation
+			lTween.TweenProperty(buttonLoginGoCreate, "global_position", buttonLoginGoCreate.GlobalPosition, 1.5f).From(buttonGoCreateNamePos[0].GlobalPosition);
+
+			// Password label and input animation
+			lTween.TweenProperty(vContLoginPass, "global_position", vContLoginPass.GlobalPosition, 1.5f).From(vContLogPassPos[0].GlobalPosition);
+
+			// Username label and Input animation
+			Tween lUserTween = CreateTween();
+            lUserTween.TweenProperty(vContLoginUser, "global_position", vContLoginUserPos[1].GlobalPosition, 0.75f).From(vContLoginUserPos[0].GlobalPosition);
+            lUserTween.Chain().TweenProperty(vContLoginUser, "global_position", vContLoginUserPos[1].GlobalPosition, 0.5f);
+            lUserTween.Chain().TweenProperty(vContLoginUser, "global_position", vContLoginUserPos[2].GlobalPosition, 0.75f).From(vContLoginUserPos[1].GlobalPosition)
+				.SetTrans(Tween.TransitionType.Bounce).SetEase(Tween.EaseType.Out);
+            lUserTween.Chain().TweenProperty(vContLoginUser, "global_position", vContLoginUser.GlobalPosition, 0.5f).From(vContLoginUserPos[2].GlobalPosition);			
+
+            lTween.Play();
+			lUserTween.Play();
+
+        }
 
 		private void AnimationLoginExit()
 		{
