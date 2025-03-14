@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://dnebalk5gppv0"]
 
 [ext_resource type="Script" path="res://Scripts/GameObjects/Movables/BoxTesla.cs" id="1_c7f4a"]
-[ext_resource type="PackedScene" uid="uid://cfqq10c08ay30" path="res://Scenes/Lightning.tscn" id="2_vgo5j"]
+[ext_resource type="PackedScene" path="res://Scenes/Lightning.tscn" id="2_vgo5j"]
 [ext_resource type="Texture2D" uid="uid://qpi7qsbhs7v0" path="res://Assets/GameObjects/IsoObjects/Tesla.png" id="2_w8akq"]
 
 [node name="BoxTesla" type="Node2D" node_paths=PackedStringArray("rayCast", "electriLine2D", "rangeLabel")]
@@ -56,6 +56,7 @@ position = Vector2(0, -1)
 points = PackedVector2Array(0, 0)
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
+position = Vector2(1, 0)
 target_position = Vector2(0, 12)
 collide_with_areas = true
 collide_with_bodies = false

@@ -1,4 +1,4 @@
-using Godot;
+﻿using Godot;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlTypes;
@@ -20,7 +20,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
         [Export] private Line2D electriLine2D;
         public BoxTesla nextBoxTesla = null;
         public BoxTesla prevBoxTesla = null;
-        [Export] public bool energize { get; private set; }
+        public bool energize = false;
         GridManager gridManager = GridManager.GetInstance();
         private List<Vector2> directionScan = new List<Vector2>()
         {
@@ -105,13 +105,12 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
             PlayerCollide += Player.GetInstance().InsideTesla;
         }
 
-        public void ConnectionSearch(GameObject pObjectToConecte, out BoxTesla pTesla, out float pLength)
+        public float ConnectionSearch(GameObject pObjectToConecte)
         {
             Cell[,] lGrid = gridManager.grid;
             Vector2 lCellPosition = Utils.GetCellPos(this);
             List<Vector2> lcurentDirectionScan = new List<Vector2>(directionScan);
             List<int> lIndicesToRemove = new List<int>();
-            GameObject ObjToConecte = null;
 
             for (int i = 1; i <= range + 1; i++)
             {
@@ -124,20 +123,18 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
                     if (x < 0 || x >= lGrid.GetLength(0) || y < 0 || y >= lGrid.GetLength(1))
                         continue;
                     GameObject GOToScan = lGrid[x, y].GetContent();
-                            if (GOToScan== ObjToConecte)
+                            if ( GOToScan == pObjectToConecte )
                             {
-                                Vector2 lVector2 = new Vector2(ObjToConecte.x - this.x,ObjToConecte.y-this.y);
+                                Vector2 lVector2 = new Vector2(pObjectToConecte.x - this.x,pObjectToConecte.y-this.y);
                               float lLength=lVector2.Length();
 
-                              pTesla = this;
-                                pLength = 0;
-
+                              return length ;
                             }
-
-                            if (GOToScan is Wall)
+                            else if (GOToScan is Wall)
                             {
                                 lIndicesToRemove.Add(j);
                             }
+
                             //if (lTesla.energize && ObjToConecte == null && lTesla.isConnected== false && lTesla!= prevBoxTesla)
                             //{
                             //    ObjToConecte= lTesla;
@@ -155,9 +152,8 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
                 lIndicesToRemove.Clear();
             }
             CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.BoxTeslaCalculsDone);
-            pTesla = null;
 
-            pLength = 0;
+            return -1;
         }
         private void RayCastDetector()
         {
@@ -174,14 +170,14 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
             else if (rayCast != null && !rayCast.IsColliding()) signalEmit = false;
         }
 
-        private void LineConnection(GameObject objToConnect)
+        public void LineConnection(GameObject objToConnect)
         {
-           
+            if (objToConnect is BoxTesla lbox)lbox.energize = true;
+            
             lLightning = lightningNodeScene.Instantiate<LightningNode>();
             lLightning.endPoint = Vector2.Zero;
             lLightning.startPoint = ToLocal(objToConnect.GlobalPosition);
             AddChild(lLightning);
-            energize = true;
             UpdateRayCast(ToLocal(objToConnect.GlobalPosition));
             
         }
@@ -190,6 +186,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
 
         public void LineDeconnection()
         {
+            energize = false;
             UpdateRayCast(Vector2.Zero);
             if (lLightning != null)
             {
@@ -200,17 +197,6 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
             }
 
         }
-
-
-        private void remouveAllConnection()
-        {
-            energize = false;
-               
-            prevBoxTesla = null;
-            
-            nextBoxTesla = null;
-            
-        } 
 
         protected override void Dispose(bool pDisposing)
         {
