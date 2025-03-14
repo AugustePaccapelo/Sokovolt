@@ -8,6 +8,7 @@
 font_size = 32
 
 [node name="BoxTesla" type="Node2D" node_paths=PackedStringArray("rayCast", "electriLine2D", "rangeLabel")]
+position = Vector2(0, -2)
 script = ExtResource("1_c7f4a")
 lightningNodeScene = ExtResource("2_vgo5j")
 rayCast = NodePath("RayCast2D")
@@ -59,6 +60,7 @@ position = Vector2(0, -1)
 points = PackedVector2Array(0, 0)
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
+position = Vector2(1, 0)
 target_position = Vector2(0, 12)
 collide_with_areas = true
 collide_with_bodies = false
