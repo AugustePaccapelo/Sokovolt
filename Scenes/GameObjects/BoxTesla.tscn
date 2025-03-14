@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://dnebalk5gppv0"]
 
 [ext_resource type="Script" path="res://Scripts/GameObjects/Movables/BoxTesla.cs" id="1_c7f4a"]
-[ext_resource type="PackedScene" path="res://Scenes/Lightning.tscn" id="2_vgo5j"]
+[ext_resource type="PackedScene" uid="uid://cfqq10c08ay30" path="res://Scenes/Lightning.tscn" id="2_vgo5j"]
 [ext_resource type="Texture2D" uid="uid://qpi7qsbhs7v0" path="res://Assets/GameObjects/IsoObjects/Tesla.png" id="2_w8akq"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_4d5rh"]
