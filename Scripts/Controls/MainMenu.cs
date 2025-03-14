@@ -21,6 +21,7 @@ namespace Com.IsartDigital.SokoVolt
 		#endregion
 
 		[Export] private Button startButton;
+		[Export] private Button levelCreatorButton;
 
 		//[Signal] public delegate void StartGameEventHandler();
 

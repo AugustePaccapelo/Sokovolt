@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://bsl1nyen453ty"]
+[gd_scene load_steps=3 format=3 uid="uid://bsl1nyen453ty"]
 
 [ext_resource type="Script" path="res://Scripts/Controls/MainMenu.cs" id="1_3kguo"]
+[ext_resource type="PackedScene" uid="uid://36dp5dq6hmqq" path="res://Scenes/GameObjects/ButtonTemplate.tscn" id="2_4cywq"]
 
 [node name="MainMenu" type="Control" node_paths=PackedStringArray("startButton")]
 layout_mode = 3
@@ -28,3 +29,12 @@ grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(200, 100)
 text = "START"
+
+[node name="ButtonTemplate" parent="Panel" instance=ExtResource("2_4cywq")]
+layout_mode = 1
+offset_left = 857.0
+offset_top = 683.0
+offset_right = 1066.0
+offset_bottom = 783.0
+pivot_offset = Vector2(104, 50)
+text = "LevelCreator"

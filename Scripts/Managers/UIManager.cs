@@ -19,6 +19,7 @@ namespace Com.IsartDigital.SokoVolt.Managers
 
 		#endregion
 		[Export] PackedScene levelSelectorScene;
+		[Export] PackedScene levelCreatorScene;
 		[Export] PackedScene mainMenuScene;
 
 		private LevelSelector levelSelector;
