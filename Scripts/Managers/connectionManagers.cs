@@ -25,13 +25,14 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
 
         private void Init()
         {
-            CustomSignals.GetInstance().LoadLevel  +=(int plvl)=> clearTeslas();
+            CustomSignals.GetInstance().UnLoadLevel+= clearTeslas;
             CustomSignals.GetInstance().StartRecherche += startConnection;
         }
 
 
         private void startConnection()
         {
+            pritlist();
             DisconnectedAll();
             RechercheGenerateur();
             

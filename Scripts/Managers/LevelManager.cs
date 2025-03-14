@@ -49,6 +49,7 @@ namespace Com.IsartDigital.SokoVolt.Managers
         private void UnLoadLevel()
         {
             GridManager.GetInstance().ClearGrid();
+            CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.UnLoadLevel);
         }
 
         public void LevelLoader(int pLevel)
