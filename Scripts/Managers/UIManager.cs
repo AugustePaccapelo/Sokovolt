@@ -23,6 +23,7 @@ namespace Com.IsartDigital.SokoVolt.Managers
 		[Export] PackedScene mainMenuScene;
 
 		private LevelSelector levelSelector;
+		private LevelCreator levelCreator;
 		private MainMenu mainMenu;
 		private HUD hud; 
 
@@ -47,21 +48,27 @@ namespace Com.IsartDigital.SokoVolt.Managers
 			//hud.MainMenuButton += BackToMainMenu;
 			CustomSignals.GetInstance().GoToMainMenu += BackToMainMenu;
             CustomSignals.GetInstance().GoToLevelSelector += GameStart;
+            CustomSignals.GetInstance().GoToLevelCreator += LevelCreatorScreen;
         }
 
 		public void GameStart() //Execute when StartButton is press in MainMenu
 		{
-			//MainMenu.GetInstance().QueueFree();
 			mainMenu.Hide();
 			levelSelector = levelSelectorScene.Instantiate() as LevelSelector;
 			AddChild(levelSelector);
 		}
 
-		private void BackToMainMenu()
+        public void LevelCreatorScreen() //Execute when StartButton is press in MainMenu
+        {
+            mainMenu.Hide();
+            levelCreator = levelCreatorScene.Instantiate() as LevelCreator;
+            AddChild(levelCreator);
+        }
+
+        private void BackToMainMenu()
 		{
-			LevelSelector.GetInstance().QueueFree();
-			//mainMenu = mainMenuScene.Instantiate() as MainMenu;
-			//AddChild(mainMenu);
+			LevelSelector.GetInstance()?.QueueFree();
+			LevelCreator.GetInstance()?.QueueFree();
 			mainMenu.Show();
 		}
 
