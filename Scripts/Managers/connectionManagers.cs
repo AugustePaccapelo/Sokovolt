@@ -66,17 +66,15 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
     private void RechercheTesla()
     {
          int timer = 0;
-         GD.Print("je cherche une Tesla ");
         BoxTesla lBox = Recherche(TeslasConnected.Last());
         while (lBox!=null )
         {
             lBox.LineConnection(TeslasConnected.Last());
             TeslasConnected.Add(lBox);
-            pritlist();
-            lBox = Recherche(TeslasConnected.Last());
-           
 
+            lBox = Recherche(TeslasConnected.Last());
         }
+        CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.BoxTeslaCalculsDone);
         
     }
         
@@ -89,28 +87,27 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
             BoxTesla lShortBox = null;
             foreach (var box in boxTeslasList)
             {
-                GD.Print(" je test "+box.Name);
                 if (TeslasConnected.Contains(box)) continue;
-                GD.Print("je cherche avec "+box.Name);
                 lLength=box.ConnectionSearch(pObject);
                 if (lLength !=-1 && lLength<lShortLength)
                 {
-                    GD.Print("j'ais trouver "+box.Name);
+                    
                     lShortLength = lLength;
                     lShortBox = box;
                 }
                     
             }
+
+            pritlist();
             return lShortBox;
         }
 
 
         private void pritlist()
         {
-            GD.Print(TeslasConnected.Count+" count");
             foreach (var VARIABLE in TeslasConnected)
             {
-                GD.Print(VARIABLE.Name);
+                GD.Print("je suis"+ VARIABLE.energize);
             }
         }
 

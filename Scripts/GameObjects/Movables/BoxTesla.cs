@@ -33,7 +33,6 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
             Vector2.Left,
             Vector2.Right
         };
-        private int length;
         private bool signalEmit = false;
         public bool playerCanBeDetected = true;
         Vector2 LastPos = Vector2.Zero;
@@ -58,7 +57,6 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
         private void Init()
         {
             CallDeferred(nameof(UpdateRangeLabel));
-            length = directionScan.Count;
             MovableHaveFinish += (Movable pSender) => { Searching(pSender);
             };
             CallDeferred(nameof(ConnectPlayer));
@@ -128,19 +126,13 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
                                 Vector2 lVector2 = new Vector2(pObjectToConecte.x - this.x,pObjectToConecte.y-this.y);
                               float lLength=lVector2.Length();
 
-                              return length ;
+                              return lLength ;
                             }
                             else if (GOToScan is Wall)
                             {
                                 lIndicesToRemove.Add(j);
                             }
-
-                            //if (lTesla.energize && ObjToConecte == null && lTesla.isConnected== false && lTesla!= prevBoxTesla)
-                            //{
-                            //    ObjToConecte= lTesla;
-                            //    lTesla.nextBoxTesla = this;
-                            //    prevBoxTesla = lTesla;
-                            //    lTesla.isConnected = true;
+                    
                 }
                 lIndicesToRemove.Sort((a, b) => b.CompareTo(a));
                 foreach (int index in lIndicesToRemove)
@@ -151,7 +143,6 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
 
                 lIndicesToRemove.Clear();
             }
-            CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.BoxTeslaCalculsDone);
 
             return -1;
         }
@@ -172,7 +163,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
 
         public void LineConnection(GameObject objToConnect)
         {
-            if (objToConnect is BoxTesla lbox)lbox.energize = true;
+            if (objToConnect is BoxTesla lbox)energize = true;
             
             lLightning = lightningNodeScene.Instantiate<LightningNode>();
             lLightning.endPoint = Vector2.Zero;
