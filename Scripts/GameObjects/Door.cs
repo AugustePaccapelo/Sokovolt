@@ -75,7 +75,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
 			if (isOpen && curentCell.GetContent() is Player)
 			{
 				GD.Print("Player has exited!");
-				HUD.GetInstance().GameFinished();
+				GameManager.GetInstance().GameFinished();
 				/*HUD lHud = HUD.GetInstance();
 				lHud.EmitSignal(HUD.SignalName.MainMenuButton);*/
 			}

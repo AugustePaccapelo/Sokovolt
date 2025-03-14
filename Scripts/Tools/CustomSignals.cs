@@ -30,5 +30,6 @@ namespace Com.IsartDigital.SokoVolt
 		[Signal] public delegate void BoxTeslaMovedEventHandler();
         [Signal] public delegate void BoxTeslaCalculsDoneEventHandler();
         [Signal] public delegate void GoalBulbStateChangedEventHandler();
+		[Signal] public delegate void GameFinishedEventHandler(int pNumStar, int pScore, int pNumStep);
     }
 }

@@ -95,6 +95,12 @@ namespace Com.IsartDigital.SokoVolt.Managers
 			door?.Open();
 		}
 
+		public void GameFinished()
+		{
+			int lNumStep = GridManager.GetInstance().step;
+
+		}
+
 		// ----- Destructor ----- \\
 
 		protected override void Dispose(bool pDisposing)
