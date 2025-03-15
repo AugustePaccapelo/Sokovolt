@@ -1,0 +1,214 @@
+[gd_scene load_steps=10 format=3 uid="uid://cq2pq5gsrx4re"]
+
+[ext_resource type="Script" path="res://Scripts/GameObjects/WinScreen.cs" id="1_753qv"]
+[ext_resource type="PackedScene" uid="uid://b0olmoqwuw54k" path="res://Scenes/GameObjects/WinScreen/rope.tscn" id="2_j1ab3"]
+[ext_resource type="Texture2D" uid="uid://bmddbxdeg4gya" path="res://Assets/WinScreen/Pile.png" id="3_fqidv"]
+[ext_resource type="Texture2D" uid="uid://1c72ndp41fme" path="res://Assets/WinScreen/DiagonalPile.png" id="4_36w4v"]
+[ext_resource type="Texture2D" uid="uid://802needuu7gb" path="res://Assets/WinScreen/Screen.png" id="5_sal2a"]
+[ext_resource type="Texture2D" uid="uid://whv5xtc61vjl" path="res://Assets/WinScreen/Aiguille.png" id="6_rgshm"]
+[ext_resource type="PackedScene" uid="uid://bbvc0kv5shwqo" path="res://Scenes/GameObjects/WinScreen/thunder_effects.tscn" id="7_itdbi"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2e15r"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_71gdd"]
+size = Vector2(302.999, 756.001)
+
+[node name="WinScreen" type="Node2D" node_paths=PackedStringArray("area", "clockwises", "screen", "batteries")]
+script = ExtResource("1_753qv")
+area = NodePath("Area2D")
+thunderScene = ExtResource("7_itdbi")
+clockwises = NodePath("ScreenContainer/Clockwises")
+screen = NodePath("ScreenContainer")
+batteries = [NodePath("ScreenContainer/Battery1"), NodePath("ScreenContainer/Battery2"), NodePath("ScreenContainer/Battery3")]
+
+[node name="Rope" parent="." instance=ExtResource("2_j1ab3")]
+position = Vector2(586, -22)
+
+[node name="RopeSegment" parent="Rope" index="2"]
+collision_layer = 0
+collision_mask = 0
+
+[node name="RopeSegment2" parent="Rope" index="4"]
+collision_layer = 0
+collision_mask = 0
+
+[node name="RopeSegment3" parent="Rope" index="6"]
+collision_layer = 0
+collision_mask = 0
+
+[node name="RopeSegment4" parent="Rope" index="8"]
+collision_layer = 0
+collision_mask = 0
+
+[node name="RopeSegment5" parent="Rope" index="10"]
+collision_layer = 0
+collision_mask = 0
+
+[node name="RopeSegment6" parent="Rope" index="12"]
+collision_layer = 0
+collision_mask = 0
+
+[node name="RopeSegment7" parent="Rope" index="14"]
+collision_layer = 0
+collision_mask = 0
+
+[node name="RopeSegment8" parent="Rope" index="16"]
+collision_layer = 0
+collision_mask = 0
+
+[node name="RopeSegment9" parent="Rope" index="18"]
+collision_layer = 0
+collision_mask = 0
+
+[node name="RopeSegment10" parent="Rope" index="20"]
+collision_layer = 0
+collision_mask = 0
+
+[node name="RopeSegment11" parent="Rope" index="22"]
+collision_layer = 0
+collision_mask = 0
+
+[node name="RopeSegment12" parent="Rope" index="24"]
+collision_layer = 0
+collision_mask = 0
+
+[node name="RopeSegment13" parent="Rope" index="26"]
+collision_layer = 0
+collision_mask = 0
+
+[node name="RopeSegment14" parent="Rope" index="28"]
+collision_layer = 0
+collision_mask = 0
+
+[node name="RopeSegment15" parent="Rope" index="30"]
+collision_layer = 0
+collision_mask = 0
+
+[node name="RopeSegment16" parent="Rope" index="32"]
+collision_layer = 0
+collision_mask = 0
+
+[node name="Rope2" parent="." instance=ExtResource("2_j1ab3")]
+position = Vector2(1250, -23)
+
+[node name="RopeSegment" parent="Rope2" index="2"]
+collision_layer = 0
+collision_mask = 0
+
+[node name="RopeSegment2" parent="Rope2" index="4"]
+collision_layer = 0
+collision_mask = 0
+
+[node name="RopeSegment3" parent="Rope2" index="6"]
+collision_layer = 0
+collision_mask = 0
+
+[node name="RopeSegment4" parent="Rope2" index="8"]
+collision_layer = 0
+collision_mask = 0
+
+[node name="RopeSegment5" parent="Rope2" index="10"]
+collision_layer = 0
+collision_mask = 0
+
+[node name="RopeSegment6" parent="Rope2" index="12"]
+collision_layer = 0
+collision_mask = 0
+
+[node name="RopeSegment7" parent="Rope2" index="14"]
+collision_layer = 0
+collision_mask = 0
+
+[node name="RopeSegment8" parent="Rope2" index="16"]
+collision_layer = 0
+collision_mask = 0
+
+[node name="RopeSegment9" parent="Rope2" index="18"]
+collision_layer = 0
+collision_mask = 0
+
+[node name="RopeSegment10" parent="Rope2" index="20"]
+collision_layer = 0
+collision_mask = 0
+
+[node name="RopeSegment11" parent="Rope2" index="22"]
+collision_layer = 0
+collision_mask = 0
+
+[node name="RopeSegment12" parent="Rope2" index="24"]
+collision_layer = 0
+collision_mask = 0
+
+[node name="RopeSegment13" parent="Rope2" index="26"]
+collision_layer = 0
+collision_mask = 0
+
+[node name="RopeSegment14" parent="Rope2" index="28"]
+collision_layer = 0
+collision_mask = 0
+
+[node name="RopeSegment15" parent="Rope2" index="30"]
+collision_layer = 0
+collision_mask = 0
+
+[node name="RopeSegment16" parent="Rope2" index="32"]
+collision_layer = 0
+collision_mask = 0
+
+[node name="Area2D" type="CharacterBody2D" parent="."]
+collision_layer = 0
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_2e15r")
+
+[node name="ScreenContainer" type="RigidBody2D" parent="."]
+position = Vector2(946, 683)
+collision_layer = 0
+collision_mask = 0
+mass = 556.94
+
+[node name="Battery1" type="Sprite2D" parent="ScreenContainer"]
+self_modulate = Color(0.485703, 0.485704, 0.485703, 1)
+position = Vector2(-302, -360)
+texture = ExtResource("4_36w4v")
+offset = Vector2(36, 107)
+
+[node name="Battery2" type="Sprite2D" parent="ScreenContainer"]
+self_modulate = Color(0.485703, 0.485704, 0.485703, 1)
+position = Vector2(-9, -371)
+texture = ExtResource("3_fqidv")
+offset = Vector2(1, 108)
+
+[node name="Battery3" type="Sprite2D" parent="ScreenContainer"]
+self_modulate = Color(0.485703, 0.485704, 0.485703, 1)
+position = Vector2(280, -361)
+texture = ExtResource("4_36w4v")
+offset = Vector2(-36, 108)
+flip_h = true
+
+[node name="Screen" type="Sprite2D" parent="ScreenContainer"]
+texture = ExtResource("5_sal2a")
+
+[node name="Clockwises" type="Sprite2D" parent="ScreenContainer"]
+position = Vector2(378, 157)
+texture = ExtResource("6_rgshm")
+offset = Vector2(7, -6)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ScreenContainer"]
+position = Vector2(-9.00024, -5.49933)
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_71gdd")
+
+[node name="PinJoint2D2" type="PinJoint2D" parent="."]
+position = Vector2(1250, 523)
+node_a = NodePath("../Rope2/RopeSegment16")
+node_b = NodePath("../ScreenContainer")
+
+[node name="PinJoint2D3" type="PinJoint2D" parent="."]
+position = Vector2(586, 524)
+node_a = NodePath("../Rope/RopeSegment16")
+node_b = NodePath("../ScreenContainer")
+
+[editable path="Rope"]
+[editable path="Rope2"]

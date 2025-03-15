@@ -1,3 +1,5 @@
+using Com.IsartDigital.ProjectName;
+using Com.IsartDigital.SokoVolt.GameObjects.Movables;
 using Com.IsartDigital.SokoVolt.Managers;
 using Godot;
 using System;
@@ -24,6 +26,9 @@ namespace Com.IsartDigital.SokoVolt{
 
 		[Export] public Button undoButton, redoButton, mainMenuButton;
 		[Export] public Label scoreLabel, stepLabel, winLabel; 
+		[Export] public PackedScene winScreenScene;
+		private WinScreen winScreen;
+
 		public override void _Ready()
 		{
 			#region instance
@@ -48,11 +53,18 @@ namespace Com.IsartDigital.SokoVolt{
 
 		public void GameFinished()
 		{
-			winLabel.Show();
-			Tween lTween = CreateTween();
-			lTween.Finished += () => ReturnToMenu();
-			lTween.TweenProperty(winLabel, "modulate", Colors.White, 2).From(Colors.Transparent);
-			lTween.Play();
+            Tween lTween = CreateTween();
+            winScreen = winScreenScene.Instantiate() as WinScreen;
+			AddChild(winScreen);
+			winScreen.Position = new Vector2(0, -900);
+			winScreen.ZIndex = 50;
+			lTween.TweenProperty(winScreen, "position", Vector2.Zero, 0.5f);
+			
+
+			//winLabel.Show();
+			//lTween.Finished += () => ReturnToMenu();
+			//lTween.TweenProperty(winLabel, "modulate", Colors.White, 2).From(Colors.Transparent);
+			//lTween.Play();
 		}
 
 		private void ReturnToMenu()
