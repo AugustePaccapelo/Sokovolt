@@ -14,7 +14,7 @@ namespace Com.IsartDigital.SokoVolt {
 
 		public static int  levelHeight{get; private set;}
 		public static int levelWidth{get; private set;}
-		public static bool isLevelLoaded { get; set;} = false;
+		public static bool playerCanMove { get; set;} = false;
 
 		public static int parCount{get; private set;}
 
@@ -56,7 +56,7 @@ namespace Com.IsartDigital.SokoVolt {
 		public void LoadLevel(int pLevel)
 		{
 			string lJsonContent = JsonTool.ReadFileContents(JsonKeys.LEVELS_JSONS_PATH);
-            isLevelLoaded = false;
+            playerCanMove = false;
 
             if (!JsonTool.TryParseJson(lJsonContent, out Godot.Collections.Dictionary lRootDict))
 			{
@@ -201,7 +201,7 @@ namespace Com.IsartDigital.SokoVolt {
 				}
 			}
 
-			isLevelLoaded = true;
+			playerCanMove = true;
 		}
 	
 

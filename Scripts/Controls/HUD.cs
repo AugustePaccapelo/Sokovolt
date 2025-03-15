@@ -53,19 +53,15 @@ namespace Com.IsartDigital.SokoVolt{
 
 		public void GameFinished()
 		{
+            LevelLoader.playerCanMove = false;
             Tween lTween = CreateTween();
             winScreen = winScreenScene.Instantiate() as WinScreen;
 			AddChild(winScreen);
 			winScreen.Position = new Vector2(0, -900);
 			winScreen.ZIndex = 50;
-			lTween.TweenProperty(winScreen, "position", Vector2.Zero, 0.5f);
-			
-
-			//winLabel.Show();
-			//lTween.Finished += () => ReturnToMenu();
-			//lTween.TweenProperty(winLabel, "modulate", Colors.White, 2).From(Colors.Transparent);
-			//lTween.Play();
-		}
+			lTween.TweenProperty(winScreen, "position", Vector2.Zero, 1f);
+			lTween.Finished += () => GetTree().CreateTimer(1f).Timeout += () => winScreen.StarSysteme(2);
+        }
 
 		private void ReturnToMenu()
 		{

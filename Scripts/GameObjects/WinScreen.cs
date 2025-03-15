@@ -20,7 +20,6 @@ namespace Com.IsartDigital.ProjectName
         {
             screen.Position = new Vector2(800, 583);
 
-            StarSysteme(1);
         }
 
         private WinScreenThunder CreateThunder()
@@ -31,7 +30,7 @@ namespace Com.IsartDigital.ProjectName
             return lThunder;
         }
 
-        private async void StarSysteme(int pCount)
+        public async void StarSysteme(int pCount)
         {
             if (counter <= 3)
             {

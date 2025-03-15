@@ -38,7 +38,7 @@ namespace Com.IsartDigital.SokoVolt.Managers
 
 		public override void _Input(InputEvent @event)
 		{
-			if (!LevelLoader.isLevelLoaded) return;
+			if (!LevelLoader.playerCanMove) return;
 
 			if (@event is InputEventKey eventKey && eventKey.Pressed)
 			{
