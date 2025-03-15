@@ -39,6 +39,9 @@ namespace Com.IsartDigital.SokoVolt.Managers {
         //UndoRedo 
         private bool playerWasOnTesla; 
 
+		//Scoring 
+		private int minPar = 0;	
+
 
 		public override void _Ready()
 		{
@@ -88,6 +91,8 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 			ResetStepCounter();
 			HUD.GetInstance().Visible = true;
 			LevelLoader.GetInstance().LoadLevel(pLevelToLoad);
+			minPar = LevelLoader.parCount; 
+			GD.PrintErr(minPar); 
 			CenterGrid(); 
 
 			if (grid == null)  // Évite d'ajouter un état vide
