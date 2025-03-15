@@ -47,8 +47,7 @@ namespace Com.IsartDigital.SokoVolt{
 			CustomMinimumSize = GetViewportRect().Size;	
 			undoButton.Pressed += () => EmitSignal(nameof(UndoButton));
 			redoButton.Pressed += () => EmitSignal(nameof(RedoButton));
-			mainMenuButton.Pressed += () => CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.GoToMainMenu);
-			winLabel.Hide();
+			mainMenuButton.Pressed += ReturnToMenu;
 		}
 
 		public void GameFinished()
@@ -65,11 +64,11 @@ namespace Com.IsartDigital.SokoVolt{
 
 		private void ReturnToMenu()
 		{
-			CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.GoToMainMenu);
-			winLabel.Hide();
+            if (winScreen != null) winScreen.QueueFree();
+            CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.GoToMainMenu);
         }
 
-		public override void _Process(double pDelta)
+        public override void _Process(double pDelta)
 		{
 
 		}
