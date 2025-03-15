@@ -13,6 +13,7 @@ namespace Com.IsartDigital.SokoVolt {
 
 		public static int  levelHeight{get; private set;}
 		public static int levelWidth{get; private set;}
+		public static bool isLevelLoaded { get; set;} = false;
 
 		GridManager gridInstance; 
 
@@ -52,8 +53,9 @@ namespace Com.IsartDigital.SokoVolt {
 		public void LoadLevel(int pLevel)
 		{
 			string lJsonContent = JsonTool.ReadFileContents(JsonKeys.LEVELS_JSONS_PATH);
+            isLevelLoaded = false;
 
-			if (!JsonTool.TryParseJson(lJsonContent, out Godot.Collections.Dictionary lRootDict))
+            if (!JsonTool.TryParseJson(lJsonContent, out Godot.Collections.Dictionary lRootDict))
 			{
 				GD.PrintErr("Erreur : Impossible de parser le fichier JSON.");
 				return;
@@ -185,6 +187,8 @@ namespace Com.IsartDigital.SokoVolt {
 					}
 				}
 			}
+
+			isLevelLoaded = true;
 		}
 	
 

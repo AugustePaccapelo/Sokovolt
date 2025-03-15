@@ -31,7 +31,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects {
         private void Init()
         {
             LevelSelector.GetInstance().UnlockAllLevel += UnlockAll;
-            ButtonLoadLevel += LevelManager.GetInstance().LevelLoader;
+            ButtonLoadLevel += LevelManager.GetInstance().LevelLoaderFonc;
             levelButton.Pressed += LevelUnlockedCheck;
         }
 
