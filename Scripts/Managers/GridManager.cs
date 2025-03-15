@@ -39,6 +39,9 @@ namespace Com.IsartDigital.SokoVolt.Managers {
         //UndoRedo 
         private bool playerWasOnTesla; 
 
+		//Scoring 
+		private int minPar = 0;	
+
 
 		public override void _Ready()
 		{
@@ -56,12 +59,6 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 
         public override void _Process(double pDelta)
 		{
-			if(Input.IsActionJustPressed("Undo")) SetGridState(actualGridStateIndex - 1); //=================> Undo to put in InputManager
-			else
-			if(Input.IsActionJustPressed("Redo")) SetGridState(actualGridStateIndex + 1); //=================> Redo	to put in InputManager
-
-			if(Input.IsActionJustPressed("Retry")) Retry(); 
-
         }
 
         public override void Init()
@@ -75,9 +72,9 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 		private void  SignalsConnetion()
 		{
 			CustomSignals.GetInstance().LoadLevel  += LoadNewLevel;
-			InputManager.GetInstance().Move += OnMovePlayer;
-            InputManager.GetInstance().UndoRedo += UndoRedo;
-            InputManager.GetInstance().Retry += Retry;
+            CustomSignals.GetInstance().Move += OnMovePlayer;
+            CustomSignals.GetInstance().UndoRedo += UndoRedo;
+            CustomSignals.GetInstance().Retry += Retry;
 
             hud.UndoButton += () => UndoRedo(-1);
             hud.RedoButton += () => UndoRedo(1);
@@ -94,6 +91,8 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 			ResetStepCounter();
 			HUD.GetInstance().Visible = true;
 			LevelLoader.GetInstance().LoadLevel(pLevelToLoad);
+			minPar = LevelLoader.parCount; 
+			GD.PrintErr(minPar); 
 			CenterGrid(); 
 
 			if (grid == null)  // Évite d'ajouter un état vide

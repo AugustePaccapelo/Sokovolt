@@ -43,16 +43,17 @@ namespace Com.IsartDigital.SokoVolt.Managers
             base.Init();
 
             //HUD.GetInstance().MainMenuButton += UnLoadLevel;
-            CustomSignals.GetInstance().GoToMainMenu += UnLoadLevel;
+            CustomSignals.GetInstance().GoToMainMenu += UnLoadLevel; 
         }
 
         private void UnLoadLevel()
         {
             GridManager.GetInstance().ClearGrid();
             CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.UnLoadLevel);
+            LevelLoader.isLevelLoaded = false;
         }
 
-        public void LevelLoader(int pLevel)
+        public void LevelLoaderFonc(int pLevel)
 		{
 			GD.Print("Level : " + pLevel);
             CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.LoadLevel, pLevel);
