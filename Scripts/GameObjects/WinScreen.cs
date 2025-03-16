@@ -12,13 +12,22 @@ namespace Com.IsartDigital.ProjectName
         [Export] private PackedScene thunderScene;
         [Export] private Sprite2D clockwises;
         [Export] private RigidBody2D screen;
+        [Export] private Label starCountLabel;
+        [Export] private Label stepsCountLabel;
+        [Export] private Label scoreLabel;
+        [Export] private ColorRect screenEffect;
+        [Export] private Node2D particlesGroup;
+        private ShaderMaterial shaderEffect;
         [Export] private Sprite2D[] batteries;
         private int counter = 0;
         private int thunderNumb = 4;
 
+        private const string STAR_LABEL_PREFIXE = "X ";
+
         public override void _Ready()
         {
             screen.Position = new Vector2(800, 583);
+            shaderEffect = (ShaderMaterial)screenEffect.Material;
 
         }
 
@@ -41,9 +50,13 @@ namespace Com.IsartDigital.ProjectName
                         WinScreenThunder lThunder = CreateThunder();
                         lThunder.ActiveThunder(counter + 1, batteries[counter]);
                     }
+                    shaderEffect.SetShaderParameter("scanline_alpha", 3);
+                    particlesGroup.Show();
                     counter++;
-
-                    await Wait(1f);
+                    starCountLabel.Text = STAR_LABEL_PREFIXE + counter;
+                    await Wait(0.6f);
+                    shaderEffect.SetShaderParameter("scanline_alpha", 0.9f);
+                    await Wait(0.4f);
                 }
             }
         }

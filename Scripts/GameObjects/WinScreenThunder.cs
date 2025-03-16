@@ -52,6 +52,7 @@ namespace Com.IsartDigital.ProjectName
 
             animation.Play(THUNDER_ANIMATION);
             pBattery.SelfModulate = new Color(1, 1, 1, 1);
+            pBattery.GetChild<Node2D>(0).Show();
         }
 
         protected override void Dispose(bool pDisposing)
