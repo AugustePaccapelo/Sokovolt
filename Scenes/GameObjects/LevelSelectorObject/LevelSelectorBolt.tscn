@@ -253,12 +253,10 @@ _data = {
 "start_animation": SubResource("Animation_gd07k")
 }
 
-[node name="ParticlesGroup" type="Node2D" node_paths=PackedStringArray("animationPlayer", "sparks", "flare", "bolt", "light")]
+[node name="ParticlesGroup" type="Node2D" node_paths=PackedStringArray("animationPlayer", "bolt", "light")]
 scale = Vector2(0.993244, 1)
 script = ExtResource("1_poe8b")
 animationPlayer = NodePath("AnimationPlayer")
-sparks = NodePath("ImpactEffect/Sparks")
-flare = NodePath("ImpactEffect/Flare")
 bolt = NodePath("Bolt")
 light = NodePath("ImpactEffect/PointLight2D")
 
@@ -273,6 +271,7 @@ texture_mode = 2
 [node name="ImpactEffect" type="Node2D" parent="."]
 
 [node name="Sparks" type="GPUParticles2D" parent="ImpactEffect"]
+visible = false
 material = SubResource("CanvasItemMaterial_r36vq")
 position = Vector2(0, 1)
 amount = 15
@@ -282,6 +281,7 @@ lifetime = 0.15
 fixed_fps = 60
 
 [node name="Flare" type="GPUParticles2D" parent="ImpactEffect"]
+visible = false
 material = SubResource("CanvasItemMaterial_hklq1")
 position = Vector2(0, -1)
 amount = 1
