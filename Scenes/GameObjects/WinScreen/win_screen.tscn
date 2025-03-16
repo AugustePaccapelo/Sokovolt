@@ -111,7 +111,7 @@ scale_max = 0.08
 scale_curve = SubResource("CurveTexture_wll2f")
 color_ramp = SubResource("GradientTexture1D_76wag")
 
-[node name="WinScreen" type="Node2D" node_paths=PackedStringArray("area", "clockwises", "screen", "starCountLabel", "stepsCountLabel", "scoreLabel", "particlesGroup", "batteries")]
+[node name="WinScreen" type="Node2D" node_paths=PackedStringArray("area", "clockwises", "screen", "starCountLabel", "stepsCountLabel", "scoreLabel", "screenEffect", "particlesGroup", "batteries")]
 script = ExtResource("1_753qv")
 area = NodePath("Area2D")
 thunderScene = ExtResource("7_itdbi")
@@ -120,6 +120,7 @@ screen = NodePath("ScreenContainer")
 starCountLabel = NodePath("ScreenContainer/StarCountLabel")
 stepsCountLabel = NodePath("ScreenContainer/StepsLabel")
 scoreLabel = NodePath("ScreenContainer/ScoreLabel")
+screenEffect = NodePath("ScreenContainer/ScreenEffect")
 particlesGroup = NodePath("ScreenContainer/ParticlesGroup")
 batteries = [NodePath("ScreenContainer/Battery1"), NodePath("ScreenContainer/Battery2"), NodePath("ScreenContainer/Battery3")]
 

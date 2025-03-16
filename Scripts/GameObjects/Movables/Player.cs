@@ -56,15 +56,17 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables {
 			{
 				timer = 0;
 				isTraveling = true;
+				LevelLoader.playerCanMove = false;
                 inTeslaParticles.Show();
-                GD.Print("Player TP to NExtTEsla");
+                GD.Print("Player TP to NextTesla");
 				dectetor.Monitorable = false;
 				pTesla.playerCanBeDetected = false;
 				MoveTo(pTesla.x, pTesla.y, GridManager.GetInstance().grid);
 				GetTree().CreateTimer(1).Timeout += () => pTesla.playerCanBeDetected = true;
-				isTraveling = false;
+				GetTree().CreateTimer(0.5f).Timeout += () => LevelLoader.playerCanMove = true;
+                isTraveling = false;
             }
-            else if (pTesla.nextBoxTesla == null) GD.Print("nextTEsla est null");
+            else if (pTesla.nextBoxTesla == null) GD.Print("nextTesla est null");
         }
 
         public override void MoveTo(int pX, int pY, Cell[,] pGrid)
