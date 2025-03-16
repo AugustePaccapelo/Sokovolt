@@ -1,8 +1,10 @@
 using Com.IsartDigital.ProjectName;
 using Com.IsartDigital.SokoVolt.Managers;
+using Com.IsartDigital.Tools;
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 
 // Author : Auguste Paccapelo
 
@@ -29,25 +31,27 @@ namespace Com.IsartDigital.SokoVolt
 		// ----- Nodes ----- \\
 		[ExportGroup("LoginScreen")]
 		[Export] private Control loginNode;
-		[Export] private TextEdit inputLoginUsername;
-		[Export] private LineEdit inputLoginPassword;
-        [Export] private Button buttonLoginConfirm, buttonLoginGoCreate;
-		[Export] private Label labelLoginName, labelLoginUsername, labelLoginPassword, labelLoginError;
+		private VBoxContainer vBoxHolderLogin;
+		private TextEdit inputLoginUsername;
+		private LineEdit inputLoginPassword;
+        private Button buttonLoginConfirm, buttonLoginGoCreate;
+		[Export] private Label labelLoginError;
+		private Label labelLoginName, labelLoginUsername, labelLoginPassword;
 		[Export] private VBoxContainer vContLoginUser, vContLoginPass;
 
-		[Export] private Control vContLogPosParent, vLabNameLogPosParent, vButCreateLogPosParent, vContLogPassPosParent;
-
-		private List<Control> vContLoginUserPos = new List<Control>();
-		private List<Control> labelLoginNamePos = new List<Control>();
-        private List<Control> buttonGoCreateNamePos = new List<Control>();
-        private List<Control> vContLogPassPos = new List<Control>();
+		private Control loginPosHolder;
+		private Vector2 animPosLoginName, animPosLoginButtonConfirm, animPosLoginButtonChangeScreen, animPosLoginPassword;
+		private List<Vector2> animPosLoginUserName = new List<Vector2>();
 
         [ExportGroup("CreateScreen")]
         [Export] private Control createNode;
-		[Export] private TextEdit inputCreateUsername;
-		[Export] private LineEdit inputCreatePassword, inputCreateConfirmPassword;
-        [Export] private Button buttonCreateConfirm, buttonCreateGoLogin;
-		[Export] private Label labelCreateName, labelCreateUsername, labelCreatePassword, labelCreateConfirmPassword, labelCreateErrorPasswords, labelCreateErrorUsername;
+        private VBoxContainer vBoxHolderCreate;
+        private TextEdit inputCreateUsername;
+		private LineEdit inputCreatePassword, inputCreateConfirmPassword;
+        private Button buttonCreateConfirm, buttonCreateGoLogin;
+		private Label labelCreateName, labelCreateUsername, labelCreatePassword, labelCreateConfirmPassword;
+		[Export] private Label labelCreateErrorPasswords, labelCreateErrorUsername;
+		[Export] private VBoxContainer vBoxCreateUser, vBoxCreatePass, vBoxCreateConfirmPass;
 
         // ----- Others ----- \\
         [Signal] public delegate void StartGameEventHandler();
@@ -80,10 +84,10 @@ namespace Com.IsartDigital.SokoVolt
 
 			base._Ready();
 
-			foreach (Control lPos in vContLogPosParent.GetChildren()) vContLoginUserPos.Add(lPos);
-            foreach (Control lPos in vLabNameLogPosParent.GetChildren()) labelLoginNamePos.Add(lPos);
-            foreach (Control lPos in vButCreateLogPosParent.GetChildren()) buttonGoCreateNamePos.Add(lPos);
-            foreach (Control lPos in vContLogPassPosParent.GetChildren()) vContLogPassPos.Add(lPos);
+			GetLoginChilds();
+			GetCreateChilds();
+
+			GetAllLoginPos();
 			
             screenSize = GetWindow().Size;
             Size = screenSize;
@@ -112,6 +116,67 @@ namespace Com.IsartDigital.SokoVolt
 		}
 
 		// ----- My Functions ----- \\
+
+		private void GetLoginChilds()
+		{
+			vBoxHolderLogin = loginNode.GetNode<VBoxContainer>(LoginScreenNames.VBOX_SCREEN_HOLDER);
+			labelLoginName = vBoxHolderLogin.GetNode<Label>(LoginScreenNames.LABEL_SCREEN_NAME);
+			labelLoginUsername = vContLoginUser.GetNode<Label>(LoginScreenNames.LABEL_USERNAME);
+            inputLoginUsername = vContLoginUser.GetNode<TextEdit>(LoginScreenNames.INPUT_USERNAME);
+			labelLoginPassword = vContLoginPass.GetNode<Label>(LoginScreenNames.LABEL_PASSWORD);
+            inputLoginPassword = vContLoginPass.GetNode<LineEdit>(LoginScreenNames.INPUT_PASSWORD);
+			buttonLoginConfirm = vBoxHolderLogin.GetNode<Button>(LoginScreenNames.BUTTON_CONFIRM);
+            buttonLoginGoCreate = vBoxHolderLogin.GetNode<Button>(LoginScreenNames.BUTTON_CHANGE_SCREEN);
+
+			loginPosHolder = loginNode.GetNode<Control>(LoginScreenNames.POS_HOLDER);
+        }
+
+		private void GetCreateChilds()
+		{
+            vBoxHolderCreate = createNode.GetNode<VBoxContainer>(LoginScreenNames.VBOX_SCREEN_HOLDER);
+            labelCreateName = vBoxHolderCreate.GetNode<Label>(LoginScreenNames.LABEL_SCREEN_NAME);
+			labelCreateUsername = vBoxCreateUser.GetNode<Label>(LoginScreenNames.LABEL_USERNAME);
+			inputCreateUsername = vBoxCreateUser.GetNode<TextEdit>(LoginScreenNames.INPUT_USERNAME);
+			labelCreatePassword = vBoxCreatePass.GetNode<Label>(LoginScreenNames.LABEL_PASSWORD);
+			inputCreatePassword = vBoxCreatePass.GetNode<LineEdit>(LoginScreenNames.INPUT_PASSWORD);
+			labelCreateConfirmPassword = vBoxCreateConfirmPass.GetNode<Label>(LoginScreenNames.LABEL_CONFIRM_PASSWORD);
+			inputCreateConfirmPassword = vBoxCreateConfirmPass.GetNode<LineEdit>(LoginScreenNames.INPUT_CONFIRM_PASSWORD);
+			buttonCreateConfirm = vBoxHolderCreate.GetNode<Button>(LoginScreenNames.BUTTON_CONFIRM);
+            buttonCreateGoLogin = vBoxHolderCreate.GetNode<Button>(LoginScreenNames.BUTTON_CHANGE_SCREEN);
+        }
+
+		private void GetAllLoginPos()
+		{
+			foreach (Control lChild in loginPosHolder.GetChildren())
+			{
+				switch (lChild.Name)
+				{
+					case LoginScreenAnimations.LABEL_SCREEN_NAME:
+						animPosLoginName = lChild.GlobalPosition;
+                        break;
+					case LoginScreenAnimations.BUTTON_CONFIRM:
+						animPosLoginButtonConfirm = lChild.GlobalPosition;
+						break;
+					case LoginScreenAnimations.BUTTON_CHANGE_SCREEN:
+						animPosLoginButtonChangeScreen = lChild.GlobalPosition;
+						break;
+					case LoginScreenAnimations.VBOX_PASSWORD:
+						animPosLoginPassword = lChild.GlobalPosition;
+                        break;
+					case LoginScreenAnimations.VBOX_USERNAME:
+						ChildToList(lChild, animPosLoginUserName);
+						break;
+				}
+			}
+		}
+
+		private void ChildToList(Control pNode, List<Vector2> pList)
+		{
+			foreach (Control lChild in pNode.GetChildren())
+			{
+				pList.Add(lChild.GlobalPosition);
+			}
+		}
 
 		private void ButtonPressedLogin()
 		{
@@ -155,30 +220,30 @@ namespace Com.IsartDigital.SokoVolt
 			Tween lTween = CreateTween().SetParallel();
 
 			// Label Login animation
-			lTween.TweenProperty(labelLoginName, "global_position", labelLoginName.GlobalPosition, 0.5f).From(labelLoginNamePos[0].GlobalPosition)
+			lTween.TweenProperty(labelLoginName, "global_position", labelLoginName.GlobalPosition, 0.5f).From(animPosLoginName)
 				.SetTrans(Tween.TransitionType.Quart).SetEase(Tween.EaseType.Out);
 			lTween.TweenProperty(labelLoginName, "scale", labelLoginName.Scale, 0.5f).From(new Vector2(labelLoginName.Scale.X * 0.75f, 0))
 				.SetTrans(Tween.TransitionType.Quart).SetEase(Tween.EaseType.Out);
 
 			// Button Login animation
-			lTween.TweenProperty(buttonLoginConfirm, "global_position", buttonLoginConfirm.GlobalPosition, 0.5f).From(new Vector2(0, buttonLoginConfirm.GlobalPosition.Y))
+			lTween.TweenProperty(buttonLoginConfirm, "global_position", buttonLoginConfirm.GlobalPosition, 0.5f).From(animPosLoginButtonConfirm)
                 .SetTrans(Tween.TransitionType.Quart).SetEase(Tween.EaseType.Out);
             lTween.TweenProperty(buttonLoginConfirm, "scale", buttonLoginConfirm.Scale, 0.5f).From(new Vector2(buttonLoginConfirm.Scale.X * 0.75f, 0))
                 .SetTrans(Tween.TransitionType.Quart).SetEase(Tween.EaseType.Out);
 
 			// Button create animation
-			lTween.TweenProperty(buttonLoginGoCreate, "global_position", buttonLoginGoCreate.GlobalPosition, 1.5f).From(buttonGoCreateNamePos[0].GlobalPosition);
+			lTween.TweenProperty(buttonLoginGoCreate, "global_position", buttonLoginGoCreate.GlobalPosition, 1.5f).From(animPosLoginButtonChangeScreen);
 
 			// Password label and input animation
-			lTween.TweenProperty(vContLoginPass, "global_position", vContLoginPass.GlobalPosition, 1.5f).From(vContLogPassPos[0].GlobalPosition);
+			lTween.TweenProperty(vContLoginPass, "global_position", vContLoginPass.GlobalPosition, 1.5f).From(animPosLoginPassword);
 
 			// Username label and Input animation
 			Tween lUserTween = CreateTween();
-            lUserTween.TweenProperty(vContLoginUser, "global_position", vContLoginUserPos[1].GlobalPosition, 0.75f).From(vContLoginUserPos[0].GlobalPosition);
-            lUserTween.Chain().TweenProperty(vContLoginUser, "global_position", vContLoginUserPos[1].GlobalPosition, 0.5f);
-            lUserTween.Chain().TweenProperty(vContLoginUser, "global_position", vContLoginUserPos[2].GlobalPosition, 0.75f).From(vContLoginUserPos[1].GlobalPosition)
+            lUserTween.TweenProperty(vContLoginUser, "global_position", animPosLoginUserName[1], 0.75f).From(animPosLoginUserName[0]);
+            lUserTween.Chain().TweenProperty(vContLoginUser, "global_position", animPosLoginUserName[1], 0.5f);
+            lUserTween.Chain().TweenProperty(vContLoginUser, "global_position", animPosLoginUserName[2], 0.75f).From(animPosLoginUserName[1])
 				.SetTrans(Tween.TransitionType.Bounce).SetEase(Tween.EaseType.Out);
-            lUserTween.Chain().TweenProperty(vContLoginUser, "global_position", vContLoginUser.GlobalPosition, 0.5f).From(vContLoginUserPos[2].GlobalPosition);			
+            lUserTween.Chain().TweenProperty(vContLoginUser, "global_position", vContLoginUser.GlobalPosition, 0.5f).From(animPosLoginUserName[2]);			
 
             lTween.Play();
 			lUserTween.Play();
@@ -205,6 +270,7 @@ namespace Com.IsartDigital.SokoVolt
 			createNode.Hide();
             labelLoginError.Hide();
             loginNode.Show();
+			AnimationLoginEnter();
 		}
 
 		private void ButtonChangeToCreate()

@@ -1,4 +1,4 @@
-using Godot;
+﻿using Godot;
 using System;
 
 //author : Noe Sales
@@ -18,7 +18,7 @@ namespace Com.IsartDigital.SokoVolt.Managers
 		}
 
         #endregion
-        [Signal] public delegate void LoadLevelEventHandler(int pLevel);
+        
 
         [Export] private Node2D objectContainer;
 
@@ -43,18 +43,20 @@ namespace Com.IsartDigital.SokoVolt.Managers
             base.Init();
 
             //HUD.GetInstance().MainMenuButton += UnLoadLevel;
-            CustomSignals.GetInstance().GoToMainMenu += UnLoadLevel;
+            CustomSignals.GetInstance().GoToMainMenu += UnLoadLevel; 
         }
 
         private void UnLoadLevel()
         {
             GridManager.GetInstance().ClearGrid();
+            CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.UnLoadLevel);
+            LevelLoader.playerCanMove = false;
         }
 
-        public void LevelLoader(int pLevel)
+        public void LevelLoaderFonc(int pLevel)
 		{
 			GD.Print("Level : " + pLevel);
-            EmitSignal(nameof(LoadLevel), pLevel);
+            CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.LoadLevel, pLevel);
             LevelSelector.GetInstance().QueueFree();
 		}
 

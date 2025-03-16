@@ -50,12 +50,14 @@ occluder = SubResource("OccluderPolygon2D_mc1yl")
 [node name="WhiteLight" type="PointLight2D" parent="Light"]
 position = Vector2(0, -9)
 energy = 2.0
+range_z_max = 49
 shadow_enabled = true
 texture = ExtResource("2_c7q4w")
 texture_scale = 0.5
 
 [node name="YellowLight" type="PointLight2D" parent="Light"]
 position = Vector2(0, -11)
+range_z_max = 49
 shadow_enabled = true
 shadow_color = Color(0, 0, 0, 1)
 texture = SubResource("GradientTexture2D_cl24s")

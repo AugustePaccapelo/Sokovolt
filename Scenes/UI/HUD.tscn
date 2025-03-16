@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://csiqphobxyguh"]
+[gd_scene load_steps=7 format=3 uid="uid://csiqphobxyguh"]
 
 [ext_resource type="Texture2D" uid="uid://bwo2d06o2b0ky" path="res://Assets/UI/HUD/UndoRedoArrow.png" id="1_8d4ph"]
 [ext_resource type="Script" path="res://Scripts/Controls/HUD.cs" id="1_ivlib"]
 [ext_resource type="Script" path="res://Scripts/GameObjects/ButtonTemplate.cs" id="2_hiajr"]
+[ext_resource type="PackedScene" uid="uid://cq2pq5gsrx4re" path="res://Scenes/GameObjects/WinScreen/win_screen.tscn" id="2_n24og"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_spsqj"]
 font_size = 32
@@ -27,6 +28,7 @@ mainMenuButton = NodePath("MainMenu")
 scoreLabel = NodePath("ScoreLabel")
 stepLabel = NodePath("StepLabel")
 winLabel = NodePath("WinLabel")
+winScreenScene = ExtResource("2_n24og")
 
 [node name="StepLabel" type="Label" parent="."]
 layout_mode = 0
