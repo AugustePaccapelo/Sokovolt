@@ -54,7 +54,7 @@ offset_bottom = 1018.0
 pivot_offset = Vector2(77, 46)
 text = "MainMenu"
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="BackGround" type="ColorRect" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -63,7 +63,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.481789, 0.481789, 0.481789, 1)
 
-[node name="ColorRect" type="ColorRect" parent="ColorRect"]
+[node name="Inventory" type="ColorRect" parent="BackGround"]
 layout_mode = 1
 anchors_preset = 11
 anchor_left = 1.0
@@ -74,7 +74,7 @@ grow_horizontal = 0
 grow_vertical = 2
 color = Color(0.588235, 0.568627, 0.776471, 1)
 
-[node name="TextureRect" type="TextureRect" parent="ColorRect/ColorRect"]
+[node name="TextureRect" type="TextureRect" parent="BackGround/Inventory"]
 layout_mode = 2
 offset_left = -2.0
 offset_top = 2.0
@@ -84,7 +84,7 @@ scale = Vector2(0.829543, 0.829543)
 texture = ExtResource("3_2iimo")
 stretch_mode = 2
 
-[node name="TextureRect2" type="TextureRect" parent="ColorRect/ColorRect"]
+[node name="TextureRect2" type="TextureRect" parent="BackGround/Inventory"]
 layout_mode = 2
 offset_left = -2.0
 offset_top = 354.0
@@ -94,7 +94,7 @@ scale = Vector2(0.3007, 0.3007)
 texture = ExtResource("4_i72yk")
 stretch_mode = 2
 
-[node name="TextureRect3" type="TextureRect" parent="ColorRect/ColorRect"]
+[node name="TextureRect3" type="TextureRect" parent="BackGround/Inventory"]
 layout_mode = 2
 offset_left = -19.0
 offset_top = 656.0
@@ -104,7 +104,7 @@ scale = Vector2(0.495772, 0.495772)
 texture = ExtResource("5_wj807")
 stretch_mode = 3
 
-[node name="TextureRect4" type="TextureRect" parent="ColorRect/ColorRect"]
+[node name="TextureRect4" type="TextureRect" parent="BackGround/Inventory"]
 layout_mode = 2
 offset_left = 14.0
 offset_top = 873.0
@@ -113,3 +113,11 @@ offset_bottom = 1063.0
 scale = Vector2(1.0271, 1.0271)
 texture = ExtResource("6_pnoi3")
 stretch_mode = 3
+
+[node name="Panel" type="Panel" parent="BackGround"]
+layout_mode = 1
+offset_left = 391.0
+offset_top = 93.0
+offset_right = 1491.0
+offset_bottom = 1193.0
+scale = Vector2(0.821692, 0.821692)
