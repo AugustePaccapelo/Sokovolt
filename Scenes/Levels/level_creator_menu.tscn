@@ -35,7 +35,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_bf11f")
-mainMenuButton = NodePath("Menu/MainMenuButton")
+mainMenuButton = NodePath("MainMenuButton")
 newLevelButton = NodePath("Menu/NewLevelButton")
 loadLevelButton = NodePath("Menu/LoadLevelButton")
 wallTexture = NodePath("BackGround/Inventory/Wall")
@@ -73,15 +73,6 @@ offset_right = 1459.0
 offset_bottom = 526.0
 pivot_offset = Vector2(77, 46)
 text = "Load Level"
-
-[node name="MainMenuButton" parent="Menu" instance=ExtResource("1_8igok")]
-layout_mode = 1
-offset_left = 78.0
-offset_top = 925.0
-offset_right = 233.0
-offset_bottom = 1018.0
-pivot_offset = Vector2(77, 46)
-text = "MainMenu"
 
 [node name="BackGround" type="Panel" parent="."]
 layout_mode = 1
@@ -134,3 +125,12 @@ offset_top = 130.0
 offset_right = 877.0
 offset_bottom = 740.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_wq6pk")
+
+[node name="MainMenuButton" parent="." instance=ExtResource("1_8igok")]
+layout_mode = 1
+offset_left = 78.0
+offset_top = 925.0
+offset_right = 233.0
+offset_bottom = 1018.0
+pivot_offset = Vector2(77, 46)
+text = "MainMenu"
