@@ -9,7 +9,7 @@ namespace Com.IsartDigital.ProjectName
         private Node2D impactEffects;
         private Line2D bolt;
         private AnimationPlayer animation;
-        private Sprite2D targetBattery; // Stocker la batterie cible
+        private Node2D targetBattery; // Stocker la batterie cible
 
         private const string ANIMATIONPLAYER_PATH = "ThunderAnimation";
         private const string BOLT_PATH = "Bolt";
@@ -39,7 +39,7 @@ namespace Com.IsartDigital.ProjectName
             }
         }
 
-        public void ActiveThunder(int pStar, Sprite2D pBattery)
+        public void ActiveThunder(Node2D pBattery)
         {
             targetBattery = pBattery;
 
@@ -52,7 +52,7 @@ namespace Com.IsartDigital.ProjectName
 
             animation.Play(THUNDER_ANIMATION);
             pBattery.SelfModulate = new Color(1, 1, 1, 1);
-            pBattery.GetChild<Node2D>(0).Show();
+            // if(pBattery.GetChild<Node2D>(0) != null)pBattery.GetChild<Node2D>(0).Show();
         }
 
         protected override void Dispose(bool pDisposing)

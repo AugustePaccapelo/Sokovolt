@@ -5,6 +5,7 @@ using Com.IsartDigital.SokoVolt.GameObjects.Movables;
 using System.Collections.Generic;
 using Com.IsartDigital.ProjectName;
 using System.Data;
+using System.Linq;
 
 //Author : Ferlat Thibaud 
 namespace Com.IsartDigital.SokoVolt.Managers {
@@ -21,6 +22,8 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 
 		private GridManager() : base() { }
 		#endregion
+
+		RandomNumberGenerator rand = new RandomNumberGenerator(); 
 
 		//Grid Gestion 
 		public Cell[,] grid { get; private set; }
@@ -39,8 +42,8 @@ namespace Com.IsartDigital.SokoVolt.Managers {
         //UndoRedo 
         private bool playerWasOnTesla; 
 
-		//Scoring 
-		private int minPar = 0;	
+		//LevelsAnimation
+		[Export] private PackedScene thunderEffectScene; 
 
 
 		public override void _Ready()
@@ -71,15 +74,17 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 
 		private void  SignalsConnetion()
 		{
-			CustomSignals.GetInstance().LoadLevel  += LoadNewLevel;
-            CustomSignals.GetInstance().Move += OnMovePlayer;
-            CustomSignals.GetInstance().UndoRedo += UndoRedo;
-            CustomSignals.GetInstance().Retry += Retry;
+			CustomSignals lSignals = CustomSignals.GetInstance();
 
-            hud.UndoButton += () => UndoRedo(-1);
-            hud.RedoButton += () => UndoRedo(1);
-			hud.UndoButton += () => SetGridState(actualGridStateIndex - 1);
-			hud.RedoButton += () => SetGridState(actualGridStateIndex + 1);
+			lSignals.LoadLevel  += LoadNewLevel;
+            lSignals.Move += OnMovePlayer;
+            lSignals.UndoRedo += UndoRedo;
+            lSignals.Retry += Retry;
+
+            lSignals.UndoButton += () => UndoRedo(-1);
+            lSignals.RedoButton += () => UndoRedo(1);
+
+			lSignals.GameFinished += EndLevelAnimation; 
 		}
 
 
@@ -89,10 +94,8 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 		public void LoadNewLevel(int pLevelToLoad) // ==================> Charger un niveau avec son index (commence à 0)
 		{
 			ResetStepCounter();
-			HUD.GetInstance().Visible = true;
+			hud.Visible = true;
 			LevelLoader.GetInstance().LoadLevel(pLevelToLoad);
-			minPar = LevelLoader.parCount; 
-			GD.PrintErr(minPar); 
 			CenterGrid(); 
 
 			if (grid == null)  // Évite d'ajouter un état vide
@@ -331,6 +334,139 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 			step = 0;
 			hud.stepLabel.Text = STEP_LABEL_PREFIXE + step;
 		}
+		#endregion
+
+		#region // ----- Finished Level animation -----//
+
+		Node2D vortex; 
+
+		private async void EndLevelAnimation(int pNumStar, int pScore, int pNumStep)
+		{
+			List<Cell> cells = new List<Cell>();
+
+			// Récupérer toutes les cellules existantes
+			for (int y = 0; y < LevelLoader.levelHeight; y++)
+			{
+				for (int x = 0; x < LevelLoader.levelWidth; x++)
+				{
+					if (grid[x, y] != null)
+						cells.Add(grid[x, y]);
+				}
+			}
+
+			
+
+			// Déterminer un point central (aspiration)
+			Vector2 vortexCenter = GetViewportRect().Size/2; 
+
+			vortex = CreateVortex(vortexCenter); 
+			gameManager.objectsContainer.AddChild(vortex);
+
+			// Mélanger aléatoirement pour rendre l'effet dynamique
+			Random lRand = new Random();
+			cells = cells.OrderBy(c => lRand.Next()).ToList();
+
+			// Appliquer un effet progressif avec un délai variable
+			float lBaseDelay = 0.1f; // Délai initial
+			float lRandDelay; 
+			for (int i = 0; i < cells.Count; i++)
+			{
+				lRandDelay = rand.Randf()* lBaseDelay; 
+				Cell lCell = cells[i];
+				if (lCell == null) continue;
+
+				GameObject lContent = lCell.GetContent();
+
+				// Effet d'électricité avant la disparition
+				FlashElectricEffect(lCell);  
+
+
+				// Déterminer une nouvelle position vers le vortex
+
+				float lRandPropulsion = rand.Randf() * 1000; 
+				Vector2 lNewCellPos = lCell.GlobalPosition.DirectionTo(vortexCenter) * lRandPropulsion + lCell.GlobalPosition;
+				Tween lTween = CreateTween();
+				lTween.TweenProperty(lCell, "position", lNewCellPos, 0.6f)
+					.SetTrans(Tween.TransitionType.Elastic)
+					.SetEase(Tween.EaseType.Out);
+
+				if (lContent != null)
+				{
+					Vector2 lNewContentPos = lContent.GlobalPosition.DirectionTo(vortexCenter) * lRandPropulsion + lContent.GlobalPosition;
+					Tween lTweenTwo = CreateTween();
+					lTweenTwo.TweenProperty(lContent, "position", lNewContentPos, 0.6f)
+							.SetTrans(Tween.TransitionType.Elastic)
+							.SetEase(Tween.EaseType.Out);
+				}
+
+				// Attendre un court moment avant d'animer la prochaine tuile
+				await ToSignal(GetTree().CreateTimer(lRandDelay), "timeout");
+				// Augmente aléatoirement pour un effet chaotique
+			}
+			AnimateVortex(vortex); 
+		}
+
+		private Node2D CreateVortex(Vector2 position)
+		{
+			Node2D vortex = new Node2D();
+			vortex.Position = position;
+
+			// Ajouter un Sprite pour le vortex
+			Sprite2D vortexSprite = new Sprite2D();
+			vortexSprite.Texture = GD.Load("res://Assets/GameObjects/LevelAnimation/vecteezy_spiral-vortex-element_27720416.png") as Texture2D; // Assurez-vous d’avoir une texture en spirale
+			vortexSprite.Modulate = new Color(1, 1, 1, 0); // Commence invisible
+			vortexSprite.Scale = new Vector2(0.1f, 0.1f); // Très petit au début
+			vortex.AddChild(vortexSprite);
+
+			return vortex;
+		}
+
+		//  **Animation du vortex qui grossit et aspire tout**
+		private void AnimateVortex(Node2D vortex)
+		{
+			Sprite2D vortexSprite = vortex.GetChild<Sprite2D>(0);
+			Tween vortexTween = CreateTween();
+
+			// Faire grossir le vortex
+			vortexTween.Parallel().TweenProperty(vortexSprite, "scale", Vector2.One, 2f)
+					.SetTrans(Tween.TransitionType.Linear)
+					.SetEase(Tween.EaseType.Out);
+
+			// Augmenter l’opacité pour qu’il apparaisse
+			vortexTween.Parallel().TweenProperty(vortexSprite, "modulate", new Color(1, 1, 1, 1), 0.8f);
+
+			// Rotation continue
+			vortexTween.Parallel().TweenProperty(vortexSprite, "rotation", Mathf.DegToRad(600), 2f)
+					.SetTrans(Tween.TransitionType.Linear)
+					.SetEase(Tween.EaseType.InOut);
+		}
+
+		// Méthode appelée par le Tween pour faire tourner le vortex
+		private void RotateVortex(float angle)
+		{
+			vortex.GlobalRotation = Mathf.DegToRad(angle);
+		}
+
+		// Effet d’électricité (simulé avec un changement rapide de couleur)
+		private void FlashElectricEffect(Cell cell)
+		{
+			WinScreenThunder lThunderEffect = thunderEffectScene.Instantiate() as WinScreenThunder; 
+			gameManager.objectsContainer.AddChild(lThunderEffect);
+
+			Color flashColor = new Color(1, 1, 0.5f); // Jaune électrique
+			Color originalColor = cell.Modulate;
+
+			Tween flashTween = CreateTween();
+			flashTween.TweenProperty(cell, "modulate", flashColor, 0.1f)
+					.SetTrans(Tween.TransitionType.Sine)
+					.SetEase(Tween.EaseType.InOut);
+			flashTween.TweenProperty(cell, "modulate", originalColor, 0.1f);
+
+			lThunderEffect.ActiveThunder(cell); 
+
+		}
+
+
 		#endregion
 
 

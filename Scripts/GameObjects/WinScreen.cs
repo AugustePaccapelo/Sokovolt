@@ -48,7 +48,7 @@ namespace Com.IsartDigital.ProjectName
                     for (int y = 0; y < thunderNumb; y++)
                     {
                         WinScreenThunder lThunder = CreateThunder();
-                        lThunder.ActiveThunder(counter + 1, batteries[counter]);
+                        lThunder.ActiveThunder(batteries[counter]);
                     }
                     shaderEffect.SetShaderParameter("scanline_alpha", 3);
                     particlesGroup.Show();

@@ -21,7 +21,6 @@ namespace Com.IsartDigital.SokoVolt
 		}
 
 		#endregion
-
 		[Signal] public delegate void GoToLoginScreenEventHandler();
         [Signal] public delegate void GoToMainMenuEventHandler();
         [Signal] public delegate void GoToLevelSelectorEventHandler();
@@ -38,5 +37,9 @@ namespace Com.IsartDigital.SokoVolt
         [Signal] public delegate void UndoRedoEventHandler(int pPosition);
         [Signal] public delegate void RetryEventHandler();
         [Signal] public delegate void GameFinishedEventHandler(int pNumStar, int pScore, int pNumStep);
+
+        //UndoRedo
+        [Signal] public delegate void UndoButtonEventHandler();
+		[Signal] public delegate void RedoButtonEventHandler();
     }
 }
