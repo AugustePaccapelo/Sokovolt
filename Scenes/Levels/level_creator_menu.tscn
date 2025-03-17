@@ -1,13 +1,33 @@
-[gd_scene load_steps=7 format=3 uid="uid://bx4sq5cya6p7g"]
+[gd_scene load_steps=11 format=3 uid="uid://bx4sq5cya6p7g"]
 
 [ext_resource type="PackedScene" uid="uid://36dp5dq6hmqq" path="res://Scenes/GameObjects/ButtonTemplate.tscn" id="1_8igok"]
 [ext_resource type="Script" path="res://Scripts/Controls/LevelCreator.cs" id="1_bf11f"]
-[ext_resource type="Texture2D" uid="uid://cso1lvmegm86r" path="res://Assets/GameObjects/IsoObjects/pngtree-light-bulb-icon-isometric-vector-png-image_4979718.png" id="3_2iimo"]
-[ext_resource type="Texture2D" uid="uid://deokvx6ammfci" path="res://Assets/GameObjects/IsoObjects/BatteryIso.png" id="4_i72yk"]
-[ext_resource type="Texture2D" uid="uid://qpi7qsbhs7v0" path="res://Assets/GameObjects/IsoObjects/Tesla.png" id="5_wj807"]
-[ext_resource type="Texture2D" uid="uid://cwb4ypc3twdp2" path="res://Assets/GameObjects/IsoTiles/basetiles.png" id="6_pnoi3"]
+[ext_resource type="PackedScene" uid="uid://cpdk0i0vijcdy" path="res://Scenes/GameObjects/LevelCreator/level_creator_tile.tscn" id="3_mha4c"]
+[ext_resource type="PackedScene" uid="uid://dsejj00jkjkaw" path="res://Scenes/GameObjects/LevelCreator/bulb_texture.tscn" id="5_7j68n"]
+[ext_resource type="PackedScene" uid="uid://6f6pej0whxvb" path="res://Scenes/GameObjects/LevelCreator/generator_texture.tscn" id="6_wy1dl"]
+[ext_resource type="PackedScene" uid="uid://bqdvcl5bpx284" path="res://Scenes/GameObjects/LevelCreator/tesla_texture.tscn" id="7_5weia"]
+[ext_resource type="PackedScene" uid="uid://bvpdafbbrw7s7" path="res://Scenes/GameObjects/LevelCreator/wall_texture.tscn" id="8_gc0rv"]
 
-[node name="LevelCreatorMenu" type="Control" node_paths=PackedStringArray("mainMenuButton", "newLevelButton", "loadLevelButton")]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oto23"]
+bg_color = Color(0.43134, 0.43134, 0.43134, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pf3ks"]
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.422258, 0.153029, 0.181139, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wq6pk"]
+bg_color = Color(0.467584, 0.610789, 0.795028, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+shadow_size = 10
+shadow_offset = Vector2(5, 5)
+
+[node name="LevelCreatorMenu" type="Control" node_paths=PackedStringArray("mainMenuButton", "newLevelButton", "loadLevelButton", "wallTexture", "teslaTexture", "bulbTexture", "generatorTexture")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -18,6 +38,15 @@ script = ExtResource("1_bf11f")
 mainMenuButton = NodePath("Menu/MainMenuButton")
 newLevelButton = NodePath("Menu/NewLevelButton")
 loadLevelButton = NodePath("Menu/LoadLevelButton")
+wallTexture = NodePath("BackGround/Inventory/Wall")
+teslaTexture = NodePath("BackGround/Inventory/Tesla")
+bulbTexture = NodePath("BackGround/Inventory/Bulb")
+generatorTexture = NodePath("BackGround/Inventory/Generator")
+wallScene = ExtResource("8_gc0rv")
+teslaScene = ExtResource("7_5weia")
+bulbScene = ExtResource("5_7j68n")
+generatorScene = ExtResource("6_wy1dl")
+tileScene = ExtResource("3_mha4c")
 
 [node name="Menu" type="Panel" parent="."]
 layout_mode = 1
@@ -54,70 +83,54 @@ offset_bottom = 1018.0
 pivot_offset = Vector2(77, 46)
 text = "MainMenu"
 
-[node name="BackGround" type="ColorRect" parent="."]
+[node name="BackGround" type="Panel" parent="."]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.481789, 0.481789, 0.481789, 1)
+offset_right = 1920.0
+offset_bottom = 1080.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_oto23")
 
-[node name="Inventory" type="ColorRect" parent="BackGround"]
+[node name="Inventory" type="Panel" parent="BackGround"]
 layout_mode = 1
-anchors_preset = 11
-anchor_left = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -294.0
-grow_horizontal = 0
-grow_vertical = 2
-color = Color(0.588235, 0.568627, 0.776471, 1)
+offset_left = 1626.0
+offset_top = 1.0
+offset_right = 1920.0
+offset_bottom = 1081.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_pf3ks")
 
-[node name="TextureRect" type="TextureRect" parent="BackGround/Inventory"]
-layout_mode = 2
-offset_left = -2.0
-offset_top = 2.0
-offset_right = 358.0
-offset_bottom = 362.0
-scale = Vector2(0.829543, 0.829543)
-texture = ExtResource("3_2iimo")
-stretch_mode = 2
-
-[node name="TextureRect2" type="TextureRect" parent="BackGround/Inventory"]
-layout_mode = 2
-offset_left = -2.0
-offset_top = 354.0
-offset_right = 978.0
-offset_bottom = 1334.0
-scale = Vector2(0.3007, 0.3007)
-texture = ExtResource("4_i72yk")
-stretch_mode = 2
-
-[node name="TextureRect3" type="TextureRect" parent="BackGround/Inventory"]
-layout_mode = 2
-offset_left = -19.0
-offset_top = 656.0
-offset_right = 560.0
-offset_bottom = 1064.0
-scale = Vector2(0.495772, 0.495772)
-texture = ExtResource("5_wj807")
+[node name="Bulb" parent="BackGround/Inventory" instance=ExtResource("5_7j68n")]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 40.0
+offset_right = 512.0
+offset_bottom = 400.0
 stretch_mode = 3
 
-[node name="TextureRect4" type="TextureRect" parent="BackGround/Inventory"]
-layout_mode = 2
-offset_left = 14.0
-offset_top = 873.0
-offset_right = 276.0
-offset_bottom = 1063.0
-scale = Vector2(1.0271, 1.0271)
-texture = ExtResource("6_pnoi3")
+[node name="Generator" parent="BackGround/Inventory" instance=ExtResource("6_wy1dl")]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 324.0
+offset_right = 1568.0
+offset_bottom = 1304.0
 stretch_mode = 3
 
-[node name="Panel" type="Panel" parent="BackGround"]
+[node name="Tesla" parent="BackGround/Inventory" instance=ExtResource("7_5weia")]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 576.0
+offset_right = 660.0
+offset_bottom = 984.0
+
+[node name="Wall" parent="BackGround/Inventory" instance=ExtResource("8_gc0rv")]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 863.0
+offset_right = 409.0
+offset_bottom = 1129.0
+
+[node name="BackGrid" type="Panel" parent="BackGround"]
 layout_mode = 1
-offset_left = 391.0
-offset_top = 93.0
-offset_right = 1491.0
-offset_bottom = 1193.0
-scale = Vector2(0.821692, 0.821692)
+offset_left = 267.0
+offset_top = 130.0
+offset_right = 877.0
+offset_bottom = 740.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_wq6pk")
