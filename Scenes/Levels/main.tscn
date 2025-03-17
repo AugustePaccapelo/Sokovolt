@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://dkbx646vvyaig"]
+[gd_scene load_steps=21 format=3 uid="uid://dkbx646vvyaig"]
 
 [ext_resource type="PackedScene" uid="uid://dyk47lo67a1tp" path="res://Scenes/Managers/ui_manager.tscn" id="1_4603a"]
 [ext_resource type="PackedScene" uid="uid://bnv0kco0ylr0e" path="res://Scenes/Managers/GridManager.tscn" id="1_d671q"]
@@ -19,6 +19,7 @@
 [ext_resource type="PackedScene" uid="uid://c8dyeykp6x8yf" path="res://Scenes/GameObjects/Generator.tscn" id="11_lsk15"]
 [ext_resource type="PackedScene" uid="uid://b2wx1538laoqc" path="res://Scenes/GameObjects/Door.tscn" id="12_pyytn"]
 [ext_resource type="PackedScene" uid="uid://br3qeg3kaqfqk" path="res://Scenes/user_gestion.tscn" id="17_3ylmq"]
+[ext_resource type="Script" path="res://Scripts/Managers/connectionManagers.cs" id="20_guk6j"]
 
 [node name="MAIN" type="Node2D"]
 
@@ -28,6 +29,7 @@
 script = ExtResource("3_3tpao")
 
 [node name="UIManager" parent="Managers" instance=ExtResource("1_4603a")]
+mainMenuScene = null
 
 [node name="LoginScreen" parent="Managers/UIManager" instance=ExtResource("6_vn404")]
 custom_minimum_size = Vector2(1152, 648)
@@ -75,6 +77,9 @@ objectsContainer = NodePath("../../Containers/ObjectsContainer")
 objectsContainer = NodePath("../../Containers/ObjectsContainer")
 
 [node name="UserGestion" parent="Managers" instance=ExtResource("17_3ylmq")]
+
+[node name="connectionManagers" type="Node2D" parent="Managers"]
+script = ExtResource("20_guk6j")
 
 [node name="Containers" type="Node2D" parent="."]
 

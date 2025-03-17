@@ -151,7 +151,7 @@ texture = ExtResource("2_u4r7s")
 teslaScene = ExtResource("3_31hu0")
 smokeParticlesScene = ExtResource("15_53pe0")
 teslaContainer = NodePath("TeslaContainer")
-teslaPosY = 650
+teslaPosY = 630
 
 [node name="BackGround" type="ColorRect" parent="."]
 layout_mode = 0

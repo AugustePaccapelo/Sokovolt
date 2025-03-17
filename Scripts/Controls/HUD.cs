@@ -1,3 +1,5 @@
+using Com.IsartDigital.ProjectName;
+using Com.IsartDigital.SokoVolt.GameObjects.Movables;
 using Com.IsartDigital.SokoVolt.Managers;
 using Godot;
 using System;
@@ -24,6 +26,9 @@ namespace Com.IsartDigital.SokoVolt{
 
 		[Export] public Button undoButton, redoButton, mainMenuButton;
 		[Export] public Label scoreLabel, stepLabel, winLabel; 
+		[Export] public PackedScene winScreenScene;
+		private WinScreen winScreen;
+
 		public override void _Ready()
 		{
 			#region instance
@@ -42,26 +47,29 @@ namespace Com.IsartDigital.SokoVolt{
 			CustomMinimumSize = GetViewportRect().Size;	
 			undoButton.Pressed += () => EmitSignal(nameof(UndoButton));
 			redoButton.Pressed += () => EmitSignal(nameof(RedoButton));
-			mainMenuButton.Pressed += () => CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.GoToMainMenu);
-			winLabel.Hide();
+			mainMenuButton.Pressed += ReturnToMenu;
 		}
 
 		public void GameFinished()
 		{
-			winLabel.Show();
-			Tween lTween = CreateTween();
-			lTween.Finished += () => ReturnToMenu();
-			lTween.TweenProperty(winLabel, "modulate", Colors.White, 2).From(Colors.Transparent);
-			lTween.Play();
-		}
+            LevelLoader.playerCanMove = false;
+            Tween lTween = CreateTween();
+            winScreen = winScreenScene.Instantiate() as WinScreen;
+			AddChild(winScreen);
+			winScreen.Position = new Vector2(0, -900);
+			winScreen.ZIndex = 50;
+			lTween.TweenProperty(winScreen, "position", Vector2.Zero, 1f);
+			lTween.Finished += () => GetTree().CreateTimer(1f).Timeout += () => 
+			winScreen.StarSysteme(2);//Value of stars
+        }
 
 		private void ReturnToMenu()
 		{
-			CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.GoToMainMenu);
-			winLabel.Hide();
+            if (winScreen != null) winScreen.QueueFree();
+            CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.GoToMainMenu);
         }
 
-		public override void _Process(double pDelta)
+        public override void _Process(double pDelta)
 		{
 
 		}

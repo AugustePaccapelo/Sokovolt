@@ -1,15 +1,15 @@
-[gd_scene load_steps=20 format=3 uid="uid://durins5kr70i5"]
+[gd_scene load_steps=21 format=3 uid="uid://bbvc0kv5shwqo"]
 
-[ext_resource type="Script" path="res://Scripts/GameObjects/LevelSelectorBolt.cs" id="1_poe8b"]
-[ext_resource type="Shader" uid="uid://bum2gqlmpu2kv" path="res://Assets/Shaders/ElectricBoltShader.tres" id="2_8k7yt"]
-[ext_resource type="Texture2D" uid="uid://c66l3g8bbn3hb" path="res://Assets/Shaders/Effects/VFX Thunder.jpg" id="3_c3sln"]
-[ext_resource type="Texture2D" uid="uid://c767fcajnj2yi" path="res://Assets/Shaders/Effects/Glow.png" id="3_shtsl"]
+[ext_resource type="Script" path="res://Scripts/GameObjects/WinScreenThunder.cs" id="1_tvonw"]
+[ext_resource type="Shader" uid="uid://bum2gqlmpu2kv" path="res://Assets/Shaders/ElectricBoltShader.tres" id="2_rgsi4"]
+[ext_resource type="Texture2D" uid="uid://c66l3g8bbn3hb" path="res://Assets/Shaders/Effects/VFX Thunder.jpg" id="3_ayupr"]
+[ext_resource type="Texture2D" uid="uid://c767fcajnj2yi" path="res://Assets/Shaders/Effects/Glow.png" id="4_j26ax"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_y8asw"]
-shader = ExtResource("2_8k7yt")
+shader = ExtResource("2_rgsi4")
 shader_parameter/VanishingValue = 0.0
 shader_parameter/Speed = Vector2(-2, 0)
-shader_parameter/basic_texture = ExtResource("3_c3sln")
+shader_parameter/basic_texture = ExtResource("3_ayupr")
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_r36vq"]
 blend_mode = 1
@@ -32,7 +32,7 @@ curve_x = SubResource("Curve_w41vn")
 curve_y = SubResource("Curve_1kdmu")
 curve_z = SubResource("Curve_vx6to")
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_cvov5"]
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_mvi36"]
 particle_flag_align_y = true
 particle_flag_disable_z = true
 emission_shape = 6
@@ -40,6 +40,7 @@ emission_ring_axis = Vector3(0, 0, 1)
 emission_ring_height = 50.0
 emission_ring_radius = 50.0
 emission_ring_inner_radius = 0.0
+direction = Vector3(0, 1, 0)
 initial_velocity_min = -600.0
 initial_velocity_max = -500.0
 radial_velocity_min = 400.0
@@ -118,6 +119,30 @@ tracks/3/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [3.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("ImpactEffect/Sparks:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("ImpactEffect/Flare:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_vs3nm"]
@@ -246,24 +271,75 @@ tracks/4/keys = {
 "values": [true]
 }
 
+[sub_resource type="Animation" id="Animation_ay33w"]
+resource_name = "thunderWinScreen"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Bolt:material:shader_parameter/VanishingValue")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [1.0, 0.0, 1.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ImpactEffect/Sparks:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ImpactEffect/Flare:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.3, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("ImpactEffect/PointLight2D:energy")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.3, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 10.0, 0.0]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_mitsn"]
 _data = {
 "RESET": SubResource("Animation_73oql"),
 "end_animation": SubResource("Animation_vs3nm"),
-"start_animation": SubResource("Animation_gd07k")
+"start_animation": SubResource("Animation_gd07k"),
+"thunderWinScreen": SubResource("Animation_ay33w")
 }
 
-[node name="ParticlesGroup" type="Node2D" node_paths=PackedStringArray("animationPlayer", "bolt", "light")]
+[node name="ThunderEffects" type="Node2D"]
+position = Vector2(919, -78)
 scale = Vector2(0.993244, 1)
-script = ExtResource("1_poe8b")
-animationPlayer = NodePath("AnimationPlayer")
-bolt = NodePath("Bolt")
-light = NodePath("ImpactEffect/PointLight2D")
+script = ExtResource("1_tvonw")
 
 [node name="Bolt" type="Line2D" parent="."]
 material = SubResource("ShaderMaterial_y8asw")
 position = Vector2(-399.7, -225)
-points = PackedVector2Array(315.556, 223.333, 343.333, 136.667, 241.111, 125.556, 268.889, 72.2222, 334.444, 26.6667, 348.889, 24.4445, 325.556, 2.22222, 264.444, -5.55556, 311.111, -36.6667, 275.556, -85.5556, 321.111, -124.444, 350, -65.5556, 405.556, -102.222, 383.333, -46.6667, 422.222, -37.7778, 378.889, -22.2222, 411.111, 11.1111, 365.556, -4.44444, 355.556, 24.4445, 375.556, 26.6667, 432.222, 73.3333, 452.222, 127.778, 356.667, 137.778, 387.778, 223.333)
+points = PackedVector2Array(379.564, 108, 317.142, 222)
 width = 50.0
 default_color = Color(0, 1.00784, 1.8, 1)
 texture_mode = 2
@@ -271,33 +347,29 @@ texture_mode = 2
 [node name="ImpactEffect" type="Node2D" parent="."]
 
 [node name="Sparks" type="GPUParticles2D" parent="ImpactEffect"]
-visible = false
 material = SubResource("CanvasItemMaterial_r36vq")
-position = Vector2(0, 1)
 amount = 15
-process_material = SubResource("ParticleProcessMaterial_cvov5")
-texture = ExtResource("3_shtsl")
+process_material = SubResource("ParticleProcessMaterial_mvi36")
+texture = ExtResource("4_j26ax")
 lifetime = 0.15
 fixed_fps = 60
 
 [node name="Flare" type="GPUParticles2D" parent="ImpactEffect"]
-visible = false
 material = SubResource("CanvasItemMaterial_hklq1")
-position = Vector2(0, -1)
 amount = 1
 process_material = SubResource("ParticleProcessMaterial_v8vr1")
-texture = ExtResource("3_shtsl")
+texture = ExtResource("4_j26ax")
 lifetime = 0.15
 fixed_fps = 60
 
 [node name="PointLight2D" type="PointLight2D" parent="ImpactEffect"]
-visible = false
-position = Vector2(0, -1)
 color = Color(0.231373, 1, 1, 1)
 energy = 3.0
-texture = ExtResource("3_shtsl")
+texture = ExtResource("4_j26ax")
+texture_scale = 0.5
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="ThunderAnimation" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_mitsn")
 }
+speed_scale = 2.0
