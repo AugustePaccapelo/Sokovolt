@@ -341,6 +341,7 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 		private async void EndLevelAnimation(int pNumStar, int pScore, int pNumStep)
 		{
 			List<Cell> cells = new List<Cell>();
+			cells.Clear(); 
 
 			// Récupérer toutes les cellules existantes
 			for (int y = 0; y < LevelLoader.levelHeight; y++)
@@ -384,7 +385,7 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 				float lRandPropulsion = rand.Randf() * 1000; 
 				Vector2 lNewCellPos = lCell.GlobalPosition.DirectionTo(vortexCenter) * lRandPropulsion + lCell.GlobalPosition;
 				Tween lTween = CreateTween();
-				lTween.TweenProperty(lCell, "position", lNewCellPos, 0.6f)
+				lTween.TweenProperty(lCell, "position", lNewCellPos, 1f)
 					.SetTrans(Tween.TransitionType.Elastic)
 					.SetEase(Tween.EaseType.Out);
 
@@ -392,7 +393,7 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 				{
 					Vector2 lNewContentPos = lContent.GlobalPosition.DirectionTo(vortexCenter) * lRandPropulsion + lContent.GlobalPosition;
 					Tween lTweenTwo = CreateTween();
-					lTweenTwo.TweenProperty(lContent, "position", lNewContentPos, 0.6f)
+					lTweenTwo.TweenProperty(lContent, "position", lNewContentPos, 1f)
 							.SetTrans(Tween.TransitionType.Elastic)
 							.SetEase(Tween.EaseType.Out);
 				}
@@ -402,6 +403,20 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 				// Augmente aléatoirement pour un effet chaotique
 			}
 			AnimateVortex(vortex); 
+
+			foreach(Cell lCell in cells)
+			{
+				Tween lTween = CreateTween(); 
+				lTween.TweenProperty(lCell, "position", vortexCenter, 1.3f)
+					.SetTrans(Tween.TransitionType.Linear)
+					.SetEase(Tween.EaseType.In); 
+
+				if(lCell.GetContent() != null) lTween.Parallel().TweenProperty(lCell.GetContent(), "position", vortexCenter, 1.3f)
+					.SetTrans(Tween.TransitionType.Linear)
+					.SetEase(Tween.EaseType.In); 
+				
+			}
+
 		}
 
 		private Node2D CreateVortex(Vector2 position)
@@ -426,7 +441,7 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 			Tween vortexTween = CreateTween();
 
 			// Faire grossir le vortex
-			vortexTween.Parallel().TweenProperty(vortexSprite, "scale", Vector2.One, 2f)
+			vortexTween.Parallel().TweenProperty(vortexSprite, "scale", Vector2.One, 0.8f)
 					.SetTrans(Tween.TransitionType.Linear)
 					.SetEase(Tween.EaseType.Out);
 
@@ -434,9 +449,13 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 			vortexTween.Parallel().TweenProperty(vortexSprite, "modulate", new Color(1, 1, 1, 1), 0.8f);
 
 			// Rotation continue
-			vortexTween.Parallel().TweenProperty(vortexSprite, "rotation", Mathf.DegToRad(600), 2f)
+			vortexTween.Parallel().TweenProperty(vortexSprite, "rotation", Mathf.DegToRad(600), 1f)
 					.SetTrans(Tween.TransitionType.Linear)
 					.SetEase(Tween.EaseType.InOut);
+
+			vortexTween.TweenProperty(vortexSprite, "scale", Vector2.Zero, 0.8f)
+					.SetTrans(Tween.TransitionType.Linear)
+					.SetEase(Tween.EaseType.OutIn);; 
 		}
 
 		// Méthode appelée par le Tween pour faire tourner le vortex
@@ -449,6 +468,7 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 		private void FlashElectricEffect(Cell cell)
 		{
 			WinScreenThunder lThunderEffect = thunderEffectScene.Instantiate() as WinScreenThunder; 
+			lThunderEffect.ZIndex = 45; 
 			gameManager.objectsContainer.AddChild(lThunderEffect);
 
 			Color flashColor = new Color(1, 1, 0.5f); // Jaune électrique
