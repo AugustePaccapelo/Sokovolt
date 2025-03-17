@@ -182,8 +182,8 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
             if (lightning != null)
             {
                 lightning.StopLightning();
+                lightning.DestructionFinished += lightning.QueueFree;
             }
-
         }
 
         protected override void Dispose(bool pDisposing)
