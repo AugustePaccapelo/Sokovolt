@@ -48,9 +48,11 @@ namespace Com.IsartDigital.SokoVolt{
 			undoButton.Pressed += () => EmitSignal(nameof(UndoButton));
 			redoButton.Pressed += () => EmitSignal(nameof(RedoButton));
 			mainMenuButton.Pressed += ReturnToMenu;
+			CustomSignals lSignals = CustomSignals.GetInstance();
+			lSignals.GameFinished += GameFinished;
 		}
 
-		public void GameFinished()
+		public void GameFinished(int pNumStar, int pScore, int pNumStep)
 		{
             LevelLoader.playerCanMove = false;
             Tween lTween = CreateTween();
@@ -59,8 +61,9 @@ namespace Com.IsartDigital.SokoVolt{
 			winScreen.Position = new Vector2(0, -900);
 			winScreen.ZIndex = 50;
 			lTween.TweenProperty(winScreen, "position", Vector2.Zero, 1f);
+			winScreen.UpdateStats(pScore, pNumStep);
 			lTween.Finished += () => GetTree().CreateTimer(1f).Timeout += () => 
-			winScreen.StarSysteme(2);//Value of stars
+			winScreen.StarSysteme(pNumStar);
         }
 
 		private void ReturnToMenu()

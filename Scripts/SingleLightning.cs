@@ -1,15 +1,12 @@
 using Godot;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Metadata;
-using System.Runtime.CompilerServices;
 
-// Author : Auguste Paccapelo & Sara Astuti-Aucher
+// Author : Auguste Paccapelo
 
 namespace Com.IsartDigital.SokoVolt
 {
-    public partial class SingleLigthning : Line2D
+    public partial class SingleLightning : Line2D
     {
         // ---------- VARIABLES ---------- \\
 
@@ -24,19 +21,22 @@ namespace Com.IsartDigital.SokoVolt
         public Vector2 direction;
         public Vector2 vectorDirector;
         public Vector2 endPoint;
-        public Vector2 cellSize;
+        public float unitSize;
 
         public float minAngle;
         public float maxAngle;
-        public float speed;
+        public float spawningSpeed;
+        public float movingSpeed;
+        public float destroyingSpeed;
         public int numTurn;
-        public int side;
+
         public int marginStart;
         public int marginSide;
         public float lifeTime;
         public float randomRatioLengthMin;
         public float randomRatioLengthMax;
 
+        public int side;
         private float currentLifeTime = 0f;
         private Vector2 nextPoint;
         private Vector2 nextPointVector;
@@ -92,7 +92,7 @@ namespace Com.IsartDigital.SokoVolt
 
             for (int i = 1; i < lLength; i++)
             {
-                spawningPoints[i] += vectorDirector * speed * pDelta;
+                spawningPoints[i] += vectorDirector * spawningSpeed * pDelta;
             }
 
             Vector2 lPoint = CalculateFirstPoint(spawningPoints);
@@ -106,6 +106,7 @@ namespace Com.IsartDigital.SokoVolt
                 currentState = Moving;
                 allPointsList = spawningPoints;
                 NewPointVector();
+                GetParent<LightningNode>().NewLightningSpawned();
             }
         }
 
@@ -113,7 +114,7 @@ namespace Com.IsartDigital.SokoVolt
         {
             ClearPoints();
 
-            MovePoints(pDelta);
+            MovePoints(pDelta, movingSpeed);
 
             Vector2 lPoint = CalculateFirstPoint(allPointsList);
 
@@ -131,31 +132,32 @@ namespace Com.IsartDigital.SokoVolt
         {
             ClearPoints();
 
-            MovePoints(pDelta);
+            MovePoints(pDelta, destroyingSpeed);
 
-            allPointsList[0] += vectorDirector * speed * pDelta;
+            allPointsList[0] += vectorDirector * destroyingSpeed * pDelta;
 
             Points = allPointsList.ToArray();
 
             if (allPointsList.Count <= 2)
             {
                 GD.Print("Finished");
+                GetParent<LightningNode>().NewLightningDestroyed();
                 GetParent<LightningNode>().allLightningsList.Remove(this);
                 QueueFree();
             }
         }
 
-        private void MovePoints(float pDelta)
+        private void MovePoints(float pDelta, float pSpeed)
         {
             Vector2 lPoint;
 
             for (int i = allPointsList.Count - 2; i > 0; i--)
             {
-                allPointsList[i] += vectorDirector * speed * pDelta;
+                allPointsList[i] += vectorDirector * pSpeed * pDelta;
 
-                lPoint = CalculateIntersection(endPoint, vectorDirector.Angle() + Mathf.Pi * 0.5f, 
+                lPoint = CalculateIntersection(endPoint, Mathf.Pi * 0.5f,
                     allPointsList[i], endPoint);
-                
+
                 if ((allPointsList[i] - lPoint).Dot(vectorDirector) > 0f)
                 {
                     allPointsList.RemoveAt(i);
@@ -168,17 +170,17 @@ namespace Com.IsartDigital.SokoVolt
             Vector2 lPoint;
 
             nextPoint = pListPoints[1] - nextPointVector;
-            lPoint = CalculateIntersection(startPoint + Vector2.Right.Rotated(vectorDirector.Angle()) * marginStart, 
-                vectorDirector.Angle() + Mathf.Pi * 0.5f, pListPoints[1], nextPoint);
+            lPoint = CalculateIntersection(startPoint + Vector2.Right * marginStart,
+                +Mathf.Pi * 0.5f, pListPoints[1], nextPoint);
 
-            Vector2 lProjOrtho = CalculateIntersection(lPoint, vectorDirector.Angle() + Mathf.Pi * 0.5f, startPoint, endPoint);
+            Vector2 lProjOrtho = CalculateIntersection(lPoint, Mathf.Pi * 0.5f, startPoint, endPoint);
 
             float lVectorLength = (lPoint - lProjOrtho).Length();
 
-            if (lVectorLength > cellSize.X * 0.5f - marginSide)
+            if (lVectorLength > unitSize * 0.5f - marginSide)
             {
                 Vector2 lDirectionToPoint = (lPoint - lProjOrtho).Normalized();
-                lPoint = lProjOrtho + lDirectionToPoint * (cellSize.X * 0.5f - marginSide);
+                lPoint = lProjOrtho + lDirectionToPoint * (unitSize * 0.5f - marginSide);
             }
 
             if ((pListPoints[1] - lPoint).Length() >= nextPointVector.Length())
@@ -213,25 +215,6 @@ namespace Com.IsartDigital.SokoVolt
             side *= -1;
             nextPointVector = nextPointVector.Rotated(lAngle);
         }
-
-        //Angle random
-        /*private void NewPointVector()
-        {
-            nextPointVector = vectorDirector / (numTurn + 1);
-            float lAngle = Mathf.DegToRad(rand.RandfRange(minAngle, maxAngle));
-            float minRad = Mathf.DegToRad(minAngle);
-            float maxRad = Mathf.DegToRad(maxAngle);
-
-            float minRatio = 0.5f;
-            float maxRatio = 2f;
-            float ratio = Mathf.Lerp(minRatio, maxRatio, (lAngle - minRad) / (maxRad - minRad));
-
-            nextPointVector *= ratio;
-
-            lAngle *= side;
-            side *= -1;
-            nextPointVector = nextPointVector.Rotated(lAngle);
-        }*/
 
         // ----- Destructor ----- \\
 

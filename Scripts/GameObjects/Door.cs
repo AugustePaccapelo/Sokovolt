@@ -57,8 +57,6 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
 			base._Ready();
 			
 			GameManager.GetInstance().door = this;
-			signals = CustomSignals.GetInstance();
-			signals.PlayerMoved += PlayerHasMoved;
 		}
 
 		public override void _Process(double pDelta)
@@ -69,17 +67,6 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
 		}
 
 		// ----- My Functions ----- \\
-
-		private void PlayerHasMoved()
-		{
-			if (isOpen && curentCell.GetContent() is Player)
-			{
-				GD.Print("Player has exited!");
-				HUD.GetInstance().GameFinished();
-				/*HUD lHud = HUD.GetInstance();
-				lHud.EmitSignal(HUD.SignalName.MainMenuButton);*/
-			}
-		}
 
 		public void Open()
 		{

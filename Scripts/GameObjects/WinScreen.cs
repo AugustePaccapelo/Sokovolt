@@ -23,12 +23,15 @@ namespace Com.IsartDigital.ProjectName
         private int thunderNumb = 4;
 
         private const string STAR_LABEL_PREFIXE = "X ";
+        private const string STEPS_LABEL_PREFIXE = "STEPS : ";
+        private const string SCORE_LABEL_PREFIXE = "SCORE : ";
 
         public override void _Ready()
         {
             screen.Position = new Vector2(800, 583);
             shaderEffect = (ShaderMaterial)screenEffect.Material;
-
+            stepsCountLabel.Text = STAR_LABEL_PREFIXE + 0000;
+            scoreLabel.Text = SCORE_LABEL_PREFIXE + 0000;
         }
 
         private WinScreenThunder CreateThunder()
@@ -37,6 +40,16 @@ namespace Com.IsartDigital.ProjectName
             AddChild(lThunder);
             lThunder.Position = new Vector2(GD.RandRange(0, 1920), -80);
             return lThunder;
+        }
+
+        public void UpdateStats(int pScore, int pSteps)
+        {
+            Tween lTween = CreateTween().SetParallel(true);
+            lTween.TweenProperty(stepsCountLabel, "text", STEPS_LABEL_PREFIXE + pSteps, 1f);
+            lTween.TweenProperty(scoreLabel, "text", SCORE_LABEL_PREFIXE + pScore, 1f);
+
+            //stepsCountLabel.Text = STEPS_LABEL_PREFIXE + pSteps;
+            //scoreLabel.Text = SCORE_LABEL_PREFIXE + pScore;
         }
 
         public async void StarSysteme(int pCount)

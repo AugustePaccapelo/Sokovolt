@@ -38,5 +38,6 @@ namespace Com.IsartDigital.SokoVolt
         [Signal] public delegate void MoveEventHandler(Vector2 pDirection);
         [Signal] public delegate void UndoRedoEventHandler(int pPosition);
         [Signal] public delegate void RetryEventHandler();
+        [Signal] public delegate void GameFinishedEventHandler(int pNumStar, int pScore, int pNumStep);
     }
 }

@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://cq2pq5gsrx4re"]
+[gd_scene load_steps=31 format=3 uid="uid://cq2pq5gsrx4re"]
 
 [ext_resource type="Script" path="res://Scripts/GameObjects/WinScreen.cs" id="1_753qv"]
 [ext_resource type="PackedScene" uid="uid://b0olmoqwuw54k" path="res://Scenes/GameObjects/WinScreen/rope.tscn" id="2_j1ab3"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://bbvc0kv5shwqo" path="res://Scenes/GameObjects/WinScreen/thunder_effects.tscn" id="7_itdbi"]
 [ext_resource type="PackedScene" uid="uid://baqiox1toak3m" path="res://Scenes/UI/screen_effect.tscn" id="9_bi0ci"]
 [ext_resource type="Texture2D" uid="uid://c767fcajnj2yi" path="res://Assets/Shaders/Effects/Glow.png" id="9_vaw2d"]
+[ext_resource type="Shader" path="res://Assets/Shaders/Effects/crt_shader/CRTShader.gdshader" id="10_0guj3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2e15r"]
 
@@ -72,6 +73,24 @@ color = Color(0.5, 1, 1.2, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_71gdd"]
 size = Vector2(302.999, 756.001)
+
+[sub_resource type="LabelSettings" id="LabelSettings_x5mkj"]
+font_size = 32
+outline_size = 2
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_61xl0"]
+shader = ExtResource("10_0guj3")
+shader_parameter/screen_width = 677.0
+shader_parameter/screen_height = 242.0
+shader_parameter/BarrelPower = 1.1
+shader_parameter/color_bleeding = 1.2
+shader_parameter/bleeding_range_x = 0.5
+shader_parameter/bleeding_range_y = 0.5
+shader_parameter/lines_distance = 2.0
+shader_parameter/scan_size = 1.5
+shader_parameter/scanline_alpha = 0.9
+shader_parameter/lines_velocity = 10.0
 
 [sub_resource type="Gradient" id="Gradient_n6rgq"]
 colors = PackedColorArray(1, 1, 0, 1, 1, 1, 1, 1)
@@ -401,13 +420,15 @@ offset_top = -96.0
 offset_right = -163.0
 offset_bottom = -73.0
 text = "SCORE : XXXX"
+label_settings = SubResource("LabelSettings_x5mkj")
 
 [node name="StepsLabel" type="Label" parent="ScreenContainer"]
 offset_left = -265.0
-offset_top = -33.0
-offset_right = -167.0
-offset_bottom = -10.0
+offset_top = 15.0
+offset_right = -68.0
+offset_bottom = 60.0
 text = "STEPS : XXXX"
+label_settings = SubResource("LabelSettings_x5mkj")
 
 [node name="BatteryCountTexture" type="TextureRect" parent="ScreenContainer"]
 offset_left = 190.0
@@ -428,6 +449,7 @@ offset_bottom = -71.0
 text = "X 0"
 
 [node name="ScreenEffect" parent="ScreenContainer" instance=ExtResource("9_bi0ci")]
+material = SubResource("ShaderMaterial_61xl0")
 
 [node name="ParticlesGroup" type="Node2D" parent="ScreenContainer"]
 visible = false
