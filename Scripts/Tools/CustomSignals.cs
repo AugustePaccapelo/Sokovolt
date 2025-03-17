@@ -1,4 +1,4 @@
-﻿using Com.IsartDigital.SokoVolt.GameObjects;
+using Com.IsartDigital.SokoVolt.GameObjects;
 using Godot;
 using System;
 
@@ -20,9 +20,8 @@ namespace Com.IsartDigital.SokoVolt
             return instance;
         }
 
-        #endregion
-
-        [Signal] public delegate void GoToLoginScreenEventHandler();
+		#endregion
+		[Signal] public delegate void GoToLoginScreenEventHandler();
         [Signal] public delegate void GoToMainMenuEventHandler();
         [Signal] public delegate void GoToLevelSelectorEventHandler();
         [Signal] public delegate void GoToLevelCreatorEventHandler();

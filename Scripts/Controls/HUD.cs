@@ -21,9 +21,6 @@ namespace Com.IsartDigital.SokoVolt{
 		private HUD ():base() {}
 		#endregion
 
-		[Signal] public delegate void UndoButtonEventHandler();
-		[Signal] public delegate void RedoButtonEventHandler();
-
 		[Export] public Button undoButton, redoButton, mainMenuButton;
 		[Export] public Label scoreLabel, stepLabel, winLabel; 
 		[Export] public PackedScene winScreenScene;
