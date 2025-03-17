@@ -239,11 +239,10 @@ namespace Com.IsartDigital.SokoVolt
 
 			// Username label and Input animation
 			Tween lUserTween = CreateTween();
-            lUserTween.TweenProperty(vContLoginUser, "global_position", animPosLoginUserName[1], 0.75f).From(animPosLoginUserName[0]);
-            lUserTween.Chain().TweenProperty(vContLoginUser, "global_position", animPosLoginUserName[1], 0.5f);
+            lUserTween.TweenProperty(vContLoginUser, "global_position", animPosLoginUserName[1], 0.5f).From(animPosLoginUserName[0]);
             lUserTween.Chain().TweenProperty(vContLoginUser, "global_position", animPosLoginUserName[2], 0.75f).From(animPosLoginUserName[1])
 				.SetTrans(Tween.TransitionType.Bounce).SetEase(Tween.EaseType.Out);
-            lUserTween.Chain().TweenProperty(vContLoginUser, "global_position", vContLoginUser.GlobalPosition, 0.5f).From(animPosLoginUserName[2]);			
+            lUserTween.Chain().TweenProperty(vContLoginUser, "global_position", vContLoginUser.GlobalPosition, 0.25f).From(animPosLoginUserName[2]);			
 
             lTween.Play();
 			lUserTween.Play();
