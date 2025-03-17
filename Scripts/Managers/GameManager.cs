@@ -1,4 +1,5 @@
 using Com.IsartDigital.SokoVolt.GameObjects;
+using Com.IsartDigital.SokoVolt.GameObjects.Movables;
 using Godot;
 using System;
 using System.Collections.Generic;
@@ -37,12 +38,15 @@ namespace Com.IsartDigital.SokoVolt.Managers
 		private List<GoalBulb> allGoalBulbs = new List<GoalBulb>();
 
 		// ----- Others ----- \\
+		private const int SCORE_1_STAR = 1000;
+        private const int SCORE_2_STAR = 2000;
+        private const int SCORE_3_STAR = 5000;
 
-		// ---------- FUNCTIONS ---------- \\
+        // ---------- FUNCTIONS ---------- \\
 
-		// ----- Ready & Init & Process ----- \\
+        // ----- Ready & Init & Process ----- \\
 
-		public override void _Ready()
+        public override void _Ready()
 		{
 			#region // ----- Singleton ----- \\
 
@@ -63,11 +67,12 @@ namespace Com.IsartDigital.SokoVolt.Managers
 		public override void Init()
 		{
             signals = CustomSignals.GetInstance();
+            signals.PlayerMoved += PlayerHasMoved;
             signals.GoalBulbStateChanged += GoalBulbStateChanged;
             gridManager = GridManager.GetInstance();
         }
 
-		public override void _Process(double pDelta)
+        public override void _Process(double pDelta)
 		{
 			float lDelta = (float)pDelta;
 
@@ -76,9 +81,14 @@ namespace Com.IsartDigital.SokoVolt.Managers
 
 		// ----- My Functions ----- \\
 
-		public void AddGoalBulb(GoalBulb pGoalbulb)
+		public void AddGoalBulb(GoalBulb pGoalBulb)
 		{
-			allGoalBulbs.Add(pGoalbulb);
+			allGoalBulbs.Add(pGoalBulb);
+		}
+
+		public void RemoveGoalBulb(GoalBulb pGoalBulb)
+		{
+			allGoalBulbs.Remove(pGoalBulb);
 		}
 
 		private void GoalBulbStateChanged()
@@ -95,11 +105,42 @@ namespace Com.IsartDigital.SokoVolt.Managers
 			door?.Open();
 		}
 
-		public void GameFinished()
-		{
-			int lNumStep = GridManager.GetInstance().step;
+        private void PlayerHasMoved()
+        {
+            Player lPlayer = Player.GetInstance();
+            if (door.isOpen && lPlayer.x == door.x && lPlayer.y == door.y)
+            {
+                GD.Print("Player has exited!");
+                GameFinished();
+            }
+        }
 
-		}
+        private void GameFinished()
+		{
+            int lNumStep = GridManager.GetInstance().step;
+            int lPar = LevelLoader.parCount;
+            int lNumStar = 0;
+            int lScore = 0;
+            if (lNumStep <= lPar)
+            {
+                lNumStar = 3;
+                lScore = SCORE_3_STAR;
+            }
+            else if (lNumStep <= lPar * 1.5f)
+            {
+                lNumStar = 2;
+                lScore = SCORE_2_STAR;
+            }
+            else
+            {
+                lNumStar = 1;
+                lScore = SCORE_1_STAR;
+            }
+
+            lScore -= lNumStep;
+
+            CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.GameFinished, lNumStar, lScore, lNumStep);
+        }
 
 		// ----- Destructor ----- \\
 
