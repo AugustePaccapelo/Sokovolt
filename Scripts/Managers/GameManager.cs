@@ -38,9 +38,7 @@ namespace Com.IsartDigital.SokoVolt.Managers
 		private List<GoalBulb> allGoalBulbs = new List<GoalBulb>();
 
 		// ----- Others ----- \\
-		private const int SCORE_1_STAR = 1000;
-        private const int SCORE_2_STAR = 2000;
-        private const int SCORE_3_STAR = 5000;
+		private List<int> scorePerStar = new List<int> { 1000, 2000, 5000 };
 
         // ---------- FUNCTIONS ---------- \\
 
@@ -119,25 +117,13 @@ namespace Com.IsartDigital.SokoVolt.Managers
 		{
             int lNumStep = GridManager.GetInstance().step;
             int lPar = LevelLoader.parCount;
-            int lNumStar = 0;
-            int lScore = 0;
-            if (lNumStep <= lPar)
-            {
-                lNumStar = 3;
-                lScore = SCORE_3_STAR;
-            }
-            else if (lNumStep <= lPar * 1.5f)
-            {
-                lNumStar = 2;
-                lScore = SCORE_2_STAR;
-            }
-            else
-            {
-                lNumStar = 1;
-                lScore = SCORE_1_STAR;
-            }
+            int lNumStar;
 
-            lScore -= lNumStep;
+			if (lNumStep <= lPar)
+				lNumStar = 3;
+			else lNumStar = lNumStep <= lPar * 1.5f ? 2 : 1;
+
+			int lScore = scorePerStar[lNumStar - 1] - lNumStep;
 
             CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.GameFinished, lNumStar, lScore, lNumStep);
         }
