@@ -274,6 +274,7 @@ tracks/4/keys = {
 
 [sub_resource type="Animation" id="Animation_ay33w"]
 resource_name = "thunderWinScreen"
+length = 2.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
