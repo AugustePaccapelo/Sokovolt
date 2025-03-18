@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bx4sq5cya6p7g"]
+[gd_scene load_steps=11 format=3 uid="uid://bgcxkasic77aq"]
 
 [ext_resource type="PackedScene" uid="uid://36dp5dq6hmqq" path="res://Scenes/GameObjects/ButtonTemplate.tscn" id="1_8igok"]
 [ext_resource type="Script" path="res://Scripts/Controls/LevelCreator.cs" id="1_bf11f"]

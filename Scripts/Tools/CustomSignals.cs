@@ -38,6 +38,7 @@ namespace Com.IsartDigital.SokoVolt
         [Signal] public delegate void UndoRedoEventHandler(int pPosition);
         [Signal] public delegate void RetryEventHandler();
         [Signal] public delegate void GameFinishedEventHandler(int pNumStar, int pScore, int pNumStep);
+        [Signal] public delegate void EndLevelAnimationEventHandler(); 
 
         //UndoRedo
         [Signal] public delegate void UndoButtonEventHandler();

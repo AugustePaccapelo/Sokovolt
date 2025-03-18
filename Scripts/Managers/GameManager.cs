@@ -125,6 +125,8 @@ namespace Com.IsartDigital.SokoVolt.Managers
 
 			int lScore = scorePerStar[lNumStar - 1] - lNumStep;
 
+			GD.PrintErr(lNumStar + " " + lScore + " " + lNumStep); 
+
             CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.GameFinished, lNumStar, lScore, lNumStep);
         }
 

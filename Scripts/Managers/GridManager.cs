@@ -343,17 +343,17 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 
 		private async void EndLevelAnimation(int pNumStar, int pScore, int pNumStep)
 		{
-			List<Cell> lCells = new List<Cell>();
-			lCells.Clear(); 
+			List<Node2D> lObjectsToAnimate= new List<Node2D>();
+			lObjectsToAnimate.Clear(); 
 
 			// Récupérer toutes les cellules existantes
-			for (int y = 0; y < LevelLoader.levelHeight; y++)
+			foreach(Node2D lObject in gameManager.objectsContainer.GetChildren())
 			{
-				for (int x = 0; x < LevelLoader.levelWidth; x++)
-				{
-					if (grid[x, y] != null)
-						lCells.Add(grid[x, y]);
-				}
+				lObjectsToAnimate.Add(lObject);
+
+				if(lObject is BoxTesla lBoxTesla)
+					lBoxTesla.LineDeconnection(); 
+
 			}
 
 			
@@ -366,37 +366,30 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 
 			// Mélanger aléatoirement pour rendre l'effet dynamique
 			Random lRand = new Random();
-			lCells = lCells.OrderBy(c => lRand.Next()).ToList();
+			lObjectsToAnimate = lObjectsToAnimate.OrderBy(c => lRand.Next()).ToList();
 
 			// Appliquer un effet progressif avec un délai variable
-			float lBaseDelay = 0.06f; // Délai initial
+			float lBaseDelay = 0.02f; // Délai initial
 			float lRandDelay; 
-			for (int i = 0; i < lCells.Count; i++)
+			for (int i = 0; i < lObjectsToAnimate.Count; i++)
 			{
 				lRandDelay = rand.Randf()* lBaseDelay; 
-				Cell lCell = lCells[i];
-				if (lCell == null) continue;
-
-				GameObject lContent = lCell.GetContent();
+				Node2D lObject = lObjectsToAnimate[i];
+				if (lObject == null) continue;
 
 				// Effet d'électricité avant la disparition
-				FlashElectricEffect(lCell);  
+				FlashElectricEffect(lObject);  
 
 
 				// Déterminer une nouvelle position vers le vortex
 
 				float lRandPropulsion = rand.Randf() * 1000; 
-				Vector2 lNewCellPos = lCell.GlobalPosition.DirectionTo(lVortexCenter) * lRandPropulsion + lCell.GlobalPosition;
-				Tween lTween = CreateTween();
-				lTween.TweenProperty(lCell, ObjectProperties.POSITION, lNewCellPos, 1f)
-					.SetTrans(Tween.TransitionType.Elastic)
-					.SetEase(Tween.EaseType.Out);
 
-				if (lContent != null)
+				if (lObject != null)
 				{
-					Vector2 lNewContentPos = lContent.GlobalPosition.DirectionTo(lVortexCenter) * lRandPropulsion + lContent.GlobalPosition;
-					Tween lTweenTwo = CreateTween();
-					lTweenTwo.TweenProperty(lContent, ObjectProperties.POSITION, lNewContentPos, 1f)
+					Vector2 lNewObjectPos = lObject.GlobalPosition.DirectionTo(lVortexCenter) * lRandPropulsion + lObject.GlobalPosition;
+					Tween lTween = CreateTween();
+					lTween.TweenProperty(lObject, ObjectProperties.POSITION, lNewObjectPos, 1f)
 							.SetTrans(Tween.TransitionType.Elastic)
 							.SetEase(Tween.EaseType.Out);
 				}
@@ -407,7 +400,7 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 			}
 			AnimateVortex(vortex); 
 
-			foreach(Node2D lObject in gameManager.objectsContainer.GetChildren())
+			foreach(Node2D lObject in lObjectsToAnimate)
 			{
 				Tween lTween = CreateTween(); 
 				lTween.TweenProperty(lObject, ObjectProperties.POSITION, lVortexCenter, 1.3f)
@@ -457,18 +450,24 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 					.SetTrans(Tween.TransitionType.Linear)
 					.SetEase(Tween.EaseType.OutIn);
 
-			lVortexTween.Finished += () => vortex.QueueFree(); 
+			lVortexTween.Finished += () => EndLevelAnimationFnished(); 
 		}
 
 
 		// Effet d’électricité (simulé avec un changement rapide de couleur)
-		private void FlashElectricEffect(Cell cell)
+		private void FlashElectricEffect(Node2D pObject)
 		{
 			WinScreenThunder lThunderEffect = thunderEffectScene.Instantiate() as WinScreenThunder;
 			lThunderEffect.ZIndex = 45; 
 			gameManager.objectsContainer.AddChild(lThunderEffect);
 
-			lThunderEffect.ActiveThunder(cell); 
+			lThunderEffect.ActiveThunder(pObject); 
+		}
+
+		private void EndLevelAnimationFnished()
+		{
+			vortex.QueueFree(); 
+			CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.EndLevelAnimation); 
 		}
 
 
