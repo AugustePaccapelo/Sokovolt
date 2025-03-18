@@ -45,7 +45,7 @@ namespace Com.IsartDigital.SokoVolt{
 			UndoRedo();
             mainMenuButton.Pressed += ReturnToMenu;
 			CustomSignals lSignals = CustomSignals.GetInstance();
-			lSignals.GameFinished += GameFinished;
+			lSignals.GameFinished +=  GameFinished; 
 		}
 
 		private void UndoRedo()
@@ -57,21 +57,28 @@ namespace Com.IsartDigital.SokoVolt{
 
         public void GameFinished(int pNumStar, int pScore, int pNumStep)
 		{
-            Tween lTween = CreateTween();
-            winScreen = winScreenScene.Instantiate() as WinScreen;
-			AddChild(winScreen);
-			winScreen.Position = new Vector2(0, -900);
-			winScreen.ZIndex = 50;
-			lTween.TweenProperty(winScreen, "position", Vector2.Zero, 1f);
-			winScreen.UpdateStats(pScore, pNumStep);
-			lTween.Finished += () => GetTree().CreateTimer(1f).Timeout += () => 
-			winScreen.StarSysteme(pNumStar);
-			LevelLoader.playerCanMove = false;
+			CustomSignals.GetInstance().EndLevelAnimation += () =>
+			{
+				LevelLoader.playerCanMove = false;
+				Tween lTween = CreateTween();
+				winScreen = winScreenScene.Instantiate() as WinScreen;
+				AddChild(winScreen);
+				winScreen.Position = new Vector2(0, -900);
+				winScreen.ZIndex = 50;
+				lTween.TweenProperty(winScreen, "position", Vector2.Zero, 1f);
+				winScreen.UpdateStats(pScore, pNumStep);
+				winScreen.StarSysteme(pNumStar);
+			};
+           
         }
 
 		private void ReturnToMenu()
 		{
-            if (winScreen != null) winScreen.QueueFree();
+            if(winScreen != null)
+			{
+				GD.PrintErr("WinScreen has been queue free"); 
+				winScreen.QueueFree();
+			}
             CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.GoToMainMenu);
         }
 
