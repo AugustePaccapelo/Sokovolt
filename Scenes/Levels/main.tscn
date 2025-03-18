@@ -15,7 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://cbrehv31qfb0r" path="res://Scenes/Managers/GameManager.tscn" id="7_vkagg"]
 [ext_resource type="PackedScene" uid="uid://djcluge6is5om" path="res://Scenes/GameObjects/Wall.tscn" id="8_najj4"]
 [ext_resource type="PackedScene" uid="uid://c256fa86lg71t" path="res://Scenes/GameObjects/ElectricWall.tscn" id="9_34m77"]
-[ext_resource type="PackedScene" uid="uid://bbvc0kv5shwqo" path="res://Scenes/GameObjects/WinScreen/thunder_effects.tscn" id="9_bvuaq"]
+[ext_resource type="PackedScene" uid="uid://n3g0bvmsd70w" path="res://Scenes/GameObjects/WinScreen/end_level_thunder_effects.tscn" id="9_drmok"]
 [ext_resource type="PackedScene" uid="uid://v75l4cppany" path="res://Scenes/GameObjects/GoalBulb.tscn" id="10_cjqye"]
 [ext_resource type="PackedScene" uid="uid://dellu8bu72iut" path="res://Scenes/GameObjects/Generator.tscn" id="11_lsk15"]
 [ext_resource type="PackedScene" uid="uid://b4gnj6651gy4m" path="res://Scenes/GameObjects/Door.tscn" id="12_pyytn"]
@@ -61,7 +61,7 @@ grow_horizontal = 1
 grow_vertical = 1
 
 [node name="GridManager" parent="Managers" instance=ExtResource("1_d671q")]
-thunderEffectScene = ExtResource("9_bvuaq")
+thunderEffectScene = ExtResource("9_drmok")
 
 [node name="LevelLoader" type="Node2D" parent="Managers" node_paths=PackedStringArray("objectsContainer")]
 script = ExtResource("4_ly116")

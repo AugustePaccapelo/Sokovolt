@@ -391,6 +391,7 @@ texture = ExtResource("6_rgshm")
 offset = Vector2(7, -6)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ScreenContainer"]
+visible = false
 position = Vector2(-9.00024, -5.49933)
 rotation = 1.5708
 shape = SubResource("RectangleShape2D_71gdd")

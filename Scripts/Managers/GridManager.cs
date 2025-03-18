@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using Com.IsartDigital.ProjectName;
 using System.Data;
 using System.Linq;
+using Com.IsartDigital.SokoVolt.Tools;
 
 //Author : Ferlat Thibaud 
 namespace Com.IsartDigital.SokoVolt.Managers {
@@ -44,6 +45,8 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 
 		//LevelsAnimation
 		[Export] private PackedScene thunderEffectScene; 
+		Node2D vortex; 
+		private const string VORTEX_PATH = "res://Assets/GameObjects/LevelAnimation/vecteezy_spiral-vortex-element_27720416.png"; 
 
 
 		public override void _Ready()
@@ -338,12 +341,10 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 
 		#region // ----- Finished Level animation -----//
 
-		Node2D vortex; 
-
 		private async void EndLevelAnimation(int pNumStar, int pScore, int pNumStep)
 		{
-			List<Cell> cells = new List<Cell>();
-			cells.Clear(); 
+			List<Cell> lCells = new List<Cell>();
+			lCells.Clear(); 
 
 			// Récupérer toutes les cellules existantes
 			for (int y = 0; y < LevelLoader.levelHeight; y++)
@@ -351,29 +352,29 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 				for (int x = 0; x < LevelLoader.levelWidth; x++)
 				{
 					if (grid[x, y] != null)
-						cells.Add(grid[x, y]);
+						lCells.Add(grid[x, y]);
 				}
 			}
 
 			
 
 			// Déterminer un point central (aspiration)
-			Vector2 vortexCenter = GetViewportRect().Size/2; 
+			Vector2 lVortexCenter = GetViewportRect().Size/2; 
 
-			vortex = CreateVortex(vortexCenter); 
-			gameManager.objectsContainer.AddChild(vortex);
+			vortex = CreateVortex(lVortexCenter); 
+			AddChild(vortex);
 
 			// Mélanger aléatoirement pour rendre l'effet dynamique
 			Random lRand = new Random();
-			cells = cells.OrderBy(c => lRand.Next()).ToList();
+			lCells = lCells.OrderBy(c => lRand.Next()).ToList();
 
 			// Appliquer un effet progressif avec un délai variable
-			float lBaseDelay = 0.1f; // Délai initial
+			float lBaseDelay = 0.06f; // Délai initial
 			float lRandDelay; 
-			for (int i = 0; i < cells.Count; i++)
+			for (int i = 0; i < lCells.Count; i++)
 			{
 				lRandDelay = rand.Randf()* lBaseDelay; 
-				Cell lCell = cells[i];
+				Cell lCell = lCells[i];
 				if (lCell == null) continue;
 
 				GameObject lContent = lCell.GetContent();
@@ -385,105 +386,89 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 				// Déterminer une nouvelle position vers le vortex
 
 				float lRandPropulsion = rand.Randf() * 1000; 
-				Vector2 lNewCellPos = lCell.GlobalPosition.DirectionTo(vortexCenter) * lRandPropulsion + lCell.GlobalPosition;
+				Vector2 lNewCellPos = lCell.GlobalPosition.DirectionTo(lVortexCenter) * lRandPropulsion + lCell.GlobalPosition;
 				Tween lTween = CreateTween();
-				lTween.TweenProperty(lCell, "position", lNewCellPos, 1f)
+				lTween.TweenProperty(lCell, ObjectProperties.POSITION, lNewCellPos, 1f)
 					.SetTrans(Tween.TransitionType.Elastic)
 					.SetEase(Tween.EaseType.Out);
 
 				if (lContent != null)
 				{
-					Vector2 lNewContentPos = lContent.GlobalPosition.DirectionTo(vortexCenter) * lRandPropulsion + lContent.GlobalPosition;
+					Vector2 lNewContentPos = lContent.GlobalPosition.DirectionTo(lVortexCenter) * lRandPropulsion + lContent.GlobalPosition;
 					Tween lTweenTwo = CreateTween();
-					lTweenTwo.TweenProperty(lContent, "position", lNewContentPos, 1f)
+					lTweenTwo.TweenProperty(lContent, ObjectProperties.POSITION, lNewContentPos, 1f)
 							.SetTrans(Tween.TransitionType.Elastic)
 							.SetEase(Tween.EaseType.Out);
 				}
 
 				// Attendre un court moment avant d'animer la prochaine tuile
-				await ToSignal(GetTree().CreateTimer(lRandDelay), "timeout");
+				await ToSignal(GetTree().CreateTimer(lRandDelay), ObjectProperties.TIME_OUT);
 				// Augmente aléatoirement pour un effet chaotique
 			}
 			AnimateVortex(vortex); 
 
-			foreach(Cell lCell in cells)
+			foreach(Node2D lObject in gameManager.objectsContainer.GetChildren())
 			{
 				Tween lTween = CreateTween(); 
-				lTween.TweenProperty(lCell, "position", vortexCenter, 1.3f)
+				lTween.TweenProperty(lObject, ObjectProperties.POSITION, lVortexCenter, 1.3f)
 					.SetTrans(Tween.TransitionType.Linear)
 					.SetEase(Tween.EaseType.In); 
 
-				if(lCell.GetContent() != null) lTween.Parallel().TweenProperty(lCell.GetContent(), "position", vortexCenter, 1.3f)
-					.SetTrans(Tween.TransitionType.Linear)
-					.SetEase(Tween.EaseType.In); 
-				
+				lTween.Finished += ()=> lObject.Visible = false; 
 			}
 
 		}
 
-		private Node2D CreateVortex(Vector2 position)
+		private Node2D CreateVortex(Vector2 pPosition)
 		{
-			Node2D vortex = new Node2D();
-			vortex.Position = position;
+			Node2D lVortex = new Node2D();
+			lVortex.GlobalPosition = pPosition;
 
 			// Ajouter un Sprite pour le vortex
-			Sprite2D vortexSprite = new Sprite2D();
-			vortexSprite.Texture = GD.Load("res://Assets/GameObjects/LevelAnimation/vecteezy_spiral-vortex-element_27720416.png") as Texture2D; // Assurez-vous d’avoir une texture en spirale
-			vortexSprite.Modulate = new Color(1, 1, 1, 0); // Commence invisible
-			vortexSprite.Scale = new Vector2(0.1f, 0.1f); // Très petit au début
-			vortex.AddChild(vortexSprite);
+			Sprite2D lVortexSprite = new Sprite2D();
+			lVortexSprite.Texture = GD.Load(VORTEX_PATH) as Texture2D; // Assurez-vous d’avoir une texture en spirale
+			lVortexSprite.Modulate = new Color(1, 1, 1, 0); // Commence invisible
+			lVortexSprite.Scale = Vector2.One * 0.1f; // Très petit au début
+			lVortex.AddChild(lVortexSprite);
 
-			return vortex;
+			return lVortex;
 		}
 
 		//  **Animation du vortex qui grossit et aspire tout**
 		private void AnimateVortex(Node2D vortex)
 		{
-			Sprite2D vortexSprite = vortex.GetChild<Sprite2D>(0);
-			Tween vortexTween = CreateTween();
+			Sprite2D lVortexSprite = vortex.GetChild<Sprite2D>(0);
+			Tween lVortexTween = CreateTween();
 
 			// Faire grossir le vortex
-			vortexTween.Parallel().TweenProperty(vortexSprite, "scale", Vector2.One, 0.8f)
+			lVortexTween.Parallel().TweenProperty(lVortexSprite, ObjectProperties.SCALE, Vector2.One, 0.8f)
 					.SetTrans(Tween.TransitionType.Linear)
 					.SetEase(Tween.EaseType.Out);
 
 			// Augmenter l’opacité pour qu’il apparaisse
-			vortexTween.Parallel().TweenProperty(vortexSprite, "modulate", new Color(1, 1, 1, 1), 0.8f);
+			lVortexTween.Parallel().TweenProperty(lVortexSprite, ObjectProperties.MODULATE, new Color(1, 1, 1, 1), 0.8f);
 
 			// Rotation continue
-			vortexTween.Parallel().TweenProperty(vortexSprite, "rotation", Mathf.DegToRad(600), 1f)
+			lVortexTween.Parallel().TweenProperty(lVortexSprite, ObjectProperties.ROTATION, Mathf.DegToRad(600), 1f)
 					.SetTrans(Tween.TransitionType.Linear)
 					.SetEase(Tween.EaseType.InOut);
 
-			vortexTween.TweenProperty(vortexSprite, "scale", Vector2.Zero, 0.8f)
+			lVortexTween.TweenProperty(lVortexSprite, ObjectProperties.SCALE, Vector2.Zero, 0.8f)
 					.SetTrans(Tween.TransitionType.Linear)
-					.SetEase(Tween.EaseType.OutIn);; 
+					.SetEase(Tween.EaseType.OutIn);
+
+			lVortexTween.Finished += () => vortex.QueueFree(); 
 		}
 
-		// Méthode appelée par le Tween pour faire tourner le vortex
-		private void RotateVortex(float angle)
-		{
-			vortex.GlobalRotation = Mathf.DegToRad(angle);
-		}
 
 		// Effet d’électricité (simulé avec un changement rapide de couleur)
 		private void FlashElectricEffect(Cell cell)
 		{
-			WinScreenThunder lThunderEffect = thunderEffectScene.Instantiate() as WinScreenThunder; 
+			WinScreenThunder lThunderEffect = thunderEffectScene.Instantiate() as WinScreenThunder;
 			lThunderEffect.ZIndex = 45; 
 			gameManager.objectsContainer.AddChild(lThunderEffect);
 
-			Color flashColor = new Color(1, 1, 0.5f); // Jaune électrique
-			Color originalColor = cell.Modulate;
-
-			Tween flashTween = CreateTween();
-			flashTween.TweenProperty(cell, "modulate", flashColor, 0.1f)
-					.SetTrans(Tween.TransitionType.Sine)
-					.SetEase(Tween.EaseType.InOut);
-			flashTween.TweenProperty(cell, "modulate", originalColor, 0.1f);
-
 			lThunderEffect.ActiveThunder(cell); 
-
 		}
 
 
