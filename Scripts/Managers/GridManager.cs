@@ -73,10 +73,10 @@ namespace Com.IsartDigital.SokoVolt.Managers {
             CustomSignals.GetInstance().UndoRedo += UndoRedo;
             CustomSignals.GetInstance().Retry += Retry;
 
-            hud.UndoButton += () => UndoRedo(-1);
-            hud.RedoButton += () => UndoRedo(1);
-			hud.UndoButton += () => SetGridState(actualGridStateIndex - 1);
-			hud.RedoButton += () => SetGridState(actualGridStateIndex + 1);
+			CustomSignals.GetInstance().UndoButton += () => UndoRedo(-1);
+			CustomSignals.GetInstance().RedoButton += () => UndoRedo(1);
+			//CustomSignals.GetInstance().UndoButton += () => SetGridState(actualGridStateIndex - 1);
+			//CustomSignals.GetInstance().RedoButton += () => SetGridState(actualGridStateIndex + 1);
 		}
 
 

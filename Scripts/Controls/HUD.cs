@@ -39,14 +39,20 @@ namespace Com.IsartDigital.SokoVolt{
 
 		private void Init()
 		{
-			CustomMinimumSize = GetViewportRect().Size;	
-			undoButton.Pressed += () => EmitSignal(nameof(UndoButton));
-			redoButton.Pressed += () => EmitSignal(nameof(RedoButton));
-			mainMenuButton.Pressed += () => CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.GoToMainMenu);
+			CustomMinimumSize = GetViewportRect().Size;
+			UndoRedo();
+            mainMenuButton.Pressed += () => CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.GoToMainMenu);
 			winLabel.Hide();
-		}
+        }
 
-		public void GameFinished()
+		private void UndoRedo()
+		{
+            if (LevelLoader.isLevelLoaded) return;
+            undoButton.Pressed += () => CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.UndoButton);
+            redoButton.Pressed += () => CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.RedoButton);
+        }
+
+        public void GameFinished()
 		{
 			winLabel.Show();
 			Tween lTween = CreateTween();
