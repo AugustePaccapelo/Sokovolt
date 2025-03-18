@@ -132,7 +132,7 @@ namespace Com.IsartDigital.SokoVolt
             customLevelMenuBackGround = GetNode<Panel>("CustomLevelListBackGround");
             backGrid = newLevelBackGround.GetNode<Panel>("BackGrid");
 
-            Return();
+            newLevelBackGround.Visible = loadLevelBackGround.Visible = customLevelMenuBackGround.Visible = returnButton.Visible = false;
 
             //OpenCustomLevelsMenu();
         }
@@ -199,18 +199,23 @@ namespace Com.IsartDigital.SokoVolt
 
         private void Return()
         {
-            returnButton.Hide();
-            newLevelBackGround.Visible = loadLevelBackGround.Visible = customLevelMenuBackGround.Visible = false;
-            if (cellContainer.GetChildren() != null)
-            {
-                foreach (var item in cellContainer.GetChildren()) item.QueueFree();
-                gridDico.Clear();
-            }
-            if (buttonContainer.GetChildren() != null || labelContainer.GetChildren() != null)
-            {
-                foreach (var item in buttonContainer.GetChildren()) item.QueueFree();
-                foreach (var item in labelContainer.GetChildren()) item.QueueFree();
-            }
+            //methode1
+            //GetTree().CreateTimer(0.1f).Timeout += () => CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.GoToLevelCreator);
+            //GetInstance().QueueFree();
+
+            //methode2
+            //returnButton.Hide();
+            //newLevelBackGround.Visible = loadLevelBackGround.Visible = customLevelMenuBackGround.Visible = false;
+            //if (cellContainer.GetChildren() != null)
+            //{
+            //    foreach (var item in cellContainer.GetChildren()) item.QueueFree();
+            //    gridDico.Clear();
+            //}
+            //if (buttonContainer.GetChildren() != null || labelContainer.GetChildren() != null)
+            //{
+            //    foreach (var item in buttonContainer.GetChildren()) item.QueueFree();
+            //    foreach (var item in labelContainer.GetChildren()) item.QueueFree();
+            //}
         }
 
 		private void CreateNewLevel()

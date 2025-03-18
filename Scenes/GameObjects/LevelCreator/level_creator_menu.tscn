@@ -81,15 +81,6 @@ offset_bottom = 528.0
 pivot_offset = Vector2(77, 46)
 text = "Custom Levels Menu"
 
-[node name="MainMenuButton" parent="." instance=ExtResource("1_8igok")]
-layout_mode = 1
-offset_left = 78.0
-offset_top = 925.0
-offset_right = 233.0
-offset_bottom = 1018.0
-pivot_offset = Vector2(77, 46)
-text = "MainMenu"
-
 [node name="NewLevelBackGround" type="Panel" parent="."]
 visible = false
 layout_mode = 1
@@ -198,10 +189,19 @@ placeholder_text = "Level Name"
 
 [node name="CellContainer" type="Node2D" parent="."]
 
+[node name="MainMenuButton" parent="." instance=ExtResource("1_8igok")]
+layout_mode = 1
+offset_left = 78.0
+offset_top = 925.0
+offset_right = 233.0
+offset_bottom = 1018.0
+pivot_offset = Vector2(77, 46)
+text = "MainMenu"
+
 [node name="ReturnButton" type="Button" parent="."]
 layout_mode = 0
-offset_left = 63.0
-offset_top = 924.0
-offset_right = 234.0
-offset_bottom = 1019.0
+offset_left = 252.0
+offset_top = 927.0
+offset_right = 423.0
+offset_bottom = 1022.0
 text = "Retrun"
