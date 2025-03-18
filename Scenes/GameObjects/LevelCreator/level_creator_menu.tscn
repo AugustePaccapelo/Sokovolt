@@ -96,7 +96,6 @@ pivot_offset = Vector2(117, 70)
 text = "MainMenu"
 
 [node name="NewLevelBackGround" type="Panel" parent="."]
-visible = false
 layout_mode = 1
 offset_right = 1920.0
 offset_bottom = 1080.0

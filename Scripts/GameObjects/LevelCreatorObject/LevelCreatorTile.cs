@@ -10,7 +10,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects {
 		public LevelCreatorItems content = null;
 		public const int SIZE = 50;
 
-		public override void _Ready()
+        public override void _Ready()
 		{
 
 		}

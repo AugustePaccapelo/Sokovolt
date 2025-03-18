@@ -60,6 +60,11 @@ namespace Com.IsartDigital.SokoVolt
         private float space = 5;
         private Node2D cellContainer;
 
+        private const string TESLA_NAME = "teslaTexture";
+        private const string WALL_NAME = "wallTexture";
+        private const string GENERATOR_NAME = "generatorTexture";
+        private const string BULB_NAME = "bulbTexture";
+
         private const int LENGHT = 11;
 
         Dictionary<Vector2, LevelCreatorTile> gridDico = new Dictionary<Vector2, LevelCreatorTile>();
@@ -190,20 +195,41 @@ namespace Com.IsartDigital.SokoVolt
 				actualItem?.QueueFree();
                 LevelCreatorItems lItem = new LevelCreatorItems();
 
-                if (hoveredItem == wallTexture) lItem = wallScene.Instantiate() as LevelCreatorItems;
+                if (hoveredItem == wallTexture)
+                {
+                    lItem = wallScene.Instantiate() as LevelCreatorItems;
+                    lItem.Name = WALL_NAME;
+                }
                 else if (hoveredItem == teslaTexture)
-				{
-					lItem = teslaScene.Instantiate() as LevelCreatorItems;
-					if(lItem.teslaRange != null)lItem.teslaRange.Value = teslaTexture.teslaRange.Value;
-				}
-				else if (hoveredItem == bulbTexture) lItem = bulbScene.Instantiate() as LevelCreatorItems;
-				else if (hoveredItem == generatorTexture) lItem = generatorScene.Instantiate() as LevelCreatorItems;
+                {
+                    lItem = teslaScene.Instantiate() as LevelCreatorItems;
+                    if (lItem.teslaRange != null) lItem.teslaRange.Value = teslaTexture.teslaRange.Value;
+                    lItem.Name = TESLA_NAME;
+                }
+                else if (hoveredItem == bulbTexture)
+                {
+                    lItem = bulbScene.Instantiate() as LevelCreatorItems;
+                    lItem.Name = BULB_NAME;
+                }
+                else if (hoveredItem == generatorTexture)
+                {
+                    lItem = generatorScene.Instantiate() as LevelCreatorItems;
+                    lItem.Name = GENERATOR_NAME;
+                }
 
                 cellContainer.AddChild(lItem);
                 actualItem = lItem;
                 canPick = false;
             }
+
+            if (Input.IsMouseButtonPressed(MouseButton.Right) && GetGridIndexFromMousePos() != new Vector2(-1, -1))
+            {
+                LevelCreatorTile lTile = gridDico[GetGridIndexFromMousePos()];
+                foreach (var item in lTile.GetChildren()) item.QueueFree();
+                lTile.content = null;
+            }
 		}
+
         private Vector2 PixelToGrid(Vector2 pPos)
         {
             return new Vector2(Mathf.FloorToInt((pPos.X - backGrid.Position.X) / (tileSize + space)), Mathf.FloorToInt((pPos.Y - backGrid.Position.Y) / (tileSize + space)));
@@ -227,21 +253,55 @@ namespace Com.IsartDigital.SokoVolt
                 LevelCreatorTile lTile = gridDico[GetGridIndexFromMousePos()];
                 if (lTile.content == null)
                 {
+                    string lTypeItem = actualItem.Name;
+                    cellContainer.RemoveChild(actualItem);
+                    lTile.AddChild(actualItem);
                     actualItem.Scale *= 0.3f;
-                    actualItem.Position = lTile.Position;
+                    actualItem.Position = Vector2.Zero;
 					lTile.content = actualItem;
                     actualItem = null;
+
+                    GD.Print(lTypeItem);
+
+                    LevelCreatorItems lItem = new LevelCreatorItems();
+
+                    if (lTypeItem == WALL_NAME)
+                    {
+                        lItem = wallScene.Instantiate() as LevelCreatorItems;
+                        lItem.Name = WALL_NAME;
+                    }
+                    else if (lTypeItem == TESLA_NAME)
+                    {
+                        lItem = teslaScene.Instantiate() as LevelCreatorItems;
+                        if (lItem.teslaRange != null) lItem.teslaRange.Value = teslaTexture.teslaRange.Value;
+                        lItem.Name = TESLA_NAME;
+                    }
+                    else if (lTypeItem == BULB_NAME)
+                    {
+                        lItem = bulbScene.Instantiate() as LevelCreatorItems;
+                        lItem.Name = BULB_NAME;
+                    }
+                    else if (lTypeItem == GENERATOR_NAME)
+                    {
+                        lItem = generatorScene.Instantiate() as LevelCreatorItems;
+                        lItem.Name = GENERATOR_NAME;
+                    }
+
+                    cellContainer.AddChild(lItem);
+                    actualItem = lItem;
+                    canPick = false;
                 }
 			}
-		}
+            else if (GetGridIndexFromMousePos() == new Vector2(-1, -1) && actualItem != null && Input.IsMouseButtonPressed(MouseButton.Right))
+            {
+                actualItem.QueueFree();
+                actualItem = null;
+            }
+
+        }
 
         private void Return()
         {
-            //methode1
-            //GetTree().CreateTimer(0.1f).Timeout += () => CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.GoToLevelCreator);
-            //GetInstance().QueueFree();
-
-            //methode2
             returnButton.Hide();
             newLevelBackGround.Visible = loadLevelBackGround.Visible = customLevelMenuBackGround.Visible = false;
             if (cellContainer.GetChildren() != null)
@@ -257,6 +317,9 @@ namespace Com.IsartDigital.SokoVolt
             HUD.GetInstance().winScreen?.QueueFree();
             HUD.GetInstance().Hide();
             CustomSignals.GetInstance().EmitSignal(nameof(CustomSignals.UnLoadLevel));
+
+            actualItem?.QueueFree();
+            actualItem = null;
         }
 
 		private void CreateNewLevel()
@@ -279,6 +342,7 @@ namespace Com.IsartDigital.SokoVolt
 			customLevelMenuBackGround.Visible = returnButton.Visible = true;
             DirContents("res://Scripts/Json/CustomLevels/");
         }
+
         public void DirContents(string path)
         {
             using DirAccess lDir = DirAccess.Open(path);
