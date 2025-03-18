@@ -1,0 +1,272 @@
+[gd_scene load_steps=16 format=3 uid="uid://bx4sq5cya6p7g"]
+
+[ext_resource type="PackedScene" uid="uid://36dp5dq6hmqq" path="res://Scenes/GameObjects/ButtonTemplate.tscn" id="1_8igok"]
+[ext_resource type="Script" path="res://Scripts/Controls/LevelCreator.cs" id="1_bf11f"]
+[ext_resource type="PackedScene" uid="uid://cpdk0i0vijcdy" path="res://Scenes/GameObjects/LevelCreator/level_creator_tile.tscn" id="3_mha4c"]
+[ext_resource type="PackedScene" uid="uid://dsejj00jkjkaw" path="res://Scenes/GameObjects/LevelCreator/bulb_texture.tscn" id="5_7j68n"]
+[ext_resource type="PackedScene" uid="uid://6f6pej0whxvb" path="res://Scenes/GameObjects/LevelCreator/generator_texture.tscn" id="6_wy1dl"]
+[ext_resource type="PackedScene" uid="uid://bqdvcl5bpx284" path="res://Scenes/GameObjects/LevelCreator/tesla_texture.tscn" id="7_5weia"]
+[ext_resource type="PackedScene" uid="uid://dld6hinoxjug8" path="res://Scenes/GameObjects/LevelCreator/custom_level_label.tscn" id="7_p6ycg"]
+[ext_resource type="PackedScene" uid="uid://bvpdafbbrw7s7" path="res://Scenes/GameObjects/LevelCreator/wall_texture.tscn" id="8_gc0rv"]
+[ext_resource type="JSON" path="res://Scripts/Json/CustomLevels/CustomLevelsModels/CustomLevelsTemplate.json" id="8_kgilq"]
+[ext_resource type="PackedScene" uid="uid://cce6m5y5bqo5c" path="res://Scenes/GameObjects/LevelCreator/door_texture.tscn" id="10_av00s"]
+[ext_resource type="PackedScene" uid="uid://dg077chl56p8g" path="res://Scenes/GameObjects/LevelCreator/player_spawn_texture.tscn" id="11_g4nve"]
+[ext_resource type="PackedScene" uid="uid://40x567524t37" path="res://Scenes/GameObjects/LevelCreator/electric_wall_texture.tscn" id="12_7rowd"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oto23"]
+bg_color = Color(0.43134, 0.43134, 0.43134, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pf3ks"]
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.422258, 0.153029, 0.181139, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wq6pk"]
+bg_color = Color(0.467584, 0.610789, 0.795028, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+shadow_size = 10
+shadow_offset = Vector2(5, 5)
+
+[node name="LevelCreatorMenu" type="Control" node_paths=PackedStringArray("mainMenuButton", "newLevelButton", "loadLevelButton", "menuCustomLevelButton", "returnButton", "saveButton", "loadLevelText", "levelName", "wallTexture", "electricWallTexture", "teslaTexture", "bulbTexture", "generatorTexture", "playerSpawnTexture", "doorTexture", "buttonContainer", "deleteButtonContainer", "labelContainer")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_bf11f")
+mainMenuButton = NodePath("MainMenuButton")
+newLevelButton = NodePath("Menu/NewLevelButton")
+loadLevelButton = NodePath("CustomLevelListBackGround/LoadLevelButton")
+menuCustomLevelButton = NodePath("Menu/MenuCustomLevelButton")
+returnButton = NodePath("ReturnButton")
+saveButton = NodePath("NewLevelBackGround/SaveButton")
+loadLevelText = NodePath("CustomLevelListBackGround/TextEdit")
+levelName = NodePath("NewLevelBackGround/NameLineEdit")
+wallTexture = NodePath("NewLevelBackGround/Inventory/Wall")
+electricWallTexture = NodePath("NewLevelBackGround/Inventory/ElectricWall")
+teslaTexture = NodePath("NewLevelBackGround/Inventory/Tesla")
+bulbTexture = NodePath("NewLevelBackGround/Inventory/Bulb")
+generatorTexture = NodePath("NewLevelBackGround/Inventory/Generator")
+playerSpawnTexture = NodePath("NewLevelBackGround/Inventory/PlayerSpawn")
+doorTexture = NodePath("NewLevelBackGround/Inventory/Door")
+wallScene = ExtResource("8_gc0rv")
+electricWallScene = ExtResource("12_7rowd")
+teslaScene = ExtResource("7_5weia")
+bulbScene = ExtResource("5_7j68n")
+generatorScene = ExtResource("6_wy1dl")
+playerSpawnScene = ExtResource("11_g4nve")
+doorScene = ExtResource("10_av00s")
+tileScene = ExtResource("3_mha4c")
+customLevelLabelScene = ExtResource("7_p6ycg")
+buttonContainer = NodePath("CustomLevelListBackGround/MenuBar/HBoxContainer/ButtonContainer")
+deleteButtonContainer = NodePath("CustomLevelListBackGround/MenuBar/HBoxContainer/DeleteButtonContainer2")
+labelContainer = NodePath("CustomLevelListBackGround/MenuBar/HBoxContainer/LabelContainer")
+customLevelTemplate = ExtResource("8_kgilq")
+
+[node name="Menu" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="NewLevelButton" parent="Menu" instance=ExtResource("1_8igok")]
+layout_mode = 1
+offset_left = 832.0
+offset_top = 278.0
+offset_right = 1089.0
+offset_bottom = 432.0
+pivot_offset = Vector2(128, 77)
+text = "New Level"
+
+[node name="MenuCustomLevelButton" parent="Menu" instance=ExtResource("1_8igok")]
+layout_mode = 1
+offset_left = 780.0
+offset_top = 497.0
+offset_right = 1140.0
+offset_bottom = 695.0
+pivot_offset = Vector2(180, 99)
+text = "Custom Levels Menu"
+
+[node name="MainMenuButton" parent="." instance=ExtResource("1_8igok")]
+layout_mode = 1
+offset_left = 843.0
+offset_top = 751.0
+offset_right = 1078.0
+offset_bottom = 892.0
+pivot_offset = Vector2(117, 70)
+text = "MainMenu"
+
+[node name="NewLevelBackGround" type="Panel" parent="."]
+layout_mode = 1
+offset_right = 1920.0
+offset_bottom = 1080.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_oto23")
+
+[node name="Inventory" type="Panel" parent="NewLevelBackGround"]
+layout_mode = 1
+offset_left = 1626.0
+offset_top = 1.0
+offset_right = 1920.0
+offset_bottom = 1081.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_pf3ks")
+
+[node name="Bulb" parent="NewLevelBackGround/Inventory" instance=ExtResource("5_7j68n")]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 40.0
+offset_right = 606.0
+offset_bottom = 400.0
+stretch_mode = 3
+
+[node name="Door" parent="NewLevelBackGround/Inventory" instance=ExtResource("10_av00s")]
+layout_mode = 0
+offset_left = 7.0
+offset_top = 219.0
+offset_right = 600.0
+offset_bottom = 579.0
+
+[node name="PlayerSpawn" parent="NewLevelBackGround/Inventory" instance=ExtResource("11_g4nve")]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 386.0
+offset_right = 5421.0
+offset_bottom = 2786.0
+
+[node name="Generator" parent="NewLevelBackGround/Inventory" instance=ExtResource("6_wy1dl")]
+layout_mode = 0
+offset_left = 7.0
+offset_top = 507.0
+offset_right = 1888.0
+offset_bottom = 1487.0
+scale = Vector2(0.149946, 0.149946)
+stretch_mode = 3
+
+[node name="Tesla" parent="NewLevelBackGround/Inventory" instance=ExtResource("7_5weia")]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 669.0
+offset_right = 793.0
+offset_bottom = 1077.0
+scale = Vector2(0.363404, 0.363404)
+
+[node name="Wall" parent="NewLevelBackGround/Inventory" instance=ExtResource("8_gc0rv")]
+layout_mode = 0
+offset_left = 7.0
+offset_top = 941.0
+offset_right = 467.0
+offset_bottom = 1131.0
+scale = Vector2(0.613341, 0.613341)
+
+[node name="ElectricWall" parent="NewLevelBackGround/Inventory" instance=ExtResource("12_7rowd")]
+layout_mode = 0
+offset_left = 7.0
+offset_top = 823.0
+offset_right = 462.0
+offset_bottom = 1013.0
+scale = Vector2(0.615857, 0.615857)
+
+[node name="BackGrid" type="Panel" parent="NewLevelBackGround"]
+layout_mode = 1
+offset_left = 267.0
+offset_top = 130.0
+offset_right = 877.0
+offset_bottom = 740.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_wq6pk")
+
+[node name="SaveButton" type="Button" parent="NewLevelBackGround"]
+layout_mode = 0
+offset_left = 502.0
+offset_top = 21.0
+offset_right = 621.0
+offset_bottom = 95.0
+theme_override_font_sizes/font_size = 32
+text = "SAVE"
+
+[node name="NameLineEdit" type="TextEdit" parent="NewLevelBackGround"]
+layout_mode = 0
+offset_left = 34.0
+offset_top = 37.0
+offset_right = 406.0
+offset_bottom = 90.0
+theme_override_font_sizes/font_size = 32
+placeholder_text = "Name your Level"
+
+[node name="LoadLevelBackGround" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+offset_right = 1920.0
+offset_bottom = 1080.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_oto23")
+
+[node name="CustomLevelListBackGround" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+offset_right = 1920.0
+offset_bottom = 1080.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_oto23")
+
+[node name="MenuBar" type="ScrollContainer" parent="CustomLevelListBackGround"]
+custom_minimum_size = Vector2(1012, 450)
+layout_mode = 1
+offset_left = 365.0
+offset_top = 265.0
+offset_right = 1377.0
+offset_bottom = 715.0
+pivot_offset = Vector2(506, 225)
+horizontal_scroll_mode = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CustomLevelListBackGround/MenuBar"]
+custom_minimum_size = Vector2(1000, 0)
+layout_mode = 2
+
+[node name="ButtonContainer" type="VBoxContainer" parent="CustomLevelListBackGround/MenuBar/HBoxContainer"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+
+[node name="LabelContainer" type="VBoxContainer" parent="CustomLevelListBackGround/MenuBar/HBoxContainer"]
+custom_minimum_size = Vector2(800, 200)
+layout_mode = 2
+
+[node name="DeleteButtonContainer2" type="VBoxContainer" parent="CustomLevelListBackGround/MenuBar/HBoxContainer"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+
+[node name="LoadLevelButton" parent="CustomLevelListBackGround" instance=ExtResource("1_8igok")]
+layout_mode = 1
+offset_left = 1519.0
+offset_top = 837.0
+offset_right = 1674.0
+offset_bottom = 930.0
+pivot_offset = Vector2(77, 46)
+text = "Load Level"
+
+[node name="TextEdit" type="TextEdit" parent="CustomLevelListBackGround"]
+layout_mode = 1
+offset_left = 1300.0
+offset_top = 952.0
+offset_right = 1900.0
+offset_bottom = 1052.0
+theme_override_font_sizes/font_size = 32
+placeholder_text = "Level Name"
+
+[node name="CellContainer" type="Node2D" parent="."]
+
+[node name="ReturnButton" parent="." instance=ExtResource("1_8igok")]
+visible = false
+layout_mode = 1
+offset_left = 245.0
+offset_top = 927.0
+offset_right = 465.0
+offset_bottom = 1059.0
+pivot_offset = Vector2(110, 66)
+text = "RETURN"
+easeType = 2
+transitionType = 7
