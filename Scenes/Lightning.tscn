@@ -5,11 +5,4 @@
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_dme1m")
-singleLighningScene = ExtResource("2_es1e0")
-cellSize = Vector2(91.648, 91.648)
-minAngle = 30.0
-maxAngle = 80.0
-speed = 3.0
-numLigthning = 3
-marginStart = 15
-marginSide = 35
+singleLightningScene = ExtResource("2_es1e0")

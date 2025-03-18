@@ -8,36 +8,39 @@ using System.Data;
 
 //Author : Ferlat Thibaud 
 namespace Com.IsartDigital.SokoVolt.Managers {
-	
+
 	public partial class GridManager : Manager
 	{
 		#region GetInstance
 		static private GridManager instance;
-		
-		static public GridManager GetInstance () {
+
+		static public GridManager GetInstance() {
 			if (instance == null) instance = new GridManager();
 			return instance;
 		}
 
-		private GridManager ():base() {}
+		private GridManager() : base() { }
 		#endregion
 
 		//Grid Gestion 
-		public Cell[,] grid { get; private set;}
+		public Cell[,] grid { get; private set; }
 		public List<Cell[,]> gridStates = new List<Cell[,]>();
-		private int actualGridStateIndex = 0; 
-		public static Vector2 gridOffset; 
+		private int actualGridStateIndex = 0;
+		public static Vector2 gridOffset;
 		public Player player;
 
 		//Step Counter 
-		private const string STEP_LABEL_PREFIXE = "STEP : "; 
-		private int step = 0; 
+		private const string STEP_LABEL_PREFIXE = "STEP : ";
+		public int step { get; private set; } = 0;
 
 		//Ref 
 		private GameManager gameManager;
 		private HUD hud; 
         //UndoRedo 
         private bool playerWasOnTesla; 
+
+		//Scoring 
+		private int minPar = 0;	
 
 
 		public override void _Ready()
@@ -88,6 +91,8 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 			ResetStepCounter();
 			HUD.GetInstance().Visible = true;
 			LevelLoader.GetInstance().LoadLevel(pLevelToLoad);
+			minPar = LevelLoader.parCount; 
+			GD.PrintErr(minPar); 
 			CenterGrid(); 
 
 			if (grid == null)  // Évite d'ajouter un état vide

@@ -1,3 +1,4 @@
+using System;
 using Com.IsartDigital.SokoVolt.GameObjects;
 using Com.IsartDigital.SokoVolt.GameObjects.Movables;
 using Com.IsartDigital.SokoVolt.Managers;
@@ -13,7 +14,9 @@ namespace Com.IsartDigital.SokoVolt {
 
 		public static int  levelHeight{get; private set;}
 		public static int levelWidth{get; private set;}
-		public static bool isLevelLoaded { get; set;} = false;
+		public static bool playerCanMove { get; set;} = false;
+
+		public static int parCount{get; private set;}
 
 		GridManager gridInstance; 
 
@@ -53,7 +56,7 @@ namespace Com.IsartDigital.SokoVolt {
 		public void LoadLevel(int pLevel)
 		{
 			string lJsonContent = JsonTool.ReadFileContents(JsonKeys.LEVELS_JSONS_PATH);
-            isLevelLoaded = false;
+            playerCanMove = false;
 
             if (!JsonTool.TryParseJson(lJsonContent, out Godot.Collections.Dictionary lRootDict))
 			{
@@ -92,6 +95,16 @@ namespace Com.IsartDigital.SokoVolt {
 			// Lire la portée des caisses Tesla (si elle est définie dans le JSON)
 			Godot.Collections.Array lBoxRangesArray = lLevelData.ContainsKey(JsonKeys.BOX_RANGE_KEY) ? 
 			(Godot.Collections.Array)lLevelData[JsonKeys.BOX_RANGE_KEY] : new Godot.Collections.Array();
+
+			int lPar = -1; // Valeur par défaut en cas d'erreur
+
+			if (lLevelData.ContainsKey(JsonKeys.PAR_KEY))
+			{
+				Variant lParVariant = lLevelData[JsonKeys.PAR_KEY];	
+				lPar = int.Parse(lParVariant.ToString()); 
+			}
+
+			parCount = lPar;
 
 			//BoxRange
 			int[] lBoxRanges = new int[lBoxRangesArray.Count];
@@ -188,7 +201,7 @@ namespace Com.IsartDigital.SokoVolt {
 				}
 			}
 
-			isLevelLoaded = true;
+			playerCanMove = true;
 		}
 	
 

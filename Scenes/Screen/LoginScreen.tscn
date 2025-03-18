@@ -11,7 +11,7 @@ font_color = Color(1, 0, 0, 1)
 [sub_resource type="LabelSettings" id="LabelSettings_g75en"]
 font_color = Color(1, 0, 0, 1)
 
-[node name="LoginScreen" type="Control" node_paths=PackedStringArray("loginNode", "inputLoginUsername", "inputLoginPassword", "buttonLoginConfirm", "buttonLoginGoCreate", "labelLoginName", "labelLoginUsername", "labelLoginPassword", "labelLoginError", "vContLoginUser", "vContLoginPass", "vContLogPosParent", "vLabNameLogPosParent", "vButCreateLogPosParent", "vContLogPassPosParent", "createNode", "inputCreateUsername", "inputCreatePassword", "inputCreateConfirmPassword", "buttonCreateConfirm", "buttonCreateGoLogin", "labelCreateName", "labelCreateUsername", "labelCreatePassword", "labelCreateConfirmPassword", "labelCreateErrorPasswords", "labelCreateErrorUsername")]
+[node name="LoginScreen" type="Control" node_paths=PackedStringArray("loginNode", "labelLoginError", "vContLoginUser", "vContLoginPass", "createNode", "labelCreateErrorPasswords", "labelCreateErrorUsername", "vBoxCreateUser", "vBoxCreatePass", "vBoxCreateConfirmPass")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -20,32 +20,15 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_skjs4")
 loginNode = NodePath("Login")
-inputLoginUsername = NodePath("Login/VContLoginUser/VContUser/InputUsername")
-inputLoginPassword = NodePath("Login/VContLoginUser/VContPass/InputPassword")
-buttonLoginConfirm = NodePath("Login/VContLoginUser/ButtonLogin")
-buttonLoginGoCreate = NodePath("Login/VContLoginUser/ButtonCreateAccount")
-labelLoginName = NodePath("Login/VContLoginUser/LabelLogin")
-labelLoginUsername = NodePath("Login/VContLoginUser/VContUser/LabelUsername")
-labelLoginPassword = NodePath("Login/VContLoginUser/VContPass/LabelPassword")
-labelLoginError = NodePath("Login/VContLoginUser/LabelError")
-vContLoginUser = NodePath("Login/VContLoginUser/VContUser")
-vContLoginPass = NodePath("Login/VContLoginUser/VContPass")
-vContLogPosParent = NodePath("Login/PosHolder/Username")
-vLabNameLogPosParent = NodePath("Login/PosHolder/Name")
-vButCreateLogPosParent = NodePath("Login/PosHolder/Create")
-vContLogPassPosParent = NodePath("Login/PosHolder/Password")
+labelLoginError = NodePath("Login/VBoxScreenHolder/LabelError")
+vContLoginUser = NodePath("Login/VBoxScreenHolder/VBoxUsername")
+vContLoginPass = NodePath("Login/VBoxScreenHolder/VBoxPassword")
 createNode = NodePath("Create")
-inputCreateUsername = NodePath("Create/VBoxContainer/InputUsername")
-inputCreatePassword = NodePath("Create/VBoxContainer/InputPassword")
-inputCreateConfirmPassword = NodePath("Create/VBoxContainer/InputPasswordConfirm")
-buttonCreateConfirm = NodePath("Create/VBoxContainer/ButtonLogin")
-buttonCreateGoLogin = NodePath("Create/VBoxContainer/ButtonCreateAccount")
-labelCreateName = NodePath("Create/VBoxContainer/LabelLogin")
-labelCreateUsername = NodePath("Create/VBoxContainer/LabelUsername")
-labelCreatePassword = NodePath("Create/VBoxContainer/LabelPassword")
-labelCreateConfirmPassword = NodePath("Create/VBoxContainer/LabelPassword2")
-labelCreateErrorPasswords = NodePath("Create/VBoxContainer/LabelErrorPasswords")
-labelCreateErrorUsername = NodePath("Create/VBoxContainer/LabelErrorUsername")
+labelCreateErrorPasswords = NodePath("Create/VBoxScreenHolder/LabelErrorPasswords")
+labelCreateErrorUsername = NodePath("Create/VBoxScreenHolder/LabelErrorUsername")
+vBoxCreateUser = NodePath("Create/VBoxScreenHolder/VBoxUsername")
+vBoxCreatePass = NodePath("Create/VBoxScreenHolder/VBoxPassword")
+vBoxCreateConfirmPass = NodePath("Create/VBoxScreenHolder/VBoxConfirmPassWord")
 
 [node name="Login" type="Control" parent="."]
 layout_mode = 1
@@ -99,50 +82,42 @@ offset_right = 39.9999
 offset_bottom = 40.0
 
 [node name="Name" type="Control" parent="Login/PosHolder"]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Pos1" type="Control" parent="Login/PosHolder/Name"]
 layout_mode = 1
-anchor_top = 8.75
-anchor_bottom = 8.75
+anchor_top = 0.324
+anchor_bottom = 0.324
+offset_top = 0.0799866
 offset_right = 40.0
-offset_bottom = 40.0
+offset_bottom = 40.08
 
 [node name="Create" type="Control" parent="Login/PosHolder"]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Pos1" type="Control" parent="Login/PosHolder/Create"]
 layout_mode = 1
-anchor_left = 22.025
-anchor_top = 27.0
-anchor_right = 22.025
-anchor_bottom = 27.0
-offset_left = -6.10352e-05
-offset_top = -0.00012207
-offset_right = 39.9999
-offset_bottom = 39.9999
+anchor_left = 0.459
+anchor_top = 1.0
+anchor_right = 0.459
+anchor_bottom = 1.0
+offset_left = -0.280029
+offset_right = 39.72
+offset_bottom = 40.0
 
 [node name="Password" type="Control" parent="Login/PosHolder"]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Pos1" type="Control" parent="Login/PosHolder/Password"]
 layout_mode = 1
-anchor_left = 48.0
-anchor_top = 13.25
-anchor_right = 48.0
-anchor_bottom = 13.25
-offset_left = -0.00012207
-offset_top = -6.10352e-05
-offset_right = 39.9999
-offset_bottom = 39.9999
+anchor_left = 1.0
+anchor_top = 0.491
+anchor_right = 1.0
+anchor_bottom = 0.491
+offset_top = -0.280029
+offset_right = 40.0
+offset_bottom = 39.72
 
-[node name="VContLoginUser" type="VBoxContainer" parent="Login"]
+[node name="Confirm" type="Control" parent="Login/PosHolder"]
+layout_mode = 1
+anchor_top = 0.548
+anchor_bottom = 0.548
+offset_top = 0.159973
+offset_right = 40.0
+offset_bottom = 40.16
+
+[node name="VBoxScreenHolder" type="VBoxContainer" parent="Login"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -156,47 +131,47 @@ offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="LabelLogin" type="Label" parent="Login/VContLoginUser"]
+[node name="LabName" type="Label" parent="Login/VBoxScreenHolder"]
 layout_mode = 2
 text = "Login"
 horizontal_alignment = 1
 
-[node name="VContUser" type="VBoxContainer" parent="Login/VContLoginUser"]
+[node name="VBoxUsername" type="VBoxContainer" parent="Login/VBoxScreenHolder"]
 layout_mode = 2
 
-[node name="LabelUsername" type="Label" parent="Login/VContLoginUser/VContUser"]
+[node name="LabUsername" type="Label" parent="Login/VBoxScreenHolder/VBoxUsername"]
 layout_mode = 2
 text = "Username:"
 
-[node name="InputUsername" type="TextEdit" parent="Login/VContLoginUser/VContUser"]
+[node name="InputUsername" type="TextEdit" parent="Login/VBoxScreenHolder/VBoxUsername"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 placeholder_text = "MyUsername"
 
-[node name="VContPass" type="VBoxContainer" parent="Login/VContLoginUser"]
+[node name="VBoxPassword" type="VBoxContainer" parent="Login/VBoxScreenHolder"]
 layout_mode = 2
 
-[node name="LabelPassword" type="Label" parent="Login/VContLoginUser/VContPass"]
+[node name="LabPassword" type="Label" parent="Login/VBoxScreenHolder/VBoxPassword"]
 layout_mode = 2
 text = "Password:"
 
-[node name="InputPassword" type="LineEdit" parent="Login/VContLoginUser/VContPass"]
+[node name="InputPassword" type="LineEdit" parent="Login/VBoxScreenHolder/VBoxPassword"]
 layout_mode = 2
 placeholder_text = "MyPassword"
 secret = true
 
-[node name="LabelError" type="Label" parent="Login/VContLoginUser"]
+[node name="LabelError" type="Label" parent="Login/VBoxScreenHolder"]
 visible = false
 layout_mode = 2
 text = "Wrong Username 
 or Password"
 label_settings = SubResource("LabelSettings_al77a")
 
-[node name="ButtonLogin" type="Button" parent="Login/VContLoginUser"]
+[node name="ButtonConfirm" type="Button" parent="Login/VBoxScreenHolder"]
 layout_mode = 2
 text = "Login"
 
-[node name="ButtonCreateAccount" type="Button" parent="Login/VContLoginUser"]
+[node name="ChangeScreen" type="Button" parent="Login/VBoxScreenHolder"]
 layout_mode = 2
 text = "Create an Acccount"
 
@@ -209,7 +184,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Create"]
+[node name="VBoxScreenHolder" type="VBoxContainer" parent="Create"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -223,56 +198,65 @@ offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="LabelLogin" type="Label" parent="Create/VBoxContainer"]
+[node name="LabName" type="Label" parent="Create/VBoxScreenHolder"]
 layout_mode = 2
 text = "Create an Account"
 horizontal_alignment = 1
 
-[node name="LabelUsername" type="Label" parent="Create/VBoxContainer"]
+[node name="VBoxUsername" type="VBoxContainer" parent="Create/VBoxScreenHolder"]
+layout_mode = 2
+
+[node name="LabUsername" type="Label" parent="Create/VBoxScreenHolder/VBoxUsername"]
 layout_mode = 2
 text = "Username:"
 
-[node name="InputUsername" type="TextEdit" parent="Create/VBoxContainer"]
+[node name="InputUsername" type="TextEdit" parent="Create/VBoxScreenHolder/VBoxUsername"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 placeholder_text = "MyUsername"
 
-[node name="LabelPassword" type="Label" parent="Create/VBoxContainer"]
+[node name="VBoxPassword" type="VBoxContainer" parent="Create/VBoxScreenHolder"]
+layout_mode = 2
+
+[node name="LabPassword" type="Label" parent="Create/VBoxScreenHolder/VBoxPassword"]
 layout_mode = 2
 text = "Password:"
 
-[node name="InputPassword" type="LineEdit" parent="Create/VBoxContainer"]
+[node name="InputPassword" type="LineEdit" parent="Create/VBoxScreenHolder/VBoxPassword"]
 layout_mode = 2
 placeholder_text = "MyPassword"
 secret = true
 
-[node name="LabelPassword2" type="Label" parent="Create/VBoxContainer"]
+[node name="VBoxConfirmPassWord" type="VBoxContainer" parent="Create/VBoxScreenHolder"]
+layout_mode = 2
+
+[node name="LabConfirmPassword" type="Label" parent="Create/VBoxScreenHolder/VBoxConfirmPassWord"]
 layout_mode = 2
 text = "Confirm your Password:"
 
-[node name="LabelErrorPasswords" type="Label" parent="Create/VBoxContainer"]
+[node name="InputConfirmPassword" type="LineEdit" parent="Create/VBoxScreenHolder/VBoxConfirmPassWord"]
+layout_mode = 2
+placeholder_text = "MyPassword"
+secret = true
+
+[node name="LabelErrorPasswords" type="Label" parent="Create/VBoxScreenHolder"]
 visible = false
 layout_mode = 2
 text = "Passwords does
 not match !"
 label_settings = SubResource("LabelSettings_cntyw")
 
-[node name="LabelErrorUsername" type="Label" parent="Create/VBoxContainer"]
+[node name="LabelErrorUsername" type="Label" parent="Create/VBoxScreenHolder"]
 visible = false
 layout_mode = 2
 text = "This Username
 already exist !"
 label_settings = SubResource("LabelSettings_g75en")
 
-[node name="InputPasswordConfirm" type="LineEdit" parent="Create/VBoxContainer"]
-layout_mode = 2
-placeholder_text = "MyPassword"
-secret = true
-
-[node name="ButtonLogin" type="Button" parent="Create/VBoxContainer"]
+[node name="ButtonConfirm" type="Button" parent="Create/VBoxScreenHolder"]
 layout_mode = 2
 text = "Create account"
 
-[node name="ButtonCreateAccount" type="Button" parent="Create/VBoxContainer"]
+[node name="ChangeScreen" type="Button" parent="Create/VBoxScreenHolder"]
 layout_mode = 2
 text = "Login"

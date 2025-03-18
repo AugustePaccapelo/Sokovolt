@@ -120,6 +120,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
         {
             if (pDisposing)
             {
+				gameManager.RemoveGoalBulb(this);
                 signals.BoxTeslaCalculsDone -= BoxTeslaMoved; // Déconnecte le signal pour éviter qu'il appelle un objet supprimé
             }
             base.Dispose(pDisposing);
