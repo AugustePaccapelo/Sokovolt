@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://dg077chl56p8g"]
+
+[ext_resource type="Texture2D" uid="uid://ddl6potg3whdy" path="res://Assets/GameObjects/IsoObjects/pngegg (3).png" id="1_tkhrt"]
+[ext_resource type="Script" path="res://Scripts/GameObjects/LevelCreatorItems.cs" id="2_1u6uq"]
+
+[node name="PlayerSpawn" type="TextureRect"]
+offset_left = 4.0
+offset_top = 40.0
+offset_right = 512.0
+offset_bottom = 400.0
+scale = Vector2(0.0517046, 0.0517046)
+texture = ExtResource("1_tkhrt")
+stretch_mode = 3
+script = ExtResource("2_1u6uq")

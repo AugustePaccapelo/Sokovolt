@@ -25,35 +25,16 @@ namespace Com.IsartDigital.SokoVolt
 			return instance;
 
 		}
-		#endregion
+        #endregion
 
-		[Export] private Button mainMenuButton;
-		[Export] private Button newLevelButton;
-		[Export] private Button loadLevelButton;
-		[Export] private Button menuCustomLevelButton;
-		[Export] private Button returnButton;
-		[Export] private Button saveButton;
-		[Export] private TextEdit loadLevelText;
-		[Export] private TextEdit levelName;
-		[Export] private LevelCreatorItems wallTexture;
-		[Export] private LevelCreatorItems teslaTexture;
-		[Export] private LevelCreatorItems bulbTexture;
-		[Export] private LevelCreatorItems generatorTexture;
-		[Export] private PackedScene wallScene;
-		[Export] private PackedScene teslaScene;
-		[Export] private PackedScene bulbScene;
-		[Export] private PackedScene generatorScene;
-		[Export] private PackedScene tileScene;
-		[Export] private PackedScene customLevelLabelScene;
-        [Export] private VBoxContainer buttonContainer;
-        [Export] private VBoxContainer deletebuttonContainer;
-        [Export] private VBoxContainer labelContainer;
+        [Export] private Button mainMenuButton, newLevelButton, loadLevelButton, menuCustomLevelButton, returnButton, saveButton;
+        [Export] private TextEdit loadLevelText, levelName;
+        [Export] private LevelCreatorItems wallTexture, electricWallTexture, teslaTexture, bulbTexture, generatorTexture, playerSpawnTexture, doorTexture;
+        [Export] private PackedScene wallScene, electricWallScene, teslaScene, bulbScene, generatorScene, playerSpawnScene, doorScene, tileScene, customLevelLabelScene;
+        [Export] private VBoxContainer buttonContainer, deleteButtonContainer, labelContainer;
         [Export] private Json customLevelTemplate;
-		private Panel newLevelBackGround;
-		private Panel loadLevelBackGround;
-		private Panel customLevelMenuBackGround;
-		private Panel backGrid;
-		private LevelCreatorItems actualItem;
+        private Panel newLevelBackground, loadLevelBackground, customLevelMenuBackground, backGrid;
+        private LevelCreatorItems actualItem;
 		private bool canPick = false;
         private TextureRect hoveredItem;
         private float tileSize = 50;
@@ -64,6 +45,9 @@ namespace Com.IsartDigital.SokoVolt
         private const string WALL_NAME = "wallTexture";
         private const string GENERATOR_NAME = "generatorTexture";
         private const string BULB_NAME = "bulbTexture";
+        private const string PLAYERSPAWN_NAME = "playerSpawnTexture";
+        private const string DOOR_NAME = "doorTexture";
+        private const string ELECTRIC_WALL_NAME = "electricWallTexture";
 
         private const int LENGHT = 11;
 
@@ -141,17 +125,51 @@ namespace Com.IsartDigital.SokoVolt
                 hoveredItem = null;
             };
 
+            doorTexture.MouseEntered += () =>
+            {
+                canPick = true;
+                hoveredItem = doorTexture;
+            };
+            doorTexture.MouseExited += () =>
+            {
+                canPick = false;
+                hoveredItem = null;
+            };
+
+            playerSpawnTexture.MouseEntered += () =>
+            {
+                canPick = true;
+                hoveredItem = playerSpawnTexture;
+            };
+            playerSpawnTexture.MouseExited += () =>
+            {
+                canPick = false;
+                hoveredItem = null;
+            };
+
+            electricWallTexture.MouseEntered += () =>
+            {
+                canPick = true;
+                hoveredItem = electricWallTexture;
+            };
+            electricWallTexture.MouseExited += () =>
+            {
+                canPick = false;
+                hoveredItem = null;
+            };
+
             #endregion
 
-            newLevelBackGround = GetNode<Panel>("NewLevelBackGround");
-            loadLevelBackGround = GetNode<Panel>("LoadLevelBackGround");
+            newLevelBackground = GetNode<Panel>("NewLevelBackGround");
+            loadLevelBackground = GetNode<Panel>("LoadLevelBackGround");
             cellContainer = GetNode<Node2D>("CellContainer");
-            customLevelMenuBackGround = GetNode<Panel>("CustomLevelListBackGround");
-            backGrid = newLevelBackGround.GetNode<Panel>("BackGrid");
+            customLevelMenuBackground = GetNode<Panel>("CustomLevelListBackGround");
+            backGrid = newLevelBackground.GetNode<Panel>("BackGrid");
 
-            newLevelBackGround.Visible = loadLevelBackGround.Visible = customLevelMenuBackGround.Visible = returnButton.Visible = false;
+            newLevelBackground.Visible = loadLevelBackground.Visible = customLevelMenuBackground.Visible = returnButton.Visible = false;
 
             //OpenCustomLevelsMenu();
+
         }
 
 		public override void _Process(double pDelta)
@@ -164,37 +182,127 @@ namespace Com.IsartDigital.SokoVolt
 
         private void CreateJSON()
         {
-            levelName.Text = "";
-            string lFileName = "res://Scripts/Json/CustomLevels/" + levelName.Text + ".Json";
-            if (!FileAccess.FileExists(lFileName) && levelName.Text.Length>0)
+            string lFileName = "res://Scripts/Json/CustomLevels/" + levelName.Text + ".json";
+
+            if (!FileAccess.FileExists(lFileName) && levelName.Text.Length > 0)
             {
-                using FileAccess lCreatFile = FileAccess.Open(lFileName, FileAccess.ModeFlags.Write);
-                lCreatFile.StoreString("{" +
-                    "\n  \"levelDesign\": [" +
-                    "\n    {" +
-                    "\n      \"par\": 0," +
-                    "\n      \"map\": [" +
-                    "\n        \"###########\"," +
-                    "\n        \"#         #\"," +
-                    "\n        \"#         #\"," +
-                    "\n        \"#         #\"," +
-                    "\n        \"#         #\"," +
-                    "\n        \"#         #\"," +
-                    "\n        \"#         #\"," +
-                    "\n        \"#         #\"," +
-                    "\n        \"#         #\"," +
-                    "\n        \"#         #\"," +
-                    "\n        \"###########\"" +
-                    "\n      ]," +
-                    "\n      \"boxRange\": []" +
-                    "\n    }" +
-                    "\n  ]" +
-                    "\n}");
+                string[] lMap = new string[LENGHT];
+                List<int> boxRange = new List<int>();
+
+                bool hasDoor = false;
+                bool hasPlayerSpawn = false;
+                bool hasGenerator = false;
+                bool hasBulb = false;
+
+                for (int y = 0; y < LENGHT; y++)
+                {
+                    string row = "";
+                    for (int x = 0; x < LENGHT; x++)
+                    {
+                        Vector2 cellIndex = new Vector2(x, y);
+
+                        if (gridDico.TryGetValue(cellIndex, out LevelCreatorTile lTile) && lTile.content != null)
+                        {
+                            switch (lTile.content.Name)
+                            {
+                                case WALL_NAME:
+                                    row += JsonKeys.WALL;
+                                    break;
+
+                                case TESLA_NAME:
+                                    row += JsonKeys.BOX;
+                                    if (lTile.content.teslaRange != null)
+                                    {
+                                        boxRange.Add((int)lTile.content.teslaRange.Value);
+                                    }
+                                    break;
+
+                                case BULB_NAME:
+                                    row += JsonKeys.GOAL_BULB;
+                                    hasBulb = true;
+                                    break;
+
+                                case GENERATOR_NAME:
+                                    row += JsonKeys.GENERATOR;
+                                    hasGenerator = true;
+                                    break;
+
+                                case PLAYERSPAWN_NAME:
+                                    row += JsonKeys.PLAYER;
+                                    hasPlayerSpawn = true;
+                                    break;
+
+                                case DOOR_NAME:
+                                    row += JsonKeys.DOOR;
+                                    hasDoor = true;
+                                    break;
+
+                                case ELECTRIC_WALL_NAME:
+                                    row += JsonKeys.ELECTRIC_WALL;
+                                    break;
+
+                                default:
+                                    row += ' ';
+                                    break;
+                            }
+                        }
+                        else
+                        {
+                            row += ' ';
+                        }
+                    }
+                    lMap[y] = row;
+                }
+
+                // Vérification des éléments obligatoires
+                if (!hasDoor || !hasPlayerSpawn || !hasGenerator || !hasBulb)
+                {
+                    GD.PrintErr("Éléments manquants : une porte, un playerspawn, un générateur et au moins une ampoule sont requis.");
+                    return;
+                }
+
+                // Construction du JSON final
+                string lJson = "{\n" +
+                    $"  \"{JsonKeys.LEVEL_DESIGN_KEY}\": [\n" +
+                    "    {\n" +
+                    $"      \"{JsonKeys.PAR_KEY}\": 0,\n" +
+                    $"      \"{JsonKeys.MAP_KEY}\": [\n";
+
+                for (int i = 0; i < lMap.Length; i++)
+                {
+                    lJson += $"        \"{lMap[i]}\"";
+                    if (i < lMap.Length - 1) lJson += ",";
+                    lJson += "\n";
+                }
+
+                lJson += $"      ],\n" +
+                    $"      \"{JsonKeys.BOX_RANGE_KEY}\": [";
+
+                // Écriture des valeurs de boxRange
+                for (int i = 0; i < boxRange.Count; i++)
+                {
+                    lJson += boxRange[i];
+                    if (i < boxRange.Count - 1) lJson += ", ";
+                }
+
+                lJson += $"]\n" +
+                    "    }\n" +
+                    "  ]\n" +
+                    "}";
+
+                using FileAccess lCreateFile = FileAccess.Open(lFileName, FileAccess.ModeFlags.Write);
+                lCreateFile.StoreString(lJson);
+
+                GD.Print("File created successfully: " + lFileName);
             }
-            else GD.PrintErr("Name file alreadyExist or empty");
+            else
+            {
+                GD.PrintErr("File already exists or name is empty.");
+            }
         }
 
-		private void MouseOn()
+
+        private void MouseOn()
 		{
 			if (Input.IsMouseButtonPressed(MouseButton.Left) && canPick)
 			{
@@ -222,6 +330,21 @@ namespace Com.IsartDigital.SokoVolt
                     lItem = generatorScene.Instantiate() as LevelCreatorItems;
                     lItem.Name = GENERATOR_NAME;
                 }
+                else if (hoveredItem == playerSpawnTexture)
+                {
+                    lItem = playerSpawnScene.Instantiate() as LevelCreatorItems;
+                    lItem.Name = PLAYERSPAWN_NAME;
+                }
+                else if (hoveredItem == electricWallTexture)
+                {
+                    lItem = electricWallScene.Instantiate() as LevelCreatorItems;
+                    lItem.Name = ELECTRIC_WALL_NAME;
+                }
+                else if (hoveredItem == doorTexture)
+                {
+                    lItem = doorScene.Instantiate() as LevelCreatorItems;
+                    lItem.Name = DOOR_NAME;
+                }
 
                 cellContainer.AddChild(lItem);
                 actualItem = lItem;
@@ -230,97 +353,139 @@ namespace Com.IsartDigital.SokoVolt
 
             if (Input.IsMouseButtonPressed(MouseButton.Right) && GetGridIndexFromMousePos() != new Vector2(-1, -1))
             {
-                LevelCreatorTile lTile = gridDico[GetGridIndexFromMousePos()];
-                foreach (var item in lTile.GetChildren()) item.QueueFree();
-                lTile.content = null;
-            }
-		}
+                Vector2 gridIndex = GetGridIndexFromMousePos();
 
-        private Vector2 PixelToGrid(Vector2 pPos)
-        {
-            return new Vector2(Mathf.FloorToInt((pPos.X - backGrid.Position.X) / (tileSize + space)), Mathf.FloorToInt((pPos.Y - backGrid.Position.Y) / (tileSize + space)));
+                if (gridDico.TryGetValue(gridIndex, out LevelCreatorTile lTile) && lTile.content != null)
+                {
+                    lTile.content.QueueFree();
+                    lTile.content = null;
+
+                    // Force la mise à jour du dictionnaire
+                    gridDico[gridIndex] = lTile;
+                }
+            }
+
         }
+
+        private Vector2 PixelToGrid(Vector2 position)
+        {
+            float x = (position.X - backGrid.GlobalPosition.X) / (tileSize + space);
+            float y = (position.Y - backGrid.GlobalPosition.Y) / (tileSize + space);
+
+            return new Vector2(Mathf.FloorToInt(x), Mathf.FloorToInt(y));
+        }
+
         private Vector2 GetGridIndexFromMousePos()
         {
-            Vector2 lMousePos = GetLocalMousePosition();
-            Vector2 lGridMousePos = PixelToGrid(lMousePos);
-            if (lGridMousePos.X < 0 || lGridMousePos.Y < 0
-                || lGridMousePos.X > LENGHT || lGridMousePos.Y > LENGHT)
-                lGridMousePos = new Vector2(-1, -1);
+            Vector2 mousePos = GetLocalMousePosition();
 
-            return lGridMousePos;
-        }
+            float gridX = (mousePos.X - backGrid.GlobalPosition.X) / (tileSize + space);
+            float gridY = (mousePos.Y - backGrid.GlobalPosition.Y) / (tileSize + space);
 
-        private void PlaceItem()
-		{
-			if (GetGridIndexFromMousePos() != new Vector2(-1, -1) && actualItem != null && Input.IsMouseButtonPressed(MouseButton.Left))
-			{
-				GD.Print("Place item");
-                LevelCreatorTile lTile = gridDico[GetGridIndexFromMousePos()];
-                if (lTile.content == null)
-                {
-                    string lTypeItem = actualItem.Name;
-                    cellContainer.RemoveChild(actualItem);
-                    lTile.AddChild(actualItem);
-                    actualItem.Scale *= 0.3f;
-                    actualItem.Position = Vector2.Zero;
-					lTile.content = actualItem;
-                    actualItem = null;
+            int x = Mathf.FloorToInt(gridX);
+            int y = Mathf.FloorToInt(gridY);
 
-                    GD.Print(lTypeItem);
-
-                    LevelCreatorItems lItem = new LevelCreatorItems();
-
-                    if (lTypeItem == WALL_NAME)
-                    {
-                        lItem = wallScene.Instantiate() as LevelCreatorItems;
-                        lItem.Name = WALL_NAME;
-                    }
-                    else if (lTypeItem == TESLA_NAME)
-                    {
-                        lItem = teslaScene.Instantiate() as LevelCreatorItems;
-                        if (lItem.teslaRange != null) lItem.teslaRange.Value = teslaTexture.teslaRange.Value;
-                        lItem.Name = TESLA_NAME;
-                    }
-                    else if (lTypeItem == BULB_NAME)
-                    {
-                        lItem = bulbScene.Instantiate() as LevelCreatorItems;
-                        lItem.Name = BULB_NAME;
-                    }
-                    else if (lTypeItem == GENERATOR_NAME)
-                    {
-                        lItem = generatorScene.Instantiate() as LevelCreatorItems;
-                        lItem.Name = GENERATOR_NAME;
-                    }
-
-                    cellContainer.AddChild(lItem);
-                    actualItem = lItem;
-                    canPick = false;
-                }
-			}
-            else if (GetGridIndexFromMousePos() == new Vector2(-1, -1) && actualItem != null && Input.IsMouseButtonPressed(MouseButton.Right))
+            if (x < 0 || y < 0 || x >= LENGHT || y >= LENGHT)
             {
-                actualItem.QueueFree();
-                actualItem = null;
+                return new Vector2(-1, -1);
             }
 
+            return new Vector2(x, y);
         }
+
+
+        private void PlaceItem()
+        {
+            Vector2 gridIndex = GetGridIndexFromMousePos();
+
+            if (gridIndex != new Vector2(-1, -1) && actualItem != null && Input.IsMouseButtonPressed(MouseButton.Left))
+            {
+                if (gridDico.TryGetValue(gridIndex, out LevelCreatorTile lTile))
+                {
+                    if (lTile.content == null)
+                    {
+                        string itemType = actualItem.Name;
+
+                        // Crée une nouvelle instance propre de l'objet
+                        LevelCreatorItems newItem = null;
+
+                        switch (itemType)
+                        {
+                            case WALL_NAME:
+                                newItem = wallScene.Instantiate<LevelCreatorItems>();
+                                break;
+                            case TESLA_NAME:
+                                newItem = teslaScene.Instantiate<LevelCreatorItems>();
+                                if (newItem.teslaRange != null)
+                                    newItem.teslaRange.Value = teslaTexture.teslaRange.Value;
+                                break;
+                            case BULB_NAME:
+                                newItem = bulbScene.Instantiate<LevelCreatorItems>();
+                                break;
+                            case GENERATOR_NAME:
+                                newItem = generatorScene.Instantiate<LevelCreatorItems>();
+                                break;
+                            case PLAYERSPAWN_NAME:
+                                newItem = playerSpawnScene.Instantiate<LevelCreatorItems>();
+                                break;
+                            case DOOR_NAME:
+                                newItem = doorScene.Instantiate<LevelCreatorItems>();
+                                break;
+                            case ELECTRIC_WALL_NAME:
+                                newItem = electricWallScene.Instantiate<LevelCreatorItems>();
+                                break;
+                        }
+
+                        if (newItem != null)
+                        {
+                            newItem.Scale *= 0.3f;
+                            newItem.Name = itemType;
+
+                            // Ajout dans la tuile
+                            lTile.content = newItem;
+                            lTile.AddChild(newItem);
+                            newItem.Position = Vector2.Zero;
+
+                            // On met à jour le dictionnaire correctement
+                            gridDico[gridIndex] = lTile;
+
+                            GD.Print($"Placed {itemType} at {gridIndex}");
+                        }
+
+                        // Supprimer l'élément actif après placement
+                        actualItem.QueueFree();
+                        actualItem = null;
+                    }
+                }
+            }
+
+            // Suppression si on clique droit en dehors de la grille
+            if (Input.IsMouseButtonPressed(MouseButton.Right) && gridIndex != new Vector2(-1, -1))
+            {
+                if (gridDico.TryGetValue(gridIndex, out LevelCreatorTile lTile) && lTile.content != null)
+                {
+                    lTile.content.QueueFree();
+                    lTile.content = null;
+                }
+            }
+        }
+
 
         private void Return()
         {
             returnButton.Hide();
-            newLevelBackGround.Visible = loadLevelBackGround.Visible = customLevelMenuBackGround.Visible = false;
+            newLevelBackground.Visible = loadLevelBackground.Visible = customLevelMenuBackground.Visible = false;
             levelName.Text = "";
             if (cellContainer.GetChildren() != null)
             {
                 foreach (var item in cellContainer.GetChildren()) item.QueueFree();
                 gridDico.Clear();
             }
-            if (buttonContainer.GetChildren() != null || labelContainer.GetChildren() != null || deletebuttonContainer.GetChildren() != null)
+            if (buttonContainer.GetChildren() != null || labelContainer.GetChildren() != null || deleteButtonContainer.GetChildren() != null)
             {
                 foreach (var item in buttonContainer.GetChildren()) item.QueueFree();
                 foreach (var item in labelContainer.GetChildren()) item.QueueFree();
-                foreach (var item in deletebuttonContainer.GetChildren()) item.QueueFree();
+                foreach (var item in deleteButtonContainer.GetChildren()) item.QueueFree();
             }
             HUD.GetInstance().winScreen?.QueueFree();
             HUD.GetInstance().Hide();
@@ -332,22 +497,22 @@ namespace Com.IsartDigital.SokoVolt
 
 		private void CreateNewLevel()
 		{
-            newLevelBackGround.Visible = returnButton.Visible = true;
+            newLevelBackground.Visible = returnButton.Visible = true;
 			CreateGrid();
         }
 
 		private void LoadLevel(string pLevelName)
 		{
             HUD.GetInstance().Show();
-            customLevelMenuBackGround.Hide();
+            customLevelMenuBackground.Hide();
             string lPath = "res://Scripts/Json/CustomLevels/" + pLevelName + ".json";
-            loadLevelBackGround.Visible = returnButton.Visible = true;
+            loadLevelBackground.Visible = returnButton.Visible = true;
             GridManager.GetInstance().LoadNewLevel(0, lPath, cellContainer);
         }
 
 		private void OpenCustomLevelsMenu()
 		{
-			customLevelMenuBackGround.Visible = returnButton.Visible = true;
+            customLevelMenuBackground.Visible = returnButton.Visible = true;
             DirContents("res://Scripts/Json/CustomLevels/");
         }
 
@@ -379,7 +544,7 @@ namespace Com.IsartDigital.SokoVolt
 
                         buttonContainer.AddChild(lButton);
                         labelContainer.AddChild(lLabel);
-                        deletebuttonContainer.AddChild(lDeleteButton);
+                        deleteButtonContainer.AddChild(lDeleteButton);
 
                         lButton.Text = "Play";
                         lDeleteButton.Text = "Delete Level";
@@ -406,7 +571,7 @@ namespace Com.IsartDigital.SokoVolt
             DirAccess.RemoveAbsolute(lFileName);
             foreach (var item in buttonContainer.GetChildren()) item.QueueFree();
             foreach (var item in labelContainer.GetChildren()) item.QueueFree();
-            foreach (var item in deletebuttonContainer.GetChildren()) item.QueueFree();
+            foreach (var item in deleteButtonContainer.GetChildren()) item.QueueFree();
             OpenCustomLevelsMenu();
         }
 
@@ -431,10 +596,11 @@ namespace Com.IsartDigital.SokoVolt
                     if (x == 0 || x == 10 || y == 0 || y == 10)
                     {
                         LevelCreatorItems lItem = wallScene.Instantiate() as LevelCreatorItems;
-                        cellContainer.AddChild(lItem);
                         lItem.Scale *= 0.3f;
-                        lItem.Position = lTile.Position;
+                        lItem.Name = WALL_NAME;
 						lTile.content = lItem;
+                        lTile.AddChild(lItem);
+                        lItem.Position = Vector2.Zero;
                     }
                 }
 			}

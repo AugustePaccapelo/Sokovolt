@@ -29,7 +29,6 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
             CustomSignals.GetInstance().StartRecherche += startConnection;
         }
 
-
         private void startConnection()
         {
             pritlist();

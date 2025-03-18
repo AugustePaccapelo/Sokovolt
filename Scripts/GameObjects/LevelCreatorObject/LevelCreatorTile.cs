@@ -12,13 +12,13 @@ namespace Com.IsartDigital.SokoVolt.GameObjects {
 
         public override void _Ready()
 		{
-
-		}
+            content = null;
+        }
 
 		public override void _Process(double pDelta)
 		{
 			float lDelta = (float)pDelta;
-
+			if(content != null) SelfModulate = Colors.Red;
 		}
 
 		protected override void Dispose(bool pDisposing)
