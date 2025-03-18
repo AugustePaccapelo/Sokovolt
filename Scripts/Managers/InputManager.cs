@@ -38,13 +38,7 @@ namespace Com.IsartDigital.SokoVolt.Managers
 
         public override void _Input(InputEvent @event) // to optimize
         {
-            if (!LevelLoader.isLevelLoaded) return;
-
-            //if (@event is InputEventMouseButton pEventMouseButtonKey && pEventMouseButtonKey.Pressed)
-            //{
-            //    HUD.GetInstance().undoButton.Pressed += () => CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.UndoButton);
-            //    HUD.GetInstance().redoButton.Pressed += () => CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.RedoButton);
-            //}
+            if (!LevelLoader.playerCanMove) return;
 
             if (@event is InputEventKey pEventKey && pEventKey.Pressed)
             {

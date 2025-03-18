@@ -14,7 +14,7 @@ namespace Com.IsartDigital.SokoVolt {
 
 		public static int  levelHeight{get; private set;}
 		public static int levelWidth{get; private set;}
-		public static bool playerCanMove { get; set;} = false;
+		public static bool playerCanMove = false;	
 
 		public static int parCount{get; private set;}
 
@@ -200,8 +200,7 @@ namespace Com.IsartDigital.SokoVolt {
 					}
 				}
 			}
-
-			playerCanMove = true;
+            playerCanMove = true;
 		}
 	
 
