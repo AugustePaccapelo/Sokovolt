@@ -1,10 +1,9 @@
-[gd_scene load_steps=22 format=3 uid="uid://dkbx646vvyaig"]
+[gd_scene load_steps=21 format=3 uid="uid://dkbx646vvyaig"]
 
 [ext_resource type="PackedScene" uid="uid://dyk47lo67a1tp" path="res://Scenes/Managers/ui_manager.tscn" id="1_4603a"]
 [ext_resource type="PackedScene" uid="uid://bnv0kco0ylr0e" path="res://Scenes/Managers/GridManager.tscn" id="1_d671q"]
 [ext_resource type="PackedScene" uid="uid://bix7hbs5g2ia3" path="res://Scenes/Managers/level_manager.tscn" id="2_g28jy"]
 [ext_resource type="Script" path="res://Scripts/Managers/InputManager.cs" id="3_3tpao"]
-[ext_resource type="PackedScene" uid="uid://bx4sq5cya6p7g" path="res://Scenes/Levels/level_creator_menu.tscn" id="3_t4e3e"]
 [ext_resource type="Script" path="res://Scripts/Json/LevelLoader.cs" id="4_ly116"]
 [ext_resource type="PackedScene" uid="uid://bsl1nyen453ty" path="res://Scenes/Levels/main_menu.tscn" id="5_0gm45"]
 [ext_resource type="PackedScene" uid="uid://d2u6414qoawnr" path="res://Scenes/GameObjects/Tile.tscn" id="5_8xedd"]
@@ -30,7 +29,6 @@
 script = ExtResource("3_3tpao")
 
 [node name="UIManager" parent="Managers" instance=ExtResource("1_4603a")]
-levelCreatorScene = ExtResource("3_t4e3e")
 
 [node name="LoginScreen" parent="Managers/UIManager" instance=ExtResource("6_vn404")]
 custom_minimum_size = Vector2(1152, 648)
@@ -60,9 +58,10 @@ offset_bottom = 1080.0
 grow_horizontal = 1
 grow_vertical = 1
 
-[node name="GridManager" parent="Managers" instance=ExtResource("1_d671q")]
+[node name="GridManager" parent="Managers" node_paths=PackedStringArray("objectsContainer") instance=ExtResource("1_d671q")]
+objectsContainer = NodePath("../../Containers/ObjectsContainer")
 
-[node name="LevelLoader" type="Node2D" parent="Managers" node_paths=PackedStringArray("objectsContainer")]
+[node name="LevelLoader" type="Node2D" parent="Managers"]
 script = ExtResource("4_ly116")
 cellScene = ExtResource("5_8xedd")
 playerScene = ExtResource("6_65akx")
@@ -72,7 +71,6 @@ electricWallScene = ExtResource("9_34m77")
 goalBulbScene = ExtResource("10_cjqye")
 generatorScene = ExtResource("11_lsk15")
 doorScene = ExtResource("12_pyytn")
-objectsContainer = NodePath("../../Containers/ObjectsContainer")
 
 [node name="GameManager" parent="Managers" node_paths=PackedStringArray("objectsContainer") instance=ExtResource("7_vkagg")]
 objectsContainer = NodePath("../../Containers/ObjectsContainer")

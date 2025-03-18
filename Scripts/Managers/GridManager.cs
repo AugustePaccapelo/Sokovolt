@@ -24,7 +24,8 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 
 		//Grid Gestion 
 		public Cell[,] grid { get; private set; }
-		public List<Cell[,]> gridStates = new List<Cell[,]>();
+        [Export] private Node2D objectsContainer;
+        public List<Cell[,]> gridStates = new List<Cell[,]>();
 		private int actualGridStateIndex = 0;
 		public static Vector2 gridOffset;
 		public Player player;
@@ -71,7 +72,7 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 
 		private void  SignalsConnetion()
 		{
-			CustomSignals.GetInstance().LoadLevel  += LoadNewLevel;
+			CustomSignals.GetInstance().LoadLevel  += (level) => LoadNewLevel(level, JsonKeys.LEVELS_JSONS_PATH, objectsContainer);
             CustomSignals.GetInstance().Move += OnMovePlayer;
             CustomSignals.GetInstance().UndoRedo += UndoRedo;
             CustomSignals.GetInstance().Retry += Retry;
@@ -86,11 +87,11 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 
 		#region // ----- Load Level ----- \\
 
-		public void LoadNewLevel(int pLevelToLoad) // ==================> Charger un niveau avec son index (commence à 0)
+		public void LoadNewLevel(int pLevelToLoad, string pLevelPath, Node2D pObjectContainer) // ==================> Charger un niveau avec son index (commence à 0)
 		{
 			ResetStepCounter();
 			HUD.GetInstance().Visible = true;
-			LevelLoader.GetInstance().LoadLevel(pLevelToLoad);
+			LevelLoader.GetInstance().LoadLevel(pLevelToLoad, pLevelPath, pObjectContainer);
 			minPar = LevelLoader.parCount; 
 			GD.PrintErr(minPar); 
 			CenterGrid(); 
@@ -213,7 +214,7 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 			}
 			else return;
 
-			PrintGrid();
+			PrintGrid(grid);
 		}
 
 		private bool OutOfGrid(int pX, int pY)
@@ -286,7 +287,7 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 			actualGridStateIndex = pIndexState;
 			UpdateStepLabel();
 			UpdateObjectsFromGrid();
-			PrintGrid();
+			PrintGrid(grid);
 		}
 
 
@@ -336,7 +337,7 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 
 
 		#region // ----- Provisoir pour test ----- \\
-		private void PrintGrid()	//=================================> Provisoir pour test 
+		public void PrintGrid(Cell[,] pGrid)	//=================================> Provisoir pour test 
 		{
 			string lGridString = "";
 
@@ -344,7 +345,7 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 			{
 				for (int x = 0; x < LevelLoader.levelWidth; x++)
 				{
-					GameObject lContent = grid[x, y].GetContent();
+					GameObject lContent = pGrid[x, y].GetContent();
 					
 					if (lContent is Player)
 						lGridString += "@ ";

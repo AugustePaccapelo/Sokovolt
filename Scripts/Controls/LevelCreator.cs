@@ -1,4 +1,5 @@
 using Com.IsartDigital.SokoVolt.GameObjects;
+using Com.IsartDigital.SokoVolt.Managers;
 using Godot;
 using System;
 using System.Collections.Generic;
@@ -27,6 +28,9 @@ namespace Com.IsartDigital.SokoVolt
 		[Export] Button mainMenuButton;
 		[Export] Button newLevelButton;
 		[Export] Button loadLevelButton;
+		[Export] Button menuCustomLevelButton;
+		[Export] Button returnButton;
+		[Export] TextEdit loadLevelText;
 		[Export] LevelCreatorItems wallTexture;
 		[Export] LevelCreatorItems teslaTexture;
 		[Export] LevelCreatorItems bulbTexture;
@@ -36,13 +40,20 @@ namespace Com.IsartDigital.SokoVolt
 		[Export] PackedScene bulbScene;
 		[Export] PackedScene generatorScene;
 		[Export] PackedScene tileScene;
-		private Panel backGround;
+		[Export] PackedScene customLevelLabelScene;
+        [Export] VBoxContainer buttonContainer;
+        [Export] VBoxContainer labelContainer;
+		private Panel newLevelBackGround;
+		private Panel loadLevelBackGround;
+		private Panel customLevelMenuBackGround;
 		private Panel backGrid;
 		private LevelCreatorItems actualItem;
 		private bool canPick = false;
         private TextureRect hoveredItem;
         private float tileSize = 50;
         private float space = 5;
+        private Node2D cellContainer;
+        
 
         private const int LENGHT = 11;
 
@@ -62,7 +73,10 @@ namespace Com.IsartDigital.SokoVolt
 			#endregion
 
 			mainMenuButton.Pressed += () => CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.GoToMainMenu);
-            newLevelButton.Pressed += () => CreateNewLevel();
+            newLevelButton.Pressed += CreateNewLevel;
+            loadLevelButton.Pressed += () => LoadLevel(loadLevelText.Text);
+            menuCustomLevelButton.Pressed += OpenCustomLevelsMenu;
+            returnButton.Pressed += Return;
 
 
             #region Mouse & Item signal Connection
@@ -112,10 +126,15 @@ namespace Com.IsartDigital.SokoVolt
 
             #endregion
 
-            backGround = GetNode<Panel>("BackGround");
-			backGround.Hide();
+            newLevelBackGround = GetNode<Panel>("NewLevelBackGround");
+            loadLevelBackGround = GetNode<Panel>("LoadLevelBackGround");
+            cellContainer = GetNode<Node2D>("CellContainer");
+            customLevelMenuBackGround = GetNode<Panel>("CustomLevelListBackGround");
+            backGrid = newLevelBackGround.GetNode<Panel>("BackGrid");
 
-			backGrid = backGround.GetNode<Panel>("BackGrid");
+            Return();
+
+            //OpenCustomLevelsMenu();
         }
 
 		public override void _Process(double pDelta)
@@ -142,7 +161,7 @@ namespace Com.IsartDigital.SokoVolt
 				else if (hoveredItem == bulbTexture) lItem = bulbScene.Instantiate() as LevelCreatorItems;
 				else if (hoveredItem == generatorTexture) lItem = generatorScene.Instantiate() as LevelCreatorItems;
 
-                AddChild(lItem);
+                cellContainer.AddChild(lItem);
                 actualItem = lItem;
                 canPick = false;
             }
@@ -178,13 +197,82 @@ namespace Com.IsartDigital.SokoVolt
 			}
 		}
 
+        private void Return()
+        {
+            returnButton.Hide();
+            newLevelBackGround.Visible = loadLevelBackGround.Visible = customLevelMenuBackGround.Visible = false;
+            if (cellContainer.GetChildren() != null)
+            {
+                foreach (var item in cellContainer.GetChildren()) item.QueueFree();
+                gridDico.Clear();
+            }
+            if (buttonContainer.GetChildren() != null || labelContainer.GetChildren() != null)
+            {
+                foreach (var item in buttonContainer.GetChildren()) item.QueueFree();
+                foreach (var item in labelContainer.GetChildren()) item.QueueFree();
+            }
+        }
+
 		private void CreateNewLevel()
 		{
-			backGround.Show();
+            newLevelBackGround.Visible = returnButton.Visible = true;
 			CreateGrid();
         }
 
-		private void CreateGrid()
+		private void LoadLevel(string pLevelName)
+		{
+            customLevelMenuBackGround.Hide();
+            string lPath = "res://Scripts/Json/CustomLevels/" + pLevelName + ".json";
+            loadLevelBackGround.Visible = returnButton.Visible = true;
+            GridManager.GetInstance().LoadNewLevel(0, lPath, cellContainer);
+        }
+
+		private void OpenCustomLevelsMenu()
+		{
+			customLevelMenuBackGround.Visible = returnButton.Visible = true;
+            DirContents("res://Scripts/Json/CustomLevels/");
+        }
+        public void DirContents(string path)
+        {
+            using DirAccess lDir = DirAccess.Open(path);
+            if (lDir != null)
+            {
+                lDir.ListDirBegin();
+                string lFileName = lDir.GetNext();
+                while (lFileName != "")
+                {
+                    if (lDir.CurrentIsDir())
+                    {
+                        GD.Print($"Found directory: {lFileName}");
+                    }
+                    else
+                    {
+                        GD.Print($"Found file: {lFileName}");
+                        Button lButton = new Button();
+                        lButton.CustomMinimumSize = new Vector2(200, 200);
+                        Label lLabel = customLevelLabelScene.Instantiate() as Label;
+                        lLabel.CustomMinimumSize = new Vector2(800, 200);
+
+                        buttonContainer.AddChild(lButton);
+                        labelContainer.AddChild(lLabel);
+
+                        lButton.Text = "Play";
+
+                        string lName = lFileName.GetBaseName();
+                        lLabel.Text = lName;
+
+                        lButton.Pressed += () => LoadLevel(lName);
+                    }
+                    lFileName = lDir.GetNext();
+                }
+            }
+            else
+            {
+                GD.Print("An error occurred when trying to access the path.");
+            }
+        }
+
+        private void CreateGrid()
 		{
 			LevelCreatorTile lTile = tileScene.Instantiate() as LevelCreatorTile;
 			Vector2 lPos;
@@ -198,14 +286,14 @@ namespace Com.IsartDigital.SokoVolt
 					lTile = new LevelCreatorTile();
 					lTile.Color = new Color(0.5f, 0.5f, 0.5f, 1);
 					lTile.Size = new Vector2(tileSize, tileSize);
-					AddChild(lTile);
+					cellContainer.AddChild(lTile);
 					lTile.Position = new Vector2(lPos.X, lPos.Y + ((tileSize + space) * y));
 					gridDico.Add(PixelToGrid(lTile.Position), lTile);
 					GD.Print("CreateTile");
                     if (x == 0 || x == 10 || y == 0 || y == 10)
                     {
                         LevelCreatorItems lItem = wallScene.Instantiate() as LevelCreatorItems;
-                        AddChild(lItem);
+                        cellContainer.AddChild(lItem);
                         lItem.Scale *= 0.3f;
                         lItem.Position = lTile.Position;
 						lTile.content = lItem;

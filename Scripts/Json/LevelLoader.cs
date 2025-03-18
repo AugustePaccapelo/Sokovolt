@@ -10,7 +10,6 @@ namespace Com.IsartDigital.SokoVolt {
 	public partial class LevelLoader : Node
 	{
 		[Export] private PackedScene cellScene, playerScene, boxScene, wallScene, electricWallScene, goalBulbScene, generatorScene, doorScene; 
-		[Export] private Node2D objectsContainer;  		
 
 		public static int  levelHeight{get; private set;}
 		public static int levelWidth{get; private set;}
@@ -53,9 +52,9 @@ namespace Com.IsartDigital.SokoVolt {
 			IsoManager.Init(Utils.TILE_WIDTH, Utils.TILE_HEIGHT); 
 		}
 
-		public void LoadLevel(int pLevel)
+		public void LoadLevel(int pLevel, string pLevelPath, Node2D pObjectContainer)
 		{
-			string lJsonContent = JsonTool.ReadFileContents(JsonKeys.LEVELS_JSONS_PATH);
+			string lJsonContent = JsonTool.ReadFileContents(pLevelPath);
             playerCanMove = false;
 
             if (!JsonTool.TryParseJson(lJsonContent, out Godot.Collections.Dictionary lRootDict))
@@ -138,7 +137,7 @@ namespace Com.IsartDigital.SokoVolt {
 
 					char lTile = lRow[x];
 
-					Cell lCell = Utils.Spawner(cellScene, x, y, objectsContainer) as Cell;
+					Cell lCell = Utils.Spawner(cellScene, x, y, pObjectContainer) as Cell;
 					gridInstance.grid[x, y] = lCell;
 
 					GameObject lObj = null; 
@@ -146,12 +145,12 @@ namespace Com.IsartDigital.SokoVolt {
 					switch(lTile)
 					{
 						case JsonKeys.PLAYER :
-							lObj = Utils.Spawner(playerScene, x, y, objectsContainer) as Player;
+							lObj = Utils.Spawner(playerScene, x, y, pObjectContainer) as Player;
 							GridManager.GetInstance().player = lObj as Player;
 							break;
 
 						case JsonKeys.BOX :
-							lObj = Utils.Spawner(boxScene, x, y, objectsContainer) as BoxTesla;
+							lObj = Utils.Spawner(boxScene, x, y, pObjectContainer) as BoxTesla;
 
 							// Vérifier qu'on a une portée disponible et l'appliquer
 							if (lBoxIndex < lBoxRanges.Length && lObj != null)
@@ -166,23 +165,23 @@ namespace Com.IsartDigital.SokoVolt {
 							break;
 
 						case JsonKeys.WALL :
-							lObj = Utils.Spawner(wallScene, x, y, objectsContainer) as Wall;
+							lObj = Utils.Spawner(wallScene, x, y, pObjectContainer) as Wall;
 							break;
 
 						case JsonKeys.ELECTRIC_WALL :
-							lObj = Utils.Spawner(electricWallScene, x, y, objectsContainer) as ElectricWall;
+							lObj = Utils.Spawner(electricWallScene, x, y, pObjectContainer) as ElectricWall;
 							break;
 
 						case JsonKeys.GOAL_BULB :
-							lObj = Utils.Spawner(goalBulbScene, x, y, objectsContainer) as GoalBulb;
+							lObj = Utils.Spawner(goalBulbScene, x, y, pObjectContainer) as GoalBulb;
 							break;
 
 						case JsonKeys.GENERATOR :
-							lObj = Utils.Spawner(generatorScene, x, y, objectsContainer) as Generator;
+							lObj = Utils.Spawner(generatorScene, x, y, pObjectContainer) as Generator;
 							break;
 
 						case JsonKeys.DOOR :
-							lObj = Utils.Spawner(doorScene, x, y, objectsContainer) as Door;
+							lObj = Utils.Spawner(doorScene, x, y, pObjectContainer) as Door;
 							break;
 					}
 

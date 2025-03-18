@@ -1,0 +1,207 @@
+[gd_scene load_steps=12 format=3 uid="uid://bx4sq5cya6p7g"]
+
+[ext_resource type="PackedScene" uid="uid://36dp5dq6hmqq" path="res://Scenes/GameObjects/ButtonTemplate.tscn" id="1_8igok"]
+[ext_resource type="Script" path="res://Scripts/Controls/LevelCreator.cs" id="1_bf11f"]
+[ext_resource type="PackedScene" uid="uid://cpdk0i0vijcdy" path="res://Scenes/GameObjects/LevelCreator/level_creator_tile.tscn" id="3_mha4c"]
+[ext_resource type="PackedScene" uid="uid://dsejj00jkjkaw" path="res://Scenes/GameObjects/LevelCreator/bulb_texture.tscn" id="5_7j68n"]
+[ext_resource type="PackedScene" uid="uid://6f6pej0whxvb" path="res://Scenes/GameObjects/LevelCreator/generator_texture.tscn" id="6_wy1dl"]
+[ext_resource type="PackedScene" uid="uid://bqdvcl5bpx284" path="res://Scenes/GameObjects/LevelCreator/tesla_texture.tscn" id="7_5weia"]
+[ext_resource type="PackedScene" uid="uid://dld6hinoxjug8" path="res://Scenes/GameObjects/LevelCreator/custom_level_label.tscn" id="7_p6ycg"]
+[ext_resource type="PackedScene" uid="uid://bvpdafbbrw7s7" path="res://Scenes/GameObjects/LevelCreator/wall_texture.tscn" id="8_gc0rv"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oto23"]
+bg_color = Color(0.43134, 0.43134, 0.43134, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pf3ks"]
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.422258, 0.153029, 0.181139, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wq6pk"]
+bg_color = Color(0.467584, 0.610789, 0.795028, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+shadow_size = 10
+shadow_offset = Vector2(5, 5)
+
+[node name="LevelCreatorMenu" type="Control" node_paths=PackedStringArray("mainMenuButton", "newLevelButton", "loadLevelButton", "menuCustomLevelButton", "returnButton", "loadLevelText", "wallTexture", "teslaTexture", "bulbTexture", "generatorTexture", "buttonContainer", "labelContainer")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_bf11f")
+mainMenuButton = NodePath("MainMenuButton")
+newLevelButton = NodePath("Menu/NewLevelButton")
+loadLevelButton = NodePath("CustomLevelListBackGround/LoadLevelButton")
+menuCustomLevelButton = NodePath("Menu/MenuCustomLevelButton")
+returnButton = NodePath("ReturnButton")
+loadLevelText = NodePath("CustomLevelListBackGround/TextEdit")
+wallTexture = NodePath("NewLevelBackGround/Inventory/Wall")
+teslaTexture = NodePath("NewLevelBackGround/Inventory/Tesla")
+bulbTexture = NodePath("NewLevelBackGround/Inventory/Bulb")
+generatorTexture = NodePath("NewLevelBackGround/Inventory/Generator")
+wallScene = ExtResource("8_gc0rv")
+teslaScene = ExtResource("7_5weia")
+bulbScene = ExtResource("5_7j68n")
+generatorScene = ExtResource("6_wy1dl")
+tileScene = ExtResource("3_mha4c")
+customLevelLabelScene = ExtResource("7_p6ycg")
+buttonContainer = NodePath("CustomLevelListBackGround/MenuBar/HBoxContainer/ButtonContainer")
+labelContainer = NodePath("CustomLevelListBackGround/MenuBar/HBoxContainer/LabelContainer")
+
+[node name="Menu" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="NewLevelButton" parent="Menu" instance=ExtResource("1_8igok")]
+layout_mode = 1
+offset_left = 370.0
+offset_top = 433.0
+offset_right = 525.0
+offset_bottom = 526.0
+pivot_offset = Vector2(77, 46)
+text = "New Level"
+
+[node name="MenuCustomLevelButton" parent="Menu" instance=ExtResource("1_8igok")]
+layout_mode = 1
+offset_left = 1300.0
+offset_top = 435.0
+offset_right = 1469.0
+offset_bottom = 528.0
+pivot_offset = Vector2(77, 46)
+text = "Custom Levels Menu"
+
+[node name="MainMenuButton" parent="." instance=ExtResource("1_8igok")]
+layout_mode = 1
+offset_left = 78.0
+offset_top = 925.0
+offset_right = 233.0
+offset_bottom = 1018.0
+pivot_offset = Vector2(77, 46)
+text = "MainMenu"
+
+[node name="NewLevelBackGround" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+offset_right = 1920.0
+offset_bottom = 1080.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_oto23")
+
+[node name="Inventory" type="Panel" parent="NewLevelBackGround"]
+layout_mode = 1
+offset_left = 1626.0
+offset_top = 1.0
+offset_right = 1920.0
+offset_bottom = 1081.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_pf3ks")
+
+[node name="Bulb" parent="NewLevelBackGround/Inventory" instance=ExtResource("5_7j68n")]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 40.0
+offset_right = 512.0
+offset_bottom = 400.0
+stretch_mode = 3
+
+[node name="Generator" parent="NewLevelBackGround/Inventory" instance=ExtResource("6_wy1dl")]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 324.0
+offset_right = 1568.0
+offset_bottom = 1304.0
+stretch_mode = 3
+
+[node name="Tesla" parent="NewLevelBackGround/Inventory" instance=ExtResource("7_5weia")]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 576.0
+offset_right = 660.0
+offset_bottom = 984.0
+
+[node name="Wall" parent="NewLevelBackGround/Inventory" instance=ExtResource("8_gc0rv")]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 863.0
+offset_right = 409.0
+offset_bottom = 1129.0
+
+[node name="BackGrid" type="Panel" parent="NewLevelBackGround"]
+layout_mode = 1
+offset_left = 267.0
+offset_top = 130.0
+offset_right = 877.0
+offset_bottom = 740.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_wq6pk")
+
+[node name="LoadLevelBackGround" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+offset_right = 1920.0
+offset_bottom = 1080.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_oto23")
+
+[node name="CustomLevelListBackGround" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+offset_right = 1920.0
+offset_bottom = 1080.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_oto23")
+
+[node name="MenuBar" type="ScrollContainer" parent="CustomLevelListBackGround"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 1
+offset_left = 446.0
+offset_top = 277.0
+offset_right = 1458.0
+offset_bottom = 727.0
+pivot_offset = Vector2(506, 225)
+horizontal_scroll_mode = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CustomLevelListBackGround/MenuBar"]
+layout_mode = 2
+
+[node name="ButtonContainer" type="VBoxContainer" parent="CustomLevelListBackGround/MenuBar/HBoxContainer"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+
+[node name="LabelContainer" type="VBoxContainer" parent="CustomLevelListBackGround/MenuBar/HBoxContainer"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+
+[node name="LoadLevelButton" parent="CustomLevelListBackGround" instance=ExtResource("1_8igok")]
+layout_mode = 1
+offset_left = 1519.0
+offset_top = 837.0
+offset_right = 1674.0
+offset_bottom = 930.0
+pivot_offset = Vector2(77, 46)
+text = "Load Level"
+
+[node name="TextEdit" type="TextEdit" parent="CustomLevelListBackGround"]
+layout_mode = 1
+offset_left = 1300.0
+offset_top = 952.0
+offset_right = 1900.0
+offset_bottom = 1052.0
+theme_override_font_sizes/font_size = 32
+placeholder_text = "Level Name"
+
+[node name="CellContainer" type="Node2D" parent="."]
+
+[node name="ReturnButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 63.0
+offset_top = 924.0
+offset_right = 234.0
+offset_bottom = 1019.0
+text = "Retrun"
