@@ -38,6 +38,7 @@ namespace Com.IsartDigital.SokoVolt
 		[Export] private Label labelLoginError;
 		private Label labelLoginName, labelLoginUsername, labelLoginPassword;
 		[Export] private VBoxContainer vContLoginUser, vContLoginPass;
+		[Export] private Piston loginPiston;
 
 		private Control loginPosHolder;
 		private Vector2 animPosLoginName, animPosLoginButtonConfirm, animPosLoginButtonChangeScreen, animPosLoginPassword;
@@ -106,6 +107,8 @@ namespace Com.IsartDigital.SokoVolt
 			buttonCreateGoLogin.Pressed += ButtonChangeToLogin;
             buttonLoginConfirm.Pressed += ButtonPressedLogin;
 			buttonCreateConfirm.Pressed += ButtonPressedCreate;
+
+			loginPiston.GlobalPosition = new Vector2(loginPiston.GlobalPosition.X, screenSize.Y);
         }
 
 		public override void _Process(double pDelta)
@@ -233,6 +236,8 @@ namespace Com.IsartDigital.SokoVolt
 
 			// Button create animation
 			lTween.TweenProperty(buttonLoginGoCreate, "global_position", buttonLoginGoCreate.GlobalPosition, 1.5f).From(animPosLoginButtonChangeScreen);
+			loginPiston.Extend();
+			
 
 			// Password label and input animation
 			lTween.TweenProperty(vContLoginPass, "global_position", vContLoginPass.GlobalPosition, 1.5f).From(animPosLoginPassword);
