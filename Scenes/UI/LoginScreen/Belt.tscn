@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://cpnulmydq6mp6"]
+
+[ext_resource type="Texture2D" uid="uid://x36mjat5rj4g" path="res://Assets/UI/LoginScreen/BeltAnimateTexture.tres" id="1_d7w8j"]
+
+[node name="Belt" type="TextureRect"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -290.0
+offset_bottom = -882.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_d7w8j")

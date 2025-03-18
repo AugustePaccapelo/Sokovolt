@@ -44,17 +44,22 @@ namespace Com.IsartDigital.SokoVolt{
 
 		private void Init()
 		{
-			CustomMinimumSize = GetViewportRect().Size;	
-			undoButton.Pressed += () => EmitSignal(nameof(UndoButton));
-			redoButton.Pressed += () => EmitSignal(nameof(RedoButton));
-			mainMenuButton.Pressed += ReturnToMenu;
+			CustomMinimumSize = GetViewportRect().Size;
+			UndoRedo();
+            mainMenuButton.Pressed += ReturnToMenu;
 			CustomSignals lSignals = CustomSignals.GetInstance();
 			lSignals.GameFinished += GameFinished;
 		}
 
-		public void GameFinished(int pNumStar, int pScore, int pNumStep)
+		private void UndoRedo()
 		{
-            LevelLoader.playerCanMove = false;
+            if (!LevelLoader.playerCanMove) return;
+            undoButton.Pressed += () => CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.UndoButton);
+            redoButton.Pressed += () => CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.RedoButton);
+        }
+
+        public void GameFinished(int pNumStar, int pScore, int pNumStep)
+		{
             Tween lTween = CreateTween();
             winScreen = winScreenScene.Instantiate() as WinScreen;
 			AddChild(winScreen);
@@ -64,6 +69,7 @@ namespace Com.IsartDigital.SokoVolt{
 			winScreen.UpdateStats(pScore, pNumStep);
 			lTween.Finished += () => GetTree().CreateTimer(1f).Timeout += () => 
 			winScreen.StarSysteme(pNumStar);
+			LevelLoader.playerCanMove = false;
         }
 
 		private void ReturnToMenu()
