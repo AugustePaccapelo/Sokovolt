@@ -24,7 +24,7 @@ namespace Com.IsartDigital.SokoVolt{
 		[Export] public Button undoButton, redoButton, mainMenuButton;
 		[Export] public Label scoreLabel, stepLabel, winLabel; 
 		[Export] public PackedScene winScreenScene;
-		public WinScreen winScreen;
+		private WinScreen winScreen;
 
 		public override void _Ready()
 		{
@@ -49,14 +49,7 @@ namespace Com.IsartDigital.SokoVolt{
 			lSignals.GameFinished +=  GameFinished; 
 		}
 
-		private void UndoRedo()
-		{
-            if (!LevelLoader.playerCanMove) return;
-            undoButton.Pressed += () => CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.UndoButton);
-            redoButton.Pressed += () => CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.RedoButton);
-        }
-
-        public void GameFinished(int pNumStar, int pScore, int pNumStep)
+		public void GameFinished(int pNumStar, int pScore, int pNumStep)
 		{
 			CustomSignals.GetInstance().EndLevelAnimation += () =>
 			{

@@ -1,4 +1,4 @@
-using Godot;
+﻿using Godot;
 using System;
 using Com.IsartDigital.SokoVolt.GameObjects;
 using Com.IsartDigital.SokoVolt.GameObjects.Movables;
@@ -28,8 +28,7 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 
 		//Grid Gestion 
 		public Cell[,] grid { get; private set; }
-        [Export] private Node2D objectsContainer;
-        public List<Cell[,]> gridStates = new List<Cell[,]>();
+		public List<Cell[,]> gridStates = new List<Cell[,]>();
 		private int actualGridStateIndex = 0;
 		public static Vector2 gridOffset;
 		public Player player;
@@ -95,7 +94,7 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 
 		#region // ----- Load Level ----- \\
 
-		public void LoadNewLevel(int pLevelToLoad, string pLevelPath, Node2D pObjectContainer) // ==================> Charger un niveau avec son index (commence à 0)
+		public void LoadNewLevel(int pLevelToLoad) // ==================> Charger un niveau avec son index (commence à 0)
 		{
 			ResetStepCounter();
 			hud.Visible = true;
@@ -220,7 +219,7 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 			}
 			else return;
 
-			PrintGrid(grid);
+			PrintGrid();
 		}
 
 		private bool OutOfGrid(int pX, int pY)
@@ -237,8 +236,8 @@ namespace Com.IsartDigital.SokoVolt.Managers {
         private void UndoRedo(int pAmount)
         {
             int lAmount = pAmount; 
-            currentlyUndoRedo = true;
-            if(!(player.curentCell.GetContent() is BoxTesla) && playerWasOnTesla) lAmount *= 2;
+            currentlyUndoRedo = true; 
+            if(!(player.curentCell.GetContent() is BoxTesla) && playerWasOnTesla) lAmount *= 2; 
             SetGridState(actualGridStateIndex + lAmount);
 			
             GetTree().CreateTimer(1).Timeout += () => currentlyUndoRedo = false;	
@@ -293,7 +292,7 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 			actualGridStateIndex = pIndexState;
 			UpdateStepLabel();
 			UpdateObjectsFromGrid();
-			PrintGrid(grid);
+			PrintGrid();
 		}
 
 
@@ -477,7 +476,7 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 
 
 		#region // ----- Provisoir pour test ----- \\
-		public void PrintGrid(Cell[,] pGrid)	//=================================> Provisoir pour test 
+		private void PrintGrid()	//=================================> Provisoir pour test 
 		{
 			string lGridString = "";
 
@@ -485,7 +484,7 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 			{
 				for (int x = 0; x < LevelLoader.levelWidth; x++)
 				{
-					GameObject lContent = pGrid[x, y].GetContent();
+					GameObject lContent = grid[x, y].GetContent();
 					
 					if (lContent is Player)
 						lGridString += "@ ";

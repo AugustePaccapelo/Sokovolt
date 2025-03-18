@@ -6,56 +6,56 @@ using System.Collections.Generic;
 
 namespace Com.IsartDigital.SokoVolt.Managers
 {
-    public partial class InputManager : Manager
-    {
-        #region Singleton
-        static private InputManager instance;
+	public partial class InputManager : Manager
+	{
+		#region Singleton
+		static private InputManager instance;
 
-        private InputManager() { }
+		private InputManager() { }
 
-        static public InputManager GetInstance()
-        {
-            if (instance == null) instance = new InputManager();
-            return instance;
-        }
-        #endregion
+		static public InputManager GetInstance()
+		{
+			if (instance == null) instance = new InputManager();
+			return instance;
+		}
+		#endregion
 
-        public override void _Ready()
-        {
-            #region Singleton
-            if (instance != null)
-            {
-                QueueFree();
-                GD.Print(nameof(InputManager) + " INSTANCE ALREADY EXISTS, DESTROYING THE LAST ADDED");
-                return;
-            }
+		public override void _Ready()
+		{
+			#region Singleton
+			if (instance != null)
+			{
+				QueueFree();
+				GD.Print(nameof(InputManager) + " INSTANCE ALREADY EXISTS, DESTROYING THE LAST ADDED");
+				return;
+			}
 
-            instance = this;
-            #endregion
+			instance = this;
+			#endregion
 
-            base._Ready();
-        }
+			base._Ready();
+		}
 
-        public override void _Input(InputEvent @event) // to optimize
-        {
-            if (!LevelLoader.playerCanMove) return;
+		public override void _Input(InputEvent @event)
+		{
+			if (!LevelLoader.playerCanMove) return;
 
-            if (@event is InputEventKey pEventKey && pEventKey.Pressed)
-            {
+			if (@event is InputEventKey eventKey && eventKey.Pressed)
+			{
                 if (Input.IsActionJustPressed("Up")) CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.Move, Vector2.Up);
                 if (Input.IsActionJustPressed("Down")) CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.Move, Vector2.Down);
                 if (Input.IsActionJustPressed("Left")) CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.Move, Vector2.Left);
                 if (Input.IsActionJustPressed("Right")) CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.Move, Vector2.Right);
                 if (Input.IsActionJustPressed("Undo")) CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.UndoRedo, -1);
-                else if (Input.IsActionJustPressed("Redo")) CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.UndoRedo, 1);
-                else if (Input.IsActionJustPressed("Retry")) CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.Retry);
+				else if (Input.IsActionJustPressed("Redo")) CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.UndoRedo, 1);
+				else if(Input.IsActionJustPressed("Retry")) CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.Retry);
             }
-        }
+		}
 
-        protected override void Dispose(bool pDisposing)
-        {
-            instance = null;
-            base.Dispose(pDisposing);
-        }
-    }
+		protected override void Dispose(bool pDisposing)
+		{
+			instance = null;
+			base.Dispose(pDisposing);
+		}
+	}
 }

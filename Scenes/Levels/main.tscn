@@ -1,5 +1,4 @@
 [gd_scene load_steps=23 format=3 uid="uid://b5wmwrglrmwh1"]
-[gd_scene load_steps=21 format=3 uid="uid://dkbx646vvyaig"]
 
 [ext_resource type="PackedScene" uid="uid://dyk47lo67a1tp" path="res://Scenes/Managers/ui_manager.tscn" id="1_4603a"]
 [ext_resource type="PackedScene" uid="uid://bnv0kco0ylr0e" path="res://Scenes/Managers/GridManager.tscn" id="1_d671q"]
@@ -32,6 +31,7 @@
 script = ExtResource("3_3tpao")
 
 [node name="UIManager" parent="Managers" instance=ExtResource("1_4603a")]
+levelCreatorScene = ExtResource("3_t4e3e")
 
 [node name="LoginScreen" parent="Managers/UIManager" instance=ExtResource("6_vn404")]
 custom_minimum_size = Vector2(1152, 648)
@@ -60,14 +60,11 @@ offset_right = 1920.0
 offset_bottom = 1080.0
 grow_horizontal = 1
 grow_vertical = 1
-mouse_filter = 2
 
 [node name="GridManager" parent="Managers" instance=ExtResource("1_d671q")]
 thunderEffectScene = ExtResource("9_drmok")
-[node name="GridManager" parent="Managers" node_paths=PackedStringArray("objectsContainer") instance=ExtResource("1_d671q")]
-objectsContainer = NodePath("../../Containers/ObjectsContainer")
 
-[node name="LevelLoader" type="Node2D" parent="Managers"]
+[node name="LevelLoader" type="Node2D" parent="Managers" node_paths=PackedStringArray("objectsContainer")]
 script = ExtResource("4_ly116")
 cellScene = ExtResource("5_8xedd")
 playerScene = ExtResource("6_65akx")
@@ -77,6 +74,7 @@ electricWallScene = ExtResource("9_34m77")
 goalBulbScene = ExtResource("10_cjqye")
 generatorScene = ExtResource("11_lsk15")
 doorScene = ExtResource("12_pyytn")
+objectsContainer = NodePath("../../Containers/ObjectsContainer")
 
 [node name="GameManager" parent="Managers" node_paths=PackedStringArray("objectsContainer") instance=ExtResource("7_vkagg")]
 objectsContainer = NodePath("../../Containers/ObjectsContainer")

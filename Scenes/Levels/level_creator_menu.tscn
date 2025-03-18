@@ -1,0 +1,136 @@
+[gd_scene load_steps=11 format=3 uid="uid://bgcxkasic77aq"]
+
+[ext_resource type="PackedScene" uid="uid://36dp5dq6hmqq" path="res://Scenes/GameObjects/ButtonTemplate.tscn" id="1_8igok"]
+[ext_resource type="Script" path="res://Scripts/Controls/LevelCreator.cs" id="1_bf11f"]
+[ext_resource type="PackedScene" uid="uid://cpdk0i0vijcdy" path="res://Scenes/GameObjects/LevelCreator/level_creator_tile.tscn" id="3_mha4c"]
+[ext_resource type="PackedScene" uid="uid://dsejj00jkjkaw" path="res://Scenes/GameObjects/LevelCreator/bulb_texture.tscn" id="5_7j68n"]
+[ext_resource type="PackedScene" uid="uid://6f6pej0whxvb" path="res://Scenes/GameObjects/LevelCreator/generator_texture.tscn" id="6_wy1dl"]
+[ext_resource type="PackedScene" uid="uid://bqdvcl5bpx284" path="res://Scenes/GameObjects/LevelCreator/tesla_texture.tscn" id="7_5weia"]
+[ext_resource type="PackedScene" uid="uid://bvpdafbbrw7s7" path="res://Scenes/GameObjects/LevelCreator/wall_texture.tscn" id="8_gc0rv"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oto23"]
+bg_color = Color(0.43134, 0.43134, 0.43134, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pf3ks"]
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.422258, 0.153029, 0.181139, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wq6pk"]
+bg_color = Color(0.467584, 0.610789, 0.795028, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+shadow_size = 10
+shadow_offset = Vector2(5, 5)
+
+[node name="LevelCreatorMenu" type="Control" node_paths=PackedStringArray("mainMenuButton", "newLevelButton", "loadLevelButton", "wallTexture", "teslaTexture", "bulbTexture", "generatorTexture")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_bf11f")
+mainMenuButton = NodePath("MainMenuButton")
+newLevelButton = NodePath("Menu/NewLevelButton")
+loadLevelButton = NodePath("Menu/LoadLevelButton")
+wallTexture = NodePath("BackGround/Inventory/Wall")
+teslaTexture = NodePath("BackGround/Inventory/Tesla")
+bulbTexture = NodePath("BackGround/Inventory/Bulb")
+generatorTexture = NodePath("BackGround/Inventory/Generator")
+wallScene = ExtResource("8_gc0rv")
+teslaScene = ExtResource("7_5weia")
+bulbScene = ExtResource("5_7j68n")
+generatorScene = ExtResource("6_wy1dl")
+tileScene = ExtResource("3_mha4c")
+
+[node name="Menu" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="NewLevelButton" parent="Menu" instance=ExtResource("1_8igok")]
+layout_mode = 1
+offset_left = 370.0
+offset_top = 433.0
+offset_right = 525.0
+offset_bottom = 526.0
+pivot_offset = Vector2(77, 46)
+text = "New Level"
+
+[node name="LoadLevelButton" parent="Menu" instance=ExtResource("1_8igok")]
+layout_mode = 1
+offset_left = 1304.0
+offset_top = 433.0
+offset_right = 1459.0
+offset_bottom = 526.0
+pivot_offset = Vector2(77, 46)
+text = "Load Level"
+
+[node name="BackGround" type="Panel" parent="."]
+layout_mode = 1
+offset_right = 1920.0
+offset_bottom = 1080.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_oto23")
+
+[node name="Inventory" type="Panel" parent="BackGround"]
+layout_mode = 1
+offset_left = 1626.0
+offset_top = 1.0
+offset_right = 1920.0
+offset_bottom = 1081.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_pf3ks")
+
+[node name="Bulb" parent="BackGround/Inventory" instance=ExtResource("5_7j68n")]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 40.0
+offset_right = 512.0
+offset_bottom = 400.0
+stretch_mode = 3
+
+[node name="Generator" parent="BackGround/Inventory" instance=ExtResource("6_wy1dl")]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 324.0
+offset_right = 1568.0
+offset_bottom = 1304.0
+stretch_mode = 3
+
+[node name="Tesla" parent="BackGround/Inventory" instance=ExtResource("7_5weia")]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 576.0
+offset_right = 660.0
+offset_bottom = 984.0
+
+[node name="Wall" parent="BackGround/Inventory" instance=ExtResource("8_gc0rv")]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 863.0
+offset_right = 409.0
+offset_bottom = 1129.0
+
+[node name="BackGrid" type="Panel" parent="BackGround"]
+layout_mode = 1
+offset_left = 267.0
+offset_top = 130.0
+offset_right = 877.0
+offset_bottom = 740.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_wq6pk")
+
+[node name="MainMenuButton" parent="." instance=ExtResource("1_8igok")]
+layout_mode = 1
+offset_left = 78.0
+offset_top = 925.0
+offset_right = 233.0
+offset_bottom = 1018.0
+pivot_offset = Vector2(77, 46)
+text = "MainMenu"

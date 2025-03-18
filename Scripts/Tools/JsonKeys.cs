@@ -14,7 +14,7 @@ namespace Com.IsartDigital.SokoVolt {
 		public const string BOX_RANGE_KEY = "boxRange";
 
 		public const string PAR_KEY = "par";
-		public const string LEVELS_JSONS_PATH = "res://Scripts/Json/Levels.json";
+		public const string LEVELS_JSONS_PATH = "res://Scripts/Json/Levels.json"; 
 
 		// ----- Map
 		public const char PLAYER = '@'; 
