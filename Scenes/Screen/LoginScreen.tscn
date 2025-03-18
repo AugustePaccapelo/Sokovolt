@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://31ew226yj11n"]
+[gd_scene load_steps=11 format=3 uid="uid://31ew226yj11n"]
 
 [ext_resource type="Script" path="res://Scripts/Controls/LoginScreen.cs" id="1_skjs4"]
 [ext_resource type="PackedScene" uid="uid://cpnulmydq6mp6" path="res://Scenes/UI/LoginScreen/Belt.tscn" id="2_bb5nt"]
 [ext_resource type="Texture2D" uid="uid://cjla7i48lqwna" path="res://Assets/UI/LoginScreen/BeltFrame1.png" id="3_cwno2"]
 [ext_resource type="Texture2D" uid="uid://hk68ck8cyv0p" path="res://Assets/UI/LoginScreen/BeltFrame2.png" id="4_tqmfj"]
 [ext_resource type="Texture2D" uid="uid://bujqsvb2phbee" path="res://Assets/UI/LoginScreen/BeltFrame3.png" id="5_j6h5l"]
+[ext_resource type="PackedScene" uid="uid://c31ubpwdt65uw" path="res://Scenes/UI/LoginScreen/Piston.tscn" id="6_lb3rm"]
 
 [sub_resource type="AnimatedTexture" id="AnimatedTexture_v7bw3"]
 frames = 3
@@ -25,7 +26,7 @@ font_color = Color(1, 0, 0, 1)
 [sub_resource type="LabelSettings" id="LabelSettings_g75en"]
 font_color = Color(1, 0, 0, 1)
 
-[node name="LoginScreen" type="Control" node_paths=PackedStringArray("loginNode", "labelLoginError", "vContLoginUser", "vContLoginPass", "createNode", "labelCreateErrorPasswords", "labelCreateErrorUsername", "vBoxCreateUser", "vBoxCreatePass", "vBoxCreateConfirmPass")]
+[node name="LoginScreen" type="Control" node_paths=PackedStringArray("loginNode", "labelLoginError", "vContLoginUser", "vContLoginPass", "loginPiston", "createNode", "labelCreateErrorPasswords", "labelCreateErrorUsername", "vBoxCreateUser", "vBoxCreatePass", "vBoxCreateConfirmPass")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -37,6 +38,7 @@ loginNode = NodePath("Login")
 labelLoginError = NodePath("Login/VBoxScreenHolder/LabelError")
 vContLoginUser = NodePath("Login/VBoxScreenHolder/VBoxUsername")
 vContLoginPass = NodePath("Login/VBoxScreenHolder/VBoxPassword")
+loginPiston = NodePath("Login/Piston")
 createNode = NodePath("Create")
 labelCreateErrorPasswords = NodePath("Create/VBoxScreenHolder/LabelErrorPasswords")
 labelCreateErrorUsername = NodePath("Create/VBoxScreenHolder/LabelErrorUsername")
@@ -107,6 +109,19 @@ offset_top = -0.23999
 offset_right = 1303.36
 offset_bottom = 158.88
 scale = Vector2(0.200021, 0.200021)
+metadata/_edit_use_anchors_ = true
+
+[node name="Piston" parent="Login" instance=ExtResource("6_lb3rm")]
+layout_mode = 1
+anchor_left = 0.396
+anchor_top = 0.611
+anchor_right = 0.608
+anchor_bottom = 1.063
+offset_left = 0.679932
+offset_top = 0.119995
+offset_right = -406.36
+offset_bottom = -488.04
+scale = Vector2(2.26377, 2.26377)
 metadata/_edit_use_anchors_ = true
 
 [node name="PosHolder" type="Control" parent="Login"]
