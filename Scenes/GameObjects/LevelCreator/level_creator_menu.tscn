@@ -96,6 +96,7 @@ pivot_offset = Vector2(117, 70)
 text = "MainMenu"
 
 [node name="NewLevelBackGround" type="Panel" parent="."]
+visible = false
 layout_mode = 1
 offset_right = 1920.0
 offset_bottom = 1080.0
@@ -180,7 +181,7 @@ offset_bottom = 1080.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_oto23")
 
 [node name="MenuBar" type="ScrollContainer" parent="CustomLevelListBackGround"]
-custom_minimum_size = Vector2(200, 200)
+custom_minimum_size = Vector2(1012, 450)
 layout_mode = 1
 offset_left = 365.0
 offset_top = 265.0
@@ -190,6 +191,7 @@ pivot_offset = Vector2(506, 225)
 horizontal_scroll_mode = 0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CustomLevelListBackGround/MenuBar"]
+custom_minimum_size = Vector2(1000, 0)
 layout_mode = 2
 
 [node name="ButtonContainer" type="VBoxContainer" parent="CustomLevelListBackGround/MenuBar/HBoxContainer"]
@@ -197,7 +199,7 @@ custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
 
 [node name="LabelContainer" type="VBoxContainer" parent="CustomLevelListBackGround/MenuBar/HBoxContainer"]
-custom_minimum_size = Vector2(200, 200)
+custom_minimum_size = Vector2(800, 200)
 layout_mode = 2
 
 [node name="DeleteButtonContainer2" type="VBoxContainer" parent="CustomLevelListBackGround/MenuBar/HBoxContainer"]
@@ -227,9 +229,11 @@ placeholder_text = "Level Name"
 [node name="ReturnButton" parent="." instance=ExtResource("1_8igok")]
 visible = false
 layout_mode = 1
-offset_left = 92.0
-offset_top = 874.0
-offset_right = 327.0
-offset_bottom = 1015.0
-pivot_offset = Vector2(117, 70)
-text = "Return"
+offset_left = 245.0
+offset_top = 927.0
+offset_right = 465.0
+offset_bottom = 1059.0
+pivot_offset = Vector2(110, 66)
+text = "RETURN"
+easeType = 2
+transitionType = 7

@@ -164,6 +164,7 @@ namespace Com.IsartDigital.SokoVolt
 
         private void CreateJSON()
         {
+            levelName.Text = "";
             string lFileName = "res://Scripts/Json/CustomLevels/" + levelName.Text + ".Json";
             if (!FileAccess.FileExists(lFileName) && levelName.Text.Length>0)
             {
@@ -174,6 +175,11 @@ namespace Com.IsartDigital.SokoVolt
                     "\n      \"par\": 0," +
                     "\n      \"map\": [" +
                     "\n        \"###########\"," +
+                    "\n        \"#         #\"," +
+                    "\n        \"#         #\"," +
+                    "\n        \"#         #\"," +
+                    "\n        \"#         #\"," +
+                    "\n        \"#         #\"," +
                     "\n        \"#         #\"," +
                     "\n        \"#         #\"," +
                     "\n        \"#         #\"," +
@@ -304,15 +310,17 @@ namespace Com.IsartDigital.SokoVolt
         {
             returnButton.Hide();
             newLevelBackGround.Visible = loadLevelBackGround.Visible = customLevelMenuBackGround.Visible = false;
+            levelName.Text = "";
             if (cellContainer.GetChildren() != null)
             {
                 foreach (var item in cellContainer.GetChildren()) item.QueueFree();
                 gridDico.Clear();
             }
-            if (buttonContainer.GetChildren() != null || labelContainer.GetChildren() != null)
+            if (buttonContainer.GetChildren() != null || labelContainer.GetChildren() != null || deletebuttonContainer.GetChildren() != null)
             {
                 foreach (var item in buttonContainer.GetChildren()) item.QueueFree();
                 foreach (var item in labelContainer.GetChildren()) item.QueueFree();
+                foreach (var item in deletebuttonContainer.GetChildren()) item.QueueFree();
             }
             HUD.GetInstance().winScreen?.QueueFree();
             HUD.GetInstance().Hide();

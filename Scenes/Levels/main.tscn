@@ -57,6 +57,7 @@ offset_right = 1920.0
 offset_bottom = 1080.0
 grow_horizontal = 1
 grow_vertical = 1
+mouse_filter = 2
 
 [node name="GridManager" parent="Managers" node_paths=PackedStringArray("objectsContainer") instance=ExtResource("1_d671q")]
 objectsContainer = NodePath("../../Containers/ObjectsContainer")
