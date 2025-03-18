@@ -3,6 +3,8 @@ using Com.IsartDigital.SokoVolt.Managers;
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.Security.Cryptography.X509Certificates;
 
 // Author : Noé Sales
 
@@ -25,24 +27,28 @@ namespace Com.IsartDigital.SokoVolt
 		}
 		#endregion
 
-		[Export] Button mainMenuButton;
-		[Export] Button newLevelButton;
-		[Export] Button loadLevelButton;
-		[Export] Button menuCustomLevelButton;
-		[Export] Button returnButton;
-		[Export] TextEdit loadLevelText;
-		[Export] LevelCreatorItems wallTexture;
-		[Export] LevelCreatorItems teslaTexture;
-		[Export] LevelCreatorItems bulbTexture;
-		[Export] LevelCreatorItems generatorTexture;
-		[Export] PackedScene wallScene;
-		[Export] PackedScene teslaScene;
-		[Export] PackedScene bulbScene;
-		[Export] PackedScene generatorScene;
-		[Export] PackedScene tileScene;
-		[Export] PackedScene customLevelLabelScene;
-        [Export] VBoxContainer buttonContainer;
-        [Export] VBoxContainer labelContainer;
+		[Export] private Button mainMenuButton;
+		[Export] private Button newLevelButton;
+		[Export] private Button loadLevelButton;
+		[Export] private Button menuCustomLevelButton;
+		[Export] private Button returnButton;
+		[Export] private Button saveButton;
+		[Export] private TextEdit loadLevelText;
+		[Export] private TextEdit levelName;
+		[Export] private LevelCreatorItems wallTexture;
+		[Export] private LevelCreatorItems teslaTexture;
+		[Export] private LevelCreatorItems bulbTexture;
+		[Export] private LevelCreatorItems generatorTexture;
+		[Export] private PackedScene wallScene;
+		[Export] private PackedScene teslaScene;
+		[Export] private PackedScene bulbScene;
+		[Export] private PackedScene generatorScene;
+		[Export] private PackedScene tileScene;
+		[Export] private PackedScene customLevelLabelScene;
+        [Export] private VBoxContainer buttonContainer;
+        [Export] private VBoxContainer deletebuttonContainer;
+        [Export] private VBoxContainer labelContainer;
+        [Export] private Json customLevelTemplate;
 		private Panel newLevelBackGround;
 		private Panel loadLevelBackGround;
 		private Panel customLevelMenuBackGround;
@@ -53,11 +59,12 @@ namespace Com.IsartDigital.SokoVolt
         private float tileSize = 50;
         private float space = 5;
         private Node2D cellContainer;
-        
 
         private const int LENGHT = 11;
 
-		Dictionary<Vector2, LevelCreatorTile> gridDico = new Dictionary<Vector2, LevelCreatorTile>();
+        Dictionary<Vector2, LevelCreatorTile> gridDico = new Dictionary<Vector2, LevelCreatorTile>();
+
+        List<Vector2[]> gridList = new List<Vector2[]>();
 
 		public override void _Ready()
 		{
@@ -72,12 +79,17 @@ namespace Com.IsartDigital.SokoVolt
 			instance = this;
 			#endregion
 
-			mainMenuButton.Pressed += () => CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.GoToMainMenu);
+			mainMenuButton.Pressed += () => {
+                HUD.GetInstance().Show();
+                CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.GoToMainMenu);
+                };
             newLevelButton.Pressed += CreateNewLevel;
             loadLevelButton.Pressed += () => LoadLevel(loadLevelText.Text);
             menuCustomLevelButton.Pressed += OpenCustomLevelsMenu;
             returnButton.Pressed += Return;
+            saveButton.Pressed += CreateJSON;
 
+            returnButton.Hide();
 
             #region Mouse & Item signal Connection
             wallTexture.MouseEntered += () =>
@@ -145,6 +157,32 @@ namespace Com.IsartDigital.SokoVolt
             if (actualItem != null) actualItem.Position = GetLocalMousePosition();
 		}
 
+        private void CreateJSON()
+        {
+            string lFileName = "res://Scripts/Json/CustomLevels/" + levelName.Text + ".Json";
+            if (!FileAccess.FileExists(lFileName) && levelName.Text.Length>0)
+            {
+                using FileAccess lCreatFile = FileAccess.Open(lFileName, FileAccess.ModeFlags.Write);
+                lCreatFile.StoreString("{" +
+                    "\n  \"levelDesign\": [" +
+                    "\n    {" +
+                    "\n      \"par\": 0," +
+                    "\n      \"map\": [" +
+                    "\n        \"###########\"," +
+                    "\n        \"#         #\"," +
+                    "\n        \"#         #\"," +
+                    "\n        \"#         #\"," +
+                    "\n        \"#         #\"," +
+                    "\n        \"###########\"" +
+                    "\n      ]," +
+                    "\n      \"boxRange\": []" +
+                    "\n    }" +
+                    "\n  ]" +
+                    "\n}");
+            }
+            else GD.PrintErr("Name file alreadyExist or empty");
+        }
+
 		private void MouseOn()
 		{
 			if (Input.IsMouseButtonPressed(MouseButton.Left) && canPick)
@@ -204,18 +242,21 @@ namespace Com.IsartDigital.SokoVolt
             //GetInstance().QueueFree();
 
             //methode2
-            //returnButton.Hide();
-            //newLevelBackGround.Visible = loadLevelBackGround.Visible = customLevelMenuBackGround.Visible = false;
-            //if (cellContainer.GetChildren() != null)
-            //{
-            //    foreach (var item in cellContainer.GetChildren()) item.QueueFree();
-            //    gridDico.Clear();
-            //}
-            //if (buttonContainer.GetChildren() != null || labelContainer.GetChildren() != null)
-            //{
-            //    foreach (var item in buttonContainer.GetChildren()) item.QueueFree();
-            //    foreach (var item in labelContainer.GetChildren()) item.QueueFree();
-            //}
+            returnButton.Hide();
+            newLevelBackGround.Visible = loadLevelBackGround.Visible = customLevelMenuBackGround.Visible = false;
+            if (cellContainer.GetChildren() != null)
+            {
+                foreach (var item in cellContainer.GetChildren()) item.QueueFree();
+                gridDico.Clear();
+            }
+            if (buttonContainer.GetChildren() != null || labelContainer.GetChildren() != null)
+            {
+                foreach (var item in buttonContainer.GetChildren()) item.QueueFree();
+                foreach (var item in labelContainer.GetChildren()) item.QueueFree();
+            }
+            HUD.GetInstance().winScreen?.QueueFree();
+            HUD.GetInstance().Hide();
+            CustomSignals.GetInstance().EmitSignal(nameof(CustomSignals.UnLoadLevel));
         }
 
 		private void CreateNewLevel()
@@ -226,6 +267,7 @@ namespace Com.IsartDigital.SokoVolt
 
 		private void LoadLevel(string pLevelName)
 		{
+            HUD.GetInstance().Show();
             customLevelMenuBackGround.Hide();
             string lPath = "res://Scripts/Json/CustomLevels/" + pLevelName + ".json";
             loadLevelBackGround.Visible = returnButton.Visible = true;
@@ -252,20 +294,28 @@ namespace Com.IsartDigital.SokoVolt
                     }
                     else
                     {
+                        Vector2 lButtonMinimumSize = new Vector2(200, 200);
+                        Vector2 lLabelMinimumSize = new Vector2(800, 200);
+
                         GD.Print($"Found file: {lFileName}");
                         Button lButton = new Button();
-                        lButton.CustomMinimumSize = new Vector2(200, 200);
+                        lButton.CustomMinimumSize = lButtonMinimumSize;
+                        Button lDeleteButton = new Button();
+                        lDeleteButton.CustomMinimumSize = lButtonMinimumSize;
                         Label lLabel = customLevelLabelScene.Instantiate() as Label;
-                        lLabel.CustomMinimumSize = new Vector2(800, 200);
+                        lLabel.CustomMinimumSize = lLabelMinimumSize;
 
                         buttonContainer.AddChild(lButton);
                         labelContainer.AddChild(lLabel);
+                        deletebuttonContainer.AddChild(lDeleteButton);
 
                         lButton.Text = "Play";
+                        lDeleteButton.Text = "Delete Level";
 
                         string lName = lFileName.GetBaseName();
                         lLabel.Text = lName;
 
+                        lDeleteButton.Pressed += () => DeleteLevel(lName);
                         lButton.Pressed += () => LoadLevel(lName);
                     }
                     lFileName = lDir.GetNext();
@@ -275,6 +325,17 @@ namespace Com.IsartDigital.SokoVolt
             {
                 GD.Print("An error occurred when trying to access the path.");
             }
+        }
+
+        private void DeleteLevel(string pLevelName)
+        {
+            string lFileName = "res://Scripts/Json/CustomLevels/" + pLevelName + ".Json";
+            GD.PrintErr("Supression de " +  lFileName);
+            DirAccess.RemoveAbsolute(lFileName);
+            foreach (var item in buttonContainer.GetChildren()) item.QueueFree();
+            foreach (var item in labelContainer.GetChildren()) item.QueueFree();
+            foreach (var item in deletebuttonContainer.GetChildren()) item.QueueFree();
+            OpenCustomLevelsMenu();
         }
 
         private void CreateGrid()

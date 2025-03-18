@@ -231,8 +231,8 @@ namespace Com.IsartDigital.SokoVolt.Managers {
         private void UndoRedo(int pAmount)
         {
             int lAmount = pAmount; 
-            currentlyUndoRedo = true; 
-            if(!(player.curentCell.GetContent() is BoxTesla) && playerWasOnTesla) lAmount *= 2; 
+            currentlyUndoRedo = true;
+            if(!(player.curentCell.GetContent() is BoxTesla) && playerWasOnTesla) lAmount *= 2;
             SetGridState(actualGridStateIndex + lAmount);
 			
             GetTree().CreateTimer(1).Timeout += () => currentlyUndoRedo = false;	

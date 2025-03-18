@@ -27,7 +27,7 @@ namespace Com.IsartDigital.SokoVolt{
 		[Export] public Button undoButton, redoButton, mainMenuButton;
 		[Export] public Label scoreLabel, stepLabel, winLabel; 
 		[Export] public PackedScene winScreenScene;
-		private WinScreen winScreen;
+		public WinScreen winScreen;
 
 		public override void _Ready()
 		{
