@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://b2v7j7gm1ajdc"]
+[gd_scene load_steps=21 format=3 uid="uid://fblvfom2wciw"]
 
 [ext_resource type="Script" path="res://Scripts/GameObjects/WinScreenThunder.cs" id="1_hbfds"]
 [ext_resource type="Shader" uid="uid://bum2gqlmpu2kv" path="res://Assets/Shaders/ElectricBoltShader.tres" id="2_ryd44"]
@@ -45,7 +45,7 @@ initial_velocity_min = -600.0
 initial_velocity_max = -500.0
 radial_velocity_min = 400.0
 radial_velocity_max = 700.0
-gravity = Vector3(0, 98, 0)
+gravity = Vector3(0, 70, 0)
 scale_min = 0.01
 scale_max = 0.05
 scale_curve = SubResource("CurveXYZTexture_a3vvu")
@@ -65,8 +65,8 @@ curve = SubResource("Curve_1w2lf")
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_v8vr1"]
 particle_flag_disable_z = true
 gravity = Vector3(0, 0, 0)
-scale_min = 0.08
-scale_max = 0.3
+scale_min = 0.01
+scale_max = 0.12
 scale_curve = SubResource("CurveTexture_euagi")
 color = Color(0.5, 1, 1.2, 1)
 
@@ -210,6 +210,7 @@ tracks/4/keys = {
 
 [sub_resource type="Animation" id="Animation_gd07k"]
 resource_name = "start_animation"
+length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -217,7 +218,7 @@ tracks/0/path = NodePath("Bolt:material:shader_parameter/VanishingValue")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.8),
+"times": PackedFloat32Array(0, 0.4),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [1.0, 0.0]
@@ -229,7 +230,7 @@ tracks/1/path = NodePath("ImpactEffect/Sparks:emitting")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.8),
+"times": PackedFloat32Array(0, 0.4),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [false, true]
@@ -241,7 +242,7 @@ tracks/2/path = NodePath("ImpactEffect/Flare:emitting")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.8),
+"times": PackedFloat32Array(0, 0.4),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [false, true]
@@ -253,7 +254,7 @@ tracks/3/path = NodePath("ImpactEffect/PointLight2D:energy")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.8),
+"times": PackedFloat32Array(0, 0.4),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [0.0, 3.0]
@@ -273,7 +274,6 @@ tracks/4/keys = {
 
 [sub_resource type="Animation" id="Animation_ay33w"]
 resource_name = "thunderWinScreen"
-length = 2.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -293,7 +293,7 @@ tracks/1/path = NodePath("ImpactEffect/Sparks:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.3, 2),
+"times": PackedFloat32Array(0, 0.2, 1),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [false, true, false]
@@ -305,7 +305,7 @@ tracks/2/path = NodePath("ImpactEffect/Flare:visible")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.3, 2),
+"times": PackedFloat32Array(0, 0.2, 1),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [false, true, false]
@@ -317,7 +317,7 @@ tracks/3/path = NodePath("ImpactEffect/PointLight2D:energy")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.3, 2),
+"times": PackedFloat32Array(0, 0.2, 1),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [0.0, 10.0, 0.0]
@@ -337,9 +337,10 @@ script = ExtResource("1_hbfds")
 
 [node name="Bolt" type="Line2D" parent="."]
 material = SubResource("ShaderMaterial_y8asw")
-position = Vector2(-399.7, -225)
-points = PackedVector2Array(379.564, 108, 317.142, 222)
-width = 50.0
+position = Vector2(-96, -249)
+scale = Vector2(0.252329, 1)
+points = PackedVector2Array(379.564, 108, 380.714, 230)
+width = 150.0
 default_color = Color(0, 1.00784, 1.8, 1)
 texture_mode = 2
 
@@ -347,10 +348,10 @@ texture_mode = 2
 
 [node name="Sparks" type="GPUParticles2D" parent="ImpactEffect"]
 material = SubResource("CanvasItemMaterial_r36vq")
-amount = 15
+amount = 10
 process_material = SubResource("ParticleProcessMaterial_mvi36")
 texture = ExtResource("4_q7m25")
-lifetime = 0.15
+lifetime = 0.1
 fixed_fps = 60
 
 [node name="Flare" type="GPUParticles2D" parent="ImpactEffect"]

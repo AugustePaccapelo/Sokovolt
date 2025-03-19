@@ -14,7 +14,8 @@ namespace Com.IsartDigital.ProjectName
         private const string ANIMATIONPLAYER_PATH = "ThunderAnimation";
         private const string BOLT_PATH = "Bolt";
         private const string IMPACTEFFECTS_PATH = "ImpactEffect";
-        private const string THUNDER_ANIMATION = "thunderWinScreen";
+        public const string THUNDER_ANIMATION = "thunderWinScreen";
+        public const string START_ANIMATION = "start_animation";
 
         public override void _Ready()
         {
@@ -39,7 +40,7 @@ namespace Com.IsartDigital.ProjectName
             }
         }
 
-        public void ActiveThunder(Node2D pBattery)
+        public void ActiveThunder(Node2D pBattery, string pAnimation)
         {
             targetBattery = pBattery;
 
@@ -50,7 +51,7 @@ namespace Com.IsartDigital.ProjectName
                 bolt.AddPoint(Vector2.Zero);
             }
 
-            animation.Play(THUNDER_ANIMATION);
+            animation.Play(pAnimation);
             pBattery.SelfModulate = new Color(1, 1, 1, 1);
             // if(pBattery.GetChild<Node2D>(0) != null)pBattery.GetChild<Node2D>(0).Show();
         }

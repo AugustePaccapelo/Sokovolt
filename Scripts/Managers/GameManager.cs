@@ -26,6 +26,7 @@ namespace Com.IsartDigital.SokoVolt.Managers
 		#endregion
 
 		// ----- Paths ----- \\
+		HUD hud; 
 
 		// ----- Nodes ----- \\
 
@@ -64,6 +65,7 @@ namespace Com.IsartDigital.SokoVolt.Managers
 
 		public override void Init()
 		{
+			hud = HUD.GetInstance();
             signals = CustomSignals.GetInstance();
             signals.PlayerMoved += PlayerHasMoved;
             signals.GoalBulbStateChanged += GoalBulbStateChanged;
@@ -113,7 +115,7 @@ namespace Com.IsartDigital.SokoVolt.Managers
             }
         }
 
-        private void GameFinished()
+        private async void GameFinished()
 		{
             int lNumStep = GridManager.GetInstance().step;
             int lPar = LevelLoader.parCount;
@@ -127,6 +129,9 @@ namespace Com.IsartDigital.SokoVolt.Managers
 
 			GD.PrintErr(lNumStar + " " + lScore + " " + lNumStep); 
 
+			await ToSignal(GetTree().CreateTimer(0.3f), "timeout");
+
+			hud.displayInGame.Visible = false; 
             CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.GameFinished, lNumStar, lScore, lNumStep);
         }
 

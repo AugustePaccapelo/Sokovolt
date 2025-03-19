@@ -1,6 +1,7 @@
 using Com.IsartDigital.ProjectName;
 using Com.IsartDigital.SokoVolt.GameObjects.Movables;
 using Com.IsartDigital.SokoVolt.Managers;
+using Com.IsartDigital.SokoVolt.Tools;
 using Godot;
 using System;
 using System.Runtime.CompilerServices;
@@ -23,8 +24,12 @@ namespace Com.IsartDigital.SokoVolt{
 
 		[Export] public Button undoButton, redoButton, mainMenuButton;
 		[Export] public Label scoreLabel, stepLabel, winLabel; 
+		
+		//WinScreen
 		[Export] public PackedScene winScreenScene;
+		[Export] public Control displayInGame; 
 		private WinScreen winScreen;
+		private int storedNumStar, storedScore, storedNumStep;
 
 		public override void _Ready()
 		{
@@ -51,21 +56,31 @@ namespace Com.IsartDigital.SokoVolt{
 
 		public void GameFinished(int pNumStar, int pScore, int pNumStep)
 		{
-			CustomSignals.GetInstance().EndLevelAnimation += () =>
-			{
-				LevelLoader.playerCanMove = false;
-				Tween lTween = CreateTween();
-				winScreen = winScreenScene.Instantiate() as WinScreen;
-				AddChild(winScreen);
-				winScreen.Position = new Vector2(0, -900);
-				winScreen.ZIndex = 50;
-				lTween.TweenProperty(winScreen, "position", Vector2.Zero, 1f);
-				winScreen.UpdateStats(pScore, pNumStep);
-				winScreen.StarSysteme(pNumStar);
-			};
-           
-        }
+			CustomSignals.GetInstance().EndLevelAnimation -= SpawnWinScreen;
+			CustomSignals.GetInstance().EndLevelAnimation += SpawnWinScreen;
 
+		
+			storedNumStar = pNumStar;
+			storedScore = pScore;
+			storedNumStep = pNumStep;
+
+			GD.PrintErr("GameFinished called, waiting for EndLevelAnimation...");
+		}
+		
+		private void SpawnWinScreen()
+		{
+			LevelLoader.playerCanMove = false;
+			Tween lTween = CreateTween();
+			winScreen = winScreenScene.Instantiate() as WinScreen;
+			AddChild(winScreen);
+			winScreen.Position = new Vector2(0, -900);
+			winScreen.ZIndex = 50;
+			lTween.TweenProperty(winScreen, ObjectProperties.POSITION, Vector2.Zero, 1f);
+			winScreen.UpdateStats(storedScore, storedNumStep);
+			winScreen.StarSysteme(storedNumStar);
+		}
+
+		
 		private void ReturnToMenu()
 		{
             if(winScreen != null)

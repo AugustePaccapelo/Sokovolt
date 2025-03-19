@@ -98,6 +98,7 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 		{
 			ResetStepCounter();
 			hud.Visible = true;
+			hud.displayInGame.Visible = true;	
 			LevelLoader.GetInstance().LoadLevel(pLevelToLoad);
 			CenterGrid(); 
 
@@ -346,7 +347,6 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 			List<Node2D> lObjectsToAnimate= new List<Node2D>();
 			lObjectsToAnimate.Clear(); 
 
-			// Récupérer toutes les cellules existantes
 			foreach(Node2D lObject in gameManager.objectsContainer.GetChildren())
 			{
 				lObjectsToAnimate.Add(lObject);
@@ -357,19 +357,15 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 			}
 
 			
-
-			// Déterminer un point central (aspiration)
 			Vector2 lVortexCenter = GetViewportRect().Size/2; 
 
 			vortex = CreateVortex(lVortexCenter); 
 			AddChild(vortex);
 
-			// Mélanger aléatoirement pour rendre l'effet dynamique
 			Random lRand = new Random();
 			lObjectsToAnimate = lObjectsToAnimate.OrderBy(c => lRand.Next()).ToList();
 
-			// Appliquer un effet progressif avec un délai variable
-			float lBaseDelay = 0.02f; // Délai initial
+			float lBaseDelay = 0.02f; 
 			float lRandDelay; 
 			for (int i = 0; i < lObjectsToAnimate.Count; i++)
 			{
@@ -377,11 +373,7 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 				Node2D lObject = lObjectsToAnimate[i];
 				if (lObject == null) continue;
 
-				// Effet d'électricité avant la disparition
 				FlashElectricEffect(lObject);  
-
-
-				// Déterminer une nouvelle position vers le vortex
 
 				float lRandPropulsion = rand.Randf() * 1000; 
 
@@ -394,9 +386,7 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 							.SetEase(Tween.EaseType.Out);
 				}
 
-				// Attendre un court moment avant d'animer la prochaine tuile
 				await ToSignal(GetTree().CreateTimer(lRandDelay), ObjectProperties.TIME_OUT);
-				// Augmente aléatoirement pour un effet chaotique
 			}
 			AnimateVortex(vortex); 
 
@@ -417,11 +407,10 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 			Node2D lVortex = new Node2D();
 			lVortex.GlobalPosition = pPosition;
 
-			// Ajouter un Sprite pour le vortex
 			Sprite2D lVortexSprite = new Sprite2D();
-			lVortexSprite.Texture = GD.Load(VORTEX_PATH) as Texture2D; // Assurez-vous d’avoir une texture en spirale
-			lVortexSprite.Modulate = new Color(1, 1, 1, 0); // Commence invisible
-			lVortexSprite.Scale = Vector2.One * 0.1f; // Très petit au début
+			lVortexSprite.Texture = GD.Load(VORTEX_PATH) as Texture2D; 
+			lVortexSprite.Modulate = new Color(1, 1, 1, 0); 
+			lVortexSprite.Scale = Vector2.One * 0.1f;
 			lVortex.AddChild(lVortexSprite);
 
 			return lVortex;
@@ -433,15 +422,12 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 			Sprite2D lVortexSprite = vortex.GetChild<Sprite2D>(0);
 			Tween lVortexTween = CreateTween();
 
-			// Faire grossir le vortex
 			lVortexTween.Parallel().TweenProperty(lVortexSprite, ObjectProperties.SCALE, Vector2.One, 0.8f)
 					.SetTrans(Tween.TransitionType.Linear)
 					.SetEase(Tween.EaseType.Out);
 
-			// Augmenter l’opacité pour qu’il apparaisse
 			lVortexTween.Parallel().TweenProperty(lVortexSprite, ObjectProperties.MODULATE, new Color(1, 1, 1, 1), 0.8f);
 
-			// Rotation continue
 			lVortexTween.Parallel().TweenProperty(lVortexSprite, ObjectProperties.ROTATION, Mathf.DegToRad(600), 1f)
 					.SetTrans(Tween.TransitionType.Linear)
 					.SetEase(Tween.EaseType.InOut);
@@ -454,14 +440,14 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 		}
 
 
-		// Effet d’électricité (simulé avec un changement rapide de couleur)
+		// Effet d’électricité qui s'abbat sur les tiles 
 		private void FlashElectricEffect(Node2D pObject)
 		{
 			WinScreenThunder lThunderEffect = thunderEffectScene.Instantiate() as WinScreenThunder;
 			lThunderEffect.ZIndex = 45; 
 			gameManager.objectsContainer.AddChild(lThunderEffect);
 
-			lThunderEffect.ActiveThunder(pObject); 
+			lThunderEffect.ActiveThunder(pObject, WinScreenThunder.THUNDER_ANIMATION); 
 		}
 
 		private void EndLevelAnimationFnished()
