@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://v75l4cppany"]
+[gd_scene load_steps=7 format=3 uid="uid://d2jvky1qy0gg"]
 
 [ext_resource type="Script" path="res://Scripts/GameObjects/GoalBulb.cs" id="1_o63n1"]
 [ext_resource type="Texture2D" uid="uid://dvbsdp4st47hh" path="res://Assets/GameObjects/GoalBulb/LightInBars.png" id="2_c7q4w"]

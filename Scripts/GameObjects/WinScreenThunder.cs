@@ -9,13 +9,12 @@ namespace Com.IsartDigital.ProjectName
         private Node2D impactEffects;
         private Line2D bolt;
         private AnimationPlayer animation;
-        private Node2D targetBattery; // Stocker la batterie cible
+        private Sprite2D targetBattery; // Stocker la batterie cible
 
         private const string ANIMATIONPLAYER_PATH = "ThunderAnimation";
         private const string BOLT_PATH = "Bolt";
         private const string IMPACTEFFECTS_PATH = "ImpactEffect";
-        public const string THUNDER_ANIMATION = "thunderWinScreen";
-        public const string START_ANIMATION = "start_animation";
+        private const string THUNDER_ANIMATION = "thunderWinScreen";
 
         public override void _Ready()
         {
@@ -40,7 +39,7 @@ namespace Com.IsartDigital.ProjectName
             }
         }
 
-        public void ActiveThunder(Node2D pBattery, string pAnimation)
+        public void ActiveThunder(int pStar, Sprite2D pBattery)
         {
             targetBattery = pBattery;
 
@@ -51,9 +50,9 @@ namespace Com.IsartDigital.ProjectName
                 bolt.AddPoint(Vector2.Zero);
             }
 
-            animation.Play(pAnimation);
+            animation.Play(THUNDER_ANIMATION);
             pBattery.SelfModulate = new Color(1, 1, 1, 1);
-            // if(pBattery.GetChild<Node2D>(0) != null)pBattery.GetChild<Node2D>(0).Show();
+            pBattery.GetChild<Node2D>(0).Show();
         }
 
         protected override void Dispose(bool pDisposing)

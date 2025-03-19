@@ -1,12 +1,12 @@
 [gd_scene load_steps=2 format=3 uid="uid://fcrs0icl4dct"]
 
-[ext_resource type="Script" path="res://Scripts/SingleLightning.cs" id="1_n2jtf"]
+[ext_resource type="Script" path="res://Scripts/SingleLightning.cs" id="1_5fbok"]
 
 [node name="Line2D" type="Line2D" node_paths=PackedStringArray("interLine")]
 points = PackedVector2Array(233.29, 144, 503, 90, 623, 222, 576, 339)
 width = 6.0
 default_color = Color(0.192367, 0.422229, 1, 1)
-script = ExtResource("1_n2jtf")
+script = ExtResource("1_5fbok")
 interLine = NodePath("Line2D")
 
 [node name="Line2D" type="Line2D" parent="."]

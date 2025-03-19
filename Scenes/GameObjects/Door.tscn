@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://b4gnj6651gy4m"]
+[gd_scene load_steps=2 format=3 uid="uid://b2wx1538laoqc"]
 
 [ext_resource type="Script" path="res://Scripts/GameObjects/Door.cs" id="1_6nbkh"]
 
