@@ -113,15 +113,15 @@ metadata/_edit_use_anchors_ = true
 
 [node name="Piston" parent="Login" instance=ExtResource("6_lb3rm")]
 layout_mode = 1
-anchor_left = 0.396
-anchor_top = 0.611
-anchor_right = 0.608
-anchor_bottom = 1.063
+anchor_left = 0.324125
+anchor_top = 0.618407
+anchor_right = 0.51175
+anchor_bottom = 1.00741
 offset_left = 0.679932
 offset_top = 0.119995
-offset_right = -406.36
-offset_bottom = -488.04
-scale = Vector2(2.26377, 2.26377)
+offset_right = -359.56
+offset_bottom = -420.0
+scale = Vector2(3.75228, 3.75228)
 metadata/_edit_use_anchors_ = true
 
 [node name="PosHolder" type="Control" parent="Login"]

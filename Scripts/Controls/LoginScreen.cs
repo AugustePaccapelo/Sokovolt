@@ -107,8 +107,6 @@ namespace Com.IsartDigital.SokoVolt
 			buttonCreateGoLogin.Pressed += ButtonChangeToLogin;
             buttonLoginConfirm.Pressed += ButtonPressedLogin;
 			buttonCreateConfirm.Pressed += ButtonPressedCreate;
-
-			loginPiston.GlobalPosition = new Vector2(loginPiston.GlobalPosition.X, screenSize.Y);
         }
 
 		public override void _Process(double pDelta)
@@ -236,6 +234,7 @@ namespace Com.IsartDigital.SokoVolt
 
 			// Button create animation
 			lTween.TweenProperty(buttonLoginGoCreate, "global_position", buttonLoginGoCreate.GlobalPosition, 1.5f).From(animPosLoginButtonChangeScreen);
+			//lTween.TweenProperty(loginPiston, "global_position", loginPiston.GlobalPosition, 1.25f).From(new Vector2(loginPiston.GlobalPosition.X, screenSize.Y));
 			loginPiston.Extend();
 			
 
