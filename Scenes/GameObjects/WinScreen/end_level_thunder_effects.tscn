@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://n3g0bvmsd70w"]
+[gd_scene load_steps=21 format=3 uid="uid://b2v7j7gm1ajdc"]
 
 [ext_resource type="Script" path="res://Scripts/GameObjects/WinScreenThunder.cs" id="1_hbfds"]
 [ext_resource type="Shader" uid="uid://bum2gqlmpu2kv" path="res://Assets/Shaders/ElectricBoltShader.tres" id="2_ryd44"]

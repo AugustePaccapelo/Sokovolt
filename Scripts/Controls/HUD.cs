@@ -69,10 +69,8 @@ namespace Com.IsartDigital.SokoVolt{
 		private void ReturnToMenu()
 		{
             if(winScreen != null)
-			{
-				GD.PrintErr("WinScreen has been queue free"); 
 				winScreen.QueueFree();
-			}
+			
             CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.GoToMainMenu);
         }
 
