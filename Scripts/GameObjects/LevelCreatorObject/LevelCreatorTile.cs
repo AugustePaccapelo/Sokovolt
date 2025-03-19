@@ -9,6 +9,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects {
 	{
 		public LevelCreatorItems content = null;
 		public const int SIZE = 50;
+		public bool canBeRemove = true;
 
         public override void _Ready()
 		{
@@ -19,6 +20,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects {
 		{
 			float lDelta = (float)pDelta;
 			if(content != null) SelfModulate = Colors.Red;
+			else SelfModulate = Colors.Green;
 		}
 
 		protected override void Dispose(bool pDisposing)
