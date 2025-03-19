@@ -58,12 +58,11 @@ namespace Com.IsartDigital.SokoVolt.Managers
 			AddChild(levelSelector);
 		}
 
-        public void LevelCreatorScreen() //Execute when LevelCreatorButton is press in MainMenu
+        public void LevelCreatorScreen() //Execute when LEvelCreatorButton is press in MainMenu
         {
             mainMenu.Hide();
             levelCreator = levelCreatorScene.Instantiate() as LevelCreator;
             AddChild(levelCreator);
-			MoveChild(levelCreator, levelCreator.GetIndex() - 1);
         }
 
         private void BackToMainMenu()

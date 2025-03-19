@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cke54ftmmpvjp"
-path="res://.godot/imported/PistonBody1.png-ea217013be3d6c0c4e8777477dc9ee70.ctex"
+uid="uid://5ddkm66hes2p"
+path="res://.godot/imported/vecteezy_spiral-vortex-element_27720416.png-6772815e4d9afb98be72270c38df7121.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/UI/LoginScreen/PistonBody1.png"
-dest_files=["res://.godot/imported/PistonBody1.png-ea217013be3d6c0c4e8777477dc9ee70.ctex"]
+source_file="res://Assets/GameObjects/LevelAnimation/vecteezy_spiral-vortex-element_27720416.png"
+dest_files=["res://.godot/imported/vecteezy_spiral-vortex-element_27720416.png-6772815e4d9afb98be72270c38df7121.ctex"]
 
 [params]
 

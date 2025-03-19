@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://dnebalk5gppv0"]
+[gd_scene load_steps=5 format=3 uid="uid://e1d8riptp31i"]
 
 [ext_resource type="Script" path="res://Scripts/GameObjects/Movables/BoxTesla.cs" id="1_c7f4a"]
 [ext_resource type="PackedScene" uid="uid://cfqq10c08ay30" path="res://Scenes/Lightning.tscn" id="2_vgo5j"]
