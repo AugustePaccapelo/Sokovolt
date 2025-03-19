@@ -28,8 +28,8 @@ namespace Com.IsartDigital.SokoVolt
         #endregion
 
         #region Exports & Variables
-        [Export] private Button mainMenuButton, newLevelButton, loadLevelButton, menuCustomLevelButton, returnButton, saveButton;
-        [Export] private TextEdit loadLevelText, levelName;
+        [Export] private Button mainMenuButton, newLevelButton, loadLevelButton, menuCustomLevelButton, returnButton, saveButton, applyButton;
+        [Export] private LineEdit loadLevelText, levelName, sizeXText, sizeYText;
         [Export] private LevelCreatorItems wallTexture, electricWallTexture, teslaTexture, bulbTexture, generatorTexture, playerSpawnTexture, doorTexture;
         [Export] private PackedScene wallScene, electricWallScene, teslaScene, bulbScene, generatorScene, playerSpawnScene, doorScene, tileScene, customLevelLabelScene;
         [Export] private VBoxContainer buttonContainer, deleteButtonContainer, labelContainer;
@@ -41,6 +41,8 @@ namespace Com.IsartDigital.SokoVolt
         private float tileSize = 50;
         private float space = 5;
         private Node2D cellContainer;
+        private int lenghtX = 11;
+        private int lenghtY = 11;
         #endregion
 
         #region Const & List
@@ -51,7 +53,8 @@ namespace Com.IsartDigital.SokoVolt
         private const string PLAYERSPAWN_NAME = "playerSpawnTexture";
         private const string DOOR_NAME = "doorTexture";
         private const string ELECTRIC_WALL_NAME = "electricWallTexture";
-        private const int LENGHT = 11;
+        private const int LENGHT_MAX = 11;
+        private const int LENGHT_MIN = 3;
         Dictionary<Vector2, LevelCreatorTile> gridDico = new Dictionary<Vector2, LevelCreatorTile>();
         #endregion
 
@@ -78,6 +81,24 @@ namespace Com.IsartDigital.SokoVolt
             menuCustomLevelButton.Pressed += OpenCustomLevelsMenu;
             returnButton.Pressed += Return;
             saveButton.Pressed += CreateJSON;
+            applyButton.Pressed += ChangeGridSize;
+
+            sizeXText.TextChanged += (newSize) =>
+            {
+                if (int.TryParse(newSize, out int result))
+                {
+                    lenghtX = result;
+                }
+            };
+
+            sizeYText.TextChanged += (newSize) =>
+            {
+                if (int.TryParse(newSize, out int result))
+                {
+                    lenghtY = result;
+                }
+            };
+
             #endregion
 
             #region GetNode
@@ -102,7 +123,8 @@ namespace Com.IsartDigital.SokoVolt
 			MouseOn();
 			PlaceItem();
             if (actualItem != null) actualItem.Position = GetLocalMousePosition();
-		}
+
+        }
 
         private Vector2 PixelToGrid(Vector2 pPosition)
         {
@@ -191,7 +213,7 @@ namespace Com.IsartDigital.SokoVolt
             int lX = Mathf.FloorToInt(lGridX);
             int lY = Mathf.FloorToInt(lGridY);
 
-            if (lX < 0 || lY < 0 || lX > LENGHT - 1 || lY > LENGHT - 1)
+            if (lX < 0 || lY < 0 || lX > lenghtX - 1 || lY > lenghtY - 1)
             {
                 return new Vector2(-1, -1);
             }
@@ -207,7 +229,7 @@ namespace Com.IsartDigital.SokoVolt
 
             if (!FileAccess.FileExists(lFileName) && levelName.Text.Length > 0) //Check if a file with the same name already exist
             {
-                string[] lMap = new string[LENGHT]; //Stock all the JsonKeys
+                string[] lMap = new string[lenghtX]; //Stock all the JsonKeys
                 List<int> lBoxRange = new List<int>();
 
                 //Local variable to check if the minimum required object is placed
@@ -216,10 +238,10 @@ namespace Com.IsartDigital.SokoVolt
                 bool lHasGenerator = false;
                 bool lHasBulb = false;
 
-                for (int lY = 0; lY < LENGHT; lY++)
+                for (int lY = 0; lY < lenghtX; lY++)
                 {
                     string lRow = ""; //Character write in Json file
-                    for (int lX = 0; lX < LENGHT; lX++)
+                    for (int lX = 0; lX < lenghtX; lX++)
                     {
                         Vector2 lTileIndex = new Vector2(lX, lY); //Get the pos of each tile
 
@@ -459,11 +481,11 @@ namespace Com.IsartDigital.SokoVolt
             LevelCreatorTile lTile = tileScene.Instantiate() as LevelCreatorTile;
             Vector2 lPos;
 
-            for (int x = 0; x < LENGHT; x++)
+            for (int x = 0; x < lenghtX; x++)
             {
                 lPos = new Vector2(backGrid.Position.X + space + ((tileSize + space) * x), backGrid.Position.Y + space);
 
-                for (int y = 0; y < LENGHT; y++)
+                for (int y = 0; y < lenghtY; y++)
                 {
                     lTile = new LevelCreatorTile();
                     lTile.Color = new Color(0.5f, 0.5f, 0.5f, 1);
@@ -471,8 +493,7 @@ namespace Com.IsartDigital.SokoVolt
                     cellContainer.AddChild(lTile);
                     lTile.Position = new Vector2(lPos.X, lPos.Y + ((tileSize + space) * y));
                     gridDico.Add(PixelToGrid(lTile.Position), lTile);
-                    GD.Print("CreateTile");
-                    if (x == 0 || x == 10 || y == 0 || y == 10)
+                    if (x == 0 || x == lenghtX - 1 || y == 0 || y == lenghtY - 1)
                     {
                         LevelCreatorItems lItem = wallScene.Instantiate() as LevelCreatorItems;
                         lItem.Scale *= 0.3f;
@@ -484,7 +505,47 @@ namespace Com.IsartDigital.SokoVolt
                     }
                 }
             }
+            GD.Print("Grid Create");
         }
+
+        private void ChangeGridSize()
+        {
+            if (lenghtX > LENGHT_MAX)
+            {
+                sizeXText.Text = LENGHT_MAX.ToString();
+                lenghtX = LENGHT_MAX;
+            }
+            if (lenghtY > LENGHT_MAX)
+            {
+                sizeYText.Text = LENGHT_MAX.ToString();
+                lenghtY = LENGHT_MAX;
+            }
+            if (lenghtX < LENGHT_MIN)
+            {
+                sizeXText.Text = LENGHT_MIN.ToString();
+                lenghtX = LENGHT_MIN;
+            }
+            if (lenghtY < LENGHT_MIN)
+            {
+                sizeYText.Text = LENGHT_MIN.ToString();
+                lenghtY = LENGHT_MIN;
+            }
+
+            // Vérifie que la taille est dans les limites définies
+            if (lenghtX >= LENGHT_MIN && lenghtX <= LENGHT_MAX && lenghtY >= LENGHT_MIN && lenghtY <= LENGHT_MAX)
+            {
+                int lBorder = 5;
+                backGrid.Size = new Vector2(lenghtX * (tileSize + space) + lBorder, lenghtY * (tileSize + space) + lBorder);
+                gridDico.Clear();
+                ClearChildren(cellContainer);
+                CreateGrid();
+            }
+            else
+            {
+                GD.PrintErr($"Grid size out of bounds: X={lenghtX}, Y={lenghtY}");
+            }
+        }
+
         #endregion
 
         #region MenuFonction
