@@ -75,7 +75,7 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 
 		private void  SignalsConnetion()
 		{
-			CustomSignals lSignals = CustomSignals.GetInstance();
+			CustomSignals lSignal = CustomSignals.GetInstance();
 			lSignal.LoadLevel  += (level) => LoadNewLevel(level, JsonKeys.LEVELS_JSONS_PATH, objectsContainer);
             lSignal.Move += OnMovePlayer;
             lSignal.UndoRedo += UndoRedo;
@@ -93,7 +93,7 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 		{
 			ResetStepCounter();
 			hud.Visible = true;
-			LevelLoader.GetInstance().LoadLevel(pLevelToLoad);
+			LevelLoader.GetInstance().LoadLevel(pLevelToLoad, pLevelPath, pObjectContainer);
 			CenterGrid(); 
 
 			if (grid == null)  // Évite d'ajouter un état vide
