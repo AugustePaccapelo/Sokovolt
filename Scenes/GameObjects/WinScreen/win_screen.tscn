@@ -396,18 +396,22 @@ position = Vector2(-9.00024, -5.49933)
 rotation = 1.5708
 shape = SubResource("RectangleShape2D_71gdd")
 
+[node name="ScreenEffect" parent="ScreenContainer" instance=ExtResource("9_bi0ci")]
+
 [node name="ScoreLabel" type="Label" parent="ScreenContainer"]
-offset_left = -267.0
-offset_top = -96.0
-offset_right = -163.0
-offset_bottom = -73.0
+offset_left = -309.0
+offset_top = -97.0
+offset_right = -142.0
+offset_bottom = -61.0
+theme_override_font_sizes/font_size = 26
 text = "SCORE : XXXX"
 
 [node name="StepsLabel" type="Label" parent="ScreenContainer"]
-offset_left = -265.0
-offset_top = -33.0
-offset_right = -167.0
-offset_bottom = -10.0
+offset_left = -307.0
+offset_top = -34.0
+offset_right = -148.0
+offset_bottom = 2.0
+theme_override_font_sizes/font_size = 26
 text = "STEPS : XXXX"
 
 [node name="BatteryCountTexture" type="TextureRect" parent="ScreenContainer"]
@@ -415,20 +419,19 @@ offset_left = 190.0
 offset_top = -118.0
 offset_right = 342.0
 offset_bottom = 116.0
-scale = Vector2(0.3, 0.3)
+scale = Vector2(0.4, 0.4)
 size_flags_horizontal = 0
 size_flags_vertical = 0
 texture = ExtResource("3_fqidv")
 stretch_mode = 2
 
 [node name="StarCountLabel" type="Label" parent="ScreenContainer"]
-offset_left = 230.0
-offset_top = -94.0
-offset_right = 254.0
-offset_bottom = -71.0
+offset_left = 255.0
+offset_top = -86.0
+offset_right = 293.0
+offset_bottom = -50.0
+theme_override_font_sizes/font_size = 26
 text = "X 0"
-
-[node name="ScreenEffect" parent="ScreenContainer" instance=ExtResource("9_bi0ci")]
 
 [node name="ParticlesGroup" type="Node2D" parent="ScreenContainer"]
 visible = false
