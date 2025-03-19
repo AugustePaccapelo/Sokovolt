@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://bx4sq5cya6p7g"]
+[gd_scene load_steps=17 format=3 uid="uid://bx4sq5cya6p7g"]
 
 [ext_resource type="PackedScene" uid="uid://36dp5dq6hmqq" path="res://Scenes/GameObjects/ButtonTemplate.tscn" id="1_8igok"]
 [ext_resource type="Script" path="res://Scripts/Controls/LevelCreator.cs" id="1_bf11f"]
@@ -32,7 +32,12 @@ border_width_bottom = 5
 shadow_size = 10
 shadow_offset = Vector2(5, 5)
 
-[node name="LevelCreatorMenu" type="Control" node_paths=PackedStringArray("mainMenuButton", "newLevelButton", "loadLevelButton", "menuCustomLevelButton", "returnButton", "saveButton", "loadLevelText", "levelName", "wallTexture", "electricWallTexture", "teslaTexture", "bulbTexture", "generatorTexture", "playerSpawnTexture", "doorTexture", "buttonContainer", "deleteButtonContainer", "labelContainer")]
+[sub_resource type="LabelSettings" id="LabelSettings_ng5xk"]
+font_size = 48
+outline_size = 5
+outline_color = Color(0, 0, 0, 1)
+
+[node name="LevelCreatorMenu" type="Control" node_paths=PackedStringArray("mainMenuButton", "newLevelButton", "loadLevelButton", "menuCustomLevelButton", "returnButton", "saveButton", "applyButton", "loadLevelText", "levelName", "sizeXText", "sizeYText", "wallTexture", "electricWallTexture", "teslaTexture", "bulbTexture", "generatorTexture", "playerSpawnTexture", "doorTexture", "buttonContainer", "deleteButtonContainer", "labelContainer")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -46,8 +51,11 @@ loadLevelButton = NodePath("CustomLevelListBackGround/LoadLevelButton")
 menuCustomLevelButton = NodePath("Menu/MenuCustomLevelButton")
 returnButton = NodePath("ReturnButton")
 saveButton = NodePath("NewLevelBackGround/SaveButton")
-loadLevelText = NodePath("CustomLevelListBackGround/TextEdit")
+applyButton = NodePath("NewLevelBackGround/HBoxContainer/ApplyButton")
+loadLevelText = NodePath("CustomLevelListBackGround/LoadLevelText")
 levelName = NodePath("NewLevelBackGround/NameLineEdit")
+sizeXText = NodePath("NewLevelBackGround/HBoxContainer/SizeXText")
+sizeYText = NodePath("NewLevelBackGround/HBoxContainer/SizeYText")
 wallTexture = NodePath("NewLevelBackGround/Inventory/Wall")
 electricWallTexture = NodePath("NewLevelBackGround/Inventory/ElectricWall")
 teslaTexture = NodePath("NewLevelBackGround/Inventory/Tesla")
@@ -190,7 +198,7 @@ offset_bottom = 95.0
 theme_override_font_sizes/font_size = 32
 text = "SAVE"
 
-[node name="NameLineEdit" type="TextEdit" parent="NewLevelBackGround"]
+[node name="NameLineEdit" type="LineEdit" parent="NewLevelBackGround"]
 layout_mode = 0
 offset_left = 34.0
 offset_top = 37.0
@@ -198,6 +206,43 @@ offset_right = 406.0
 offset_bottom = 90.0
 theme_override_font_sizes/font_size = 32
 placeholder_text = "Name your Level"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="NewLevelBackGround"]
+layout_mode = 1
+offset_left = 997.0
+offset_top = 980.0
+offset_right = 1598.0
+offset_bottom = 1051.0
+
+[node name="ApplyButton" parent="NewLevelBackGround/HBoxContainer" instance=ExtResource("1_8igok")]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "APPLY"
+during = 0.2
+easeType = 2
+transitionType = 7
+
+[node name="SizeXText" type="LineEdit" parent="NewLevelBackGround/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+placeholder_text = "X"
+alignment = 1
+max_length = 2
+virtual_keyboard_type = 2
+clear_button_enabled = true
+
+[node name="SizeYText" type="LineEdit" parent="NewLevelBackGround/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+placeholder_text = "Y"
+alignment = 1
+max_length = 2
+clear_button_enabled = true
+
+[node name="Label" type="Label" parent="NewLevelBackGround/HBoxContainer"]
+layout_mode = 2
+text = "GRIDSIZE"
+label_settings = SubResource("LabelSettings_ng5xk")
 
 [node name="LoadLevelBackGround" type="Panel" parent="."]
 visible = false
@@ -248,7 +293,7 @@ offset_bottom = 930.0
 pivot_offset = Vector2(77, 46)
 text = "Load Level"
 
-[node name="TextEdit" type="TextEdit" parent="CustomLevelListBackGround"]
+[node name="LoadLevelText" type="LineEdit" parent="CustomLevelListBackGround"]
 layout_mode = 1
 offset_left = 1300.0
 offset_top = 952.0
