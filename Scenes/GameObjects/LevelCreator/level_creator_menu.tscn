@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://bx4sq5cya6p7g"]
+[gd_scene load_steps=19 format=3 uid="uid://bx4sq5cya6p7g"]
 
 [ext_resource type="PackedScene" uid="uid://36dp5dq6hmqq" path="res://Scenes/GameObjects/ButtonTemplate.tscn" id="1_8igok"]
 [ext_resource type="Script" path="res://Scripts/Controls/LevelCreator.cs" id="1_bf11f"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://cce6m5y5bqo5c" path="res://Scenes/GameObjects/LevelCreator/door_texture.tscn" id="10_av00s"]
 [ext_resource type="PackedScene" uid="uid://dg077chl56p8g" path="res://Scenes/GameObjects/LevelCreator/player_spawn_texture.tscn" id="11_g4nve"]
 [ext_resource type="PackedScene" uid="uid://40x567524t37" path="res://Scenes/GameObjects/LevelCreator/electric_wall_texture.tscn" id="12_7rowd"]
+[ext_resource type="Script" path="res://Scripts/GameObjects/LevelCreatorObject/LevelCreatorAnimationManager.cs" id="12_kjuj3"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oto23"]
 bg_color = Color(0.43134, 0.43134, 0.43134, 1)
@@ -32,12 +33,15 @@ border_width_bottom = 5
 shadow_size = 10
 shadow_offset = Vector2(5, 5)
 
+[sub_resource type="LabelSettings" id="LabelSettings_hcnft"]
+outline_size = 2
+
 [sub_resource type="LabelSettings" id="LabelSettings_ng5xk"]
 font_size = 48
 outline_size = 5
 outline_color = Color(0, 0, 0, 1)
 
-[node name="LevelCreatorMenu" type="Control" node_paths=PackedStringArray("mainMenuButton", "newLevelButton", "loadLevelButton", "menuCustomLevelButton", "returnButton", "saveButton", "applyButton", "loadLevelText", "levelName", "sizeXText", "sizeYText", "wallTexture", "electricWallTexture", "teslaTexture", "bulbTexture", "generatorTexture", "playerSpawnTexture", "doorTexture", "buttonContainer", "deleteButtonContainer", "labelContainer")]
+[node name="LevelCreatorMenu" type="Control" node_paths=PackedStringArray("mainMenuButton", "newLevelButton", "loadLevelButton", "menuCustomLevelButton", "returnButton", "saveButton", "applyButton", "loadLevelText", "levelName", "sizeXText", "sizeYText", "wallTexture", "electricWallTexture", "teslaTexture", "bulbTexture", "generatorTexture", "playerSpawnTexture", "doorTexture", "buttonContainer", "deleteButtonContainer", "labelContainer", "animationManager")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -76,6 +80,10 @@ buttonContainer = NodePath("CustomLevelListBackGround/MenuBar/HBoxContainer/Butt
 deleteButtonContainer = NodePath("CustomLevelListBackGround/MenuBar/HBoxContainer/DeleteButtonContainer2")
 labelContainer = NodePath("CustomLevelListBackGround/MenuBar/HBoxContainer/LabelContainer")
 customLevelTemplate = ExtResource("8_kgilq")
+animationManager = NodePath("AnimationManager")
+
+[node name="AnimationManager" type="Node" parent="."]
+script = ExtResource("12_kjuj3")
 
 [node name="Menu" type="Panel" parent="."]
 layout_mode = 1
@@ -113,7 +121,6 @@ pivot_offset = Vector2(117, 70)
 text = "MainMenu"
 
 [node name="NewLevelBackGround" type="Panel" parent="."]
-visible = false
 layout_mode = 1
 offset_right = 1920.0
 offset_bottom = 1080.0
@@ -128,85 +135,108 @@ offset_bottom = 1081.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_pf3ks")
 
 [node name="Bulb" parent="NewLevelBackGround/Inventory" instance=ExtResource("5_7j68n")]
-layout_mode = 0
-offset_left = 4.0
-offset_top = 40.0
-offset_right = 606.0
-offset_bottom = 400.0
+layout_mode = 1
+offset_left = -156.0
+offset_top = -67.0
+offset_right = 446.0
+offset_bottom = 293.0
+pivot_offset = Vector2(301, 180)
 stretch_mode = 3
 
 [node name="Door" parent="NewLevelBackGround/Inventory" instance=ExtResource("10_av00s")]
-layout_mode = 0
-offset_left = 7.0
-offset_top = 219.0
-offset_right = 600.0
-offset_bottom = 579.0
+layout_mode = 1
+offset_left = -149.0
+offset_top = 124.0
+offset_right = 444.0
+offset_bottom = 484.0
+pivot_offset = Vector2(296, 180)
 
 [node name="PlayerSpawn" parent="NewLevelBackGround/Inventory" instance=ExtResource("11_g4nve")]
-layout_mode = 0
-offset_left = 6.0
-offset_top = 386.0
-offset_right = 5421.0
-offset_bottom = 2786.0
+layout_mode = 1
+offset_left = -2559.0
+offset_top = -749.0
+offset_right = 2856.0
+offset_bottom = 1651.0
+pivot_offset = Vector2(2707, 1200)
 
 [node name="Generator" parent="NewLevelBackGround/Inventory" instance=ExtResource("6_wy1dl")]
-layout_mode = 0
-offset_left = 7.0
-offset_top = 507.0
-offset_right = 1888.0
-offset_bottom = 1487.0
+layout_mode = 1
+offset_left = -794.0
+offset_top = 104.0
+offset_right = 1087.0
+offset_bottom = 1084.0
 scale = Vector2(0.149946, 0.149946)
+pivot_offset = Vector2(940, 490)
 stretch_mode = 3
 
 [node name="Tesla" parent="NewLevelBackGround/Inventory" instance=ExtResource("7_5weia")]
-layout_mode = 0
-offset_left = 18.0
-offset_top = 669.0
-offset_right = 793.0
-offset_bottom = 1077.0
+layout_mode = 1
+offset_left = -267.0
+offset_top = 521.0
+offset_right = 509.0
+offset_bottom = 929.0
 scale = Vector2(0.363404, 0.363404)
+pivot_offset = Vector2(428.815, 228.766)
 
 [node name="Wall" parent="NewLevelBackGround/Inventory" instance=ExtResource("8_gc0rv")]
 layout_mode = 0
-offset_left = 7.0
-offset_top = 941.0
-offset_right = 467.0
-offset_bottom = 1131.0
+offset_left = -83.0
+offset_top = 918.0
+offset_right = 377.0
+offset_bottom = 1108.0
 scale = Vector2(0.613341, 0.613341)
+pivot_offset = Vector2(229.888, 91.3032)
 
 [node name="ElectricWall" parent="NewLevelBackGround/Inventory" instance=ExtResource("12_7rowd")]
-layout_mode = 0
-offset_left = 7.0
-offset_top = 823.0
-offset_right = 462.0
-offset_bottom = 1013.0
+layout_mode = 1
+offset_left = -79.0
+offset_top = 788.0
+offset_right = 376.0
+offset_bottom = 978.0
 scale = Vector2(0.615857, 0.615857)
+pivot_offset = Vector2(227, 95)
 
 [node name="BackGrid" type="Panel" parent="NewLevelBackGround"]
 layout_mode = 1
-offset_left = 267.0
-offset_top = 130.0
-offset_right = 877.0
-offset_bottom = 740.0
+offset_left = 370.0
+offset_top = 220.0
+offset_right = 980.0
+offset_bottom = 830.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_wq6pk")
 
 [node name="SaveButton" type="Button" parent="NewLevelBackGround"]
-layout_mode = 0
-offset_left = 502.0
-offset_top = 21.0
-offset_right = 621.0
-offset_bottom = 95.0
+layout_mode = 1
+offset_left = 488.0
+offset_top = 31.0
+offset_right = 607.0
+offset_bottom = 105.0
+pivot_offset = Vector2(59, 37)
 theme_override_font_sizes/font_size = 32
 text = "SAVE"
 
 [node name="NameLineEdit" type="LineEdit" parent="NewLevelBackGround"]
-layout_mode = 0
+layout_mode = 1
 offset_left = 34.0
 offset_top = 37.0
 offset_right = 406.0
 offset_bottom = 90.0
+pivot_offset = Vector2(186, 26)
 theme_override_font_sizes/font_size = 32
 placeholder_text = "Name your Level"
+
+[node name="Label" type="Label" parent="NewLevelBackGround/NameLineEdit"]
+visible = false
+self_modulate = Color(1, 0, 0, 1)
+layout_mode = 1
+offset_left = 5.0
+offset_top = 65.0
+offset_right = 373.0
+offset_bottom = 117.0
+pivot_offset = Vector2(184, 26)
+text = "FILE NAME ALREADY USED"
+label_settings = SubResource("LabelSettings_hcnft")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="NewLevelBackGround"]
 layout_mode = 1

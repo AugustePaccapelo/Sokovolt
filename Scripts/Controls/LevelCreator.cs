@@ -34,6 +34,7 @@ namespace Com.IsartDigital.SokoVolt
         [Export] private PackedScene wallScene, electricWallScene, teslaScene, bulbScene, generatorScene, playerSpawnScene, doorScene, tileScene, customLevelLabelScene;
         [Export] private VBoxContainer buttonContainer, deleteButtonContainer, labelContainer;
         [Export] private Json customLevelTemplate;
+        [Export] private LevelCreatorAnimationManager animationManager;
         private Panel newLevelBackground, loadLevelBackground, customLevelMenuBackground, backGrid;
         private LevelCreatorItems actualItem;
 		private bool canPick = false;
@@ -46,13 +47,13 @@ namespace Com.IsartDigital.SokoVolt
         #endregion
 
         #region Const & List
-        private const string TESLA_NAME = "teslaTexture";
-        private const string WALL_NAME = "wallTexture";
-        private const string GENERATOR_NAME = "generatorTexture";
-        private const string BULB_NAME = "bulbTexture";
-        private const string PLAYERSPAWN_NAME = "playerSpawnTexture";
-        private const string DOOR_NAME = "doorTexture";
-        private const string ELECTRIC_WALL_NAME = "electricWallTexture";
+        private const string TESLA_TYPE = "teslaTexture";
+        private const string WALL_TYPE = "wallTexture";
+        private const string GENERATOR_TYPE = "generatorTexture";
+        private const string BULB_TYPE = "bulbTexture";
+        private const string PLAYERSPAWN_TYPE = "playerSpawnTexture";
+        private const string DOOR_TYPE = "doorTexture";
+        private const string ELECTRIC_WALL_TYPE = "electricWallTexture";
         private const int LENGHT_MAX = 11;
         private const int LENGHT_MIN = 3;
         Dictionary<Vector2, LevelCreatorTile> gridDico = new Dictionary<Vector2, LevelCreatorTile>();
@@ -123,7 +124,6 @@ namespace Com.IsartDigital.SokoVolt
 			MouseOn();
 			PlaceItem();
             if (actualItem != null) actualItem.Position = GetLocalMousePosition();
-
         }
 
         private Vector2 PixelToGrid(Vector2 pPosition)
@@ -141,47 +141,48 @@ namespace Com.IsartDigital.SokoVolt
             if (Input.IsMouseButtonPressed(MouseButton.Left) && canPick)
             {
                 actualItem?.QueueFree();
-                LevelCreatorItems lItem = new LevelCreatorItems();
+                LevelCreatorItems lItem = null;
 
                 if (hoveredItem == wallTexture)
                 {
                     lItem = wallScene.Instantiate() as LevelCreatorItems;
-                    lItem.Name = WALL_NAME;
+                    lItem.type = WALL_TYPE;
                 }
                 else if (hoveredItem == teslaTexture)
                 {
                     lItem = teslaScene.Instantiate() as LevelCreatorItems;
                     if (lItem.teslaRange != null) lItem.teslaRange.Value = teslaTexture.teslaRange.Value;
-                    lItem.Name = TESLA_NAME;
+                    lItem.type = TESLA_TYPE;
                 }
                 else if (hoveredItem == bulbTexture)
                 {
                     lItem = bulbScene.Instantiate() as LevelCreatorItems;
-                    lItem.Name = BULB_NAME;
+                    lItem.type = BULB_TYPE;
                 }
                 else if (hoveredItem == generatorTexture)
                 {
                     lItem = generatorScene.Instantiate() as LevelCreatorItems;
-                    lItem.Name = GENERATOR_NAME;
+                    lItem.type = GENERATOR_TYPE;
                 }
                 else if (hoveredItem == playerSpawnTexture)
                 {
                     lItem = playerSpawnScene.Instantiate() as LevelCreatorItems;
-                    lItem.Name = PLAYERSPAWN_NAME;
+                    lItem.type = PLAYERSPAWN_TYPE;
                 }
                 else if (hoveredItem == electricWallTexture)
                 {
                     lItem = electricWallScene.Instantiate() as LevelCreatorItems;
-                    lItem.Name = ELECTRIC_WALL_NAME;
+                    lItem.type = ELECTRIC_WALL_TYPE;
                 }
                 else if (hoveredItem == doorTexture)
                 {
                     lItem = doorScene.Instantiate() as LevelCreatorItems;
-                    lItem.Name = DOOR_NAME;
+                    lItem.type = DOOR_TYPE;
                 }
 
                 cellContainer.AddChild(lItem);
                 actualItem = lItem;
+                actualItem.MouseFilter = MouseFilterEnum.Ignore; //Disable collision with mouse
                 canPick = false;
             }
         }
@@ -229,7 +230,7 @@ namespace Com.IsartDigital.SokoVolt
 
             if (!FileAccess.FileExists(lFileName) && levelName.Text.Length > 0) //Check if a file with the same name already exist
             {
-                string[] lMap = new string[lenghtX]; //Stock all the JsonKeys
+                string[] lMap = new string[lenghtY]; //Stock all the JsonKeys
                 List<int> lBoxRange = new List<int>();
 
                 //Local variable to check if the minimum required object is placed
@@ -238,22 +239,22 @@ namespace Com.IsartDigital.SokoVolt
                 bool lHasGenerator = false;
                 bool lHasBulb = false;
 
-                for (int lY = 0; lY < lenghtX; lY++)
+                for (int y = 0; y < lenghtY; y++)
                 {
                     string lRow = ""; //Character write in Json file
-                    for (int lX = 0; lX < lenghtX; lX++)
+                    for (int x = 0; x < lenghtX; x++)
                     {
-                        Vector2 lTileIndex = new Vector2(lX, lY); //Get the pos of each tile
+                        Vector2 lTileIndex = new Vector2(x, y); //Get the pos of each tile
 
                         if (gridDico.TryGetValue(lTileIndex, out LevelCreatorTile lTile) && lTile.content != null)// Check the content of each Tile
                         {
-                            switch (lTile.content.Name)//Write the correct character according to the content of the tile
+                            switch (lTile.content.type)//Write the correct character according to the content of the tile
                             {
-                                case WALL_NAME:
+                                case WALL_TYPE:
                                     lRow += JsonKeys.WALL;
                                     break;
 
-                                case TESLA_NAME:
+                                case TESLA_TYPE:
                                     lRow += JsonKeys.BOX;
                                     if (lTile.content.teslaRange != null)
                                     {
@@ -261,27 +262,27 @@ namespace Com.IsartDigital.SokoVolt
                                     }
                                     break;
 
-                                case BULB_NAME:
+                                case BULB_TYPE:
                                     lRow += JsonKeys.GOAL_BULB;
                                     lHasBulb = true;
                                     break;
 
-                                case GENERATOR_NAME:
+                                case GENERATOR_TYPE:
                                     lRow += JsonKeys.GENERATOR;
                                     lHasGenerator = true;
                                     break;
 
-                                case PLAYERSPAWN_NAME:
+                                case PLAYERSPAWN_TYPE:
                                     lRow += JsonKeys.PLAYER;
                                     lHasPlayerSpawn = true;
                                     break;
 
-                                case DOOR_NAME:
+                                case DOOR_TYPE:
                                     lRow += JsonKeys.DOOR;
                                     lHasDoor = true;
                                     break;
 
-                                case ELECTRIC_WALL_NAME:
+                                case ELECTRIC_WALL_TYPE:
                                     lRow += JsonKeys.ELECTRIC_WALL;
                                     break;
 
@@ -295,13 +296,28 @@ namespace Com.IsartDigital.SokoVolt
                             lRow += ' '; //Double check
                         }
                     }
-                    lMap[lY] = lRow; //Put the JsonKey at the good place in lMap
+                    lMap[y] = lRow; //Put the JsonKey at the good place in lMap
                 }
 
                 //Verification of mandatory elements
-                if (!lHasDoor || !lHasPlayerSpawn || !lHasGenerator || !lHasBulb)
+                if (!lHasBulb)
                 {
-                    GD.PrintErr("Missing Items: A door, a playerspawn, a generator, and at least one light bulb are required.");
+                    animationManager.BounceAnimation(bulbTexture, 0.5f, Colors.Red, 0.2f);
+                    return;
+                }
+                if (!lHasDoor)
+                {
+                    animationManager.BounceAnimation(doorTexture, 0.5f, Colors.Red, 0.2f);
+                    return;
+                }
+                if (!lHasPlayerSpawn)
+                {
+                    animationManager.BounceAnimation(playerSpawnTexture, 0.5f, Colors.Red, 0.2f);
+                    return;
+                }
+                if (!lHasGenerator)
+                {
+                    animationManager.BounceAnimation(generatorTexture, 0.5f, Colors.Red, 0.2f);
                     return;
                 }
 
@@ -336,11 +352,13 @@ namespace Com.IsartDigital.SokoVolt
 
                 using FileAccess lCreateFile = FileAccess.Open(lFileName, FileAccess.ModeFlags.Write); //Create the file and open it for write
                 lCreateFile.StoreString(lJson); //Write lJson variable inside
-
+                animationManager.BounceAnimation(levelName, 0.5f, Colors.Green, 0.4f);
+                animationManager.BounceAnimation(saveButton, 0.5f, Colors.Green, 0.4f);
                 GD.Print("File created successfully: " + lFileName);
             }
             else
             {
+                animationManager.BounceAnimation(levelName, 0.5f, Colors.Red, 0.2f);
                 GD.PrintErr("File already exists or name is empty.");
             }
         }
@@ -410,34 +428,34 @@ namespace Com.IsartDigital.SokoVolt
                 {
                     if (lTile.content == null)
                     {
-                        string lItemType = actualItem.Name; //Get the selected item in a local variable
+                        string lItemType = actualItem.type; //Get the selected item in a local variable
 
                         //Create new instance of object
                         LevelCreatorItems lNewItem = null;
 
                         switch (lItemType) //Checks the type of the object using its name
                         {
-                            case WALL_NAME:
+                            case WALL_TYPE:
                                 lNewItem = wallScene.Instantiate<LevelCreatorItems>();
                                 break;
-                            case TESLA_NAME:
+                            case TESLA_TYPE:
                                 lNewItem = teslaScene.Instantiate<LevelCreatorItems>();
                                 if (lNewItem.teslaRange != null)
                                     lNewItem.teslaRange.Value = teslaTexture.teslaRange.Value; //If it's a Tesla it receives the selected length
                                 break;
-                            case BULB_NAME:
+                            case BULB_TYPE:
                                 lNewItem = bulbScene.Instantiate<LevelCreatorItems>();
                                 break;
-                            case GENERATOR_NAME:
+                            case GENERATOR_TYPE:
                                 lNewItem = generatorScene.Instantiate<LevelCreatorItems>();
                                 break;
-                            case PLAYERSPAWN_NAME:
+                            case PLAYERSPAWN_TYPE:
                                 lNewItem = playerSpawnScene.Instantiate<LevelCreatorItems>();
                                 break;
-                            case DOOR_NAME:
+                            case DOOR_TYPE:
                                 lNewItem = doorScene.Instantiate<LevelCreatorItems>();
                                 break;
-                            case ELECTRIC_WALL_NAME:
+                            case ELECTRIC_WALL_TYPE:
                                 lNewItem = electricWallScene.Instantiate<LevelCreatorItems>();
                                 break;
                         }
@@ -445,7 +463,7 @@ namespace Com.IsartDigital.SokoVolt
                         if (lNewItem != null)
                         {
                             lNewItem.Scale *= 0.3f;
-                            lNewItem.Name = lItemType;
+                            lNewItem.type = lItemType;
 
                             // Add to Tile
                             lTile.content = lNewItem;
@@ -497,7 +515,7 @@ namespace Com.IsartDigital.SokoVolt
                     {
                         LevelCreatorItems lItem = wallScene.Instantiate() as LevelCreatorItems;
                         lItem.Scale *= 0.3f;
-                        lItem.Name = WALL_NAME;
+                        lItem.type = WALL_TYPE;
                         lTile.content = lItem;
                         lTile.AddChild(lItem);
                         lTile.canBeRemove = false;
