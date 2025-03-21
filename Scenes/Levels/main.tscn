@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://dkbx646vvyaig"]
+[gd_scene load_steps=22 format=3 uid="uid://dkbx646vvyaig"]
 
 [ext_resource type="PackedScene" uid="uid://dyk47lo67a1tp" path="res://Scenes/Managers/ui_manager.tscn" id="1_4603a"]
 [ext_resource type="PackedScene" uid="uid://bnv0kco0ylr0e" path="res://Scenes/Managers/GridManager.tscn" id="1_d671q"]
@@ -20,6 +20,7 @@
 [ext_resource type="PackedScene" uid="uid://b4gnj6651gy4m" path="res://Scenes/GameObjects/Door.tscn" id="12_pyytn"]
 [ext_resource type="PackedScene" uid="uid://br3qeg3kaqfqk" path="res://Scenes/user_gestion.tscn" id="17_3ylmq"]
 [ext_resource type="Script" path="res://Scripts/Managers/connectionManagers.cs" id="20_guk6j"]
+[ext_resource type="Script" path="res://Scripts/GameObjects/LevelCreatorObject/AnimationManager.cs" id="21_5qu8w"]
 
 [node name="MAIN" type="Node2D"]
 
@@ -78,6 +79,9 @@ objectsContainer = NodePath("../../Containers/ObjectsContainer")
 
 [node name="connectionManagers" type="Node2D" parent="Managers"]
 script = ExtResource("20_guk6j")
+
+[node name="AnimationManager" type="Node2D" parent="Managers"]
+script = ExtResource("21_5qu8w")
 
 [node name="Containers" type="Node2D" parent="."]
 

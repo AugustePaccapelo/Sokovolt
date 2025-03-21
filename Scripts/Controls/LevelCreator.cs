@@ -35,7 +35,6 @@ namespace Com.IsartDigital.SokoVolt
         [Export] private PackedScene wallScene, electricWallScene, teslaScene, bulbScene, generatorScene, playerSpawnScene, doorScene, tileScene, customLevelLabelScene;
         [Export] private VBoxContainer buttonContainer, deleteButtonContainer, labelContainer;
         [Export] private Json customLevelTemplate;
-        [Export] private LevelCreatorAnimationManager animationManager;
         private Panel newLevelBackground, loadLevelBackground, customLevelMenuBackground, backGrid;
         private LevelCreatorItems actualItem;
 		private bool canPick = false;
@@ -292,7 +291,7 @@ namespace Com.IsartDigital.SokoVolt
 
                             if (lDoorCounter > 1 || lPlayerSpawnCounter > 1)
                             {
-                                animationManager.BounceAnimation(lTile.content, 0.5f, Colors.Red, 0.2f);
+                                AnimationManager.GetInstance().BounceAnimation(lTile.content, 0.5f, Colors.Red, 0.2f);
                                 lDoorCounter = lPlayerSpawnCounter = 0;
                                 return;
                             }
@@ -308,22 +307,22 @@ namespace Com.IsartDigital.SokoVolt
                 //Checking the number of elements
                 if (!lHasBulb)
                 {
-                    animationManager.BounceAnimation(bulbTexture, 0.5f, Colors.Red, 0.2f);
+                    AnimationManager.GetInstance().BounceAnimation(bulbTexture, 0.5f, Colors.Red, 0.2f);
                     return;
                 }
                 if (!lHasDoor)
                 {
-                    animationManager.BounceAnimation(doorTexture, 0.5f, Colors.Red, 0.2f);
+                    AnimationManager.GetInstance().BounceAnimation(doorTexture, 0.5f, Colors.Red, 0.2f);
                     return;
                 }
                 if (!lHasPlayerSpawn)
                 {
-                    animationManager.BounceAnimation(playerSpawnTexture, 0.5f, Colors.Red, 0.2f);
+                    AnimationManager.GetInstance().BounceAnimation(playerSpawnTexture, 0.5f, Colors.Red, 0.2f);
                     return;
                 }
                 if (!lHasGenerator)
                 {
-                    animationManager.BounceAnimation(generatorTexture, 0.5f, Colors.Red, 0.2f);
+                    AnimationManager.GetInstance().BounceAnimation(generatorTexture, 0.5f, Colors.Red, 0.2f);
                     return;
                 }
 
@@ -358,13 +357,13 @@ namespace Com.IsartDigital.SokoVolt
 
                 using FileAccess lCreateFile = FileAccess.Open(lFileName, FileAccess.ModeFlags.Write); //Create the file and open it for write
                 lCreateFile.StoreString(lJson); //Write lJson variable inside
-                animationManager.BounceAnimation(levelName, 0.5f, Colors.Green, 0.4f);
-                animationManager.BounceAnimation(saveButton, 0.5f, Colors.Green, 0.4f);
+                AnimationManager.GetInstance().BounceAnimation(levelName, 0.5f, Colors.Green, 0.4f);
+                AnimationManager.GetInstance().BounceAnimation(saveButton, 0.5f, Colors.Green, 0.4f);
                 GD.Print("File created successfully: " + lFileName);
             }
             else
             {
-                animationManager.BounceAnimation(levelName, 0.5f, Colors.Red, 0.2f);
+                AnimationManager.GetInstance().BounceAnimation(levelName, 0.5f, Colors.Red, 0.2f);
                 GD.PrintErr("File already exists or name is empty.");
             }
         }

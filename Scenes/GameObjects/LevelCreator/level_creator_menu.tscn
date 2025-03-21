@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://bx4sq5cya6p7g"]
+[gd_scene load_steps=19 format=3 uid="uid://bx4sq5cya6p7g"]
 
 [ext_resource type="PackedScene" uid="uid://36dp5dq6hmqq" path="res://Scenes/GameObjects/ButtonTemplate.tscn" id="1_8igok"]
 [ext_resource type="Script" path="res://Scripts/Controls/LevelCreator.cs" id="1_bf11f"]
@@ -12,7 +12,6 @@
 [ext_resource type="PackedScene" uid="uid://cce6m5y5bqo5c" path="res://Scenes/GameObjects/LevelCreator/door_texture.tscn" id="10_av00s"]
 [ext_resource type="PackedScene" uid="uid://dg077chl56p8g" path="res://Scenes/GameObjects/LevelCreator/player_spawn_texture.tscn" id="11_g4nve"]
 [ext_resource type="PackedScene" uid="uid://40x567524t37" path="res://Scenes/GameObjects/LevelCreator/electric_wall_texture.tscn" id="12_7rowd"]
-[ext_resource type="Script" path="res://Scripts/GameObjects/LevelCreatorObject/LevelCreatorAnimationManager.cs" id="12_kjuj3"]
 [ext_resource type="Script" path="res://Scripts/GameObjects/ButtonTemplate.cs" id="14_tu8f3"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oto23"]
@@ -42,7 +41,7 @@ font_size = 48
 outline_size = 5
 outline_color = Color(0, 0, 0, 1)
 
-[node name="LevelCreatorMenu" type="Control" node_paths=PackedStringArray("mainMenuButton", "newLevelButton", "loadLevelButton", "menuCustomLevelButton", "returnButton", "saveButton", "applyButton", "loadLevelText", "levelName", "sizeXText", "sizeYText", "wallTexture", "electricWallTexture", "teslaTexture", "bulbTexture", "generatorTexture", "playerSpawnTexture", "doorTexture", "buttonContainer", "deleteButtonContainer", "labelContainer", "animationManager")]
+[node name="LevelCreatorMenu" type="Control" node_paths=PackedStringArray("mainMenuButton", "newLevelButton", "loadLevelButton", "menuCustomLevelButton", "returnButton", "saveButton", "applyButton", "loadLevelText", "levelName", "sizeXText", "sizeYText", "wallTexture", "electricWallTexture", "teslaTexture", "bulbTexture", "generatorTexture", "playerSpawnTexture", "doorTexture", "buttonContainer", "deleteButtonContainer", "labelContainer")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -81,10 +80,6 @@ buttonContainer = NodePath("CustomLevelListBackGround/MenuBar/HBoxContainer/Butt
 deleteButtonContainer = NodePath("CustomLevelListBackGround/MenuBar/HBoxContainer/DeleteButtonContainer2")
 labelContainer = NodePath("CustomLevelListBackGround/MenuBar/HBoxContainer/LabelContainer")
 customLevelTemplate = ExtResource("8_kgilq")
-animationManager = NodePath("AnimationManager")
-
-[node name="AnimationManager" type="Node" parent="."]
-script = ExtResource("12_kjuj3")
 
 [node name="Menu" type="Panel" parent="."]
 layout_mode = 1
