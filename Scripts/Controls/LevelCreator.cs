@@ -35,7 +35,7 @@ namespace Com.IsartDigital.SokoVolt
         [Export] private PackedScene wallScene, electricWallScene, teslaScene, bulbScene, generatorScene, playerSpawnScene, doorScene, tileScene, customLevelLabelScene;
         [Export] private VBoxContainer buttonContainer, deleteButtonContainer, labelContainer;
         [Export] private Json customLevelTemplate;
-        private Panel newLevelBackground, loadLevelBackground, customLevelMenuBackground, backGrid;
+        private Panel newLevelBackground, customLevelMenuBackground, backGrid, menu;
         private LevelCreatorItems actualItem;
 		private bool canPick = false;
         private TextureRect hoveredItem;
@@ -55,6 +55,8 @@ namespace Com.IsartDigital.SokoVolt
         private const int LENGHT_MAX = 11;
         private const int LENGHT_MIN = 3;
         Dictionary<Vector2, LevelCreatorTile> gridDico = new Dictionary<Vector2, LevelCreatorTile>();
+
+        GameManager gameManager; 
         #endregion
 
         public override void _Ready()
@@ -102,10 +104,12 @@ namespace Com.IsartDigital.SokoVolt
 
             #region GetNode
             newLevelBackground = GetNode<Panel>("NewLevelBackGround");
-            loadLevelBackground = GetNode<Panel>("LoadLevelBackGround");
             cellContainer = GetNode<Node2D>("CellContainer");
             customLevelMenuBackground = GetNode<Panel>("CustomLevelListBackGround");
             backGrid = newLevelBackground.GetNode<Panel>("BackGrid");
+            menu = GetNode<Panel>("Menu");
+
+            gameManager = GameManager.GetInstance();
             #endregion
 
             RegisterMouseSignals(
@@ -114,7 +118,7 @@ namespace Com.IsartDigital.SokoVolt
             playerSpawnTexture, electricWallTexture
             );
 
-            newLevelBackground.Visible = loadLevelBackground.Visible = customLevelMenuBackground.Visible = returnButton.Visible = false;
+            newLevelBackground.Visible = customLevelMenuBackground.Visible = returnButton.Visible = false;
         }
         public override void _Process(double pDelta)
 		{
@@ -562,7 +566,7 @@ namespace Com.IsartDigital.SokoVolt
                 actualItem?.QueueFree();
                 actualItem = null;
                 gridDico.Clear();
-                ClearChildren(cellContainer);
+                ClearChildren(cellContainer, gameManager.objectsContainer);
                 CreateGrid();
             }
             else
@@ -576,12 +580,13 @@ namespace Com.IsartDigital.SokoVolt
         #region MenuFonction
         private void Return()
         {
+            menu.Visible = mainMenuButton.Visible = true;
             returnButton.Hide();
-            newLevelBackground.Visible = loadLevelBackground.Visible = customLevelMenuBackground.Visible = false;
+            newLevelBackground.Visible = customLevelMenuBackground.Visible = false;
             levelName.Text = "";
 
             //Centralized deletion of container children
-            ClearChildren(cellContainer, buttonContainer, labelContainer, deleteButtonContainer);
+            ClearChildren(cellContainer, gameManager.objectsContainer, buttonContainer, labelContainer, deleteButtonContainer);
             gridDico.Clear();
 
             //Deleting specific elements
@@ -604,8 +609,9 @@ namespace Com.IsartDigital.SokoVolt
             HUD.GetInstance().Show();
             customLevelMenuBackground.Hide();
             string lPath = "res://Scripts/Json/CustomLevels/" + pLevelName + ".json";
-            loadLevelBackground.Visible = returnButton.Visible = true;
-            GridManager.GetInstance().LoadNewLevel(0, lPath, cellContainer);
+            returnButton.Visible = true;
+            menu.Visible = mainMenuButton.Visible = false;
+            GridManager.GetInstance().LoadNewLevel(0, lPath, GameManager.GetInstance().objectsContainer);
         }
 		private void OpenCustomLevelsMenu()
 		{
@@ -618,7 +624,7 @@ namespace Com.IsartDigital.SokoVolt
             GD.PrintErr($"Suppression de {lFileName}");
 
             DirAccess.RemoveAbsolute(lFileName); //Delete file in folder
-            ClearChildren(buttonContainer, labelContainer, deleteButtonContainer); //Clear containers
+            ClearChildren(cellContainer, gameManager.objectsContainer, buttonContainer, labelContainer, deleteButtonContainer); //Clear containers
             OpenCustomLevelsMenu(); //Reload LevelCustom Menu for an update
         }
         private void ClearChildren(params Node[] pContainers) //Generic function to remove children from a node
