@@ -47,8 +47,17 @@ namespace Com.IsartDigital.SokoVolt.GameObjects {
 					.SetEase(Tween.EaseType.Out);
 			}
 
-			await ToSignal(lTileTween, "finished");
-			QueueFree();
+			lTileTween.TweenProperty(topPart, "position:y", START_POS - 100, 0.6f)
+				.SetTrans(Tween.TransitionType.Back)
+				.SetEase(Tween.EaseType.Out);
+
+			lTileTween.Parallel().TweenProperty(this, "position:y", GlobalPosition.Y + 250, 0.3f)
+				.SetTrans(Tween.TransitionType.Back)
+				.SetEase(Tween.EaseType.In);
+
+			await ToSignal(lPistonTween, "finished");
+			await ToSignal(GetTree().CreateTimer(1f), "timeout");
+			QueueFree(); 
 		}
 
 	}
