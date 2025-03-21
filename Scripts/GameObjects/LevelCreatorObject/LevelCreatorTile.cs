@@ -19,7 +19,8 @@ namespace Com.IsartDigital.SokoVolt.GameObjects {
 		public override void _Process(double pDelta)
 		{
 			float lDelta = (float)pDelta;
-			if(content != null) SelfModulate = Colors.Red;
+			if(content != null && !canBeRemove) SelfModulate = Colors.Red;
+			else if(content != null) SelfModulate = Colors.Orange;
 			else SelfModulate = Colors.Green;
 		}
 

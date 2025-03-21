@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://dht3qeqhib1rk"]
+[gd_scene load_steps=50 format=3 uid="uid://dht3qeqhib1rk"]
 
 [ext_resource type="Script" path="res://Scripts/Controls/LevelSelector.cs" id="1_7onrw"]
 [ext_resource type="Texture2D" uid="uid://dyr30pkkewie" path="res://Assets/UI/MainMenu/LevelScreen.png" id="2_u4r7s"]
@@ -17,6 +17,9 @@
 [ext_resource type="PackedScene" uid="uid://dty5a7hnd1fve" path="res://Scenes/GameObjects/LevelSelectorObject/button_smoke_particles.tscn" id="15_53pe0"]
 [ext_resource type="Texture2D" uid="uid://dw208iyoc71pe" path="res://Assets/UI/MainMenu/LightProjection.png" id="15_cy604"]
 [ext_resource type="Texture2D" uid="uid://dc3or7fnkox6b" path="res://Assets/UI/MainMenu/Smoke.png" id="16_oywvd"]
+[ext_resource type="PackedScene" uid="uid://b0olmoqwuw54k" path="res://Scenes/GameObjects/WinScreen/rope.tscn" id="18_8m3jd"]
+[ext_resource type="Texture2D" uid="uid://kulh7f8b8jlr" path="res://icon.svg" id="19_jj0lu"]
+[ext_resource type="PackedScene" uid="uid://36dp5dq6hmqq" path="res://Scenes/GameObjects/ButtonTemplate.tscn" id="20_0nxsh"]
 
 [sub_resource type="Gradient" id="Gradient_byfll"]
 offsets = PackedFloat32Array(0, 0.238579, 1)
@@ -139,13 +142,32 @@ scale_max = 0.5
 scale_curve = SubResource("CurveXYZTexture_lgqek")
 color_ramp = SubResource("GradientTexture1D_cm1l1")
 
-[node name="LevelSelector" type="Control" node_paths=PackedStringArray("buttonRight", "buttonLeft", "buttonUnlockAll", "carpetTexture", "teslaContainer")]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xrtg8"]
+size = Vector2(297, 116.5)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eukx6"]
+bg_color = Color(0.772605, 0.548351, 0.293242, 1)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tnbgi"]
+bg_color = Color(0.542834, 0.372013, 0.173226, 1)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+
+[node name="LevelSelector" type="Control" node_paths=PackedStringArray("buttonRight", "buttonLaunch", "buttonLeft", "buttonUnlockAll", "buttonMainMenu", "carpetTexture", "teslaContainer")]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_7onrw")
 buttonRight = NodePath("ButtonBox/Right")
+buttonLaunch = NodePath("ButtonBox/ButtonLaunch")
 buttonLeft = NodePath("ButtonBox/Left")
 buttonUnlockAll = NodePath("ButtonBox/UnlockButton")
+buttonMainMenu = NodePath("Pancarte/RigidBody2D/MainMenuButton")
 carpetTexture = NodePath("Carpet")
 texture = ExtResource("2_u4r7s")
 teslaScene = ExtResource("3_31hu0")
@@ -165,6 +187,8 @@ color = Color(0.194349, 0.194349, 0.194349, 1)
 position = Vector2(21, 29)
 energy = 0.5
 blend_mode = 1
+range_z_min = 0
+range_z_max = 50
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
 position = Vector2(12, 773)
@@ -279,6 +303,15 @@ color = Color(1, 0, 0, 1)
 texture = SubResource("GradientTexture2D_7xvwa")
 texture_scale = 4.04
 
+[node name="ButtonLaunch" parent="ButtonBox" instance=ExtResource("20_0nxsh")]
+layout_mode = 1
+offset_left = 375.0
+offset_top = 24.0
+offset_right = 499.0
+offset_bottom = 200.0
+pivot_offset = Vector2(62, 88)
+text = "LAUNCH LEVEL"
+
 [node name="Lampe" type="TextureRect" parent="."]
 layout_mode = 0
 offset_left = 847.0
@@ -307,3 +340,49 @@ texture = ExtResource("16_oywvd")
 lifetime = 3.0
 speed_scale = 2.88
 fixed_fps = 60
+
+[node name="Pancarte" type="Node2D" parent="."]
+
+[node name="Rope" parent="Pancarte" instance=ExtResource("18_8m3jd")]
+position = Vector2(173, -338)
+
+[node name="Rope2" parent="Pancarte" instance=ExtResource("18_8m3jd")]
+position = Vector2(335, -338)
+
+[node name="RigidBody2D" type="RigidBody2D" parent="Pancarte"]
+position = Vector2(265, 272)
+mass = 15.36
+
+[node name="Sprite2D" type="Sprite2D" parent="Pancarte/RigidBody2D"]
+modulate = Color(0, 0, 0, 1)
+scale = Vector2(2.32, 1)
+texture = ExtResource("19_jj0lu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Pancarte/RigidBody2D"]
+position = Vector2(0, 1.75)
+shape = SubResource("RectangleShape2D_xrtg8")
+
+[node name="MainMenuButton" parent="Pancarte/RigidBody2D" instance=ExtResource("20_0nxsh")]
+offset_left = -148.0
+offset_top = -61.0
+offset_right = 148.0
+offset_bottom = 64.0
+pivot_offset = Vector2(148, 62)
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_eukx6")
+theme_override_styles/hover = SubResource("StyleBoxFlat_eukx6")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_tnbgi")
+text = "MAIN MENU"
+
+[node name="PinJoint2D" type="PinJoint2D" parent="Pancarte"]
+position = Vector2(173, 211)
+node_a = NodePath("../Rope/RopeSegment16")
+node_b = NodePath("../RigidBody2D")
+
+[node name="PinJoint2D2" type="PinJoint2D" parent="Pancarte"]
+position = Vector2(336, 211)
+node_a = NodePath("../Rope2/RopeSegment16")
+node_b = NodePath("../RigidBody2D")
+
+[editable path="Pancarte/Rope"]
+[editable path="Pancarte/Rope2"]

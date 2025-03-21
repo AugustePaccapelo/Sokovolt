@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://bx4sq5cya6p7g"]
+[gd_scene load_steps=20 format=3 uid="uid://bx4sq5cya6p7g"]
 
 [ext_resource type="PackedScene" uid="uid://36dp5dq6hmqq" path="res://Scenes/GameObjects/ButtonTemplate.tscn" id="1_8igok"]
 [ext_resource type="Script" path="res://Scripts/Controls/LevelCreator.cs" id="1_bf11f"]
@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://dg077chl56p8g" path="res://Scenes/GameObjects/LevelCreator/player_spawn_texture.tscn" id="11_g4nve"]
 [ext_resource type="PackedScene" uid="uid://40x567524t37" path="res://Scenes/GameObjects/LevelCreator/electric_wall_texture.tscn" id="12_7rowd"]
 [ext_resource type="Script" path="res://Scripts/GameObjects/LevelCreatorObject/LevelCreatorAnimationManager.cs" id="12_kjuj3"]
+[ext_resource type="Script" path="res://Scripts/GameObjects/ButtonTemplate.cs" id="14_tu8f3"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oto23"]
 bg_color = Color(0.43134, 0.43134, 0.43134, 1)
@@ -213,6 +214,10 @@ offset_bottom = 105.0
 pivot_offset = Vector2(59, 37)
 theme_override_font_sizes/font_size = 32
 text = "SAVE"
+script = ExtResource("14_tu8f3")
+during = 0.3
+easeType = 2
+transitionType = 6
 
 [node name="NameLineEdit" type="LineEdit" parent="NewLevelBackGround"]
 layout_mode = 1

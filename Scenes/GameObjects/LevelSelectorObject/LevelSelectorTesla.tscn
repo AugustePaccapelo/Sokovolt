@@ -1,9 +1,8 @@
-[gd_scene load_steps=43 format=3 uid="uid://c46bqjn4wfblh"]
+[gd_scene load_steps=38 format=3 uid="uid://c46bqjn4wfblh"]
 
 [ext_resource type="Texture2D" uid="uid://yvrywq2jtxvd" path="res://Assets/UI/MainMenu/LevelSelectorBobine.png" id="1_mj4sl"]
 [ext_resource type="Script" path="res://Scripts/GameObjects/LevelSelectorTesla.cs" id="2_5t3fx"]
 [ext_resource type="Texture2D" uid="uid://dyr30pkkewie" path="res://Assets/UI/MainMenu/LevelScreen.png" id="3_vqwhd"]
-[ext_resource type="PackedScene" uid="uid://36dp5dq6hmqq" path="res://Scenes/GameObjects/ButtonTemplate.tscn" id="3_yb2p4"]
 [ext_resource type="PackedScene" uid="uid://durins5kr70i5" path="res://Scenes/GameObjects/LevelSelectorObject/LevelSelectorBolt.tscn" id="5_yysv7"]
 [ext_resource type="Script" path="res://Scripts/GameObjects/Padlock.cs" id="6_lj2er"]
 [ext_resource type="Texture2D" uid="uid://bftn23e4cud1p" path="res://Assets/UI/MainMenu/PadlockTop.png" id="6_spfcw"]
@@ -157,15 +156,7 @@ shader_parameter/scan_size = 0.2
 shader_parameter/scanline_alpha = 0.7
 shader_parameter/lines_velocity = 10.0
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_d5myt"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3q0ct"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_25fhh"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wbyy8"]
-
-[node name="Tesla" type="Sprite2D" node_paths=PackedStringArray("electricBolt", "electricBoltConstant", "padLock", "levelButton", "lightEmission")]
+[node name="Tesla" type="Sprite2D" node_paths=PackedStringArray("electricBolt", "electricBoltConstant", "padLock", "lightEmission")]
 modulate = Color(0.364706, 0.364706, 0.364706, 1)
 z_index = 2
 scale = Vector2(0.691801, 0.691801)
@@ -174,7 +165,6 @@ script = ExtResource("2_5t3fx")
 electricBolt = NodePath("ElectricEffect/ParticlesGroup")
 electricBoltConstant = NodePath("ElectricEffect/ParticlesGroup2")
 padLock = NodePath("Screen/Padlock")
-levelButton = NodePath("Screen/ButtonTemplate")
 lightEmission = [NodePath("ImpactEffect/LightEmission"), NodePath("LeftTesla/PointLight2D"), NodePath("RightTesla/PointLight2D2")]
 
 [node name="ColorRect" type="ColorRect" parent="."]
@@ -335,18 +325,6 @@ texture = ExtResource("6_spfcw")
 self_modulate = Color(0.625207, 0.107052, 0.0971844, 1)
 position = Vector2(0.540649, 65.7433)
 texture = ExtResource("7_q6xe4")
-
-[node name="ButtonTemplate" parent="Screen" instance=ExtResource("3_yb2p4")]
-offset_left = -159.0
-offset_top = 89.0
-offset_right = 1115.0
-offset_bottom = 1078.0
-scale = Vector2(0.125085, 0.125085)
-theme_override_styles/normal = SubResource("StyleBoxEmpty_d5myt")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_3q0ct")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_25fhh")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_wbyy8")
-text = ""
 
 [node name="LeftTesla" type="Sprite2D" parent="."]
 z_index = 1

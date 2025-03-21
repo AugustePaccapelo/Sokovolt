@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Security.Cryptography.X509Certificates;
+using System.Xml.Linq;
 
 // Author : Noé Sales
 
@@ -39,11 +40,9 @@ namespace Com.IsartDigital.SokoVolt
         private LevelCreatorItems actualItem;
 		private bool canPick = false;
         private TextureRect hoveredItem;
-        private float tileSize = 50;
-        private float space = 5;
+        private float tileSize = 50, space = 5;
         private Node2D cellContainer;
-        private int lenghtX = 11;
-        private int lenghtY = 11;
+        private int lenghtX = 11, lenghtY = 11, maxObject = 1;
         #endregion
 
         #region Const & List
@@ -234,10 +233,8 @@ namespace Com.IsartDigital.SokoVolt
                 List<int> lBoxRange = new List<int>();
 
                 //Local variable to check if the minimum required object is placed
-                bool lHasDoor = false;
-                bool lHasPlayerSpawn = false;
-                bool lHasGenerator = false;
-                bool lHasBulb = false;
+                bool lHasDoor = false, lHasPlayerSpawn = false, lHasGenerator = false, lHasBulb = false;
+                int lDoorCounter = 0, lPlayerSpawnCounter = 0;
 
                 for (int y = 0; y < lenghtY; y++)
                 {
@@ -275,11 +272,13 @@ namespace Com.IsartDigital.SokoVolt
                                 case PLAYERSPAWN_TYPE:
                                     lRow += JsonKeys.PLAYER;
                                     lHasPlayerSpawn = true;
+                                    lPlayerSpawnCounter++;
                                     break;
 
                                 case DOOR_TYPE:
                                     lRow += JsonKeys.DOOR;
                                     lHasDoor = true;
+                                    lDoorCounter++;
                                     break;
 
                                 case ELECTRIC_WALL_TYPE:
@@ -290,6 +289,13 @@ namespace Com.IsartDigital.SokoVolt
                                     lRow += ' '; //if not content in tile
                                     break;
                             }
+
+                            if (lDoorCounter > 1 || lPlayerSpawnCounter > 1)
+                            {
+                                animationManager.BounceAnimation(lTile.content, 0.5f, Colors.Red, 0.2f);
+                                lDoorCounter = lPlayerSpawnCounter = 0;
+                                return;
+                            }
                         }
                         else
                         {
@@ -299,7 +305,7 @@ namespace Com.IsartDigital.SokoVolt
                     lMap[y] = lRow; //Put the JsonKey at the good place in lMap
                 }
 
-                //Verification of mandatory elements
+                //Checking the number of elements
                 if (!lHasBulb)
                 {
                     animationManager.BounceAnimation(bulbTexture, 0.5f, Colors.Red, 0.2f);
@@ -554,6 +560,8 @@ namespace Com.IsartDigital.SokoVolt
             {
                 int lBorder = 5;
                 backGrid.Size = new Vector2(lenghtX * (tileSize + space) + lBorder, lenghtY * (tileSize + space) + lBorder);
+                actualItem?.QueueFree();
+                actualItem = null;
                 gridDico.Clear();
                 ClearChildren(cellContainer);
                 CreateGrid();
@@ -588,7 +596,9 @@ namespace Com.IsartDigital.SokoVolt
         private void CreateNewLevel()
 		{
             newLevelBackground.Visible = returnButton.Visible = true;
-			CreateGrid();
+            lenghtX = lenghtY = LENGHT_MAX;
+            sizeXText.Text = sizeYText.Text = null;
+            ChangeGridSize();
         }
 		private void LoadLevel(string pLevelName)
 		{
