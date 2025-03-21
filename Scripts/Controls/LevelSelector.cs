@@ -11,7 +11,7 @@ namespace Com.IsartDigital.SokoVolt
 {
     public partial class LevelSelector : Control
     {
-        [Export] private Button buttonRight, buttonLaunch, buttonLeft, buttonUnlockAll, buttonMainMenu;
+        [Export] public Button buttonRight, buttonLaunch, buttonLeft, buttonUnlockAll, buttonMainMenu;
         [Export] public Sprite2D carpetTexture;
         [Export] private CompressedTexture2D texture;
         [Export] private PackedScene teslaScene, smokeParticlesScene;
