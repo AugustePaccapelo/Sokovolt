@@ -199,7 +199,6 @@ namespace Com.IsartDigital.SokoVolt {
 					}
 				}
 			}
-            playerCanMove = true;
 		}
 	
 

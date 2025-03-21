@@ -38,9 +38,8 @@ namespace Com.IsartDigital.SokoVolt.Managers
 
         public override void _Input(InputEvent @event) // to optimize
         {
-            if (!LevelLoader.playerCanMove) return;
 
-            if (@event is InputEventKey pEventKey && pEventKey.Pressed)
+            if (@event is InputEventKey pEventKey && pEventKey.Pressed && LevelLoader.playerCanMove)
             {
                 if (Input.IsActionJustPressed("Up")) CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.Move, Vector2.Up);
                 if (Input.IsActionJustPressed("Down")) CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.Move, Vector2.Down);
