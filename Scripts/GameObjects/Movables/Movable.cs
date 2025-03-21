@@ -43,7 +43,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables {
 
 		private void UpdateZindex()
 		{
-			ZIndex = IsoManager.GetZIndex(new Vector2(x, y));
+			if(this is not Player)ZIndex = IsoManager.GetZIndex(new Vector2(x, y));
 		}
 
 

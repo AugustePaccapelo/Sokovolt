@@ -145,6 +145,20 @@ namespace Com.IsartDigital.SokoVolt
                 EmitSignal(SignalName.DestructionFinished);
         }
 
+        public bool isPreview = false;
+
+        public void SetPreview(bool pIsPreview)
+        {
+            isPreview = pIsPreview;
+
+            if (isPreview)
+                Modulate = new Color(1, 1, 1, 0.15f); 
+            else
+                Modulate = new Color(1, 1, 1, 1);
+            
+        }
+
+
         // ----- Destructor ----- \\
 
         protected override void Dispose(bool pDisposing)

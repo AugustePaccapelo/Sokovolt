@@ -47,7 +47,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables {
 			float lDelta = (float)pDelta;
 			timer += lDelta;
 			if (timer > 0.2f && inTeslaParticles.Visible) inTeslaParticles.Hide();
-			if (timer > 3) timer = 0;
+			if (timer > 3) timer = 0;	
         }
 
         public void InsideTesla(BoxTesla pTesla)
