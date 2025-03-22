@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=3 uid="uid://dht3qeqhib1rk"]
+[gd_scene load_steps=52 format=3 uid="uid://dht3qeqhib1rk"]
 
 [ext_resource type="Script" path="res://Scripts/Controls/LevelSelector.cs" id="1_7onrw"]
 [ext_resource type="Texture2D" uid="uid://dyr30pkkewie" path="res://Assets/UI/MainMenu/LevelScreen.png" id="2_u4r7s"]
@@ -17,6 +17,7 @@
 [ext_resource type="PackedScene" uid="uid://dty5a7hnd1fve" path="res://Scenes/GameObjects/LevelSelectorObject/button_smoke_particles.tscn" id="15_53pe0"]
 [ext_resource type="Texture2D" uid="uid://dw208iyoc71pe" path="res://Assets/UI/MainMenu/LightProjection.png" id="15_cy604"]
 [ext_resource type="Texture2D" uid="uid://dc3or7fnkox6b" path="res://Assets/UI/MainMenu/Smoke.png" id="16_oywvd"]
+[ext_resource type="Texture2D" uid="uid://ct4gh1ir11uf1" path="res://Assets/UI/MainMenu/LAUNCHBUTTON.png" id="17_6ncai"]
 [ext_resource type="PackedScene" uid="uid://b0olmoqwuw54k" path="res://Scenes/GameObjects/WinScreen/rope.tscn" id="18_8m3jd"]
 [ext_resource type="Texture2D" uid="uid://kulh7f8b8jlr" path="res://icon.svg" id="19_jj0lu"]
 [ext_resource type="PackedScene" uid="uid://36dp5dq6hmqq" path="res://Scenes/GameObjects/ButtonTemplate.tscn" id="20_0nxsh"]
@@ -96,6 +97,9 @@ colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1)
 gradient = SubResource("Gradient_68hqy")
 fill = 2
 fill_from = Vector2(0.517094, 0.491453)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ufiac"]
+texture = ExtResource("17_6ncai")
 
 [sub_resource type="Gradient" id="Gradient_0xs26"]
 offsets = PackedFloat32Array(0, 0.703057)
@@ -303,14 +307,23 @@ color = Color(1, 0, 0, 1)
 texture = SubResource("GradientTexture2D_7xvwa")
 texture_scale = 4.04
 
-[node name="ButtonLaunch" parent="ButtonBox" instance=ExtResource("20_0nxsh")]
+[node name="ButtonLaunch" type="Button" parent="ButtonBox"]
 layout_mode = 1
-offset_left = 375.0
+offset_left = 345.0
 offset_top = 24.0
-offset_right = 499.0
-offset_bottom = 200.0
-pivot_offset = Vector2(62, 88)
-text = "LAUNCH LEVEL"
+offset_right = 518.0
+offset_bottom = 194.0
+pivot_offset = Vector2(86, 85)
+theme_override_styles/normal = SubResource("StyleBoxTexture_ufiac")
+theme_override_styles/hover = SubResource("StyleBoxTexture_ufiac")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_ufiac")
+
+[node name="PointLight2D" type="PointLight2D" parent="ButtonBox/ButtonLaunch"]
+position = Vector2(81.5679, 88.8739)
+scale = Vector2(1.08221, 1)
+color = Color(1, 0, 0, 1)
+texture = ExtResource("7_c1v7e")
+texture_scale = 0.2
 
 [node name="Lampe" type="TextureRect" parent="."]
 layout_mode = 0

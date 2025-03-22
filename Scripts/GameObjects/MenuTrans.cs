@@ -8,7 +8,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects {
 	
 	public partial class MenuTrans : Node2D
 	{
-		[Export] Polygon2D rightPart, leftPart;
+		[Export] Sprite2D rightPart, leftPart;
 		public override void _Ready()
 		{
 			rightPart.Position = new Vector2(1920, 0);
@@ -17,12 +17,10 @@ namespace Com.IsartDigital.SokoVolt.GameObjects {
 
 		public Tween ActiveTrans(float pMoveTime, float pCloseTime)
 		{
-            // PREMIER TWEEN (ANIMATION INITIALE)
             Tween lTween = CreateTween().SetParallel(true);
             lTween.TweenProperty(rightPart, "position", new Vector2(3, -6), pMoveTime/4);
             lTween.TweenProperty(leftPart, "position", new Vector2(3, 0), pMoveTime / 4);
 
-            // Une fois le premier Tween terminé...
             lTween.Finished += () =>
             {
                 Tween lDelayTween = CreateTween();
