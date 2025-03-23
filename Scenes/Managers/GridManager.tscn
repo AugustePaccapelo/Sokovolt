@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://bnv0kco0ylr0e"]
+[gd_scene load_steps=3 format=3 uid="uid://bnv0kco0ylr0e"]
 
 [ext_resource type="Script" path="res://Scripts/Managers/GridManager.cs" id="1_makct"]
+[ext_resource type="PackedScene" uid="uid://bbvc0kv5shwqo" path="res://Scenes/GameObjects/WinScreen/thunder_effects.tscn" id="2_6pdhw"]
 
 [node name="GridManager" type="Node2D"]
 script = ExtResource("1_makct")
+thunderEffectScene = ExtResource("2_6pdhw")

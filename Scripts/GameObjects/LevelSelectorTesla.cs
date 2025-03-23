@@ -10,17 +10,13 @@ namespace Com.IsartDigital.SokoVolt.GameObjects {
 	{
 		[Export] public LevelSelectorBolt electricBolt;
 		[Export] public Node2D electricBoltConstant;
-		[Export] public Node2D impactEffect;
 		[Export] public Padlock padLock;
-		[Export] public Button levelButton;
-		[Export] public PointLight2D lightEmission;
+		[Export] public PointLight2D[] lightEmission;
 
         public LevelSelectorTesla nextTesla;
 		public bool levelUnlocked = false;
 		public int level;
         private bool allLevelAreUnlocked = false;
-
-        [Signal] public delegate void ButtonLoadLevelEventHandler(int pLevel);
 
         public override void _Ready()
         {
@@ -31,16 +27,6 @@ namespace Com.IsartDigital.SokoVolt.GameObjects {
         private void Init()
         {
             LevelSelector.GetInstance().UnlockAllLevel += UnlockAll;
-            ButtonLoadLevel += LevelManager.GetInstance().LevelLoaderFonc;
-            levelButton.Pressed += LevelUnlockedCheck;
-        }
-
-        private void LevelUnlockedCheck()
-        {
-            if (levelUnlocked)
-            {
-                EmitSignal(nameof(ButtonLoadLevel), level);
-            }
         }
 
         public void UnlockAll()
@@ -61,27 +47,20 @@ namespace Com.IsartDigital.SokoVolt.GameObjects {
 
         public void UnlockLevel()
         {
-            levelButton.Disabled = false;
             electricBolt.animationPlayer.Play("start_animation");
             Tween lTween = CreateTween();
-            lTween.TweenProperty(lightEmission, "energy", 3, 0.5f);
+            foreach (PointLight2D light in lightEmission) lTween.TweenProperty(light, "energy", 3, 0.5f);
             padLock.Open();
             levelUnlocked = true;
         }
 
         private void LockLevel()
         {
-            levelButton.Disabled = true;
             electricBolt.animationPlayer.Play("end_animation");
             Tween lTween = CreateTween();
-            lTween.TweenProperty(lightEmission, "energy", 0, 0.5f);
+            foreach (PointLight2D light in lightEmission) lTween.TweenProperty(light, "energy", 0, 0.5f);
             padLock.Close();
             levelUnlocked = false;
-        }
-
-        public override void _Process(double delta)
-        {
-            impactEffect.Visible = (levelUnlocked == true && level != 0) ? true : false;
         }
     }
 }

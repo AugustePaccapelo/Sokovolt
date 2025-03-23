@@ -14,7 +14,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
     public partial class BoxTesla : Movable
     {
         [Export] private PackedScene lightningNodeScene;
-        LightningNode lLightning;
+        LightningNode lightning;
         [Signal] public delegate void PlayerCollideEventHandler(BoxTesla lTesla);
         [Export] private RayCast2D rayCast;
         [Export] private Line2D electriLine2D;
@@ -165,12 +165,12 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
         {
             if (objToConnect is BoxTesla lbox)energize = true;
             
-            lLightning = lightningNodeScene.Instantiate<LightningNode>();
-            lLightning.endPoint = Vector2.Zero;
-            lLightning.startPoint = ToLocal(objToConnect.GlobalPosition);
-            AddChild(lLightning);
+            lightning = lightningNodeScene.Instantiate<LightningNode>();
+            lightning.endPoint = GlobalPosition;
+            lightning.startPoint = objToConnect.GlobalPosition;
+            AddChild(lightning);
+            lightning.StartLightning();
             UpdateRayCast(ToLocal(objToConnect.GlobalPosition));
-            
         }
 
 
@@ -179,14 +179,11 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
         {
             energize = false;
             UpdateRayCast(Vector2.Zero);
-            if (lLightning != null)
+            if (lightning != null)
             {
-                foreach (SingleLigthning lSingle in lLightning.GetChildren())
-                {
-                    lSingle.lifeTime = 0.1f;
-                }
+                lightning.StopLightning();
+                lightning.DestructionFinished += lightning.QueueFree;
             }
-
         }
 
         protected override void Dispose(bool pDisposing)

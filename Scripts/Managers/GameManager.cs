@@ -1,4 +1,5 @@
 using Com.IsartDigital.SokoVolt.GameObjects;
+using Com.IsartDigital.SokoVolt.GameObjects.Movables;
 using Godot;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,7 @@ namespace Com.IsartDigital.SokoVolt.Managers
 	{
 		// ---------- VARIABLES ---------- \\
 		[Export] public Node2D objectsContainer;
+		[Export] public MenuTrans MenuTrans;
 
 		#region // ----- Singleton ----- \\
 
@@ -25,6 +27,7 @@ namespace Com.IsartDigital.SokoVolt.Managers
 		#endregion
 
 		// ----- Paths ----- \\
+		HUD hud; 
 
 		// ----- Nodes ----- \\
 
@@ -35,14 +38,16 @@ namespace Com.IsartDigital.SokoVolt.Managers
 		// GameObjects
 		public Door door;
 		private List<GoalBulb> allGoalBulbs = new List<GoalBulb>();
+		private Polygon2D mouse;
 
 		// ----- Others ----- \\
+		private List<int> scorePerStar = new List<int> { 1000, 2000, 5000 };
 
-		// ---------- FUNCTIONS ---------- \\
+        // ---------- FUNCTIONS ---------- \\
 
-		// ----- Ready & Init & Process ----- \\
+        // ----- Ready & Init & Process ----- \\
 
-		public override void _Ready()
+        public override void _Ready()
 		{
 			#region // ----- Singleton ----- \\
 
@@ -62,23 +67,38 @@ namespace Com.IsartDigital.SokoVolt.Managers
 
 		public override void Init()
 		{
+            mouse = GetNode<Polygon2D>("Mouse");
+            hud = HUD.GetInstance();
             signals = CustomSignals.GetInstance();
+            signals.PlayerMoved += PlayerHasMoved;
             signals.GoalBulbStateChanged += GoalBulbStateChanged;
             gridManager = GridManager.GetInstance();
         }
 
-		public override void _Process(double pDelta)
+        public override void _Process(double pDelta)
 		{
 			float lDelta = (float)pDelta;
 
 			base._Process(lDelta);
+			HideMouse();
+        }
+
+        // ----- My Functions ----- \\
+
+        private void HideMouse()
+		{
+            mouse.Position = GetLocalMousePosition();
+			if (Input.MouseMode != Input.MouseModeEnum.Hidden) Input.MouseMode = Input.MouseModeEnum.Hidden;
+        }
+
+        public void AddGoalBulb(GoalBulb pGoalBulb)
+		{
+			allGoalBulbs.Add(pGoalBulb);
 		}
 
-		// ----- My Functions ----- \\
-
-		public void AddGoalBulb(GoalBulb pGoalbulb)
+		public void RemoveGoalBulb(GoalBulb pGoalBulb)
 		{
-			allGoalBulbs.Add(pGoalbulb);
+			allGoalBulbs.Remove(pGoalBulb);
 		}
 
 		private void GoalBulbStateChanged()
@@ -94,6 +114,36 @@ namespace Com.IsartDigital.SokoVolt.Managers
 
 			door?.Open();
 		}
+
+        private void PlayerHasMoved()
+        {
+            Player lPlayer = Player.GetInstance();
+            if (door.isOpen && lPlayer.x == door.x && lPlayer.y == door.y)
+            {
+                GD.Print("Player has exited!");
+                GameFinished();
+            }
+        }
+
+        private async void GameFinished()
+		{
+            int lNumStep = GridManager.GetInstance().step;
+            int lPar = LevelLoader.parCount;
+            int lNumStar;
+
+			if (lNumStep <= lPar)
+				lNumStar = 3;
+			else lNumStar = lNumStep <= lPar * 1.5f ? 2 : 1;
+
+			int lScore = scorePerStar[lNumStar - 1] - lNumStep;
+
+			GD.PrintErr(lNumStar + " " + lScore + " " + lNumStep); 
+
+			await ToSignal(GetTree().CreateTimer(0.3f), "timeout");
+
+			hud.displayInGame.Visible = false; 
+            CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.GameFinished, lNumStar, lScore, lNumStep);
+        }
 
 		// ----- Destructor ----- \\
 

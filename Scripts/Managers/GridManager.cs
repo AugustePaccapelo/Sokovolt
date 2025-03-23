@@ -1,37 +1,41 @@
-﻿using Godot;
+using Godot;
 using System;
 using Com.IsartDigital.SokoVolt.GameObjects;
 using Com.IsartDigital.SokoVolt.GameObjects.Movables;
 using System.Collections.Generic;
 using Com.IsartDigital.ProjectName;
 using System.Data;
+using System.Linq;
+using Com.IsartDigital.SokoVolt.Tools;
 
 //Author : Ferlat Thibaud 
 namespace Com.IsartDigital.SokoVolt.Managers {
-	
+
 	public partial class GridManager : Manager
 	{
 		#region GetInstance
 		static private GridManager instance;
-		
-		static public GridManager GetInstance () {
+
+		static public GridManager GetInstance() {
 			if (instance == null) instance = new GridManager();
 			return instance;
 		}
 
-		private GridManager ():base() {}
+		private GridManager() : base() { }
 		#endregion
 
+		RandomNumberGenerator rand = new RandomNumberGenerator(); 
+
 		//Grid Gestion 
-		public Cell[,] grid { get; private set;}
+		public Cell[,] grid { get; private set; }
 		public List<Cell[,]> gridStates = new List<Cell[,]>();
-		private int actualGridStateIndex = 0; 
-		public static Vector2 gridOffset; 
+		private int actualGridStateIndex = 0;
+		public static Vector2 gridOffset;
 		public Player player;
 
 		//Step Counter 
-		private const string STEP_LABEL_PREFIXE = "STEP : "; 
-		private int step = 0; 
+		private const string STEP_LABEL_PREFIXE = "STEP : ";
+		public int step { get; private set; } = 0;
 
 		//Ref 
 		private GameManager gameManager;
@@ -39,8 +43,10 @@ namespace Com.IsartDigital.SokoVolt.Managers {
         //UndoRedo 
         private bool playerWasOnTesla; 
 
-		//Scoring 
-		private int minPar = 0;	
+		//LevelsAnimation
+		[Export] private PackedScene thunderEffectScene; 
+		Node2D vortex; 
+		private const string VORTEX_PATH = "res://Assets/GameObjects/LevelAnimation/vecteezy_spiral-vortex-element_27720416.png"; 
 
 
 		public override void _Ready()
@@ -71,28 +77,28 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 
 		private void  SignalsConnetion()
 		{
-			CustomSignals.GetInstance().LoadLevel  += LoadNewLevel;
-            CustomSignals.GetInstance().Move += OnMovePlayer;
-            CustomSignals.GetInstance().UndoRedo += UndoRedo;
-            CustomSignals.GetInstance().Retry += Retry;
+			CustomSignals lSignal = CustomSignals.GetInstance();
+			lSignal.LoadLevel  += (level) => LoadNewLevel(level, JsonKeys.LEVELS_JSONS_PATH, gameManager.objectsContainer);
+            lSignal.Move += OnMovePlayer;
+            lSignal.UndoRedo += UndoRedo;
+            lSignal.Retry += Retry;
 
-            hud.UndoButton += () => UndoRedo(-1);
-            hud.RedoButton += () => UndoRedo(1);
-			hud.UndoButton += () => SetGridState(actualGridStateIndex - 1);
-			hud.RedoButton += () => SetGridState(actualGridStateIndex + 1);
+            lSignal.UndoButton += () => UndoRedo(-1);
+            lSignal.RedoButton += () => UndoRedo(1);
+
+			lSignal.GameFinished += EndLevelAnimation; 
 		}
 
 
 
 		#region // ----- Load Level ----- \\
 
-		public void LoadNewLevel(int pLevelToLoad) // ==================> Charger un niveau avec son index (commence à 0)
+		public void LoadNewLevel(int pLevelToLoad, string pLevelPath, Node2D pObjectContainer) // ==================> Charger un niveau avec son index (commence à 0)
 		{
 			ResetStepCounter();
-			HUD.GetInstance().Visible = true;
-			LevelLoader.GetInstance().LoadLevel(pLevelToLoad);
-			minPar = LevelLoader.parCount; 
-			GD.PrintErr(minPar); 
+			hud.Visible = true;
+			hud.displayInGame.Visible = true;	
+			LevelLoader.GetInstance().LoadLevel(pLevelToLoad, pLevelPath, pObjectContainer);
 			CenterGrid(); 
 
 			if (grid == null)  // Évite d'ajouter un état vide
@@ -265,8 +271,8 @@ namespace Com.IsartDigital.SokoVolt.Managers {
         private void UndoRedo(int pAmount)
         {
             int lAmount = pAmount; 
-            currentlyUndoRedo = true; 
-            if(!(player.curentCell.GetContent() is BoxTesla) && playerWasOnTesla) lAmount *= 2; 
+            currentlyUndoRedo = true;
+            if(!(player.curentCell.GetContent() is BoxTesla) && playerWasOnTesla) lAmount *= 2;
             SetGridState(actualGridStateIndex + lAmount);
 			
             GetTree().CreateTimer(1).Timeout += () => currentlyUndoRedo = false;	
@@ -366,6 +372,125 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 			step = 0;
 			hud.stepLabel.Text = STEP_LABEL_PREFIXE + step;
 		}
+		#endregion
+
+		#region // ----- Finished Level animation -----//
+
+		private async void EndLevelAnimation(int pNumStar, int pScore, int pNumStep)
+		{
+			List<Node2D> lObjectsToAnimate= new List<Node2D>();
+			lObjectsToAnimate.Clear(); 
+
+			foreach(Node2D lObject in gameManager.objectsContainer.GetChildren())
+			{
+				lObjectsToAnimate.Add(lObject);
+
+				if(lObject is BoxTesla lBoxTesla)
+					lBoxTesla.LineDeconnection(); 
+
+			}
+
+			
+			Vector2 lVortexCenter = GetViewportRect().Size/2; 
+
+			vortex = CreateVortex(lVortexCenter); 
+			AddChild(vortex);
+
+			Random lRand = new Random();
+			lObjectsToAnimate = lObjectsToAnimate.OrderBy(c => lRand.Next()).ToList();
+
+			float lBaseDelay = 0.02f; 
+			float lRandDelay; 
+			for (int i = 0; i < lObjectsToAnimate.Count; i++)
+			{
+				lRandDelay = rand.Randf()* lBaseDelay; 
+				Node2D lObject = lObjectsToAnimate[i];
+				if (lObject == null) continue;
+
+				FlashElectricEffect(lObject);  
+
+				float lRandPropulsion = rand.Randf() * 1000; 
+
+				if (lObject != null)
+				{
+					Vector2 lNewObjectPos = lObject.GlobalPosition.DirectionTo(lVortexCenter) * lRandPropulsion + lObject.GlobalPosition;
+					Tween lTween = CreateTween();
+					lTween.TweenProperty(lObject, ObjectProperties.POSITION, lNewObjectPos, 1f)
+							.SetTrans(Tween.TransitionType.Elastic)
+							.SetEase(Tween.EaseType.Out);
+				}
+
+				await ToSignal(GetTree().CreateTimer(lRandDelay), ObjectProperties.TIME_OUT);
+			}
+			AnimateVortex(vortex); 
+
+			foreach(Node2D lObject in lObjectsToAnimate)
+			{
+				Tween lTween = CreateTween(); 
+				lTween.TweenProperty(lObject, ObjectProperties.POSITION, lVortexCenter, 1.3f)
+					.SetTrans(Tween.TransitionType.Linear)
+					.SetEase(Tween.EaseType.In); 
+
+				lTween.Finished += ()=> lObject.Visible = false; 
+			}
+
+		}
+
+		private Node2D CreateVortex(Vector2 pPosition)
+		{
+			Node2D lVortex = new Node2D();
+			lVortex.GlobalPosition = pPosition;
+
+			Sprite2D lVortexSprite = new Sprite2D();
+			lVortexSprite.Texture = GD.Load(VORTEX_PATH) as Texture2D; 
+			lVortexSprite.Modulate = new Color(1, 1, 1, 0); 
+			lVortexSprite.Scale = Vector2.One * 0.1f;
+			lVortex.AddChild(lVortexSprite);
+
+			return lVortex;
+		}
+
+		//  **Animation du vortex qui grossit et aspire tout**
+		private void AnimateVortex(Node2D vortex)
+		{
+			Sprite2D lVortexSprite = vortex.GetChild<Sprite2D>(0);
+			Tween lVortexTween = CreateTween();
+
+			lVortexTween.Parallel().TweenProperty(lVortexSprite, ObjectProperties.SCALE, Vector2.One, 0.8f)
+					.SetTrans(Tween.TransitionType.Linear)
+					.SetEase(Tween.EaseType.Out);
+
+			lVortexTween.Parallel().TweenProperty(lVortexSprite, ObjectProperties.MODULATE, new Color(1, 1, 1, 1), 0.8f);
+
+			lVortexTween.Parallel().TweenProperty(lVortexSprite, ObjectProperties.ROTATION, Mathf.DegToRad(600), 1f)
+					.SetTrans(Tween.TransitionType.Linear)
+					.SetEase(Tween.EaseType.InOut);
+
+			lVortexTween.TweenProperty(lVortexSprite, ObjectProperties.SCALE, Vector2.Zero, 0.8f)
+					.SetTrans(Tween.TransitionType.Linear)
+					.SetEase(Tween.EaseType.OutIn);
+
+			lVortexTween.Finished += () => EndLevelAnimationFnished(); 
+		}
+
+
+		// Effet d’électricité qui s'abbat sur les tiles 
+		private void FlashElectricEffect(Node2D pObject)
+		{
+			WinScreenThunder lThunderEffect = thunderEffectScene.Instantiate() as WinScreenThunder;
+			lThunderEffect.ZIndex = 45; 
+			gameManager.objectsContainer.AddChild(lThunderEffect);
+
+			lThunderEffect.ActiveThunder(pObject, WinScreenThunder.THUNDER_ANIMATION); 
+		}
+
+		private void EndLevelAnimationFnished()
+		{
+			vortex.QueueFree(); 
+			CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.EndLevelAnimation); 
+		}
+
+
 		#endregion
 
 

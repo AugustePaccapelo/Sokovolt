@@ -1,0 +1,506 @@
+[gd_scene load_steps=28 format=3 uid="uid://cq2pq5gsrx4re"]
+
+[ext_resource type="Script" path="res://Scripts/GameObjects/WinScreen.cs" id="1_753qv"]
+[ext_resource type="PackedScene" uid="uid://b0olmoqwuw54k" path="res://Scenes/GameObjects/WinScreen/rope.tscn" id="2_j1ab3"]
+[ext_resource type="Texture2D" uid="uid://bmddbxdeg4gya" path="res://Assets/WinScreen/Pile.png" id="3_fqidv"]
+[ext_resource type="Texture2D" uid="uid://1c72ndp41fme" path="res://Assets/WinScreen/DiagonalPile.png" id="4_36w4v"]
+[ext_resource type="Texture2D" uid="uid://802needuu7gb" path="res://Assets/WinScreen/Screen.png" id="5_sal2a"]
+[ext_resource type="Texture2D" uid="uid://whv5xtc61vjl" path="res://Assets/WinScreen/Aiguille.png" id="6_rgshm"]
+[ext_resource type="PackedScene" uid="uid://bbvc0kv5shwqo" path="res://Scenes/GameObjects/WinScreen/thunder_effects.tscn" id="7_itdbi"]
+[ext_resource type="PackedScene" uid="uid://baqiox1toak3m" path="res://Scenes/UI/screen_effect.tscn" id="9_bi0ci"]
+[ext_resource type="Texture2D" uid="uid://c767fcajnj2yi" path="res://Assets/Shaders/Effects/Glow.png" id="9_vaw2d"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2e15r"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_r36vq"]
+blend_mode = 1
+light_mode = 1
+
+[sub_resource type="Curve" id="Curve_w41vn"]
+_data = [Vector2(0, 0.549451), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_1kdmu"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_vx6to"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_6hh5n"]
+curve_x = SubResource("Curve_w41vn")
+curve_y = SubResource("Curve_1kdmu")
+curve_z = SubResource("Curve_vx6to")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_cvov5"]
+particle_flag_align_y = true
+particle_flag_disable_z = true
+emission_shape = 6
+emission_ring_axis = Vector3(0, 0, 1)
+emission_ring_height = 50.0
+emission_ring_radius = 50.0
+emission_ring_inner_radius = 0.0
+initial_velocity_min = -600.0
+initial_velocity_max = -500.0
+radial_velocity_min = 400.0
+radial_velocity_max = 700.0
+gravity = Vector3(0, 98, 0)
+scale_min = 0.01
+scale_max = 0.05
+scale_curve = SubResource("CurveXYZTexture_6hh5n")
+color = Color(0.5, 1.3, 2.2, 1)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_hklq1"]
+blend_mode = 1
+light_mode = 1
+
+[sub_resource type="Curve" id="Curve_1w2lf"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.292683, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_wll2f"]
+curve = SubResource("Curve_1w2lf")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_636qm"]
+particle_flag_disable_z = true
+gravity = Vector3(0, 0, 0)
+scale_min = 0.03
+scale_max = 0.08
+scale_curve = SubResource("CurveTexture_wll2f")
+color = Color(0.5, 1, 1.2, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_71gdd"]
+size = Vector2(302.999, 756.001)
+
+[sub_resource type="Gradient" id="Gradient_n6rgq"]
+colors = PackedColorArray(1, 1, 0, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_w8h72"]
+gradient = SubResource("Gradient_n6rgq")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_6dp2k"]
+particle_flag_align_y = true
+particle_flag_disable_z = true
+emission_shape = 6
+emission_ring_axis = Vector3(0, 0, 1)
+emission_ring_height = 50.0
+emission_ring_radius = 50.0
+emission_ring_inner_radius = 0.0
+initial_velocity_min = -300.0
+initial_velocity_max = -200.0
+radial_velocity_min = 400.0
+radial_velocity_max = 700.0
+gravity = Vector3(0, 98, 0)
+scale_min = 0.01
+scale_max = 0.05
+scale_curve = SubResource("CurveXYZTexture_6hh5n")
+color_ramp = SubResource("GradientTexture1D_w8h72")
+
+[sub_resource type="Gradient" id="Gradient_h0egl"]
+colors = PackedColorArray(1, 1, 0, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_76wag"]
+gradient = SubResource("Gradient_h0egl")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_1eiis"]
+particle_flag_disable_z = true
+gravity = Vector3(0, 0, 0)
+scale_min = 0.02
+scale_max = 0.08
+scale_curve = SubResource("CurveTexture_wll2f")
+color_ramp = SubResource("GradientTexture1D_76wag")
+
+[node name="WinScreen" type="Node2D" node_paths=PackedStringArray("area", "clockwises", "screen", "starCountLabel", "stepsCountLabel", "scoreLabel", "screenEffect", "particlesGroup", "batteries")]
+script = ExtResource("1_753qv")
+area = NodePath("Area2D")
+thunderScene = ExtResource("7_itdbi")
+clockwises = NodePath("ScreenContainer/Clockwises")
+screen = NodePath("ScreenContainer")
+starCountLabel = NodePath("ScreenContainer/StarCountLabel")
+stepsCountLabel = NodePath("ScreenContainer/StepsLabel")
+scoreLabel = NodePath("ScreenContainer/ScoreLabel")
+screenEffect = NodePath("ScreenContainer/ScreenEffect")
+particlesGroup = NodePath("ScreenContainer/ParticlesGroup")
+batteries = [NodePath("ScreenContainer/Battery1"), NodePath("ScreenContainer/Battery2"), NodePath("ScreenContainer/Battery3")]
+
+[node name="Rope" parent="." instance=ExtResource("2_j1ab3")]
+position = Vector2(586, -22)
+
+[node name="RopeSegment" parent="Rope" index="2"]
+collision_layer = 0
+collision_mask = 0
+
+[node name="RopeSegment2" parent="Rope" index="4"]
+collision_layer = 0
+collision_mask = 0
+
+[node name="RopeSegment3" parent="Rope" index="6"]
+collision_layer = 0
+collision_mask = 0
+
+[node name="RopeSegment4" parent="Rope" index="8"]
+collision_layer = 0
+collision_mask = 0
+
+[node name="RopeSegment5" parent="Rope" index="10"]
+collision_layer = 0
+collision_mask = 0
+
+[node name="RopeSegment6" parent="Rope" index="12"]
+collision_layer = 0
+collision_mask = 0
+
+[node name="RopeSegment7" parent="Rope" index="14"]
+collision_layer = 0
+collision_mask = 0
+
+[node name="RopeSegment8" parent="Rope" index="16"]
+collision_layer = 0
+collision_mask = 0
+
+[node name="RopeSegment9" parent="Rope" index="18"]
+collision_layer = 0
+collision_mask = 0
+
+[node name="RopeSegment10" parent="Rope" index="20"]
+collision_layer = 0
+collision_mask = 0
+
+[node name="RopeSegment11" parent="Rope" index="22"]
+collision_layer = 0
+collision_mask = 0
+
+[node name="RopeSegment12" parent="Rope" index="24"]
+collision_layer = 0
+collision_mask = 0
+
+[node name="RopeSegment13" parent="Rope" index="26"]
+collision_layer = 0
+collision_mask = 0
+
+[node name="RopeSegment14" parent="Rope" index="28"]
+collision_layer = 0
+collision_mask = 0
+
+[node name="RopeSegment15" parent="Rope" index="30"]
+collision_layer = 0
+collision_mask = 0
+
+[node name="RopeSegment16" parent="Rope" index="32"]
+collision_layer = 0
+collision_mask = 0
+
+[node name="Rope2" parent="." instance=ExtResource("2_j1ab3")]
+position = Vector2(1250, -23)
+
+[node name="RopeSegment" parent="Rope2" index="2"]
+collision_layer = 0
+collision_mask = 0
+
+[node name="RopeSegment2" parent="Rope2" index="4"]
+collision_layer = 0
+collision_mask = 0
+
+[node name="RopeSegment3" parent="Rope2" index="6"]
+collision_layer = 0
+collision_mask = 0
+
+[node name="RopeSegment4" parent="Rope2" index="8"]
+collision_layer = 0
+collision_mask = 0
+
+[node name="RopeSegment5" parent="Rope2" index="10"]
+collision_layer = 0
+collision_mask = 0
+
+[node name="RopeSegment6" parent="Rope2" index="12"]
+collision_layer = 0
+collision_mask = 0
+
+[node name="RopeSegment7" parent="Rope2" index="14"]
+collision_layer = 0
+collision_mask = 0
+
+[node name="RopeSegment8" parent="Rope2" index="16"]
+collision_layer = 0
+collision_mask = 0
+
+[node name="RopeSegment9" parent="Rope2" index="18"]
+collision_layer = 0
+collision_mask = 0
+
+[node name="RopeSegment10" parent="Rope2" index="20"]
+collision_layer = 0
+collision_mask = 0
+
+[node name="RopeSegment11" parent="Rope2" index="22"]
+collision_layer = 0
+collision_mask = 0
+
+[node name="RopeSegment12" parent="Rope2" index="24"]
+collision_layer = 0
+collision_mask = 0
+
+[node name="RopeSegment13" parent="Rope2" index="26"]
+collision_layer = 0
+collision_mask = 0
+
+[node name="RopeSegment14" parent="Rope2" index="28"]
+collision_layer = 0
+collision_mask = 0
+
+[node name="RopeSegment15" parent="Rope2" index="30"]
+collision_layer = 0
+collision_mask = 0
+
+[node name="RopeSegment16" parent="Rope2" index="32"]
+collision_layer = 0
+collision_mask = 0
+
+[node name="Area2D" type="CharacterBody2D" parent="."]
+collision_layer = 0
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_2e15r")
+
+[node name="ScreenContainer" type="RigidBody2D" parent="."]
+position = Vector2(946, 683)
+collision_layer = 0
+collision_mask = 0
+mass = 556.94
+
+[node name="Battery1" type="Sprite2D" parent="ScreenContainer"]
+self_modulate = Color(0.485703, 0.485704, 0.485703, 1)
+position = Vector2(-302, -360)
+texture = ExtResource("4_36w4v")
+offset = Vector2(36, 107)
+
+[node name="ImpactEffect2" type="Node2D" parent="ScreenContainer/Battery1"]
+visible = false
+position = Vector2(0, 3)
+rotation = 0.988401
+
+[node name="Sparks" type="GPUParticles2D" parent="ScreenContainer/Battery1/ImpactEffect2"]
+material = SubResource("CanvasItemMaterial_r36vq")
+position = Vector2(0, 1)
+amount = 2
+process_material = SubResource("ParticleProcessMaterial_cvov5")
+texture = ExtResource("9_vaw2d")
+lifetime = 0.15
+fixed_fps = 60
+
+[node name="Flare" type="GPUParticles2D" parent="ScreenContainer/Battery1/ImpactEffect2"]
+material = SubResource("CanvasItemMaterial_hklq1")
+position = Vector2(0, -1)
+amount = 1
+process_material = SubResource("ParticleProcessMaterial_636qm")
+texture = ExtResource("9_vaw2d")
+lifetime = 0.15
+fixed_fps = 60
+
+[node name="PointLight2D" type="PointLight2D" parent="ScreenContainer/Battery1/ImpactEffect2"]
+position = Vector2(0, -1)
+color = Color(0.231373, 1, 1, 1)
+energy = 3.0
+range_z_min = 49
+texture = ExtResource("9_vaw2d")
+texture_scale = 0.2
+
+[node name="Battery2" type="Sprite2D" parent="ScreenContainer"]
+self_modulate = Color(0.485703, 0.485704, 0.485703, 1)
+position = Vector2(-9, -371)
+texture = ExtResource("3_fqidv")
+offset = Vector2(1, 108)
+
+[node name="ImpactEffect5" type="Node2D" parent="ScreenContainer/Battery2"]
+visible = false
+position = Vector2(1, 0)
+rotation = 1.63863
+
+[node name="Sparks" type="GPUParticles2D" parent="ScreenContainer/Battery2/ImpactEffect5"]
+material = SubResource("CanvasItemMaterial_r36vq")
+position = Vector2(0, 1)
+amount = 2
+process_material = SubResource("ParticleProcessMaterial_cvov5")
+texture = ExtResource("9_vaw2d")
+lifetime = 0.15
+fixed_fps = 60
+
+[node name="Flare" type="GPUParticles2D" parent="ScreenContainer/Battery2/ImpactEffect5"]
+material = SubResource("CanvasItemMaterial_hklq1")
+position = Vector2(0, -1)
+amount = 1
+process_material = SubResource("ParticleProcessMaterial_636qm")
+texture = ExtResource("9_vaw2d")
+lifetime = 0.15
+fixed_fps = 60
+
+[node name="PointLight2D" type="PointLight2D" parent="ScreenContainer/Battery2/ImpactEffect5"]
+position = Vector2(0, -1)
+color = Color(0.231373, 1, 1, 1)
+energy = 3.0
+range_z_min = 49
+texture = ExtResource("9_vaw2d")
+texture_scale = 0.2
+
+[node name="Battery3" type="Sprite2D" parent="ScreenContainer"]
+self_modulate = Color(0.485703, 0.485704, 0.485703, 1)
+position = Vector2(280, -361)
+texture = ExtResource("4_36w4v")
+offset = Vector2(-36, 108)
+flip_h = true
+
+[node name="ImpactEffect6" type="Node2D" parent="ScreenContainer/Battery3"]
+visible = false
+rotation = -2.31373
+
+[node name="Sparks" type="GPUParticles2D" parent="ScreenContainer/Battery3/ImpactEffect6"]
+material = SubResource("CanvasItemMaterial_r36vq")
+position = Vector2(0, 1)
+amount = 2
+process_material = SubResource("ParticleProcessMaterial_cvov5")
+texture = ExtResource("9_vaw2d")
+lifetime = 0.15
+fixed_fps = 60
+
+[node name="Flare" type="GPUParticles2D" parent="ScreenContainer/Battery3/ImpactEffect6"]
+material = SubResource("CanvasItemMaterial_hklq1")
+position = Vector2(0, -1)
+amount = 1
+process_material = SubResource("ParticleProcessMaterial_636qm")
+texture = ExtResource("9_vaw2d")
+lifetime = 0.15
+fixed_fps = 60
+
+[node name="PointLight2D" type="PointLight2D" parent="ScreenContainer/Battery3/ImpactEffect6"]
+position = Vector2(0, -1)
+color = Color(0.231373, 1, 1, 1)
+energy = 3.0
+range_z_min = 49
+texture = ExtResource("9_vaw2d")
+texture_scale = 0.2
+
+[node name="Screen" type="Sprite2D" parent="ScreenContainer"]
+texture = ExtResource("5_sal2a")
+
+[node name="Clockwises" type="Sprite2D" parent="ScreenContainer"]
+position = Vector2(378, 157)
+texture = ExtResource("6_rgshm")
+offset = Vector2(7, -6)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ScreenContainer"]
+visible = false
+position = Vector2(-9.00024, -5.49933)
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_71gdd")
+
+[node name="ScreenEffect" parent="ScreenContainer" instance=ExtResource("9_bi0ci")]
+
+[node name="ScoreLabel" type="Label" parent="ScreenContainer"]
+offset_left = -309.0
+offset_top = -97.0
+offset_right = -142.0
+offset_bottom = -61.0
+theme_override_font_sizes/font_size = 26
+text = "SCORE : XXXX"
+
+[node name="StepsLabel" type="Label" parent="ScreenContainer"]
+offset_left = -307.0
+offset_top = -34.0
+offset_right = -148.0
+offset_bottom = 2.0
+theme_override_font_sizes/font_size = 26
+text = "STEPS : XXXX"
+
+[node name="BatteryCountTexture" type="TextureRect" parent="ScreenContainer"]
+offset_left = 190.0
+offset_top = -118.0
+offset_right = 342.0
+offset_bottom = 116.0
+scale = Vector2(0.4, 0.4)
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = ExtResource("3_fqidv")
+stretch_mode = 2
+
+[node name="StarCountLabel" type="Label" parent="ScreenContainer"]
+offset_left = 255.0
+offset_top = -86.0
+offset_right = 293.0
+offset_bottom = -50.0
+theme_override_font_sizes/font_size = 26
+text = "X 0"
+
+[node name="ParticlesGroup" type="Node2D" parent="ScreenContainer"]
+visible = false
+
+[node name="ImpactEffect3" type="Node2D" parent="ScreenContainer/ParticlesGroup"]
+position = Vector2(333, -147)
+rotation = 2.35274
+
+[node name="Sparks" type="GPUParticles2D" parent="ScreenContainer/ParticlesGroup/ImpactEffect3"]
+material = SubResource("CanvasItemMaterial_r36vq")
+position = Vector2(0, 1)
+amount = 2
+process_material = SubResource("ParticleProcessMaterial_6dp2k")
+texture = ExtResource("9_vaw2d")
+lifetime = 0.15
+fixed_fps = 60
+
+[node name="Flare" type="GPUParticles2D" parent="ScreenContainer/ParticlesGroup/ImpactEffect3"]
+material = SubResource("CanvasItemMaterial_hklq1")
+position = Vector2(0, -1)
+amount = 1
+process_material = SubResource("ParticleProcessMaterial_1eiis")
+texture = ExtResource("9_vaw2d")
+lifetime = 0.15
+fixed_fps = 60
+
+[node name="PointLight2D" type="PointLight2D" parent="ScreenContainer/ParticlesGroup/ImpactEffect3"]
+position = Vector2(0, -1)
+color = Color(0.951694, 0.905147, 0.515401, 1)
+texture = ExtResource("9_vaw2d")
+texture_scale = 0.2
+
+[node name="ImpactEffect4" type="Node2D" parent="ScreenContainer/ParticlesGroup"]
+position = Vector2(410, 106)
+rotation = 0.552515
+
+[node name="Sparks" type="GPUParticles2D" parent="ScreenContainer/ParticlesGroup/ImpactEffect4"]
+material = SubResource("CanvasItemMaterial_r36vq")
+position = Vector2(0, 1)
+amount = 2
+process_material = SubResource("ParticleProcessMaterial_6dp2k")
+texture = ExtResource("9_vaw2d")
+lifetime = 0.15
+fixed_fps = 60
+
+[node name="Flare" type="GPUParticles2D" parent="ScreenContainer/ParticlesGroup/ImpactEffect4"]
+material = SubResource("CanvasItemMaterial_hklq1")
+position = Vector2(0, -1)
+amount = 1
+process_material = SubResource("ParticleProcessMaterial_1eiis")
+texture = ExtResource("9_vaw2d")
+lifetime = 0.15
+fixed_fps = 60
+
+[node name="PointLight2D" type="PointLight2D" parent="ScreenContainer/ParticlesGroup/ImpactEffect4"]
+position = Vector2(0, -1)
+color = Color(0.951694, 0.905147, 0.515401, 1)
+texture = ExtResource("9_vaw2d")
+texture_scale = 0.2
+
+[node name="PinJoint2D2" type="PinJoint2D" parent="."]
+position = Vector2(1250, 523)
+node_a = NodePath("../Rope2/RopeSegment16")
+node_b = NodePath("../ScreenContainer")
+
+[node name="PinJoint2D3" type="PinJoint2D" parent="."]
+position = Vector2(586, 524)
+node_a = NodePath("../Rope/RopeSegment16")
+node_b = NodePath("../ScreenContainer")
+
+[editable path="Rope"]
+[editable path="Rope2"]
