@@ -40,7 +40,14 @@ namespace Com.IsartDigital.SokoVolt.Managers
 		{
 			if (!LevelLoader.isLevelLoaded) return;
 
-			if (@event is InputEventKey eventKey && eventKey.Pressed)
+            if (@event is InputEventMouseButton pMouseEvent && pMouseEvent.Pressed && pMouseEvent.ButtonIndex == MouseButton.Left)
+            {
+                Vector2 lMousePos = pMouseEvent.Position;
+                Vector2 lTargetPos = IsoManager.IsoViewToModel(lMousePos - GridManager.gridOffset);
+                GridManager.GetInstance().HandleCellClick(lTargetPos);
+            }
+
+            if (@event is InputEventKey pEventKey && pEventKey.Pressed)
 			{
                 if (Input.IsActionJustPressed("Up")) CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.Move, Vector2.Up);
                 if (Input.IsActionJustPressed("Down")) CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.Move, Vector2.Down);

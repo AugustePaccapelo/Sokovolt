@@ -220,11 +220,46 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 		{
 			return pX < 0 || pX >= LevelLoader.levelWidth || pY < 0 || pY >= LevelLoader.levelHeight;
 		}
-		#endregion
+
+        public void HandleCellClick(Vector2 pTargetPos)
+        {
+            int lPosX = (int)pTargetPos.X;
+            int lPosY = (int)pTargetPos.Y;
+
+            if (OutOfGrid(lPosX, lPosY)) return; 
+
+            var lGrid = grid;
+            Cell lTargetCell = lGrid[lPosX, lPosY];
+            GameObject lContent = lTargetCell.GetContent();
+            Player lPlayer = player;
+            Vector2 lStart = new Vector2(lPlayer.x, lPlayer.y);
+            Vector2 lEnd = new Vector2(lPosX, lPosY);
+
+            if (lContent is BoxTesla && (lEnd - lStart).Length() == 1)
+            {
+                OnMovePlayer(lEnd - lStart);
+                return;
+            }
+            if (lContent is Door pDoor)
+            {
+                if (!pDoor.isOpen) return;
+            }
+            if (lContent == null || lContent is Door)
+            {
+                var lPath = PathFinding.FindPath(lStart, lEnd, lGrid);
+                if (lPath != null && lPath.Count > 0)
+				{
+					StockGridState();
+                    lPlayer.MoveAlongPath(lPath);
+                }
+            }
+        }
+
+        #endregion
 
 
 
-		#region // ----- Undo/Redo/Retry ----- \\
+        #region // ----- Undo/Redo/Retry ----- \\
 
         public static bool currentlyUndoRedo; 
         private void UndoRedo(int pAmount)
@@ -264,7 +299,7 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 		}
 
 		
-		private void StockGridState()
+		public void StockGridState()
 		{
 			
 			if (actualGridStateIndex < gridStates.Count - 1)
