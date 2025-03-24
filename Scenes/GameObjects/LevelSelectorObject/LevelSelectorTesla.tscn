@@ -138,7 +138,7 @@ scale_curve = SubResource("CurveTexture_myre1")
 color = Color(0.5, 1, 1.2, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_6nt13"]
-font_size = 42
+font_size = 52
 font_color = Color(1, 1, 0.160784, 1)
 outline_size = 10
 outline_color = Color(0, 0, 0, 1)
@@ -287,10 +287,10 @@ scale = Vector2(0.12477, 0.124925)
 texture = ExtResource("3_vqwhd")
 
 [node name="LevelLabel" type="Label" parent="Screen"]
-offset_left = 20.0
-offset_top = 144.444
-offset_right = 219.0
-offset_bottom = 211.444
+offset_left = 23.128
+offset_top = 131.541
+offset_right = 222.128
+offset_bottom = 203.541
 scale = Vector2(0.573123, 0.573123)
 text = "LEVEL : "
 label_settings = SubResource("LabelSettings_6nt13")

@@ -169,7 +169,7 @@ namespace Com.IsartDigital.SokoVolt
             }
 
             Godot.Label lLabel = lTesla.GetNode<Godot.Label>(LEVEL_LABEL_PATH);
-            lLabel.Text = LEVEL_PREFIXE + pIndex;
+            lLabel.Text = LEVEL_PREFIXE + "\n" + pIndex;
 
             return lTesla;
         }
