@@ -46,9 +46,11 @@ namespace Com.IsartDigital.SokoVolt.Managers
 			//hud = HUD.GetInstance();
 
 			//hud.MainMenuButton += BackToMainMenu;
-			CustomSignals.GetInstance().GoToMainMenu += BackToMainMenu;
-            CustomSignals.GetInstance().GoToLevelSelector += GameStart;
-            CustomSignals.GetInstance().GoToLevelCreator += LevelCreatorScreen;
+			CustomSignals lCustomSignals = CustomSignals.GetInstance();
+            lCustomSignals.GoToMainMenu += BackToMainMenu;
+            lCustomSignals.GoToLevelSelector += GameStart;
+            lCustomSignals.GoToLevelCreator += LevelCreatorScreen;
+            lCustomSignals.GoToLoginScreen += GoToLoginScreen;
         }
 
 		public void GameStart() //Execute when StartButton is press in MainMenu
@@ -71,6 +73,23 @@ namespace Com.IsartDigital.SokoVolt.Managers
 			LevelSelector.GetInstance()?.QueueFree();
 			LevelCreator.GetInstance()?.QueueFree();
 			mainMenu.Show();
+		}
+
+		private void GoToLoginScreen()
+		{
+			LoginScreen lLoginScreen = LoginScreen.GetInstance();
+
+			if (lLoginScreen.skipLogin)
+			{
+				lLoginScreen.skipLogin = false;
+				lLoginScreen.Hide();
+				mainMenu.Show();
+				return;
+			}
+
+			mainMenu.Hide();
+			lLoginScreen.Show();
+			lLoginScreen.AnimationLoginEnter();
 		}
 
 		protected override void Dispose(bool pDisposing)

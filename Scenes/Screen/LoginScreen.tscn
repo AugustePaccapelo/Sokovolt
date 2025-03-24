@@ -113,10 +113,10 @@ metadata/_edit_use_anchors_ = true
 
 [node name="Piston" parent="Login" instance=ExtResource("6_lb3rm")]
 layout_mode = 1
-anchor_left = 0.396
-anchor_top = 0.611
-anchor_right = 0.608
-anchor_bottom = 1.063
+anchor_left = 0.398604
+anchor_top = 0.730444
+anchor_right = 0.610604
+anchor_bottom = 1.18244
 offset_left = 0.679932
 offset_top = 0.119995
 offset_right = -406.36
@@ -261,6 +261,10 @@ text = "Login"
 layout_mode = 2
 text = "Create an Acccount"
 
+[node name="StayLogged" type="CheckBox" parent="Login/VBoxScreenHolder"]
+layout_mode = 2
+text = "Remember me"
+
 [node name="Create" type="Control" parent="."]
 visible = false
 layout_mode = 1
@@ -346,3 +350,7 @@ text = "Create account"
 [node name="ChangeScreen" type="Button" parent="Create/VBoxScreenHolder"]
 layout_mode = 2
 text = "Login"
+
+[node name="StayLogged" type="CheckBox" parent="Create/VBoxScreenHolder"]
+layout_mode = 2
+text = "Remember me"

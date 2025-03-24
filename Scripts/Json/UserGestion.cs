@@ -25,8 +25,9 @@ namespace Com.IsartDigital.ProjectName
 		#endregion
 
 		private string jsonFilePath = ProjectSettings.GlobalizePath("user://Json//UserData.Json");
+        private string lastUserFilePath = ProjectSettings.GlobalizePath("user://Json/LastUser.json");
 
-		public override void _Ready()
+        public override void _Ready()
 		{
 			#region Singleton
 			if (instance != null)
@@ -40,6 +41,7 @@ namespace Com.IsartDigital.ProjectName
 			#endregion
 
 			LoginScreen.GetInstance().userGestion = this;
+            LoginScreen.GetInstance().skipLogin = !(GetLastUser() is null);
         }
 
         private static string PasswordHashing(string pPassword) // to encrypt the password by Auguste
@@ -57,41 +59,92 @@ namespace Com.IsartDigital.ProjectName
 			return lHashedPassword;
         }
 
-		public bool RegisterUser(string pName, string pPassword) // registers new users 
+		private Dictionary GetUserData()
 		{
-			string lDirectoryPath = jsonFilePath.GetBaseDir();
+			if (!FileAccess.FileExists(jsonFilePath)) return new Dictionary();
+            string content = FileAccess.Open(jsonFilePath, FileAccess.ModeFlags.Read).GetAsText();
+            return JsonTool.TryParseJson(content, out Dictionary data) ? data : new Dictionary();
+        }
 
-			if (!DirAccess.DirExistsAbsolute(lDirectoryPath)) DirAccess.MakeDirRecursiveAbsolute(lDirectoryPath);
-			if (!FileAccess.FileExists(jsonFilePath))
-			{
-				using var lCreatFile = FileAccess.Open(jsonFilePath, FileAccess.ModeFlags.Write);
-				lCreatFile.StoreString("{}");
-			}
+        private void SaveUserData(Dictionary data)
+        {
+            using var file = FileAccess.Open(jsonFilePath, FileAccess.ModeFlags.Write);
+            file.StoreString(Json.Stringify(data, "\t"));
+        }
 
-            string lJsonContent = FileAccess.Open(jsonFilePath, FileAccess.ModeFlags.Read).GetAsText();
-            Dictionary lUsersData;
+        public void SaveUserProgress(string pName, int totalScore, Dictionary levelData)
+        {
+            Dictionary lUsersData = GetUserData();
+            if (!lUsersData.ContainsKey(pName)) return;
 
-            if (string.IsNullOrEmpty(lJsonContent) || !JsonTool.TryParseJson(lJsonContent, out lUsersData)) lUsersData = new Dictionary();
-			if (lUsersData.ContainsKey(pName))
-			{
-				return false;
-			}
+            var user = (Dictionary)lUsersData[pName];
+            user["totalScore"] = totalScore;
+            user["levels"] = levelData;
+            SaveUserData(lUsersData);
+        }
 
-			string lHashedPassword = PasswordHashing(pPassword); // this will encrypte the password
-            lUsersData[pName] = lHashedPassword;
-            string lNewJsonContent = Json.Stringify(lUsersData, "\t");
-            using var lFile = FileAccess.Open(jsonFilePath, FileAccess.ModeFlags.Write);
-            lFile.StoreString(lNewJsonContent);
+        public bool RegisterUser(string pName, string pPassword)
+        {
+            string lDirectoryPath = jsonFilePath.GetBaseDir();
+            if (!DirAccess.DirExistsAbsolute(lDirectoryPath)) DirAccess.MakeDirRecursiveAbsolute(lDirectoryPath);
+
+            Dictionary lUsersData = GetUserData();
+
+            if (lUsersData.ContainsKey(pName)) return false;
+
+            string lHashedPassword = PasswordHashing(pPassword);
+            lUsersData[pName] = new Dictionary
+            {
+                { "password", lHashedPassword },
+                { "totalScore", 0 },
+                { "levels", new Dictionary() }
+            };
+            
+            SaveUserData(lUsersData);
             return true;
         }
 
-        public bool LoginUser(string pName, string pPassword) // connects the users 
+        private string GetUserPassword(string pName)
+        {
+            Dictionary lUsersData = GetUserData();
+            if (lUsersData.ContainsKey(pName))
+            {
+                Dictionary lUserDict;
+                JsonTool.TryParseJson(lUsersData[pName].ToString(), out lUserDict);
+                return lUserDict.ContainsKey("password") ? lUserDict["password"].ToString() : null;
+            }
+            return null;
+        }
+
+        public bool LoginUser(string pName, string pPassword, bool isAlreadyLogged = false) // connects the users 
         {
             string lJsonContent = JsonTool.ReadFileContents(jsonFilePath);
             Dictionary lUsersData;
 
             if (string.IsNullOrEmpty(lJsonContent) || !JsonTool.TryParseJson(lJsonContent, out lUsersData)) return false;
-            return lUsersData.ContainsKey(pName) && lUsersData[pName].ToString() == PasswordHashing(pPassword);
+            string lStoredPassword = GetUserPassword(pName);
+            return isAlreadyLogged || lStoredPassword == PasswordHashing(pPassword);
+        }
+
+        public string GetLastUser()
+        {
+            if (!FileAccess.FileExists(lastUserFilePath)) return null;
+            using var lFile = FileAccess.Open(lastUserFilePath, FileAccess.ModeFlags.Read);
+            string lUser = lFile.GetAsText();
+            lFile.Close();
+            return lUser;
+        }
+
+        public void SaveLastUser(string pName = null)
+        {
+            if (pName is null)
+            {
+                DirAccess.RemoveAbsolute(lastUserFilePath);
+                return;
+            }
+            using var lFile = FileAccess.Open(lastUserFilePath, FileAccess.ModeFlags.Write);
+            lFile.StoreString(pName);
+            lFile.Close();
         }
     }
 }
