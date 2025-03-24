@@ -20,6 +20,8 @@ namespace Com.IsartDigital.SokoVolt.Managers
         }
         #endregion
 
+        CustomSignals custiSignals;
+
         public override void _Ready()
         {
             #region Singleton
@@ -34,27 +36,30 @@ namespace Com.IsartDigital.SokoVolt.Managers
             #endregion
 
             base._Ready();
+
+            custiSignals = CustomSignals.GetInstance();
         }
 
         public override void _Input(InputEvent @event) // to optimize
         {
-            if (!LevelLoader.isLevelLoaded) return;
+            if (!LevelLoader.playerCanMove) return;
 
-            //if (@event is InputEventMouseButton pEventMouseButtonKey && pEventMouseButtonKey.Pressed)
-            //{
-            //    HUD.GetInstance().undoButton.Pressed += () => CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.UndoButton);
-            //    HUD.GetInstance().redoButton.Pressed += () => CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.RedoButton);
-            //}
+            if(@event is InputEventMouseButton pMouseEvent && pMouseEvent.Pressed && pMouseEvent.ButtonIndex == MouseButton.Left)
+            {
+                Vector2 lMousePos = pMouseEvent.Position;
+                Vector2 lTargetPos = IsoManager.IsoViewToModel(lMousePos - GridManager.gridOffset);
+                GridManager.GetInstance().HandleCellClicked(lTargetPos);
+            }
 
             if (@event is InputEventKey pEventKey && pEventKey.Pressed)
             {
-                if (Input.IsActionJustPressed("Up")) CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.Move, Vector2.Up);
-                if (Input.IsActionJustPressed("Down")) CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.Move, Vector2.Down);
-                if (Input.IsActionJustPressed("Left")) CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.Move, Vector2.Left);
-                if (Input.IsActionJustPressed("Right")) CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.Move, Vector2.Right);
-                if (Input.IsActionJustPressed("Undo")) CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.UndoRedo, -1);
-                else if (Input.IsActionJustPressed("Redo")) CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.UndoRedo, 1);
-                else if (Input.IsActionJustPressed("Retry")) CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.Retry);
+                if (Input.IsActionJustPressed("Up")) custiSignals.EmitSignal(CustomSignals.SignalName.Move, Vector2.Up);
+                if (Input.IsActionJustPressed("Down")) custiSignals.EmitSignal(CustomSignals.SignalName.Move, Vector2.Down);
+                if (Input.IsActionJustPressed("Left")) custiSignals.EmitSignal(CustomSignals.SignalName.Move, Vector2.Left);
+                if (Input.IsActionJustPressed("Right")) custiSignals.EmitSignal(CustomSignals.SignalName.Move, Vector2.Right);
+                if (Input.IsActionJustPressed("Undo")) custiSignals.EmitSignal(CustomSignals.SignalName.UndoRedo, -1);
+                else if (Input.IsActionJustPressed("Redo")) custiSignals.EmitSignal(CustomSignals.SignalName.UndoRedo, 1);
+                else if (Input.IsActionJustPressed("Retry")) custiSignals.EmitSignal(CustomSignals.SignalName.Retry);
             }
         }
 
