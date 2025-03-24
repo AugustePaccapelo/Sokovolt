@@ -39,14 +39,14 @@ namespace Com.IsartDigital.SokoVolt.Managers
         public override void _Input(InputEvent @event) // to optimize
         {
 
-            if (@event is InputEventMouseButton pMouseEvent && pMouseEvent.Pressed && LevelLoader.playerCanMove)
+            if (@event is InputEventMouseButton pMouseEvent && pMouseEvent.Pressed )
             {
                 Vector2 lMousePos = pMouseEvent.Position;
                 Vector2 lTargetPos = IsoManager.IsoViewToModel(lMousePos - GridManager.gridOffset);
                 GridManager.GetInstance().HandleCellClick(lTargetPos);
             }
 
-            if (@event is InputEventKey pEventKey && pEventKey.Pressed)
+            if (@event is InputEventKey pEventKey && pEventKey.Pressed && LevelLoader.playerCanMove)
 			{
                 if (Input.IsActionJustPressed("Up")) CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.Move, Vector2.Up);
                 if (Input.IsActionJustPressed("Down")) CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.Move, Vector2.Down);

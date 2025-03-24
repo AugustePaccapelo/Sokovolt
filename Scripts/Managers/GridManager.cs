@@ -65,7 +65,6 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 
         public override void _Process(double pDelta)
 		{
-			GD.Print(LevelLoader.playerCanMove); 
         }
 
         public override void Init()
