@@ -41,7 +41,7 @@ font_size = 48
 outline_size = 5
 outline_color = Color(0, 0, 0, 1)
 
-[node name="LevelCreatorMenu" type="Control" node_paths=PackedStringArray("mainMenuButton", "newLevelButton", "loadLevelButton", "menuCustomLevelButton", "returnButton", "saveButton", "applyButton", "loadLevelText", "levelName", "sizeXText", "sizeYText", "wallTexture", "electricWallTexture", "teslaTexture", "bulbTexture", "generatorTexture", "playerSpawnTexture", "doorTexture", "buttonContainer", "deleteButtonContainer", "labelContainer")]
+[node name="LevelCreatorMenu" type="Control" node_paths=PackedStringArray("mainMenuButton", "newLevelButton", "loadLevelButton", "menuCustomLevelButton", "returnButton", "saveButton", "loadLevelText", "levelName", "wallTexture", "teslaTexture", "bulbTexture", "generatorTexture", "buttonContainer", "labelContainer")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -55,29 +55,19 @@ loadLevelButton = NodePath("CustomLevelListBackGround/LoadLevelButton")
 menuCustomLevelButton = NodePath("Menu/MenuCustomLevelButton")
 returnButton = NodePath("ReturnButton")
 saveButton = NodePath("NewLevelBackGround/SaveButton")
-applyButton = NodePath("NewLevelBackGround/HBoxContainer/ApplyButton")
 loadLevelText = NodePath("CustomLevelListBackGround/LoadLevelText")
 levelName = NodePath("NewLevelBackGround/NameLineEdit")
-sizeXText = NodePath("NewLevelBackGround/HBoxContainer/SizeXText")
-sizeYText = NodePath("NewLevelBackGround/HBoxContainer/SizeYText")
 wallTexture = NodePath("NewLevelBackGround/Inventory/Wall")
-electricWallTexture = NodePath("NewLevelBackGround/Inventory/ElectricWall")
 teslaTexture = NodePath("NewLevelBackGround/Inventory/Tesla")
 bulbTexture = NodePath("NewLevelBackGround/Inventory/Bulb")
 generatorTexture = NodePath("NewLevelBackGround/Inventory/Generator")
-playerSpawnTexture = NodePath("NewLevelBackGround/Inventory/PlayerSpawn")
-doorTexture = NodePath("NewLevelBackGround/Inventory/Door")
 wallScene = ExtResource("8_gc0rv")
-electricWallScene = ExtResource("12_7rowd")
 teslaScene = ExtResource("7_5weia")
 bulbScene = ExtResource("5_7j68n")
 generatorScene = ExtResource("6_wy1dl")
-playerSpawnScene = ExtResource("11_g4nve")
-doorScene = ExtResource("10_av00s")
 tileScene = ExtResource("3_mha4c")
 customLevelLabelScene = ExtResource("7_p6ycg")
 buttonContainer = NodePath("CustomLevelListBackGround/MenuBar/HBoxContainer/ButtonContainer")
-deleteButtonContainer = NodePath("CustomLevelListBackGround/MenuBar/HBoxContainer/DeleteButtonContainer2")
 labelContainer = NodePath("CustomLevelListBackGround/MenuBar/HBoxContainer/LabelContainer")
 customLevelTemplate = ExtResource("8_kgilq")
 

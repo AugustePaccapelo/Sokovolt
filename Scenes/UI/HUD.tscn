@@ -13,7 +13,7 @@ outline_color = Color(0, 0, 0, 1)
 [sub_resource type="LabelSettings" id="LabelSettings_qeci4"]
 font_size = 64
 
-[node name="Hud" type="Control" node_paths=PackedStringArray("undoButton", "redoButton", "mainMenuButton", "scoreLabel", "stepLabel", "winLabel", "displayInGame")]
+[node name="Hud" type="Control" node_paths=PackedStringArray("undoButton", "redoButton", "mainMenuButton", "scoreLabel", "stepLabel", "winLabel")]
 custom_minimum_size = Vector2(1152, 648)
 layout_mode = 3
 anchors_preset = 15
@@ -30,7 +30,6 @@ scoreLabel = NodePath("DisplayInGame/ScoreLabel")
 stepLabel = NodePath("DisplayInGame/StepLabel")
 winLabel = NodePath("WinLabel")
 winScreenScene = ExtResource("2_n24og")
-displayInGame = NodePath("DisplayInGame")
 
 [node name="DisplayInGame" type="Control" parent="."]
 layout_mode = 1

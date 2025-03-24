@@ -39,7 +39,7 @@ namespace Com.IsartDigital.SokoVolt.Managers
         public override void _Input(InputEvent @event) // to optimize
         {
 
-            if (@event is InputEventKey pEventKey && pEventKey.Pressed && LevelLoader.playerCanMove)
+            if (@event is InputEventMouseButton pMouseEvent && pMouseEvent.Pressed && LevelLoader.playerCanMove)
             {
                 Vector2 lMousePos = pMouseEvent.Position;
                 Vector2 lTargetPos = IsoManager.IsoViewToModel(lMousePos - GridManager.gridOffset);

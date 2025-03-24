@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://dkbx646vvyaig"]
+[gd_scene load_steps=22 format=3 uid="uid://dkbx646vvyaig"]
 
 [ext_resource type="PackedScene" uid="uid://dyk47lo67a1tp" path="res://Scenes/Managers/ui_manager.tscn" id="1_4603a"]
 [ext_resource type="PackedScene" uid="uid://bnv0kco0ylr0e" path="res://Scenes/Managers/GridManager.tscn" id="1_d671q"]
@@ -14,7 +14,6 @@
 [ext_resource type="PackedScene" uid="uid://csiqphobxyguh" path="res://Scenes/UI/HUD.tscn" id="7_js22e"]
 [ext_resource type="PackedScene" uid="uid://cbrehv31qfb0r" path="res://Scenes/Managers/GameManager.tscn" id="7_vkagg"]
 [ext_resource type="PackedScene" uid="uid://djcluge6is5om" path="res://Scenes/GameObjects/Wall.tscn" id="8_najj4"]
-[ext_resource type="PackedScene" uid="uid://7fsi04q1t5ae" path="res://Scenes/GameObjects/AnimationPiston.tscn" id="9_7c7xb"]
 [ext_resource type="PackedScene" uid="uid://c256fa86lg71t" path="res://Scenes/GameObjects/ElectricWall.tscn" id="9_34m77"]
 [ext_resource type="PackedScene" uid="uid://v75l4cppany" path="res://Scenes/GameObjects/GoalBulb.tscn" id="10_cjqye"]
 [ext_resource type="PackedScene" uid="uid://dellu8bu72iut" path="res://Scenes/GameObjects/Generator.tscn" id="11_lsk15"]
@@ -61,7 +60,7 @@ grow_horizontal = 1
 grow_vertical = 1
 
 [node name="GridManager" parent="Managers" instance=ExtResource("1_d671q")]
-pistonScene = ExtResource("9_7c7xb")
+thunderEffectScene = null
 
 [node name="LevelLoader" type="Node2D" parent="Managers"]
 script = ExtResource("4_ly116")
