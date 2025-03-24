@@ -44,7 +44,7 @@ namespace Com.IsartDigital.SokoVolt.Managers {
         private bool playerWasOnTesla; 
 
 		//LevelsAnimation
-		[Export] private PackedScene thunderEffectScene; 
+		[Export] private PackedScene thunderEffectScene, pistonScene; 
 		Node2D vortex; 
 		private const string VORTEX_PATH = "res://Assets/GameObjects/LevelAnimation/vecteezy_spiral-vortex-element_27720416.png"; 
 
@@ -65,6 +65,7 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 
         public override void _Process(double pDelta)
 		{
+			GD.Print(LevelLoader.playerCanMove); 
         }
 
         public override void Init()
@@ -105,6 +106,7 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 				return;
 
 			StockGridState();
+			StartIntroAnimation();
 		}
 
 		public void SetNewLevel(Cell[,] pNewGrid)
@@ -375,6 +377,38 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 		#endregion
 
 		#region // ----- Finished Level animation -----//
+
+		public void StartIntroAnimation() 
+		{
+			foreach (Node2D lObject in gameManager.objectsContainer.GetChildren())
+				lObject.Visible = false;
+
+			float lDelay = 0f;
+
+			for (int y = 0; y < LevelLoader.levelHeight; y++) 
+			{
+				for (int x = 0; x < LevelLoader.levelWidth; x++)
+				{
+
+					Cell lCell = grid[x, y];
+					if (lCell == null) continue;
+
+					AnimationPiston lPiston = Utils.Spawner(pistonScene, x, y, gameManager.objectsContainer) as AnimationPiston;
+
+					lCell.Visible = true;
+					if (lCell.GetContent() != null) lCell.GetContent().Visible = true;
+
+					lPiston.Launch(lCell, lPiston.GlobalPosition, lDelay);
+
+					lDelay += 0.02f;
+				}
+			}
+
+			GetTree().CreateTimer(lDelay + 1).Timeout += () => {
+				LevelLoader.playerCanMove = true;
+			};
+		}
+
 
 		private async void EndLevelAnimation(int pNumStar, int pScore, int pNumStep)
 		{
