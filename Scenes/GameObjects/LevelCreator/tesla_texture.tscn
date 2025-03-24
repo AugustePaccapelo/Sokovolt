@@ -15,11 +15,11 @@ teslaRange = NodePath("SpinBox")
 
 [node name="SpinBox" type="SpinBox" parent="."]
 layout_mode = 1
-offset_left = 318.119
-offset_top = 9.26353
-offset_right = 401.182
-offset_bottom = 59.2635
+offset_left = 272.0
+offset_right = 380.0
+offset_bottom = 105.0
 scale = Vector2(3.69686, 3.69686)
+mouse_filter = 1
 min_value = 1.0
 max_value = 10.0
 value = 1.0

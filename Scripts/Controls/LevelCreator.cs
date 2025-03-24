@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Security.Cryptography.X509Certificates;
+using System.Xml.Linq;
 
 // Author : Noé Sales
 
@@ -34,16 +35,13 @@ namespace Com.IsartDigital.SokoVolt
         [Export] private PackedScene wallScene, electricWallScene, teslaScene, bulbScene, generatorScene, playerSpawnScene, doorScene, tileScene, customLevelLabelScene;
         [Export] private VBoxContainer buttonContainer, deleteButtonContainer, labelContainer;
         [Export] private Json customLevelTemplate;
-        [Export] private LevelCreatorAnimationManager animationManager;
-        private Panel newLevelBackground, loadLevelBackground, customLevelMenuBackground, backGrid;
+        private Panel newLevelBackground, customLevelMenuBackground, backGrid, menu;
         private LevelCreatorItems actualItem;
 		private bool canPick = false;
         private TextureRect hoveredItem;
-        private float tileSize = 50;
-        private float space = 5;
+        private float tileSize = 50, space = 5;
         private Node2D cellContainer;
-        private int lenghtX = 11;
-        private int lenghtY = 11;
+        private int lenghtX = 11, lenghtY = 11, maxObject = 1;
         #endregion
 
         #region Const & List
@@ -57,6 +55,8 @@ namespace Com.IsartDigital.SokoVolt
         private const int LENGHT_MAX = 11;
         private const int LENGHT_MIN = 3;
         Dictionary<Vector2, LevelCreatorTile> gridDico = new Dictionary<Vector2, LevelCreatorTile>();
+
+        GameManager gameManager; 
         #endregion
 
         public override void _Ready()
@@ -104,10 +104,12 @@ namespace Com.IsartDigital.SokoVolt
 
             #region GetNode
             newLevelBackground = GetNode<Panel>("NewLevelBackGround");
-            loadLevelBackground = GetNode<Panel>("LoadLevelBackGround");
             cellContainer = GetNode<Node2D>("CellContainer");
             customLevelMenuBackground = GetNode<Panel>("CustomLevelListBackGround");
             backGrid = newLevelBackground.GetNode<Panel>("BackGrid");
+            menu = GetNode<Panel>("Menu");
+
+            gameManager = GameManager.GetInstance();
             #endregion
 
             RegisterMouseSignals(
@@ -116,7 +118,7 @@ namespace Com.IsartDigital.SokoVolt
             playerSpawnTexture, electricWallTexture
             );
 
-            newLevelBackground.Visible = loadLevelBackground.Visible = customLevelMenuBackground.Visible = returnButton.Visible = false;
+            newLevelBackground.Visible = customLevelMenuBackground.Visible = returnButton.Visible = false;
         }
         public override void _Process(double pDelta)
 		{
@@ -234,10 +236,8 @@ namespace Com.IsartDigital.SokoVolt
                 List<int> lBoxRange = new List<int>();
 
                 //Local variable to check if the minimum required object is placed
-                bool lHasDoor = false;
-                bool lHasPlayerSpawn = false;
-                bool lHasGenerator = false;
-                bool lHasBulb = false;
+                bool lHasDoor = false, lHasPlayerSpawn = false, lHasGenerator = false, lHasBulb = false;
+                int lDoorCounter = 0, lPlayerSpawnCounter = 0;
 
                 for (int y = 0; y < lenghtY; y++)
                 {
@@ -275,11 +275,13 @@ namespace Com.IsartDigital.SokoVolt
                                 case PLAYERSPAWN_TYPE:
                                     lRow += JsonKeys.PLAYER;
                                     lHasPlayerSpawn = true;
+                                    lPlayerSpawnCounter++;
                                     break;
 
                                 case DOOR_TYPE:
                                     lRow += JsonKeys.DOOR;
                                     lHasDoor = true;
+                                    lDoorCounter++;
                                     break;
 
                                 case ELECTRIC_WALL_TYPE:
@@ -290,6 +292,13 @@ namespace Com.IsartDigital.SokoVolt
                                     lRow += ' '; //if not content in tile
                                     break;
                             }
+
+                            if (lDoorCounter > 1 || lPlayerSpawnCounter > 1)
+                            {
+                                AnimationManager.GetInstance().BounceAnimation(lTile.content, 0.5f, Colors.Red, 0.2f);
+                                lDoorCounter = lPlayerSpawnCounter = 0;
+                                return;
+                            }
                         }
                         else
                         {
@@ -299,25 +308,25 @@ namespace Com.IsartDigital.SokoVolt
                     lMap[y] = lRow; //Put the JsonKey at the good place in lMap
                 }
 
-                //Verification of mandatory elements
+                //Checking the number of elements
                 if (!lHasBulb)
                 {
-                    animationManager.BounceAnimation(bulbTexture, 0.5f, Colors.Red, 0.2f);
+                    AnimationManager.GetInstance().BounceAnimation(bulbTexture, 0.5f, Colors.Red, 0.2f);
                     return;
                 }
                 if (!lHasDoor)
                 {
-                    animationManager.BounceAnimation(doorTexture, 0.5f, Colors.Red, 0.2f);
+                    AnimationManager.GetInstance().BounceAnimation(doorTexture, 0.5f, Colors.Red, 0.2f);
                     return;
                 }
                 if (!lHasPlayerSpawn)
                 {
-                    animationManager.BounceAnimation(playerSpawnTexture, 0.5f, Colors.Red, 0.2f);
+                    AnimationManager.GetInstance().BounceAnimation(playerSpawnTexture, 0.5f, Colors.Red, 0.2f);
                     return;
                 }
                 if (!lHasGenerator)
                 {
-                    animationManager.BounceAnimation(generatorTexture, 0.5f, Colors.Red, 0.2f);
+                    AnimationManager.GetInstance().BounceAnimation(generatorTexture, 0.5f, Colors.Red, 0.2f);
                     return;
                 }
 
@@ -352,13 +361,13 @@ namespace Com.IsartDigital.SokoVolt
 
                 using FileAccess lCreateFile = FileAccess.Open(lFileName, FileAccess.ModeFlags.Write); //Create the file and open it for write
                 lCreateFile.StoreString(lJson); //Write lJson variable inside
-                animationManager.BounceAnimation(levelName, 0.5f, Colors.Green, 0.4f);
-                animationManager.BounceAnimation(saveButton, 0.5f, Colors.Green, 0.4f);
+                AnimationManager.GetInstance().BounceAnimation(levelName, 0.5f, Colors.Green, 0.4f);
+                AnimationManager.GetInstance().BounceAnimation(saveButton, 0.5f, Colors.Green, 0.4f);
                 GD.Print("File created successfully: " + lFileName);
             }
             else
             {
-                animationManager.BounceAnimation(levelName, 0.5f, Colors.Red, 0.2f);
+                AnimationManager.GetInstance().BounceAnimation(levelName, 0.5f, Colors.Red, 0.2f);
                 GD.PrintErr("File already exists or name is empty.");
             }
         }
@@ -554,8 +563,10 @@ namespace Com.IsartDigital.SokoVolt
             {
                 int lBorder = 5;
                 backGrid.Size = new Vector2(lenghtX * (tileSize + space) + lBorder, lenghtY * (tileSize + space) + lBorder);
+                actualItem?.QueueFree();
+                actualItem = null;
                 gridDico.Clear();
-                ClearChildren(cellContainer);
+                ClearChildren(cellContainer, gameManager.objectsContainer);
                 CreateGrid();
             }
             else
@@ -569,12 +580,13 @@ namespace Com.IsartDigital.SokoVolt
         #region MenuFonction
         private void Return()
         {
+            menu.Visible = mainMenuButton.Visible = true;
             returnButton.Hide();
-            newLevelBackground.Visible = loadLevelBackground.Visible = customLevelMenuBackground.Visible = false;
+            newLevelBackground.Visible = customLevelMenuBackground.Visible = false;
             levelName.Text = "";
 
             //Centralized deletion of container children
-            ClearChildren(cellContainer, buttonContainer, labelContainer, deleteButtonContainer);
+            ClearChildren(cellContainer, gameManager.objectsContainer, buttonContainer, labelContainer, deleteButtonContainer);
             gridDico.Clear();
 
             //Deleting specific elements
@@ -588,15 +600,18 @@ namespace Com.IsartDigital.SokoVolt
         private void CreateNewLevel()
 		{
             newLevelBackground.Visible = returnButton.Visible = true;
-			CreateGrid();
+            lenghtX = lenghtY = LENGHT_MAX;
+            sizeXText.Text = sizeYText.Text = null;
+            ChangeGridSize();
         }
 		private void LoadLevel(string pLevelName)
 		{
             HUD.GetInstance().Show();
             customLevelMenuBackground.Hide();
             string lPath = "res://Scripts/Json/CustomLevels/" + pLevelName + ".json";
-            loadLevelBackground.Visible = returnButton.Visible = true;
-            GridManager.GetInstance().LoadNewLevel(0, lPath, cellContainer);
+            returnButton.Visible = true;
+            menu.Visible = mainMenuButton.Visible = false;
+            GridManager.GetInstance().LoadNewLevel(0, lPath, GameManager.GetInstance().objectsContainer);
         }
 		private void OpenCustomLevelsMenu()
 		{
@@ -609,7 +624,7 @@ namespace Com.IsartDigital.SokoVolt
             GD.PrintErr($"Suppression de {lFileName}");
 
             DirAccess.RemoveAbsolute(lFileName); //Delete file in folder
-            ClearChildren(buttonContainer, labelContainer, deleteButtonContainer); //Clear containers
+            ClearChildren(cellContainer, gameManager.objectsContainer, buttonContainer, labelContainer, deleteButtonContainer); //Clear containers
             OpenCustomLevelsMenu(); //Reload LevelCustom Menu for an update
         }
         private void ClearChildren(params Node[] pContainers) //Generic function to remove children from a node

@@ -55,24 +55,36 @@ namespace Com.IsartDigital.SokoVolt.Managers
 
 		public void GameStart() //Execute when StartButton is press in MainMenu
 		{
-			mainMenu.Hide();
-			levelSelector = levelSelectorScene.Instantiate() as LevelSelector;
-			AddChild(levelSelector);
+            Tween lTween = GameManager.GetInstance().MenuTrans.ActiveTrans(1f, 0.2f);
+			lTween.Finished += () =>
+			{
+                mainMenu.Hide();
+                levelSelector = levelSelectorScene.Instantiate() as LevelSelector;
+                AddChild(levelSelector);
+            };
 		}
 
         public void LevelCreatorScreen() //Execute when LevelCreatorButton is press in MainMenu
         {
-            mainMenu.Hide();
-            levelCreator = levelCreatorScene.Instantiate() as LevelCreator;
-            AddChild(levelCreator);
-			MoveChild(levelCreator, levelCreator.GetIndex() - 1);
+            Tween lTween = GameManager.GetInstance().MenuTrans.ActiveTrans(1f, 0.2f);
+			lTween.Finished += () =>
+			{
+                mainMenu.Hide();
+                levelCreator = levelCreatorScene.Instantiate() as LevelCreator;
+                AddChild(levelCreator);
+                MoveChild(levelCreator, levelCreator.GetIndex() - 1);
+            };
         }
 
         private void BackToMainMenu()
 		{
-			LevelSelector.GetInstance()?.QueueFree();
-			LevelCreator.GetInstance()?.QueueFree();
-			mainMenu.Show();
+            Tween lTween = GameManager.GetInstance().MenuTrans.ActiveTrans(1f, 0.2f);
+			lTween.Finished += () =>
+			{
+                LevelSelector.GetInstance()?.QueueFree();
+                LevelCreator.GetInstance()?.QueueFree();
+                mainMenu.Show();
+            };
 		}
 
 		private void GoToLoginScreen()

@@ -1,6 +1,7 @@
 using Com.IsartDigital.SokoVolt.Managers;
 using Godot;
 using System;
+using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 
 //Author : Ferlat Thibaud 
@@ -73,6 +74,18 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables {
         {
             base.MoveTo(pX, pY, pGrid);
 			CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.PlayerMoved);
+        }
+
+        public async void MoveAlongPath(List<Vector2> pPath)
+        {
+            if (pPath == null || pPath.Count == 0) return;
+
+            foreach (Vector2 pStep in pPath)
+            {
+                MoveTo((int)pStep.X, (int)pStep.Y, GridManager.GetInstance().grid);
+				GridManager.GetInstance().StockGridState();
+                await ToSignal(GetTree().CreateTimer(0.2f), "timeout");
+            }
         }
 
         #region dispose

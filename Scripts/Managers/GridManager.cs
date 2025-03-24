@@ -44,7 +44,7 @@ namespace Com.IsartDigital.SokoVolt.Managers {
         private bool playerWasOnTesla; 
 
 		//LevelsAnimation
-		[Export] private PackedScene thunderEffectScene; 
+		[Export] private PackedScene thunderEffectScene, pistonScene; 
 		Node2D vortex; 
 		private const string VORTEX_PATH = "res://Assets/GameObjects/LevelAnimation/vecteezy_spiral-vortex-element_27720416.png"; 
 
@@ -105,6 +105,7 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 				return;
 
 			StockGridState();
+			StartIntroAnimation();
 		}
 
 		public void SetNewLevel(Cell[,] pNewGrid)
@@ -226,11 +227,46 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 		{
 			return pX < 0 || pX >= LevelLoader.levelWidth || pY < 0 || pY >= LevelLoader.levelHeight;
 		}
-		#endregion
+
+        public void HandleCellClick(Vector2 pTargetPos)
+        {
+            int lPosX = (int)pTargetPos.X;
+            int lPosY = (int)pTargetPos.Y;
+
+            if (OutOfGrid(lPosX, lPosY)) return; 
+
+            var lGrid = grid;
+            Cell lTargetCell = lGrid[lPosX, lPosY];
+            GameObject lContent = lTargetCell.GetContent();
+            Player lPlayer = player;
+            Vector2 lStart = new Vector2(lPlayer.x, lPlayer.y);
+            Vector2 lEnd = new Vector2(lPosX, lPosY);
+
+            if (lContent is BoxTesla && (lEnd - lStart).Length() == 1)
+            {
+                OnMovePlayer(lEnd - lStart);
+                return;
+            }
+            if (lContent is Door pDoor)
+            {
+                if (!pDoor.isOpen) return;
+            }
+            if (lContent == null || lContent is Door)
+            {
+                var lPath = PathFinding.FindPath(lStart, lEnd, lGrid);
+                if (lPath != null && lPath.Count > 0)
+				{
+					StockGridState();
+                    lPlayer.MoveAlongPath(lPath);
+                }
+            }
+        }
+
+        #endregion
 
 
 
-		#region // ----- Undo/Redo/Retry ----- \\
+        #region // ----- Undo/Redo/Retry ----- \\
 
         public static bool currentlyUndoRedo; 
         private void UndoRedo(int pAmount)
@@ -270,7 +306,7 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 		}
 
 		
-		private void StockGridState()
+		public void StockGridState()
 		{
 			
 			if (actualGridStateIndex < gridStates.Count - 1)
@@ -340,6 +376,38 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 		#endregion
 
 		#region // ----- Finished Level animation -----//
+
+		public void StartIntroAnimation() 
+		{
+			foreach (Node2D lObject in gameManager.objectsContainer.GetChildren())
+				lObject.Visible = false;
+
+			float lDelay = 0f;
+
+			for (int y = 0; y < LevelLoader.levelHeight; y++) 
+			{
+				for (int x = 0; x < LevelLoader.levelWidth; x++)
+				{
+
+					Cell lCell = grid[x, y];
+					if (lCell == null) continue;
+
+					AnimationPiston lPiston = Utils.Spawner(pistonScene, x, y, gameManager.objectsContainer) as AnimationPiston;
+
+					lCell.Visible = true;
+					if (lCell.GetContent() != null) lCell.GetContent().Visible = true;
+
+					lPiston.Launch(lCell, lPiston.GlobalPosition, lDelay);
+
+					lDelay += 0.02f;
+				}
+			}
+
+			GetTree().CreateTimer(lDelay + 1).Timeout += () => {
+				LevelLoader.playerCanMove = true;
+			};
+		}
+
 
 		private async void EndLevelAnimation(int pNumStar, int pScore, int pNumStep)
 		{

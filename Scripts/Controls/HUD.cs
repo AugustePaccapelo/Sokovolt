@@ -55,7 +55,6 @@ namespace Com.IsartDigital.SokoVolt{
 
 		private void UndoRedo()
 		{
-            if (!LevelLoader.playerCanMove) return;
             undoButton.Pressed += () => CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.UndoButton);
             redoButton.Pressed += () => CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.RedoButton);
         }
