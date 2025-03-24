@@ -1,4 +1,6 @@
-﻿using Godot;
+﻿using Com.IsartDigital.SokoVolt.GameObjects;
+using Com.IsartDigital.SokoVolt.GameObjects.Movables;
+using Godot;
 using System;
 
 //author : Noe Sales
@@ -44,6 +46,13 @@ namespace Com.IsartDigital.SokoVolt.Managers
 
             //HUD.GetInstance().MainMenuButton += UnLoadLevel;
             CustomSignals.GetInstance().GoToMainMenu += UnLoadLevel; 
+            CustomSignals.GetInstance().GoToNextLevel += NextLevel;
+        }
+
+        private void NextLevel(int pLevel)
+        {
+            UnLoadLevel();
+            LevelLoaderFonc(pLevel);
         }
 
         private void UnLoadLevel()
@@ -56,8 +65,8 @@ namespace Com.IsartDigital.SokoVolt.Managers
         public void LevelLoaderFonc(int pLevel)
 		{
 			GD.Print("Level : " + pLevel);
-            CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.LoadLevel, pLevel);
-            LevelSelector.GetInstance().QueueFree();
+            CustomSignals.GetInstance()?.EmitSignal(CustomSignals.SignalName.LoadLevel, pLevel);
+            LevelSelector.GetInstance()?.QueueFree();
 		}
 
         protected override void Dispose(bool pDisposing)
