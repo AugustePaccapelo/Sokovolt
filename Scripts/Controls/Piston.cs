@@ -31,6 +31,7 @@ namespace Com.IsartDigital.SokoVolt
 			base._Ready();
 
 			body1.Position -= Vector2.Up * DISTANCE_OF_EXTEND;
+			head.Position -= Vector2.Up * DISTANCE_OF_EXTEND;
 		}
 
 		public override void _Process(double pDelta)
@@ -45,20 +46,22 @@ namespace Com.IsartDigital.SokoVolt
 		{
 			if (!canMove) return;
 			canMove = false;
-			Tween lTween = CreateTween();
+			Tween lTween = CreateTween().SetParallel();
 			lTween.TweenProperty(head, "position", head.Position + Vector2.Up * DISTANCE_OF_EXTEND, timeToExtend);
-            lTween.TweenProperty(body1, "position", head.Position + Vector2.Up * DISTANCE_OF_EXTEND, timeToExtend);
+            lTween.TweenProperty(body1, "position", body1.Position + Vector2.Up * DISTANCE_OF_EXTEND, timeToExtend);
 			lTween.Finished += () => { canMove = true; };
+			lTween.Play();
         }
 
 		public void Retract()
 		{
             if (!canMove) return;
             canMove = false;
-            Tween lTween = CreateTween();
+            Tween lTween = CreateTween().SetParallel();
             lTween.TweenProperty(head, "position", head.Position - Vector2.Up * DISTANCE_OF_EXTEND, timeToRetract);
-            lTween.TweenProperty(body1, "position", head.Position - Vector2.Up * DISTANCE_OF_EXTEND, timeToRetract);
+            lTween.TweenProperty(body1, "position", body1.Position - Vector2.Up * DISTANCE_OF_EXTEND, timeToRetract);
             lTween.Finished += () => { canMove = true; };
+			lTween.Play();
         }
 
 		// ----- Destructor ----- \\

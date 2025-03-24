@@ -17,6 +17,7 @@ body1 = NodePath("Body1")
 body2 = NodePath("Body2")
 
 [node name="Head" type="TextureRect" parent="."]
+modulate = Color(0.485703, 0.485704, 0.485703, 1)
 layout_mode = 1
 offset_right = 180.0
 offset_bottom = 10.0
@@ -24,6 +25,7 @@ texture = ExtResource("1_kqu2s")
 metadata/_edit_use_anchors_ = true
 
 [node name="Body1" type="TextureRect" parent="."]
+modulate = Color(0.572988, 0.572988, 0.572988, 1)
 layout_mode = 0
 offset_left = 85.0
 offset_top = 10.0
@@ -32,6 +34,7 @@ offset_bottom = 110.0
 texture = ExtResource("2_uw6aq")
 
 [node name="Body2" type="TextureRect" parent="."]
+modulate = Color(0.54099, 0.54099, 0.54099, 1)
 layout_mode = 0
 offset_left = 75.0
 offset_top = 110.0
