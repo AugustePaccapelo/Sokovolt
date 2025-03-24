@@ -31,6 +31,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
 
 		[Export] private Node2D closedVisual;
         [Export] private Node2D openedVisual;
+        [Export] private GpuParticles2D openedVisualParticles;
 
         // ----- Others ----- \\
 		public bool isOpen { get; private set; }
@@ -73,7 +74,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
 			isOpen = true;
 			openedVisual.Show();
 			closedVisual.Hide();
-		}
+        }
 
         public void Close()
 		{
@@ -82,9 +83,9 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
             closedVisual.Show();
         }
 
-		// ----- Destructor ----- \\
+        // ----- Destructor ----- \\
 
-		protected override void Dispose(bool pDisposing)
+        protected override void Dispose(bool pDisposing)
 		{
 			#region // ----- Singleton ----- \\
 
