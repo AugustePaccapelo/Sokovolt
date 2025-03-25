@@ -1,4 +1,5 @@
 using System;
+using Com.IsartDigital.ProjectName;
 using Com.IsartDigital.SokoVolt.GameObjects;
 using Com.IsartDigital.SokoVolt.GameObjects.Movables;
 using Com.IsartDigital.SokoVolt.Managers;
@@ -184,6 +185,7 @@ namespace Com.IsartDigital.SokoVolt {
 							lObj = Utils.Spawner(doorScene, x, y, pObjectContainer) as Door;
 							break;
 					}
+					WinScreen.actualLevel = pLevel;
 
 					if (lObj != null)
 					{
