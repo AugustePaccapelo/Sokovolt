@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://cncewljhx47s3"]
+[gd_scene load_steps=3 format=3 uid="uid://c256fa86lg71t"]
 
 [ext_resource type="Script" path="res://Scripts/GameObjects/ElectricWall.cs" id="1_cep36"]
 [ext_resource type="Texture2D" uid="uid://cwb4ypc3twdp2" path="res://Assets/GameObjects/IsoTiles/basetiles.png" id="2_kcd3g"]

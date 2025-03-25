@@ -1,0 +1,49 @@
+[gd_scene load_steps=2 format=3 uid="uid://cce6m5y5bqo5c"]
+
+[ext_resource type="Script" path="res://Scripts/GameObjects/LevelCreatorItems.cs" id="2_vr6qt"]
+
+[node name="Door" type="TextureRect"]
+offset_left = 1.0
+offset_top = -1.0
+offset_right = 592.0
+offset_bottom = 359.0
+scale = Vector2(0.471988, 0.471988)
+stretch_mode = 3
+script = ExtResource("2_vr6qt")
+
+[node name="Visual" type="Node2D" parent="."]
+position = Vector2(298.736, 152.546)
+scale = Vector2(3.92614, 2.16086)
+
+[node name="Close" type="Node2D" parent="Visual"]
+position = Vector2(-5.96046e-08, 1.25)
+scale = Vector2(1.65, 1.65)
+
+[node name="Polygon2D" type="Polygon2D" parent="Visual/Close"]
+position = Vector2(0, -7.64175)
+scale = Vector2(0.68, 1.20619)
+color = Color(0.382813, 0.375056, 0.348419, 1)
+polygon = PackedVector2Array(0, -20.6089, 45.5274, 6.33544, 0, 34.3161, -45.5274, 6.33544)
+
+[node name="Polygon2D3" type="Polygon2D" parent="Visual/Close"]
+position = Vector2(2.75188, -5)
+rotation = 0.776174
+scale = Vector2(0.08, 1.21134)
+color = Color(0.228699, 0.223361, 0.205046, 1)
+polygon = PackedVector2Array(-4.68661, -14.0972, 41.7524, -14.216, 44.0653, 23.2319, -2.8252, 23.3203)
+
+[node name="Open" type="Node2D" parent="Visual"]
+visible = false
+rotation = 0.770273
+
+[node name="Polygon2D" type="Polygon2D" parent="Visual/Open"]
+position = Vector2(0, -7.64175)
+scale = Vector2(0.68, 1.20619)
+color = Color(0.382813, 0.375056, 0.348419, 1)
+polygon = PackedVector2Array(-33.2805, -13.0031, 31.9498, -11.1397, 33.2805, 25.674, -32.676, 24.2078)
+
+[node name="Polygon2D3" type="Polygon2D" parent="Visual/Open"]
+position = Vector2(-0.895678, -7.83914)
+scale = Vector2(0.08, 1.21134)
+color = Color(0.228699, 0.223361, 0.205046, 1)
+polygon = PackedVector2Array(-161.738, -12.641, 191.02, -11.7565, 207.039, 26.0368, -163.088, 25.3104)

@@ -22,9 +22,11 @@ namespace Com.IsartDigital.SokoVolt {
 
         private void TweenInit()
 		{
+			Disabled = true;
 			Tween lTween = CreateTween();
 			lTween.TweenProperty(this, "scale", initialScale * scaleMultiplicator, during / 2).SetEase(easeType).SetTrans(transitionType);
 			lTween.TweenProperty(this, "scale", initialScale, during / 2).SetEase(easeType).SetTrans(transitionType);
+			lTween.Finished += () => Disabled = false;
         }
 	}
 }

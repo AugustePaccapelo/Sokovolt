@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://0lujf2t1gugn"]
+[gd_scene load_steps=3 format=3 uid="uid://djcluge6is5om"]
 
 [ext_resource type="Script" path="res://Scripts/GameObjects/Wall.cs" id="1_0oqpj"]
 [ext_resource type="Texture2D" uid="uid://cwb4ypc3twdp2" path="res://Assets/GameObjects/IsoTiles/basetiles.png" id="2_1jp1w"]

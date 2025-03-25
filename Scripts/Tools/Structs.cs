@@ -18,6 +18,7 @@ namespace Com.IsartDigital.Tools
 		public const string INPUT_CONFIRM_PASSWORD = "InputConfirmPassword";
 		public const string BUTTON_CONFIRM = "ButtonConfirm";
 		public const string BUTTON_CHANGE_SCREEN = "ChangeScreen";
+		public const string CHECK_STAY_LOGGED = "StayLogged";
     }
 
 	public struct LoginScreenAnimations

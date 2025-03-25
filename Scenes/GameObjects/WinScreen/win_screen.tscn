@@ -1,15 +1,15 @@
-[gd_scene load_steps=31 format=3 uid="uid://cq2pq5gsrx4re"]
+[gd_scene load_steps=30 format=3 uid="uid://cq2pq5gsrx4re"]
 
 [ext_resource type="Script" path="res://Scripts/GameObjects/WinScreen.cs" id="1_753qv"]
 [ext_resource type="PackedScene" uid="uid://b0olmoqwuw54k" path="res://Scenes/GameObjects/WinScreen/rope.tscn" id="2_j1ab3"]
 [ext_resource type="Texture2D" uid="uid://bmddbxdeg4gya" path="res://Assets/WinScreen/Pile.png" id="3_fqidv"]
 [ext_resource type="Texture2D" uid="uid://1c72ndp41fme" path="res://Assets/WinScreen/DiagonalPile.png" id="4_36w4v"]
+[ext_resource type="PackedScene" uid="uid://crei60oruwr8b" path="res://Scenes/GameObjects/WinScreen/rope_segment.tscn" id="4_k4i24"]
 [ext_resource type="Texture2D" uid="uid://802needuu7gb" path="res://Assets/WinScreen/Screen.png" id="5_sal2a"]
 [ext_resource type="Texture2D" uid="uid://whv5xtc61vjl" path="res://Assets/WinScreen/Aiguille.png" id="6_rgshm"]
 [ext_resource type="PackedScene" uid="uid://bbvc0kv5shwqo" path="res://Scenes/GameObjects/WinScreen/thunder_effects.tscn" id="7_itdbi"]
 [ext_resource type="PackedScene" uid="uid://baqiox1toak3m" path="res://Scenes/UI/screen_effect.tscn" id="9_bi0ci"]
 [ext_resource type="Texture2D" uid="uid://c767fcajnj2yi" path="res://Assets/Shaders/Effects/Glow.png" id="9_vaw2d"]
-[ext_resource type="Shader" path="res://Assets/Shaders/Effects/crt_shader/CRTShader.gdshader" id="10_0guj3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2e15r"]
 
@@ -74,24 +74,6 @@ color = Color(0.5, 1, 1.2, 1)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_71gdd"]
 size = Vector2(302.999, 756.001)
 
-[sub_resource type="LabelSettings" id="LabelSettings_x5mkj"]
-font_size = 32
-outline_size = 2
-outline_color = Color(0, 0, 0, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_61xl0"]
-shader = ExtResource("10_0guj3")
-shader_parameter/screen_width = 677.0
-shader_parameter/screen_height = 242.0
-shader_parameter/BarrelPower = 1.1
-shader_parameter/color_bleeding = 1.2
-shader_parameter/bleeding_range_x = 0.5
-shader_parameter/bleeding_range_y = 0.5
-shader_parameter/lines_distance = 2.0
-shader_parameter/scan_size = 1.5
-shader_parameter/scanline_alpha = 0.9
-shader_parameter/lines_velocity = 10.0
-
 [sub_resource type="Gradient" id="Gradient_n6rgq"]
 colors = PackedColorArray(1, 1, 0, 1, 1, 1, 1, 1)
 
@@ -130,7 +112,10 @@ scale_max = 0.08
 scale_curve = SubResource("CurveTexture_wll2f")
 color_ramp = SubResource("GradientTexture1D_76wag")
 
-[node name="WinScreen" type="Node2D" node_paths=PackedStringArray("area", "clockwises", "screen", "starCountLabel", "stepsCountLabel", "scoreLabel", "screenEffect", "particlesGroup", "batteries")]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_j8a2c"]
+size = Vector2(391, 141)
+
+[node name="WinScreen" type="Node2D" node_paths=PackedStringArray("area", "clockwises", "screen", "starCountLabel", "stepsCountLabel", "scoreLabel", "screenEffect", "particlesGroup", "nextLevelButton", "batteries")]
 script = ExtResource("1_753qv")
 area = NodePath("Area2D")
 thunderScene = ExtResource("7_itdbi")
@@ -141,139 +126,246 @@ stepsCountLabel = NodePath("ScreenContainer/StepsLabel")
 scoreLabel = NodePath("ScreenContainer/ScoreLabel")
 screenEffect = NodePath("ScreenContainer/ScreenEffect")
 particlesGroup = NodePath("ScreenContainer/ParticlesGroup")
+nextLevelButton = NodePath("ScreenContainer/NextButton/Button")
 batteries = [NodePath("ScreenContainer/Battery1"), NodePath("ScreenContainer/Battery2"), NodePath("ScreenContainer/Battery3")]
 
-[node name="Rope" parent="." instance=ExtResource("2_j1ab3")]
-position = Vector2(586, -22)
+[node name="RopeContainer" type="Node2D" parent="."]
 
-[node name="RopeSegment" parent="Rope" index="2"]
+[node name="Rope" parent="RopeContainer" instance=ExtResource("2_j1ab3")]
+position = Vector2(607, -156)
+
+[node name="RopeSegment" parent="RopeContainer/Rope" index="2"]
 collision_layer = 0
 collision_mask = 0
 
-[node name="RopeSegment2" parent="Rope" index="4"]
+[node name="RopeSegment2" parent="RopeContainer/Rope" index="4"]
 collision_layer = 0
 collision_mask = 0
 
-[node name="RopeSegment3" parent="Rope" index="6"]
+[node name="RopeSegment3" parent="RopeContainer/Rope" index="6"]
 collision_layer = 0
 collision_mask = 0
 
-[node name="RopeSegment4" parent="Rope" index="8"]
+[node name="RopeSegment4" parent="RopeContainer/Rope" index="8"]
 collision_layer = 0
 collision_mask = 0
 
-[node name="RopeSegment5" parent="Rope" index="10"]
+[node name="RopeSegment5" parent="RopeContainer/Rope" index="10"]
 collision_layer = 0
 collision_mask = 0
 
-[node name="RopeSegment6" parent="Rope" index="12"]
+[node name="RopeSegment6" parent="RopeContainer/Rope" index="12"]
 collision_layer = 0
 collision_mask = 0
 
-[node name="RopeSegment7" parent="Rope" index="14"]
+[node name="RopeSegment7" parent="RopeContainer/Rope" index="14"]
 collision_layer = 0
 collision_mask = 0
 
-[node name="RopeSegment8" parent="Rope" index="16"]
+[node name="RopeSegment8" parent="RopeContainer/Rope" index="16"]
 collision_layer = 0
 collision_mask = 0
 
-[node name="RopeSegment9" parent="Rope" index="18"]
+[node name="RopeSegment9" parent="RopeContainer/Rope" index="18"]
 collision_layer = 0
 collision_mask = 0
 
-[node name="RopeSegment10" parent="Rope" index="20"]
+[node name="RopeSegment10" parent="RopeContainer/Rope" index="20"]
 collision_layer = 0
 collision_mask = 0
 
-[node name="RopeSegment11" parent="Rope" index="22"]
+[node name="RopeSegment11" parent="RopeContainer/Rope" index="22"]
 collision_layer = 0
 collision_mask = 0
 
-[node name="RopeSegment12" parent="Rope" index="24"]
+[node name="RopeSegment12" parent="RopeContainer/Rope" index="24"]
 collision_layer = 0
 collision_mask = 0
 
-[node name="RopeSegment13" parent="Rope" index="26"]
+[node name="RopeSegment13" parent="RopeContainer/Rope" index="26"]
 collision_layer = 0
 collision_mask = 0
 
-[node name="RopeSegment14" parent="Rope" index="28"]
+[node name="RopeSegment14" parent="RopeContainer/Rope" index="28"]
 collision_layer = 0
 collision_mask = 0
 
-[node name="RopeSegment15" parent="Rope" index="30"]
+[node name="RopeSegment15" parent="RopeContainer/Rope" index="30"]
 collision_layer = 0
 collision_mask = 0
 
-[node name="RopeSegment16" parent="Rope" index="32"]
+[node name="RopeSegment16" parent="RopeContainer/Rope" index="32"]
 collision_layer = 0
 collision_mask = 0
 
-[node name="Rope2" parent="." instance=ExtResource("2_j1ab3")]
-position = Vector2(1250, -23)
+[node name="Rope2" parent="RopeContainer" instance=ExtResource("2_j1ab3")]
+position = Vector2(1271, -157)
 
-[node name="RopeSegment" parent="Rope2" index="2"]
+[node name="RopeSegment" parent="RopeContainer/Rope2" index="2"]
 collision_layer = 0
 collision_mask = 0
 
-[node name="RopeSegment2" parent="Rope2" index="4"]
+[node name="RopeSegment2" parent="RopeContainer/Rope2" index="4"]
 collision_layer = 0
 collision_mask = 0
 
-[node name="RopeSegment3" parent="Rope2" index="6"]
+[node name="RopeSegment3" parent="RopeContainer/Rope2" index="6"]
 collision_layer = 0
 collision_mask = 0
 
-[node name="RopeSegment4" parent="Rope2" index="8"]
+[node name="RopeSegment4" parent="RopeContainer/Rope2" index="8"]
 collision_layer = 0
 collision_mask = 0
 
-[node name="RopeSegment5" parent="Rope2" index="10"]
+[node name="RopeSegment5" parent="RopeContainer/Rope2" index="10"]
 collision_layer = 0
 collision_mask = 0
 
-[node name="RopeSegment6" parent="Rope2" index="12"]
+[node name="RopeSegment6" parent="RopeContainer/Rope2" index="12"]
 collision_layer = 0
 collision_mask = 0
 
-[node name="RopeSegment7" parent="Rope2" index="14"]
+[node name="RopeSegment7" parent="RopeContainer/Rope2" index="14"]
 collision_layer = 0
 collision_mask = 0
 
-[node name="RopeSegment8" parent="Rope2" index="16"]
+[node name="RopeSegment8" parent="RopeContainer/Rope2" index="16"]
 collision_layer = 0
 collision_mask = 0
 
-[node name="RopeSegment9" parent="Rope2" index="18"]
+[node name="RopeSegment9" parent="RopeContainer/Rope2" index="18"]
 collision_layer = 0
 collision_mask = 0
 
-[node name="RopeSegment10" parent="Rope2" index="20"]
+[node name="RopeSegment10" parent="RopeContainer/Rope2" index="20"]
 collision_layer = 0
 collision_mask = 0
 
-[node name="RopeSegment11" parent="Rope2" index="22"]
+[node name="RopeSegment11" parent="RopeContainer/Rope2" index="22"]
 collision_layer = 0
 collision_mask = 0
 
-[node name="RopeSegment12" parent="Rope2" index="24"]
+[node name="RopeSegment12" parent="RopeContainer/Rope2" index="24"]
 collision_layer = 0
 collision_mask = 0
 
-[node name="RopeSegment13" parent="Rope2" index="26"]
+[node name="RopeSegment13" parent="RopeContainer/Rope2" index="26"]
 collision_layer = 0
 collision_mask = 0
 
-[node name="RopeSegment14" parent="Rope2" index="28"]
+[node name="RopeSegment14" parent="RopeContainer/Rope2" index="28"]
 collision_layer = 0
 collision_mask = 0
 
-[node name="RopeSegment15" parent="Rope2" index="30"]
+[node name="RopeSegment15" parent="RopeContainer/Rope2" index="30"]
 collision_layer = 0
 collision_mask = 0
 
-[node name="RopeSegment16" parent="Rope2" index="32"]
+[node name="RopeSegment16" parent="RopeContainer/Rope2" index="32"]
+collision_layer = 0
+collision_mask = 0
+
+[node name="Rope3" type="Node2D" parent="RopeContainer"]
+position = Vector2(776, 697)
+
+[node name="PinJoint2D12" type="PinJoint2D" parent="RopeContainer/Rope3"]
+node_a = NodePath("../../../ScreenContainer")
+node_b = NodePath("../RopeSegment12")
+
+[node name="RopeSegment12" parent="RopeContainer/Rope3" instance=ExtResource("4_k4i24")]
+position = Vector2(0, 17)
+collision_layer = 0
+collision_mask = 0
+
+[node name="PinJoint2D13" type="PinJoint2D" parent="RopeContainer/Rope3"]
+position = Vector2(0, 34)
+node_a = NodePath("../RopeSegment12")
+node_b = NodePath("../RopeSegment13")
+
+[node name="RopeSegment13" parent="RopeContainer/Rope3" instance=ExtResource("4_k4i24")]
+position = Vector2(0, 51)
+collision_layer = 0
+collision_mask = 0
+
+[node name="PinJoint2D14" type="PinJoint2D" parent="RopeContainer/Rope3"]
+position = Vector2(0, 68)
+node_a = NodePath("../RopeSegment13")
+node_b = NodePath("../RopeSegment14")
+
+[node name="RopeSegment14" parent="RopeContainer/Rope3" instance=ExtResource("4_k4i24")]
+position = Vector2(0, 85)
+collision_layer = 0
+collision_mask = 0
+
+[node name="PinJoint2D15" type="PinJoint2D" parent="RopeContainer/Rope3"]
+position = Vector2(0, 102)
+node_a = NodePath("../RopeSegment14")
+node_b = NodePath("../RopeSegment15")
+
+[node name="RopeSegment15" parent="RopeContainer/Rope3" instance=ExtResource("4_k4i24")]
+position = Vector2(0, 119)
+collision_layer = 0
+collision_mask = 0
+
+[node name="PinJoint2D16" type="PinJoint2D" parent="RopeContainer/Rope3"]
+position = Vector2(0, 136)
+node_a = NodePath("../RopeSegment15")
+node_b = NodePath("../RopeSegment16")
+
+[node name="RopeSegment16" parent="RopeContainer/Rope3" instance=ExtResource("4_k4i24")]
+position = Vector2(0, 153)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Rope4" type="Node2D" parent="RopeContainer"]
+position = Vector2(1120, 697)
+
+[node name="PinJoint2D12" type="PinJoint2D" parent="RopeContainer/Rope4"]
+node_a = NodePath("../../../ScreenContainer")
+node_b = NodePath("../RopeSegment12")
+
+[node name="RopeSegment12" parent="RopeContainer/Rope4" instance=ExtResource("4_k4i24")]
+position = Vector2(0, 17)
+collision_layer = 0
+collision_mask = 0
+
+[node name="PinJoint2D13" type="PinJoint2D" parent="RopeContainer/Rope4"]
+position = Vector2(0, 34)
+node_a = NodePath("../RopeSegment12")
+node_b = NodePath("../RopeSegment13")
+
+[node name="RopeSegment13" parent="RopeContainer/Rope4" instance=ExtResource("4_k4i24")]
+position = Vector2(0, 51)
+collision_layer = 0
+collision_mask = 0
+
+[node name="PinJoint2D14" type="PinJoint2D" parent="RopeContainer/Rope4"]
+position = Vector2(0, 68)
+node_a = NodePath("../RopeSegment13")
+node_b = NodePath("../RopeSegment14")
+
+[node name="RopeSegment14" parent="RopeContainer/Rope4" instance=ExtResource("4_k4i24")]
+position = Vector2(0, 85)
+collision_layer = 0
+collision_mask = 0
+
+[node name="PinJoint2D15" type="PinJoint2D" parent="RopeContainer/Rope4"]
+position = Vector2(0, 102)
+node_a = NodePath("../RopeSegment14")
+node_b = NodePath("../RopeSegment15")
+
+[node name="RopeSegment15" parent="RopeContainer/Rope4" instance=ExtResource("4_k4i24")]
+position = Vector2(0, 119)
+collision_layer = 0
+collision_mask = 0
+
+[node name="PinJoint2D16" type="PinJoint2D" parent="RopeContainer/Rope4"]
+position = Vector2(0, 136)
+node_a = NodePath("../RopeSegment15")
+node_b = NodePath("../RopeSegment16")
+
+[node name="RopeSegment16" parent="RopeContainer/Rope4" instance=ExtResource("4_k4i24")]
+position = Vector2(0, 153)
 collision_layer = 0
 collision_mask = 0
 
@@ -285,7 +377,7 @@ collision_mask = 0
 shape = SubResource("RectangleShape2D_2e15r")
 
 [node name="ScreenContainer" type="RigidBody2D" parent="."]
-position = Vector2(946, 683)
+position = Vector2(967, 549)
 collision_layer = 0
 collision_mask = 0
 mass = 556.94
@@ -410,46 +502,47 @@ texture = ExtResource("6_rgshm")
 offset = Vector2(7, -6)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ScreenContainer"]
+visible = false
 position = Vector2(-9.00024, -5.49933)
 rotation = 1.5708
 shape = SubResource("RectangleShape2D_71gdd")
 
+[node name="ScreenEffect" parent="ScreenContainer" instance=ExtResource("9_bi0ci")]
+
 [node name="ScoreLabel" type="Label" parent="ScreenContainer"]
-offset_left = -267.0
-offset_top = -96.0
-offset_right = -163.0
-offset_bottom = -73.0
+offset_left = -309.0
+offset_top = -97.0
+offset_right = -142.0
+offset_bottom = -61.0
+theme_override_font_sizes/font_size = 26
 text = "SCORE : XXXX"
-label_settings = SubResource("LabelSettings_x5mkj")
 
 [node name="StepsLabel" type="Label" parent="ScreenContainer"]
-offset_left = -265.0
-offset_top = 15.0
-offset_right = -68.0
-offset_bottom = 60.0
+offset_left = -307.0
+offset_top = -34.0
+offset_right = -148.0
+offset_bottom = 2.0
+theme_override_font_sizes/font_size = 26
 text = "STEPS : XXXX"
-label_settings = SubResource("LabelSettings_x5mkj")
 
 [node name="BatteryCountTexture" type="TextureRect" parent="ScreenContainer"]
 offset_left = 190.0
 offset_top = -118.0
 offset_right = 342.0
 offset_bottom = 116.0
-scale = Vector2(0.3, 0.3)
+scale = Vector2(0.4, 0.4)
 size_flags_horizontal = 0
 size_flags_vertical = 0
 texture = ExtResource("3_fqidv")
 stretch_mode = 2
 
 [node name="StarCountLabel" type="Label" parent="ScreenContainer"]
-offset_left = 230.0
-offset_top = -94.0
-offset_right = 254.0
-offset_bottom = -71.0
+offset_left = 255.0
+offset_top = -86.0
+offset_right = 293.0
+offset_bottom = -50.0
+theme_override_font_sizes/font_size = 26
 text = "X 0"
-
-[node name="ScreenEffect" parent="ScreenContainer" instance=ExtResource("9_bi0ci")]
-material = SubResource("ShaderMaterial_61xl0")
 
 [node name="ParticlesGroup" type="Node2D" parent="ScreenContainer"]
 visible = false
@@ -510,15 +603,48 @@ color = Color(0.951694, 0.905147, 0.515401, 1)
 texture = ExtResource("9_vaw2d")
 texture_scale = 0.2
 
-[node name="PinJoint2D2" type="PinJoint2D" parent="."]
-position = Vector2(1250, 523)
-node_a = NodePath("../Rope2/RopeSegment16")
-node_b = NodePath("../ScreenContainer")
+[node name="NextButton" type="RigidBody2D" parent="ScreenContainer"]
+position = Vector2(-966, -545)
 
-[node name="PinJoint2D3" type="PinJoint2D" parent="."]
-position = Vector2(586, 524)
-node_a = NodePath("../Rope/RopeSegment16")
-node_b = NodePath("../ScreenContainer")
+[node name="Panel" type="Panel" parent="ScreenContainer/NextButton"]
+offset_left = 755.0
+offset_top = 866.0
+offset_right = 1146.0
+offset_bottom = 1007.0
 
-[editable path="Rope"]
-[editable path="Rope2"]
+[node name="Button" type="Button" parent="ScreenContainer/NextButton"]
+offset_left = 782.0
+offset_top = 892.0
+offset_right = 1121.0
+offset_bottom = 985.0
+theme_override_font_sizes/font_size = 48
+text = "Next Level"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ScreenContainer/NextButton"]
+position = Vector2(950.5, 936.5)
+shape = SubResource("RectangleShape2D_j8a2c")
+
+[node name="PinContainer" type="Node2D" parent="."]
+
+[node name="PinJoint2D2" type="PinJoint2D" parent="PinContainer"]
+position = Vector2(1271, 389)
+node_a = NodePath("../../RopeContainer/Rope2/RopeSegment16")
+node_b = NodePath("../../ScreenContainer")
+
+[node name="PinJoint2D4" type="PinJoint2D" parent="PinContainer"]
+position = Vector2(776, 866)
+node_a = NodePath("../../RopeContainer/Rope3/RopeSegment16")
+node_b = NodePath("../../ScreenContainer/NextButton")
+
+[node name="PinJoint2D5" type="PinJoint2D" parent="PinContainer"]
+position = Vector2(1121, 868)
+node_a = NodePath("../../RopeContainer/Rope4/RopeSegment16")
+node_b = NodePath("../../ScreenContainer/NextButton")
+
+[node name="PinJoint2D3" type="PinJoint2D" parent="PinContainer"]
+position = Vector2(607, 390)
+node_a = NodePath("../../RopeContainer/Rope/RopeSegment16")
+node_b = NodePath("../../ScreenContainer")
+
+[editable path="RopeContainer/Rope"]
+[editable path="RopeContainer/Rope2"]

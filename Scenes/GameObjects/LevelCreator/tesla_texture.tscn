@@ -4,22 +4,22 @@
 [ext_resource type="Script" path="res://Scripts/GameObjects/LevelCreatorItems.cs" id="2_wbknj"]
 
 [node name="Tesla" type="TextureRect" node_paths=PackedStringArray("teslaRange")]
-offset_right = 579.0
+offset_right = 811.0
 offset_bottom = 408.0
 scale = Vector2(0.431801, 0.431801)
 pivot_offset = Vector2(-20, 0)
 texture = ExtResource("1_55vaj")
-stretch_mode = 2
+stretch_mode = 3
 script = ExtResource("2_wbknj")
 teslaRange = NodePath("SpinBox")
 
 [node name="SpinBox" type="SpinBox" parent="."]
 layout_mode = 1
-offset_left = 206.956
-offset_top = 6.94764
-offset_right = 290.019
-offset_bottom = 56.9476
+offset_left = 272.0
+offset_right = 380.0
+offset_bottom = 105.0
 scale = Vector2(3.69686, 3.69686)
+mouse_filter = 1
 min_value = 1.0
 max_value = 10.0
 value = 1.0

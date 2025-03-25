@@ -1,3 +1,4 @@
+using Com.IsartDigital.SokoVolt;
 using Godot;
 using System;
 using System.Threading.Tasks; // Nécessaire pour async/await
@@ -17,9 +18,11 @@ namespace Com.IsartDigital.ProjectName
         [Export] private Label scoreLabel;
         [Export] private ColorRect screenEffect;
         [Export] private Node2D particlesGroup;
+        [Export] private Button nextLevelButton;
         private ShaderMaterial shaderEffect;
         [Export] private Sprite2D[] batteries;
         private int counter = 0;
+        public static int actualLevel = 0;
         private int thunderNumb = 4;
 
         private const string STAR_LABEL_PREFIXE = "X ";
@@ -32,6 +35,11 @@ namespace Com.IsartDigital.ProjectName
             shaderEffect = (ShaderMaterial)screenEffect.Material;
             stepsCountLabel.Text = STAR_LABEL_PREFIXE + 0000;
             scoreLabel.Text = SCORE_LABEL_PREFIXE + 0000;
+            nextLevelButton.Pressed += () =>
+            {
+                CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.GoToNextLevel, actualLevel + 1);
+                QueueFree();
+            };
         }
 
         private WinScreenThunder CreateThunder()
@@ -61,7 +69,7 @@ namespace Com.IsartDigital.ProjectName
                     for (int y = 0; y < thunderNumb; y++)
                     {
                         WinScreenThunder lThunder = CreateThunder();
-                        lThunder.ActiveThunder(counter + 1, batteries[counter]);
+                        lThunder.ActiveThunder(batteries[counter], WinScreenThunder.THUNDER_ANIMATION);
                     }
                     shaderEffect.SetShaderParameter("scanline_alpha", 3);
                     particlesGroup.Show();

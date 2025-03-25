@@ -1,6 +1,21 @@
-[gd_scene load_steps=5 format=3 uid="uid://31ew226yj11n"]
+[gd_scene load_steps=11 format=3 uid="uid://31ew226yj11n"]
 
 [ext_resource type="Script" path="res://Scripts/Controls/LoginScreen.cs" id="1_skjs4"]
+[ext_resource type="PackedScene" uid="uid://cpnulmydq6mp6" path="res://Scenes/UI/LoginScreen/Belt.tscn" id="2_bb5nt"]
+[ext_resource type="Texture2D" uid="uid://cjla7i48lqwna" path="res://Assets/UI/LoginScreen/BeltFrame1.png" id="3_cwno2"]
+[ext_resource type="Texture2D" uid="uid://hk68ck8cyv0p" path="res://Assets/UI/LoginScreen/BeltFrame2.png" id="4_tqmfj"]
+[ext_resource type="Texture2D" uid="uid://bujqsvb2phbee" path="res://Assets/UI/LoginScreen/BeltFrame3.png" id="5_j6h5l"]
+[ext_resource type="PackedScene" uid="uid://c31ubpwdt65uw" path="res://Scenes/UI/LoginScreen/Piston.tscn" id="6_lb3rm"]
+
+[sub_resource type="AnimatedTexture" id="AnimatedTexture_v7bw3"]
+frames = 3
+speed_scale = -1.0
+frame_0/texture = ExtResource("3_cwno2")
+frame_0/duration = 0.2
+frame_1/texture = ExtResource("4_tqmfj")
+frame_1/duration = 0.2
+frame_2/texture = ExtResource("5_j6h5l")
+frame_2/duration = 0.2
 
 [sub_resource type="LabelSettings" id="LabelSettings_al77a"]
 font_color = Color(0.992157, 0, 0, 1)
@@ -11,7 +26,7 @@ font_color = Color(1, 0, 0, 1)
 [sub_resource type="LabelSettings" id="LabelSettings_g75en"]
 font_color = Color(1, 0, 0, 1)
 
-[node name="LoginScreen" type="Control" node_paths=PackedStringArray("loginNode", "labelLoginError", "vContLoginUser", "vContLoginPass", "createNode", "labelCreateErrorPasswords", "labelCreateErrorUsername", "vBoxCreateUser", "vBoxCreatePass", "vBoxCreateConfirmPass")]
+[node name="LoginScreen" type="Control" node_paths=PackedStringArray("loginNode", "labelLoginError", "vContLoginUser", "vContLoginPass", "loginPiston", "createNode", "labelCreateErrorPasswords", "labelCreateErrorUsername", "vBoxCreateUser", "vBoxCreatePass", "vBoxCreateConfirmPass")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -23,6 +38,7 @@ loginNode = NodePath("Login")
 labelLoginError = NodePath("Login/VBoxScreenHolder/LabelError")
 vContLoginUser = NodePath("Login/VBoxScreenHolder/VBoxUsername")
 vContLoginPass = NodePath("Login/VBoxScreenHolder/VBoxPassword")
+loginPiston = NodePath("Login/Piston")
 createNode = NodePath("Create")
 labelCreateErrorPasswords = NodePath("Create/VBoxScreenHolder/LabelErrorPasswords")
 labelCreateErrorUsername = NodePath("Create/VBoxScreenHolder/LabelErrorUsername")
@@ -37,6 +53,76 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Belt" parent="Login" instance=ExtResource("2_bb5nt")]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.285
+anchor_top = 0.496
+anchor_right = 0.455
+anchor_bottom = 0.533
+offset_left = -0.200073
+offset_top = 0.319946
+offset_right = 1303.4
+offset_bottom = 158.36
+scale = Vector2(0.200021, 0.200021)
+texture = SubResource("AnimatedTexture_v7bw3")
+metadata/_edit_use_anchors_ = true
+
+[node name="Belt2" parent="Login" instance=ExtResource("2_bb5nt")]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.546
+anchor_top = 0.553
+anchor_right = 0.716
+anchor_bottom = 0.589
+offset_left = -0.320068
+offset_top = -0.23999
+offset_right = 1303.28
+offset_bottom = 158.88
+scale = Vector2(0.200021, 0.200021)
+metadata/_edit_use_anchors_ = true
+
+[node name="Belt3" parent="Login" instance=ExtResource("2_bb5nt")]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.721
+anchor_top = 0.55
+anchor_right = 0.891
+anchor_bottom = 0.587
+offset_left = 0.679932
+offset_top = 6.10352e-05
+offset_right = 1304.28
+offset_bottom = 158.04
+scale = Vector2(0.200021, 0.200021)
+metadata/_edit_use_anchors_ = true
+
+[node name="Belt4" parent="Login" instance=ExtResource("2_bb5nt")]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.897
+anchor_top = 0.553
+anchor_right = 1.067
+anchor_bottom = 0.589
+offset_left = -0.23999
+offset_top = -0.23999
+offset_right = 1303.36
+offset_bottom = 158.88
+scale = Vector2(0.200021, 0.200021)
+metadata/_edit_use_anchors_ = true
+
+[node name="Piston" parent="Login" instance=ExtResource("6_lb3rm")]
+layout_mode = 1
+anchor_left = 0.393917
+anchor_top = 0.623037
+anchor_right = 0.605917
+anchor_bottom = 1.07504
+offset_left = 0.679932
+offset_top = 0.119995
+offset_right = -406.36
+offset_bottom = -488.04
+scale = Vector2(2.26377, 2.26377)
+metadata/_edit_use_anchors_ = true
 
 [node name="PosHolder" type="Control" parent="Login"]
 layout_mode = 1
@@ -175,6 +261,10 @@ text = "Login"
 layout_mode = 2
 text = "Create an Acccount"
 
+[node name="StayLogged" type="CheckBox" parent="Login/VBoxScreenHolder"]
+layout_mode = 2
+text = "Remember me"
+
 [node name="Create" type="Control" parent="."]
 visible = false
 layout_mode = 1
@@ -260,3 +350,7 @@ text = "Create account"
 [node name="ChangeScreen" type="Button" parent="Create/VBoxScreenHolder"]
 layout_mode = 2
 text = "Login"
+
+[node name="StayLogged" type="CheckBox" parent="Create/VBoxScreenHolder"]
+layout_mode = 2
+text = "Remember me"

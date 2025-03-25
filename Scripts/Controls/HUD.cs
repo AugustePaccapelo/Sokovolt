@@ -1,6 +1,7 @@
 using Com.IsartDigital.ProjectName;
 using Com.IsartDigital.SokoVolt.GameObjects.Movables;
 using Com.IsartDigital.SokoVolt.Managers;
+using Com.IsartDigital.SokoVolt.Tools;
 using Godot;
 using System;
 using System.Runtime.CompilerServices;
@@ -21,13 +22,14 @@ namespace Com.IsartDigital.SokoVolt{
 		private HUD ():base() {}
 		#endregion
 
-		[Signal] public delegate void UndoButtonEventHandler();
-		[Signal] public delegate void RedoButtonEventHandler();
-
 		[Export] public Button undoButton, redoButton, mainMenuButton;
 		[Export] public Label scoreLabel, stepLabel, winLabel; 
+		
+		//WinScreen
 		[Export] public PackedScene winScreenScene;
-		private WinScreen winScreen;
+		[Export] public Control displayInGame; 
+		public WinScreen winScreen;
+		private int storedNumStar, storedScore, storedNumStep;
 
 		public override void _Ready()
 		{
@@ -44,38 +46,51 @@ namespace Com.IsartDigital.SokoVolt{
 
 		private void Init()
 		{
-			CustomMinimumSize = GetViewportRect().Size;	
-			undoButton.Pressed += () => EmitSignal(nameof(UndoButton));
-			redoButton.Pressed += () => EmitSignal(nameof(RedoButton));
-			mainMenuButton.Pressed += ReturnToMenu;
+			CustomMinimumSize = GetViewportRect().Size;
+			UndoRedo();
+            mainMenuButton.Pressed += ReturnToMenu;
 			CustomSignals lSignals = CustomSignals.GetInstance();
-			lSignals.GameFinished += GameFinished;
+			lSignals.GameFinished +=  GameFinished; 
 		}
 
 		private void UndoRedo()
 		{
-            if (LevelLoader.isLevelLoaded) return;
             undoButton.Pressed += () => CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.UndoButton);
             redoButton.Pressed += () => CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.RedoButton);
         }
 
-        public void GameFinished()
+        public void GameFinished(int pNumStar, int pScore, int pNumStep)
 		{
-            LevelLoader.playerCanMove = false;
-            Tween lTween = CreateTween();
-            winScreen = winScreenScene.Instantiate() as WinScreen;
+			CustomSignals.GetInstance().EndLevelAnimation -= SpawnWinScreen;
+			CustomSignals.GetInstance().EndLevelAnimation += SpawnWinScreen;
+
+		
+			storedNumStar = pNumStar;
+			storedScore = pScore;
+			storedNumStep = pNumStep;
+
+			GD.PrintErr("GameFinished called, waiting for EndLevelAnimation...");
+		}
+		
+		private void SpawnWinScreen()
+		{
+			LevelLoader.playerCanMove = false;
+			Tween lTween = CreateTween();
+			winScreen = winScreenScene.Instantiate() as WinScreen;
 			AddChild(winScreen);
 			winScreen.Position = new Vector2(0, -900);
 			winScreen.ZIndex = 50;
-			lTween.TweenProperty(winScreen, "position", Vector2.Zero, 1f);
-			winScreen.UpdateStats(pScore, pNumStep);
-			lTween.Finished += () => GetTree().CreateTimer(1f).Timeout += () => 
-			winScreen.StarSysteme(pNumStar);
-        }
+			lTween.TweenProperty(winScreen, ObjectProperties.POSITION, Vector2.Zero, 1f);
+			winScreen.UpdateStats(storedScore, storedNumStep);
+			winScreen.StarSysteme(storedNumStar);
+		}
 
+		
 		private void ReturnToMenu()
 		{
-            if (winScreen != null) winScreen.QueueFree();
+            if(winScreen != null)
+				winScreen.QueueFree();
+			
             CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.GoToMainMenu);
         }
 

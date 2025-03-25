@@ -2,8 +2,10 @@ using Com.IsartDigital.ProjectName;
 using Com.IsartDigital.SokoVolt.Managers;
 using Com.IsartDigital.Tools;
 using Godot;
+using Godot.Collections;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Runtime.InteropServices;
 
 // Author : Auguste Paccapelo
@@ -37,7 +39,9 @@ namespace Com.IsartDigital.SokoVolt
         private Button buttonLoginConfirm, buttonLoginGoCreate;
 		[Export] private Label labelLoginError;
 		private Label labelLoginName, labelLoginUsername, labelLoginPassword;
+		private CheckBox checkLoginStayLogged;
 		[Export] private VBoxContainer vContLoginUser, vContLoginPass;
+		[Export] private Piston loginPiston;
 
 		private Control loginPosHolder;
 		private Vector2 animPosLoginName, animPosLoginButtonConfirm, animPosLoginButtonChangeScreen, animPosLoginPassword;
@@ -52,16 +56,19 @@ namespace Com.IsartDigital.SokoVolt
 		private Label labelCreateName, labelCreateUsername, labelCreatePassword, labelCreateConfirmPassword;
 		[Export] private Label labelCreateErrorPasswords, labelCreateErrorUsername;
 		[Export] private VBoxContainer vBoxCreateUser, vBoxCreatePass, vBoxCreateConfirmPass;
+        private CheckBox checkCreateStayLogged;
 
         // ----- Others ----- \\
         [Signal] public delegate void StartGameEventHandler();
 
-		private string username = "";
+		private string userName = "";
 		private string password = "";
 
 		public UserGestion userGestion;
 
 		private Vector2 screenSize;
+
+		public bool skipLogin;
 
         // ---------- FUNCTIONS ---------- \\
 
@@ -92,12 +99,6 @@ namespace Com.IsartDigital.SokoVolt
             screenSize = GetWindow().Size;
             Size = screenSize;
 
-			CustomSignals.GetInstance().GoToLoginScreen += () =>
-			{
-                loginNode.Show();
-                AnimationLoginEnter();
-            };
-
 			createNode.Hide();
 
             CustomMinimumSize = GetViewportRect().Size;
@@ -127,6 +128,7 @@ namespace Com.IsartDigital.SokoVolt
             inputLoginPassword = vContLoginPass.GetNode<LineEdit>(LoginScreenNames.INPUT_PASSWORD);
 			buttonLoginConfirm = vBoxHolderLogin.GetNode<Button>(LoginScreenNames.BUTTON_CONFIRM);
             buttonLoginGoCreate = vBoxHolderLogin.GetNode<Button>(LoginScreenNames.BUTTON_CHANGE_SCREEN);
+			checkLoginStayLogged = vBoxHolderLogin.GetNode<CheckBox>(LoginScreenNames.CHECK_STAY_LOGGED);
 
 			loginPosHolder = loginNode.GetNode<Control>(LoginScreenNames.POS_HOLDER);
         }
@@ -143,6 +145,7 @@ namespace Com.IsartDigital.SokoVolt
 			inputCreateConfirmPassword = vBoxCreateConfirmPass.GetNode<LineEdit>(LoginScreenNames.INPUT_CONFIRM_PASSWORD);
 			buttonCreateConfirm = vBoxHolderCreate.GetNode<Button>(LoginScreenNames.BUTTON_CONFIRM);
             buttonCreateGoLogin = vBoxHolderCreate.GetNode<Button>(LoginScreenNames.BUTTON_CHANGE_SCREEN);
+			checkCreateStayLogged = vBoxHolderCreate.GetNode<CheckBox>(LoginScreenNames.CHECK_STAY_LOGGED);
         }
 
 		private void GetAllLoginPos()
@@ -181,11 +184,13 @@ namespace Com.IsartDigital.SokoVolt
 		private void ButtonPressedLogin()
 		{
 			labelLoginError.Hide();
-            username = inputLoginUsername.Text;
+            userName = inputLoginUsername.Text;
 			password = inputLoginPassword.Text;
 
-			if (userGestion.LoginUser(username, password))
+			if (userGestion.LoginUser(userName, password))
 			{
+				if (checkLoginStayLogged.ButtonPressed) userGestion.SaveLastUser(userName);
+				else userGestion.SaveLastUser();
 				CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.GoToMainMenu);
 				Hide();
 			}
@@ -204,18 +209,21 @@ namespace Com.IsartDigital.SokoVolt
 				return;
 			}
 
-			username = inputCreateUsername.Text;
+			userName = inputCreateUsername.Text;
             password = inputCreatePassword.Text;
 
-			if (userGestion.RegisterUser(username, password))
+			if (userGestion.RegisterUser(userName, password))
 			{
-                CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.GoToMainMenu);
+				if (checkCreateStayLogged.ButtonPressed) userGestion.SaveLastUser(userName);
+				else userGestion.SaveLastUser();
+				GD.Print(password);
+				CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.GoToMainMenu);
                 Hide();
 			}
 			else labelCreateErrorUsername.Show();
         }
 
-		private void AnimationLoginEnter()
+		public void AnimationLoginEnter()
 		{
 			Tween lTween = CreateTween().SetParallel();
 
@@ -233,6 +241,9 @@ namespace Com.IsartDigital.SokoVolt
 
 			// Button create animation
 			lTween.TweenProperty(buttonLoginGoCreate, "global_position", buttonLoginGoCreate.GlobalPosition, 1.5f).From(animPosLoginButtonChangeScreen);
+			//lTween.TweenProperty(loginPiston, "global_position", loginPiston.GlobalPosition, 1.25f).From(new Vector2(loginPiston.GlobalPosition.X, screenSize.Y));
+			loginPiston.Extend();
+			
 
 			// Password label and input animation
 			lTween.TweenProperty(vContLoginPass, "global_position", vContLoginPass.GlobalPosition, 1.5f).From(animPosLoginPassword);
