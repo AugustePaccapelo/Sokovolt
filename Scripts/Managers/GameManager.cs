@@ -13,6 +13,7 @@ namespace Com.IsartDigital.SokoVolt.Managers
 		// ---------- VARIABLES ---------- \\
 		[Export] public Node2D objectsContainer;
 		[Export] public MenuTrans MenuTrans;
+		[Export] public Camera2D camera;
 
 		#region // ----- Singleton ----- \\
 

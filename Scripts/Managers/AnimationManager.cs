@@ -48,5 +48,26 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 			lTween.TweenProperty(pObject, "modulate", lColor, pTime);
 			return lTween;
 		}
+
+        public Tween CameraZoomTraveling(Camera2D pCamera, float pMoveTime, float pWaitTime, Vector2 pFinalPos, Vector2 pFromPos, float pZoom)
+        {
+            Tween lTween = CreateTween().SetParallel(true).SetTrans(Tween.TransitionType.Back).SetEase(Tween.EaseType.In);
+            lTween.TweenProperty(pCamera, "position", pFinalPos, pMoveTime);
+            lTween.TweenProperty(pCamera, "zoom", new Vector2(pZoom, pZoom), pMoveTime);
+            lTween.Finished += () =>
+            {
+                Tween lDelayTween = CreateTween();
+                lDelayTween.TweenInterval(pWaitTime);
+
+                lDelayTween.Finished += () =>
+                {
+                    Tween lTween2 = CreateTween().SetParallel(true).SetTrans(Tween.TransitionType.Back).SetEase(Tween.EaseType.In);
+                    lTween2.TweenProperty(pCamera, "zoom", new Vector2(1, 1), pMoveTime);
+                    lTween2.TweenProperty(pCamera, "position", pFromPos, pMoveTime);
+                };
+            };
+
+            return lTween;
+        }
     }
 }
