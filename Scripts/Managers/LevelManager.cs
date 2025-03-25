@@ -51,8 +51,9 @@ namespace Com.IsartDigital.SokoVolt.Managers
 
         private void NextLevel(int pLevel)
         {
+            Tween lTween = GameManager.GetInstance().MenuTrans.ActiveTrans(1f, 0.2f);
             UnLoadLevel();
-            LevelLoaderFonc(pLevel);
+            lTween.Finished += () => LevelLoaderFonc(pLevel);
         }
 
         private void UnLoadLevel()
