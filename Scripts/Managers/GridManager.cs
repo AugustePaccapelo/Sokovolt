@@ -529,7 +529,7 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 
 
 		#region // ----- Provisoir pour test ----- \\
-		private void PrintGrid()	//=================================> Provisoir pour test 
+		public void PrintGrid()	//=================================> Provisoir pour test 
 		{
 			string lGridString = "";
 
