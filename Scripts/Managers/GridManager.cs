@@ -228,7 +228,7 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 			return pX < 0 || pX >= LevelLoader.levelWidth || pY < 0 || pY >= LevelLoader.levelHeight;
 		}
 
-        public void HandleCellClick(Vector2 pTargetPos)
+        public void HandleCellClicked(Vector2 pTargetPos)
         {
             int lPosX = (int)pTargetPos.X;
             int lPosY = (int)pTargetPos.Y;
