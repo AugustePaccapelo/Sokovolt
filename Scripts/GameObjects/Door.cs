@@ -59,6 +59,8 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
 			base._Ready();
 			
 			GameManager.GetInstance().door = this;
+
+			
 		}
 
 		public override void _Process(double pDelta)

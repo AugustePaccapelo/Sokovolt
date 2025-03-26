@@ -197,7 +197,8 @@ namespace Com.IsartDigital.SokoVolt {
 						lCell.SetContent(lObj);
 						lObj.SetCell(lCell);
 						lObj.Init(x, y);
-						lObj.ZIndex = IsoManager.GetZIndex(new Vector2(x,y));
+						if(!(lObj is Player))lObj.ZIndex = IsoManager.GetZIndex(new Vector2(x,y));
+						else lObj.ZIndex = 1000;
 					}
 				}
 			}

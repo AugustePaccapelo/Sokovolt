@@ -5,6 +5,7 @@ using System.Data.SqlTypes;
 using Com.IsartDigital.SokoVolt.Managers;
 using System.Threading.Tasks;
 using System.Data;
+using System.Linq;
 
 // Author : Soukai William
 
@@ -40,6 +41,13 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
         public int range { get; private set; }
         [Export] private Label rangeLabel;
 
+        
+        ///////
+        private Vector2 lastPlayerPos;
+        private List<Vector2> lastPreviewTargets = new();
+        private List<LightningNode> previewLines = new();
+        
+
         public override void _Ready()
         {
            connectionManagers.boxTeslasList.Add(this);
@@ -52,6 +60,8 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
             float lDelta = (float)pDelta;
             base._Process(pDelta);
             RayCastDetector(); 
+
+            Player.GetInstance().MovableHaveFinish += (Movable _) => TryDisplayPreviewIfPlayerNearby();
         }
 
         private void Init()
@@ -163,7 +173,8 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
 
         public void LineConnection(GameObject objToConnect)
         {
-            if (objToConnect is BoxTesla lbox)energize = true;
+            energize = true;
+            ClearPreviewLines(); 
             
             lightning = lightningNodeScene.Instantiate<LightningNode>();
             lightning.endPoint = GlobalPosition;
@@ -185,6 +196,102 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
                 lightning.DestructionFinished += lightning.QueueFree;
             }
         }
+
+
+        public void ShowPotentialConnections()
+        {
+            Cell[,] lGrid = gridManager.grid;
+            Vector2 lPos = new(x, y);
+            List<Vector2> lDirections = new(directionScan);
+            List<Vector2> lNewTargets = new();
+
+            foreach (Vector2 lDir in lDirections)
+            {
+                for (int i = 1; i <= range + 1; i++)
+                {
+                    Vector2 lScanPos = lPos + lDir * i;
+
+                    int lX = (int)lScanPos.X;
+                    int lY = (int)lScanPos.Y;
+
+                    if (lX < 0 || lX >= lGrid.GetLength(0) || lY < 0 || lY >= lGrid.GetLength(1))
+                        break;
+
+                    GameObject lContent = lGrid[lX, lY].GetContent();
+
+                    if (lContent is Wall)
+                        break;
+
+                    if (lContent is BoxTesla || lContent is GoalBulb || lContent is Generator)
+                    {
+                        lNewTargets.Add(lScanPos);
+                        break;
+                    }
+
+                    if (i == range + 1)
+                    {
+                        lNewTargets.Add(lScanPos);
+                        break;
+                    }
+                }
+            }
+
+            if (lNewTargets.SequenceEqual(lastPreviewTargets)) return;
+
+            ClearPreviewLines();
+            lastPreviewTargets = lNewTargets;
+
+            foreach (Vector2 lTarget in lNewTargets)
+            {
+                LightningNode lPreview = lightningNodeScene.Instantiate<LightningNode>();
+                lPreview.startPoint = GlobalPosition;
+                lPreview.endPoint = Utils.SetPosition(this, (int)lTarget.X, (int)lTarget.Y, false);
+                lPreview.SetPreview(true);
+                lPreview.ZIndex = 50; 
+                AddChild(lPreview);
+                lPreview.StartLightning();
+                previewLines.Add(lPreview);
+            }
+        }
+
+
+
+
+
+        public void TryDisplayPreviewIfPlayerNearby()
+        {
+            if (energize)
+            {
+                ClearPreviewLines();
+                return;
+            }
+
+            Vector2 lPlayerPos = new(Player.GetInstance().x, Player.GetInstance().y);
+
+            if (lPlayerPos == lastPlayerPos) return;
+            lastPlayerPos = lPlayerPos;
+
+            Vector2 lDelta = lPlayerPos - new Vector2(x, y);
+
+            if ((Mathf.Abs(lDelta.X) == 1 && lDelta.Y == 0) || (Mathf.Abs(lDelta.Y) == 1 && lDelta.X == 0))
+                ShowPotentialConnections();
+            else
+                ClearPreviewLines();
+        }
+
+
+
+        public void ClearPreviewLines()
+        {
+            foreach (var l in previewLines)
+                l.QueueFree();
+
+            previewLines.Clear();
+            lastPreviewTargets.Clear();
+        }
+
+
+
 
         protected override void Dispose(bool pDisposing)
         {
