@@ -21,7 +21,7 @@
 [ext_resource type="PackedScene" uid="uid://dellu8bu72iut" path="res://Scenes/GameObjects/Generator.tscn" id="11_lsk15"]
 [ext_resource type="PackedScene" uid="uid://b4gnj6651gy4m" path="res://Scenes/GameObjects/Door.tscn" id="12_pyytn"]
 [ext_resource type="PackedScene" uid="uid://br3qeg3kaqfqk" path="res://Scenes/user_gestion.tscn" id="17_3ylmq"]
-[ext_resource type="Script" path="res://Scripts/Managers/connectionManagers.cs" id="20_guk6j"]
+[ext_resource type="Script" path="res://Scripts/Managers/ConnectionManagers.cs" id="20_guk6j"]
 [ext_resource type="Script" path="res://Scripts/Managers/AnimationManager.cs" id="22_ah2rb"]
 [ext_resource type="AudioStream" uid="uid://dyphwax444ng4" path="res://Song/test 12.mp3" id="24_67530"]
 [ext_resource type="Script" path="res://Scripts/Managers/SongManager.cs" id="24_lgxf0"]
