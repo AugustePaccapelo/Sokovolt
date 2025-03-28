@@ -31,7 +31,7 @@ namespace Com.IsartDigital.SokoVolt
         
         private bool alreadyPress = false;
 
-        private const string LEVEL_PREFIXE = "Level : ";
+        private const string LEVEL_PREFIXE = "LevelPrefix";
         private const string LEVEL_LABEL_PATH = "Screen/LevelLabel";
         private const float MARGIN = 350.0f;
 
@@ -67,6 +67,7 @@ namespace Com.IsartDigital.SokoVolt
 
             screenSize = GetViewportRect().Size;
             InitializeLevelAtStart();
+
 
             buttonMainMenu.Pressed += MainMenu;
             buttonRight.Pressed += () => SwitchLevel(1);
@@ -169,7 +170,7 @@ namespace Com.IsartDigital.SokoVolt
             }
 
             Godot.Label lLabel = lTesla.GetNode<Godot.Label>(LEVEL_LABEL_PATH);
-            lLabel.Text = LEVEL_PREFIXE + "\n" + pIndex;
+            lLabel.Text = Tr(LEVEL_PREFIXE) + "\n" + pIndex;
 
             return lTesla;
         }
