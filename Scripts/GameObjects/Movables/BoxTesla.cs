@@ -6,6 +6,8 @@ using Com.IsartDigital.SokoVolt.Managers;
 using System.Threading.Tasks;
 using System.Data;
 using System.Linq;
+using static EnumSong;
+using RobotnikSokoban.Scripts.Managers;
 
 // Author : Soukai William
 
@@ -20,7 +22,6 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
         [Export] private RayCast2D rayCast;
         [Export] private Line2D electriLine2D;
         public BoxTesla nextBoxTesla = null;
-        public BoxTesla prevBoxTesla = null;
         public bool energize = false;
         GridManager gridManager = GridManager.GetInstance();
         private List<Vector2> directionScan = new List<Vector2>()
@@ -50,7 +51,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
 
         public override void _Ready()
         {
-           connectionManagers.boxTeslasList.Add(this);
+           ConnectionManagers.boxTeslasList.Add(this);
             Init();
         }
 
@@ -90,6 +91,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
             base.MoveTo(pX, pY, pGrid);
             CustomSignals lSignals = CustomSignals.GetInstance();
             lSignals.EmitSignal(CustomSignals.SignalName.BoxTeslaMoved);
+            SongManager.Instance.ambientDict[EnumSong.AmbientSong.Piece].Play();
 
         }
 

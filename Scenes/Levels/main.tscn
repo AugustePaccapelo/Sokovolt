@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://dkbx646vvyaig"]
+[gd_scene load_steps=26 format=3 uid="uid://dkbx646vvyaig"]
 
 [ext_resource type="PackedScene" uid="uid://dyk47lo67a1tp" path="res://Scenes/Managers/ui_manager.tscn" id="1_4603a"]
 [ext_resource type="PackedScene" uid="uid://bnv0kco0ylr0e" path="res://Scenes/Managers/GridManager.tscn" id="1_d671q"]
@@ -16,13 +16,15 @@
 [ext_resource type="PackedScene" uid="uid://djcluge6is5om" path="res://Scenes/GameObjects/Wall.tscn" id="8_najj4"]
 [ext_resource type="PackedScene" uid="uid://c256fa86lg71t" path="res://Scenes/GameObjects/ElectricWall.tscn" id="9_34m77"]
 [ext_resource type="PackedScene" uid="uid://bbvc0kv5shwqo" path="res://Scenes/GameObjects/WinScreen/thunder_effects.tscn" id="9_bsoiu"]
-[ext_resource type="PackedScene" path="res://Scenes/GameObjects/AnimationPiston.tscn" id="9_ddww2"]
+[ext_resource type="PackedScene" uid="uid://7fsi04q1t5ae" path="res://Scenes/GameObjects/AnimationPiston.tscn" id="9_ddww2"]
 [ext_resource type="PackedScene" uid="uid://v75l4cppany" path="res://Scenes/GameObjects/GoalBulb.tscn" id="10_cjqye"]
 [ext_resource type="PackedScene" uid="uid://dellu8bu72iut" path="res://Scenes/GameObjects/Generator.tscn" id="11_lsk15"]
 [ext_resource type="PackedScene" uid="uid://b4gnj6651gy4m" path="res://Scenes/GameObjects/Door.tscn" id="12_pyytn"]
 [ext_resource type="PackedScene" uid="uid://br3qeg3kaqfqk" path="res://Scenes/user_gestion.tscn" id="17_3ylmq"]
 [ext_resource type="Script" path="res://Scripts/Managers/connectionManagers.cs" id="20_guk6j"]
 [ext_resource type="Script" path="res://Scripts/Managers/AnimationManager.cs" id="22_ah2rb"]
+[ext_resource type="AudioStream" uid="uid://dyphwax444ng4" path="res://Song/test 12.mp3" id="24_67530"]
+[ext_resource type="Script" path="res://Scripts/Managers/SongManager.cs" id="24_lgxf0"]
 
 [node name="MAIN" type="Node2D"]
 
@@ -76,8 +78,9 @@ goalBulbScene = ExtResource("10_cjqye")
 generatorScene = ExtResource("11_lsk15")
 doorScene = ExtResource("12_pyytn")
 
-[node name="GameManager" parent="Managers" node_paths=PackedStringArray("objectsContainer") instance=ExtResource("7_vkagg")]
+[node name="GameManager" parent="Managers" node_paths=PackedStringArray("objectsContainer", "camera") instance=ExtResource("7_vkagg")]
 objectsContainer = NodePath("../../Containers/ObjectsContainer")
+camera = NodePath("Camera")
 
 [node name="Camera" type="Camera2D" parent="Managers/GameManager"]
 position = Vector2(960, 540)
@@ -89,6 +92,12 @@ script = ExtResource("20_guk6j")
 
 [node name="AnimationManager" type="Node2D" parent="Managers"]
 script = ExtResource("22_ah2rb")
+
+[node name="SongManager" type="Node2D" parent="Managers"]
+script = ExtResource("24_lgxf0")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Managers/SongManager"]
+stream = ExtResource("24_67530")
 
 [node name="Containers" type="Node2D" parent="."]
 

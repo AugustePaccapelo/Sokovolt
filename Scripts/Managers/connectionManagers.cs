@@ -10,39 +10,36 @@ using Godot.Collections;
 // Author : Soukai William
 namespace Com.IsartDigital.SokoVolt.GameObjects
 {
-    public partial class connectionManagers:Node2D
+    public partial class ConnectionManagers:Node2D
     {
         public static List<BoxTesla> boxTeslasList = new List<BoxTesla>();
         public static List<Generator> generatorList = new List<Generator>();
         public  List<BoxTesla> TeslasConnected = new List<BoxTesla>();
-            
+
 
         public override void _Ready()
         {
-          
+
             Init();
         }
 
         private void Init()
         {
             CustomSignals.GetInstance().UnLoadLevel+= clearTeslas;
-            CustomSignals.GetInstance().StartRecherche += startConnection;
+            CustomSignals.GetInstance().StartRecherche += StartConnection;
         }
 
-        private void startConnection()
+
+        private void StartConnection()
         {
-            pritlist();
             DisconnectedAll();
-            RechercheGenerateur();
-            
+            SearchGenerator();
+
         }
 
         private void DisconnectedAll()
         {
-            foreach (var box in boxTeslasList)
-            {
-                box.LineDeconnection();
-            }
+            TeslasConnected.ForEach(lBox => lBox.LineDeconnection());
             TeslasConnected.Clear();
         }
 
@@ -51,41 +48,41 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
             boxTeslasList.Clear();
         }
 
-        private void RechercheGenerateur()
+        private void SearchGenerator()
         {
-            BoxTesla lBox = null;
-            foreach (var Generator in generatorList)
+            foreach (Generator lGenerator in generatorList)
             {
-               lBox=Recherche(Generator);
-               if (lBox!= null)
-               {
-                   lBox.LineConnection(Generator);
-                   TeslasConnected.Add(lBox);
-                   RechercheTesla();
-               }
+                BoxTesla lBox = Search(lGenerator);
+                if (lBox != null && !TeslasConnected.Contains(lBox))
+                {
+                    lBox.LineConnection(lGenerator);
+                    TeslasConnected.Add(lBox);
+                }
             }
+            SearchTesla();
 
         }
 
-    private void RechercheTesla()
+    private void SearchTesla()
     {
-         int timer = 0;
-        BoxTesla lBox = Recherche(TeslasConnected.Last());
-        while (lBox!=null )
+        if (TeslasConnected.Count == 0)return;
+        while (true)
         {
+            BoxTesla lBox = Search(TeslasConnected.Last());
+            if (lBox == null) break;
+
             lBox.LineConnection(TeslasConnected.Last());
             TeslasConnected.Add(lBox);
-
-            lBox = Recherche(TeslasConnected.Last());
         }
-        CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.BoxTeslaCalculsDone);
-        
-    }
-        
 
-        private BoxTesla Recherche(GameObject pObject)
+        CustomSignals.GetInstance()?.EmitSignal(CustomSignals.SignalName.BoxTeslaCalculsDone);
+
+    }
+
+
+        private BoxTesla Search(GameObject pObject)
         {
-            
+
             float lLength;
             float lShortLength = Single.MaxValue;
             BoxTesla lShortBox = null;
@@ -95,25 +92,18 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
                 lLength=box.ConnectionSearch(pObject);
                 if (lLength !=-1 && lLength<lShortLength)
                 {
-                    
+
                     lShortLength = lLength;
                     lShortBox = box;
                 }
-                    
+
             }
 
-            pritlist();
             return lShortBox;
         }
 
 
-        private void pritlist()
-        {
-            foreach (var VARIABLE in TeslasConnected)
-            {
-                GD.Print("je suis"+ VARIABLE.energize);
-            }
-        }
+
 
     }
 }
