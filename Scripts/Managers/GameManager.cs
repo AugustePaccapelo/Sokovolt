@@ -1,3 +1,4 @@
+using Com.IsartDigital.ProjectName;
 using Com.IsartDigital.SokoVolt.GameObjects;
 using Com.IsartDigital.SokoVolt.GameObjects.Movables;
 using Godot;
@@ -34,6 +35,7 @@ namespace Com.IsartDigital.SokoVolt.Managers
 		// Managers
 		private GridManager gridManager;
 		private CustomSignals signals;
+		private UserGestion userGestion;
 
 		// GameObjects
 		public Door door;
@@ -63,7 +65,8 @@ namespace Com.IsartDigital.SokoVolt.Managers
 			#endregion
 
 			base._Ready();
-		}
+			userGestion = UserGestion.GetInstance();
+        }
 
 		public override void Init()
 		{
@@ -137,7 +140,18 @@ namespace Com.IsartDigital.SokoVolt.Managers
 
 			int lScore = scorePerStar[lNumStar - 1] - lNumStep;
 
-			GD.PrintErr(lNumStar + " " + lScore + " " + lNumStep); 
+            userGestion.SaveUserProgress(WinScreen.actualLevel, lScore, lNumStar); // saves scores/stars
+			userGestion.UnlockLevel(WinScreen.actualLevel + 1); // level unlocked with json
+
+			LevelSelector lSelector = LevelSelector.GetInstance();
+
+			if (lSelector != null && lSelector.teslaDictionnary.ContainsKey(WinScreen.actualLevel + 1))
+			{
+				lSelector.teslaDictionnary[WinScreen.actualLevel + 1].UnlockLevel();
+				GD.Print("Level unlocked");
+			}
+
+            GD.PrintErr(lNumStar + " " + lScore + " " + lNumStep); 
 
 			await ToSignal(GetTree().CreateTimer(0.3f), "timeout");
 

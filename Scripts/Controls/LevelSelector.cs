@@ -1,3 +1,4 @@
+using Com.IsartDigital.ProjectName;
 using Com.IsartDigital.SokoVolt.GameObjects;
 using Com.IsartDigital.SokoVolt.Managers;
 using Godot;
@@ -28,14 +29,15 @@ namespace Com.IsartDigital.SokoVolt
 
         private GpuParticles2D buttonSmokeParticles;
         private LevelSelectorTesla actualTesla;
-        
+        private UserGestion userGestion;
+
         private bool alreadyPress = false;
 
         private const string LEVEL_PREFIXE = "Level : ";
         private const string LEVEL_LABEL_PATH = "Screen/LevelLabel";
         private const float MARGIN = 350.0f;
 
-        public Dictionary<int, LevelSelectorTesla> teslaDictionnary = new Dictionary<int, LevelSelectorTesla>();
+        public Godot.Collections.Dictionary<int, LevelSelectorTesla> teslaDictionnary = new Godot.Collections.Dictionary<int, LevelSelectorTesla>();
 
         [Signal] public delegate void UnlockAllLevelEventHandler();
 
@@ -67,6 +69,7 @@ namespace Com.IsartDigital.SokoVolt
 
             screenSize = GetViewportRect().Size;
             InitializeLevelAtStart();
+            userGestion = UserGestion.GetInstance();
 
             buttonMainMenu.Pressed += MainMenu;
             buttonRight.Pressed += () => SwitchLevel(1);
@@ -100,6 +103,7 @@ namespace Com.IsartDigital.SokoVolt
                 if (i != 5) teslaDictionnary[i].nextTesla = teslaDictionnary[i + 1];
                 else teslaDictionnary[i].nextTesla = null;
             }
+
         }
 
         private void UnlockAll()
@@ -173,6 +177,7 @@ namespace Com.IsartDigital.SokoVolt
 
             return lTesla;
         }
+
         protected override void Dispose(bool pDisposing)
         {
             instance = null;
