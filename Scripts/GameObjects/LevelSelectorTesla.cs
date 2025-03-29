@@ -1,6 +1,9 @@
+using Com.IsartDigital.ProjectName;
 using Com.IsartDigital.SokoVolt.Managers;
 using Godot;
+using Godot.Collections;
 using System;
+using System.Collections.Generic;
 
 // Author : Noe Sales
 
@@ -27,6 +30,31 @@ namespace Com.IsartDigital.SokoVolt.GameObjects {
         private void Init()
         {
             LevelSelector.GetInstance().UnlockAllLevel += UnlockAll;
+            InitLevelStateUserData(); // init ici
+        }
+
+        private void InitLevelStateUserData() // Noe j'ai ajouter cette fonction mec
+        {
+            var lUserData = UserGestion.GetInstance().GetUserData(); 
+            var lCurrentUser = UserGestion.GetInstance().GetLastUser();
+
+            if (!lUserData.ContainsKey(lCurrentUser)) return;
+            var lUserDict = (Dictionary)lUserData[lCurrentUser];
+            if (!lUserDict.ContainsKey("levels")) return;
+
+            var lLevels = (Dictionary)lUserDict["levels"];
+            string lLevelKey = $"level{level}"; // key of the current level ex: level0, level1, level2...
+
+            if (lLevels.ContainsKey(lLevelKey))
+            {
+                var lLevelData = (Dictionary)lLevels[lLevelKey];
+                bool lIsLocked = (bool)lLevelData.GetValueOrDefault("locked", true); //lIsLocked = true par defaut
+
+                if (!lIsLocked && !levelUnlocked)
+                {
+                    UnlockLevel();
+                }
+            }
         }
 
         public void UnlockAll()

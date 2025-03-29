@@ -23,6 +23,8 @@ namespace Com.IsartDigital.ProjectName
         [Export] private Sprite2D[] batteries;
         private int counter = 0;
         public static int actualLevel = 0;
+        public int finalScore = 0;
+        public int earnedStars = 0;    
         private int thunderNumb = 4;
 
         private const string STAR_LABEL_PREFIXE = "X ";
@@ -52,6 +54,7 @@ namespace Com.IsartDigital.ProjectName
 
         public void UpdateStats(int pScore, int pSteps)
         {
+            finalScore = pScore;
             Tween lTween = CreateTween().SetParallel(true);
             lTween.TweenProperty(stepsCountLabel, "text", STEPS_LABEL_PREFIXE + pSteps, 1f);
             lTween.TweenProperty(scoreLabel, "text", SCORE_LABEL_PREFIXE + pScore, 1f);
@@ -62,6 +65,7 @@ namespace Com.IsartDigital.ProjectName
 
         public async void StarSysteme(int pCount)
         {
+            earnedStars = pCount;
             if (counter <= 3)
             {
                 for (int i = 0; i < pCount; i++)

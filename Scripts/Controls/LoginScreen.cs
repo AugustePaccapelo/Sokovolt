@@ -95,7 +95,7 @@ namespace Com.IsartDigital.SokoVolt
 			GetCreateChilds();
 
 			GetAllLoginPos();
-			
+            userGestion = UserGestion.GetInstance();
             screenSize = GetWindow().Size;
             Size = screenSize;
 

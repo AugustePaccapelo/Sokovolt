@@ -29,6 +29,8 @@ namespace Com.IsartDigital.SokoVolt
         [Signal] public delegate void StartRechercheEventHandler();
         [Signal] public delegate void LoadLevelEventHandler(int pLevel);
         [Signal] public delegate void UnLoadLevelEventHandler();
+        [Signal] public delegate void LevelUnlockEventHandler(int pLevelIndex); // informs that a level has been unlocked in the json
+        [Signal] public delegate void LevelCompletedEventHandler(int pLevelIndex, int pStars, int pTotalScore); // informs that the player has finished a level with the score and stars
 
         [Signal] public delegate void PlayerMovedEventHandler();
         [Signal] public delegate void BoxTeslaMovedEventHandler();
