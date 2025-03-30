@@ -10,7 +10,7 @@ using Godot.Collections;
 // Author : Soukai William
 namespace Com.IsartDigital.SokoVolt.GameObjects
 {
-    public partial class ConnectionManagers:Manager
+    public partial class ConnectionManagers : Manager
     {
         public static List<BoxTesla> boxTeslasList = new List<BoxTesla>();
         public static List<Generator> generatorList = new List<Generator>();
