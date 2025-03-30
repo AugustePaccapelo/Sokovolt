@@ -114,9 +114,10 @@ offset_top = 751.0
 offset_right = 1078.0
 offset_bottom = 892.0
 pivot_offset = Vector2(117, 70)
-text = "MainMenu"
+text = "MAIN MENU"
 
 [node name="NewLevelBackGround" type="Panel" parent="."]
+visible = false
 layout_mode = 1
 offset_right = 1920.0
 offset_bottom = 1080.0
@@ -270,7 +271,7 @@ alignment = 1
 max_length = 2
 clear_button_enabled = true
 
-[node name="Label" type="Label" parent="NewLevelBackGround/HBoxContainer"]
+[node name="GridSizeLabel" type="Label" parent="NewLevelBackGround/HBoxContainer"]
 layout_mode = 2
 text = "GRIDSIZE"
 label_settings = SubResource("LabelSettings_ng5xk")

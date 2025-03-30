@@ -79,7 +79,6 @@ generatorScene = ExtResource("11_lsk15")
 doorScene = ExtResource("12_pyytn")
 
 [node name="GameManager" parent="Managers" node_paths=PackedStringArray("objectsContainer", "camera") instance=ExtResource("7_vkagg")]
-position = Vector2(0, -3)
 objectsContainer = NodePath("../../Containers/ObjectsContainer")
 camera = NodePath("Camera")
 

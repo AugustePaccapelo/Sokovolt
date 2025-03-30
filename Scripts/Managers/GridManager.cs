@@ -3,7 +3,7 @@ using System;
 using Com.IsartDigital.SokoVolt.GameObjects;
 using Com.IsartDigital.SokoVolt.GameObjects.Movables;
 using System.Collections.Generic;
-using Com.IsartDigital.ProjectName;
+using Com.IsartDigital.Sokovolt;
 using System.Data;
 using System.Linq;
 using Com.IsartDigital.SokoVolt.Tools;
@@ -34,7 +34,7 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 		public Player player;
 
 		//Step Counter 
-		private const string STEP_LABEL_PREFIXE = "STEP : ";
+		public const string STEP_LABEL_PREFIXE = "STEP : ";
 		public int step { get; private set; } = 0;
 
 		//Ref 
@@ -366,7 +366,7 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 		private void UpdateStepLabel()
 		{
 			step = actualGridStateIndex;
-			hud.stepLabel.Text = STEP_LABEL_PREFIXE + step;
+			hud.stepLabel.Text = Tr(STEP_LABEL_PREFIXE) + step;
 		}
 		private void ResetStepCounter()
 		{

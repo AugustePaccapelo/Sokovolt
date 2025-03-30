@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-namespace Com.IsartDigital.ProjectName
+namespace Com.IsartDigital.Sokovolt
 {
 
     public partial class WinScreenThunder : Node2D
