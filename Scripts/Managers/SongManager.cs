@@ -22,6 +22,7 @@ public partial class SongManager : Manager
         Instance = this;
         
         Utils.Random.Randomize();
+        base._Ready();
     }
 
 

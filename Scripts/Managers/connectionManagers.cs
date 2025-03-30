@@ -3,14 +3,14 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Com.IsartDigital.SokoVolt.GameObjects;
+using Com.IsartDigital.SokoVolt.Managers;
 using Godot.Collections;
 
 
 // Author : Soukai William
 namespace Com.IsartDigital.SokoVolt.GameObjects
 {
-    public partial class ConnectionManagers:Node2D
+    public partial class ConnectionManagers:Manager
     {
         public static List<BoxTesla> boxTeslasList = new List<BoxTesla>();
         public static List<Generator> generatorList = new List<Generator>();
@@ -19,11 +19,10 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
 
         public override void _Ready()
         {
-
-            Init();
+            base._Ready();
         }
 
-        private void Init()
+        public override void Init()
         {
             CustomSignals.GetInstance().UnLoadLevel+= clearTeslas;
             CustomSignals.GetInstance().StartRecherche += StartConnection;
@@ -82,7 +81,6 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
 
         private BoxTesla Search(GameObject pObject)
         {
-
             float lLength;
             float lShortLength = Single.MaxValue;
             BoxTesla lShortBox = null;

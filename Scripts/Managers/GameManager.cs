@@ -1,4 +1,4 @@
-using Com.IsartDigital.SokoVolt.GameObjects;
+﻿using Com.IsartDigital.SokoVolt.GameObjects;
 using Com.IsartDigital.SokoVolt.GameObjects.Movables;
 using Godot;
 using System;
@@ -74,14 +74,16 @@ namespace Com.IsartDigital.SokoVolt.Managers
             signals.PlayerMoved += PlayerHasMoved;
             signals.GoalBulbStateChanged += GoalBulbStateChanged;
             gridManager = GridManager.GetInstance();
+          
         }
 
         public override void _Process(double pDelta)
 		{
 			float lDelta = (float)pDelta;
-
+            
 			base._Process(lDelta);
 			HideMouse();
+			
         }
 
         // ----- My Functions ----- \\
