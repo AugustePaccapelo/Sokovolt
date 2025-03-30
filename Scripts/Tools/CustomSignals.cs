@@ -42,6 +42,5 @@ namespace Com.IsartDigital.SokoVolt
         [Signal] public delegate void RetryEventHandler();
         [Signal] public delegate void GameFinishedEventHandler(int pNumStar, int pScore, int pNumStep);
         [Signal] public delegate void EndLevelAnimationEventHandler();
-        [Signal] public delegate void UpdateUILanguageEventHandler();
     }
 }

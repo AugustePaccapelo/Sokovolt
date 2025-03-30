@@ -68,19 +68,11 @@ namespace Com.IsartDigital.SokoVolt
             screenSize = GetViewportRect().Size;
             InitializeLevelAtStart();
 
-            CustomSignals.GetInstance().UpdateUILanguage += UpdateUI;
-
             buttonMainMenu.Pressed += MainMenu;
             buttonRight.Pressed += () => SwitchLevel(1);
             buttonLeft.Pressed += () => SwitchLevel(-1);
             buttonUnlockAll.Pressed += UnlockAll;
             buttonLaunch.Pressed += LevelUnlockedCheck;
-        }
-
-        private void UpdateUI()
-        {
-            buttonMainMenu.Text = Tr("MainMenu");
-            buttonUnlockAll.Text = Tr("UnlockAll");
         }
 
         private void MainMenu()
