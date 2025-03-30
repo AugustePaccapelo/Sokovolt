@@ -1,5 +1,5 @@
 using System;
-using Com.IsartDigital.ProjectName;
+using Com.IsartDigital.Sokovolt;
 using Com.IsartDigital.SokoVolt.GameObjects;
 using Com.IsartDigital.SokoVolt.GameObjects.Movables;
 using Com.IsartDigital.SokoVolt.Managers;

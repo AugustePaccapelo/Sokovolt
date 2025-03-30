@@ -49,20 +49,20 @@ namespace Com.IsartDigital.SokoVolt
 
             //startButton.Pressed += () => EmitSignal(nameof(StartGame));
 
-            CustomSignals.GetInstance().UpdateLanguage += SetLanguage;
+            CustomSignals.GetInstance().UpdateUILanguage += UpdateUI;
 
             startButton.Pressed += () => CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.GoToLevelSelector);
             levelCreatorButton.Pressed += () => CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.GoToLevelCreator);
 			unlogButton.Pressed += () => CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.GoToLoginScreen);
 			englishButton.Pressed += () =>
 			{
-				CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.UpdateLanguage, "en");
+                SetLanguage("en");
 				englishButton.Disabled = true;
 				frenchButton.Disabled = false;
 			};
 			frenchButton.Pressed += () =>
 			{
-				CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.UpdateLanguage, "fr");
+                SetLanguage("fr");
                 englishButton.Disabled = false;
                 frenchButton.Disabled = true;
             };
@@ -71,7 +71,7 @@ namespace Com.IsartDigital.SokoVolt
 		private void SetLanguage(string pLanguage)
 		{
             TranslationServer.SetLocale(pLanguage);
-			UpdateUI();
+            CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.UpdateUILanguage);
         }
 		
 		private void UpdateUI()

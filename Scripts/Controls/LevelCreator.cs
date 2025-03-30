@@ -35,6 +35,7 @@ namespace Com.IsartDigital.SokoVolt
         [Export] private PackedScene wallScene, electricWallScene, teslaScene, bulbScene, generatorScene, playerSpawnScene, doorScene, tileScene, customLevelLabelScene;
         [Export] private VBoxContainer buttonContainer, deleteButtonContainer, labelContainer;
         [Export] private Json customLevelTemplate;
+        [Export] private Label gridSizeLabel;
         private Panel newLevelBackground, customLevelMenuBackground, backGrid, menu;
         private LevelCreatorItems actualItem;
 		private bool canPick = false;
@@ -112,6 +113,7 @@ namespace Com.IsartDigital.SokoVolt
             gameManager = GameManager.GetInstance();
             #endregion
 
+            CustomSignals.GetInstance().UpdateUILanguage += UpdateUI;
             RegisterMouseSignals(
             wallTexture, teslaTexture, bulbTexture,
             generatorTexture, doorTexture,
@@ -126,6 +128,20 @@ namespace Com.IsartDigital.SokoVolt
 			MouseOn();
 			PlaceItem();
             if (actualItem != null) actualItem.Position = GetLocalMousePosition();
+        }
+
+        private void UpdateUI()
+        {
+            //mainMenuButton.Text = Tr("MainMenu");
+            //newLevelButton.Text = Tr("New Level");
+            //loadLevelButton.Text = Tr("Next Level");
+            //menuCustomLevelButton.Text = Tr("Custom Levels Menu");
+            //returnButton.Text = Tr("Return");
+            //saveButton.Text = Tr("SAVE");
+            //applyButton.Text = Tr("APPLY");
+            //levelName.PlaceholderText = Tr("Name your Level");
+            //loadLevelText.PlaceholderText = Tr("Load Level");
+            //gridSizeLabel.Text = Tr("GRIDSIZE");
         }
 
         private Vector2 PixelToGrid(Vector2 pPosition)
