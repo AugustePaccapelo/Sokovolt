@@ -38,7 +38,9 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
 
         private void DisconnectedAll()
         {
-            TeslasConnected.ForEach(lBox => lBox.LineDeconnection());
+            foreach (BoxTesla lBox in boxTeslasList)
+                lBox.LineDeconnection();
+            
             TeslasConnected.Clear();
         }
 
