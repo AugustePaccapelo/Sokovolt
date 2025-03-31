@@ -21,8 +21,8 @@
 [ext_resource type="PackedScene" uid="uid://dellu8bu72iut" path="res://Scenes/GameObjects/Generator.tscn" id="11_lsk15"]
 [ext_resource type="PackedScene" uid="uid://b4gnj6651gy4m" path="res://Scenes/GameObjects/Door.tscn" id="12_pyytn"]
 [ext_resource type="PackedScene" uid="uid://br3qeg3kaqfqk" path="res://Scenes/user_gestion.tscn" id="17_3ylmq"]
-[ext_resource type="Script" path="res://Scripts/Managers/ConnectionManagers.cs" id="20_guk6j"]
 [ext_resource type="Script" path="res://Scripts/Managers/AnimationManager.cs" id="22_ah2rb"]
+[ext_resource type="Script" path="res://Scripts/Managers/ConnectionManagers.cs" id="22_alaha"]
 [ext_resource type="Script" path="res://Scripts/Managers/SongManager.cs" id="24_lgxf0"]
 
 [node name="MAIN" type="Node2D"]
@@ -87,7 +87,7 @@ position = Vector2(960, 540)
 [node name="UserGestion" parent="Managers" instance=ExtResource("17_3ylmq")]
 
 [node name="ConnectionManagers" type="Node2D" parent="Managers"]
-script = ExtResource("20_guk6j")
+script = ExtResource("22_alaha")
 
 [node name="AnimationManager" type="Node2D" parent="Managers"]
 script = ExtResource("22_ah2rb")

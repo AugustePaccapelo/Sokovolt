@@ -118,7 +118,7 @@ namespace Com.IsartDigital.SokoVolt.Managers
 			}
 
             door?.Open();
-            if (currentLevel <= 3) gridManager.HandleCellClick(new Vector2(door.x, door.y)); // ! PLACE HOLDER ! \\
+            if (currentLevel <= 3) gridManager.HandleCellClicked(new Vector2(door.x, door.y)); // ! PLACE HOLDER ! \\
 		}
 
         private void PlayerHasMoved()
