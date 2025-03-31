@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://d2u6414qoawnr"]
+[gd_scene load_steps=3 format=3 uid="uid://qqcyeuf0ktxk"]
 
 [ext_resource type="Script" path="res://Scripts/GameObjects/Cell.cs" id="1_acgh3"]
 [ext_resource type="Texture2D" uid="uid://bdve04vewbuy4" path="res://Assets/GameObjects/IsoTiles/grasswatertilesjoinsflat.png" id="2_loord"]

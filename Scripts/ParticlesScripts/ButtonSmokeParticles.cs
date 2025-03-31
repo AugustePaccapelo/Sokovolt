@@ -3,7 +3,7 @@ using System;
 
 // Author : Noe Sales
 
-namespace Com.IsartDigital.ProjectName {
+namespace Com.IsartDigital.Sokovolt {
 	
 	public partial class ButtonSmokeParticles : GpuParticles2D
 	{

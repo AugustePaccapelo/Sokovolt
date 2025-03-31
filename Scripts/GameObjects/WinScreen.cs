@@ -1,10 +1,12 @@
+using Com.IsartDigital.SokoVolt;
+using Com.IsartDigital.SokoVolt.Managers;
 using Godot;
 using System;
 using System.Threading.Tasks; // Nécessaire pour async/await
 
 // Author : Noe Sales
 
-namespace Com.IsartDigital.ProjectName
+namespace Com.IsartDigital.Sokovolt
 {
     public partial class WinScreen : Node2D
     {
@@ -17,13 +19,14 @@ namespace Com.IsartDigital.ProjectName
         [Export] private Label scoreLabel;
         [Export] private ColorRect screenEffect;
         [Export] private Node2D particlesGroup;
+        [Export] private Button nextLevelButton;
         private ShaderMaterial shaderEffect;
         [Export] private Sprite2D[] batteries;
         private int counter = 0;
+        public static int actualLevel = 0;
         private int thunderNumb = 4;
 
         private const string STAR_LABEL_PREFIXE = "X ";
-        private const string STEPS_LABEL_PREFIXE = "STEPS : ";
         private const string SCORE_LABEL_PREFIXE = "SCORE : ";
 
         public override void _Ready()
@@ -32,6 +35,11 @@ namespace Com.IsartDigital.ProjectName
             shaderEffect = (ShaderMaterial)screenEffect.Material;
             stepsCountLabel.Text = STAR_LABEL_PREFIXE + 0000;
             scoreLabel.Text = SCORE_LABEL_PREFIXE + 0000;
+            nextLevelButton.Pressed += () =>
+            {
+                CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.GoToNextLevel, actualLevel + 1);
+                QueueFree();
+            };
         }
 
         private WinScreenThunder CreateThunder()
@@ -45,7 +53,7 @@ namespace Com.IsartDigital.ProjectName
         public void UpdateStats(int pScore, int pSteps)
         {
             Tween lTween = CreateTween().SetParallel(true);
-            lTween.TweenProperty(stepsCountLabel, "text", STEPS_LABEL_PREFIXE + pSteps, 1f);
+            lTween.TweenProperty(stepsCountLabel, "text", Tr(GridManager.STEP_LABEL_PREFIXE) + pSteps, 1f);
             lTween.TweenProperty(scoreLabel, "text", SCORE_LABEL_PREFIXE + pScore, 1f);
 
             //stepsCountLabel.Text = STEPS_LABEL_PREFIXE + pSteps;

@@ -25,6 +25,7 @@ namespace Com.IsartDigital.SokoVolt
         [Signal] public delegate void GoToMainMenuEventHandler();
         [Signal] public delegate void GoToLevelSelectorEventHandler();
         [Signal] public delegate void GoToLevelCreatorEventHandler();
+        [Signal] public delegate void GoToNextLevelEventHandler(int pLevel);
         [Signal] public delegate void StartRechercheEventHandler();
         [Signal] public delegate void LoadLevelEventHandler(int pLevel);
         [Signal] public delegate void UnLoadLevelEventHandler();

@@ -23,6 +23,8 @@ namespace Com.IsartDigital.SokoVolt
 		[Export] private Button startButton;
 		[Export] private Button levelCreatorButton;
 		[Export] private Button unlogButton;
+		[Export] private Button englishButton;
+		[Export] private Button frenchButton;
 
 		//[Signal] public delegate void StartGameEventHandler();
 
@@ -43,15 +45,31 @@ namespace Com.IsartDigital.SokoVolt
 
 			uiManager = GetParent<UIManager>();
 
-			//StartGame += uiManager.GameStart;
+            //StartGame += uiManager.GameStart;
 
-			//startButton.Pressed += () => EmitSignal(nameof(StartGame));
+            //startButton.Pressed += () => EmitSignal(nameof(StartGame));
 
-			startButton.Pressed += () => CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.GoToLevelSelector);
+            startButton.Pressed += () => CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.GoToLevelSelector);
             levelCreatorButton.Pressed += () => CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.GoToLevelCreator);
 			unlogButton.Pressed += () => CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.GoToLoginScreen);
+			englishButton.Pressed += () =>
+			{
+                SetLanguage("en");
+				englishButton.Disabled = true;
+				frenchButton.Disabled = false;
+			};
+			frenchButton.Pressed += () =>
+			{
+                SetLanguage("fr");
+                englishButton.Disabled = false;
+                frenchButton.Disabled = true;
+            };
         }
-		
+
+		private void SetLanguage(string pLanguage)
+		{
+            TranslationServer.SetLocale(pLanguage);
+        }
 
 		protected override void Dispose(bool pDisposing)
 		{

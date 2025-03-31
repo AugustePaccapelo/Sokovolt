@@ -259,7 +259,7 @@ text = "Login"
 
 [node name="ChangeScreen" type="Button" parent="Login/VBoxScreenHolder"]
 layout_mode = 2
-text = "Create an Acccount"
+text = "Create an Account"
 
 [node name="StayLogged" type="CheckBox" parent="Login/VBoxScreenHolder"]
 layout_mode = 2

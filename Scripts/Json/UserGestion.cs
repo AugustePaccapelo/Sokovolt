@@ -8,7 +8,7 @@ using Godot.Collections;
 
 // Author : A. Dylan Montenegro Utrela
 
-namespace Com.IsartDigital.ProjectName
+namespace Com.IsartDigital.Sokovolt
 {
 	public partial class UserGestion : Node2D
 	{

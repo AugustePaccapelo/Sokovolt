@@ -1,4 +1,4 @@
-using Com.IsartDigital.ProjectName;
+using Com.IsartDigital.Sokovolt;
 using Com.IsartDigital.SokoVolt.Managers;
 using Com.IsartDigital.Tools;
 using Godot;

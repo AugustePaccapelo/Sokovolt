@@ -35,6 +35,7 @@ namespace Com.IsartDigital.SokoVolt
         [Export] private PackedScene wallScene, electricWallScene, teslaScene, bulbScene, generatorScene, playerSpawnScene, doorScene, tileScene, customLevelLabelScene;
         [Export] private VBoxContainer buttonContainer, deleteButtonContainer, labelContainer;
         [Export] private Json customLevelTemplate;
+        [Export] private Label gridSizeLabel;
         private Panel newLevelBackground, customLevelMenuBackground, backGrid, menu;
         private LevelCreatorItems actualItem;
 		private bool canPick = false;

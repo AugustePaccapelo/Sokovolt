@@ -7,7 +7,7 @@ using static System.Formats.Asn1.AsnWriter;
 
 // Author : A. Dylan Montenegro Utrela
 
-namespace Com.IsartDigital.ProjectName {
+namespace Com.IsartDigital.Sokovolt {
 
     public partial class PathFinding
     {
@@ -29,7 +29,7 @@ namespace Com.IsartDigital.ProjectName {
                 Vector2 lCurrent = lNewCell.Dequeue();
 
                 if (lCurrent == pTarget)
-                    return ReconstructPath(lFromPos, lCurrent);
+                    return ReconstructPath(lFromPos, lCurrent, pStart);
 
                 lExploredCell.Add(lCurrent);
 
@@ -58,19 +58,22 @@ namespace Com.IsartDigital.ProjectName {
             return Mathf.Abs(pStart.X - pEnd.X) + Mathf.Abs(pStart.Y - pEnd.Y);
         }
 
-        private static List<Vector2> ReconstructPath(Dictionary<Vector2, Vector2> pFromPos, Vector2 lCurrentPos)
+         private static List<Vector2> ReconstructPath(Dictionary<Vector2, Vector2> pFromPos, Vector2 lCurrentPos, Vector2 pStart)
         {
-            List<Vector2> lTotalPath = new List<Vector2> { lCurrentPos };
+            List<Vector2> lTotalPath = new List<Vector2>();
 
             while (pFromPos.ContainsKey(lCurrentPos))
             {
+                if (lCurrentPos != pStart) // Ne pas ajouter la position de départ
+                    lTotalPath.Add(lCurrentPos);
+                
                 lCurrentPos = pFromPos[lCurrentPos];
-                lTotalPath.Add(lCurrentPos);
             }
 
             lTotalPath.Reverse();
             return lTotalPath;
         }
+
 
         private static IEnumerable<Vector2> GetNextCell(Vector2 pCell, Cell[,] pGrid) // returns walkable cells 
         {

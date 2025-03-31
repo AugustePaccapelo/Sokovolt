@@ -48,7 +48,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables {
 			float lDelta = (float)pDelta;
 			timer += lDelta;
 			if (timer > 0.2f && inTeslaParticles.Visible) inTeslaParticles.Hide();
-			if (timer > 3) timer = 0;
+			if (timer > 3) timer = 0;	
         }
 
         public void InsideTesla(BoxTesla pTesla)
@@ -84,6 +84,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables {
             {
                 MoveTo((int)pStep.X, (int)pStep.Y, GridManager.GetInstance().grid);
 				GridManager.GetInstance().StockGridState();
+				GridManager.GetInstance().PrintGrid(); 
                 await ToSignal(GetTree().CreateTimer(0.2f), "timeout");
             }
         }

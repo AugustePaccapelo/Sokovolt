@@ -1,4 +1,5 @@
 using System;
+using Com.IsartDigital.Sokovolt;
 using Com.IsartDigital.SokoVolt.GameObjects;
 using Com.IsartDigital.SokoVolt.GameObjects.Movables;
 using Com.IsartDigital.SokoVolt.Managers;
@@ -184,6 +185,7 @@ namespace Com.IsartDigital.SokoVolt {
 							lObj = Utils.Spawner(doorScene, x, y, pObjectContainer) as Door;
 							break;
 					}
+					WinScreen.actualLevel = pLevel;
 
 					if (lObj != null)
 					{
@@ -195,7 +197,8 @@ namespace Com.IsartDigital.SokoVolt {
 						lCell.SetContent(lObj);
 						lObj.SetCell(lCell);
 						lObj.Init(x, y);
-						lObj.ZIndex = IsoManager.GetZIndex(new Vector2(x,y));
+						if(!(lObj is Player))lObj.ZIndex = IsoManager.GetZIndex(new Vector2(x,y));
+						else lObj.ZIndex = 1000;
 					}
 				}
 			}

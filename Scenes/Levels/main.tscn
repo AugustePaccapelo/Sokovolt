@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://dkbx646vvyaig"]
+[gd_scene load_steps=25 format=3 uid="uid://dkbx646vvyaig"]
 
 [ext_resource type="PackedScene" uid="uid://dyk47lo67a1tp" path="res://Scenes/Managers/ui_manager.tscn" id="1_4603a"]
 [ext_resource type="PackedScene" uid="uid://bnv0kco0ylr0e" path="res://Scenes/Managers/GridManager.tscn" id="1_d671q"]
@@ -6,7 +6,7 @@
 [ext_resource type="Script" path="res://Scripts/Managers/InputManager.cs" id="3_3tpao"]
 [ext_resource type="Script" path="res://Scripts/Json/LevelLoader.cs" id="4_ly116"]
 [ext_resource type="PackedScene" uid="uid://bsl1nyen453ty" path="res://Scenes/Levels/main_menu.tscn" id="5_0gm45"]
-[ext_resource type="PackedScene" uid="uid://d2u6414qoawnr" path="res://Scenes/GameObjects/Tile.tscn" id="5_8xedd"]
+[ext_resource type="PackedScene" uid="uid://qqcyeuf0ktxk" path="res://Scenes/GameObjects/Tile.tscn" id="5_8xedd"]
 [ext_resource type="PackedScene" uid="uid://yr5dy4bj5sby" path="res://Scenes/GameObjects/Player.tscn" id="6_65akx"]
 [ext_resource type="PackedScene" uid="uid://bsl0bvhb270nq" path="res://Scenes/Screen/title_card.tscn" id="6_kcr3l"]
 [ext_resource type="PackedScene" uid="uid://31ew226yj11n" path="res://Scenes/Screen/LoginScreen.tscn" id="6_vn404"]
@@ -15,13 +15,15 @@
 [ext_resource type="PackedScene" uid="uid://cbrehv31qfb0r" path="res://Scenes/Managers/GameManager.tscn" id="7_vkagg"]
 [ext_resource type="PackedScene" uid="uid://djcluge6is5om" path="res://Scenes/GameObjects/Wall.tscn" id="8_najj4"]
 [ext_resource type="PackedScene" uid="uid://c256fa86lg71t" path="res://Scenes/GameObjects/ElectricWall.tscn" id="9_34m77"]
+[ext_resource type="PackedScene" uid="uid://bbvc0kv5shwqo" path="res://Scenes/GameObjects/WinScreen/thunder_effects.tscn" id="9_bsoiu"]
 [ext_resource type="PackedScene" uid="uid://7fsi04q1t5ae" path="res://Scenes/GameObjects/AnimationPiston.tscn" id="9_ddww2"]
 [ext_resource type="PackedScene" uid="uid://v75l4cppany" path="res://Scenes/GameObjects/GoalBulb.tscn" id="10_cjqye"]
 [ext_resource type="PackedScene" uid="uid://dellu8bu72iut" path="res://Scenes/GameObjects/Generator.tscn" id="11_lsk15"]
 [ext_resource type="PackedScene" uid="uid://b4gnj6651gy4m" path="res://Scenes/GameObjects/Door.tscn" id="12_pyytn"]
 [ext_resource type="PackedScene" uid="uid://br3qeg3kaqfqk" path="res://Scenes/user_gestion.tscn" id="17_3ylmq"]
-[ext_resource type="Script" path="res://Scripts/Managers/connectionManagers.cs" id="20_guk6j"]
-[ext_resource type="Script" path="res://Scripts/GameObjects/LevelCreatorObject/AnimationManager.cs" id="21_5qu8w"]
+[ext_resource type="Script" path="res://Scripts/Managers/ConnectionManagers.cs" id="20_guk6j"]
+[ext_resource type="Script" path="res://Scripts/Managers/AnimationManager.cs" id="22_ah2rb"]
+[ext_resource type="Script" path="res://Scripts/Managers/SongManager.cs" id="24_lgxf0"]
 
 [node name="MAIN" type="Node2D"]
 
@@ -61,6 +63,7 @@ grow_horizontal = 1
 grow_vertical = 1
 
 [node name="GridManager" parent="Managers" instance=ExtResource("1_d671q")]
+thunderEffectScene = ExtResource("9_bsoiu")
 pistonScene = ExtResource("9_ddww2")
 
 [node name="LevelLoader" type="Node2D" parent="Managers"]
@@ -74,16 +77,25 @@ goalBulbScene = ExtResource("10_cjqye")
 generatorScene = ExtResource("11_lsk15")
 doorScene = ExtResource("12_pyytn")
 
-[node name="GameManager" parent="Managers" node_paths=PackedStringArray("objectsContainer") instance=ExtResource("7_vkagg")]
+[node name="GameManager" parent="Managers" node_paths=PackedStringArray("objectsContainer", "camera") instance=ExtResource("7_vkagg")]
 objectsContainer = NodePath("../../Containers/ObjectsContainer")
+camera = NodePath("Camera")
+
+[node name="Camera" type="Camera2D" parent="Managers/GameManager"]
+position = Vector2(960, 540)
 
 [node name="UserGestion" parent="Managers" instance=ExtResource("17_3ylmq")]
 
-[node name="connectionManagers" type="Node2D" parent="Managers"]
+[node name="ConnectionManagers" type="Node2D" parent="Managers"]
 script = ExtResource("20_guk6j")
 
 [node name="AnimationManager" type="Node2D" parent="Managers"]
-script = ExtResource("21_5qu8w")
+script = ExtResource("22_ah2rb")
+
+[node name="SongManager" type="Node2D" parent="Managers"]
+script = ExtResource("24_lgxf0")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Managers/SongManager"]
 
 [node name="Containers" type="Node2D" parent="."]
 

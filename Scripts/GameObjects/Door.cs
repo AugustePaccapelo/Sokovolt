@@ -31,6 +31,8 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
 
 		[Export] private Node2D closedVisual;
         [Export] private Node2D openedVisual;
+        [Export] private GpuParticles2D openedVisualParticles;
+		private float globalDelta = 0;
 
         // ----- Others ----- \\
 		public bool isOpen { get; private set; }
@@ -57,12 +59,14 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
 			base._Ready();
 			
 			GameManager.GetInstance().door = this;
+
+			
 		}
 
 		public override void _Process(double pDelta)
 		{
 			float lDelta = (float)pDelta;
-
+			globalDelta = lDelta;
 			base._Process(lDelta);
 		}
 
@@ -73,7 +77,10 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
 			isOpen = true;
 			openedVisual.Show();
 			closedVisual.Hide();
-		}
+			Camera2D lCamera = GameManager.GetInstance().camera;
+			AnimationManager.GetInstance().CameraZoomTraveling(lCamera, 0.2f, 0.1f, Position, lCamera.Position, 1.5f);
+			
+        }
 
         public void Close()
 		{
@@ -82,9 +89,9 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
             closedVisual.Show();
         }
 
-		// ----- Destructor ----- \\
+        // ----- Destructor ----- \\
 
-		protected override void Dispose(bool pDisposing)
+        protected override void Dispose(bool pDisposing)
 		{
 			#region // ----- Singleton ----- \\
 

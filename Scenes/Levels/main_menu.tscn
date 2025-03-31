@@ -1,15 +1,17 @@
 [gd_scene load_steps=3 format=3 uid="uid://bsl1nyen453ty"]
 
 [ext_resource type="Script" path="res://Scripts/Controls/MainMenu.cs" id="1_3kguo"]
-[ext_resource type="PackedScene" uid="uid://36dp5dq6hmqq" path="res://Scenes/GameObjects/ButtonTemplate.tscn" id="2_4cywq"]
+[ext_resource type="Script" path="res://Scripts/GameObjects/ButtonTemplate.cs" id="2_vdray"]
 
-[node name="MainMenu" type="Control" node_paths=PackedStringArray("startButton", "levelCreatorButton", "unlogButton")]
+[node name="MainMenu" type="Control" node_paths=PackedStringArray("startButton", "levelCreatorButton", "unlogButton", "englishButton", "frenchButton")]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_3kguo")
 startButton = NodePath("Panel/StartButton")
 levelCreatorButton = NodePath("Panel/LevelCreator")
 unlogButton = NodePath("Panel/UnlogButton")
+englishButton = NodePath("Panel/EnglishButton")
+frenchButton = NodePath("Panel/FrenchButton")
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1
@@ -32,7 +34,7 @@ grow_vertical = 2
 pivot_offset = Vector2(200, 100)
 text = "START"
 
-[node name="LevelCreator" parent="Panel" instance=ExtResource("2_4cywq")]
+[node name="LevelCreator" type="Button" parent="Panel"]
 layout_mode = 1
 offset_left = 857.0
 offset_top = 683.0
@@ -40,6 +42,7 @@ offset_right = 1066.0
 offset_bottom = 783.0
 pivot_offset = Vector2(104, 50)
 text = "LevelCreator"
+script = ExtResource("2_vdray")
 
 [node name="UnlogButton" type="Button" parent="Panel"]
 layout_mode = 1
@@ -53,3 +56,19 @@ offset_top = -38.48
 offset_right = 130.0
 offset_bottom = 39.52
 text = "Disconnect"
+
+[node name="EnglishButton" type="Button" parent="Panel"]
+layout_mode = 0
+offset_left = 1579.0
+offset_top = 945.0
+offset_right = 1748.0
+offset_bottom = 1034.0
+text = "ENGLISH"
+
+[node name="FrenchButton" type="Button" parent="Panel"]
+layout_mode = 0
+offset_left = 1373.0
+offset_top = 945.0
+offset_right = 1542.0
+offset_bottom = 1034.0
+text = "FRENCH"

@@ -1,4 +1,4 @@
-using Com.IsartDigital.SokoVolt.GameObjects;
+﻿using Com.IsartDigital.SokoVolt.GameObjects;
 using Com.IsartDigital.SokoVolt.GameObjects.Movables;
 using Godot;
 using System;
@@ -13,6 +13,7 @@ namespace Com.IsartDigital.SokoVolt.Managers
 		// ---------- VARIABLES ---------- \\
 		[Export] public Node2D objectsContainer;
 		[Export] public MenuTrans MenuTrans;
+		[Export] public Camera2D camera;
 
 		#region // ----- Singleton ----- \\
 
@@ -75,14 +76,16 @@ namespace Com.IsartDigital.SokoVolt.Managers
             signals.GoalBulbStateChanged += GoalBulbStateChanged;
 			signals.LoadLevel += NewLevelLoaded;
             gridManager = GridManager.GetInstance();
+          
         }
 
         public override void _Process(double pDelta)
 		{
 			float lDelta = (float)pDelta;
-
+            
 			base._Process(lDelta);
 			HideMouse();
+			
         }
 
         // ----- My Functions ----- \\

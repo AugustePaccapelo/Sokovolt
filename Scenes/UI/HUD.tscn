@@ -46,7 +46,7 @@ layout_mode = 0
 offset_left = 14.0
 offset_right = 131.0
 offset_bottom = 45.0
-text = "STEP : 0"
+text = "STEP : "
 label_settings = SubResource("LabelSettings_spsqj")
 
 [node name="ScoreLabel" type="Label" parent="DisplayInGame"]
