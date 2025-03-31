@@ -132,7 +132,7 @@ namespace Com.IsartDigital.SokoVolt
             pLightning.nextPoint = pListPoints[1] - pLightning.nextPointVector;
             
             Vector2 lPoint = pLightning.nextPoint;
-            GD.Print(lPoint);
+            
             float lRatio = lPoint.X / marginStart;
             lPoint.X = lPoint.X < marginStart ? lPoint.X : marginStart;
             lPoint.Y *= lRatio;
@@ -140,7 +140,7 @@ namespace Com.IsartDigital.SokoVolt
             // Limit the Y to a set width
             if (lPoint.Y < -width) lPoint.Y = -width;
             if (lPoint.Y > width) lPoint.Y = width;
-            GD.Print(lPoint);
+            
             // If the point has passed the startPoint, adding it to the list of all points and Create a new Vector
             if (lPoint.X >= marginStart)
             {

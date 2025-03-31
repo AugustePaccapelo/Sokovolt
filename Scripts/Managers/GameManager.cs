@@ -42,6 +42,7 @@ namespace Com.IsartDigital.SokoVolt.Managers
 
 		// ----- Others ----- \\
 		private List<int> scorePerStar = new List<int> { 1000, 2000, 5000 };
+		private int currentLevel;
 
         // ---------- FUNCTIONS ---------- \\
 
@@ -72,6 +73,7 @@ namespace Com.IsartDigital.SokoVolt.Managers
             signals = CustomSignals.GetInstance();
             signals.PlayerMoved += PlayerHasMoved;
             signals.GoalBulbStateChanged += GoalBulbStateChanged;
+			signals.LoadLevel += NewLevelLoaded;
             gridManager = GridManager.GetInstance();
         }
 
@@ -112,7 +114,8 @@ namespace Com.IsartDigital.SokoVolt.Managers
                 }
 			}
 
-			door?.Open();
+            door?.Open();
+            if (currentLevel <= 3) gridManager.HandleCellClick(new Vector2(door.x, door.y)); // ! PLACE HOLDER ! \\
 		}
 
         private void PlayerHasMoved()
@@ -144,6 +147,8 @@ namespace Com.IsartDigital.SokoVolt.Managers
 			hud.displayInGame.Visible = false; 
             CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.GameFinished, lNumStar, lScore, lNumStep);
         }
+
+		private void NewLevelLoaded(int pLevel) => currentLevel = pLevel;
 
 		// ----- Destructor ----- \\
 
