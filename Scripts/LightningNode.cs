@@ -1,5 +1,4 @@
 using Godot;
-using System;
 using System.Collections.Generic;
 
 // Author : Auguste Paccapelo
@@ -19,11 +18,10 @@ namespace Com.IsartDigital.SokoVolt
         // ----- Others ----- \\
 
         // Positions & direction
-        [Export] public Vector2 startPoint = new Vector2(500f, 50f);
+        [Export] public Vector2 startPoint;
         [Export] public float unitSize = 91.648f;
 
         [Export] public Vector2 endPoint;
-        private Vector2 realEndPoint;
         public Vector2 vectorDirector;
         [Export] public int numTurn = 3;
         private Vector2 direction;
@@ -34,9 +32,10 @@ namespace Com.IsartDigital.SokoVolt
         [Export] private float spawnSpeed = 5f;
         [Export] private float movingSpeed = 3f;
         [Export] private float destroyingSpeed = 5f;
+        [Export] private float oscillatingSpeed = 5f;
         [Export] private int numLigthning = 3;
         [Export] private int marginStart = 15;
-        [Export] private int marginSide = 35;
+        [Export] private int width = 35;
         [Export] private float randomRatioLengthMin = 0.5f;
         [Export] private float randomRatioLengthMax = 2f;
 
@@ -44,8 +43,10 @@ namespace Com.IsartDigital.SokoVolt
 
         private List<Color> allColors = new List<Color>
         {
-            Colors.Blue, Colors.DarkBlue, Colors.DeepSkyBlue,
+            Colors.DeepSkyBlue, Colors.Blue, Colors.DarkBlue,
         };
+
+        private RandomNumberGenerator rand = new RandomNumberGenerator();
 
         // Signals to communicate lighning state
         [Signal] public delegate void SpawnFinishedEventHandler();
@@ -56,33 +57,20 @@ namespace Com.IsartDigital.SokoVolt
 
         // ---------- FUNCTIONS ---------- \\
 
-        // ----- Ready & Process ----- \\
-
-        public override void _Ready()
-        {
-            base._Ready();
-
-            StartLightning();
-        }
-
-        public override void _Process(double pDelta)
-        {
-            float lDelta = (float)pDelta;
-
-            base._Process(lDelta);
-        }
-
         // ----- My Functions ----- \\
         public void StartLightning()
         {
+            rand.Randomize();
+
             numLightningSpawned = 0;
             numLightningDestructed = 0;
             GlobalPosition = startPoint;
             vectorDirector = (endPoint - startPoint);
+            startPoint = Vector2.Zero;
             Rotation = vectorDirector.Angle();
 
             direction = Vector2.Right;
-            realEndPoint = direction * vectorDirector.Length();
+            endPoint = direction * vectorDirector.Length();
             vectorDirector = direction * unitSize;
 
             SingleLightning lSingleLightning;
@@ -104,23 +92,16 @@ namespace Com.IsartDigital.SokoVolt
 
         private void SetVariables(SingleLightning pSingleLightning)
         {
-            pSingleLightning.startPoint = Vector2.Zero;
-            pSingleLightning.direction = direction;
             pSingleLightning.vectorDirector = vectorDirector;
-            pSingleLightning.endPoint = realEndPoint;
-            pSingleLightning.unitSize = unitSize;
+            pSingleLightning.endPoint = endPoint;
 
-            pSingleLightning.minAngle = minAngle;
-            pSingleLightning.maxAngle = maxAngle;
             pSingleLightning.spawningSpeed = spawnSpeed;
             pSingleLightning.movingSpeed = movingSpeed;
             pSingleLightning.destroyingSpeed = destroyingSpeed;
-            pSingleLightning.numTurn = numTurn;
+
             pSingleLightning.marginStart = marginStart;
-            pSingleLightning.marginSide = marginSide;
+            pSingleLightning.width = width;
             pSingleLightning.lifeTime = lifeTime;
-            pSingleLightning.randomRatioLengthMin = randomRatioLengthMin;
-            pSingleLightning.randomRatioLengthMax = randomRatioLengthMax;
         }
 
         public void StopLightning()
@@ -145,11 +126,48 @@ namespace Com.IsartDigital.SokoVolt
                 EmitSignal(SignalName.DestructionFinished);
         }
 
-        // ----- Destructor ----- \\
-
-        protected override void Dispose(bool pDisposing)
+        public Vector2 CalculateFirstPoint(List<Vector2> pListPoints, SingleLightning pLightning)
         {
-            base.Dispose(pDisposing);
+            // Get first point
+            pLightning.nextPoint = pListPoints[1] - pLightning.nextPointVector;
+            
+            Vector2 lPoint = pLightning.nextPoint;
+            GD.Print(lPoint);
+            float lRatio = lPoint.X / marginStart;
+            lPoint.X = lPoint.X < marginStart ? lPoint.X : marginStart;
+            lPoint.Y *= lRatio;
+
+            // Limit the Y to a set width
+            if (lPoint.Y < -width) lPoint.Y = -width;
+            if (lPoint.Y > width) lPoint.Y = width;
+            GD.Print(lPoint);
+            // If the point has passed the startPoint, adding it to the list of all points and Create a new Vector
+            if (lPoint.X >= marginStart)
+            {
+                //GD.Print(pLightning.nextPoint);
+                pListPoints.Insert(1, lPoint);
+                NewPointVector(pLightning);
+            }
+            return lPoint;
+        }
+
+        public void NewPointVector(SingleLightning pLightning)
+        {
+            // Create a new Vector for a new point
+            Vector2 lVector = pLightning.nextPointVector;
+            lVector = vectorDirector / (numTurn + 1);
+            float lAngle = Mathf.DegToRad(rand.RandfRange(minAngle, maxAngle)) * pLightning.side;
+            float lLength = rand.RandfRange(randomRatioLengthMin, randomRatioLengthMax) * lVector.Length();
+            pLightning.side *= -1;
+            lVector = PolarToCart(lLength, lAngle);
+            pLightning.nextPointVector = lVector;
+        }
+
+        private Vector2 PolarToCart(float pRadius, float pAngle)
+        {
+            float lX = pRadius * Mathf.Cos(pAngle);
+            float lY = pRadius * Mathf.Sin(pAngle);
+            return new Vector2(lX, lY);
         }
     }
 }

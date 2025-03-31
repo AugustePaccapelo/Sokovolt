@@ -18,6 +18,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
         [Signal] public delegate void PlayerCollideEventHandler(BoxTesla lTesla);
         [Export] private RayCast2D rayCast;
         [Export] private Line2D electriLine2D;
+        [Export] private Marker2D connectionPoint;
         public BoxTesla nextBoxTesla = null;
         public BoxTesla prevBoxTesla = null;
         public bool energize = false;
@@ -166,7 +167,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
             if (objToConnect is BoxTesla lbox)energize = true;
             
             lightning = lightningNodeScene.Instantiate<LightningNode>();
-            lightning.endPoint = GlobalPosition;
+            lightning.endPoint = connectionPoint.GlobalPosition;
             lightning.startPoint = objToConnect.GlobalPosition;
             AddChild(lightning);
             lightning.StartLightning();

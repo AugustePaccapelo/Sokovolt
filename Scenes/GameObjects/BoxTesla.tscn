@@ -7,12 +7,13 @@
 [sub_resource type="LabelSettings" id="LabelSettings_4d5rh"]
 font_size = 32
 
-[node name="BoxTesla" type="Node2D" node_paths=PackedStringArray("rayCast", "electriLine2D", "rangeLabel")]
+[node name="BoxTesla" type="Node2D" node_paths=PackedStringArray("rayCast", "electriLine2D", "connectionPoint", "rangeLabel")]
 position = Vector2(0, -2)
 script = ExtResource("1_c7f4a")
 lightningNodeScene = ExtResource("2_vgo5j")
 rayCast = NodePath("RayCast2D")
 electriLine2D = NodePath("Line2D")
+connectionPoint = NodePath("ConnectionPoint")
 rangeLabel = NodePath("Label")
 
 [node name="Visual" type="Node2D" parent="."]
@@ -64,3 +65,6 @@ position = Vector2(1, 0)
 target_position = Vector2(0, 12)
 collide_with_areas = true
 collide_with_bodies = false
+
+[node name="ConnectionPoint" type="Marker2D" parent="."]
+position = Vector2(2, -22)
