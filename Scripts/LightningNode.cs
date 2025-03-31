@@ -169,5 +169,18 @@ namespace Com.IsartDigital.SokoVolt
             float lY = pRadius * Mathf.Sin(pAngle);
             return new Vector2(lX, lY);
         }
+
+        public bool isPreview = false;
+
+        public void SetPreview(bool pIsPreview)
+        {
+            isPreview = pIsPreview;
+
+            if (isPreview)
+                Modulate = new Color(1, 1, 1, 0.15f);
+            else
+                Modulate = new Color(1, 1, 1, 1);
+
+        }
     }
 }
