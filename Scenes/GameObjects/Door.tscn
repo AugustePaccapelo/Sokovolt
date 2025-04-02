@@ -21,10 +21,11 @@ turbulence_influence_max = 0.055
 turbulence_initial_displacement_min = -90.9
 turbulence_initial_displacement_max = -77.3
 
-[node name="Door" type="Node2D" node_paths=PackedStringArray("closedVisual", "openedVisual")]
+[node name="Door" type="Node2D" node_paths=PackedStringArray("closedVisual", "openedVisual", "openedVisualParticles")]
 script = ExtResource("1_6nbkh")
 closedVisual = NodePath("Visual/Close")
 openedVisual = NodePath("Visual/Open")
+openedVisualParticles = NodePath("Visual/Open/GPUParticles2D")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 visible = false

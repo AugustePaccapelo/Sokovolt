@@ -1,4 +1,4 @@
-using Godot;
+﻿using Godot;
 using System;
 
 // Author : Soukai William
@@ -9,7 +9,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects {
 
 		public override void _Ready()
 		{
-			connectionManagers.generatorList.Add(this);
+			ConnectionManagers.generatorList.Add(this);
 			Init();
 		}
 

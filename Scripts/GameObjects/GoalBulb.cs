@@ -2,7 +2,6 @@ using Com.IsartDigital.SokoVolt.GameObjects.Movables;
 using Com.IsartDigital.SokoVolt.Managers;
 using Godot;
 using System;
-using System.Collections.Generic;
 
 // Author : Auguste Paccapelo
 
@@ -11,8 +10,6 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
 	public partial class GoalBulb : GameObject
 	{
 		// ---------- VARIABLES ---------- \\
-
-		// ----- Paths ----- \\
 
 		// ----- Nodes ----- \\
 		private GameManager gameManager;
@@ -48,10 +45,9 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
 
 		public override void _Process(double pDelta)
 		{
-			float lDelta = (float)pDelta;
-
-			base._Process(lDelta);
-
+            base._Process(pDelta);
+            float lDelta = (float)pDelta;
+			
 			doAction(lDelta);
 		}
 
@@ -64,12 +60,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
             allLights.Hide();
             signals.EmitSignal(CustomSignals.SignalName.GoalBulbStateChanged);
         }
-
-		private void TurnedOff(float pDelta)
-		{
-
-		}
-
+		private void TurnedOff(float pDelta) { }
 		private void InitTurnOn()
 		{
             doAction = TurnedOn;
@@ -77,20 +68,16 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
 			allLights.Show();
             signals.EmitSignal(CustomSignals.SignalName.GoalBulbStateChanged);
         }
-
 		private void TurnedOn(float pDelta)
 		{
 			rotatingLight.Rotation += Mathf.DegToRad(lightRotatingSpeed) * pDelta;
 		}
-
 		private void BoxTeslaMoved()
 		{
 			Cell[,] lGrid = gridManager.grid;
-
 			if (HasConnectedTeslaClose(lGrid)) InitTurnOn();
 			else InitTurnedOff();
         }
-
 		private bool HasConnectedTeslaClose(Cell[,] pGrid)
 		{
 			int lLength = pGrid.GetLength(0);
@@ -110,7 +97,6 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
 						if (lBoxTesla.energize) return true;
                 }
             }
-
 			return false;
 		}
 
@@ -125,6 +111,5 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
             }
             base.Dispose(pDisposing);
         }
-
     }
 }

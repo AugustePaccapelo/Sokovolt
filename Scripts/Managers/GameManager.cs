@@ -2,7 +2,6 @@ using Com.IsartDigital.ProjectName;
 using Com.IsartDigital.SokoVolt.GameObjects;
 using Com.IsartDigital.SokoVolt.GameObjects.Movables;
 using Godot;
-using System;
 using System.Collections.Generic;
 
 // Author : Auguste Paccapelo
@@ -12,9 +11,6 @@ namespace Com.IsartDigital.SokoVolt.Managers
 	public partial class GameManager : Manager
 	{
 		// ---------- VARIABLES ---------- \\
-		[Export] public Node2D objectsContainer;
-		[Export] public MenuTrans MenuTrans;
-		[Export] public Camera2D camera;
 
 		#region // ----- Singleton ----- \\
 
@@ -26,15 +22,16 @@ namespace Com.IsartDigital.SokoVolt.Managers
 			return instance;
 		}
 
-		#endregion
+        #endregion
 
-		// ----- Paths ----- \\
-		HUD hud; 
+        // ----- Nodes ----- \\
+        [Export] public Node2D objectsContainer;
+        [Export] public MenuTrans MenuTrans;
+        [Export] public Camera2D camera;
+        HUD hud;
 
-		// ----- Nodes ----- \\
-
-		// Managers
-		private GridManager gridManager;
+        // Managers
+        private GridManager gridManager;
 		private CustomSignals signals;
 		private UserGestion userGestion;
 
@@ -45,6 +42,7 @@ namespace Com.IsartDigital.SokoVolt.Managers
 
 		// ----- Others ----- \\
 		private List<int> scorePerStar = new List<int> { 1000, 2000, 5000 };
+		private int currentLevel;
 
         // ---------- FUNCTIONS ---------- \\
 
@@ -66,9 +64,7 @@ namespace Com.IsartDigital.SokoVolt.Managers
 			#endregion
 
 			base._Ready();
-			userGestion = UserGestion.GetInstance();
-        }
-
+		}
 		public override void Init()
 		{
             mouse = GetNode<Polygon2D>("Mouse");
@@ -76,14 +72,14 @@ namespace Com.IsartDigital.SokoVolt.Managers
             signals = CustomSignals.GetInstance();
             signals.PlayerMoved += PlayerHasMoved;
             signals.GoalBulbStateChanged += GoalBulbStateChanged;
+			signals.LoadLevel += NewLevelLoaded;
             gridManager = GridManager.GetInstance();
         }
-
         public override void _Process(double pDelta)
 		{
-			float lDelta = (float)pDelta;
-
-			base._Process(lDelta);
+            base._Process(pDelta);
+            float lDelta = (float)pDelta;
+            
 			HideMouse();
         }
 
@@ -94,17 +90,14 @@ namespace Com.IsartDigital.SokoVolt.Managers
             mouse.Position = GetLocalMousePosition();
 			if (Input.MouseMode != Input.MouseModeEnum.Hidden) Input.MouseMode = Input.MouseModeEnum.Hidden;
         }
-
         public void AddGoalBulb(GoalBulb pGoalBulb)
 		{
 			allGoalBulbs.Add(pGoalBulb);
 		}
-
 		public void RemoveGoalBulb(GoalBulb pGoalBulb)
 		{
 			allGoalBulbs.Remove(pGoalBulb);
 		}
-
 		private void GoalBulbStateChanged()
 		{
             foreach (GoalBulb lGoalBulb in allGoalBulbs)
@@ -115,10 +108,9 @@ namespace Com.IsartDigital.SokoVolt.Managers
                     return;
                 }
 			}
-
-			door?.Open();
+            door?.Open();
+            if (currentLevel <= 3) gridManager.HandleCellClicked(new Vector2(door.x, door.y)); // ! PLACE HOLDER ! \\
 		}
-
         private void PlayerHasMoved()
         {
             Player lPlayer = Player.GetInstance();
@@ -128,7 +120,6 @@ namespace Com.IsartDigital.SokoVolt.Managers
                 GameFinished();
             }
         }
-
         private async void GameFinished()
 		{
             int lNumStep = GridManager.GetInstance().step;
@@ -159,6 +150,7 @@ namespace Com.IsartDigital.SokoVolt.Managers
 			hud.displayInGame.Visible = false; 
             CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.GameFinished, lNumStar, lScore, lNumStep);
         }
+		private void NewLevelLoaded(int pLevel) => currentLevel = pLevel;
 
 		// ----- Destructor ----- \\
 

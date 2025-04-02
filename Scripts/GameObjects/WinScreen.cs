@@ -1,11 +1,12 @@
 using Com.IsartDigital.SokoVolt;
+using Com.IsartDigital.SokoVolt.Managers;
 using Godot;
 using System;
 using System.Threading.Tasks; // Nécessaire pour async/await
 
 // Author : Noe Sales
 
-namespace Com.IsartDigital.ProjectName
+namespace Com.IsartDigital.Sokovolt
 {
     public partial class WinScreen : Node2D
     {
@@ -28,7 +29,6 @@ namespace Com.IsartDigital.ProjectName
         private int thunderNumb = 4;
 
         private const string STAR_LABEL_PREFIXE = "X ";
-        private const string STEPS_LABEL_PREFIXE = "STEPS : ";
         private const string SCORE_LABEL_PREFIXE = "SCORE : ";
 
         public override void _Ready()
@@ -56,7 +56,7 @@ namespace Com.IsartDigital.ProjectName
         {
             finalScore = pScore;
             Tween lTween = CreateTween().SetParallel(true);
-            lTween.TweenProperty(stepsCountLabel, "text", STEPS_LABEL_PREFIXE + pSteps, 1f);
+            lTween.TweenProperty(stepsCountLabel, "text", Tr(GridManager.STEP_LABEL_PREFIXE) + pSteps, 1f);
             lTween.TweenProperty(scoreLabel, "text", SCORE_LABEL_PREFIXE + pScore, 1f);
 
             //stepsCountLabel.Text = STEPS_LABEL_PREFIXE + pSteps;

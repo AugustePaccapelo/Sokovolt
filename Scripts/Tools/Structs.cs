@@ -1,6 +1,3 @@
-using Godot;
-using System;
-
 // Author : Auguste Paccapelo
 
 namespace Com.IsartDigital.Tools

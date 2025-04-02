@@ -7,7 +7,7 @@ using static System.Formats.Asn1.AsnWriter;
 
 // Author : A. Dylan Montenegro Utrela
 
-namespace Com.IsartDigital.ProjectName {
+namespace Com.IsartDigital.Sokovolt {
 
     public partial class PathFinding
     {
