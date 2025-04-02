@@ -32,7 +32,6 @@ namespace Com.IsartDigital.SokoVolt
         [Export] private float spawnSpeed = 5f;
         [Export] private float movingSpeed = 3f;
         [Export] private float destroyingSpeed = 5f;
-        [Export] private float oscillatingSpeed = 5f;
         [Export] private int numLigthning = 3;
         [Export] private int marginStart = 15;
         [Export] private int width = 35;
@@ -130,11 +129,7 @@ namespace Com.IsartDigital.SokoVolt
             pLightning.nextPoint = pListPoints[1] - pLightning.nextPointVector;
             
             Vector2 lPoint = pLightning.nextPoint;
-            
-            float lRatio = lPoint.X / marginStart;
-            lPoint.X = lPoint.X < marginStart ? lPoint.X : marginStart;
-            lPoint.Y *= lRatio;
-
+           
             // Limit the Y to a set width
             if (lPoint.Y < -width) lPoint.Y = -width;
             if (lPoint.Y > width) lPoint.Y = width;
@@ -146,6 +141,16 @@ namespace Com.IsartDigital.SokoVolt
                 pListPoints.Insert(1, lPoint);
                 NewPointVector(pLightning);
             }
+
+            
+            if (lPoint.X < marginStart)
+            {
+                if (lPoint.X < 0) lPoint.X = 0;
+                float lRatio = lPoint.X / marginStart;
+                lPoint.X = marginStart;
+                lPoint.Y *= lRatio;
+            }
+
             return lPoint;
         }
         public void NewPointVector(SingleLightning pLightning)

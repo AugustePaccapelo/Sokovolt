@@ -91,7 +91,7 @@ namespace Com.IsartDigital.SokoVolt
             AddPoint(lPoint, 1);
 
             // If first point reach the end, lighning is going in state Moving
-            if (spawningPoints[spawningPoints.Count - 1].X >= endPoint.X)
+            if (spawningPoints[spawningPoints.Count - 1].X >= endPoint.X - marginStart)
             {
                 currentState = Moving;
                 allPointsList = spawningPoints;
