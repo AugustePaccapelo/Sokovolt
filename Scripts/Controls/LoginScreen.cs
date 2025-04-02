@@ -1,12 +1,7 @@
 using Com.IsartDigital.Sokovolt;
-using Com.IsartDigital.SokoVolt.Managers;
 using Com.IsartDigital.Tools;
 using Godot;
-using Godot.Collections;
-using System;
 using System.Collections.Generic;
-using System.ComponentModel.Design;
-using System.Runtime.InteropServices;
 
 // Author : Auguste Paccapelo
 
@@ -27,8 +22,6 @@ namespace Com.IsartDigital.SokoVolt
 		}
 
 		#endregion
-
-		// ----- Paths ----- \\
 
 		// ----- Nodes ----- \\
 		[ExportGroup("LoginScreen")]
@@ -72,7 +65,7 @@ namespace Com.IsartDigital.SokoVolt
 
         // ---------- FUNCTIONS ---------- \\
 
-        // ----- Ready & Process ----- \\
+        // ----- Ready ----- \\
 
 		public override void _Ready()
 		{
@@ -109,13 +102,6 @@ namespace Com.IsartDigital.SokoVolt
 			buttonCreateConfirm.Pressed += ButtonPressedCreate;
         }
 
-		public override void _Process(double pDelta)
-		{
-			float lDelta = (float)pDelta;
-            
-            base._Process(lDelta);
-		}
-
 		// ----- My Functions ----- \\
 
 		private void GetLoginChilds()
@@ -132,7 +118,6 @@ namespace Com.IsartDigital.SokoVolt
 
 			loginPosHolder = loginNode.GetNode<Control>(LoginScreenNames.POS_HOLDER);
         }
-
 		private void GetCreateChilds()
 		{
             vBoxHolderCreate = createNode.GetNode<VBoxContainer>(LoginScreenNames.VBOX_SCREEN_HOLDER);
@@ -147,7 +132,6 @@ namespace Com.IsartDigital.SokoVolt
             buttonCreateGoLogin = vBoxHolderCreate.GetNode<Button>(LoginScreenNames.BUTTON_CHANGE_SCREEN);
 			checkCreateStayLogged = vBoxHolderCreate.GetNode<CheckBox>(LoginScreenNames.CHECK_STAY_LOGGED);
         }
-
 		private void GetAllLoginPos()
 		{
 			foreach (Control lChild in loginPosHolder.GetChildren())
@@ -172,7 +156,6 @@ namespace Com.IsartDigital.SokoVolt
 				}
 			}
 		}
-
 		private void ChildToList(Control pNode, List<Vector2> pList)
 		{
 			foreach (Control lChild in pNode.GetChildren())
@@ -180,7 +163,6 @@ namespace Com.IsartDigital.SokoVolt
 				pList.Add(lChild.GlobalPosition);
 			}
 		}
-
 		private void ButtonPressedLogin()
 		{
 			labelLoginError.Hide();
@@ -196,7 +178,6 @@ namespace Com.IsartDigital.SokoVolt
 			}
 			else labelLoginError.Show();
 		}
-
 		private void ButtonPressedCreate()
 		{
 			labelCreateErrorPasswords.Hide();
@@ -222,7 +203,6 @@ namespace Com.IsartDigital.SokoVolt
 			}
 			else labelCreateErrorUsername.Show();
         }
-
 		public void AnimationLoginEnter()
 		{
 			Tween lTween = CreateTween().SetParallel();
@@ -259,22 +239,9 @@ namespace Com.IsartDigital.SokoVolt
 			lUserTween.Play();
 
         }
-
-		private void AnimationLoginExit()
-		{
-
-		}
-
-        private void AnimationCreateEnter()
-        {
-
-        }
-
-        private void AnimationCreateExit()
-        {
-
-        }
-
+		private void AnimationLoginExit() { }
+        private void AnimationCreateEnter() { }
+        private void AnimationCreateExit() { }
         private void ButtonChangeToLogin()
 		{
 			createNode.Hide();
@@ -282,7 +249,6 @@ namespace Com.IsartDigital.SokoVolt
             loginNode.Show();
 			AnimationLoginEnter();
 		}
-
 		private void ButtonChangeToCreate()
 		{
 			loginNode.Hide();

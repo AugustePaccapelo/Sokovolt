@@ -1,7 +1,6 @@
 using Godot;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 // Author : Auguste Paccapelo
 
@@ -10,8 +9,6 @@ namespace Com.IsartDigital.SokoVolt
     public partial class SingleLightning : Line2D
     {
         // ---------- VARIABLES ---------- \\
-
-        // ----- Paths ----- \\
 
         // ----- Nodes ----- \\
         [Export] private Line2D interLine;
@@ -102,7 +99,6 @@ namespace Com.IsartDigital.SokoVolt
                 GetParent<LightningNode>().NewLightningSpawned();
             }
         }
-
         private void Moving(float pDelta)
         {
             // Move infitely all points
@@ -122,7 +118,6 @@ namespace Com.IsartDigital.SokoVolt
                 currentState = Destructing;
             }
         }
-
         private void Destructing(float pDelta)
         {
             ClearPoints();
@@ -140,7 +135,6 @@ namespace Com.IsartDigital.SokoVolt
                 QueueFree();
             }
         }
-
         private void MovePoints(float pDelta, float pSpeed)
         {
             // Move all points

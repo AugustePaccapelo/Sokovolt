@@ -1,5 +1,4 @@
 using Godot;
-using System;
 
 // Author : Auguste Paccapelo
 
@@ -8,8 +7,6 @@ namespace Com.IsartDigital.SokoVolt
 	public partial class Piston : Control
 	{
 		// ---------- VARIABLES ---------- \\
-
-		// ----- Paths ----- \\
 
 		// ----- Nodes ----- \\
 		[Export] TextureRect head;
@@ -24,7 +21,7 @@ namespace Com.IsartDigital.SokoVolt
 
         // ---------- FUNCTIONS ---------- \\
 
-        // ----- Ready & Process ----- \\
+        // ----- Ready ----- \\
 
 		public override void _Ready()
 		{
@@ -34,14 +31,8 @@ namespace Com.IsartDigital.SokoVolt
 			head.Position -= Vector2.Up * DISTANCE_OF_EXTEND;
 		}
 
-		public override void _Process(double pDelta)
-		{
-			float lDelta = (float)pDelta;
-
-			base._Process(lDelta);
-		}
-
 		// ----- My Functions ----- \\
+
 		public void Extend()
 		{
 			if (!canMove) return;
@@ -52,7 +43,6 @@ namespace Com.IsartDigital.SokoVolt
 			lTween.Finished += () => { canMove = true; };
 			lTween.Play();
         }
-
 		public void Retract()
 		{
             if (!canMove) return;
@@ -63,12 +53,5 @@ namespace Com.IsartDigital.SokoVolt
             lTween.Finished += () => { canMove = true; };
 			lTween.Play();
         }
-
-		// ----- Destructor ----- \\
-
-		protected override void Dispose(bool pDisposing)
-		{
-			base.Dispose(pDisposing);
-		}
 	}
 }

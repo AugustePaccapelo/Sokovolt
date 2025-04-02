@@ -55,6 +55,9 @@ namespace Com.IsartDigital.SokoVolt
         private int numLightningSpawned = 0;
         private int numLightningDestructed = 0;
 
+        private Color previewColor = new Color(1, 1, 1, 0.15f);
+        private Color notPreviewColor = new Color(1, 1, 1, 1);
+
         // ---------- FUNCTIONS ---------- \\
 
         // ----- My Functions ----- \\
@@ -89,7 +92,6 @@ namespace Com.IsartDigital.SokoVolt
                 AddChild(lSingleLightning);
             }
         }
-
         private void SetVariables(SingleLightning pSingleLightning)
         {
             pSingleLightning.vectorDirector = vectorDirector;
@@ -103,7 +105,6 @@ namespace Com.IsartDigital.SokoVolt
             pSingleLightning.width = width;
             pSingleLightning.lifeTime = lifeTime;
         }
-
         public void StopLightning()
         {
             foreach (SingleLightning lLightning in allLightningsList)
@@ -111,21 +112,18 @@ namespace Com.IsartDigital.SokoVolt
                 lLightning.lifeTime = 0.01f;
             }
         }
-
         public void NewLightningSpawned()
         {
             numLightningSpawned++;
             if (numLightningSpawned == numLigthning)
                 EmitSignal(SignalName.SpawnFinished);
         }
-
         public void NewLightningDestroyed()
         {
             numLightningDestructed++;
             if (numLightningDestructed == numLigthning)
                 EmitSignal(SignalName.DestructionFinished);
         }
-
         public Vector2 CalculateFirstPoint(List<Vector2> pListPoints, SingleLightning pLightning)
         {
             // Get first point
@@ -150,7 +148,6 @@ namespace Com.IsartDigital.SokoVolt
             }
             return lPoint;
         }
-
         public void NewPointVector(SingleLightning pLightning)
         {
             // Create a new Vector for a new point
@@ -162,7 +159,6 @@ namespace Com.IsartDigital.SokoVolt
             lVector = PolarToCart(lLength, lAngle);
             pLightning.nextPointVector = lVector;
         }
-
         private Vector2 PolarToCart(float pRadius, float pAngle)
         {
             float lX = pRadius * Mathf.Cos(pAngle);
@@ -171,16 +167,11 @@ namespace Com.IsartDigital.SokoVolt
         }
 
         public bool isPreview = false;
-
         public void SetPreview(bool pIsPreview)
         {
             isPreview = pIsPreview;
 
-            if (isPreview)
-                Modulate = new Color(1, 1, 1, 0.15f);
-            else
-                Modulate = new Color(1, 1, 1, 1);
-
+            Modulate = isPreview ? previewColor : notPreviewColor;
         }
     }
 }

@@ -1,8 +1,5 @@
-using Com.IsartDigital.SokoVolt.GameObjects.Movables;
 using Com.IsartDigital.SokoVolt.Managers;
 using Godot;
-using System;
-using System.Runtime.CompilerServices;
 
 // Author : Auguste Paccapelo
 
@@ -24,8 +21,6 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
 
 		#endregion
 
-		// ----- Paths ----- \\
-
 		// ----- Nodes ----- \\
 		private CustomSignals signals;
 
@@ -39,7 +34,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
 
         // ---------- FONCTIONS ---------- \\
 
-        // ----- Constructor & Ready & Process ----- \\
+        // ----- Ready & Process ----- \\
 
 		public override void _Ready()
 		{
@@ -59,10 +54,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
 			base._Ready();
 			
 			GameManager.GetInstance().door = this;
-
-			
 		}
-
 		public override void _Process(double pDelta)
 		{
 			float lDelta = (float)pDelta;
@@ -79,9 +71,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
 			closedVisual.Hide();
 			Camera2D lCamera = GameManager.GetInstance().camera;
 			AnimationManager.GetInstance().CameraZoomTraveling(lCamera, 0.2f, 0.1f, Position, lCamera.Position, 1.5f);
-			
         }
-
         public void Close()
 		{
 			isOpen = false;
@@ -100,7 +90,6 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
 			#endregion
 
 			GameManager.GetInstance().door = null;
-
 			base.Dispose(pDisposing);
 		}
 	}
