@@ -327,11 +327,11 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
             foreach (Vector2 lTarget in lNewTargets)
             {
                 LightningNode lPreview = lightningNodeScene.Instantiate<LightningNode>();
-                lPreview.startPoint = GlobalPosition;
-                lPreview.endPoint = Utils.SetPosition(this, (int)lTarget.X, (int)lTarget.Y, false);
+                AddChild(lPreview);
+                lPreview.startPoint = Utils.SetPosition(this, (int)lTarget.X, (int)lTarget.Y, false);
+                lPreview.endPoint = GlobalPosition;
                 lPreview.SetPreview(true);
                 lPreview.ZIndex = 50; 
-                AddChild(lPreview);
                 lPreview.StartLightning();
                 previewLines.Add(lPreview);
             }

@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=3 uid="uid://dht3qeqhib1rk"]
+[gd_scene load_steps=55 format=3 uid="uid://dht3qeqhib1rk"]
 
 [ext_resource type="Script" path="res://Scripts/Controls/LevelSelector.cs" id="1_7onrw"]
 [ext_resource type="Texture2D" uid="uid://dyr30pkkewie" path="res://Assets/UI/MainMenu/LevelScreen.png" id="2_u4r7s"]
@@ -21,8 +21,6 @@
 [ext_resource type="PackedScene" uid="uid://b0olmoqwuw54k" path="res://Scenes/GameObjects/WinScreen/rope.tscn" id="18_8m3jd"]
 [ext_resource type="Texture2D" uid="uid://kulh7f8b8jlr" path="res://icon.svg" id="19_jj0lu"]
 [ext_resource type="PackedScene" uid="uid://36dp5dq6hmqq" path="res://Scenes/GameObjects/ButtonTemplate.tscn" id="20_0nxsh"]
-[ext_resource type="Texture2D" uid="uid://buxvrfsirsh1j" path="res://Assets/UI/MainMenu/ScoreScreen.png" id="22_i4pwv"]
-[ext_resource type="Texture2D" uid="uid://dawl6e7442e4q" path="res://Assets/UI/MainMenu/ScoreDownScreen.png" id="22_tminq"]
 [ext_resource type="PackedScene" uid="uid://baqiox1toak3m" path="res://Scenes/UI/screen_effect.tscn" id="23_ohvsy"]
 [ext_resource type="Shader" path="res://Assets/Shaders/Effects/crt_shader/CRTShader.gdshader" id="24_xshnp"]
 
@@ -419,7 +417,6 @@ position = Vector2(1503, 448)
 
 [node name="ScoreDownScreen" type="Sprite2D" parent="ScoreScreen"]
 position = Vector2(0, 1)
-texture = ExtResource("22_tminq")
 
 [node name="ScreenEffect" parent="ScoreScreen" instance=ExtResource("23_ohvsy")]
 material = SubResource("ShaderMaterial_ujqrm")
@@ -516,7 +513,6 @@ layout_mode = 2
 text = "SCORE"
 
 [node name="screen" type="Sprite2D" parent="ScoreScreen"]
-texture = ExtResource("22_i4pwv")
 
 [editable path="Sign/Rope"]
 [editable path="Sign/Rope2"]
