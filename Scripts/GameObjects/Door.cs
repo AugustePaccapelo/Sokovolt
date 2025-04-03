@@ -70,7 +70,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
 			openedVisual.Show();
 			closedVisual.Hide();
 			Camera2D lCamera = GameManager.GetInstance().camera;
-			AnimationManager.GetInstance().CameraZoomTraveling(lCamera, 0.2f, 0.1f, Position, lCamera.Position, 1.5f);
+			AnimationManager.GetInstance().CameraZoomTraveling(lCamera, 0.5f, 0.1f, Position, lCamera.Position, 1.5f);
         }
         public void Close()
 		{
