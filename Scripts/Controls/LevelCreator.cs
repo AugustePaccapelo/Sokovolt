@@ -405,7 +405,7 @@ namespace Com.IsartDigital.SokoVolt
             Vector2 lButtonSize = new Vector2(200, 200);
             Vector2 lLabelSize = new Vector2(800, 200);
 
-            Button lPlayButton = CreateButton("Play", lButtonSize, () => LoadLevel(pLevelName));
+            Button lPlayButton = CreateButton("PLAY", lButtonSize, () => LoadLevel(pLevelName));
             Button lDeleteButton = CreateButton("Delete Level", lButtonSize, () => DeleteLevel(pLevelName));
             Label lLabel = customLevelLabelScene.Instantiate<Label>();
             lLabel.CustomMinimumSize = lLabelSize;

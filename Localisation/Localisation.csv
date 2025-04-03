@@ -1,7 +1,6 @@
-,en,fr
-ENGLISH,English,
-FRENCH,Français,
-START,START,JOUER
+keys,en,fr
+TITLE,Our Sokoban,Notre Sokoban
+PLAY,PLAY,JOUER
 Disconnect,Disconnect,Déconnection
 LevelCreator,LevelCreator,Créateur de Niveaux
 LevelPrefix,Level : ,Niveau : 
@@ -16,7 +15,6 @@ Confirm your Password,Confirm your Password,Confirmer le mot de passe
 New Level,New Level,Nouveau Niveau
 Custom Levels Menu,Custom Levels Menu,Menu des niveaux customisés
 Delete Level,Delete Level,Supprimer le niveau
-Play,Play,Jouer
 Return,Return,Retour
 Load Level,Load Level,Charger un Niveau
 Level Name,Level Name,Nom du Niveau
