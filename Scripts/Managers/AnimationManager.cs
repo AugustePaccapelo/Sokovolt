@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using static Com.IsartDigital.SokoVolt.Tools.ObjectProperties;
 
 // Author : Noe Sales
 
@@ -41,19 +42,19 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 			Color lColor = pObject.SelfModulate;
 			Tween lTween = CreateTween().SetEase(Tween.EaseType.Out).SetTrans(Tween.TransitionType.Bounce);
 			lTween.SetParallel(true);
-			lTween.TweenProperty(pObject, "scale", pObject.Scale * pScaleMultiplier, pTime);
-			lTween.TweenProperty(pObject, "modulate", pColor, pTime);
+			lTween.TweenProperty(pObject, SCALE, pObject.Scale * pScaleMultiplier, pTime);
+			lTween.TweenProperty(pObject, MODULATE, pColor, pTime);
             lTween.SetParallel(false);
-			lTween.TweenProperty(pObject, "scale", lScale, pTime);
-			lTween.TweenProperty(pObject, "modulate", lColor, pTime);
+			lTween.TweenProperty(pObject, SCALE, lScale, pTime);
+			lTween.TweenProperty(pObject, MODULATE, lColor, pTime);
 			return lTween;
 		}
 
         public Tween CameraZoomTraveling(Camera2D pCamera, float pMoveTime, float pWaitTime, Vector2 pFinalPos, Vector2 pFromPos, float pZoom)
         {
-            Tween lTween = CreateTween().SetParallel(true).SetTrans(Tween.TransitionType.Back).SetEase(Tween.EaseType.In);
-            lTween.TweenProperty(pCamera, "position", pFinalPos, pMoveTime);
-            lTween.TweenProperty(pCamera, "zoom", new Vector2(pZoom, pZoom), pMoveTime);
+            Tween lTween = CreateTween().SetParallel(true).SetTrans(Tween.TransitionType.Linear).SetEase(Tween.EaseType.In);
+            lTween.TweenProperty(pCamera, POSITION, pFinalPos, pMoveTime);
+            lTween.TweenProperty(pCamera, ZOOM, new Vector2(pZoom, pZoom), pMoveTime);
             lTween.Finished += () =>
             {
                 Tween lDelayTween = CreateTween();
@@ -61,12 +62,31 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 
                 lDelayTween.Finished += () =>
                 {
-                    Tween lTween2 = CreateTween().SetParallel(true).SetTrans(Tween.TransitionType.Back).SetEase(Tween.EaseType.In);
-                    lTween2.TweenProperty(pCamera, "zoom", new Vector2(1, 1), pMoveTime);
-                    lTween2.TweenProperty(pCamera, "position", pFromPos, pMoveTime);
+                    Tween lTween2 = CreateTween().SetParallel(true).SetTrans(Tween.TransitionType.Linear).SetEase(Tween.EaseType.In);
+                    lTween2.TweenProperty(pCamera, ZOOM, new Vector2(1, 1), pMoveTime);
+                    lTween2.TweenProperty(pCamera, POSITION, pFromPos, pMoveTime);
                 };
             };
 
+            return lTween;
+        }
+
+        public Tween ShakeEffect(Node2D pObject, Vector2 pShakeValue, float pTime)
+        {
+            Vector2 lPos = pObject.Position;
+            Tween lTween = CreateTween();
+            lTween.TweenProperty(pObject, POSITION, pShakeValue, pTime).AsRelative();
+            lTween.TweenProperty(pObject, POSITION, -pShakeValue, pTime).AsRelative();
+            pObject.Position = lPos;
+            return lTween;
+        }
+        public Tween RotationEffect(Node2D pObject, float pRotationValue, float pTime)
+        {
+            float pRotation = pObject.Rotation;
+            Tween lTween = CreateTween();
+            lTween.TweenProperty(pObject, ROTATION, pRotationValue, pTime).AsRelative();
+            lTween.TweenProperty(pObject, ROTATION, -pRotationValue, pTime).AsRelative();
+            pObject.Rotation = pRotation;
             return lTween;
         }
     }

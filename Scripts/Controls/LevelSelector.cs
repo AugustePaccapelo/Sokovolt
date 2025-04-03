@@ -3,6 +3,7 @@ using Com.IsartDigital.SokoVolt.Managers;
 using Godot;
 using System;
 using System.Collections.Generic;
+using static Com.IsartDigital.SokoVolt.Tools.ObjectProperties;
 using System.Reflection.Emit;
 
 // Author : Noé Sales
@@ -18,8 +19,8 @@ namespace Com.IsartDigital.SokoVolt
         [Export] private Node2D teslaContainer;
         [Export] private int teslaPosY = 253;
 
-        private int levelNumb = 0;
-        private int levelNumbMax = 5;
+        private int actualLevel = 0;
+        public static int levelNumbMax = 5;
         private int newTeslaPointPosY = 223;
 
         private Vector2 buttonSize = new Vector2(60, 100);
@@ -116,29 +117,28 @@ namespace Com.IsartDigital.SokoVolt
             if (actualTesla.levelUnlocked)
             {
                 LevelManager.GetInstance().LevelLoaderFonc(actualTesla.level);
-                //EmitSignal(nameof(ButtonLoadLevel), level);
             }
         }
 
         private void SwitchLevel(int pDirection)
         {
-            if (!alreadyPress && levelNumb + pDirection >= 0 && levelNumb + pDirection <= levelNumbMax)
+            if (!alreadyPress && actualLevel + pDirection >= 0 && actualLevel + pDirection <= levelNumbMax)
             {
                 Vector2 lNewPos;
                 Tween lTween;
                 Tween lTween2;
                 alreadyPress = true;
-                levelNumb += pDirection;
-                actualTesla = teslaDictionnary[levelNumb];
+                actualLevel += pDirection;
+                actualTesla = teslaDictionnary[actualLevel];
 
                 for (int i = 0; i < teslaDictionnary.Count; i++)
                 {
-                    lNewPos = new Vector2((i - levelNumb) * screenSize.X + screenSize.X / 2, teslaPosY);
+                    lNewPos = new Vector2((i - actualLevel) * screenSize.X + screenSize.X / 2, teslaPosY);
                     lTween = CreateTween().SetParallel(true);
-                    lTween.TweenProperty(teslaDictionnary[i], "position", lNewPos, 1f).SetEase(Tween.EaseType.Out).SetTrans(Tween.TransitionType.Elastic);
+                    lTween.TweenProperty(teslaDictionnary[i], POSITION, lNewPos, 1f).SetEase(Tween.EaseType.Out).SetTrans(Tween.TransitionType.Elastic);
                 }
                 lTween2 = CreateTween();
-                lTween2.TweenProperty(carpetTexture, "position", new Vector2(carpetTexture.Position.X + ((screenSize.X / 2) * -pDirection), carpetTexture.Position.Y), 1f).SetEase(Tween.EaseType.Out).SetTrans(Tween.TransitionType.Elastic);
+                lTween2.TweenProperty(carpetTexture, POSITION, new Vector2(carpetTexture.Position.X + ((screenSize.X / 2) * -pDirection), carpetTexture.Position.Y), 1f).SetEase(Tween.EaseType.Out).SetTrans(Tween.TransitionType.Elastic);
 
                 buttonSmokeParticles = smokeParticlesScene.Instantiate() as GpuParticles2D;
                 if (pDirection == 1)

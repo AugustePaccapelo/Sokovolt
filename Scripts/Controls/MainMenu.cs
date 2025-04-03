@@ -64,6 +64,7 @@ namespace Com.IsartDigital.SokoVolt
                 englishButton.Disabled = false;
                 frenchButton.Disabled = true;
             };
+			SetLanguage("en");
         }
 
 		private void SetLanguage(string pLanguage)
