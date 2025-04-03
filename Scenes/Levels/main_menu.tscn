@@ -31,7 +31,7 @@ offset_bottom = 63.52
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(200, 100)
-text = "PLAY"
+text = "START"
 
 [node name="LevelCreator" type="Button" parent="Panel"]
 layout_mode = 1
