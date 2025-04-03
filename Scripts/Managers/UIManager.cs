@@ -1,4 +1,4 @@
-using Godot;
+﻿using Godot;
 using System;
 
 //author : Noe Sales
@@ -21,9 +21,11 @@ namespace Com.IsartDigital.SokoVolt.Managers
 		[Export] PackedScene levelSelectorScene;
 		[Export] PackedScene levelCreatorScene;
 		[Export] PackedScene mainMenuScene;
+        [Export] PackedScene optionMenuScene;
 
 		private LevelSelector levelSelector;
 		private LevelCreator levelCreator;
+        private AudioSettings optionMenu;
 		private MainMenu mainMenu;
 		private HUD hud; 
 
@@ -51,6 +53,8 @@ namespace Com.IsartDigital.SokoVolt.Managers
             lCustomSignals.GoToLevelSelector += GameStart;
             lCustomSignals.GoToLevelCreator += LevelCreatorScreen;
             lCustomSignals.GoToLoginScreen += GoToLoginScreen;
+			lCustomSignals.GoToOptionMenu += GoToOptionMenu;
+
         }
 
 		public void GameStart() //Execute when StartButton is press in MainMenu
@@ -82,10 +86,24 @@ namespace Com.IsartDigital.SokoVolt.Managers
 			lTween.Finished += () =>
 			{
                 LevelSelector.GetInstance()?.QueueFree();
-                LevelCreator.GetInstance()?.QueueFree();
+                LevelCreator.GetInstance()?.QueueFree(); 
+                AudioSettings.Instance.Hide();
                 mainMenu.Show();
             };
 		}
+
+        private void GoToOptionMenu()
+        {
+            Tween lTween = GameManager.GetInstance().MenuTrans.ActiveTrans(1f, 0.2f);
+            lTween.Finished += () =>
+            {
+                mainMenu.Hide();
+				optionMenu= AudioSettings.Instance;
+                optionMenu.Show();
+				
+            };
+
+        }
 
 		private void GoToLoginScreen()
 		{

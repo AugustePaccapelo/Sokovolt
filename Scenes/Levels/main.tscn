@@ -1,10 +1,11 @@
-[gd_scene load_steps=25 format=3 uid="uid://dkbx646vvyaig"]
+[gd_scene load_steps=26 format=3 uid="uid://dkbx646vvyaig"]
 
 [ext_resource type="PackedScene" uid="uid://dyk47lo67a1tp" path="res://Scenes/Managers/ui_manager.tscn" id="1_4603a"]
 [ext_resource type="PackedScene" uid="uid://bnv0kco0ylr0e" path="res://Scenes/Managers/GridManager.tscn" id="1_d671q"]
 [ext_resource type="PackedScene" uid="uid://bix7hbs5g2ia3" path="res://Scenes/Managers/level_manager.tscn" id="2_g28jy"]
 [ext_resource type="Script" path="res://Scripts/Managers/InputManager.cs" id="3_3tpao"]
 [ext_resource type="Script" path="res://Scripts/Json/LevelLoader.cs" id="4_ly116"]
+[ext_resource type="PackedScene" uid="uid://bayi1x5s7wfjs" path="res://Scenes/Screen/option_menu.tscn" id="4_u7yxh"]
 [ext_resource type="PackedScene" uid="uid://bsl1nyen453ty" path="res://Scenes/Levels/main_menu.tscn" id="5_0gm45"]
 [ext_resource type="PackedScene" uid="uid://qqcyeuf0ktxk" path="res://Scenes/GameObjects/Tile.tscn" id="5_8xedd"]
 [ext_resource type="PackedScene" uid="uid://yr5dy4bj5sby" path="res://Scenes/GameObjects/Player.tscn" id="6_65akx"]
@@ -43,6 +44,9 @@ offset_right = 1920.0
 offset_bottom = 1080.0
 grow_horizontal = 1
 grow_vertical = 1
+
+[node name="OptionMenu" parent="Managers/UIManager" instance=ExtResource("4_u7yxh")]
+visible = false
 
 [node name="MainMenu" parent="Managers/UIManager" instance=ExtResource("5_0gm45")]
 visible = false

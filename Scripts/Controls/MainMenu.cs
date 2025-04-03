@@ -1,4 +1,4 @@
-using Com.IsartDigital.SokoVolt.Managers;
+﻿using Com.IsartDigital.SokoVolt.Managers;
 using Godot;
 using System;
 
@@ -23,8 +23,7 @@ namespace Com.IsartDigital.SokoVolt
 		[Export] private Button startButton;
 		[Export] private Button levelCreatorButton;
 		[Export] private Button unlogButton;
-		[Export] private Button englishButton;
-		[Export] private Button frenchButton;
+        [Export] private Button optionButton;
 
 		//[Signal] public delegate void StartGameEventHandler();
 
@@ -52,25 +51,12 @@ namespace Com.IsartDigital.SokoVolt
             startButton.Pressed += () => CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.GoToLevelSelector);
             levelCreatorButton.Pressed += () => CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.GoToLevelCreator);
 			unlogButton.Pressed += () => CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.GoToLoginScreen);
-			englishButton.Pressed += () =>
-			{
-                SetLanguage("en");
-				englishButton.Disabled = true;
-				frenchButton.Disabled = false;
-			};
-			frenchButton.Pressed += () =>
-			{
-                SetLanguage("fr");
-                englishButton.Disabled = false;
-                frenchButton.Disabled = true;
-            };
+            optionButton.Pressed += () => CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.GoToOptionMenu);
+
+			
         }
 
-		private void SetLanguage(string pLanguage)
-		{
-            TranslationServer.SetLocale(pLanguage);
-        }
-
+		
 		protected override void Dispose(bool pDisposing)
 		{
 			instance = null;

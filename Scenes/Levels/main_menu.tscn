@@ -3,15 +3,14 @@
 [ext_resource type="Script" path="res://Scripts/Controls/MainMenu.cs" id="1_3kguo"]
 [ext_resource type="Script" path="res://Scripts/GameObjects/ButtonTemplate.cs" id="2_vdray"]
 
-[node name="MainMenu" type="Control" node_paths=PackedStringArray("startButton", "levelCreatorButton", "unlogButton", "englishButton", "frenchButton")]
+[node name="MainMenu" type="Control" node_paths=PackedStringArray("startButton", "levelCreatorButton", "unlogButton", "optionButton")]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_3kguo")
 startButton = NodePath("Panel/StartButton")
 levelCreatorButton = NodePath("Panel/LevelCreator")
 unlogButton = NodePath("Panel/UnlogButton")
-englishButton = NodePath("Panel/EnglishButton")
-frenchButton = NodePath("Panel/FrenchButton")
+optionButton = NodePath("Panel/OptionButton")
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1
@@ -20,15 +19,15 @@ offset_bottom = 1080.0
 
 [node name="StartButton" type="Button" parent="Panel"]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -200.0
-offset_top = -100.0
-offset_right = 200.0
-offset_bottom = 100.0
+anchors_preset = -1
+anchor_left = 0.483
+anchor_top = 0.356
+anchor_right = 0.483
+anchor_bottom = 0.356
+offset_left = -159.36
+offset_top = -64.48
+offset_right = 160.64
+offset_bottom = 63.52
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(200, 100)
@@ -36,10 +35,10 @@ text = "START"
 
 [node name="LevelCreator" type="Button" parent="Panel"]
 layout_mode = 1
-offset_left = 857.0
-offset_top = 683.0
-offset_right = 1066.0
-offset_bottom = 783.0
+offset_left = 760.0
+offset_top = 704.0
+offset_right = 1085.0
+offset_bottom = 804.0
 pivot_offset = Vector2(104, 50)
 text = "LevelCreator"
 script = ExtResource("2_vdray")
@@ -47,28 +46,25 @@ script = ExtResource("2_vdray")
 [node name="UnlogButton" type="Button" parent="Panel"]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.5
-anchor_top = 0.206
-anchor_right = 0.5
-anchor_bottom = 0.206
-offset_left = -126.0
-offset_top = -38.48
-offset_right = 130.0
-offset_bottom = 39.52
+anchor_left = 0.91
+anchor_top = 0.936
+anchor_right = 0.91
+anchor_bottom = 0.936
+offset_left = -128.2
+offset_top = -38.8801
+offset_right = 127.8
+offset_bottom = 39.1199
 text = "Disconnect"
 
-[node name="EnglishButton" type="Button" parent="Panel"]
-layout_mode = 0
-offset_left = 1579.0
-offset_top = 945.0
-offset_right = 1748.0
-offset_bottom = 1034.0
-text = "ENGLISH"
-
-[node name="FrenchButton" type="Button" parent="Panel"]
-layout_mode = 0
-offset_left = 1373.0
-offset_top = 945.0
-offset_right = 1542.0
-offset_bottom = 1034.0
-text = "FRENCH"
+[node name="OptionButton" type="Button" parent="Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.483
+anchor_top = 0.533
+anchor_right = 0.483
+anchor_bottom = 0.533
+offset_left = -159.36
+offset_top = -63.6401
+offset_right = 160.64
+offset_bottom = 64.3599
+text = "Option"
