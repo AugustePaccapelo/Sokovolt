@@ -6,9 +6,10 @@
 [ext_resource type="Texture2D" uid="uid://c34er6wt8ojkb" path="res://Assets/UI/MainMenu/PorteGauche.png" id="4_xpvec"]
 [ext_resource type="Texture2D" uid="uid://ouukq3txqa7a" path="res://Assets/UI/MainMenu/PorteDroite.png" id="5_m86xg"]
 
-[node name="GameManager" type="Node2D" node_paths=PackedStringArray("MenuTrans")]
+[node name="GameManager" type="Node2D" node_paths=PackedStringArray("MenuTrans", "mouse")]
 script = ExtResource("1_ynqeg")
 MenuTrans = NodePath("MenuTrans")
+mouse = NodePath("Mouse")
 
 [node name="Mouse" type="Polygon2D" parent="."]
 z_index = 2000

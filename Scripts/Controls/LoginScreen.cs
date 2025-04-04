@@ -88,7 +88,6 @@ namespace Com.IsartDigital.SokoVolt
 			GetCreateChilds();
 
 			GetAllLoginPos();
-			
             screenSize = GetWindow().Size;
             Size = screenSize;
 
@@ -173,11 +172,11 @@ namespace Com.IsartDigital.SokoVolt
 			{
 				if (checkLoginStayLogged.ButtonPressed) userGestion.SaveLastUser(userName);
 				else userGestion.SaveLastUser();
-				CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.GoToMainMenu);
+                CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.GoToMainMenu);
 				Hide();
 			}
 			else labelLoginError.Show();
-		}
+        }
 		private void ButtonPressedCreate()
 		{
 			labelCreateErrorPasswords.Hide();
@@ -197,8 +196,7 @@ namespace Com.IsartDigital.SokoVolt
 			{
 				if (checkCreateStayLogged.ButtonPressed) userGestion.SaveLastUser(userName);
 				else userGestion.SaveLastUser();
-				GD.Print(password);
-				CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.GoToMainMenu);
+                CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.GoToMainMenu);
                 Hide();
 			}
 			else labelCreateErrorUsername.Show();

@@ -115,14 +115,13 @@ color_ramp = SubResource("GradientTexture1D_76wag")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j8a2c"]
 size = Vector2(391, 141)
 
-[node name="WinScreen" type="Node2D" node_paths=PackedStringArray("area", "clockwises", "screen", "nextButton", "starCountLabel", "stepsCountLabel", "scoreLabel", "screenEffect", "particlesGroup", "nextLevelButton", "batteries")]
+[node name="WinScreen" type="Node2D" node_paths=PackedStringArray("area", "clockwises", "screen", "starCountLabel", "stepsCountLabel", "scoreLabel", "screenEffect", "particlesGroup", "nextLevelButton", "batteries")]
 visible = false
 script = ExtResource("1_753qv")
 area = NodePath("Area2D")
 thunderScene = ExtResource("7_itdbi")
 clockwises = NodePath("ScreenContainer/Clockwises")
 screen = NodePath("ScreenContainer")
-nextButton = NodePath("ScreenContainer/NextButton")
 starCountLabel = NodePath("ScreenContainer/StarCountLabel")
 stepsCountLabel = NodePath("ScreenContainer/StepsLabel")
 scoreLabel = NodePath("ScreenContainer/ScoreLabel")
