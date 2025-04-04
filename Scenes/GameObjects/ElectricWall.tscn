@@ -1,7 +1,135 @@
-[gd_scene load_steps=3 format=3 uid="uid://c256fa86lg71t"]
+[gd_scene load_steps=34 format=3 uid="uid://c256fa86lg71t"]
 
 [ext_resource type="Script" path="res://Scripts/GameObjects/ElectricWall.cs" id="1_cep36"]
 [ext_resource type="Texture2D" uid="uid://cwb4ypc3twdp2" path="res://Assets/GameObjects/IsoTiles/basetiles.png" id="2_kcd3g"]
+[ext_resource type="Texture2D" uid="uid://cbysh4syvvnj0" path="res://Assets/GameObjects/IsoObjects/ElectricWall/0001.png" id="3_5b43w"]
+[ext_resource type="Texture2D" uid="uid://buoeey64sv8nf" path="res://Assets/GameObjects/IsoObjects/ElectricWall/0002.png" id="4_54q3n"]
+[ext_resource type="Texture2D" uid="uid://dwaqe6ea3d5na" path="res://Assets/GameObjects/IsoObjects/ElectricWall/0003.png" id="5_vki46"]
+[ext_resource type="Texture2D" uid="uid://dwyi64co2dscr" path="res://Assets/GameObjects/IsoObjects/ElectricWall/0004.png" id="6_kc45j"]
+[ext_resource type="Texture2D" uid="uid://5jqwmtn71ll2" path="res://Assets/GameObjects/IsoObjects/ElectricWall/0005.png" id="7_eup2s"]
+[ext_resource type="Texture2D" uid="uid://bybv4ipdlo5kj" path="res://Assets/GameObjects/IsoObjects/ElectricWall/0006.png" id="8_7k2lq"]
+[ext_resource type="Texture2D" uid="uid://cvlqetmv0cg2k" path="res://Assets/GameObjects/IsoObjects/ElectricWall/0007.png" id="9_epwvf"]
+[ext_resource type="Texture2D" uid="uid://c21ogivmcpqxd" path="res://Assets/GameObjects/IsoObjects/ElectricWall/0008.png" id="10_y4ece"]
+[ext_resource type="Texture2D" uid="uid://d0t1ihkbkcp7s" path="res://Assets/GameObjects/IsoObjects/ElectricWall/0009.png" id="11_l8v51"]
+[ext_resource type="Texture2D" uid="uid://bgn60mtyaslfk" path="res://Assets/GameObjects/IsoObjects/ElectricWall/0010.png" id="12_o0meg"]
+[ext_resource type="Texture2D" uid="uid://dphsh7n6o7xnu" path="res://Assets/GameObjects/IsoObjects/ElectricWall/0011.png" id="13_q3niy"]
+[ext_resource type="Texture2D" uid="uid://bknr13y0g0e74" path="res://Assets/GameObjects/IsoObjects/ElectricWall/0012.png" id="14_48sr4"]
+[ext_resource type="Texture2D" uid="uid://hn5avplclkey" path="res://Assets/GameObjects/IsoObjects/ElectricWall/0013.png" id="15_ywh0s"]
+[ext_resource type="Texture2D" uid="uid://dwkf4tbsv1rs2" path="res://Assets/GameObjects/IsoObjects/ElectricWall/0014.png" id="16_nhhip"]
+[ext_resource type="Texture2D" uid="uid://cktklc8udduv" path="res://Assets/GameObjects/IsoObjects/ElectricWall/0015.png" id="17_uimb1"]
+[ext_resource type="Texture2D" uid="uid://dm3nm2pwn82p8" path="res://Assets/GameObjects/IsoObjects/ElectricWall/0016.png" id="18_8tdvi"]
+[ext_resource type="Texture2D" uid="uid://c285c4cja78ol" path="res://Assets/GameObjects/IsoObjects/ElectricWall/0017.png" id="19_cqd48"]
+[ext_resource type="Texture2D" uid="uid://dfa3h1degyeu8" path="res://Assets/GameObjects/IsoObjects/ElectricWall/0018.png" id="20_vg4kd"]
+[ext_resource type="Texture2D" uid="uid://ceiusl5msp8b0" path="res://Assets/GameObjects/IsoObjects/ElectricWall/0019.png" id="21_jki5n"]
+[ext_resource type="Texture2D" uid="uid://clilq0k0fnbh3" path="res://Assets/GameObjects/IsoObjects/ElectricWall/0020.png" id="22_66y0y"]
+[ext_resource type="Texture2D" uid="uid://bualiw3jjx8t5" path="res://Assets/GameObjects/IsoObjects/ElectricWall/0021.png" id="23_0agjn"]
+[ext_resource type="Texture2D" uid="uid://dks2f4d0nf8ub" path="res://Assets/GameObjects/IsoObjects/ElectricWall/0022.png" id="24_h15hu"]
+[ext_resource type="Texture2D" uid="uid://b72pr7g88fobm" path="res://Assets/GameObjects/IsoObjects/ElectricWall/0023.png" id="25_4ofal"]
+[ext_resource type="Texture2D" uid="uid://cp6ts6pbtjui2" path="res://Assets/GameObjects/IsoObjects/ElectricWall/0024.png" id="26_rmkys"]
+[ext_resource type="Texture2D" uid="uid://cmvqljv1iwr40" path="res://Assets/GameObjects/IsoObjects/ElectricWall/0025.png" id="27_pxgjh"]
+[ext_resource type="Texture2D" uid="uid://i2f6sg14qw8j" path="res://Assets/GameObjects/IsoObjects/ElectricWall/0026.png" id="28_5xpe8"]
+[ext_resource type="Texture2D" uid="uid://b7ukoi0cutv3" path="res://Assets/GameObjects/IsoObjects/ElectricWall/0027.png" id="29_le023"]
+[ext_resource type="Texture2D" uid="uid://dylioxtlxhq66" path="res://Assets/GameObjects/IsoObjects/ElectricWall/0028.png" id="30_k0x3o"]
+[ext_resource type="Texture2D" uid="uid://ktcg1woao4nn" path="res://Assets/GameObjects/IsoObjects/ElectricWall/0029.png" id="31_kgtry"]
+[ext_resource type="Texture2D" uid="uid://cvxe3wvuoxj7v" path="res://Assets/GameObjects/IsoObjects/ElectricWall/0030.png" id="32_k1j2f"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6syi5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_5b43w")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_54q3n")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_vki46")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_kc45j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_eup2s")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_7k2lq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_epwvf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_y4ece")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_l8v51")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_o0meg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_q3niy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_48sr4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_ywh0s")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_nhhip")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_uimb1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_8tdvi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_cqd48")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_vg4kd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_jki5n")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_66y0y")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_0agjn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_h15hu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_4ofal")
+}, {
+"duration": 1.0,
+"texture": ExtResource("26_rmkys")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_pxgjh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_5xpe8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("29_le023")
+}, {
+"duration": 1.0,
+"texture": ExtResource("30_k0x3o")
+}, {
+"duration": 1.0,
+"texture": ExtResource("31_kgtry")
+}, {
+"duration": 1.0,
+"texture": ExtResource("32_k1j2f")
+}],
+"loop": true,
+"name": &"default",
+"speed": 20.0
+}]
 
 [node name="ElectricWall" type="Node2D"]
 script = ExtResource("1_cep36")
@@ -10,11 +138,20 @@ script = ExtResource("1_cep36")
 scale = Vector2(0.8, 0.8)
 
 [node name="Sprite2D" type="Sprite2D" parent="Visual"]
+visible = false
 position = Vector2(-4.76837e-07, -2.38419e-07)
 scale = Vector2(0.7, 0.7)
 texture = ExtResource("2_kcd3g")
 
 [node name="Polygon2D" type="Polygon2D" parent="Visual"]
+visible = false
 position = Vector2(15, -8.75)
 color = Color(0.794841, 0.839219, 0.010149, 1)
 polygon = PackedVector2Array(-28.75, -25, -21.25, -6.25, -3.75001, -3.75, -2.50001, 27.5, -10, 6.25, -33.75, 6.25, -41.25, -17.5)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Visual"]
+position = Vector2(3.8147e-06, -7.5)
+scale = Vector2(0.08, 0.08)
+sprite_frames = SubResource("SpriteFrames_6syi5")
+autoplay = "default"
+frame_progress = 0.326513

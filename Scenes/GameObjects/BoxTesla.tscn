@@ -1,8 +1,137 @@
-[gd_scene load_steps=5 format=3 uid="uid://e1d8riptp31i"]
+[gd_scene load_steps=37 format=3 uid="uid://e1d8riptp31i"]
 
 [ext_resource type="Script" path="res://Scripts/GameObjects/Movables/BoxTesla.cs" id="1_c7f4a"]
 [ext_resource type="PackedScene" uid="uid://cfqq10c08ay30" path="res://Scenes/Lightning.tscn" id="2_vgo5j"]
 [ext_resource type="Texture2D" uid="uid://qpi7qsbhs7v0" path="res://Assets/GameObjects/IsoObjects/Tesla.png" id="2_w8akq"]
+[ext_resource type="Texture2D" uid="uid://c767fcajnj2yi" path="res://Assets/Shaders/Effects/Glow.png" id="3_dmi6p"]
+[ext_resource type="Texture2D" uid="uid://bf7oyxyuj4yrt" path="res://Assets/GameObjects/IsoObjects/Tesla/0001.png" id="4_hm74g"]
+[ext_resource type="Texture2D" uid="uid://csb8yrnfxy4jt" path="res://Assets/GameObjects/IsoObjects/Tesla/0002.png" id="5_q34qt"]
+[ext_resource type="Texture2D" uid="uid://c3snwicm3c2qq" path="res://Assets/GameObjects/IsoObjects/Tesla/0003.png" id="6_rdpvu"]
+[ext_resource type="Texture2D" uid="uid://dyrgeoapbq7hd" path="res://Assets/GameObjects/IsoObjects/Tesla/0004.png" id="7_vg5ib"]
+[ext_resource type="Texture2D" uid="uid://bsvjwrayofssn" path="res://Assets/GameObjects/IsoObjects/Tesla/0005.png" id="8_78lh0"]
+[ext_resource type="Texture2D" uid="uid://dw4f6s6bqnqqh" path="res://Assets/GameObjects/IsoObjects/Tesla/0006.png" id="9_yfcns"]
+[ext_resource type="Texture2D" uid="uid://b45hv2m5wnwey" path="res://Assets/GameObjects/IsoObjects/Tesla/0007.png" id="10_dbpq7"]
+[ext_resource type="Texture2D" uid="uid://dn1an6gksg32h" path="res://Assets/GameObjects/IsoObjects/Tesla/0008.png" id="11_xnfnm"]
+[ext_resource type="Texture2D" uid="uid://bm7gkqw6qlom6" path="res://Assets/GameObjects/IsoObjects/Tesla/0009.png" id="12_gxy2t"]
+[ext_resource type="Texture2D" uid="uid://c8hkyulx5unkw" path="res://Assets/GameObjects/IsoObjects/Tesla/0010.png" id="13_kxxd0"]
+[ext_resource type="Texture2D" uid="uid://3gvq8fgh8s63" path="res://Assets/GameObjects/IsoObjects/Tesla/0011.png" id="14_4ores"]
+[ext_resource type="Texture2D" uid="uid://dc88nvj06tqkh" path="res://Assets/GameObjects/IsoObjects/Tesla/0012.png" id="15_20lcv"]
+[ext_resource type="Texture2D" uid="uid://c3dv0o05kkc6g" path="res://Assets/GameObjects/IsoObjects/Tesla/0013.png" id="16_8aim2"]
+[ext_resource type="Texture2D" uid="uid://bldmkf8jkvglr" path="res://Assets/GameObjects/IsoObjects/Tesla/0014.png" id="17_dmwxu"]
+[ext_resource type="Texture2D" uid="uid://dynus3s2a0qsk" path="res://Assets/GameObjects/IsoObjects/Tesla/0015.png" id="18_bvixr"]
+[ext_resource type="Texture2D" uid="uid://wqrhkxjyilxs" path="res://Assets/GameObjects/IsoObjects/Tesla/0016.png" id="19_pf2eh"]
+[ext_resource type="Texture2D" uid="uid://ba3i58nxva62m" path="res://Assets/GameObjects/IsoObjects/Tesla/0017.png" id="20_cr6rd"]
+[ext_resource type="Texture2D" uid="uid://daww6cmclgsdo" path="res://Assets/GameObjects/IsoObjects/Tesla/0018.png" id="21_l2j83"]
+[ext_resource type="Texture2D" uid="uid://d3j4gvgm22vbc" path="res://Assets/GameObjects/IsoObjects/Tesla/0019.png" id="22_prg4k"]
+[ext_resource type="Texture2D" uid="uid://c11qqb408gat8" path="res://Assets/GameObjects/IsoObjects/Tesla/0020.png" id="23_nh6xy"]
+[ext_resource type="Texture2D" uid="uid://bavtw6fmf6vss" path="res://Assets/GameObjects/IsoObjects/Tesla/0021.png" id="24_b057m"]
+[ext_resource type="Texture2D" uid="uid://b34xjyixra83x" path="res://Assets/GameObjects/IsoObjects/Tesla/0022.png" id="25_3e84c"]
+[ext_resource type="Texture2D" uid="uid://bdm31tdny0fsl" path="res://Assets/GameObjects/IsoObjects/Tesla/0023.png" id="26_mriqb"]
+[ext_resource type="Texture2D" uid="uid://chp6jw7l7ccgl" path="res://Assets/GameObjects/IsoObjects/Tesla/0024.png" id="27_0pig6"]
+[ext_resource type="Texture2D" uid="uid://dgo1f1t83jql7" path="res://Assets/GameObjects/IsoObjects/Tesla/0025.png" id="28_gfkn0"]
+[ext_resource type="Texture2D" uid="uid://en4ynahhgie5" path="res://Assets/GameObjects/IsoObjects/Tesla/0026.png" id="29_t2pgb"]
+[ext_resource type="Texture2D" uid="uid://dkeil5veuw0lb" path="res://Assets/GameObjects/IsoObjects/Tesla/0027.png" id="30_kwl2e"]
+[ext_resource type="Texture2D" uid="uid://cgnletalcge6b" path="res://Assets/GameObjects/IsoObjects/Tesla/0028.png" id="31_7fyt1"]
+[ext_resource type="Texture2D" uid="uid://bmog8l18jpj0" path="res://Assets/GameObjects/IsoObjects/Tesla/0029.png" id="32_a6mb3"]
+[ext_resource type="Texture2D" uid="uid://bxd0kab4achuk" path="res://Assets/GameObjects/IsoObjects/Tesla/0030.png" id="33_3205j"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_pov8a"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_hm74g")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_q34qt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_rdpvu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_vg5ib")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_78lh0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_yfcns")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_dbpq7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_xnfnm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_gxy2t")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_kxxd0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_4ores")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_20lcv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_8aim2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_dmwxu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_bvixr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_pf2eh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_cr6rd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_l2j83")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_prg4k")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_nh6xy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_b057m")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_3e84c")
+}, {
+"duration": 1.0,
+"texture": ExtResource("26_mriqb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_0pig6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_gfkn0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("29_t2pgb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("30_kwl2e")
+}, {
+"duration": 1.0,
+"texture": ExtResource("31_7fyt1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("32_a6mb3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("33_3205j")
+}],
+"loop": true,
+"name": &"default",
+"speed": 20.0
+}]
 
 [sub_resource type="LabelSettings" id="LabelSettings_4d5rh"]
 font_size = 32
@@ -20,6 +149,13 @@ rangeLabel = NodePath("Label")
 [node name="Visual" type="Node2D" parent="."]
 scale = Vector2(0.8, 0.8)
 
+[node name="PointLight2D" type="PointLight2D" parent="Visual"]
+position = Vector2(0, 15)
+scale = Vector2(1.25, 1.25)
+color = Color(1, 0.433594, 0.433594, 1)
+energy = 0.5
+texture = ExtResource("3_dmi6p")
+
 [node name="Polygon2D" type="Polygon2D" parent="Visual"]
 visible = false
 position = Vector2(0, -15)
@@ -34,9 +170,17 @@ color = Color(0.771459, 0.763478, 0, 1)
 polygon = PackedVector2Array(-8, -31, 10, -31, -6, -2, 15, 12, -7, 31, -2, 16, -18, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="Visual"]
+visible = false
 position = Vector2(-5, -8.75)
 scale = Vector2(0.192, 0.192)
 texture = ExtResource("2_w8akq")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Visual"]
+position = Vector2(-1.25, -35)
+scale = Vector2(0.12, 0.12)
+sprite_frames = SubResource("SpriteFrames_pov8a")
+autoplay = "default"
+frame_progress = 0.242142
 
 [node name="Label" type="Label" parent="."]
 anchors_preset = 8
@@ -44,10 +188,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -17.0
-offset_top = -83.0
-offset_right = 23.0
-offset_bottom = -16.0
+offset_left = -19.0
+offset_top = -116.0
+offset_right = 21.0
+offset_bottom = -49.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
@@ -68,4 +212,4 @@ collide_with_areas = true
 collide_with_bodies = false
 
 [node name="ConnectionPoint" type="Marker2D" parent="."]
-position = Vector2(2, -22)
+position = Vector2(0, -34)

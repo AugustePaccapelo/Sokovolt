@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://djcluge6is5om"]
+[gd_scene load_steps=5 format=3 uid="uid://djcluge6is5om"]
 
 [ext_resource type="Script" path="res://Scripts/GameObjects/Wall.cs" id="1_0oqpj"]
 [ext_resource type="Texture2D" uid="uid://cwb4ypc3twdp2" path="res://Assets/GameObjects/IsoTiles/basetiles.png" id="2_1jp1w"]
+[ext_resource type="Texture2D" uid="uid://4m7bgvrccm24" path="res://Assets/GameObjects/IsoTiles/Tile2.png" id="4_4ua6c"]
+[ext_resource type="Texture2D" uid="uid://coumdi3kr40bg" path="res://Assets/GameObjects/IsoTiles/Wall.png" id="4_rldeg"]
 
 [node name="Wall" type="Node2D"]
 script = ExtResource("1_0oqpj")
@@ -15,6 +17,18 @@ color = Color(0.433594, 0.342265, 0.0304871, 1)
 polygon = PackedVector2Array(-31, -31, 31, -31, 31, 31, -31, 31)
 
 [node name="Sprite2D" type="Sprite2D" parent="Visual"]
+visible = false
 position = Vector2(-4.76837e-07, -2.38419e-07)
 scale = Vector2(0.7, 0.7)
 texture = ExtResource("2_1jp1w")
+
+[node name="Wall" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(1, -7)
+scale = Vector2(0.083478, 0.083478)
+texture = ExtResource("4_rldeg")
+
+[node name="Wall1" type="Sprite2D" parent="."]
+position = Vector2(1, -7)
+scale = Vector2(0.07, 0.07)
+texture = ExtResource("4_4ua6c")
