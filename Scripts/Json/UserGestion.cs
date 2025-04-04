@@ -32,6 +32,15 @@ namespace Com.IsartDigital.Sokovolt
         public string currentUser {  get; private set; } = null;
         CustomSignals customSignals;
 
+        private const string LEVELS = "levels";
+        private const string PASSWORD = "password";
+        private const string LEVELDESIGN = "levelDesign";
+        private const string UPDATESCORE = "Update score";
+        private const string SCORE = "score";
+        private const string STARS = "stars";
+        private const string LOCKED = "locked";
+        private const string TOTALSCORE = "totalScore";
+
         public override void _Ready()
 		{
 			#region Singleton
@@ -97,8 +106,8 @@ namespace Com.IsartDigital.Sokovolt
             if (string.IsNullOrEmpty(lCurrentUser) || !lUsersData.ContainsKey(lCurrentUser)) return;
             Dictionary lUser = (Dictionary)lUsersData[lCurrentUser];  
 
-            if (!lUser.ContainsKey("levels")) lUser["levels"] = new Dictionary();
-            Dictionary lLevels = (Dictionary)lUser["levels"];
+            if (!lUser.ContainsKey(LEVELS)) lUser[LEVELS] = new Dictionary();
+            Dictionary lLevels = (Dictionary)lUser[LEVELS];
             string lLevelKey = $"level{pLevel}"; 
             int lSavedScore = 0;    
             int lSavedStars = 0;
@@ -106,32 +115,32 @@ namespace Com.IsartDigital.Sokovolt
             if (lLevels.ContainsKey(lLevelKey)) 
             {
                 Dictionary lSavedLevel = (Dictionary) lLevels[lLevelKey];
-                lSavedScore = lSavedLevel.ContainsKey("score") ? (int)lSavedLevel["score"] : 0;
-                lSavedStars = lSavedLevel.ContainsKey("stars") ? (int)lSavedLevel["stars"] : 0;
+                lSavedScore = lSavedLevel.ContainsKey(SCORE) ? (int)lSavedLevel[SCORE] : 0;
+                lSavedStars = lSavedLevel.ContainsKey(STARS) ? (int)lSavedLevel[STARS] : 0;
             }
 
             int lBestScore = Math.Max(lSavedScore, pScore); 
             int lBestStars = Math.Max(lSavedStars, pStars);
             Dictionary lCurrentLevelData = lLevels.ContainsKey(lLevelKey) ? (Dictionary)lLevels[lLevelKey] : new Dictionary();
 
-            lCurrentLevelData["score"] = lBestScore;
-            lCurrentLevelData["stars"] = lBestStars;
+            lCurrentLevelData[SCORE] = lBestScore;
+            lCurrentLevelData[STARS] = lBestStars;
 
-            if (!lCurrentLevelData.ContainsKey("locked")) lCurrentLevelData["locked"] = true;   
+            if (!lCurrentLevelData.ContainsKey(LOCKED)) lCurrentLevelData[LOCKED] = true;   
 
             lLevels[lLevelKey] = lCurrentLevelData; 
-            lUser["levels"] = lLevels;
+            lUser[LEVELS] = lLevels;
 
-            if (!lUser.ContainsKey("totalScore")) lUser["totalScore"] = 0; 
+            if (!lUser.ContainsKey(TOTALSCORE)) lUser[TOTALSCORE] = 0; 
 
             int lNewScore = lBestScore - lSavedScore; 
 
-            if (lNewScore > 0) lUser["totalScore"] = (int)lUser["totalScore"] + lNewScore;
+            if (lNewScore > 0) lUser[TOTALSCORE] = (int)lUser[TOTALSCORE] + lNewScore;
 
             lUsersData[lCurrentUser] = lUser;
             SaveUserData(lUsersData);
-            SaveToScoreLocally(lCurrentUser, (int)lUser["totalScore"]);
-            customSignals.EmitSignal(CustomSignals.SignalName.LevelCompleted, pLevel, lBestStars, lBestScore, (int)lUser["totalScore"]);
+            SaveToScoreLocally(lCurrentUser, (int)lUser[TOTALSCORE]);
+            customSignals.EmitSignal(CustomSignals.SignalName.LevelCompleted, pLevel, lBestStars, lBestScore, (int)lUser[TOTALSCORE]);
             UnlockLevel(pLevel + 1);
         }
 
@@ -144,17 +153,17 @@ namespace Com.IsartDigital.Sokovolt
 
             Dictionary lUser = (Dictionary)lUserData[lCurrentUser];
 
-            if (!lUser.ContainsKey("levels")) return;
+            if (!lUser.ContainsKey(LEVELS)) return;
 
-            Dictionary lLevels = (Dictionary)lUser["levels"];
+            Dictionary lLevels = (Dictionary)lUser[LEVELS];
             string lLevelKey = $"level{pLevel}"; 
 
             if (!lLevels.ContainsKey(lLevelKey)) return;
 
             Dictionary lLevelData = (Dictionary)lLevels[lLevelKey];
-            lLevelData["locked"] = false;
+            lLevelData[LOCKED] = false;
             lLevels[lLevelKey] = lLevelData;
-            lUser["levels"] = lLevels;
+            lUser[LEVELS] = lLevels;
             lUserData[lCurrentUser] = lUser;
             SaveUserData(lUserData);
             customSignals.EmitSignal(CustomSignals.SignalName.LevelUnlock, pLevel);
@@ -172,15 +181,15 @@ namespace Com.IsartDigital.Sokovolt
             Dictionary lUser = (Dictionary)lUserData[lCurrentUser];
             GD.Print("Donnees utilisateur : " + Json.Stringify(lUser, "\t"));
 
-            if (!lUser.ContainsKey("levels"))  return lUnlockedLevels;
+            if (!lUser.ContainsKey(LEVELS))  return lUnlockedLevels;
 
-            Dictionary lLevels = (Dictionary)lUser["levels"];
+            Dictionary lLevels = (Dictionary)lUser[LEVELS];
 
             foreach (string lLevelKey in lLevels.Keys)
             {
                 Dictionary lLevelData = (Dictionary)lLevels[lLevelKey];
 
-                if (lLevelData.ContainsKey("locked") && !(bool)lLevelData["locked"])
+                if (lLevelData.ContainsKey(LOCKED) && !(bool)lLevelData[LOCKED])
                 {
                     if (int.TryParse(lLevelKey.Replace("level", ""), out int pLevelIndex))
                         lUnlockedLevels.Add(pLevelIndex);
@@ -204,9 +213,9 @@ namespace Com.IsartDigital.Sokovolt
             lUsersData[pName] = new Dictionary() 
             {
                 
-                { "password", lPassword },
-                { "totalScore", 0},
-                { "levels", lLevels}
+                { PASSWORD, lPassword },
+                { TOTALSCORE, 0},
+                { LEVELS, lLevels}
                 
             };
             SaveUserData(lUsersData);
@@ -225,21 +234,21 @@ namespace Com.IsartDigital.Sokovolt
             string lContent = FileAccess.Open(lLevelPath, FileAccess.ModeFlags.Read).GetAsText();
 
             if (!JsonTool.TryParseJson(lContent, out Dictionary pLevelDict)) return lLevels;
-            if (!pLevelDict.ContainsKey("levelDesign")) return lLevels;
+            if (!pLevelDict.ContainsKey(LEVELDESIGN)) return lLevels;
 
-            Godot.Collections.Array lLevelList = (Godot.Collections.Array)pLevelDict["levelDesign"]; 
+            Godot.Collections.Array lLevelList = (Godot.Collections.Array)pLevelDict[LEVELDESIGN]; 
 
             for (int i = 0; i < lLevelList.Count; i++)
             {
                 Dictionary lLevelData = (Dictionary)lLevelList[i]; 
                 string lLevelKey = $"level{i}";
-                bool lIsLocked = (i == 0) ? false : (bool)lLevelData.GetValueOrDefault("locked", true);  
+                bool lIsLocked = (i == 0) ? false : (bool)lLevelData.GetValueOrDefault(LOCKED, true);  
 
                 Dictionary lUserData = new Dictionary() 
                 {
-                    { "score", 0 },
-                    { "stars", 0 },
-                    { "locked", lIsLocked }
+                    { SCORE, 0 },
+                    { STARS, 0 },
+                    { LOCKED, lIsLocked }
                 };
                 lLevels[lLevelKey] = lUserData; 
             }
@@ -252,7 +261,7 @@ namespace Com.IsartDigital.Sokovolt
             if (lUsersData.ContainsKey(pName)) 
             {
                 var lUserDict = (Dictionary)lUsersData[pName];
-                return lUserDict.ContainsKey("password") ? lUserDict["password"].ToString() : null;
+                return lUserDict.ContainsKey(PASSWORD) ? lUserDict[PASSWORD].ToString() : null;
             }
             return null;
         }
@@ -300,12 +309,12 @@ namespace Com.IsartDigital.Sokovolt
             if (FileAccess.FileExists(LOCAL_SCORE_PATH))
             {
                 string lContent = FileAccess.Open(LOCAL_SCORE_PATH, FileAccess.ModeFlags.Read).GetAsText();
-                JsonTool.TryParseJson(lContent, out lScores);   
+                JsonTool.TryParseJson(lContent, out lScores);
             }
             if (!lScores.ContainsKey(pUser) || (int)lScores[pUser] < pTotalScore)
             {
                 lScores[pUser] = pTotalScore;
-                GD.Print("Updated score");
+                GD.Print(UPDATESCORE);
             }
 
             using var lFile = FileAccess.Open(LOCAL_SCORE_PATH, FileAccess.ModeFlags.Write);
@@ -318,6 +327,5 @@ namespace Com.IsartDigital.Sokovolt
             string lContent = FileAccess.Open(LOCAL_SCORE_PATH, FileAccess.ModeFlags.Read).GetAsText();
             return JsonTool.TryParseJson(lContent, out Dictionary pScores) ? pScores : new Dictionary(); 
         }
-
     }
 }
