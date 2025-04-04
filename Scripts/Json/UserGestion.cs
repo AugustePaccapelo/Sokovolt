@@ -26,9 +26,9 @@ namespace Com.IsartDigital.Sokovolt
 		}
         #endregion
 
-		private string jsonFilePath = ProjectSettings.GlobalizePath("user://Json//UserData.Json");
-        private string lastUserFilePath = ProjectSettings.GlobalizePath("user://Json/LastUser.json");
-        private string localScorePath = ProjectSettings.GlobalizePath("user://Json/LocalScore.json");
+		private const string JSON_FILE_PATH = "user://Json//UserData.Json";
+        private const string LAST_USER_FILE_PATH = "user://Json/LastUser.json";
+        private const string LOCAL_SCORE_PATH = "user://Json/LocalScore.json";
         public string currentUser {  get; private set; } = null;
         CustomSignals customSignals;
 
@@ -72,19 +72,19 @@ namespace Com.IsartDigital.Sokovolt
 
 		public Dictionary GetUserData()
 		{
-			if (!FileAccess.FileExists(jsonFilePath)) return new Dictionary();
-            string lContent = FileAccess.Open(jsonFilePath, FileAccess.ModeFlags.Read).GetAsText();
+			if (!FileAccess.FileExists(JSON_FILE_PATH)) return new Dictionary();
+            string lContent = FileAccess.Open(JSON_FILE_PATH, FileAccess.ModeFlags.Read).GetAsText();
             return JsonTool.TryParseJson(lContent, out Dictionary pData) ? pData : new Dictionary();
         }
 
         private void SaveUserData(Dictionary data)
         {
-            string lDirPath = jsonFilePath.GetBaseDir();
+            string lDirPath = JSON_FILE_PATH.GetBaseDir();
 
             if (!DirAccess.DirExistsAbsolute(lDirPath))
                 DirAccess.MakeDirRecursiveAbsolute(lDirPath);
 
-            using var lFile = FileAccess.Open(jsonFilePath, FileAccess.ModeFlags.Write);
+            using var lFile = FileAccess.Open(JSON_FILE_PATH, FileAccess.ModeFlags.Write);
             string lOutPut = Json.Stringify(data, "\t"); 
             lFile.StoreString(lOutPut);
         }
@@ -192,7 +192,7 @@ namespace Com.IsartDigital.Sokovolt
 
         public bool RegisterUser(string pName, string pPassword)
         {
-            string lDirectoryPath = jsonFilePath.GetBaseDir();
+            string lDirectoryPath = JSON_FILE_PATH.GetBaseDir();
             if (!DirAccess.DirExistsAbsolute(lDirectoryPath)) DirAccess.MakeDirRecursiveAbsolute(lDirectoryPath);
 
             Dictionary lUsersData = GetUserData(); 
@@ -259,7 +259,7 @@ namespace Com.IsartDigital.Sokovolt
 
         public bool LoginUser(string pName, string pPassword, bool isAlreadyLogged = false)
         {
-            string lJsonContent = JsonTool.ReadFileContents(jsonFilePath);
+            string lJsonContent = JsonTool.ReadFileContents(JSON_FILE_PATH);
             Dictionary lUsersData;
 
             if (string.IsNullOrEmpty(lJsonContent) || !JsonTool.TryParseJson(lJsonContent, out lUsersData)) return false;
@@ -274,8 +274,8 @@ namespace Com.IsartDigital.Sokovolt
 
         public string GetLastUser()
         {
-            if (!FileAccess.FileExists(lastUserFilePath)) return null;
-            using var lFile = FileAccess.Open(lastUserFilePath, FileAccess.ModeFlags.Read); 
+            if (!FileAccess.FileExists(LAST_USER_FILE_PATH)) return null;
+            using var lFile = FileAccess.Open(LAST_USER_FILE_PATH, FileAccess.ModeFlags.Read); 
             string lUser = lFile.GetAsText();
             lFile.Close();
             return lUser;
@@ -285,10 +285,10 @@ namespace Com.IsartDigital.Sokovolt
         {
             if (pName is null)
             {
-                DirAccess.RemoveAbsolute(lastUserFilePath);
+                DirAccess.RemoveAbsolute(LAST_USER_FILE_PATH);
                 return;
             }
-            using var lFile = FileAccess.Open(lastUserFilePath, FileAccess.ModeFlags.Write);
+            using var lFile = FileAccess.Open(LAST_USER_FILE_PATH, FileAccess.ModeFlags.Write);
             lFile.StoreString(pName);
             lFile.Close();
         }
@@ -297,9 +297,9 @@ namespace Com.IsartDigital.Sokovolt
         {
             Dictionary lScores = new Dictionary();
 
-            if (FileAccess.FileExists(localScorePath))
+            if (FileAccess.FileExists(LOCAL_SCORE_PATH))
             {
-                string lContent = FileAccess.Open(localScorePath, FileAccess.ModeFlags.Read).GetAsText();
+                string lContent = FileAccess.Open(LOCAL_SCORE_PATH, FileAccess.ModeFlags.Read).GetAsText();
                 JsonTool.TryParseJson(lContent, out lScores);   
             }
             if (!lScores.ContainsKey(pUser) || (int)lScores[pUser] < pTotalScore)
@@ -308,14 +308,14 @@ namespace Com.IsartDigital.Sokovolt
                 GD.Print("Updated score");
             }
 
-            using var lFile = FileAccess.Open(localScorePath, FileAccess.ModeFlags.Write);
+            using var lFile = FileAccess.Open(LOCAL_SCORE_PATH, FileAccess.ModeFlags.Write);
             lFile.StoreString(Json.Stringify(lScores, "\t"));
         }
 
         public Dictionary GetAllUserScore()
         {
-            if (!FileAccess.FileExists(localScorePath)) return new Dictionary();
-            string lContent = FileAccess.Open(localScorePath, FileAccess.ModeFlags.Read).GetAsText();
+            if (!FileAccess.FileExists(LOCAL_SCORE_PATH)) return new Dictionary();
+            string lContent = FileAccess.Open(LOCAL_SCORE_PATH, FileAccess.ModeFlags.Read).GetAsText();
             return JsonTool.TryParseJson(lContent, out Dictionary pScores) ? pScores : new Dictionary(); 
         }
 
