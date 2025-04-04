@@ -1,0 +1,135 @@
+[gd_scene load_steps=3 format=3 uid="uid://b21gg4f1j4u3v"]
+
+[ext_resource type="LabelSettings" uid="uid://dg5l0fxqe8y5b" path="res://Scenes/Screen/option_menu.tres" id="1_6ft4g"]
+[ext_resource type="Script" path="res://Scenes/Screen/AudioSettings.cs" id="1_50ryl"]
+
+[node name="OptionMenu" type="Control" node_paths=PackedStringArray("masterBar", "musicBar", "sfxBar", "englishButton", "frenchButton", "backButton")]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+script = ExtResource("1_50ryl")
+masterBar = NodePath("Panel/HBoxContainer/VBoxContainer2/Master")
+musicBar = NodePath("Panel/HBoxContainer/VBoxContainer2/Music")
+sfxBar = NodePath("Panel/HBoxContainer/VBoxContainer2/SFX")
+englishButton = NodePath("Panel/FrenchButton/EnglishButton")
+frenchButton = NodePath("Panel/FrenchButton")
+backButton = NodePath("Panel/Back")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.493
+anchor_right = 0.5
+anchor_bottom = 0.493
+offset_left = -960.0
+offset_top = -540.44
+offset_right = 960.0
+offset_bottom = 539.56
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -392.0
+offset_top = -107.0
+offset_right = 304.0
+offset_bottom = 108.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Master" type="Label" parent="Panel/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Master
+"
+label_settings = ExtResource("1_6ft4g")
+
+[node name="Music" type="Label" parent="Panel/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Music
+"
+label_settings = ExtResource("1_6ft4g")
+
+[node name="SFX" type="Label" parent="Panel/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "SFX
+"
+label_settings = ExtResource("1_6ft4g")
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Panel/HBoxContainer"]
+custom_minimum_size = Vector2(500, 230)
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_stretch_ratio = 0.0
+alignment = 1
+
+[node name="Master" type="HSlider" parent="Panel/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 6
+max_value = 1.0
+step = 0.05
+value = 1.0
+tick_count = 1
+
+[node name="Music" type="HSlider" parent="Panel/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 1
+max_value = 1.0
+step = 0.05
+value = 1.0
+
+[node name="SFX" type="HSlider" parent="Panel/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 6
+max_value = 1.0
+step = 0.05
+value = 1.0
+
+[node name="FrenchButton" type="Button" parent="Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.744
+anchor_top = 0.463
+anchor_right = 0.744
+anchor_bottom = 0.463
+offset_left = -84.48
+offset_top = -44.04
+offset_right = 84.52
+offset_bottom = 44.96
+text = "FRENCH"
+
+[node name="EnglishButton" type="Button" parent="Panel/FrenchButton"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 2.015
+anchor_top = 0.5
+anchor_right = 2.015
+anchor_bottom = 0.5
+offset_left = -84.535
+offset_top = -44.5
+offset_right = 84.465
+offset_bottom = 44.5
+text = "ENGLISH"
+
+[node name="Back" type="Button" parent="Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.91
+anchor_top = 0.936
+anchor_right = 0.91
+anchor_bottom = 0.936
+offset_left = -128.2
+offset_top = -38.8801
+offset_right = 127.8
+offset_bottom = 39.1199
+text = "Back"

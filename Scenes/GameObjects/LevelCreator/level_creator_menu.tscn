@@ -344,6 +344,6 @@ offset_top = 927.0
 offset_right = 465.0
 offset_bottom = 1059.0
 pivot_offset = Vector2(110, 66)
-text = "RETURN"
+text = "Return"
 easeType = 2
 transitionType = 7

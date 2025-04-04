@@ -2,7 +2,7 @@ using Com.IsartDigital.SokoVolt;
 using Com.IsartDigital.SokoVolt.Managers;
 using Godot;
 using System;
-using System.Threading.Tasks; // Nécessaire pour async/await
+using System.Threading.Tasks;
 
 // Author : Noe Sales
 
@@ -13,7 +13,7 @@ namespace Com.IsartDigital.Sokovolt
         [Export] private Node2D area;
         [Export] private PackedScene thunderScene;
         [Export] private Sprite2D clockwises;
-        [Export] private RigidBody2D screen;
+        [Export] private RigidBody2D screen, nextButton;
         [Export] private Label starCountLabel;
         [Export] private Label stepsCountLabel;
         [Export] private Label scoreLabel;
@@ -33,15 +33,33 @@ namespace Com.IsartDigital.Sokovolt
 
         public override void _Ready()
         {
+            NextLevelFonc();
+        }
+
+        private void NextLevelFonc()
+        {
+            if (actualLevel == LevelSelector.levelNumbMax)
+            {
+                nextButton.QueueFree();
+                nextButton.TreeExited += Show;
+            }
+            else
+            {
+                nextLevelButton.Pressed += () =>
+                {
+                    CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.GoToNextLevel, actualLevel + 1);
+                    QueueFree();
+                };
+                Show();
+            }
+            Init();
+        }
+        private void Init()
+        {
             screen.Position = new Vector2(800, 583);
             shaderEffect = (ShaderMaterial)screenEffect.Material;
             stepsCountLabel.Text = STAR_LABEL_PREFIXE + 0000;
             scoreLabel.Text = SCORE_LABEL_PREFIXE + 0000;
-            nextLevelButton.Pressed += () =>
-            {
-                CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.GoToNextLevel, actualLevel + 1);
-                QueueFree();
-            };
         }
 
         private WinScreenThunder CreateThunder()

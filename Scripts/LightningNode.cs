@@ -1,5 +1,6 @@
 using Godot;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 
 // Author : Auguste Paccapelo
 
@@ -56,6 +57,16 @@ namespace Com.IsartDigital.SokoVolt
 
         private Color previewColor = new Color(1, 1, 1, 0.15f);
         private Color notPreviewColor = new Color(1, 1, 1, 1);
+
+        //Lightning preview 
+        [Export] private float connectDuration = 1.8f;  
+        [Export] private float disconnectDuration = 1f;
+        private Timer lightningTimer;
+        private bool isConnected = false;
+        public bool isPreview = false;
+        private List<Vector2> initialPreviewPoints = new List<Vector2>();
+
+
 
         // ---------- FUNCTIONS ---------- \\
 
@@ -171,11 +182,44 @@ namespace Com.IsartDigital.SokoVolt
             return new Vector2(lX, lY);
         }
 
-        public bool isPreview = false;
+       
+        private void InitPreviewTimer()
+        {
+            lightningTimer = new Timer();
+            AddChild(lightningTimer);
+            lightningTimer.WaitTime = connectDuration;
+            lightningTimer.OneShot = false;
+            lightningTimer.Timeout += OnPreviewTimerFinished;
+            lightningTimer.Start();
+        }
+        private void OnPreviewTimerFinished()
+        {
+             if (!isConnected)
+            {
+                startPoint = initialPreviewPoints[0]; 
+                endPoint = initialPreviewPoints[1]; 
+                StartLightning();  
+                lightningTimer.WaitTime = connectDuration;  
+            }
+            else
+            {
+                StopLightning();  
+                lightningTimer.WaitTime = disconnectDuration;  
+            }
+
+            isConnected = !isConnected; 
+            lightningTimer.Start();  
+        }
         public void SetPreview(bool pIsPreview)
         {
             isPreview = pIsPreview;
-
+            if(isPreview)
+            {   
+                InitPreviewTimer(); 
+                initialPreviewPoints.Clear(); 
+                initialPreviewPoints.Add(startPoint); 
+                initialPreviewPoints.Add(endPoint); 
+            }
             Modulate = isPreview ? previewColor : notPreviewColor;
         }
     }

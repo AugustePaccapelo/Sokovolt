@@ -116,6 +116,7 @@ color_ramp = SubResource("GradientTexture1D_76wag")
 size = Vector2(391, 141)
 
 [node name="WinScreen" type="Node2D" node_paths=PackedStringArray("area", "clockwises", "screen", "starCountLabel", "stepsCountLabel", "scoreLabel", "screenEffect", "particlesGroup", "nextLevelButton", "batteries")]
+visible = false
 script = ExtResource("1_753qv")
 area = NodePath("Area2D")
 thunderScene = ExtResource("7_itdbi")
@@ -262,110 +263,6 @@ collision_layer = 0
 collision_mask = 0
 
 [node name="RopeSegment16" parent="RopeContainer/Rope2" index="32"]
-collision_layer = 0
-collision_mask = 0
-
-[node name="Rope3" type="Node2D" parent="RopeContainer"]
-position = Vector2(776, 697)
-
-[node name="PinJoint2D12" type="PinJoint2D" parent="RopeContainer/Rope3"]
-node_a = NodePath("../../../ScreenContainer")
-node_b = NodePath("../RopeSegment12")
-
-[node name="RopeSegment12" parent="RopeContainer/Rope3" instance=ExtResource("4_k4i24")]
-position = Vector2(0, 17)
-collision_layer = 0
-collision_mask = 0
-
-[node name="PinJoint2D13" type="PinJoint2D" parent="RopeContainer/Rope3"]
-position = Vector2(0, 34)
-node_a = NodePath("../RopeSegment12")
-node_b = NodePath("../RopeSegment13")
-
-[node name="RopeSegment13" parent="RopeContainer/Rope3" instance=ExtResource("4_k4i24")]
-position = Vector2(0, 51)
-collision_layer = 0
-collision_mask = 0
-
-[node name="PinJoint2D14" type="PinJoint2D" parent="RopeContainer/Rope3"]
-position = Vector2(0, 68)
-node_a = NodePath("../RopeSegment13")
-node_b = NodePath("../RopeSegment14")
-
-[node name="RopeSegment14" parent="RopeContainer/Rope3" instance=ExtResource("4_k4i24")]
-position = Vector2(0, 85)
-collision_layer = 0
-collision_mask = 0
-
-[node name="PinJoint2D15" type="PinJoint2D" parent="RopeContainer/Rope3"]
-position = Vector2(0, 102)
-node_a = NodePath("../RopeSegment14")
-node_b = NodePath("../RopeSegment15")
-
-[node name="RopeSegment15" parent="RopeContainer/Rope3" instance=ExtResource("4_k4i24")]
-position = Vector2(0, 119)
-collision_layer = 0
-collision_mask = 0
-
-[node name="PinJoint2D16" type="PinJoint2D" parent="RopeContainer/Rope3"]
-position = Vector2(0, 136)
-node_a = NodePath("../RopeSegment15")
-node_b = NodePath("../RopeSegment16")
-
-[node name="RopeSegment16" parent="RopeContainer/Rope3" instance=ExtResource("4_k4i24")]
-position = Vector2(0, 153)
-collision_layer = 0
-collision_mask = 0
-
-[node name="Rope4" type="Node2D" parent="RopeContainer"]
-position = Vector2(1120, 697)
-
-[node name="PinJoint2D12" type="PinJoint2D" parent="RopeContainer/Rope4"]
-node_a = NodePath("../../../ScreenContainer")
-node_b = NodePath("../RopeSegment12")
-
-[node name="RopeSegment12" parent="RopeContainer/Rope4" instance=ExtResource("4_k4i24")]
-position = Vector2(0, 17)
-collision_layer = 0
-collision_mask = 0
-
-[node name="PinJoint2D13" type="PinJoint2D" parent="RopeContainer/Rope4"]
-position = Vector2(0, 34)
-node_a = NodePath("../RopeSegment12")
-node_b = NodePath("../RopeSegment13")
-
-[node name="RopeSegment13" parent="RopeContainer/Rope4" instance=ExtResource("4_k4i24")]
-position = Vector2(0, 51)
-collision_layer = 0
-collision_mask = 0
-
-[node name="PinJoint2D14" type="PinJoint2D" parent="RopeContainer/Rope4"]
-position = Vector2(0, 68)
-node_a = NodePath("../RopeSegment13")
-node_b = NodePath("../RopeSegment14")
-
-[node name="RopeSegment14" parent="RopeContainer/Rope4" instance=ExtResource("4_k4i24")]
-position = Vector2(0, 85)
-collision_layer = 0
-collision_mask = 0
-
-[node name="PinJoint2D15" type="PinJoint2D" parent="RopeContainer/Rope4"]
-position = Vector2(0, 102)
-node_a = NodePath("../RopeSegment14")
-node_b = NodePath("../RopeSegment15")
-
-[node name="RopeSegment15" parent="RopeContainer/Rope4" instance=ExtResource("4_k4i24")]
-position = Vector2(0, 119)
-collision_layer = 0
-collision_mask = 0
-
-[node name="PinJoint2D16" type="PinJoint2D" parent="RopeContainer/Rope4"]
-position = Vector2(0, 136)
-node_a = NodePath("../RopeSegment15")
-node_b = NodePath("../RopeSegment16")
-
-[node name="RopeSegment16" parent="RopeContainer/Rope4" instance=ExtResource("4_k4i24")]
-position = Vector2(0, 153)
 collision_layer = 0
 collision_mask = 0
 
@@ -624,22 +521,126 @@ text = "Next Level"
 position = Vector2(950.5, 936.5)
 shape = SubResource("RectangleShape2D_j8a2c")
 
+[node name="Rope3" type="Node2D" parent="ScreenContainer/NextButton"]
+position = Vector2(775, 693)
+
+[node name="PinJoint2D12" type="PinJoint2D" parent="ScreenContainer/NextButton/Rope3"]
+node_a = NodePath("../../..")
+node_b = NodePath("../RopeSegment12")
+
+[node name="RopeSegment12" parent="ScreenContainer/NextButton/Rope3" instance=ExtResource("4_k4i24")]
+position = Vector2(0, 17)
+collision_layer = 0
+collision_mask = 0
+
+[node name="PinJoint2D13" type="PinJoint2D" parent="ScreenContainer/NextButton/Rope3"]
+position = Vector2(0, 34)
+node_a = NodePath("../RopeSegment12")
+node_b = NodePath("../RopeSegment13")
+
+[node name="RopeSegment13" parent="ScreenContainer/NextButton/Rope3" instance=ExtResource("4_k4i24")]
+position = Vector2(0, 51)
+collision_layer = 0
+collision_mask = 0
+
+[node name="PinJoint2D14" type="PinJoint2D" parent="ScreenContainer/NextButton/Rope3"]
+position = Vector2(0, 68)
+node_a = NodePath("../RopeSegment13")
+node_b = NodePath("../RopeSegment14")
+
+[node name="RopeSegment14" parent="ScreenContainer/NextButton/Rope3" instance=ExtResource("4_k4i24")]
+position = Vector2(0, 85)
+collision_layer = 0
+collision_mask = 0
+
+[node name="PinJoint2D15" type="PinJoint2D" parent="ScreenContainer/NextButton/Rope3"]
+position = Vector2(0, 102)
+node_a = NodePath("../RopeSegment14")
+node_b = NodePath("../RopeSegment15")
+
+[node name="RopeSegment15" parent="ScreenContainer/NextButton/Rope3" instance=ExtResource("4_k4i24")]
+position = Vector2(0, 119)
+collision_layer = 0
+collision_mask = 0
+
+[node name="PinJoint2D16" type="PinJoint2D" parent="ScreenContainer/NextButton/Rope3"]
+position = Vector2(0, 136)
+node_a = NodePath("../RopeSegment15")
+node_b = NodePath("../RopeSegment16")
+
+[node name="RopeSegment16" parent="ScreenContainer/NextButton/Rope3" instance=ExtResource("4_k4i24")]
+position = Vector2(0, 153)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Rope4" type="Node2D" parent="ScreenContainer/NextButton"]
+position = Vector2(1119, 693)
+
+[node name="PinJoint2D12" type="PinJoint2D" parent="ScreenContainer/NextButton/Rope4"]
+node_a = NodePath("../../..")
+node_b = NodePath("../RopeSegment12")
+
+[node name="RopeSegment12" parent="ScreenContainer/NextButton/Rope4" instance=ExtResource("4_k4i24")]
+position = Vector2(0, 17)
+collision_layer = 0
+collision_mask = 0
+
+[node name="PinJoint2D13" type="PinJoint2D" parent="ScreenContainer/NextButton/Rope4"]
+position = Vector2(0, 34)
+node_a = NodePath("../RopeSegment12")
+node_b = NodePath("../RopeSegment13")
+
+[node name="RopeSegment13" parent="ScreenContainer/NextButton/Rope4" instance=ExtResource("4_k4i24")]
+position = Vector2(0, 51)
+collision_layer = 0
+collision_mask = 0
+
+[node name="PinJoint2D14" type="PinJoint2D" parent="ScreenContainer/NextButton/Rope4"]
+position = Vector2(0, 68)
+node_a = NodePath("../RopeSegment13")
+node_b = NodePath("../RopeSegment14")
+
+[node name="RopeSegment14" parent="ScreenContainer/NextButton/Rope4" instance=ExtResource("4_k4i24")]
+position = Vector2(0, 85)
+collision_layer = 0
+collision_mask = 0
+
+[node name="PinJoint2D15" type="PinJoint2D" parent="ScreenContainer/NextButton/Rope4"]
+position = Vector2(0, 102)
+node_a = NodePath("../RopeSegment14")
+node_b = NodePath("../RopeSegment15")
+
+[node name="RopeSegment15" parent="ScreenContainer/NextButton/Rope4" instance=ExtResource("4_k4i24")]
+position = Vector2(0, 119)
+collision_layer = 0
+collision_mask = 0
+
+[node name="PinJoint2D16" type="PinJoint2D" parent="ScreenContainer/NextButton/Rope4"]
+position = Vector2(0, 136)
+node_a = NodePath("../RopeSegment15")
+node_b = NodePath("../RopeSegment16")
+
+[node name="RopeSegment16" parent="ScreenContainer/NextButton/Rope4" instance=ExtResource("4_k4i24")]
+position = Vector2(0, 153)
+collision_layer = 0
+collision_mask = 0
+
+[node name="PinJoint2D4" type="PinJoint2D" parent="ScreenContainer/NextButton"]
+position = Vector2(775, 862)
+node_a = NodePath("../Rope3/RopeSegment16")
+node_b = NodePath("..")
+
+[node name="PinJoint2D5" type="PinJoint2D" parent="ScreenContainer/NextButton"]
+position = Vector2(1120, 864)
+node_a = NodePath("../Rope4/RopeSegment16")
+node_b = NodePath("..")
+
 [node name="PinContainer" type="Node2D" parent="."]
 
 [node name="PinJoint2D2" type="PinJoint2D" parent="PinContainer"]
 position = Vector2(1271, 389)
 node_a = NodePath("../../RopeContainer/Rope2/RopeSegment16")
 node_b = NodePath("../../ScreenContainer")
-
-[node name="PinJoint2D4" type="PinJoint2D" parent="PinContainer"]
-position = Vector2(776, 866)
-node_a = NodePath("../../RopeContainer/Rope3/RopeSegment16")
-node_b = NodePath("../../ScreenContainer/NextButton")
-
-[node name="PinJoint2D5" type="PinJoint2D" parent="PinContainer"]
-position = Vector2(1121, 868)
-node_a = NodePath("../../RopeContainer/Rope4/RopeSegment16")
-node_b = NodePath("../../ScreenContainer/NextButton")
 
 [node name="PinJoint2D3" type="PinJoint2D" parent="PinContainer"]
 position = Vector2(607, 390)

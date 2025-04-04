@@ -1,4 +1,4 @@
-using Godot;
+﻿using Godot;
 
 // Author : Auguste Paccapelo
 
@@ -25,7 +25,8 @@ namespace Com.IsartDigital.SokoVolt
         [Signal] public delegate void GoToMainMenuEventHandler();
         [Signal] public delegate void GoToLevelSelectorEventHandler();
         [Signal] public delegate void GoToLevelCreatorEventHandler();
- 
+        [Signal] public delegate void GoToOptionMenuEventHandler();
+
         // Level gestion signals
         [Signal] public delegate void GoToNextLevelEventHandler(int pLevel);
         [Signal] public delegate void LoadLevelEventHandler(int pLevel);

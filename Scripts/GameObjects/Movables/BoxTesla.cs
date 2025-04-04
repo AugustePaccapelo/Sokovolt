@@ -22,6 +22,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
         [Export] private RayCast2D rayCast;
         [Export] private Line2D electriLine2D;
         [Export] private Marker2D connectionPoint;
+        [Export] private Node2D visual;
         public BoxTesla nextBoxTesla = null;
         public bool energize = false;
         GridManager gridManager = GridManager.GetInstance();
@@ -39,6 +40,17 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
         private bool signalEmit = false;
         public bool playerCanBeDetected = true;
         Vector2 LastPos = Vector2.Zero;
+
+        //Shake variables
+        public bool canShake = false;
+        private double shakeTimer = 0;
+        private const double shakeInterval = 3.0;
+        private const double shakeDuration = 1.0;
+        private bool isShaking = false;
+        private Tween shakeTweenPosition;
+        private Tween shakeTweenRotation;
+
+
         //Range tesla gestion 
         public int range { get; private set; }
         [Export] private Label rangeLabel;
@@ -64,6 +76,28 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
             RayCastDetector(); 
 
             Player.GetInstance().MovableHaveFinish += (Movable _) => TryDisplayPreviewIfPlayerNearby();
+
+            if (!energize)
+            {
+                shakeTimer += pDelta;
+
+                if (!isShaking && shakeTimer >= shakeInterval)
+                {
+                    StartShake();
+                    shakeTimer = 0;  // Reset après avoir lancé le shake
+                }
+                else if (isShaking && shakeTimer >= shakeDuration)
+                {
+                    StopShake();
+                }
+            }
+            else
+            {
+                shakeTimer = 0;
+                if (isShaking)
+                    StopShake();
+                ResetVisual();
+            }
         }
 
         private void Init()
@@ -72,7 +106,53 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
             MovableHaveFinish += (Movable pSender) => { Searching(pSender);
             };
             CallDeferred(nameof(ConnectPlayer));
+            
         }
+
+        #region TeslaShake
+        private void ResetVisual()
+        {
+            visual.RotationDegrees = 0;
+            visual.Position = Vector2.Zero;
+        }
+        private void Shake()
+        {
+            Tween lTween = AnimationManager.GetInstance().ShakeEffect(visual, new Vector2(3, 1), 0.1f);
+            Tween lTween2 = AnimationManager.GetInstance().RotationEffect(visual, Mathf.DegToRad(3), 0.1f);
+
+            lTween.Finished += () =>
+            {
+                lTween2.Kill();
+                ResetVisual();
+            };
+        }
+        private void StartShake()
+        {
+            isShaking = true;
+
+            shakeTweenPosition = AnimationManager.GetInstance()
+                .ShakeEffect(visual, new Vector2(3, 1), 0.1f)
+                .SetLoops(); // Rend l'effet continu jusqu'à l'arrêt
+
+            shakeTweenRotation = AnimationManager.GetInstance()
+                .RotationEffect(visual, Mathf.DegToRad(3), 0.1f)
+                .SetLoops();
+        }
+
+        private void StopShake()
+        {
+            isShaking = false;
+
+            if (shakeTweenPosition != null && shakeTweenPosition.IsValid())
+                shakeTweenPosition.Kill();
+
+            if (shakeTweenRotation != null && shakeTweenRotation.IsValid())
+                shakeTweenRotation.Kill();
+
+            ResetVisual();
+        }
+        #endregion
+
 
         private void UpdateRangeLabel()
         {
@@ -247,11 +327,11 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
             foreach (Vector2 lTarget in lNewTargets)
             {
                 LightningNode lPreview = lightningNodeScene.Instantiate<LightningNode>();
-                lPreview.startPoint = GlobalPosition;
-                lPreview.endPoint = Utils.SetPosition(this, (int)lTarget.X, (int)lTarget.Y, false);
+                AddChild(lPreview);
+                lPreview.startPoint = Utils.SetPosition(this, (int)lTarget.X, (int)lTarget.Y, false);
+                lPreview.endPoint = GlobalPosition;
                 lPreview.SetPreview(true);
                 lPreview.ZIndex = 50; 
-                AddChild(lPreview);
                 lPreview.StartLightning();
                 previewLines.Add(lPreview);
             }

@@ -405,7 +405,7 @@ namespace Com.IsartDigital.SokoVolt
             Vector2 lButtonSize = new Vector2(200, 200);
             Vector2 lLabelSize = new Vector2(800, 200);
 
-            Button lPlayButton = CreateButton("Play", lButtonSize, () => LoadLevel(pLevelName));
+            Button lPlayButton = CreateButton("PLAY", lButtonSize, () => LoadLevel(pLevelName));
             Button lDeleteButton = CreateButton("Delete Level", lButtonSize, () => DeleteLevel(pLevelName));
             Label lLabel = customLevelLabelScene.Instantiate<Label>();
             lLabel.CustomMinimumSize = lLabelSize;
@@ -559,7 +559,7 @@ namespace Com.IsartDigital.SokoVolt
                 lenghtY = LENGHT_MIN;
             }
 
-            // Vérifie que la taille est dans les limites définies
+            // Check that the size is within the defined limits
             if (lenghtX >= LENGHT_MIN && lenghtX <= LENGHT_MAX && lenghtY >= LENGHT_MIN && lenghtY <= LENGHT_MAX)
             {
                 int lBorder = 5;

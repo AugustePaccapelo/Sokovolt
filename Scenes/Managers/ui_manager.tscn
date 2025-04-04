@@ -1,12 +1,14 @@
-[gd_scene load_steps=5 format=3 uid="uid://dyk47lo67a1tp"]
+[gd_scene load_steps=6 format=3 uid="uid://dyk47lo67a1tp"]
 
 [ext_resource type="Script" path="res://Scripts/Managers/UIManager.cs" id="1_m0s5s"]
 [ext_resource type="PackedScene" uid="uid://dht3qeqhib1rk" path="res://Scenes/Levels/level_selector.tscn" id="2_7ktqe"]
 [ext_resource type="PackedScene" uid="uid://bx4sq5cya6p7g" path="res://Scenes/GameObjects/LevelCreator/level_creator_menu.tscn" id="3_ov3u2"]
 [ext_resource type="PackedScene" uid="uid://bsl1nyen453ty" path="res://Scenes/Levels/main_menu.tscn" id="3_ytyeb"]
+[ext_resource type="PackedScene" uid="uid://b21gg4f1j4u3v" path="res://Scenes/Screen/option_menu.tscn" id="5_qd2nf"]
 
 [node name="UIManager" type="Node2D"]
 script = ExtResource("1_m0s5s")
 levelSelectorScene = ExtResource("2_7ktqe")
 levelCreatorScene = ExtResource("3_ov3u2")
 mainMenuScene = ExtResource("3_ytyeb")
+optionMenuScene = ExtResource("5_qd2nf")
