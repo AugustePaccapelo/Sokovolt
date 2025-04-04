@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://dkbx646vvyaig"]
+[gd_scene load_steps=27 format=3 uid="uid://dkbx646vvyaig"]
 
 [ext_resource type="PackedScene" uid="uid://dyk47lo67a1tp" path="res://Scenes/Managers/ui_manager.tscn" id="1_4603a"]
 [ext_resource type="PackedScene" uid="uid://bnv0kco0ylr0e" path="res://Scenes/Managers/GridManager.tscn" id="1_d671q"]
@@ -25,6 +25,7 @@
 [ext_resource type="Script" path="res://Scripts/Managers/AnimationManager.cs" id="22_ah2rb"]
 [ext_resource type="Script" path="res://Scripts/Managers/ConnectionManagers.cs" id="22_alaha"]
 [ext_resource type="Script" path="res://Scripts/Managers/SongManager.cs" id="24_lgxf0"]
+[ext_resource type="PackedScene" uid="uid://bkskxcspqook3" path="res://Scenes/GameObjects/BackGround/AnimatedBackGround.tscn" id="26_rfowc"]
 
 [node name="MAIN" type="Node2D"]
 
@@ -105,3 +106,6 @@ script = ExtResource("24_lgxf0")
 [node name="Containers" type="Node2D" parent="."]
 
 [node name="ObjectsContainer" type="Node2D" parent="Containers"]
+
+[node name="AnimatedBackGround" parent="." instance=ExtResource("26_rfowc")]
+position = Vector2(-10, -4)
