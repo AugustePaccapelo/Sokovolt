@@ -1,6 +1,7 @@
-[gd_scene load_steps=192 format=3 uid="uid://bkskxcspqook3"]
+[gd_scene load_steps=193 format=3 uid="uid://bkskxcspqook3"]
 
 [ext_resource type="Texture2D" uid="uid://bpo2rssirymdi" path="res://Assets/Background/0001_resultat.webp" id="1_5qgpg"]
+[ext_resource type="Script" path="res://Scripts/CustomMaskOcluder.cs" id="1_n7nym"]
 [ext_resource type="Texture2D" uid="uid://c46fw3j3xqomi" path="res://Assets/Background/0002_resultat.webp" id="2_ylfnx"]
 [ext_resource type="Texture2D" uid="uid://teeq6nqv6dvq" path="res://Assets/Background/0003_resultat.webp" id="3_dsc44"]
 [ext_resource type="Texture2D" uid="uid://bya0qqwfgp40n" path="res://Assets/Background/0004_resultat.webp" id="4_fanf3"]
@@ -769,13 +770,18 @@ animations = [{
 "speed": 30.0
 }]
 
-[node name="AnimatedBackGround" type="Node2D"]
+[node name="AnimatedBackGround" type="Node2D" node_paths=PackedStringArray("_maskPolygon")]
 z_index = -100
 z_as_relative = false
+script = ExtResource("1_n7nym")
+_maskPolygon = NodePath("Polygon2D")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(961, 538)
+position = Vector2(964, 538)
 sprite_frames = SubResource("SpriteFrames_g7f0p")
 autoplay = "default"
 frame = 119
 frame_progress = 0.201185
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(1762, 510, 946, 991, 85, 485, 223, 382, 0, 376, 1, 1078, 1919, 1081, 1922, 320, 1521, 369)

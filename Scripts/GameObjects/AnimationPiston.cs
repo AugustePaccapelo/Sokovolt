@@ -10,11 +10,40 @@ namespace Com.IsartDigital.SokoVolt.GameObjects {
         [Export] public Node2D topPart; // Partie mobile du piston (le bras)
 		private const int START_POS = 600; 
 
+
+		private void ApplyMaskRecursively(Node node)
+		{
+			CustomMaskOcluder.instance.ApplyOcclusionTo(node);
+
+			foreach (Node child in node.GetChildren())
+			{
+				ApplyMaskRecursively(child);
+			}
+		}
+
+
      	public async void Launch(Cell pTargetCell, Vector2 pFinalPosition, float pDelay)
 		{
+		
+
+
 			topPart.GlobalPosition = new Vector2(GlobalPosition.X, pFinalPosition.Y + START_POS);
 			ZIndex -= 40; 
 			if (pTargetCell == null) return;
+
+			if (CustomMaskOcluder.instance != null)
+			{
+				ApplyMaskRecursively(topPart);
+				ApplyMaskRecursively(GetChild(1)); 
+
+			
+				ApplyMaskRecursively(pTargetCell);
+
+				var content = pTargetCell.GetContent();
+				if (content != null)
+					ApplyMaskRecursively(content);
+				
+			}
 
 			// Position de départ sous la scène
 			Vector2 lStartPos = pFinalPosition + new Vector2(0, 600);
@@ -57,6 +86,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects {
 
 			await ToSignal(lPistonTween, "finished");
 			await ToSignal(GetTree().CreateTimer(1f), "timeout");
+
 			QueueFree(); 
 		}
 
