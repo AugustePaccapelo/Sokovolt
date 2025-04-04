@@ -1,5 +1,6 @@
 ﻿using Godot;
 using System;
+using RobotnikSokoban.Scripts.Managers;
 
 // Author : William Soukai
 
@@ -50,6 +51,7 @@ namespace Com.IsartDigital.SokoVolt {
         private void SFXValus(double pValue)
         {
             AudioServer.SetBusVolumeDb(AudioServer.GetBusIndex(sfx), (float)Mathf.LinearToDb(pValue));
+            SongManager.Instance.ambientDict[EnumSong.AmbientSong.RobloxDeath].Play();
         }
 
         private void MusicValue(double pValue)

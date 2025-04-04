@@ -6,6 +6,7 @@ public partial class EnumSong
     public enum AmbientSong
     {
         Piece,
+        RobloxDeath
     }
 
 }

@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://dkbx646vvyaig"]
+[gd_scene load_steps=27 format=3 uid="uid://dkbx646vvyaig"]
 
 [ext_resource type="PackedScene" uid="uid://dyk47lo67a1tp" path="res://Scenes/Managers/ui_manager.tscn" id="1_4603a"]
 [ext_resource type="PackedScene" uid="uid://bnv0kco0ylr0e" path="res://Scenes/Managers/GridManager.tscn" id="1_d671q"]
@@ -25,6 +25,7 @@
 [ext_resource type="Script" path="res://Scripts/Managers/AnimationManager.cs" id="22_ah2rb"]
 [ext_resource type="Script" path="res://Scripts/Managers/ConnectionManagers.cs" id="22_alaha"]
 [ext_resource type="Script" path="res://Scripts/Managers/SongManager.cs" id="24_lgxf0"]
+[ext_resource type="AudioStream" uid="uid://cbq85vvh8fln7" path="res://Song/roblox-death-sound_1.mp3" id="26_0femv"]
 
 [node name="MAIN" type="Node2D"]
 
@@ -100,6 +101,10 @@ script = ExtResource("22_ah2rb")
 script = ExtResource("24_lgxf0")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Managers/SongManager"]
+
+[node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="Managers/SongManager"]
+stream = ExtResource("26_0femv")
+bus = &"SFX"
 
 [node name="Containers" type="Node2D" parent="."]
 
