@@ -99,6 +99,8 @@ namespace Com.IsartDigital.SokoVolt
 			buttonCreateGoLogin.Pressed += ButtonChangeToLogin;
             buttonLoginConfirm.Pressed += ButtonPressedLogin;
 			buttonCreateConfirm.Pressed += ButtonPressedCreate;
+
+			CustomSignals.GetInstance().GoToLoginScreen += ButtonChangeToLogin;
         }
 
 		// ----- My Functions ----- \\
@@ -192,7 +194,7 @@ namespace Com.IsartDigital.SokoVolt
 			userName = inputCreateUsername.Text;
             password = inputCreatePassword.Text;
 
-			if (userGestion.RegisterUser(userName, password))
+			if (userName != "" && userGestion.RegisterUser(userName, password))
 			{
 				if (checkCreateStayLogged.ButtonPressed) userGestion.SaveLastUser(userName);
 				else userGestion.SaveLastUser();
