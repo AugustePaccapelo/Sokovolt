@@ -29,7 +29,6 @@ namespace Com.IsartDigital.SokoVolt
 
         private GpuParticles2D buttonSmokeParticles;
         private LevelSelectorTesla actualTesla;
-        private Node2D scoreScreen;
         
         private bool alreadyPress = false;
 
