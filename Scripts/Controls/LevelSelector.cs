@@ -1,4 +1,4 @@
-using Com.IsartDigital.ProjectName;
+using Com.IsartDigital.Sokovolt;
 using Com.IsartDigital.SokoVolt.GameObjects;
 using Com.IsartDigital.SokoVolt.Managers;
 using Godot;
@@ -18,6 +18,7 @@ namespace Com.IsartDigital.SokoVolt
         [Export] private PackedScene teslaScene, smokeParticlesScene;
         [Export] private Node2D teslaContainer;
         [Export] private int teslaPosY = 253;
+        private UserGestion userGestion;
 
         private int levelNumb = 0;
         private int levelNumbMax = 5;
@@ -29,7 +30,7 @@ namespace Com.IsartDigital.SokoVolt
 
         private GpuParticles2D buttonSmokeParticles;
         private LevelSelectorTesla actualTesla;
-        private UserGestion userGestion;
+        private List<int> unlockedLevels = new List<int>();
 
         private bool alreadyPress = false;
 
@@ -39,7 +40,7 @@ namespace Com.IsartDigital.SokoVolt
 
         public Godot.Collections.Dictionary<int, LevelSelectorTesla> teslaDictionnary = new Godot.Collections.Dictionary<int, LevelSelectorTesla>();
 
-        [Signal] public delegate void UnlockAllLevelEventHandler();
+        [Signal] public delegate void UnlockAllLevelEventHandler(); //
 
         #region Singleton
         static private LevelSelector instance;
@@ -68,14 +69,14 @@ namespace Com.IsartDigital.SokoVolt
             #endregion
 
             screenSize = GetViewportRect().Size;
-            InitializeLevelAtStart();
-            userGestion = UserGestion.GetInstance();
-
             buttonMainMenu.Pressed += MainMenu;
             buttonRight.Pressed += () => SwitchLevel(1);
             buttonLeft.Pressed += () => SwitchLevel(-1);
             buttonUnlockAll.Pressed += UnlockAll;
             buttonLaunch.Pressed += LevelUnlockedCheck;
+            userGestion = UserGestion.GetInstance();
+            unlockedLevels = userGestion.GetUnlockedLevels();
+            InitializeLevelAtStart();
         }
 
         private void MainMenu()
@@ -87,7 +88,6 @@ namespace Com.IsartDigital.SokoVolt
         {
             Vector2 lTeslaPosition;
             LevelSelectorTesla lTesla = new LevelSelectorTesla();
-            // Initialisation des niveaux dès le départ
             for (int i = 0; i <= levelNumbMax; i++)
             {
                 lTeslaPosition = (i == 0) ? new Vector2(screenSize.X / 2, teslaPosY)
@@ -103,7 +103,6 @@ namespace Com.IsartDigital.SokoVolt
                 if (i != 5) teslaDictionnary[i].nextTesla = teslaDictionnary[i + 1];
                 else teslaDictionnary[i].nextTesla = null;
             }
-
         }
 
         private void UnlockAll()
@@ -115,6 +114,7 @@ namespace Com.IsartDigital.SokoVolt
                 GetTree().CreateTimer(1f).Timeout += () => alreadyPress = false;
             }
         }
+
         private void LevelUnlockedCheck()
         {
             if (actualTesla.levelUnlocked)
@@ -133,7 +133,16 @@ namespace Com.IsartDigital.SokoVolt
                 Tween lTween2;
                 alreadyPress = true;
                 levelNumb += pDirection;
-                actualTesla = teslaDictionnary[levelNumb];
+
+                if (teslaDictionnary.ContainsKey(levelNumb)) actualTesla = teslaDictionnary[levelNumb];
+                else
+                {
+                    alreadyPress = false;
+                    return;
+                }
+                
+
+                UpdateLaunchButton();
 
                 for (int i = 0; i < teslaDictionnary.Count; i++)
                 {
@@ -160,6 +169,11 @@ namespace Com.IsartDigital.SokoVolt
             }
         }
 
+        private void UpdateLaunchButton()
+        {
+            buttonLaunch.Disabled = !(actualTesla != null && actualTesla.levelUnlocked);
+        }
+
         private LevelSelectorTesla CreateTesla(Vector2 pPos, int pIndex)
         {
             LevelSelectorTesla lTesla = teslaScene.Instantiate<LevelSelectorTesla>();
@@ -167,7 +181,8 @@ namespace Com.IsartDigital.SokoVolt
             lTesla.Position = pPos;
             lTesla.level = pIndex;
             lTesla.padLock.Show();
-            if (lTesla.level == 0)
+            GD.Print($"[Tesla] creation of a tesla {pIndex} | unlocked? ? {unlockedLevels.Contains(pIndex)}");
+            if (unlockedLevels.Contains(lTesla.level)) 
             {
                 lTesla.UnlockLevel();
             }

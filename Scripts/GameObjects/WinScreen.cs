@@ -58,9 +58,9 @@ namespace Com.IsartDigital.Sokovolt
             Tween lTween = CreateTween().SetParallel(true);
             lTween.TweenProperty(stepsCountLabel, "text", Tr(GridManager.STEP_LABEL_PREFIXE) + pSteps, 1f);
             lTween.TweenProperty(scoreLabel, "text", SCORE_LABEL_PREFIXE + pScore, 1f);
-
-            //stepsCountLabel.Text = STEPS_LABEL_PREFIXE + pSteps;
-            //scoreLabel.Text = SCORE_LABEL_PREFIXE + pScore;
+            UserGestion.GetInstance().SaveUserProgress(actualLevel, finalScore, earnedStars);
+            UserGestion.GetInstance().UnlockLevel(actualLevel + 1);
+            GD.Print("player progress saved and next level has been unlocked");
         }
 
         public async void StarSysteme(int pCount)

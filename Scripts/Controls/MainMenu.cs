@@ -50,6 +50,7 @@ namespace Com.IsartDigital.SokoVolt
             //startButton.Pressed += () => EmitSignal(nameof(StartGame));
 
             startButton.Pressed += () => CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.GoToLevelSelector);
+
             levelCreatorButton.Pressed += () => CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.GoToLevelCreator);
 			unlogButton.Pressed += () => CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.GoToLoginScreen);
 			englishButton.Pressed += () =>

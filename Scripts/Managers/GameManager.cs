@@ -1,4 +1,4 @@
-using Com.IsartDigital.ProjectName;
+using Com.IsartDigital.Sokovolt;
 using Com.IsartDigital.SokoVolt.GameObjects;
 using Com.IsartDigital.SokoVolt.GameObjects.Movables;
 using Godot;
@@ -28,6 +28,8 @@ namespace Com.IsartDigital.SokoVolt.Managers
         [Export] public Node2D objectsContainer;
         [Export] public MenuTrans MenuTrans;
         [Export] public Camera2D camera;
+        [Export] private Polygon2D mouse;
+
         HUD hud;
 
         // Managers
@@ -38,7 +40,6 @@ namespace Com.IsartDigital.SokoVolt.Managers
 		// GameObjects
 		public Door door;
 		private List<GoalBulb> allGoalBulbs = new List<GoalBulb>();
-		private Polygon2D mouse;
 
 		// ----- Others ----- \\
 		private List<int> scorePerStar = new List<int> { 1000, 2000, 5000 };
@@ -67,8 +68,8 @@ namespace Com.IsartDigital.SokoVolt.Managers
 		}
 		public override void Init()
 		{
-            mouse = GetNode<Polygon2D>("Mouse");
             hud = HUD.GetInstance();
+			userGestion = UserGestion.GetInstance();
             signals = CustomSignals.GetInstance();
             signals.PlayerMoved += PlayerHasMoved;
             signals.GoalBulbStateChanged += GoalBulbStateChanged;
@@ -79,8 +80,8 @@ namespace Com.IsartDigital.SokoVolt.Managers
 		{
             base._Process(pDelta);
             float lDelta = (float)pDelta;
-            
-			HideMouse();
+
+            HideMouse();
         }
 
         // ----- My Functions ----- \\
@@ -90,6 +91,7 @@ namespace Com.IsartDigital.SokoVolt.Managers
             mouse.Position = GetLocalMousePosition();
 			if (Input.MouseMode != Input.MouseModeEnum.Hidden) Input.MouseMode = Input.MouseModeEnum.Hidden;
         }
+
         public void AddGoalBulb(GoalBulb pGoalBulb)
 		{
 			allGoalBulbs.Add(pGoalBulb);

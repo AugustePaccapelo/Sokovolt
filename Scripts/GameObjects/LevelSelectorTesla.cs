@@ -1,4 +1,4 @@
-using Com.IsartDigital.ProjectName;
+using Com.IsartDigital.Sokovolt;
 using Com.IsartDigital.SokoVolt.Managers;
 using Godot;
 using Godot.Collections;
@@ -30,13 +30,26 @@ namespace Com.IsartDigital.SokoVolt.GameObjects {
         private void Init()
         {
             LevelSelector.GetInstance().UnlockAllLevel += UnlockAll;
-            InitLevelStateUserData(); // init ici
+            DelayInitLevel();
         }
 
-        private void InitLevelStateUserData() // Noe j'ai ajouter cette fonction mec
+        private async void DelayInitLevel()
+        {
+            await ToSignal(GetTree().CreateTimer(0.1f), "timeout");
+            InitLevelStateUserData();
+        }
+
+        private void InitLevelStateUserData()
         {
             var lUserData = UserGestion.GetInstance().GetUserData(); 
-            var lCurrentUser = UserGestion.GetInstance().GetLastUser();
+            var lCurrentUser = UserGestion.GetInstance().currentUser;
+
+            if (string.IsNullOrEmpty(lCurrentUser))
+            {
+                GD.PrintErr("currentUser is null, retrying later...");
+                CallDeferred(nameof(InitLevelStateUserData));
+                return;
+            }
 
             if (!lUserData.ContainsKey(lCurrentUser)) return;
             var lUserDict = (Dictionary)lUserData[lCurrentUser];
@@ -49,10 +62,12 @@ namespace Com.IsartDigital.SokoVolt.GameObjects {
             {
                 var lLevelData = (Dictionary)lLevels[lLevelKey];
                 bool lIsLocked = (bool)lLevelData.GetValueOrDefault("locked", true); //lIsLocked = true par defaut
+                GD.Print($"[Tesla {level}] Locked: {lIsLocked}, Unlocked: {levelUnlocked}");
 
-                if (!lIsLocked && !levelUnlocked)
+                if (!levelUnlocked)
                 {
-                    UnlockLevel();
+                    if(!lIsLocked || level == 0) UnlockLevel();
+                    else LockLevel();
                 }
             }
         }
@@ -80,6 +95,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects {
             foreach (PointLight2D light in lightEmission) lTween.TweenProperty(light, "energy", 3, 0.5f);
             padLock.Open();
             levelUnlocked = true;
+            GD.Print($"[Tesla {level}] Visually unlocked");
         }
 
         private void LockLevel()
@@ -89,6 +105,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects {
             foreach (PointLight2D light in lightEmission) lTween.TweenProperty(light, "energy", 0, 0.5f);
             padLock.Close();
             levelUnlocked = false;
+            GD.Print($"[Tesla {level}] Visually locked");
         }
     }
 }
