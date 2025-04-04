@@ -68,7 +68,6 @@ grow_horizontal = 1
 grow_vertical = 1
 
 [node name="GridManager" parent="Managers" instance=ExtResource("1_d671q")]
-wallScene = ExtResource("8_najj4")
 thunderEffectScene = ExtResource("9_bsoiu")
 pistonScene = ExtResource("9_ddww2")
 

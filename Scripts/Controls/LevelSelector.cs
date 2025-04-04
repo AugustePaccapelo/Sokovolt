@@ -132,9 +132,9 @@ namespace Com.IsartDigital.SokoVolt
                 Tween lTween;
                 Tween lTween2;
                 alreadyPress = true;
-                levelNumb += pDirection;
+                actualLevel += pDirection;
 
-                if (teslaDictionnary.ContainsKey(levelNumb)) actualTesla = teslaDictionnary[levelNumb];
+                if (teslaDictionnary.ContainsKey(actualLevel)) actualTesla = teslaDictionnary[actualLevel];
                 else
                 {
                     alreadyPress = false;
