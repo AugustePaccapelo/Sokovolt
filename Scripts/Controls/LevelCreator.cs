@@ -559,7 +559,7 @@ namespace Com.IsartDigital.SokoVolt
                 lenghtY = LENGHT_MIN;
             }
 
-            // Vérifie que la taille est dans les limites définies
+            // Check that the size is within the defined limits
             if (lenghtX >= LENGHT_MIN && lenghtX <= LENGHT_MAX && lenghtY >= LENGHT_MIN && lenghtY <= LENGHT_MAX)
             {
                 int lBorder = 5;
