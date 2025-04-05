@@ -1,4 +1,5 @@
-﻿using Godot;
+﻿using Com.IsartDigital.SokoVolt.GameObjects;
+using Godot;
 using System;
 
 //author : Noe Sales
@@ -85,9 +86,14 @@ namespace Com.IsartDigital.SokoVolt.Managers
             Tween lTween = GameManager.GetInstance().MenuTrans.ActiveTrans(1f, 0.2f);
 			lTween.Finished += () =>
 			{
+				foreach (var item in GameManager.GetInstance().objectsContainer.GetChildren())
+				{
+					if (item is AnimationPiston) item.QueueFree();
+				}
                 LevelSelector.GetInstance()?.QueueFree();
                 LevelCreator.GetInstance()?.QueueFree(); 
                 AudioSettings.Instance.Hide();
+				LoginScreen.GetInstance().Hide();
                 mainMenu.Show();
             };
 		}
@@ -100,9 +106,7 @@ namespace Com.IsartDigital.SokoVolt.Managers
                 mainMenu.Hide();
 				optionMenu= AudioSettings.Instance;
                 optionMenu.Show();
-				
             };
-
         }
 
 		private void GoToLoginScreen()
@@ -112,14 +116,12 @@ namespace Com.IsartDigital.SokoVolt.Managers
 			if (lLoginScreen.skipLogin)
 			{
 				lLoginScreen.skipLogin = false;
-				lLoginScreen.Hide();
-				mainMenu.Show();
-				return;
+                CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.GoToMainMenu);
+                return;
 			}
-
 			mainMenu.Hide();
 			lLoginScreen.Show();
-			lLoginScreen.AnimationLoginEnter();
+			//lLoginScreen.AnimationLoginEnter();
 		}
 
 		protected override void Dispose(bool pDisposing)

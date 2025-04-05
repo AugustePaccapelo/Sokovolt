@@ -1,9 +1,10 @@
-[gd_scene load_steps=57 format=3 uid="uid://dht3qeqhib1rk"]
+[gd_scene load_steps=54 format=3 uid="uid://dht3qeqhib1rk"]
 
 [ext_resource type="Script" path="res://Scripts/Controls/LevelSelector.cs" id="1_7onrw"]
 [ext_resource type="Texture2D" uid="uid://dyr30pkkewie" path="res://Assets/UI/MainMenu/LevelScreen.png" id="2_u4r7s"]
 [ext_resource type="PackedScene" uid="uid://c46bqjn4wfblh" path="res://Scenes/GameObjects/LevelSelectorObject/LevelSelectorTesla.tscn" id="3_31hu0"]
 [ext_resource type="Script" path="res://Scripts/GameObjects/ButtonTemplate.cs" id="4_tfihn"]
+[ext_resource type="PackedScene" uid="uid://dt8mu0rub45fm" path="res://Scenes/GameObjects/LevelSelectorObject/score_screen.tscn" id="5_1sge3"]
 [ext_resource type="Texture2D" uid="uid://o7dxw8nc0gvi" path="res://Assets/UI/MainMenu/CarpetBorder.png" id="5_8e1ql"]
 [ext_resource type="Texture2D" uid="uid://6ogwctw6dhxl" path="res://Assets/UI/MainMenu/Manette.png" id="6_8hpna"]
 [ext_resource type="Texture2D" uid="uid://6qajctfobfih" path="res://Assets/UI/MainMenu/CarpetBorder2.png" id="6_cobsf"]
@@ -21,10 +22,6 @@
 [ext_resource type="PackedScene" uid="uid://b0olmoqwuw54k" path="res://Scenes/GameObjects/WinScreen/rope.tscn" id="18_8m3jd"]
 [ext_resource type="Texture2D" uid="uid://kulh7f8b8jlr" path="res://icon.svg" id="19_jj0lu"]
 [ext_resource type="PackedScene" uid="uid://36dp5dq6hmqq" path="res://Scenes/GameObjects/ButtonTemplate.tscn" id="20_0nxsh"]
-[ext_resource type="Texture2D" uid="uid://dawl6e7442e4q" path="res://Assets/UI/MainMenu/ScoreDownScreen.png" id="22_vqx3v"]
-[ext_resource type="PackedScene" uid="uid://baqiox1toak3m" path="res://Scenes/UI/screen_effect.tscn" id="23_ohvsy"]
-[ext_resource type="Shader" path="res://Assets/Shaders/Effects/crt_shader/CRTShader.gdshader" id="24_xshnp"]
-[ext_resource type="Texture2D" uid="uid://buxvrfsirsh1j" path="res://Assets/UI/MainMenu/ScoreScreen.png" id="25_vcbl5"]
 
 [sub_resource type="Gradient" id="Gradient_byfll"]
 offsets = PackedFloat32Array(0, 0.238579, 1)
@@ -105,6 +102,9 @@ fill_from = Vector2(0.517094, 0.491453)
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ufiac"]
 texture = ExtResource("17_6ncai")
 
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_n63r8"]
+texture = ExtResource("17_6ncai")
+
 [sub_resource type="Gradient" id="Gradient_0xs26"]
 offsets = PackedFloat32Array(0, 0.703057)
 colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
@@ -167,20 +167,7 @@ corner_radius_top_right = 25
 corner_radius_bottom_right = 25
 corner_radius_bottom_left = 25
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ujqrm"]
-shader = ExtResource("24_xshnp")
-shader_parameter/screen_width = 348.0
-shader_parameter/screen_height = 375.0
-shader_parameter/BarrelPower = 1.02
-shader_parameter/color_bleeding = 1.2
-shader_parameter/bleeding_range_x = 1.0
-shader_parameter/bleeding_range_y = 1.0
-shader_parameter/lines_distance = 2.0
-shader_parameter/scan_size = 1.5
-shader_parameter/scanline_alpha = 0.9
-shader_parameter/lines_velocity = 10.0
-
-[node name="LevelSelector" type="Control" node_paths=PackedStringArray("buttonRight", "buttonLaunch", "buttonLeft", "buttonUnlockAll", "buttonMainMenu", "carpetTexture", "teslaContainer")]
+[node name="LevelSelector" type="Control" node_paths=PackedStringArray("buttonRight", "buttonLaunch", "buttonLeft", "buttonUnlockAll", "buttonMainMenu", "carpetTexture", "teslaContainer", "scoreBoard")]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_7onrw")
@@ -193,7 +180,9 @@ carpetTexture = NodePath("Carpet")
 texture = ExtResource("2_u4r7s")
 teslaScene = ExtResource("3_31hu0")
 smokeParticlesScene = ExtResource("15_53pe0")
+scoreScreenScene = ExtResource("5_1sge3")
 teslaContainer = NodePath("TeslaContainer")
+scoreBoard = NodePath("ScoreScreen")
 teslaPosY = 630
 
 [node name="BackGround" type="ColorRect" parent="."]
@@ -210,6 +199,9 @@ energy = 0.5
 blend_mode = 1
 range_z_min = 0
 range_z_max = 50
+
+[node name="ScoreScreen" parent="." instance=ExtResource("5_1sge3")]
+position = Vector2(1588, 319)
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
 position = Vector2(12, 773)
@@ -334,6 +326,7 @@ pivot_offset = Vector2(86, 85)
 theme_override_styles/normal = SubResource("StyleBoxTexture_ufiac")
 theme_override_styles/hover = SubResource("StyleBoxTexture_ufiac")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_ufiac")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_n63r8")
 
 [node name="PointLight2D" type="PointLight2D" parent="ButtonBox/ButtonLaunch"]
 position = Vector2(81.5679, 88.8739)
@@ -413,110 +406,6 @@ node_b = NodePath("../RigidBody2D")
 position = Vector2(336, 211)
 node_a = NodePath("../Rope2/RopeSegment16")
 node_b = NodePath("../RigidBody2D")
-
-[node name="ScoreScreen" type="Node2D" parent="."]
-position = Vector2(1503, 448)
-
-[node name="ScoreDownScreen" type="Sprite2D" parent="ScoreScreen"]
-position = Vector2(0, 1)
-texture = ExtResource("22_vqx3v")
-
-[node name="ScreenEffect" parent="ScoreScreen" instance=ExtResource("23_ohvsy")]
-material = SubResource("ShaderMaterial_ujqrm")
-offset_left = -173.0
-offset_top = -187.0
-offset_right = 175.0
-offset_bottom = 188.0
-color = Color(1, 1, 1, 1)
-
-[node name="PointLight2D" type="PointLight2D" parent="ScoreScreen"]
-color = Color(2.73142e-06, 0.481028, 1.92523e-07, 1)
-texture = ExtResource("7_c1v7e")
-texture_scale = 0.58
-
-[node name="VBoxContainer" type="VBoxContainer" parent="ScoreScreen"]
-offset_left = -174.0
-offset_top = -186.0
-offset_right = 176.0
-offset_bottom = 189.0
-theme_override_constants/separation = 20
-
-[node name="HBoxContainer2" type="HBoxContainer" parent="ScoreScreen/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 5
-alignment = 1
-
-[node name="Button" type="Button" parent="ScoreScreen/VBoxContainer/HBoxContainer2"]
-custom_minimum_size = Vector2(170, 47)
-layout_mode = 2
-text = "LOCAL SCORE"
-
-[node name="Button2" type="Button" parent="ScoreScreen/VBoxContainer/HBoxContainer2"]
-custom_minimum_size = Vector2(170, 47)
-layout_mode = 2
-text = "GLOBAL SCORE"
-
-[node name="HBoxContainer" type="HBoxContainer" parent="ScoreScreen/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 100
-alignment = 1
-
-[node name="VBoxContainer" type="VBoxContainer" parent="ScoreScreen/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 20
-
-[node name="Label" type="Label" parent="ScoreScreen/VBoxContainer/HBoxContainer/VBoxContainer"]
-layout_mode = 2
-text = "NAME :"
-
-[node name="NameLabelContainer" type="VBoxContainer" parent="ScoreScreen/VBoxContainer/HBoxContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScoreScreen/VBoxContainer/HBoxContainer/VBoxContainer/NameLabelContainer"]
-layout_mode = 2
-text = "NAME"
-
-[node name="Label2" type="Label" parent="ScoreScreen/VBoxContainer/HBoxContainer/VBoxContainer/NameLabelContainer"]
-layout_mode = 2
-text = "NAME"
-
-[node name="Label3" type="Label" parent="ScoreScreen/VBoxContainer/HBoxContainer/VBoxContainer/NameLabelContainer"]
-layout_mode = 2
-text = "NAME"
-
-[node name="Label4" type="Label" parent="ScoreScreen/VBoxContainer/HBoxContainer/VBoxContainer/NameLabelContainer"]
-layout_mode = 2
-text = "NAME"
-
-[node name="VBoxContainer2" type="VBoxContainer" parent="ScoreScreen/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 20
-
-[node name="Label" type="Label" parent="ScoreScreen/VBoxContainer/HBoxContainer/VBoxContainer2"]
-layout_mode = 2
-text = "SCORE :"
-
-[node name="ScoreLabelContainer" type="VBoxContainer" parent="ScoreScreen/VBoxContainer/HBoxContainer/VBoxContainer2"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScoreScreen/VBoxContainer/HBoxContainer/VBoxContainer2/ScoreLabelContainer"]
-layout_mode = 2
-text = "SCORE"
-
-[node name="Label2" type="Label" parent="ScoreScreen/VBoxContainer/HBoxContainer/VBoxContainer2/ScoreLabelContainer"]
-layout_mode = 2
-text = "SCORE"
-
-[node name="Label3" type="Label" parent="ScoreScreen/VBoxContainer/HBoxContainer/VBoxContainer2/ScoreLabelContainer"]
-layout_mode = 2
-text = "SCORE"
-
-[node name="Label4" type="Label" parent="ScoreScreen/VBoxContainer/HBoxContainer/VBoxContainer2/ScoreLabelContainer"]
-layout_mode = 2
-text = "SCORE"
-
-[node name="screen" type="Sprite2D" parent="ScoreScreen"]
-texture = ExtResource("25_vcbl5")
 
 [editable path="Sign/Rope"]
 [editable path="Sign/Rope2"]

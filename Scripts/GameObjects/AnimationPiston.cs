@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using static Com.IsartDigital.SokoVolt.Tools.ObjectProperties;
 
 // Author : Ferlat Thibaud 
 
@@ -8,56 +9,60 @@ namespace Com.IsartDigital.SokoVolt.GameObjects {
 	public partial class AnimationPiston : Node2D
 	{
         [Export] public Node2D topPart; // Partie mobile du piston (le bras)
-		private const int START_POS = 600; 
+		private const int START_POS = 600;
+		Tween tileTween;
+		Tween pistonTween;
 
-     	public async void Launch(Cell pTargetCell, Vector2 pFinalPosition, float pDelay)
+        public async void Launch(Cell pTargetCell, Vector2 pFinalPosition, float pDelay)
 		{
+			HUD.GetInstance().mainMenuButton.Disabled = true;
 			topPart.GlobalPosition = new Vector2(GlobalPosition.X, pFinalPosition.Y + START_POS);
 			ZIndex -= 40; 
 			if (pTargetCell == null) return;
-
+			
 			// Position de départ sous la scène
 			Vector2 lStartPos = pFinalPosition + new Vector2(0, 600);
 			pTargetCell.GlobalPosition = lStartPos;
-
+			
 			if (pTargetCell.GetContent() != null)
 				pTargetCell.GetContent().GlobalPosition = lStartPos;
-
-			// ⏱ Décalage personnalisé
-			await ToSignal(GetTree().CreateTimer(pDelay), "timeout");
-
-			// Animation bras du piston
-			Tween lPistonTween = CreateTween();
-			lPistonTween.TweenProperty(topPart, "position:y", 0, 0.6f)
+			
+			// Décalage personnalisé
+			await ToSignal(GetTree().CreateTimer(pDelay), TIME_OUT);
+			
+			         // Animation bras du piston
+			         pistonTween = CreateTween();
+			pistonTween.TweenProperty(topPart, POSITION_Y, 0, 0.6f)
 				.SetTrans(Tween.TransitionType.Back)
 				.SetEase(Tween.EaseType.Out);
-
-			await ToSignal(GetTree().CreateTimer(0.1f), "timeout");
-
-			// Animation de montée
-			Tween lTileTween = CreateTween();
-			lTileTween.Parallel().TweenProperty(pTargetCell, "global_position", pFinalPosition, 0.6f)
+			
+			await ToSignal(GetTree().CreateTimer(0.1f), TIME_OUT);
+			
+			         // Animation de montée
+			         tileTween = CreateTween();
+			tileTween.Parallel().TweenProperty(pTargetCell, GLOBALPOSITION, pFinalPosition, 0.6f)
 				.SetTrans(Tween.TransitionType.Back)
 				.SetEase(Tween.EaseType.Out);
-
+			
 			if (pTargetCell.GetContent() != null)
 			{
-				lTileTween.Parallel().TweenProperty(pTargetCell.GetContent(), "global_position", pFinalPosition, 0.6f)
+				tileTween.Parallel().TweenProperty(pTargetCell.GetContent(), GLOBALPOSITION, pFinalPosition, 0.6f)
 					.SetTrans(Tween.TransitionType.Back)
 					.SetEase(Tween.EaseType.Out);
 			}
-
-			lTileTween.TweenProperty(topPart, "position:y", START_POS - 100, 0.6f)
+			
+			tileTween.TweenProperty(topPart, POSITION_Y, START_POS - 100, 0.6f)
 				.SetTrans(Tween.TransitionType.Back)
 				.SetEase(Tween.EaseType.Out);
-
-			lTileTween.Parallel().TweenProperty(this, "position:y", GlobalPosition.Y + 250, 0.3f)
+			
+			tileTween.Parallel().TweenProperty(this, POSITION_Y, GlobalPosition.Y + 250, 0.3f)
 				.SetTrans(Tween.TransitionType.Back)
 				.SetEase(Tween.EaseType.In);
-
-			await ToSignal(lPistonTween, "finished");
-			await ToSignal(GetTree().CreateTimer(1f), "timeout");
-			QueueFree(); 
+			
+			await ToSignal(pistonTween, FINISHED);
+			await ToSignal(GetTree().CreateTimer(1f), TIME_OUT);
+			QueueFree();
+			HUD.GetInstance().mainMenuButton.Disabled = false;
 		}
 
 	}

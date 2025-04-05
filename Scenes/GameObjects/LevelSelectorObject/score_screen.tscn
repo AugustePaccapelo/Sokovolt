@@ -1,0 +1,147 @@
+[gd_scene load_steps=9 format=3 uid="uid://dt8mu0rub45fm"]
+
+[ext_resource type="Script" path="res://Scripts/GameObjects/ScoreBoard.cs" id="1_8u7hm"]
+[ext_resource type="Texture2D" uid="uid://dawl6e7442e4q" path="res://Assets/UI/MainMenu/ScoreDownScreen.png" id="1_wc5he"]
+[ext_resource type="Shader" path="res://Assets/Shaders/Effects/crt_shader/CRTShader.gdshader" id="2_8yumh"]
+[ext_resource type="Texture2D" uid="uid://c767fcajnj2yi" path="res://Assets/Shaders/Effects/Glow.png" id="2_yk86b"]
+[ext_resource type="Texture2D" uid="uid://buxvrfsirsh1j" path="res://Assets/UI/MainMenu/ScoreScreen.png" id="3_5bb7u"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6h7lh"]
+shader = ExtResource("2_8yumh")
+shader_parameter/screen_width = 348.0
+shader_parameter/screen_height = 400.0
+shader_parameter/BarrelPower = 1.02
+shader_parameter/color_bleeding = 1.2
+shader_parameter/bleeding_range_x = 1.0
+shader_parameter/bleeding_range_y = 1.0
+shader_parameter/lines_distance = 2.0
+shader_parameter/scan_size = 1.5
+shader_parameter/scanline_alpha = 0.9
+shader_parameter/lines_velocity = 10.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_ku7ta"]
+font_size = 25
+
+[sub_resource type="LabelSettings" id="LabelSettings_abuyc"]
+font_size = 48
+outline_color = Color(0, 0.508417, 2.88785e-07, 1)
+
+[node name="ScoreScreen" type="Node2D" node_paths=PackedStringArray("nameContainer", "scoreContainer", "numberContainer", "personalScoreContainer", "globalScoreContainer", "personalScoreButton", "globalScoreButton", "scoreLabel")]
+position = Vector2(1609, 267)
+script = ExtResource("1_8u7hm")
+nameContainer = NodePath("VBoxContainer/GlobalScore/HBoxContainer/NameColumn/NameLabelContainer")
+scoreContainer = NodePath("VBoxContainer/GlobalScore/HBoxContainer/ScoreColumn/ScoreLabelContainer")
+numberContainer = NodePath("VBoxContainer/GlobalScore/NumberColumn/NumberContainer")
+personalScoreContainer = NodePath("VBoxContainer/PersonalScore")
+globalScoreContainer = NodePath("VBoxContainer/GlobalScore")
+personalScoreButton = NodePath("VBoxContainer/ButtonContainer/Button")
+globalScoreButton = NodePath("VBoxContainer/ButtonContainer/Button2")
+scoreLabel = NodePath("VBoxContainer/PersonalScore/scoreLabel")
+
+[node name="ScoreDownScreen" type="Sprite2D" parent="."]
+position = Vector2(0, 15)
+scale = Vector2(1, 1.07447)
+texture = ExtResource("1_wc5he")
+
+[node name="ScreenEffect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_6h7lh")
+offset_left = -173.0
+offset_top = -187.0
+offset_right = 175.0
+offset_bottom = 213.0
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+color = Color(2.73142e-06, 0.481028, 1.92523e-07, 1)
+texture = ExtResource("2_yk86b")
+texture_scale = 0.58
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+offset_left = -174.0
+offset_top = -186.0
+offset_right = 176.0
+offset_bottom = 215.0
+theme_override_constants/separation = 15
+
+[node name="ButtonContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 3
+alignment = 1
+
+[node name="Button" type="Button" parent="VBoxContainer/ButtonContainer"]
+custom_minimum_size = Vector2(171.315, 50.825)
+layout_mode = 2
+text = "PERSONAL SCORE"
+
+[node name="Button2" type="Button" parent="VBoxContainer/ButtonContainer"]
+custom_minimum_size = Vector2(171.315, 50.825)
+layout_mode = 2
+text = "GLOBAL SCORE"
+
+[node name="GlobalScore" type="HBoxContainer" parent="VBoxContainer"]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="NumberColumn" type="VBoxContainer" parent="VBoxContainer/GlobalScore"]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Label" type="Label" parent="VBoxContainer/GlobalScore/NumberColumn"]
+layout_mode = 2
+
+[node name="NumberContainer" type="VBoxContainer" parent="VBoxContainer/GlobalScore/NumberColumn"]
+layout_mode = 2
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/GlobalScore"]
+layout_mode = 2
+theme_override_constants/separation = 100
+
+[node name="NameColumn" type="VBoxContainer" parent="VBoxContainer/GlobalScore/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Label" type="Label" parent="VBoxContainer/GlobalScore/HBoxContainer/NameColumn"]
+layout_mode = 2
+text = "NAME :"
+
+[node name="NameLabelContainer" type="VBoxContainer" parent="VBoxContainer/GlobalScore/HBoxContainer/NameColumn"]
+layout_mode = 2
+alignment = 1
+
+[node name="ScoreColumn" type="VBoxContainer" parent="VBoxContainer/GlobalScore/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Label" type="Label" parent="VBoxContainer/GlobalScore/HBoxContainer/ScoreColumn"]
+layout_mode = 2
+text = "SCORE :"
+
+[node name="ScoreLabelContainer" type="VBoxContainer" parent="VBoxContainer/GlobalScore/HBoxContainer/ScoreColumn"]
+layout_mode = 2
+
+[node name="PersonalScore" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="Label" type="Label" parent="VBoxContainer/PersonalScore"]
+layout_mode = 2
+text = "YOUR BEST SCORE"
+label_settings = SubResource("LabelSettings_ku7ta")
+horizontal_alignment = 1
+
+[node name="scoreLabel" type="Label" parent="VBoxContainer/PersonalScore"]
+layout_mode = 2
+text = "XXXXX"
+label_settings = SubResource("LabelSettings_abuyc")
+horizontal_alignment = 1
+
+[node name="screen" type="Sprite2D" parent="."]
+position = Vector2(0, 12)
+scale = Vector2(1, 1.05941)
+texture = ExtResource("3_5bb7u")

@@ -44,13 +44,6 @@ namespace Com.IsartDigital.SokoVolt.GameObjects {
             var lUserData = UserGestion.GetInstance().GetUserData(); 
             var lCurrentUser = UserGestion.GetInstance().currentUser;
 
-            if (string.IsNullOrEmpty(lCurrentUser))
-            {
-                GD.PrintErr("currentUser is null, retrying later...");
-                CallDeferred(nameof(InitLevelStateUserData));
-                return;
-            }
-
             if (!lUserData.ContainsKey(lCurrentUser)) return;
             var lUserDict = (Dictionary)lUserData[lCurrentUser];
             if (!lUserDict.ContainsKey("levels")) return;
@@ -67,7 +60,6 @@ namespace Com.IsartDigital.SokoVolt.GameObjects {
                 if (!levelUnlocked)
                 {
                     if(!lIsLocked || level == 0) UnlockLevel();
-                    else LockLevel();
                 }
             }
         }

@@ -16,8 +16,9 @@ namespace Com.IsartDigital.SokoVolt
         [Export] public Button buttonRight, buttonLaunch, buttonLeft, buttonUnlockAll, buttonMainMenu;
         [Export] public Sprite2D carpetTexture;
         [Export] private CompressedTexture2D texture;
-        [Export] private PackedScene teslaScene, smokeParticlesScene;
+        [Export] private PackedScene teslaScene, smokeParticlesScene, scoreScreenScene;
         [Export] private Node2D teslaContainer;
+        [Export] private ScoreBoard scoreBoard;
         [Export] private int teslaPosY = 253;
         private UserGestion userGestion;
 
@@ -36,7 +37,7 @@ namespace Com.IsartDigital.SokoVolt
         private bool alreadyPress = false;
 
         private const string LEVEL_PREFIXE = "LevelPrefix";
-        private const string LEVEL_LABEL_PATH = "Screen/LevelLabel";
+        private const string LEVEL_LABEL_PATH = "Screen/SubViewportContainer/SubViewport/ScreenView/LevelLabel";
         private const float MARGIN = 350.0f;
 
         public Godot.Collections.Dictionary<int, LevelSelectorTesla> teslaDictionnary = new Godot.Collections.Dictionary<int, LevelSelectorTesla>();
@@ -78,6 +79,7 @@ namespace Com.IsartDigital.SokoVolt
             userGestion = UserGestion.GetInstance();
             unlockedLevels = userGestion.GetUnlockedLevels();
             InitializeLevelAtStart();
+            scoreBoard.UpdatePersonalScoreBoard(actualLevel);
         }
 
         private void MainMenu()
@@ -104,6 +106,7 @@ namespace Com.IsartDigital.SokoVolt
                 if (i != 5) teslaDictionnary[i].nextTesla = teslaDictionnary[i + 1];
                 else teslaDictionnary[i].nextTesla = null;
             }
+            
         }
 
         private void UnlockAll()
@@ -167,6 +170,7 @@ namespace Com.IsartDigital.SokoVolt
 
                 GetTree().CreateTimer(0.5f).Timeout += () => alreadyPress = false;
             }
+            scoreBoard.UpdatePersonalScoreBoard(actualLevel);
         }
 
         private void UpdateLaunchButton()
