@@ -60,7 +60,9 @@ namespace Com.IsartDigital.Sokovolt
         public override void Init()
         {
             LoginScreen.GetInstance().userGestion = this;
-            LoginScreen.GetInstance().skipLogin = !(GetLastUser() is null);
+            bool lSkipLog = !(GetLastUser() is null);
+            LoginScreen.GetInstance().skipLogin = lSkipLog;
+            if (lSkipLog) currentUser = GetLastUser();
             customSignals = CustomSignals.GetInstance();
         }
 
