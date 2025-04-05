@@ -82,12 +82,16 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables {
 
             foreach (Vector2 pStep in pPath)
             {
+                if (IsQueuedForDeletion() || GetTree() == null) return;
+
                 MoveTo((int)pStep.X, (int)pStep.Y, GridManager.GetInstance().grid);
-				GridManager.GetInstance().StockGridState();
-				GridManager.GetInstance().PrintGrid(); 
+                GridManager.GetInstance().StockGridState();
+                GridManager.GetInstance().PrintGrid();
+
                 await ToSignal(GetTree().CreateTimer(0.2f), "timeout");
             }
         }
+
 
         #region dispose
         protected override void Dispose(bool pDisposing)
