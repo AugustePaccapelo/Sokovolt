@@ -93,7 +93,7 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 
 		#region // ----- Load Level ----- \\
 
-		public void LoadNewLevel(int pLevelToLoad, string pLevelPath, Node2D pObjectContainer) // ==================> Charger un niveau avec son index (commence à 0)
+		public void LoadNewLevel(int pLevelToLoad, string pLevelPath, Node2D pObjectContainer) // ==================> Change Level with index(start at 0)
 		{
 			ResetStepCounter();
 			hud.Visible = true;
@@ -101,7 +101,7 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 			LevelLoader.GetInstance().LoadLevel(pLevelToLoad, pLevelPath, pObjectContainer);
 			CenterGrid(); 
 
-			if (grid == null)  // Évite d'ajouter un état vide
+			if (grid == null)  // Avoid null state 
 				return;
 
 			StockGridState();
@@ -228,6 +228,8 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 			return pX < 0 || pX >= LevelLoader.levelWidth || pY < 0 || pY >= LevelLoader.levelHeight;
 		}
 
+
+        // ----- PathFinding ----- \\
         public void HandleCellClicked(Vector2 pTargetPos)
         {
             int lPosX = (int)pTargetPos.X;
@@ -340,7 +342,7 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 				{
 					Cell lCell = grid[x, y];
 
-					if (lCell == null)  // Évite le crash en cas de cellule absente
+					if (lCell == null)  // Avoid crash for null cell
 						continue;
 
 					GameObject lContent = lCell.GetContent();
@@ -434,6 +436,8 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 
 			float lBaseDelay = 0.02f; 
 			float lRandDelay; 
+			int lMaxDistancePropulsion = 1000; 
+
 			for (int i = 0; i < lObjectsToAnimate.Count; i++)
 			{
 				lRandDelay = rand.Randf()* lBaseDelay; 
@@ -442,7 +446,7 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 
 				FlashElectricEffect(lObject);  
 
-				float lRandPropulsion = rand.Randf() * 1000; 
+				float lRandPropulsion = rand.Randf() * lMaxDistancePropulsion; 
 
 				if (lObject != null)
 				{

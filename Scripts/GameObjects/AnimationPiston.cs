@@ -1,3 +1,4 @@
+using Com.IsartDigital.SokoVolt.Tools;
 using Godot;
 using System;
 
@@ -7,17 +8,17 @@ namespace Com.IsartDigital.SokoVolt.GameObjects {
 	
 	public partial class AnimationPiston : Node2D
 	{
-        [Export] public Node2D topPart; // Partie mobile du piston (le bras)
+        [Export] public Node2D topPart;
 		private const int START_POS = 600; 
 
 
-		private void ApplyMaskRecursively(Node node)
+		private void ApplyMaskRecursively(Node pNode)
 		{
-			CustomMaskOcluder.instance.ApplyOcclusionTo(node);
+			CustomMaskOcluder.instance.ApplyOcclusionTo(pNode);
 
-			foreach (Node child in node.GetChildren())
+			foreach (Node lChild in pNode.GetChildren())
 			{
-				ApplyMaskRecursively(child);
+				ApplyMaskRecursively(lChild);
 			}
 		}
 
@@ -29,11 +30,11 @@ namespace Com.IsartDigital.SokoVolt.GameObjects {
 			{
 				if (originalMaterials.ContainsKey(canvasItem))
 				{
-					canvasItem.Material = originalMaterials[canvasItem];
+					canvasItem.Material = originalMaterials[canvasItem]; //Reset animated objects origin material 
 				}
 				else
 				{
-					canvasItem.Material = null;  // Matériel de base de Godot
+					canvasItem.Material = null;  // Base godot material 
 				}
 			}
 
@@ -69,47 +70,47 @@ namespace Com.IsartDigital.SokoVolt.GameObjects {
 				
 			}
 
-			// Position de départ sous la scène
-			Vector2 lStartPos = pFinalPosition + new Vector2(0, 600);
+			// Scene start position 
+			Vector2 lStartPos = pFinalPosition + new Vector2(0, START_POS);
 			pTargetCell.GlobalPosition = lStartPos;
 
 			if (pTargetCell.GetContent() != null)
 				pTargetCell.GetContent().GlobalPosition = lStartPos;
 
-			// ⏱ Décalage personnalisé
-			await ToSignal(GetTree().CreateTimer(pDelay), "timeout");
+			//  Time Between Animation
+			await ToSignal(GetTree().CreateTimer(pDelay), ObjectProperties.TIME_OUT);
 
-			// Animation bras du piston
+			// Down Piston Animation 
 			Tween lPistonTween = CreateTween();
-			lPistonTween.TweenProperty(topPart, "position:y", 0, 0.6f)
+			lPistonTween.TweenProperty(topPart, ObjectProperties.POSITION_Y, 0, 0.6f)
 				.SetTrans(Tween.TransitionType.Back)
 				.SetEase(Tween.EaseType.Out);
 
-			await ToSignal(GetTree().CreateTimer(0.1f), "timeout");
+			await ToSignal(GetTree().CreateTimer(0.1f), ObjectProperties.TIME_OUT);
 
-			// Animation de montée
+			// Up Animation
 			Tween lTileTween = CreateTween();
-			lTileTween.Parallel().TweenProperty(pTargetCell, "global_position", pFinalPosition, 0.6f)
+			lTileTween.Parallel().TweenProperty(pTargetCell, ObjectProperties.GLOBAL_POSITION, pFinalPosition, 0.6f)
 				.SetTrans(Tween.TransitionType.Back)
 				.SetEase(Tween.EaseType.Out);
 
 			if (pTargetCell.GetContent() != null)
 			{
-				lTileTween.Parallel().TweenProperty(pTargetCell.GetContent(), "global_position", pFinalPosition, 0.6f)
+				lTileTween.Parallel().TweenProperty(pTargetCell.GetContent(), ObjectProperties.GLOBAL_POSITION, pFinalPosition, 0.6f)
 					.SetTrans(Tween.TransitionType.Back)
 					.SetEase(Tween.EaseType.Out);
 			}
 
-			lTileTween.TweenProperty(topPart, "position:y", START_POS - 100, 0.6f)
+			lTileTween.TweenProperty(topPart, ObjectProperties.POSITION_Y, START_POS - 100, 0.6f)
 				.SetTrans(Tween.TransitionType.Back)
 				.SetEase(Tween.EaseType.Out);
 
-			lTileTween.Parallel().TweenProperty(this, "position:y", GlobalPosition.Y + 250, 0.3f)
+			lTileTween.Parallel().TweenProperty(this, ObjectProperties.POSITION_Y, GlobalPosition.Y + 250, 0.3f)
 				.SetTrans(Tween.TransitionType.Back)
 				.SetEase(Tween.EaseType.In);
 
-			await ToSignal(lPistonTween, "finished");
-			await ToSignal(GetTree().CreateTimer(1f), "timeout");
+			await ToSignal(lPistonTween, ObjectProperties.FINISHED);
+			await ToSignal(GetTree().CreateTimer(1f), ObjectProperties.TIME_OUT);
 			
 			ClearMaskRecursively(topPart);
 

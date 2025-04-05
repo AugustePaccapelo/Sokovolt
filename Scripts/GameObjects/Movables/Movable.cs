@@ -9,7 +9,6 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables {
 	public partial class Movable : GameObject
 	{
 		//Animation Lerp 
-		
  		private Vector2 targetPosition; 
 		private bool isMoving; 
 		private float moveSpeed = 15; 
@@ -20,6 +19,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables {
 
 		public virtual void MoveTo(int pX, int pY, Cell[,] pGrid)
 		{
+			//Check movements 
 			Cell lOldCell = pGrid[x, y]; 
 			Cell lNewCell = pGrid[pX, pY];
 
@@ -50,6 +50,8 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables {
         public override void _Process(double pDelta)
         {
 			float lDelta = (float)pDelta;
+
+			//Lerp moving animation 
 			if(isMoving)
 			{
 				GlobalPosition = GlobalPosition.Lerp(targetPosition, moveSpeed * lDelta); 

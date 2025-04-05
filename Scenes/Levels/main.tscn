@@ -25,7 +25,7 @@
 [ext_resource type="Script" path="res://Scripts/Managers/AnimationManager.cs" id="22_ah2rb"]
 [ext_resource type="Script" path="res://Scripts/Managers/ConnectionManagers.cs" id="22_alaha"]
 [ext_resource type="Script" path="res://Scripts/Managers/SongManager.cs" id="24_lgxf0"]
-[ext_resource type="PackedScene" uid="uid://bkskxcspqook3" path="res://Scenes/GameObjects/BackGround/AnimatedBackGround.tscn" id="26_rfowc"]
+[ext_resource type="PackedScene" uid="uid://bkskxcspqook3" path="res://Scenes/BackGround/AnimatedBackGround.tscn" id="26_rfowc"]
 
 [node name="MAIN" type="Node2D"]
 

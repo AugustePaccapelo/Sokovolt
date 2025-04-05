@@ -280,7 +280,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
             }
         }
 
-
+        // ---- Preview electric lines ---- \\
         public void ShowPotentialConnections()
         {
             Cell[,] lGrid = gridManager.grid;

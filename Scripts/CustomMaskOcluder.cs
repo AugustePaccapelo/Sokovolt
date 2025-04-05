@@ -1,24 +1,29 @@
 using Godot;
 using Godot.Collections;
 using System;
+using System.Runtime.CompilerServices;
 
 namespace Com.IsartDigital.SokoVolt.GameObjects 
 {
     public partial class CustomMaskOcluder : Node2D
     {
 		static public CustomMaskOcluder instance; 
-        [Export] private Polygon2D _maskPolygon;
-        private ViewportTexture _maskTexture;
-        private Vector2 _lastViewportSize;
+        [Export] private Polygon2D maskPolygon;
+        private ViewportTexture maskTexture;
+        private Vector2 lastViewportSize;
 
-		private Dictionary<CanvasItem, Material> _originalMaterials = new();
+		private Dictionary<CanvasItem, Material> originalMaterials = new Dictionary<CanvasItem, Material>();
+
+		//Shader Properties
+		private const string MASK_POSITION = "mask_position"; 
+		private const string MASK_TEXTURE = "mask_texture"; 
+		private const string VIEWPORT_SIZE = "viewport_size"; 
 
 
         public override void _Ready()
         {
 			instance = this; 
             InitializeMaskSystem();
-			// ApplyOcclusionTo(GetChild(0) as AnimatedSprite2D); 
         }
 
         private void InitializeMaskSystem()
@@ -33,12 +38,12 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
             };
             AddChild(viewport);
 
-            var polyCopy = _maskPolygon.Duplicate() as Polygon2D;
+            var polyCopy = maskPolygon.Duplicate() as Polygon2D;
             viewport.AddChild(polyCopy);
-            _maskTexture = viewport.GetTexture();
+            maskTexture = viewport.GetTexture();
 
             // Configure main mask
-            _maskPolygon.Material = new ShaderMaterial
+            maskPolygon.Material = new ShaderMaterial
             {
                 Shader = new Shader
                 {
@@ -47,27 +52,25 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
                             void fragment() { COLOR = vec4(0.0); }"
                 }
             };
-            _maskPolygon.ZIndex = 1000;
+            maskPolygon.ZIndex = 1000;
 
-            _lastViewportSize = GetViewportRect().Size;
+            lastViewportSize = GetViewportRect().Size;
         }
 
-    	public void ApplyOcclusionTo(Node node)
+    	public void ApplyOcclusionTo(Node pNode)
 		{
-			if (_maskTexture == null)
-			{
-				GD.PrintErr("Mask texture is null, skipping masking.");
+			if (maskTexture == null)
 				return;
-			}
+			
 
-			if (node is CanvasItem canvasItem)
+			if (pNode is CanvasItem canvasItem)
 			{
-				// Si le canvasItem n'a pas de matériel, on le sauve avec "null"
-				if (!_originalMaterials.ContainsKey(canvasItem))
-					_originalMaterials[canvasItem] = canvasItem.Material;
+				// Canvas no Material => Set null
+				if (!originalMaterials.ContainsKey(canvasItem))
+					originalMaterials[canvasItem] = canvasItem.Material;
 
-				// On applique le ShaderMaterial temporaire
-				var mat = new ShaderMaterial
+				// Temporary Shader
+				ShaderMaterial lMat = new ShaderMaterial
 				{
 					Shader = new Shader
 					{
@@ -90,38 +93,33 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
 					}
 				};
 
-				mat.SetShaderParameter("mask_texture", _maskTexture);
-				mat.SetShaderParameter("mask_position", _maskPolygon.GlobalPosition);
-				mat.SetShaderParameter("viewport_size", GetViewportRect().Size);
+				lMat.SetShaderParameter(MASK_TEXTURE, maskTexture);
+				lMat.SetShaderParameter(MASK_POSITION, maskPolygon.GlobalPosition);
+				lMat.SetShaderParameter(VIEWPORT_SIZE, GetViewportRect().Size);
 
-				canvasItem.Material = mat;
-			}
-
-			else
-			{
-				GD.Print($"Node {node.Name} is not a CanvasItem, skipping.");
+				canvasItem.Material = lMat;
 			}
 		}
 
 		public Dictionary<CanvasItem, Material> GetOriginalMaterials()
 		{
-			return _originalMaterials;
+			return originalMaterials;
 		}
 
 
         public override void _Process(double delta)
         {
             var currentSize = GetViewportRect().Size;
-            if (currentSize != _lastViewportSize)
+            if (currentSize != lastViewportSize)
             {
-                _lastViewportSize = currentSize;
-                foreach (Node child in GetChildren())
+                lastViewportSize = currentSize;
+                foreach (Node lChild in GetChildren())
                 {
-                    if (child is CanvasItem { Material: ShaderMaterial mat } && 
+                    if (lChild is CanvasItem { Material: ShaderMaterial mat } && 
                         mat.Shader != null && 
-                        mat.Shader.Code.Contains("mask_position"))
+                        mat.Shader.Code.Contains(MASK_POSITION))
                     {
-                        mat.SetShaderParameter("viewport_size", currentSize);
+                        mat.SetShaderParameter(VIEWPORT_SIZE, currentSize);
                     }
                 }
             }
