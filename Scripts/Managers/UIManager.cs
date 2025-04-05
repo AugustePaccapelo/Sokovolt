@@ -55,7 +55,7 @@ namespace Com.IsartDigital.SokoVolt.Managers
             lCustomSignals.GoToLevelCreator += LevelCreatorScreen;
             lCustomSignals.GoToLoginScreen += GoToLoginScreen;
 			lCustomSignals.GoToOptionMenu += GoToOptionMenu;
-
+            lCustomSignals.ExitGame += OnQuitButtonPressed;
         }
 
 		public void GameStart() //Execute when StartButton is press in MainMenu
@@ -123,6 +123,10 @@ namespace Com.IsartDigital.SokoVolt.Managers
 			lLoginScreen.Show();
 			//lLoginScreen.AnimationLoginEnter();
 		}
+        private void OnQuitButtonPressed()
+        {
+            GetTree().Quit(); 
+        }
 
 		protected override void Dispose(bool pDisposing)
 		{

@@ -1,4 +1,4 @@
-using Com.IsartDigital.Sokovolt;
+﻿using Com.IsartDigital.Sokovolt;
 using Com.IsartDigital.Tools;
 using Godot;
 using System.Collections.Generic;
@@ -26,6 +26,7 @@ namespace Com.IsartDigital.SokoVolt
 		// ----- Nodes ----- \\
 		[ExportGroup("LoginScreen")]
 		[Export] private Control loginNode;
+        [Export] private Button quitButton;
 		private VBoxContainer vBoxHolderLogin;
 		private TextEdit inputLoginUsername;
 		private LineEdit inputLoginPassword;
@@ -99,8 +100,10 @@ namespace Com.IsartDigital.SokoVolt
 			buttonCreateGoLogin.Pressed += ButtonChangeToLogin;
             buttonLoginConfirm.Pressed += ButtonPressedLogin;
 			buttonCreateConfirm.Pressed += ButtonPressedCreate;
+            quitButton.Pressed += ()=> CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.ExitGame);
 
 			CustomSignals.GetInstance().GoToLoginScreen += ButtonChangeToLogin;
+
         }
 
 		// ----- My Functions ----- \\

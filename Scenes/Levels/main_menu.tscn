@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Scripts/Controls/MainMenu.cs" id="1_3kguo"]
 [ext_resource type="Script" path="res://Scripts/GameObjects/ButtonTemplate.cs" id="2_vdray"]
 
-[node name="MainMenu" type="Control" node_paths=PackedStringArray("startButton", "levelCreatorButton", "unlogButton", "optionButton")]
+[node name="MainMenu" type="Control" node_paths=PackedStringArray("startButton", "levelCreatorButton", "unlogButton", "optionButton", "quitButton")]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_3kguo")
@@ -11,6 +11,7 @@ startButton = NodePath("Panel/StartButton")
 levelCreatorButton = NodePath("Panel/LevelCreator")
 unlogButton = NodePath("Panel/UnlogButton")
 optionButton = NodePath("Panel/OptionButton")
+quitButton = NodePath("Panel/Exit")
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1
@@ -68,3 +69,16 @@ offset_top = -63.6401
 offset_right = 160.64
 offset_bottom = 64.3599
 text = "Option"
+
+[node name="Exit" type="Button" parent="Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.083
+anchor_top = 0.94
+anchor_right = 0.083
+anchor_bottom = 0.94
+offset_left = -127.36
+offset_top = -39.2001
+offset_right = 128.64
+offset_bottom = 38.7999
+text = "EXIT"

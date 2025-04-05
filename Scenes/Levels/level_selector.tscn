@@ -167,7 +167,7 @@ corner_radius_top_right = 25
 corner_radius_bottom_right = 25
 corner_radius_bottom_left = 25
 
-[node name="LevelSelector" type="Control" node_paths=PackedStringArray("buttonRight", "buttonLaunch", "buttonLeft", "buttonUnlockAll", "buttonMainMenu", "carpetTexture", "teslaContainer", "scoreBoard")]
+[node name="LevelSelector" type="Control" node_paths=PackedStringArray("buttonRight", "buttonLaunch", "buttonLeft", "buttonUnlockAll", "buttonMainMenu", "carpetTexture", "teslaContainer")]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_7onrw")
@@ -180,9 +180,7 @@ carpetTexture = NodePath("Carpet")
 texture = ExtResource("2_u4r7s")
 teslaScene = ExtResource("3_31hu0")
 smokeParticlesScene = ExtResource("15_53pe0")
-scoreScreenScene = ExtResource("5_1sge3")
 teslaContainer = NodePath("TeslaContainer")
-scoreBoard = NodePath("ScoreScreen")
 teslaPosY = 630
 
 [node name="BackGround" type="ColorRect" parent="."]
