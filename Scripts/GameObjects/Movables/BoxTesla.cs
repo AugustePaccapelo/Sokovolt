@@ -16,16 +16,27 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
 
     public partial class BoxTesla : Movable
     {
+        
+        #region  Export 
         [Export] private PackedScene lightningNodeScene;
-        LightningNode lightning;
-        [Signal] public delegate void PlayerCollideEventHandler(BoxTesla lTesla);
         [Export] private RayCast2D rayCast;
         [Export] private Line2D electriLine2D;
         [Export] private Marker2D connectionPoint;
         [Export] private Node2D visual;
+        #endregion
+
+        #region variables
+        [Signal] public delegate void PlayerCollideEventHandler(BoxTesla lTesla);
+        LightningNode lightning;
         public BoxTesla nextBoxTesla = null;
         public bool energize = false;
         GridManager gridManager = GridManager.GetInstance();
+        private bool signalEmit = false;
+        public bool playerCanBeDetected = true;
+        Vector2 LastPos = Vector2.Zero;
+        #endregion
+        
+        #region directionScan
         private List<Vector2> directionScan = new List<Vector2>()
         {
             Vector2.Up,
@@ -37,11 +48,9 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
             Vector2.Left,
             Vector2.Right
         };
-        private bool signalEmit = false;
-        public bool playerCanBeDetected = true;
-        Vector2 LastPos = Vector2.Zero;
-
-        //Shake variables
+        #endregion
+        
+        #region  Shake_variables
         public bool canShake = false;
         private double shakeTimer = 0;
         private const double shakeInterval = 3.0;
@@ -49,14 +58,12 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
         private bool isShaking = false;
         private Tween shakeTweenPosition;
         private Tween shakeTweenRotation;
+        #endregion
 
 
         //Range tesla gestion 
         public int range { get; private set; }
         [Export] private Label rangeLabel;
-
-        
-        ///////
         private Vector2 lastPlayerPos;
         private List<Vector2> lastPreviewTargets = new();
         private List<LightningNode> previewLines = new();
@@ -84,7 +91,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
                 if (!isShaking && shakeTimer >= shakeInterval)
                 {
                     StartShake();
-                    shakeTimer = 0;  // Reset après avoir lancé le shake
+                    shakeTimer = 0;  
                 }
                 else if (isShaking && shakeTimer >= shakeDuration)
                 {
@@ -176,6 +183,8 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
 
         }
 
+        #region Searchin
+        // Searches for nearby connections after movement
         private void Searching(Movable pMovable)
         {
             if (LastPos != Utils.GetCellPos(this) && pMovable is BoxTesla)
@@ -185,7 +194,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
                 lSignals.EmitSignal(CustomSignals.SignalName.StartRecherche);
             }
         }
-
+        #endregion
         private void UpdateRayCast(Vector2 pTargetPos)
         {
             rayCast.TargetPosition = pTargetPos;
@@ -196,6 +205,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
             PlayerCollide += Player.GetInstance().InsideTesla;
         }
 
+        #region ConnectionSearch
         public float ConnectionSearch(GameObject pObjectToConecte)
         {
             Cell[,] lGrid = gridManager.grid;
@@ -239,6 +249,9 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
 
             return -1;
         }
+        #endregion
+
+        #region  RayCastDetector
         private void RayCastDetector()
         {
             if (rayCast != null && !signalEmit && rayCast.IsColliding() && playerCanBeDetected && !GridManager.currentlyUndoRedo)
@@ -253,7 +266,9 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
             }
             else if (rayCast != null && !rayCast.IsColliding()) signalEmit = false;
         }
+        #endregion
 
+        #region Line Management
         public void LineConnection(GameObject objToConnect)
         {
             energize = true;
@@ -279,8 +294,8 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
                 lightning.DestructionFinished += lightning.QueueFree;
             }
         }
-
-
+        #endregion
+        #region ShowPotentialConnections
         public void ShowPotentialConnections()
         {
             Cell[,] lGrid = gridManager.grid;
@@ -318,6 +333,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
                     }
                 }
             }
+            
 
             if (lNewTargets.SequenceEqual(lastPreviewTargets)) return;
 
@@ -336,11 +352,9 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
                 previewLines.Add(lPreview);
             }
         }
+        #endregion
 
-
-
-
-
+        #region TryDisplayPreviewIfPlayerNearby
         public void TryDisplayPreviewIfPlayerNearby()
         {
             if (energize)
@@ -361,8 +375,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
             else
                 ClearPreviewLines();
         }
-
-
+        #endregion
 
         public void ClearPreviewLines()
         {
@@ -372,9 +385,6 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
             previewLines.Clear();
             lastPreviewTargets.Clear();
         }
-
-
-
 
         protected override void Dispose(bool pDisposing)
         {
