@@ -145,7 +145,11 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
                 .RotationEffect(visual, Mathf.DegToRad(3), 0.1f)
                 .SetLoops();
         }
-
+        public override void _ExitTree()
+        {
+            base._ExitTree();
+            StopShake();
+        }
         private void StopShake()
         {
             isShaking = false;
@@ -391,5 +395,3 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
         }
     }
 }
-
-
