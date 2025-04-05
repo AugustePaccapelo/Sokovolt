@@ -26,7 +26,7 @@ font_size = 25
 font_size = 48
 outline_color = Color(0, 0.508417, 2.88785e-07, 1)
 
-[node name="ScoreScreen" type="Node2D" node_paths=PackedStringArray("nameContainer", "scoreContainer", "numberContainer", "personalScoreContainer", "globalScoreContainer", "personalScoreButton", "globalScoreButton")]
+[node name="ScoreScreen" type="Node2D" node_paths=PackedStringArray("nameContainer", "scoreContainer", "numberContainer", "personalScoreContainer", "globalScoreContainer", "personalScoreButton", "globalScoreButton", "scoreLabel")]
 position = Vector2(1609, 267)
 script = ExtResource("1_8u7hm")
 nameContainer = NodePath("VBoxContainer/GlobalScore/HBoxContainer/NameColumn/NameLabelContainer")
@@ -36,6 +36,7 @@ personalScoreContainer = NodePath("VBoxContainer/PersonalScore")
 globalScoreContainer = NodePath("VBoxContainer/GlobalScore")
 personalScoreButton = NodePath("VBoxContainer/ButtonContainer/Button")
 globalScoreButton = NodePath("VBoxContainer/ButtonContainer/Button2")
+scoreLabel = NodePath("VBoxContainer/PersonalScore/scoreLabel")
 
 [node name="ScoreDownScreen" type="Sprite2D" parent="."]
 position = Vector2(0, 15)

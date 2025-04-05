@@ -327,5 +327,21 @@ namespace Com.IsartDigital.Sokovolt
             string lContent = FileAccess.Open(LOCAL_SCORE_PATH, FileAccess.ModeFlags.Read).GetAsText();
             return JsonTool.TryParseJson(lContent, out Dictionary pScores) ? pScores : new Dictionary(); 
         }
+        public int GetScoreForLevel(int levelIndex)
+        {
+            Dictionary lUserData = GetUserData();
+            if (string.IsNullOrEmpty(currentUser) || !lUserData.ContainsKey(currentUser)) return 0;
+
+            Dictionary lUser = (Dictionary)lUserData[currentUser];
+            if (!lUser.ContainsKey(LEVELS)) return 0;
+
+            Dictionary lLevels = (Dictionary)lUser[LEVELS];
+            string levelKey = $"level{levelIndex}";
+
+            if (!lLevels.ContainsKey(levelKey)) return 0;
+
+            Dictionary levelData = (Dictionary)lLevels[levelKey];
+            return levelData.ContainsKey(SCORE) ? (int)levelData[SCORE] : 0;
+        }
     }
 }

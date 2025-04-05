@@ -18,6 +18,7 @@ namespace Com.IsartDigital.SokoVolt
         [Export] private CompressedTexture2D texture;
         [Export] private PackedScene teslaScene, smokeParticlesScene, scoreScreenScene;
         [Export] private Node2D teslaContainer;
+        [Export] private ScoreBoard scoreBoard;
         [Export] private int teslaPosY = 253;
         private UserGestion userGestion;
 
@@ -78,6 +79,7 @@ namespace Com.IsartDigital.SokoVolt
             userGestion = UserGestion.GetInstance();
             unlockedLevels = userGestion.GetUnlockedLevels();
             InitializeLevelAtStart();
+            scoreBoard.UpdatePersonalScoreBoard(actualLevel);
         }
 
         private void MainMenu()
@@ -168,6 +170,7 @@ namespace Com.IsartDigital.SokoVolt
 
                 GetTree().CreateTimer(0.5f).Timeout += () => alreadyPress = false;
             }
+            scoreBoard.UpdatePersonalScoreBoard(actualLevel);
         }
 
         private void UpdateLaunchButton()
