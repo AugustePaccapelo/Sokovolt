@@ -154,17 +154,24 @@ namespace Com.IsartDigital.SokoVolt.Managers
         }
 		private void NewLevelLoaded(int pLevel) => currentLevel = pLevel;
 
-		// ----- Destructor ----- \\
+        // ----- Destructor ----- \\
 
-		protected override void Dispose(bool pDisposing)
-		{
-            #region // ----- Singleton ----- \\
+        protected override void Dispose(bool pDisposing)
+        {
+            if (pDisposing)
+            {
+                if (signals != null)
+                {
+                    signals.PlayerMoved -= PlayerHasMoved;
+                    signals.GoalBulbStateChanged -= GoalBulbStateChanged;
+                    signals.LoadLevel -= NewLevelLoaded;
+                }
 
-            if (pDisposing && instance == this) instance = null;
-
-            #endregion
+                if (instance == this) instance = null;
+            }
 
             base.Dispose(pDisposing);
-		}
-	}
+        }
+
+    }
 }

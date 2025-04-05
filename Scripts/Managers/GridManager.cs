@@ -412,7 +412,8 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 		private async void EndLevelAnimation(int pNumStar, int pScore, int pNumStep)
 		{
 			HUD.GetInstance().mainMenuButton.Disabled = true;
-			List<Node2D> lObjectsToAnimate= new List<Node2D>();
+			if(LevelCreator.inLevelCreator) LevelCreator.GetInstance().returnButton.Disabled = true;
+            List<Node2D> lObjectsToAnimate= new List<Node2D>();
 			lObjectsToAnimate.Clear(); 
 
 			foreach(Node2D lObject in gameManager.objectsContainer.GetChildren())
@@ -523,7 +524,8 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 			vortex.QueueFree(); 
 			CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.EndLevelAnimation); 
 			HUD.GetInstance().mainMenuButton.Disabled = false;
-		}
+			if(LevelCreator.inLevelCreator) LevelCreator.GetInstance().returnButton.Disabled = false;
+        }
 
 
 		#endregion

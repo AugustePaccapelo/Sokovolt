@@ -16,7 +16,8 @@ namespace Com.IsartDigital.SokoVolt.GameObjects {
         public async void Launch(Cell pTargetCell, Vector2 pFinalPosition, float pDelay)
 		{
 			HUD.GetInstance().mainMenuButton.Disabled = true;
-			topPart.GlobalPosition = new Vector2(GlobalPosition.X, pFinalPosition.Y + START_POS);
+            if (LevelCreator.inLevelCreator) LevelCreator.GetInstance().returnButton.Disabled = true;
+            topPart.GlobalPosition = new Vector2(GlobalPosition.X, pFinalPosition.Y + START_POS);
 			ZIndex -= 40; 
 			if (pTargetCell == null) return;
 			
@@ -43,8 +44,8 @@ namespace Com.IsartDigital.SokoVolt.GameObjects {
 			tileTween.Parallel().TweenProperty(pTargetCell, GLOBALPOSITION, pFinalPosition, 0.6f)
 				.SetTrans(Tween.TransitionType.Back)
 				.SetEase(Tween.EaseType.Out);
-			
-			if (pTargetCell.GetContent() != null)
+
+            if (pTargetCell.GetContent() != null)
 			{
 				tileTween.Parallel().TweenProperty(pTargetCell.GetContent(), GLOBALPOSITION, pFinalPosition, 0.6f)
 					.SetTrans(Tween.TransitionType.Back)
@@ -58,12 +59,17 @@ namespace Com.IsartDigital.SokoVolt.GameObjects {
 			tileTween.Parallel().TweenProperty(this, POSITION_Y, GlobalPosition.Y + 250, 0.3f)
 				.SetTrans(Tween.TransitionType.Back)
 				.SetEase(Tween.EaseType.In);
-			
-			await ToSignal(pistonTween, FINISHED);
-			await ToSignal(GetTree().CreateTimer(1f), TIME_OUT);
-			QueueFree();
-			HUD.GetInstance().mainMenuButton.Disabled = false;
-		}
 
+            await ToSignal(pistonTween, FINISHED);
+			await ToSignal(GetTree().CreateTimer(1f), TIME_OUT);
+			GetTree().CreateTimer(1f).Timeout += ButtonActivation;
+            QueueFree();
+        }
+
+		private static void ButtonActivation()
+		{
+            HUD.GetInstance().mainMenuButton.Disabled = false;
+            if (LevelCreator.inLevelCreator) LevelCreator.GetInstance().returnButton.Disabled = false;
+        }
 	}
 }

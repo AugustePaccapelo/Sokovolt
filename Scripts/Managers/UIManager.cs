@@ -78,6 +78,7 @@ namespace Com.IsartDigital.SokoVolt.Managers
                 levelCreator = levelCreatorScene.Instantiate() as LevelCreator;
                 AddChild(levelCreator);
                 MoveChild(levelCreator, levelCreator.GetIndex() - 1);
+				LevelCreator.inLevelCreator = true;
             };
         }
 
@@ -95,6 +96,7 @@ namespace Com.IsartDigital.SokoVolt.Managers
                 AudioSettings.Instance.Hide();
 				LoginScreen.GetInstance().Hide();
                 mainMenu.Show();
+				LevelCreator.inLevelCreator = false;
             };
 		}
 

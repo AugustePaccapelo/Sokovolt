@@ -41,7 +41,7 @@ font_size = 48
 outline_size = 5
 outline_color = Color(0, 0, 0, 1)
 
-[node name="LevelCreatorMenu" type="Control" node_paths=PackedStringArray("mainMenuButton", "newLevelButton", "loadLevelButton", "menuCustomLevelButton", "returnButton", "saveButton", "applyButton", "loadLevelText", "levelName", "sizeXText", "sizeYText", "wallTexture", "electricWallTexture", "teslaTexture", "bulbTexture", "generatorTexture", "playerSpawnTexture", "doorTexture", "buttonContainer", "deleteButtonContainer", "labelContainer")]
+[node name="LevelCreatorMenu" type="Control" node_paths=PackedStringArray("mainMenuButton", "newLevelButton", "loadLevelButton", "menuCustomLevelButton", "saveButton", "applyButton", "returnButton", "loadLevelText", "levelName", "sizeXText", "sizeYText", "wallTexture", "electricWallTexture", "teslaTexture", "bulbTexture", "generatorTexture", "playerSpawnTexture", "doorTexture", "buttonContainer", "deleteButtonContainer", "labelContainer")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -53,9 +53,9 @@ mainMenuButton = NodePath("MainMenuButton")
 newLevelButton = NodePath("Menu/NewLevelButton")
 loadLevelButton = NodePath("CustomLevelListBackGround/LoadLevelButton")
 menuCustomLevelButton = NodePath("Menu/MenuCustomLevelButton")
-returnButton = NodePath("ReturnButton")
 saveButton = NodePath("NewLevelBackGround/SaveButton")
 applyButton = NodePath("NewLevelBackGround/HBoxContainer/ApplyButton")
+returnButton = NodePath("ReturnButton")
 loadLevelText = NodePath("CustomLevelListBackGround/LoadLevelText")
 levelName = NodePath("NewLevelBackGround/NameLineEdit")
 sizeXText = NodePath("NewLevelBackGround/HBoxContainer/SizeXText")
