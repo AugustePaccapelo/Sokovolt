@@ -7,6 +7,7 @@ using System.Text.RegularExpressions;
 using Godot.Collections;
 using System.Collections.Generic;
 using Com.IsartDigital.SokoVolt.Managers;
+using static Com.IsartDigital.SokoVolt.Tools.ObjectProperties;
 
 // Author : A. Dylan Montenegro Utrela
 
@@ -31,15 +32,6 @@ namespace Com.IsartDigital.Sokovolt
         private const string LOCAL_SCORE_PATH = "user://Json/LocalScore.json";
         public string currentUser {  get; private set; } = null;
         CustomSignals customSignals;
-
-        private const string LEVELS = "levels";
-        private const string PASSWORD = "password";
-        private const string LEVELDESIGN = "levelDesign";
-        private const string UPDATESCORE = "Update score";
-        private const string SCORE = "score";
-        private const string STARS = "stars";
-        private const string LOCKED = "locked";
-        private const string TOTALSCORE = "totalScore";
 
         public override void _Ready()
 		{
@@ -88,7 +80,7 @@ namespace Com.IsartDigital.Sokovolt
             return JsonTool.TryParseJson(lContent, out Dictionary pData) ? pData : new Dictionary();
         }
 
-        private void SaveUserData(Dictionary data)
+        public void SaveUserData(Dictionary data)
         {
             string lDirPath = JSON_FILE_PATH.GetBaseDir();
 

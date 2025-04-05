@@ -38,7 +38,7 @@ namespace Com.IsartDigital.Sokovolt
 
         private void NextLevelFonc()
         {
-            if (actualLevel == LevelSelector.levelNumbMax)
+            if (actualLevel == LevelSelector.levelNumbMax || LevelCreator.inLevelCreator)
             {
                 nextButton.QueueFree();
                 nextButton.TreeExited += Show;
