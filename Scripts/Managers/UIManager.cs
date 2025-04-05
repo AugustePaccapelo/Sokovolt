@@ -1,4 +1,5 @@
-﻿using Godot;
+﻿using Com.IsartDigital.SokoVolt.GameObjects;
+using Godot;
 using System;
 
 //author : Noe Sales
@@ -85,6 +86,10 @@ namespace Com.IsartDigital.SokoVolt.Managers
             Tween lTween = GameManager.GetInstance().MenuTrans.ActiveTrans(1f, 0.2f);
 			lTween.Finished += () =>
 			{
+				foreach (var item in GameManager.GetInstance().objectsContainer.GetChildren())
+				{
+					if (item is AnimationPiston) item.QueueFree();
+				}
                 LevelSelector.GetInstance()?.QueueFree();
                 LevelCreator.GetInstance()?.QueueFree(); 
                 AudioSettings.Instance.Hide();
