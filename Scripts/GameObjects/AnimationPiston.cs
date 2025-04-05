@@ -21,6 +21,30 @@ namespace Com.IsartDigital.SokoVolt.GameObjects {
 			}
 		}
 
+		private void ClearMaskRecursively(Node node)
+		{
+			var originalMaterials = CustomMaskOcluder.instance.GetOriginalMaterials();
+
+			if (node is CanvasItem canvasItem)
+			{
+				if (originalMaterials.ContainsKey(canvasItem))
+				{
+					canvasItem.Material = originalMaterials[canvasItem];
+				}
+				else
+				{
+					canvasItem.Material = null;  // Matériel de base de Godot
+				}
+			}
+
+			foreach (Node child in node.GetChildren())
+			{
+				ClearMaskRecursively(child);
+			}
+		}
+
+
+
 
      	public async void Launch(Cell pTargetCell, Vector2 pFinalPosition, float pDelay)
 		{
@@ -86,6 +110,18 @@ namespace Com.IsartDigital.SokoVolt.GameObjects {
 
 			await ToSignal(lPistonTween, "finished");
 			await ToSignal(GetTree().CreateTimer(1f), "timeout");
+			
+			ClearMaskRecursively(topPart);
+
+			if (pTargetCell != null)
+			{
+				ClearMaskRecursively(pTargetCell);
+
+				var content = pTargetCell.GetContent();
+				if (content != null)
+					ClearMaskRecursively(content);
+			}
+
 
 			QueueFree(); 
 		}

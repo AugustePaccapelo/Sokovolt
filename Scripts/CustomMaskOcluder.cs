@@ -1,4 +1,5 @@
 using Godot;
+using Godot.Collections;
 using System;
 
 namespace Com.IsartDigital.SokoVolt.GameObjects 
@@ -9,6 +10,9 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
         [Export] private Polygon2D _maskPolygon;
         private ViewportTexture _maskTexture;
         private Vector2 _lastViewportSize;
+
+		private Dictionary<CanvasItem, Material> _originalMaterials = new();
+
 
         public override void _Ready()
         {
@@ -58,20 +62,31 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
 
 			if (node is CanvasItem canvasItem)
 			{
+				// Si le canvasItem n'a pas de matériel, on le sauve avec "null"
+				if (!_originalMaterials.ContainsKey(canvasItem))
+					_originalMaterials[canvasItem] = canvasItem.Material;
+
+				// On applique le ShaderMaterial temporaire
 				var mat = new ShaderMaterial
 				{
 					Shader = new Shader
 					{
 						Code = @"shader_type canvas_item;
-								uniform sampler2D mask_texture;
-								uniform vec2 mask_position;
-								uniform vec2 viewport_size;
-								
-								void fragment() {
-									vec2 mask_uv = SCREEN_UV - (mask_position / viewport_size);
-									if (texture(mask_texture, mask_uv).a > 0.0) discard;
-									COLOR = texture(TEXTURE, UV);
-								}"
+
+						uniform sampler2D mask_texture;
+						uniform vec2 mask_position;
+						uniform vec2 viewport_size;
+
+						void fragment() {
+							vec2 mask_uv = SCREEN_UV - (mask_position / viewport_size);
+
+							if (texture(mask_texture, mask_uv).a > 0.0)
+								discard;
+
+							// Préserve la couleur d’origine du node (sprite, poly, etc.)
+							// Ne remplace pas COLOR sauf si nécessaire
+						}
+						",
 					}
 				};
 
@@ -81,10 +96,16 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
 
 				canvasItem.Material = mat;
 			}
+
 			else
 			{
 				GD.Print($"Node {node.Name} is not a CanvasItem, skipping.");
 			}
+		}
+
+		public Dictionary<CanvasItem, Material> GetOriginalMaterials()
+		{
+			return _originalMaterials;
 		}
 
 
