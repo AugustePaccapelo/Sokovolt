@@ -1,5 +1,5 @@
 keys,en,fr
-TITLE,Our Sokoban,Notre Sokoban
+TITLE,SOKOVOLT,SOKOVOLT
 PLAY,PLAY,JOUER
 Disconnect,Disconnect,Déconnection
 LevelCreator,LevelCreator,Créateur de Niveaux
@@ -26,3 +26,13 @@ APPLY,APPLY,APPLIQUER
 GRIDSIZE,GRIDSIZE,TAILLE
 MyPassword,MyPassword,MonMotDePasse
 MyUsername,MyUsername,Identifiant
+LockAll,Lock All,Tout Bloquer
+EXIT,Exit,Quitter
+Master,Master,General
+Music,Music,Musique
+SFX,Sound Effects,Effets Sonore
+Back,Back,Retour
+YOUR BEST SCORE,YOUR BEST SCORE,TON MEILLEUR SCORE
+PERSONAL SCORE,PERSONAL SCORE,SCORE PERSONNEL
+GLOBAL SCORE,GLOBAL SCORE,SCORE GLOBAL
+NAME :,NAME :,NOM :

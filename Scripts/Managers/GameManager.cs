@@ -76,6 +76,7 @@ namespace Com.IsartDigital.SokoVolt.Managers
             signals.GoalBulbStateChanged += GoalBulbStateChanged;
 			signals.LoadLevel += NewLevelLoaded;
             gridManager = GridManager.GetInstance();
+			TranslationServer.SetLocale("en");
         }
         public override void _Process(double pDelta)
 		{
