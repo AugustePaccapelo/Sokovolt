@@ -60,14 +60,14 @@ namespace Com.IsartDigital.SokoVolt {
 
             if (!JsonTool.TryParseJson(lJsonContent, out Godot.Collections.Dictionary lRootDict))
 			{
-				GD.PrintErr("Erreur : Impossible de parser le fichier JSON.");
+				GD.PrintErr("Error : Failed to parse JSON.");
 				return;
 			}
 
 			// Check if the json contain lvls 
 			if (!lRootDict.ContainsKey(JsonKeys.LEVEL_DESIGN_KEY))
 			{
-				GD.PrintErr("Erreur : Pas de clé 'levelDesign' dans le JSON.");
+				GD.PrintErr("Error : JSON does not contain level design data.");
 				return;
 			}
 
@@ -75,7 +75,7 @@ namespace Com.IsartDigital.SokoVolt {
 
 			if (pLevel < 0 || pLevel >= lLevelList.Count)
 			{
-				GD.PrintErr($"Erreur : Index de niveau invalide ({pLevel}).");
+				GD.PrintErr($"Error : Level {pLevel} is out of range.");
 				return;
 			}
 
@@ -85,7 +85,7 @@ namespace Com.IsartDigital.SokoVolt {
 			// Peek the map 
 			Godot.Collections.Array lMapArray = (Godot.Collections.Array)lLevelData[JsonKeys.MAP_KEY];
 
-			// Convertir la map en tableau de strings
+			// Convert map into string array
 			string[] lLevelMap = new string[lMapArray.Count];
 			for (int i = 0; i < lMapArray.Count; i++)
 			{
@@ -161,7 +161,7 @@ namespace Com.IsartDigital.SokoVolt {
 							}
 							else
 							{
-								GD.PrintErr($"Not range for the box tesla at ({x},{y}) !");
+								GD.PrintErr($"No range for the box tesla at ({x},{y}) !");
 							}
 							break;
 

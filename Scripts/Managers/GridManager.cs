@@ -150,7 +150,7 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 
 			hud.Visible = false;
 
-			GD.Print("ClearGrid: Niveau supprimé !");
+			GD.Print("ClearGrid: Lvl deleted !");
 		}
 
 		#endregion

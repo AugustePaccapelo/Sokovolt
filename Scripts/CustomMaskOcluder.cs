@@ -12,7 +12,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
         [Export] private AnimatedSprite2D backGround; 
         private ViewportTexture maskTexture;
         private Vector2 lastViewportSize;
-        private const int MASK_Z_INDEX = 1000;
+        private const int MASK_Z_INDEX = 100;
 
 		private Dictionary<CanvasItem, Material> originalMaterials = new Dictionary<CanvasItem, Material>();
 
@@ -26,7 +26,9 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
         {
 			instance = this; 
             InitializeMaskSystem();
-            // backGround.Visible = false; 
+            CustomSignals.GetInstance().GoToMainMenu += () => SetBackgroundVisibility(false);
+            CustomSignals.GetInstance().LoadLevel += (int pLevel) => SetBackgroundVisibility(true);
+
         }
 
       
@@ -128,6 +130,11 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
 		{
 			return originalMaterials;
 		}
+
+        private void SetBackgroundVisibility(bool pVisible)
+        {
+            backGround.Visible = pVisible;
+        }
 
     }
 }

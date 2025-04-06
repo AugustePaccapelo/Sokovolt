@@ -146,8 +146,6 @@ namespace Com.IsartDigital.SokoVolt.Managers
 				GD.Print("Level unlocked");
 			}
 
-            GD.PrintErr(lNumStar + " " + lScore + " " + lNumStep); 
-
 			await ToSignal(GetTree().CreateTimer(0.3f), ObjectProperties.TIME_OUT);
 
 			hud.displayInGame.Visible = false; 
