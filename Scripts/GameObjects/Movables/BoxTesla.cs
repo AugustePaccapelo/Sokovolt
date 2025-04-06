@@ -122,17 +122,6 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
             visual.RotationDegrees = 0;
             visual.Position = Vector2.Zero;
         }
-        private void Shake()
-        {
-            Tween lTween = AnimationManager.GetInstance().ShakeEffect(visual, new Vector2(3, 1), 0.1f);
-            Tween lTween2 = AnimationManager.GetInstance().RotationEffect(visual, Mathf.DegToRad(3), 0.1f);
-
-            lTween.Finished += () =>
-            {
-                lTween2.Kill();
-                ResetVisual();
-            };
-        }
         private void StartShake()
         {
             isShaking = true;
@@ -142,7 +131,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
                 .SetLoops(); // Rend l'effet continu jusqu'à l'arrêt
 
             shakeTweenRotation = AnimationManager.GetInstance()
-                .RotationEffect(visual, Mathf.DegToRad(3), 0.1f)
+                .RotationEffect(visual, Mathf.DegToRad(3), 0.1f, Tween.TransitionType.Linear, Tween.EaseType.In)
                 .SetLoops();
         }
         public override void _ExitTree()

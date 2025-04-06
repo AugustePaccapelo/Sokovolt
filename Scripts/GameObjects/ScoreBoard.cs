@@ -13,7 +13,7 @@ namespace Com.IsartDigital.SokoVolt {
 		[Export] private VBoxContainer nameContainer, scoreContainer, numberContainer, personalScoreContainer;
 		[Export] private HBoxContainer globalScoreContainer;
 		[Export] private Button personalScoreButton, globalScoreButton;
-        [Export] private Label scoreLabel;
+        [Export] private Label scoreLabel, levelLabel;
 
 		private Dictionary scoreDico;
         private UserGestion userGestion;
@@ -127,6 +127,7 @@ namespace Com.IsartDigital.SokoVolt {
 
         public void UpdatePersonalScoreBoard(int pLevel)
         {
+            levelLabel.Text = pLevel.ToString();
             scoreLabel.Text = userGestion.GetScoreForLevel(pLevel).ToString();
         }
 

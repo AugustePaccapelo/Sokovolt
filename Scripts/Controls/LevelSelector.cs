@@ -16,14 +16,14 @@ namespace Com.IsartDigital.SokoVolt
         [Export] public Button buttonRight, buttonLaunch, buttonLeft, buttonUnlockAll, buttonMainMenu;
         [Export] public Sprite2D carpetTexture;
         [Export] private CompressedTexture2D texture;
-        [Export] private PackedScene teslaScene, smokeParticlesScene, scoreScreenScene;
+        [Export] private PackedScene teslaScene, smokeParticlesScene;
         [Export] private Node2D teslaContainer;
         [Export] private ScoreBoard scoreBoard;
         [Export] private int teslaPosY = 253;
         private UserGestion userGestion;
 
         private int actualLevel = 0;
-        public static int levelNumbMax = 5;
+        public static int levelNumbMax = 7;
         private int newTeslaPointPosY = 223;
 
         private Vector2 buttonSize = new Vector2(60, 100);
@@ -86,6 +86,7 @@ namespace Com.IsartDigital.SokoVolt
             CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.GoToMainMenu);
         }
 
+        //Create Tesla for each level there are
         private void InitializeLevelAtStart()
         {
             Vector2 lTeslaPosition;
@@ -128,7 +129,7 @@ namespace Com.IsartDigital.SokoVolt
 
         private void SwitchLevel(int pDirection)
         {
-            if (!alreadyPress && actualLevel + pDirection >= 0 && actualLevel + pDirection <= levelNumbMax)
+            if (!alreadyPress && actualLevel + pDirection >= 0 && actualLevel + pDirection <= levelNumbMax)//pDirection return 1 or -1 for the direction
             {
                 Vector2 lNewPos;
                 Tween lTween;
@@ -136,7 +137,7 @@ namespace Com.IsartDigital.SokoVolt
                 alreadyPress = true;
                 actualLevel += pDirection;
 
-                if (teslaDictionnary.ContainsKey(actualLevel)) actualTesla = teslaDictionnary[actualLevel];
+                if (teslaDictionnary.ContainsKey(actualLevel)) actualTesla = teslaDictionnary[actualLevel];//Update the reference of actualTesla with pDirection
                 else
                 {
                     alreadyPress = false;
@@ -150,11 +151,13 @@ namespace Com.IsartDigital.SokoVolt
                 {
                     lNewPos = new Vector2((i - actualLevel) * screenSize.X + screenSize.X / 2, teslaPosY);
                     lTween = CreateTween().SetParallel(true);
-                    lTween.TweenProperty(teslaDictionnary[i], POSITION, lNewPos, 1f).SetEase(Tween.EaseType.Out).SetTrans(Tween.TransitionType.Elastic);
+                    lTween.TweenProperty(teslaDictionnary[i], POSITION, lNewPos, 1f).SetEase(Tween.EaseType.Out).SetTrans(Tween.TransitionType.Elastic);//Move tesla
                 }
                 lTween2 = CreateTween();
+                //Move Carpet
                 lTween2.TweenProperty(carpetTexture, POSITION, new Vector2(carpetTexture.Position.X + ((screenSize.X / 2) * -pDirection), carpetTexture.Position.Y), 1f).SetEase(Tween.EaseType.Out).SetTrans(Tween.TransitionType.Elastic);
 
+                //Add particles on witch button is pressed
                 buttonSmokeParticles = smokeParticlesScene.Instantiate() as GpuParticles2D;
                 if (pDirection == 1)
                 {
@@ -169,7 +172,7 @@ namespace Com.IsartDigital.SokoVolt
 
                 GetTree().CreateTimer(0.5f).Timeout += () => alreadyPress = false;
             }
-            scoreBoard.UpdatePersonalScoreBoard(actualLevel);
+            scoreBoard.UpdatePersonalScoreBoard(actualLevel); //Update ScoreBoard
         }
 
         private void UpdateLaunchButton()
@@ -182,7 +185,7 @@ namespace Com.IsartDigital.SokoVolt
             LevelSelectorTesla lTesla = teslaScene.Instantiate<LevelSelectorTesla>();
             teslaContainer.AddChild(lTesla);
             lTesla.Position = pPos;
-            lTesla.level = pIndex;
+            lTesla.level = pIndex;//Give the index reference to the tesla
             lTesla.padLock.Show();
 
             Godot.Label lLabel = lTesla.GetNode<Godot.Label>(LEVEL_LABEL_PATH);

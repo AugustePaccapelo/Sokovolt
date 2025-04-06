@@ -39,6 +39,7 @@ namespace Com.IsartDigital.SokoVolt
         [Export] private VBoxContainer buttonContainer, deleteButtonContainer, labelContainer;
         [Export] private Json customLevelTemplate;
         [Export] private Label gridSizeLabel;
+        [Export] private TextureRect backGround;
         private Panel newLevelBackground, customLevelMenuBackground, backGrid, menu;
         private LevelCreatorItems actualItem;
 		private bool canPick = false;
@@ -627,6 +628,7 @@ namespace Com.IsartDigital.SokoVolt
             player?.QueueFree(); // Pour le retirer de la scène
             HUD.GetInstance().Hide();
             CustomSignals.GetInstance().EmitSignal(nameof(CustomSignals.UnLoadLevel));
+            backGround.Show();
 
             actualItem?.QueueFree();
             actualItem = null;
@@ -640,6 +642,7 @@ namespace Com.IsartDigital.SokoVolt
         }
 		private void LoadLevel(string pLevelName)
 		{
+            backGround.Hide();
             HUD.GetInstance().Show();
             customLevelMenuBackground.Hide();
             string lPath = customLevelsFolderPath + "/" + pLevelName + ".json";

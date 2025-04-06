@@ -23,7 +23,7 @@ namespace Com.IsartDigital.SokoVolt{
 		#endregion
 
 		[Export] public Button undoButton, redoButton, mainMenuButton;
-		[Export] public Label scoreLabel, stepLabel, winLabel; 
+		[Export] public Label parLabel, stepLabel, winLabel, authorLabel; 
 		
 		//WinScreen
 		[Export] public PackedScene winScreenScene;

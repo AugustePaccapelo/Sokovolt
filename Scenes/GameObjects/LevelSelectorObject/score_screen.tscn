@@ -26,7 +26,7 @@ font_size = 25
 font_size = 48
 outline_color = Color(0, 0.508417, 2.88785e-07, 1)
 
-[node name="ScoreScreen" type="Node2D" node_paths=PackedStringArray("nameContainer", "scoreContainer", "numberContainer", "personalScoreContainer", "globalScoreContainer", "personalScoreButton", "globalScoreButton", "scoreLabel")]
+[node name="ScoreScreen" type="Node2D" node_paths=PackedStringArray("nameContainer", "scoreContainer", "numberContainer", "personalScoreContainer", "globalScoreContainer", "personalScoreButton", "globalScoreButton", "scoreLabel", "levelLabel")]
 position = Vector2(1609, 267)
 script = ExtResource("1_8u7hm")
 nameContainer = NodePath("VBoxContainer/GlobalScore/HBoxContainer/NameColumn/NameLabelContainer")
@@ -37,6 +37,7 @@ globalScoreContainer = NodePath("VBoxContainer/GlobalScore")
 personalScoreButton = NodePath("VBoxContainer/ButtonContainer/Button")
 globalScoreButton = NodePath("VBoxContainer/ButtonContainer/Button2")
 scoreLabel = NodePath("VBoxContainer/PersonalScore/scoreLabel")
+levelLabel = NodePath("VBoxContainer/PersonalScore/LevelLabel")
 
 [node name="ScoreDownScreen" type="Sprite2D" parent="."]
 position = Vector2(0, 15)
@@ -128,6 +129,17 @@ layout_mode = 2
 layout_mode = 2
 theme_override_constants/separation = 20
 alignment = 1
+
+[node name="Label2" type="Label" parent="VBoxContainer/PersonalScore"]
+layout_mode = 2
+text = "LEVEL :"
+label_settings = SubResource("LabelSettings_ku7ta")
+horizontal_alignment = 1
+
+[node name="LevelLabel" type="Label" parent="VBoxContainer/PersonalScore"]
+layout_mode = 2
+label_settings = SubResource("LabelSettings_abuyc")
+horizontal_alignment = 1
 
 [node name="Label" type="Label" parent="VBoxContainer/PersonalScore"]
 layout_mode = 2

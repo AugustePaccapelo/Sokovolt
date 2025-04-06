@@ -18,6 +18,9 @@ namespace Com.IsartDigital.SokoVolt {
 
 		public static int parCount{get; private set;}
 
+		private const string PAR_PREFIXE = "PAR : ";
+		private const string AUTHOR_PREFIXE = "Author : ";
+
 		GridManager gridInstance; 
 
 
@@ -105,9 +108,22 @@ namespace Com.IsartDigital.SokoVolt {
 			}
 
 			parCount = lPar;
+			HUD.GetInstance().parLabel.Text = PAR_PREFIXE + lPar.ToString();
 
-			//BoxRange
-			int[] lBoxRanges = new int[lBoxRangesArray.Count];
+			if (!LevelCreator.inLevelCreator)
+			{
+                string lAuthor = null;
+                if (lLevelData.ContainsKey(JsonKeys.AUTHOR_KEY))
+                {
+                    Variant lAuthorVariant = lLevelData[JsonKeys.AUTHOR_KEY];
+                    lAuthor = lAuthorVariant.ToString();
+                }
+
+                HUD.GetInstance().authorLabel.Text = AUTHOR_PREFIXE + lAuthor.ToString();
+            }
+
+            //BoxRange
+            int[] lBoxRanges = new int[lBoxRangesArray.Count];
 			// Convertir les valeurs en int
 			for (int i = 0; i < lBoxRangesArray.Count; i++)
 			{
