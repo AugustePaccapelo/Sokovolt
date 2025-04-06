@@ -179,43 +179,47 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 
 
 		#region // ----- Player and Boxs Movement ----- \\
+
+		// Main player move call (triggered by input signal)
 		public void OnMovePlayer(Vector2 pPlayerDirection)
 		{
 			MovePlayer((int)pPlayerDirection.X, (int)pPlayerDirection.Y);
 		}
 
-        private void MovePlayer(int pDx, int pDy)
+		// Handles all move logic: player alone or pushing Tesla
+		private void MovePlayer(int pDx, int pDy)
 		{
-            playerWasOnTesla = grid[player.x, player.y].GetContent() is BoxTesla; 
-            int lNewX = player.x + pDx;
-			int lNewY = player.y + pDy;
+			playerWasOnTesla = grid[player.x, player.y].GetContent() is BoxTesla;
 
-			if(OutOfGrid(lNewX, lNewY))
-				return;
+			int newX = player.x + pDx;
+			int newY = player.y + pDy;
 
-			
-			Cell lNewCell = grid[lNewX, lNewY];
-			GameObject lContent = lNewCell.GetContent();
+			if (OutOfGrid(newX, newY)) return;
 
-			if (lContent == null || lContent is Door)
+			Cell targetCell = grid[newX, newY];
+			GameObject content = targetCell.GetContent();
+
+			// Move into empty or door cell
+			if (content == null || content is Door)
 			{
-				player.MoveTo(lNewX, lNewY, grid);
+				player.MoveTo(newX, newY, grid);
 				StockGridState();
 			}
-			else if (lContent is BoxTesla lBox)
+			// Pushing a Tesla (box)
+			else if (content is BoxTesla box)
 			{
-				int lNewBoxX = lNewX + pDx;
-				int lNewBoxY = lNewY + pDy;
+				int boxTargetX = newX + pDx;
+				int boxTargetY = newY + pDy;
 
-				if (OutOfGrid(lNewBoxX, lNewBoxY))
-					return;
-				
-				Cell lNewBoxCell = grid[lNewBoxX, lNewBoxY];
+				if (OutOfGrid(boxTargetX, boxTargetY)) return;
 
-				if (lNewBoxCell.GetContent() == null)
+				Cell boxTargetCell = grid[boxTargetX, boxTargetY];
+
+				// If cell behind is empty, move box + player
+				if (boxTargetCell.GetContent() == null)
 				{
-					lBox.MoveTo(lNewBoxX, lNewBoxY, grid);
-					player.MoveTo(lNewX, lNewY, grid);
+					box.MoveTo(boxTargetX, boxTargetY, grid);
+					player.MoveTo(newX, newY, grid);
 					StockGridState();
 				}
 			}
@@ -224,46 +228,50 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 			PrintGrid();
 		}
 
+		// Prevents moves outside the grid
 		private bool OutOfGrid(int pX, int pY)
 		{
 			return pX < 0 || pX >= LevelLoader.levelWidth || pY < 0 || pY >= LevelLoader.levelHeight;
 		}
+		
 
 
         // ----- PathFinding ----- \\
-        public void HandleCellClicked(Vector2 pTargetPos)
-        {
-            int lPosX = (int)pTargetPos.X;
-            int lPosY = (int)pTargetPos.Y;
 
-            if (OutOfGrid(lPosX, lPosY)) return; 
+        // Called when a cell is clicked (mouse/touch)
+		public void HandleCellClicked(Vector2 pTargetPos)
+		{
+			int x = (int)pTargetPos.X;
+			int y = (int)pTargetPos.Y;
+			if (OutOfGrid(x, y)) return;
 
-            var lGrid = grid;
-            Cell lTargetCell = lGrid[lPosX, lPosY];
-            GameObject lContent = lTargetCell.GetContent();
-            Player lPlayer = player;
-            Vector2 lStart = new Vector2(lPlayer.x, lPlayer.y);
-            Vector2 lEnd = new Vector2(lPosX, lPosY);
+			Cell targetCell = grid[x, y];
+			GameObject content = targetCell.GetContent();
+			Vector2 start = new Vector2(player.x, player.y);
+			Vector2 end = new Vector2(x, y);
 
-            if (lContent is BoxTesla && (lEnd - lStart).Length() == 1)
-            {
-                OnMovePlayer(lEnd - lStart);
-                return;
-            }
-            if (lContent is Door pDoor)
-            {
-                if (!pDoor.isOpen) return;
-            }
-            if (lContent == null || lContent is Door)
-            {
-                var lPath = PathFinding.FindPath(lStart, lEnd, lGrid);
-                if (lPath != null && lPath.Count > 0)
+			// If clicked next to a Tesla, attempt to push it
+			if (content is BoxTesla && (end - start).Length() == 1)
+			{
+				OnMovePlayer(end - start);
+				return;
+			}
+
+			// Can't walk into a closed door
+			if (content is Door door && !door.isOpen) return;
+
+			// If cell is empty or open door, move using A*
+			if (content == null || content is Door)
+			{
+				var path = PathFinding.FindPath(start, end, grid);
+				if (path != null && path.Count > 0)
 				{
 					StockGridState();
-                    lPlayer.MoveAlongPath(lPath);
-                }
-            }
-        }
+					player.MoveAlongPath(path);
+				}
+			}
+		}
+
 
         #endregion
 
@@ -272,62 +280,68 @@ namespace Com.IsartDigital.SokoVolt.Managers {
         #region // ----- Undo/Redo/Retry ----- \\
 
         public static bool currentlyUndoRedo; 
-        private void UndoRedo(int pAmount)
-        {
-            int lAmount = pAmount; 
-            currentlyUndoRedo = true;
-            if(!(player.curentCell.GetContent() is BoxTesla) && playerWasOnTesla) lAmount *= 2;
-            SetGridState(actualGridStateIndex + lAmount);
-			
-            GetTree().CreateTimer(1).Timeout += () => currentlyUndoRedo = false;	
-        }
 
-		private Cell[,] CopyGrid(Cell[,] pOriginalGrid)
+       // Triggers undo or redo with index
+		private void UndoRedo(int pAmount)
 		{
-			int lWidth = LevelLoader.levelWidth;
-			int lHeight = LevelLoader.levelHeight;
-			Cell[,] lNewGrid = new Cell[lWidth, lHeight];
+			int amount = pAmount;
+			currentlyUndoRedo = true;
 
-			for (int y = 0; y < lHeight; y++)
+			// Special case if player moved off a Tesla
+			if (!(player.curentCell.GetContent() is BoxTesla) && playerWasOnTesla)
+				amount *= 2;
+
+			SetGridState(actualGridStateIndex + amount);
+
+			// Cooldown to avoid tesla detection 
+			GetTree().CreateTimer(1).Timeout += () => currentlyUndoRedo = false;
+		}
+
+		// Creates a copy of the grid (for history)
+		private Cell[,] CopyGrid(Cell[,] original)
+		{
+			int w = LevelLoader.levelWidth;
+			int h = LevelLoader.levelHeight;
+			Cell[,] newGrid = new Cell[w, h];
+
+			for (int y = 0; y < h; y++)
 			{
-				for (int x = 0; x < lWidth; x++)
+				for (int x = 0; x < w; x++)
 				{
-					if (pOriginalGrid[x, y] != null)
+					if (original[x, y] != null)
 					{
-						lNewGrid[x, y] = new Cell();
-						lNewGrid[x, y].SetContent(pOriginalGrid[x, y].GetContent());
+						newGrid[x, y] = new Cell();
+						newGrid[x, y].SetContent(original[x, y].GetContent());
 					}
 					else
 					{
-						lNewGrid[x, y] = null; 
-						GD.PrintErr("grid is null !!"); 
+						newGrid[x, y] = null;
+						GD.PrintErr("grid is null !!");
 					}
 				}
 			}
-
-			return lNewGrid;
+			return newGrid;
 		}
 
-		
+		// Saves current grid state for undo/redo
 		public void StockGridState()
 		{
-			
+			// Remove future states if we undo then move again
 			if (actualGridStateIndex < gridStates.Count - 1)
 				gridStates.RemoveRange(actualGridStateIndex + 1, gridStates.Count - (actualGridStateIndex + 1));
-			
+
 			gridStates.Add(CopyGrid(grid));
 			actualGridStateIndex = gridStates.Count - 1;
 			UpdateStepLabel();
 		}
 
-
+		// Load a specific past/future state
 		public void SetGridState(int pIndexState)
 		{
 			if (pIndexState < 0 || pIndexState >= gridStates.Count)
 				return;
 
 			grid = CopyGrid(gridStates[pIndexState]);
-
 			actualGridStateIndex = pIndexState;
 			UpdateStepLabel();
 			UpdateObjectsFromGrid();
@@ -335,31 +349,29 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 		}
 
 
+
+		// Replaces positions of movable objects from grid content
 		private void UpdateObjectsFromGrid()
 		{
 			for (int y = 0; y < LevelLoader.levelHeight; y++)
 			{
 				for (int x = 0; x < LevelLoader.levelWidth; x++)
 				{
-					Cell lCell = grid[x, y];
+					Cell cell = grid[x, y];
+					if (cell == null) continue;
 
-					if (lCell == null)  // Avoid crash for null cell
-						continue;
-
-					GameObject lContent = lCell.GetContent();
-
-					if (lContent != null && lContent is Movable lMovable)
-					{
-						lMovable.MoveTo(x, y, grid);
-					}
+					if (cell.GetContent() is Movable movable)
+						movable.MoveTo(x, y, grid);
 				}
 			}
 		}
 
+		// Resets grid to first state (restart)
 		private void Retry()
 		{
 			SetGridState(0); 
 		}
+
 
 		#endregion
 		

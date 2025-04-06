@@ -99,7 +99,7 @@ namespace Com.IsartDigital.SokoVolt {
 			Godot.Collections.Array lBoxRangesArray = lLevelData.ContainsKey(JsonKeys.BOX_RANGE_KEY) ? 
 			(Godot.Collections.Array)lLevelData[JsonKeys.BOX_RANGE_KEY] : new Godot.Collections.Array();
 
-			int lPar = -1; // Valeur par défaut en cas d'erreur
+			int lPar = -1; // Default value for par
 
 			if (lLevelData.ContainsKey(JsonKeys.PAR_KEY))
 			{
@@ -158,7 +158,8 @@ namespace Com.IsartDigital.SokoVolt {
 					gridInstance.grid[x, y] = lCell;
 
 					GameObject lObj = null; 
-
+					
+					// Spawn logic to physical object
 					switch(lTile)
 					{
 						case JsonKeys.PLAYER :
