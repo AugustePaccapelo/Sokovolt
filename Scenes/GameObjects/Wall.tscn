@@ -1,9 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://djcluge6is5om"]
+[gd_scene load_steps=4 format=3 uid="uid://djcluge6is5om"]
 
 [ext_resource type="Script" path="res://Scripts/GameObjects/Wall.cs" id="1_0oqpj"]
 [ext_resource type="Texture2D" uid="uid://cwb4ypc3twdp2" path="res://Assets/GameObjects/IsoTiles/basetiles.png" id="2_1jp1w"]
-[ext_resource type="Texture2D" uid="uid://4m7bgvrccm24" path="res://Assets/GameObjects/IsoTiles/Tile2.png" id="4_4ua6c"]
-[ext_resource type="Texture2D" uid="uid://coumdi3kr40bg" path="res://Assets/GameObjects/IsoTiles/Wall.png" id="4_rldeg"]
+[ext_resource type="Texture2D" uid="uid://4m7bgvrccm24" path="res://Assets/GameObjects/IsoTiles/Tile2.png" id="3_ojc5h"]
 
 [node name="Wall" type="Node2D"]
 script = ExtResource("1_0oqpj")
@@ -26,9 +25,8 @@ texture = ExtResource("2_1jp1w")
 visible = false
 position = Vector2(1, -7)
 scale = Vector2(0.083478, 0.083478)
-texture = ExtResource("4_rldeg")
 
 [node name="Wall1" type="Sprite2D" parent="."]
 position = Vector2(1, -7)
 scale = Vector2(0.07, 0.07)
-texture = ExtResource("4_4ua6c")
+texture = ExtResource("3_ojc5h")

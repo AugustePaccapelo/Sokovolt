@@ -141,12 +141,11 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 				}
 			}
 
-			// Réinitialise la grille et l'historique
+			// Reset grid history
 			grid = null;
 			gridStates.Clear();
 			actualGridStateIndex = 0;
 
-			// Rendre le HUD invisible
 			hud.Visible = false;
 
 			GD.Print("ClearGrid: Niveau supprimé !");
@@ -487,7 +486,7 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 			return lVortex;
 		}
 
-		//  **Animation du vortex qui grossit et aspire tout**
+		//  Vortex animation 
 		private void AnimateVortex(Node2D vortex)
 		{
 			Sprite2D lVortexSprite = vortex.GetChild<Sprite2D>(0);
@@ -511,7 +510,7 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 		}
 
 
-		// Effet d’électricité qui s'abbat sur les tiles 
+		// Thunder effect on tiles 
 		private void FlashElectricEffect(Node2D pObject)
 		{
 			WinScreenThunder lThunderEffect = thunderEffectScene.Instantiate() as WinScreenThunder;
@@ -532,8 +531,8 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 
 
 
-		#region // ----- Provisoir pour test ----- \\
-		public void PrintGrid()	//=================================> Provisoir pour test 
+		#region // ----- Provisional for testing ----- \\
+		public void PrintGrid()	
 		{
 			string lGridString = "";
 
@@ -558,9 +557,9 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 					else if (lContent is Door)
 						lGridString += "| ";
 					else
-						lGridString += "- ";  // Case vide
+						lGridString += "- ";  //Empty tile 
 				}
-				lGridString += "\n";  // Nouvelle ligne pour chaque rangée
+				lGridString += "\n";  // New line for each row
 			}
 
 			GD.Print(lGridString);

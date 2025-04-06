@@ -777,11 +777,11 @@ script = ExtResource("1_n7nym")
 maskPolygon = NodePath("Polygon2D")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(964, 538)
+position = Vector2(963.5, 547.5)
+scale = Vector2(1.01406, 1.01759)
 sprite_frames = SubResource("SpriteFrames_g7f0p")
 autoplay = "default"
-frame = 119
-frame_progress = 0.201185
+frame_progress = 0.729358
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
-polygon = PackedVector2Array(1692, 562, 939, 980, 225, 554, 628, 321, -2, 320, 1, 1078, 1919, 1081, 1922, 320, 1292, 323)
+polygon = PackedVector2Array(1719, 571, 962, 1013, 218, 574, 628, 321, -13, 326, -8, 1100, 1937, 1096, 1939, 319, 1292, 323)
