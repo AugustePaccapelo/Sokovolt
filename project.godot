@@ -70,4 +70,4 @@ Down={
 
 [internationalization]
 
-locale/translations=PackedStringArray("res://Localisation/Localisation.en.translation", "res://Localisation/Localisation.fr.translation")
+locale/translations=PackedStringArray("res://Localisation/8_ROBOTNIK_Localisation.en.translation", "res://Localisation/8_ROBOTNIK_Localisation.fr.translation")
