@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://dyr30pkkewie" path="res://Assets/UI/MainMenu/LevelScreen.png" id="2_u4r7s"]
 [ext_resource type="PackedScene" uid="uid://c46bqjn4wfblh" path="res://Scenes/GameObjects/LevelSelectorObject/LevelSelectorTesla.tscn" id="3_31hu0"]
 [ext_resource type="Script" path="res://Scripts/GameObjects/ButtonTemplate.cs" id="4_tfihn"]
-[ext_resource type="PackedScene" path="res://Scenes/GameObjects/LevelSelectorObject/score_screen.tscn" id="5_1sge3"]
+[ext_resource type="PackedScene" uid="uid://dt8mu0rub45fm" path="res://Scenes/GameObjects/LevelSelectorObject/score_screen.tscn" id="5_1sge3"]
 [ext_resource type="Texture2D" uid="uid://o7dxw8nc0gvi" path="res://Assets/UI/MainMenu/CarpetBorder.png" id="5_8e1ql"]
 [ext_resource type="Texture2D" uid="uid://6ogwctw6dhxl" path="res://Assets/UI/MainMenu/Manette.png" id="6_8hpna"]
 [ext_resource type="Texture2D" uid="uid://6qajctfobfih" path="res://Assets/UI/MainMenu/CarpetBorder2.png" id="6_cobsf"]
@@ -605,7 +605,6 @@ scale = Vector2(1.09512, 1.09512)
 
 [node name="Flare" type="GPUParticles2D" parent="FrontMachine/PlayerParticles"]
 material = SubResource("CanvasItemMaterial_hklq1")
-scale = Vector2(1, 1)
 amount = 10
 process_material = SubResource("ParticleProcessMaterial_n0ler")
 texture = ExtResource("7_c1v7e")
