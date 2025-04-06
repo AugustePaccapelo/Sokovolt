@@ -23,7 +23,7 @@
 [ext_resource type="Texture2D" uid="uid://kulh7f8b8jlr" path="res://icon.svg" id="19_jj0lu"]
 [ext_resource type="PackedScene" uid="uid://36dp5dq6hmqq" path="res://Scenes/GameObjects/ButtonTemplate.tscn" id="20_0nxsh"]
 [ext_resource type="Texture2D" uid="uid://c7un4g41qom0x" path="res://Assets/UI/MainMenu/machine.png" id="23_835b2"]
-[ext_resource type="PackedScene" path="res://Scenes/GameObjects/LevelSelectorObject/wheel.tscn" id="24_kc3pk"]
+[ext_resource type="PackedScene" uid="uid://bs1v2cedkky8a" path="res://Scenes/GameObjects/LevelSelectorObject/wheel.tscn" id="24_kc3pk"]
 [ext_resource type="Shader" uid="uid://bum2gqlmpu2kv" path="res://Assets/Shaders/ElectricBoltShader.tres" id="25_wd3ca"]
 [ext_resource type="Texture2D" uid="uid://c66l3g8bbn3hb" path="res://Assets/Shaders/Effects/VFX Thunder.jpg" id="26_mswj5"]
 [ext_resource type="Texture2D" uid="uid://8vcio7y6idoy" path="res://Assets/Shaders/Effects/SparksParticles.PNG" id="27_nqaoa"]
