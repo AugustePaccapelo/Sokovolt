@@ -4,6 +4,7 @@ using Godot;
 using Godot.Collections;
 using System;
 using System.Collections.Generic;
+using static Com.IsartDigital.SokoVolt.Tools.ObjectProperties;
 
 // Author : Noe Sales
 
@@ -20,6 +21,8 @@ namespace Com.IsartDigital.SokoVolt.GameObjects {
 		public bool levelUnlocked = false;
 		public int level;
         private bool allLevelAreUnlocked = false;
+        private const string START_ANIMATION = "start_animation";
+        private const string END_ANIMATION = "end_animation";
 
         public override void _Ready()
         {
@@ -35,69 +38,129 @@ namespace Com.IsartDigital.SokoVolt.GameObjects {
 
         private async void DelayInitLevel()
         {
-            await ToSignal(GetTree().CreateTimer(0.1f), "timeout");
+            await ToSignal(GetTree().CreateTimer(0.1f), TIME_OUT);
             InitLevelStateUserData();
         }
 
         private void InitLevelStateUserData()
         {
-            var lUserData = UserGestion.GetInstance().GetUserData(); 
-            var lCurrentUser = UserGestion.GetInstance().currentUser;
+            Dictionary lUserData = UserGestion.GetInstance().GetUserData();
+            string lCurrentUser = UserGestion.GetInstance().currentUser;
 
             if (!lUserData.ContainsKey(lCurrentUser)) return;
-            var lUserDict = (Dictionary)lUserData[lCurrentUser];
-            if (!lUserDict.ContainsKey("levels")) return;
+            Dictionary lUserDict = (Dictionary)lUserData[lCurrentUser];
+            if (!lUserDict.ContainsKey(LEVELS)) return;
 
-            var lLevels = (Dictionary)lUserDict["levels"];
-            string lLevelKey = $"level{level}"; // key of the current level ex: level0, level1, level2...
+            Dictionary lLevels = (Dictionary)lUserDict[LEVELS];
+            string lLevelKey = $"level{level}";
+
+            // Check if all levels are unlocked
+            bool allUnlocked = true;
+            foreach (Dictionary levelData in lLevels.Values)
+            {
+                if ((bool)levelData.GetValueOrDefault(LOCKED, true))
+                {
+                    allUnlocked = false;
+                    break;
+                }
+            }
+            allLevelAreUnlocked = allUnlocked;
 
             if (lLevels.ContainsKey(lLevelKey))
             {
-                var lLevelData = (Dictionary)lLevels[lLevelKey];
-                bool lIsLocked = (bool)lLevelData.GetValueOrDefault("locked", true); //lIsLocked = true par defaut
-                GD.Print($"[Tesla {level}] Locked: {lIsLocked}, Unlocked: {levelUnlocked}");
+                Dictionary lLevelData = (Dictionary)lLevels[lLevelKey];
+                bool lIsLocked = (bool)lLevelData.GetValueOrDefault(LOCKED, true);
 
                 if (!levelUnlocked)
                 {
-                    if(!lIsLocked || level == 0) UnlockLevel();
+                    if (!lIsLocked || level == 0)
+                    {
+                        UnlockLevel();
+
+                        // Update JSON if level 0 was visually unlocked but still marked locked
+                        if (level == 0 && lIsLocked)
+                        {
+                            lLevelData[LOCKED] = false;
+                            lLevels[lLevelKey] = lLevelData;
+                            lUserDict[LEVELS] = lLevels;
+                            lUserData[lCurrentUser] = lUserDict;
+                            UserGestion.GetInstance().SaveUserData(lUserData);
+                            GD.Print($"[Tesla {level}] was visually and logically unlocked (forced update)");
+                        }
+                    }
                 }
             }
         }
 
+
         public void UnlockAll()
         {
+            Dictionary userData = UserGestion.GetInstance().GetUserData();
+            string currentUser = UserGestion.GetInstance().currentUser;
+
+            if (string.IsNullOrEmpty(currentUser) || !userData.ContainsKey(currentUser)) return;
+
+            Dictionary userDict = (Dictionary)userData[currentUser];
+            if (!userDict.ContainsKey(LEVELS)) return;
+
+            Dictionary levels = (Dictionary)userDict[LEVELS];
+            string levelKey = $"level{level}";
+
+            if (!levels.ContainsKey(levelKey)) return;
+
+            Dictionary levelData = (Dictionary)levels[levelKey];
+
             if (!allLevelAreUnlocked)
             {
-                UnlockLevel();
-                LevelSelector.GetInstance().buttonUnlockAll.Text = "LockAll";
+                // Si le niveau est verrouillé, on le déverrouille et on met à jour les données
+                if (levelData.ContainsKey(LOCKED) && (bool)levelData[LOCKED])
+                {
+                    levelData[LOCKED] = false;
+                    levels[levelKey] = levelData;
+                    userDict[LEVELS] = levels;
+                    userData[currentUser] = userDict;
+
+                    UserGestion.GetInstance().SaveUserData(userData);
+
+                    UnlockLevel();
+                    GD.Print($"[Tesla {level}] was locked, now unlocked via UnlockAll()");
+                }
                 allLevelAreUnlocked = true;
             }
-            else if (allLevelAreUnlocked && level != 0)
+            else
             {
-                LockLevel();
-                LevelSelector.GetInstance().buttonUnlockAll.Text = "UnlockAll";
+                if (levelData.ContainsKey(LOCKED) && !(bool)levelData[LOCKED])
+                {
+                    levelData[LOCKED] = true;
+                    levels[levelKey] = levelData;
+                    userDict[LEVELS] = levels;
+                    userData[currentUser] = userDict;
+
+                    UserGestion.GetInstance().SaveUserData(userData);
+
+                    LockLevel();
+                    GD.Print($"[Tesla {level}] was locked, now unlocked via UnlockAll()");
+                }
                 allLevelAreUnlocked = false;
             }
         }
 
         public void UnlockLevel()
         {
-            electricBolt.animationPlayer.Play("start_animation");
+            electricBolt.animationPlayer.Play(START_ANIMATION);
             Tween lTween = CreateTween();
-            foreach (PointLight2D light in lightEmission) lTween.TweenProperty(light, "energy", 3, 0.5f);
+            foreach (PointLight2D light in lightEmission) lTween.TweenProperty(light, ENERGY, 3, 0.5f);
             padLock.Open();
             levelUnlocked = true;
-            GD.Print($"[Tesla {level}] Visually unlocked");
         }
 
         private void LockLevel()
         {
-            electricBolt.animationPlayer.Play("end_animation");
+            electricBolt.animationPlayer.Play(END_ANIMATION);
             Tween lTween = CreateTween();
-            foreach (PointLight2D light in lightEmission) lTween.TweenProperty(light, "energy", 0, 0.5f);
+            foreach (PointLight2D light in lightEmission) lTween.TweenProperty(light, ENERGY, 0, 0.5f);
             padLock.Close();
             levelUnlocked = false;
-            GD.Print($"[Tesla {level}] Visually locked");
         }
     }
 }

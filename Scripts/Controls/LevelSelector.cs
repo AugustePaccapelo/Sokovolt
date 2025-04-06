@@ -32,7 +32,6 @@ namespace Com.IsartDigital.SokoVolt
 
         private GpuParticles2D buttonSmokeParticles;
         private LevelSelectorTesla actualTesla;
-        private List<int> unlockedLevels = new List<int>();
 
         private bool alreadyPress = false;
 
@@ -77,7 +76,7 @@ namespace Com.IsartDigital.SokoVolt
             buttonUnlockAll.Pressed += UnlockAll;
             buttonLaunch.Pressed += LevelUnlockedCheck;
             userGestion = UserGestion.GetInstance();
-            unlockedLevels = userGestion.GetUnlockedLevels();
+            //unlockedLevels = userGestion.GetUnlockedLevels();
             InitializeLevelAtStart();
             scoreBoard.UpdatePersonalScoreBoard(actualLevel);
         }
@@ -185,11 +184,6 @@ namespace Com.IsartDigital.SokoVolt
             lTesla.Position = pPos;
             lTesla.level = pIndex;
             lTesla.padLock.Show();
-            GD.Print($"[Tesla] creation of a tesla {pIndex} | unlocked? ? {unlockedLevels.Contains(pIndex)}");
-            if (unlockedLevels.Contains(lTesla.level)) 
-            {
-                lTesla.UnlockLevel();
-            }
 
             Godot.Label lLabel = lTesla.GetNode<Godot.Label>(LEVEL_LABEL_PATH);
             lLabel.Text = Tr(LEVEL_PREFIXE) + "\n" + pIndex;
