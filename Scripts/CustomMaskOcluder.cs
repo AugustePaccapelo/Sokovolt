@@ -3,6 +3,7 @@ using Godot.Collections;
 using System;
 using System.Runtime.CompilerServices;
 
+//Author : Ferlat Thibaud
 namespace Com.IsartDigital.SokoVolt.GameObjects 
 {
     public partial class CustomMaskOcluder : Node2D
@@ -111,8 +112,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
 							if (texture(mask_texture, mask_uv).a > 0.0)
 								discard;
 
-							// Préserve la couleur d’origine du node (sprite, poly, etc.)
-							// Ne remplace pas COLOR sauf si nécessaire
+							// Preserve original color
 						}
 						",
 					}

@@ -23,7 +23,7 @@ namespace Com.IsartDigital.SokoVolt
         private UserGestion userGestion;
 
         private int actualLevel = 0;
-        public static int levelNumbMax = 7;
+        public static int levelNumbMax = 8;
         private int newTeslaPointPosY = 223;
 
         private Vector2 buttonSize = new Vector2(60, 100);

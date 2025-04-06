@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://bx4sq5cya6p7g"]
+[gd_scene load_steps=19 format=3 uid="uid://bx4sq5cya6p7g"]
 
 [ext_resource type="PackedScene" uid="uid://36dp5dq6hmqq" path="res://Scenes/GameObjects/ButtonTemplate.tscn" id="1_8igok"]
 [ext_resource type="Script" path="res://Scripts/Controls/LevelCreator.cs" id="1_bf11f"]
@@ -12,10 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://cce6m5y5bqo5c" path="res://Scenes/GameObjects/LevelCreator/door_texture.tscn" id="10_av00s"]
 [ext_resource type="PackedScene" uid="uid://dg077chl56p8g" path="res://Scenes/GameObjects/LevelCreator/player_spawn_texture.tscn" id="11_g4nve"]
 [ext_resource type="PackedScene" uid="uid://40x567524t37" path="res://Scenes/GameObjects/LevelCreator/electric_wall_texture.tscn" id="12_7rowd"]
-[ext_resource type="Texture2D" uid="uid://bprv1xwm05f87" path="res://Assets/UI/LevelCreator/LevelCreator.png" id="12_usfni"]
 [ext_resource type="Script" path="res://Scripts/GameObjects/ButtonTemplate.cs" id="14_tu8f3"]
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qslgl"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oto23"]
 bg_color = Color(0.43134, 0.43134, 0.43134, 1)
@@ -44,7 +41,7 @@ font_size = 48
 outline_size = 5
 outline_color = Color(0, 0, 0, 1)
 
-[node name="LevelCreatorMenu" type="Control" node_paths=PackedStringArray("mainMenuButton", "newLevelButton", "loadLevelButton", "menuCustomLevelButton", "saveButton", "applyButton", "returnButton", "loadLevelText", "levelName", "sizeXText", "sizeYText", "wallTexture", "electricWallTexture", "teslaTexture", "bulbTexture", "generatorTexture", "playerSpawnTexture", "doorTexture", "buttonContainer", "deleteButtonContainer", "labelContainer", "gridSizeLabel", "backGround")]
+[node name="LevelCreatorMenu" type="Control" node_paths=PackedStringArray("mainMenuButton", "newLevelButton", "loadLevelButton", "menuCustomLevelButton", "saveButton", "applyButton", "returnButton", "loadLevelText", "levelName", "sizeXText", "sizeYText", "wallTexture", "electricWallTexture", "teslaTexture", "bulbTexture", "generatorTexture", "playerSpawnTexture", "doorTexture", "buttonContainer", "deleteButtonContainer", "labelContainer")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -83,14 +80,6 @@ buttonContainer = NodePath("CustomLevelListBackGround/MenuBar/HBoxContainer/Butt
 deleteButtonContainer = NodePath("CustomLevelListBackGround/MenuBar/HBoxContainer/DeleteButtonContainer2")
 labelContainer = NodePath("CustomLevelListBackGround/MenuBar/HBoxContainer/LabelContainer")
 customLevelTemplate = ExtResource("8_kgilq")
-gridSizeLabel = NodePath("NewLevelBackGround/HBoxContainer/GridSizeLabel")
-backGround = NodePath("TextureRect")
-
-[node name="TextureRect" type="TextureRect" parent="."]
-layout_mode = 0
-offset_right = 1920.0
-offset_bottom = 1080.0
-texture = ExtResource("12_usfni")
 
 [node name="Menu" type="Panel" parent="."]
 layout_mode = 1
@@ -99,7 +88,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxTexture_qslgl")
 
 [node name="NewLevelButton" parent="Menu" instance=ExtResource("1_8igok")]
 layout_mode = 1
