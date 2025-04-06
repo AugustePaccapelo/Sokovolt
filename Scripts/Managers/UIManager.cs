@@ -46,9 +46,7 @@ namespace Com.IsartDigital.SokoVolt.Managers
 			base._Ready();
 
 			mainMenu = MainMenu.GetInstance();
-			//hud = HUD.GetInstance();
 
-			//hud.MainMenuButton += BackToMainMenu;
 			CustomSignals lCustomSignals = CustomSignals.GetInstance();
             lCustomSignals.GoToMainMenu += BackToMainMenu;
             lCustomSignals.GoToLevelSelector += GameStart;

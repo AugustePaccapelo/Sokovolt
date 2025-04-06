@@ -180,7 +180,7 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 
 		#region // ----- Player and Boxs Movement ----- \\
 
-		// Main player move call (triggered by input signal)
+		// Player move call (triggered by input signal)
 		public void OnMovePlayer(Vector2 pPlayerDirection)
 		{
 			MovePlayer((int)pPlayerDirection.X, (int)pPlayerDirection.Y);

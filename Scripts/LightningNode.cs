@@ -148,7 +148,6 @@ namespace Com.IsartDigital.SokoVolt
             // If the point has passed the startPoint, adding it to the list of all points and Create a new Vector
             if (lPoint.X >= marginStart)
             {
-                //GD.Print(pLightning.nextPoint);
                 pListPoints.Insert(1, lPoint);
                 NewPointVector(pLightning);
             }

@@ -89,12 +89,5 @@ namespace Com.IsartDigital.SokoVolt.Managers {
             pObject.Rotation = pRotation;
             return lTween;
         }
-
-        //public Tween LightShake(Node pObject, float pRotation, float pSpeed)
-        //{
-        //    Tween lTween = CreateTween();
-        //    lTween.TweenProperty(pObject, ROTATION, Mathf.DegToRad(pRotation), pSpeed).AsRelative();
-        //    lTween.TweenProperty(pObject, ROTATION, Mathf.DegToRad(pRotation), pSpeed).AsRelative();
-        //}
     }
 }

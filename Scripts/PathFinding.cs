@@ -64,7 +64,7 @@ namespace Com.IsartDigital.Sokovolt {
 
             while (pFromPos.ContainsKey(lCurrentPos))
             {
-                if (lCurrentPos != pStart) // Ne pas ajouter la position de départ
+                if (lCurrentPos != pStart) // Do not add the start position
                     lTotalPath.Add(lCurrentPos);
                 
                 lCurrentPos = pFromPos[lCurrentPos];
