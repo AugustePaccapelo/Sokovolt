@@ -24,6 +24,7 @@ namespace Com.IsartDigital.SokoVolt
 		[Export] private Button levelCreatorButton;
 		[Export] private Button unlogButton;
         [Export] private Button optionButton;
+        [Export] private Button quitButton;
 
 		//[Signal] public delegate void StartGameEventHandler();
 
@@ -49,9 +50,11 @@ namespace Com.IsartDigital.SokoVolt
             //startButton.Pressed += () => EmitSignal(nameof(StartGame));
 
             startButton.Pressed += () => CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.GoToLevelSelector);
+
             levelCreatorButton.Pressed += () => CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.GoToLevelCreator);
 			unlogButton.Pressed += () => CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.GoToLoginScreen);
             optionButton.Pressed += () => CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.GoToOptionMenu);
+            quitButton.Pressed += ()=> CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.ExitGame);
 
 			
         }

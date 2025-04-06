@@ -1,4 +1,5 @@
-﻿using Com.IsartDigital.SokoVolt.GameObjects;
+using Com.IsartDigital.Sokovolt;
+using Com.IsartDigital.SokoVolt.GameObjects;
 using Com.IsartDigital.SokoVolt.GameObjects.Movables;
 using Com.IsartDigital.SokoVolt.Tools;
 using Godot;
@@ -28,16 +29,18 @@ namespace Com.IsartDigital.SokoVolt.Managers
         [Export] public Node2D objectsContainer;
         [Export] public MenuTrans MenuTrans;
         [Export] public Camera2D camera;
+        [Export] private Polygon2D mouse;
+
         HUD hud;
 
         // Managers
         private GridManager gridManager;
 		private CustomSignals signals;
+		private UserGestion userGestion;
 
 		// GameObjects
 		public Door door;
 		private List<GoalBulb> allGoalBulbs = new List<GoalBulb>();
-		private Polygon2D mouse;
 
 		// ----- Others ----- \\
 		private List<int> scorePerStar = new List<int> { 1000, 2000, 5000 };
@@ -66,8 +69,8 @@ namespace Com.IsartDigital.SokoVolt.Managers
 		}
 		public override void Init()
 		{
-            mouse = GetNode<Polygon2D>("Mouse");
             hud = HUD.GetInstance();
+			userGestion = UserGestion.GetInstance();
             signals = CustomSignals.GetInstance();
             signals.PlayerMoved += PlayerHasMoved;
             signals.GoalBulbStateChanged += GoalBulbStateChanged;
@@ -78,8 +81,8 @@ namespace Com.IsartDigital.SokoVolt.Managers
 		{
             base._Process(pDelta);
             float lDelta = (float)pDelta;
-            
-			HideMouse();
+
+            HideMouse();
         }
 
         // ----- My Functions ----- \\
@@ -89,6 +92,7 @@ namespace Com.IsartDigital.SokoVolt.Managers
             mouse.Position = GetLocalMousePosition();
 			if (Input.MouseMode != Input.MouseModeEnum.Hidden) Input.MouseMode = Input.MouseModeEnum.Hidden;
         }
+
         public void AddGoalBulb(GoalBulb pGoalBulb)
 		{
 			allGoalBulbs.Add(pGoalBulb);
@@ -131,7 +135,18 @@ namespace Com.IsartDigital.SokoVolt.Managers
 
 			int lScore = scorePerStar[lNumStar - 1] - lNumStep;
 
-			GD.PrintErr(lNumStar + " " + lScore + " " + lNumStep); 
+            userGestion.SaveUserProgress(WinScreen.actualLevel, lScore, lNumStar); // saves scores/stars
+			userGestion.UnlockLevel(WinScreen.actualLevel + 1); // level unlocked with json
+
+			LevelSelector lSelector = LevelSelector.GetInstance();
+
+			if (lSelector != null && lSelector.teslaDictionnary.ContainsKey(WinScreen.actualLevel + 1))
+			{
+				lSelector.teslaDictionnary[WinScreen.actualLevel + 1].UnlockLevel();
+				GD.Print("Level unlocked");
+			}
+
+            GD.PrintErr(lNumStar + " " + lScore + " " + lNumStep); 
 
 			await ToSignal(GetTree().CreateTimer(0.3f), ObjectProperties.TIME_OUT);
 
@@ -140,17 +155,24 @@ namespace Com.IsartDigital.SokoVolt.Managers
         }
 		private void NewLevelLoaded(int pLevel) => currentLevel = pLevel;
 
-		// ----- Destructor ----- \\
+        // ----- Destructor ----- \\
 
-		protected override void Dispose(bool pDisposing)
-		{
-            #region // ----- Singleton ----- \\
+        protected override void Dispose(bool pDisposing)
+        {
+            if (pDisposing)
+            {
+                if (signals != null)
+                {
+                    signals.PlayerMoved -= PlayerHasMoved;
+                    signals.GoalBulbStateChanged -= GoalBulbStateChanged;
+                    signals.LoadLevel -= NewLevelLoaded;
+                }
 
-            if (pDisposing && instance == this) instance = null;
-
-            #endregion
+                if (instance == this) instance = null;
+            }
 
             base.Dispose(pDisposing);
-		}
-	}
+        }
+
+    }
 }

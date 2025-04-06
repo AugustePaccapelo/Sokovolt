@@ -7,6 +7,8 @@ using Com.IsartDigital.Sokovolt;
 using System.Data;
 using System.Linq;
 using Com.IsartDigital.SokoVolt.Tools;
+using static Com.IsartDigital.SokoVolt.Tools.ObjectProperties;
+
 
 //Author : Ferlat Thibaud 
 namespace Com.IsartDigital.SokoVolt.Managers {
@@ -412,7 +414,9 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 
 		private async void EndLevelAnimation(int pNumStar, int pScore, int pNumStep)
 		{
-			List<Node2D> lObjectsToAnimate= new List<Node2D>();
+			HUD.GetInstance().mainMenuButton.Disabled = true;
+			if(LevelCreator.inLevelCreator) LevelCreator.GetInstance().returnButton.Disabled = true;
+            List<Node2D> lObjectsToAnimate= new List<Node2D>();
 			lObjectsToAnimate.Clear(); 
 
 			foreach(Node2D lObject in gameManager.objectsContainer.GetChildren())
@@ -451,19 +455,19 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 				{
 					Vector2 lNewObjectPos = lObject.GlobalPosition.DirectionTo(lVortexCenter) * lRandPropulsion + lObject.GlobalPosition;
 					Tween lTween = CreateTween();
-					lTween.TweenProperty(lObject, ObjectProperties.POSITION, lNewObjectPos, 1f)
+					lTween.TweenProperty(lObject, POSITION, lNewObjectPos, 1f)
 							.SetTrans(Tween.TransitionType.Elastic)
 							.SetEase(Tween.EaseType.Out);
 				}
 
-				await ToSignal(GetTree().CreateTimer(lRandDelay), ObjectProperties.TIME_OUT);
+				await ToSignal(GetTree().CreateTimer(lRandDelay), TIME_OUT);
 			}
 			AnimateVortex(vortex); 
 
 			foreach(Node2D lObject in lObjectsToAnimate)
 			{
 				Tween lTween = CreateTween(); 
-				lTween.TweenProperty(lObject, ObjectProperties.POSITION, lVortexCenter, 1.3f)
+				lTween.TweenProperty(lObject, POSITION, lVortexCenter, 1.3f)
 					.SetTrans(Tween.TransitionType.Linear)
 					.SetEase(Tween.EaseType.In); 
 
@@ -492,17 +496,17 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 			Sprite2D lVortexSprite = vortex.GetChild<Sprite2D>(0);
 			Tween lVortexTween = CreateTween();
 
-			lVortexTween.Parallel().TweenProperty(lVortexSprite, ObjectProperties.SCALE, Vector2.One, 0.8f)
+			lVortexTween.Parallel().TweenProperty(lVortexSprite, SCALE, Vector2.One, 0.8f)
 					.SetTrans(Tween.TransitionType.Linear)
 					.SetEase(Tween.EaseType.Out);
 
-			lVortexTween.Parallel().TweenProperty(lVortexSprite, ObjectProperties.MODULATE, new Color(1, 1, 1, 1), 0.8f);
+			lVortexTween.Parallel().TweenProperty(lVortexSprite, MODULATE, new Color(1, 1, 1, 1), 0.8f);
 
-			lVortexTween.Parallel().TweenProperty(lVortexSprite, ObjectProperties.ROTATION, Mathf.DegToRad(600), 1f)
+			lVortexTween.Parallel().TweenProperty(lVortexSprite, ROTATION, Mathf.DegToRad(600), 1f)
 					.SetTrans(Tween.TransitionType.Linear)
 					.SetEase(Tween.EaseType.InOut);
 
-			lVortexTween.TweenProperty(lVortexSprite, ObjectProperties.SCALE, Vector2.Zero, 0.8f)
+			lVortexTween.TweenProperty(lVortexSprite, SCALE, Vector2.Zero, 0.8f)
 					.SetTrans(Tween.TransitionType.Linear)
 					.SetEase(Tween.EaseType.OutIn);
 
@@ -524,7 +528,9 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 		{
 			vortex.QueueFree(); 
 			CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.EndLevelAnimation); 
-		}
+			HUD.GetInstance().mainMenuButton.Disabled = false;
+			if(LevelCreator.inLevelCreator) LevelCreator.GetInstance().returnButton.Disabled = false;
+        }
 
 
 		#endregion

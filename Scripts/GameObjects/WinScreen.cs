@@ -24,6 +24,8 @@ namespace Com.IsartDigital.Sokovolt
         [Export] private Sprite2D[] batteries;
         private int counter = 0;
         public static int actualLevel = 0;
+        public int finalScore = 0;
+        public int earnedStars = 0;    
         private int thunderNumb = 4;
 
         private const string STAR_LABEL_PREFIXE = "X ";
@@ -36,7 +38,7 @@ namespace Com.IsartDigital.Sokovolt
 
         private void NextLevelFonc()
         {
-            if (actualLevel == LevelSelector.levelNumbMax)
+            if (actualLevel == LevelSelector.levelNumbMax || LevelCreator.inLevelCreator)
             {
                 nextButton.QueueFree();
                 nextButton.TreeExited += Show;
@@ -70,16 +72,18 @@ namespace Com.IsartDigital.Sokovolt
 
         public void UpdateStats(int pScore, int pSteps)
         {
+            finalScore = pScore;
             Tween lTween = CreateTween().SetParallel(true);
             lTween.TweenProperty(stepsCountLabel, "text", Tr(GridManager.STEP_LABEL_PREFIXE) + pSteps, 1f);
             lTween.TweenProperty(scoreLabel, "text", SCORE_LABEL_PREFIXE + pScore, 1f);
-
-            //stepsCountLabel.Text = STEPS_LABEL_PREFIXE + pSteps;
-            //scoreLabel.Text = SCORE_LABEL_PREFIXE + pScore;
+            UserGestion.GetInstance().SaveUserProgress(actualLevel, finalScore, earnedStars);
+            UserGestion.GetInstance().UnlockLevel(actualLevel + 1);
+            GD.Print("player progress saved and next level has been unlocked");
         }
 
         public async void StarSysteme(int pCount)
         {
+            earnedStars = pCount;
             if (counter <= 3)
             {
                 for (int i = 0; i < pCount; i++)

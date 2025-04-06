@@ -26,11 +26,14 @@ namespace Com.IsartDigital.SokoVolt
         [Signal] public delegate void GoToLevelSelectorEventHandler();
         [Signal] public delegate void GoToLevelCreatorEventHandler();
         [Signal] public delegate void GoToOptionMenuEventHandler();
+        [Signal] public delegate void ExitGameEventHandler(); 
 
         // Level gestion signals
         [Signal] public delegate void GoToNextLevelEventHandler(int pLevel);
         [Signal] public delegate void LoadLevelEventHandler(int pLevel);
         [Signal] public delegate void UnLoadLevelEventHandler();
+        [Signal] public delegate void LevelUnlockEventHandler(int pLevelIndex); 
+        [Signal] public delegate void LevelCompletedEventHandler(int pLevelIndex, int pStars, int pTotalScore); 
 
         // In Game states signals
         [Signal] public delegate void MoveEventHandler(Vector2 pDirection);

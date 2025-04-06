@@ -1,9 +1,11 @@
 using Com.IsartDigital.SokoVolt.GameObjects;
+using Com.IsartDigital.SokoVolt.GameObjects.Movables;
 using Com.IsartDigital.SokoVolt.Managers;
 using Godot;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Security.Cryptography.X509Certificates;
 using System.Xml.Linq;
 
@@ -29,7 +31,8 @@ namespace Com.IsartDigital.SokoVolt
         #endregion
 
         #region Exports & Variables
-        [Export] private Button mainMenuButton, newLevelButton, loadLevelButton, menuCustomLevelButton, returnButton, saveButton, applyButton;
+        [Export] private Button mainMenuButton, newLevelButton, loadLevelButton, menuCustomLevelButton, saveButton, applyButton;
+        [Export] public Button returnButton;
         [Export] private LineEdit loadLevelText, levelName, sizeXText, sizeYText;
         [Export] private LevelCreatorItems wallTexture, electricWallTexture, teslaTexture, bulbTexture, generatorTexture, playerSpawnTexture, doorTexture;
         [Export] private PackedScene wallScene, electricWallScene, teslaScene, bulbScene, generatorScene, playerSpawnScene, doorScene, tileScene, customLevelLabelScene;
@@ -39,10 +42,12 @@ namespace Com.IsartDigital.SokoVolt
         private Panel newLevelBackground, customLevelMenuBackground, backGrid, menu;
         private LevelCreatorItems actualItem;
 		private bool canPick = false;
+		public static bool inLevelCreator = false;
         private TextureRect hoveredItem;
         private float tileSize = 50, space = 5;
         private Node2D cellContainer;
         private int lenghtX = 11, lenghtY = 11, maxObject = 1;
+        private string customLevelsFolderPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments), CUSTOM_LEVELS_PATH);
         #endregion
 
         #region Const & List
@@ -53,6 +58,13 @@ namespace Com.IsartDigital.SokoVolt
         private const string PLAYERSPAWN_TYPE = "playerSpawnTexture";
         private const string DOOR_TYPE = "doorTexture";
         private const string ELECTRIC_WALL_TYPE = "electricWallTexture";
+        private const string SOKOVOLT_PATH = "Sokovolt";
+        private const string CUSTOM_LEVELS_PATH = "Sokovolt/CustomLevels";
+        private const string NEW_LEVEL_BACKGROUND_PATH = "NewLevelBackGround";
+        private const string CELL_CONTAINER_PATH = "CellContainer";
+        private const string CUSTOM_LEVEL_LIST_BACKGROUND_PATH = "CustomLevelListBackGround";
+        private const string BACKGRID_PATH = "BackGrid";
+        private const string MENU_PATH = "Menu";
         private const int LENGHT_MAX = 11;
         private const int LENGHT_MIN = 3;
         Dictionary<Vector2, LevelCreatorTile> gridDico = new Dictionary<Vector2, LevelCreatorTile>();
@@ -104,11 +116,11 @@ namespace Com.IsartDigital.SokoVolt
             #endregion
 
             #region GetNode
-            newLevelBackground = GetNode<Panel>("NewLevelBackGround");
-            cellContainer = GetNode<Node2D>("CellContainer");
-            customLevelMenuBackground = GetNode<Panel>("CustomLevelListBackGround");
-            backGrid = newLevelBackground.GetNode<Panel>("BackGrid");
-            menu = GetNode<Panel>("Menu");
+            newLevelBackground = GetNode<Panel>(NEW_LEVEL_BACKGROUND_PATH);
+            cellContainer = GetNode<Node2D>(CELL_CONTAINER_PATH);
+            customLevelMenuBackground = GetNode<Panel>(CUSTOM_LEVEL_LIST_BACKGROUND_PATH);
+            backGrid = newLevelBackground.GetNode<Panel>(BACKGRID_PATH);
+            menu = GetNode<Panel>(MENU_PATH);
 
             gameManager = GameManager.GetInstance();
             #endregion
@@ -229,9 +241,9 @@ namespace Com.IsartDigital.SokoVolt
         #region JsonFonction
         private void CreateJSON()
         {
-            string lFileName = "res://Scripts/Json/CustomLevels/" + levelName.Text + ".json";
+            string lFileName = CreateCustomLevelsFolder() + levelName.Text + ".json";
 
-            if (!FileAccess.FileExists(lFileName) && levelName.Text.Length > 0) //Check if a file with the same name already exist
+            if (!Godot.FileAccess.FileExists(lFileName) && levelName.Text.Length > 0) //Check if a file with the same name already exist
             {
                 string[] lMap = new string[lenghtY]; //Stock all the JsonKeys
                 List<int> lBoxRange = new List<int>();
@@ -360,7 +372,7 @@ namespace Com.IsartDigital.SokoVolt
                     "  ]\n" +
                     "}";
 
-                using FileAccess lCreateFile = FileAccess.Open(lFileName, FileAccess.ModeFlags.Write); //Create the file and open it for write
+                using Godot.FileAccess lCreateFile = Godot.FileAccess.Open(lFileName, Godot.FileAccess.ModeFlags.Write); //Create the file and open it for write
                 lCreateFile.StoreString(lJson); //Write lJson variable inside
                 AnimationManager.GetInstance().BounceAnimation(levelName, 0.5f, Colors.Green, 0.4f);
                 AnimationManager.GetInstance().BounceAnimation(saveButton, 0.5f, Colors.Green, 0.4f);
@@ -371,6 +383,25 @@ namespace Com.IsartDigital.SokoVolt
                 AnimationManager.GetInstance().BounceAnimation(levelName, 0.5f, Colors.Red, 0.2f);
                 GD.PrintErr("File already exists or name is empty.");
             }
+        }
+        private string CreateCustomLevelsFolder()
+        {
+            //Get the path to Documents
+            string lDocumentsPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments);
+
+            //Full file path
+            string lSokovoltFolder = Path.Combine(lDocumentsPath, SOKOVOLT_PATH);
+
+            //If the folders do not exist, we create them
+            if (!Directory.Exists(lSokovoltFolder))
+            {
+                Directory.CreateDirectory(lSokovoltFolder);
+            }
+            if (!Directory.Exists(customLevelsFolderPath))
+            {
+                Directory.CreateDirectory(customLevelsFolderPath);
+            }
+            return customLevelsFolderPath + "/";
         }
         public void DirContents(string lPath)
         {
@@ -559,7 +590,7 @@ namespace Com.IsartDigital.SokoVolt
                 lenghtY = LENGHT_MIN;
             }
 
-            // Vérifie que la taille est dans les limites définies
+            // Check that the size is within the defined limits
             if (lenghtX >= LENGHT_MIN && lenghtX <= LENGHT_MAX && lenghtY >= LENGHT_MIN && lenghtY <= LENGHT_MAX)
             {
                 int lBorder = 5;
@@ -592,6 +623,8 @@ namespace Com.IsartDigital.SokoVolt
 
             //Deleting specific elements
             HUD.GetInstance().winScreen?.QueueFree();
+            var player = Player.GetInstance();
+            player?.QueueFree(); // Pour le retirer de la scène
             HUD.GetInstance().Hide();
             CustomSignals.GetInstance().EmitSignal(nameof(CustomSignals.UnLoadLevel));
 
@@ -609,7 +642,7 @@ namespace Com.IsartDigital.SokoVolt
 		{
             HUD.GetInstance().Show();
             customLevelMenuBackground.Hide();
-            string lPath = "res://Scripts/Json/CustomLevels/" + pLevelName + ".json";
+            string lPath = customLevelsFolderPath + "/" + pLevelName + ".json";
             returnButton.Visible = true;
             menu.Visible = mainMenuButton.Visible = false;
             GridManager.GetInstance().LoadNewLevel(0, lPath, GameManager.GetInstance().objectsContainer);
@@ -617,14 +650,14 @@ namespace Com.IsartDigital.SokoVolt
 		private void OpenCustomLevelsMenu()
 		{
             customLevelMenuBackground.Visible = returnButton.Visible = true;
-            DirContents("res://Scripts/Json/CustomLevels/"); //send folder reference to DirContents fonction
+            DirContents(customLevelsFolderPath); //send folder reference to DirContents fonction
         }
         private void DeleteLevel(string pLevelName)
         {
-            string lFileName = $"res://Scripts/Json/CustomLevels/{pLevelName}.json";
+            string lFileName = customLevelsFolderPath + "/" + pLevelName + ".json";
             GD.PrintErr($"Suppression de {lFileName}");
 
-            DirAccess.RemoveAbsolute(lFileName); //Delete file in folder
+            File.Delete(lFileName); //Delete file in folder
             ClearChildren(cellContainer, gameManager.objectsContainer, buttonContainer, labelContainer, deleteButtonContainer); //Clear containers
             OpenCustomLevelsMenu(); //Reload LevelCustom Menu for an update
         }

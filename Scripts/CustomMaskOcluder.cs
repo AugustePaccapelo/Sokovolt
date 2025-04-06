@@ -26,7 +26,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
         {
 			instance = this; 
             InitializeMaskSystem();
-            backGround.Visible = false; 
+            // backGround.Visible = false; 
         }
 
       

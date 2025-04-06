@@ -781,7 +781,7 @@ position = Vector2(963.5, 547.5)
 scale = Vector2(1.01406, 1.01759)
 sprite_frames = SubResource("SpriteFrames_g7f0p")
 autoplay = "default"
-frame_progress = 0.729358
+frame_progress = 0.0397409
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
 polygon = PackedVector2Array(1719, 571, 962, 1013, 218, 574, 628, 321, -13, 326, -8, 1100, 1937, 1096, 1939, 319, 1292, 323)

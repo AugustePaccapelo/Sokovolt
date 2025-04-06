@@ -1,4 +1,4 @@
-using Com.IsartDigital.Sokovolt;
+﻿using Com.IsartDigital.Sokovolt;
 using Com.IsartDigital.Tools;
 using Godot;
 using System.Collections.Generic;
@@ -26,6 +26,7 @@ namespace Com.IsartDigital.SokoVolt
 		// ----- Nodes ----- \\
 		[ExportGroup("LoginScreen")]
 		[Export] private Control loginNode;
+        [Export] private Button quitButton;
 		private VBoxContainer vBoxHolderLogin;
 		private TextEdit inputLoginUsername;
 		private LineEdit inputLoginPassword;
@@ -88,7 +89,6 @@ namespace Com.IsartDigital.SokoVolt
 			GetCreateChilds();
 
 			GetAllLoginPos();
-			
             screenSize = GetWindow().Size;
             Size = screenSize;
 
@@ -100,6 +100,10 @@ namespace Com.IsartDigital.SokoVolt
 			buttonCreateGoLogin.Pressed += ButtonChangeToLogin;
             buttonLoginConfirm.Pressed += ButtonPressedLogin;
 			buttonCreateConfirm.Pressed += ButtonPressedCreate;
+            quitButton.Pressed += ()=> CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.ExitGame);
+
+			CustomSignals.GetInstance().GoToLoginScreen += ButtonChangeToLogin;
+
         }
 
 		// ----- My Functions ----- \\
@@ -173,11 +177,11 @@ namespace Com.IsartDigital.SokoVolt
 			{
 				if (checkLoginStayLogged.ButtonPressed) userGestion.SaveLastUser(userName);
 				else userGestion.SaveLastUser();
-				CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.GoToMainMenu);
+                CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.GoToMainMenu);
 				Hide();
 			}
 			else labelLoginError.Show();
-		}
+        }
 		private void ButtonPressedCreate()
 		{
 			labelCreateErrorPasswords.Hide();
@@ -193,12 +197,11 @@ namespace Com.IsartDigital.SokoVolt
 			userName = inputCreateUsername.Text;
             password = inputCreatePassword.Text;
 
-			if (userGestion.RegisterUser(userName, password))
+			if (userName != "" && userGestion.RegisterUser(userName, password))
 			{
 				if (checkCreateStayLogged.ButtonPressed) userGestion.SaveLastUser(userName);
 				else userGestion.SaveLastUser();
-				GD.Print(password);
-				CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.GoToMainMenu);
+                CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.GoToMainMenu);
                 Hide();
 			}
 			else labelCreateErrorUsername.Show();

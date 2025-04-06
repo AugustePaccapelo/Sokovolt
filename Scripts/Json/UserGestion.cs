@@ -5,12 +5,15 @@ using System.Text;
 using Com.IsartDigital.SokoVolt;
 using System.Text.RegularExpressions;
 using Godot.Collections;
+using System.Collections.Generic;
+using Com.IsartDigital.SokoVolt.Managers;
+using static Com.IsartDigital.SokoVolt.Tools.ObjectProperties;
 
 // Author : A. Dylan Montenegro Utrela
 
 namespace Com.IsartDigital.Sokovolt
 {
-	public partial class UserGestion : Node2D
+	public partial class UserGestion : Manager
 	{
 		#region Singleton
 		static private UserGestion instance;
@@ -22,10 +25,13 @@ namespace Com.IsartDigital.Sokovolt
 			if (instance == null) instance = new UserGestion();
 			return instance;
 		}
-		#endregion
+        #endregion
 
-		private string jsonFilePath = ProjectSettings.GlobalizePath("user://Json//UserData.Json");
-        private string lastUserFilePath = ProjectSettings.GlobalizePath("user://Json/LastUser.json");
+		private const string JSON_FILE_PATH = "user://Json//UserData.Json";
+        private const string LAST_USER_FILE_PATH = "user://Json/LastUser.json";
+        private const string LOCAL_SCORE_PATH = "user://Json/LocalScore.json";
+        public string currentUser {  get; private set; } = null;
+        CustomSignals customSignals;
 
         public override void _Ready()
 		{
@@ -38,13 +44,21 @@ namespace Com.IsartDigital.Sokovolt
 			}
 
 			instance = this;
-			#endregion
+            #endregion
 
-			LoginScreen.GetInstance().userGestion = this;
-            LoginScreen.GetInstance().skipLogin = !(GetLastUser() is null);
+            base._Ready();
         }
 
-        private static string PasswordHashing(string pPassword) // to encrypt the password by Auguste
+        public override void Init()
+        {
+            LoginScreen.GetInstance().userGestion = this;
+            bool lSkipLog = !(GetLastUser() is null);
+            LoginScreen.GetInstance().skipLogin = lSkipLog;
+            if (lSkipLog) currentUser = GetLastUser();
+            customSignals = CustomSignals.GetInstance();
+        }
+
+        private static string PasswordHashing(string pPassword)
         {
 			SHA256 lSha256 = SHA256.Create();
 
@@ -59,77 +73,212 @@ namespace Com.IsartDigital.Sokovolt
 			return lHashedPassword;
         }
 
-		private Dictionary GetUserData()
+		public Dictionary GetUserData()
 		{
-			if (!FileAccess.FileExists(jsonFilePath)) return new Dictionary();
-            string content = FileAccess.Open(jsonFilePath, FileAccess.ModeFlags.Read).GetAsText();
-            return JsonTool.TryParseJson(content, out Dictionary data) ? data : new Dictionary();
+			if (!FileAccess.FileExists(JSON_FILE_PATH)) return new Dictionary();
+            string lContent = FileAccess.Open(JSON_FILE_PATH, FileAccess.ModeFlags.Read).GetAsText();
+            return JsonTool.TryParseJson(lContent, out Dictionary pData) ? pData : new Dictionary();
         }
 
-        private void SaveUserData(Dictionary data)
+        public void SaveUserData(Dictionary data)
         {
-            using var file = FileAccess.Open(jsonFilePath, FileAccess.ModeFlags.Write);
-            file.StoreString(Json.Stringify(data, "\t"));
+            string lDirPath = JSON_FILE_PATH.GetBaseDir();
+
+            if (!DirAccess.DirExistsAbsolute(lDirPath))
+                DirAccess.MakeDirRecursiveAbsolute(lDirPath);
+
+            using var lFile = FileAccess.Open(JSON_FILE_PATH, FileAccess.ModeFlags.Write);
+            string lOutPut = Json.Stringify(data, "\t"); 
+            lFile.StoreString(lOutPut);
         }
 
-        public void SaveUserProgress(string pName, int totalScore, Dictionary levelData)
+        public void SaveUserProgress(int pLevel, int pScore, int pStars)
         {
             Dictionary lUsersData = GetUserData();
-            if (!lUsersData.ContainsKey(pName)) return;
+            string lCurrentUser = currentUser;
 
-            var user = (Dictionary)lUsersData[pName];
-            user["totalScore"] = totalScore;
-            user["levels"] = levelData;
+            if (string.IsNullOrEmpty(lCurrentUser) || !lUsersData.ContainsKey(lCurrentUser)) return;
+            Dictionary lUser = (Dictionary)lUsersData[lCurrentUser];  
+
+            if (!lUser.ContainsKey(LEVELS)) lUser[LEVELS] = new Dictionary();
+            Dictionary lLevels = (Dictionary)lUser[LEVELS];
+            string lLevelKey = $"level{pLevel}"; 
+            int lSavedScore = 0;    
+            int lSavedStars = 0;
+
+            if (lLevels.ContainsKey(lLevelKey)) 
+            {
+                Dictionary lSavedLevel = (Dictionary) lLevels[lLevelKey];
+                lSavedScore = lSavedLevel.ContainsKey(SCORE) ? (int)lSavedLevel[SCORE] : 0;
+                lSavedStars = lSavedLevel.ContainsKey(STARS) ? (int)lSavedLevel[STARS] : 0;
+            }
+
+            int lBestScore = Math.Max(lSavedScore, pScore); 
+            int lBestStars = Math.Max(lSavedStars, pStars);
+            Dictionary lCurrentLevelData = lLevels.ContainsKey(lLevelKey) ? (Dictionary)lLevels[lLevelKey] : new Dictionary();
+
+            lCurrentLevelData[SCORE] = lBestScore;
+            lCurrentLevelData[STARS] = lBestStars;
+
+            if (!lCurrentLevelData.ContainsKey(LOCKED)) lCurrentLevelData[LOCKED] = true;   
+
+            lLevels[lLevelKey] = lCurrentLevelData; 
+            lUser[LEVELS] = lLevels;
+
+            if (!lUser.ContainsKey(TOTALSCORE)) lUser[TOTALSCORE] = 0; 
+
+            int lNewScore = lBestScore - lSavedScore; 
+
+            if (lNewScore > 0) lUser[TOTALSCORE] = (int)lUser[TOTALSCORE] + lNewScore;
+
+            lUsersData[lCurrentUser] = lUser;
             SaveUserData(lUsersData);
+            SaveToScoreLocally(lCurrentUser, (int)lUser[TOTALSCORE]);
+            customSignals.EmitSignal(CustomSignals.SignalName.LevelCompleted, pLevel, lBestStars, lBestScore, (int)lUser[TOTALSCORE]);
+            UnlockLevel(pLevel + 1);
+        }
+
+        public void UnlockLevel(int pLevel)
+        {
+            Dictionary lUserData = GetUserData();
+            string lCurrentUser = currentUser;
+
+            if (string.IsNullOrEmpty(lCurrentUser) || !lUserData.ContainsKey(lCurrentUser)) return;
+
+            Dictionary lUser = (Dictionary)lUserData[lCurrentUser];
+
+            if (!lUser.ContainsKey(LEVELS)) return;
+
+            Dictionary lLevels = (Dictionary)lUser[LEVELS];
+            string lLevelKey = $"level{pLevel}"; 
+
+            if (!lLevels.ContainsKey(lLevelKey)) return;
+
+            Dictionary lLevelData = (Dictionary)lLevels[lLevelKey];
+            lLevelData[LOCKED] = false;
+            lLevels[lLevelKey] = lLevelData;
+            lUser[LEVELS] = lLevels;
+            lUserData[lCurrentUser] = lUser;
+            SaveUserData(lUserData);
+            customSignals.EmitSignal(CustomSignals.SignalName.LevelUnlock, pLevel);
+        }
+
+        public List<int> GetUnlockedLevels()
+        {
+            List<int> lUnlockedLevels = new List<int>();
+            Dictionary lUserData = GetUserData();
+            string lCurrentUser = currentUser;
+            GD.Print("active user : " + lCurrentUser);
+
+            if (string.IsNullOrEmpty(lCurrentUser) || !lUserData.ContainsKey(lCurrentUser)) return lUnlockedLevels;
+
+            Dictionary lUser = (Dictionary)lUserData[lCurrentUser];
+            GD.Print("Donnees utilisateur : " + Json.Stringify(lUser, "\t"));
+
+            if (!lUser.ContainsKey(LEVELS))  return lUnlockedLevels;
+
+            Dictionary lLevels = (Dictionary)lUser[LEVELS];
+
+            foreach (string lLevelKey in lLevels.Keys)
+            {
+                Dictionary lLevelData = (Dictionary)lLevels[lLevelKey];
+
+                if (lLevelData.ContainsKey(LOCKED) && !(bool)lLevelData[LOCKED])
+                {
+                    if (int.TryParse(lLevelKey.Replace("level", ""), out int pLevelIndex))
+                        lUnlockedLevels.Add(pLevelIndex);
+                }
+            }
+            GD.Print("Level unlocked : " + string.Join(", ", lUnlockedLevels));
+            return lUnlockedLevels;
         }
 
         public bool RegisterUser(string pName, string pPassword)
         {
-            string lDirectoryPath = jsonFilePath.GetBaseDir();
+            string lDirectoryPath = JSON_FILE_PATH.GetBaseDir();
             if (!DirAccess.DirExistsAbsolute(lDirectoryPath)) DirAccess.MakeDirRecursiveAbsolute(lDirectoryPath);
 
-            Dictionary lUsersData = GetUserData();
+            Dictionary lUsersData = GetUserData(); 
 
             if (lUsersData.ContainsKey(pName)) return false;
 
-            string lHashedPassword = PasswordHashing(pPassword);
-            lUsersData[pName] = new Dictionary
+            string lPassword = PasswordHashing(pPassword);
+            Dictionary lLevels = GenerateLevels(); 
+            lUsersData[pName] = new Dictionary() 
             {
-                { "password", lHashedPassword },
-                { "totalScore", 0 },
-                { "levels", new Dictionary() }
+                
+                { PASSWORD, lPassword },
+                { TOTALSCORE, 0},
+                { LEVELS, lLevels}
+                
             };
-            
             SaveUserData(lUsersData);
+            SaveToScoreLocally(pName, 0); 
+            currentUser = pName;
             return true;
+        }
+
+        private Dictionary GenerateLevels()
+        {
+            Dictionary lLevels = new Dictionary();
+            string lLevelPath = "res://Scripts/Json/Levels.json";
+
+            if (!FileAccess.FileExists(lLevelPath)) return lLevels; 
+
+            string lContent = FileAccess.Open(lLevelPath, FileAccess.ModeFlags.Read).GetAsText();
+
+            if (!JsonTool.TryParseJson(lContent, out Dictionary pLevelDict)) return lLevels;
+            if (!pLevelDict.ContainsKey(LEVELDESIGN)) return lLevels;
+
+            Godot.Collections.Array lLevelList = (Godot.Collections.Array)pLevelDict[LEVELDESIGN]; 
+
+            for (int i = 0; i < lLevelList.Count; i++)
+            {
+                Dictionary lLevelData = (Dictionary)lLevelList[i]; 
+                string lLevelKey = $"level{i}";
+                bool lIsLocked = (i == 0) ? false : (bool)lLevelData.GetValueOrDefault(LOCKED, true);  
+
+                Dictionary lUserData = new Dictionary() 
+                {
+                    { SCORE, 0 },
+                    { STARS, 0 },
+                    { LOCKED, lIsLocked }
+                };
+                lLevels[lLevelKey] = lUserData; 
+            }
+            return lLevels;
         }
 
         private string GetUserPassword(string pName)
         {
             Dictionary lUsersData = GetUserData();
-            if (lUsersData.ContainsKey(pName))
+            if (lUsersData.ContainsKey(pName)) 
             {
-                Dictionary lUserDict;
-                JsonTool.TryParseJson(lUsersData[pName].ToString(), out lUserDict);
-                return lUserDict.ContainsKey("password") ? lUserDict["password"].ToString() : null;
+                var lUserDict = (Dictionary)lUsersData[pName];
+                return lUserDict.ContainsKey(PASSWORD) ? lUserDict[PASSWORD].ToString() : null;
             }
             return null;
         }
 
-        public bool LoginUser(string pName, string pPassword, bool isAlreadyLogged = false) // connects the users 
+        public bool LoginUser(string pName, string pPassword, bool isAlreadyLogged = false)
         {
-            string lJsonContent = JsonTool.ReadFileContents(jsonFilePath);
+            string lJsonContent = JsonTool.ReadFileContents(JSON_FILE_PATH);
             Dictionary lUsersData;
 
             if (string.IsNullOrEmpty(lJsonContent) || !JsonTool.TryParseJson(lJsonContent, out lUsersData)) return false;
             string lStoredPassword = GetUserPassword(pName);
-            return isAlreadyLogged || lStoredPassword == PasswordHashing(pPassword);
+
+            if(isAlreadyLogged || lStoredPassword == PasswordHashing(pPassword))
+            {
+                currentUser = pName;
+            }
+            return isAlreadyLogged || lStoredPassword == PasswordHashing(pPassword); 
         }
 
         public string GetLastUser()
         {
-            if (!FileAccess.FileExists(lastUserFilePath)) return null;
-            using var lFile = FileAccess.Open(lastUserFilePath, FileAccess.ModeFlags.Read);
+            if (!FileAccess.FileExists(LAST_USER_FILE_PATH)) return null;
+            using var lFile = FileAccess.Open(LAST_USER_FILE_PATH, FileAccess.ModeFlags.Read); 
             string lUser = lFile.GetAsText();
             lFile.Close();
             return lUser;
@@ -139,12 +288,54 @@ namespace Com.IsartDigital.Sokovolt
         {
             if (pName is null)
             {
-                DirAccess.RemoveAbsolute(lastUserFilePath);
+                DirAccess.RemoveAbsolute(LAST_USER_FILE_PATH);
                 return;
             }
-            using var lFile = FileAccess.Open(lastUserFilePath, FileAccess.ModeFlags.Write);
+            using var lFile = FileAccess.Open(LAST_USER_FILE_PATH, FileAccess.ModeFlags.Write);
             lFile.StoreString(pName);
             lFile.Close();
+        }
+
+        private void SaveToScoreLocally(string pUser, int pTotalScore)
+        {
+            Dictionary lScores = new Dictionary();
+
+            if (FileAccess.FileExists(LOCAL_SCORE_PATH))
+            {
+                string lContent = FileAccess.Open(LOCAL_SCORE_PATH, FileAccess.ModeFlags.Read).GetAsText();
+                JsonTool.TryParseJson(lContent, out lScores);
+            }
+            if (!lScores.ContainsKey(pUser) || (int)lScores[pUser] < pTotalScore)
+            {
+                lScores[pUser] = pTotalScore;
+                GD.Print(UPDATESCORE);
+            }
+
+            using var lFile = FileAccess.Open(LOCAL_SCORE_PATH, FileAccess.ModeFlags.Write);
+            lFile.StoreString(Json.Stringify(lScores, "\t"));
+        }
+
+        public Dictionary GetAllUserScore()
+        {
+            if (!FileAccess.FileExists(LOCAL_SCORE_PATH)) return new Dictionary();
+            string lContent = FileAccess.Open(LOCAL_SCORE_PATH, FileAccess.ModeFlags.Read).GetAsText();
+            return JsonTool.TryParseJson(lContent, out Dictionary pScores) ? pScores : new Dictionary(); 
+        }
+        public int GetScoreForLevel(int levelIndex)
+        {
+            Dictionary lUserData = GetUserData();
+            if (string.IsNullOrEmpty(currentUser) || !lUserData.ContainsKey(currentUser)) return 0;
+
+            Dictionary lUser = (Dictionary)lUserData[currentUser];
+            if (!lUser.ContainsKey(LEVELS)) return 0;
+
+            Dictionary lLevels = (Dictionary)lUser[LEVELS];
+            string levelKey = $"level{levelIndex}";
+
+            if (!lLevels.ContainsKey(levelKey)) return 0;
+
+            Dictionary levelData = (Dictionary)lLevels[levelKey];
+            return levelData.ContainsKey(SCORE) ? (int)levelData[SCORE] : 0;
         }
     }
 }
