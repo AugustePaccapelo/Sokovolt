@@ -63,14 +63,14 @@ namespace Com.IsartDigital.SokoVolt {
 
             if (!JsonTool.TryParseJson(lJsonContent, out Godot.Collections.Dictionary lRootDict))
 			{
-				GD.PrintErr("Erreur : Impossible de parser le fichier JSON.");
+				GD.PrintErr("Error : Failed to parse JSON.");
 				return;
 			}
 
-			// Vérifier si le JSON contient les niveaux
+			// Check if the json contain lvls 
 			if (!lRootDict.ContainsKey(JsonKeys.LEVEL_DESIGN_KEY))
 			{
-				GD.PrintErr("Erreur : Pas de clé 'levelDesign' dans le JSON.");
+				GD.PrintErr("Error : JSON does not contain level design data.");
 				return;
 			}
 
@@ -78,24 +78,24 @@ namespace Com.IsartDigital.SokoVolt {
 
 			if (pLevel < 0 || pLevel >= lLevelList.Count)
 			{
-				GD.PrintErr($"Erreur : Index de niveau invalide ({pLevel}).");
+				GD.PrintErr($"Error : Level {pLevel} is out of range.");
 				return;
 			}
 
-			// Récupérer le niveau sélectionné
+			// Peek the selected lvl 
 			Godot.Collections.Dictionary lLevelData = (Godot.Collections.Dictionary)lLevelList[pLevel];
 
-			// Récupérer la map
+			// Peek the map 
 			Godot.Collections.Array lMapArray = (Godot.Collections.Array)lLevelData[JsonKeys.MAP_KEY];
 
-			// Convertir la map en tableau de strings
+			// Convert map into string array
 			string[] lLevelMap = new string[lMapArray.Count];
 			for (int i = 0; i < lMapArray.Count; i++)
 			{
 				lLevelMap[i] = lMapArray[i].ToString();
 			}
 
-			// Lire la portée des caisses Tesla (si elle est définie dans le JSON)
+			// Read tesla range 
 			Godot.Collections.Array lBoxRangesArray = lLevelData.ContainsKey(JsonKeys.BOX_RANGE_KEY) ? 
 			(Godot.Collections.Array)lLevelData[JsonKeys.BOX_RANGE_KEY] : new Godot.Collections.Array();
 
@@ -134,23 +134,23 @@ namespace Com.IsartDigital.SokoVolt {
 			levelWidth = lMapArray.Count > 0 ? lMapArray[0].ToString().Length : 0;
 			levelHeight = lMapArray.Count; 
 
-			// Redimensionner la grille dynamiquement
+			// Set grid size 
 			gridInstance.SetNewLevel(new Cell[levelWidth, levelHeight]);
 
 			gridInstance.CenterGrid(); 
 
-			GD.Print($"Chargement du niveau {pLevel} - Taille : {levelWidth}x{levelHeight}");
+			GD.Print($"Load level {pLevel} - Size : {levelWidth}x{levelHeight}");
 
 			int lBoxIndex = 0; 
 
-			// Charger le niveau
+			// Load lvl 
 			for (int y = 0; y < levelHeight; y++)
 			{
 				string lRow = lMapArray[y].ToString();
 
 				for (int x = 0; x < levelWidth; x++)
 				{
-					if (x >= lRow.Length) continue; // Évite les erreurs si une ligne est plus courte
+					if (x >= lRow.Length) continue; // Avoid errors for shorter lines 
 
 					char lTile = lRow[x];
 
@@ -169,18 +169,19 @@ namespace Com.IsartDigital.SokoVolt {
 						case JsonKeys.BOX :
 							lObj = Utils.Spawner(boxScene, x, y, pObjectContainer) as BoxTesla;
 
-							// Vérifier qu'on a une portée disponible et l'appliquer
+							// Check existing range 
 							if (lBoxIndex < lBoxRanges.Length && lObj != null)
 							{
-								((BoxTesla)lObj).SetRange(lBoxRanges[lBoxIndex]); // Assigner la portée
-								lBoxIndex++; // Passer à la portée suivante
+								((BoxTesla)lObj).SetRange(lBoxRanges[lBoxIndex]); // Asign range
+								lBoxIndex++; // Pass to next range
 							}
 							else
 							{
-								GD.PrintErr($"Aucune portée définie pour la BoxTesla à ({x},{y}) !");
+								GD.PrintErr($"No range for the box tesla at ({x},{y}) !");
 							}
 							break;
 
+						//Spawn objects 
 						case JsonKeys.WALL :
 							lObj = Utils.Spawner(wallScene, x, y, pObjectContainer) as Wall;
 							break;
@@ -207,14 +208,18 @@ namespace Com.IsartDigital.SokoVolt {
 					{
 						if (lCell == null)
 						{
-							GD.PrintErr($"Erreur: lCell est null à la position ({x}, {y}) !");
-							return; // Évite l'erreur en quittant la fonction
+							GD.PrintErr($"Error: cell is null at position ({x}, {y}) !");
+							return; // Avoid null error 
 						}
 						lCell.SetContent(lObj);
 						lObj.SetCell(lCell);
 						lObj.Init(x, y);
+						
+						//Set Iso ZIndex for obj 
 						if(!(lObj is Player))lObj.ZIndex = IsoManager.GetZIndex(new Vector2(x,y));
+						// Set up the player ZIndex 
 						else lObj.ZIndex = 1000;
+						
 					}
 				}
 			}

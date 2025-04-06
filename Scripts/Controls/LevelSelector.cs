@@ -123,7 +123,8 @@ namespace Com.IsartDigital.SokoVolt
         {
             if (actualTesla.levelUnlocked)
             {
-                LevelManager.GetInstance().LevelLoaderFonc(actualTesla.level);
+                Tween lTween = GameManager.GetInstance().MenuTrans.ActiveTrans(2f, 0.4f);
+                lTween.Finished += () => LevelManager.GetInstance().LevelLoaderFonc(actualTesla.level);
             }
         }
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://dkbx646vvyaig"]
+[gd_scene load_steps=30 format=3 uid="uid://dkbx646vvyaig"]
 
 [ext_resource type="PackedScene" uid="uid://dyk47lo67a1tp" path="res://Scenes/Managers/ui_manager.tscn" id="1_4603a"]
 [ext_resource type="PackedScene" uid="uid://bnv0kco0ylr0e" path="res://Scenes/Managers/GridManager.tscn" id="1_d671q"]
@@ -26,6 +26,9 @@
 [ext_resource type="Script" path="res://Scripts/Managers/ConnectionManagers.cs" id="22_alaha"]
 [ext_resource type="Script" path="res://Scripts/Managers/SongManager.cs" id="24_lgxf0"]
 [ext_resource type="AudioStream" uid="uid://cbq85vvh8fln7" path="res://Song/roblox-death-sound_1.mp3" id="26_0femv"]
+[ext_resource type="AudioStream" uid="uid://bkdhsrclowwyq" path="res://Song/Shiva chess-pieces-move-close.mp3" id="26_betdd"]
+[ext_resource type="PackedScene" uid="uid://bkskxcspqook3" path="res://Scenes/BackGround/AnimatedBackGround.tscn" id="26_rfowc"]
+[ext_resource type="AudioStream" uid="uid://bxlpblj5mcaof" path="res://Song/clicksoundeffect.mp3" id="28_eg566"]
 
 [node name="MAIN" type="Node2D"]
 
@@ -35,6 +38,7 @@
 script = ExtResource("3_3tpao")
 
 [node name="UIManager" parent="Managers" instance=ExtResource("1_4603a")]
+optionMenuScene = null
 
 [node name="LoginScreen" parent="Managers/UIManager" instance=ExtResource("6_vn404")]
 custom_minimum_size = Vector2(1152, 648)
@@ -100,12 +104,21 @@ script = ExtResource("22_ah2rb")
 [node name="SongManager" type="Node2D" parent="Managers"]
 script = ExtResource("24_lgxf0")
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Managers/SongManager"]
+[node name="AudioStreamPlayer1" type="AudioStreamPlayer" parent="Managers/SongManager"]
+stream = ExtResource("26_betdd")
+bus = &"SFX"
 
 [node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="Managers/SongManager"]
 stream = ExtResource("26_0femv")
 bus = &"SFX"
 
+[node name="AudioStreamPlayer3" type="AudioStreamPlayer" parent="Managers/SongManager"]
+stream = ExtResource("28_eg566")
+bus = &"SFX"
+
 [node name="Containers" type="Node2D" parent="."]
 
 [node name="ObjectsContainer" type="Node2D" parent="Containers"]
+
+[node name="AnimatedBackGround" parent="." instance=ExtResource("26_rfowc")]
+position = Vector2(-10, -4)

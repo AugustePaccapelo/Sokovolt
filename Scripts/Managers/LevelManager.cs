@@ -44,14 +44,13 @@ namespace Com.IsartDigital.SokoVolt.Managers
         {
             base.Init();
 
-            //HUD.GetInstance().MainMenuButton += UnLoadLevel;
             CustomSignals.GetInstance().GoToMainMenu += UnLoadLevel; 
             CustomSignals.GetInstance().GoToNextLevel += NextLevel;
         }
 
         private void NextLevel(int pLevel)
         {
-            Tween lTween = GameManager.GetInstance().MenuTrans.ActiveTrans(1f, 0.2f);
+            Tween lTween = GameManager.GetInstance().MenuTrans.ActiveTrans(2f, 0.4f);
             UnLoadLevel();
             lTween.Finished += () => LevelLoaderFonc(pLevel);
         }

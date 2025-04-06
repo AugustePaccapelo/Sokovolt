@@ -18,7 +18,7 @@ fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0, 0)
 
 [node name="GoalBulb" type="Node2D" node_paths=PackedStringArray("allLights", "rotatingLight")]
-position = Vector2(0, -25)
+position = Vector2(0, -13)
 script = ExtResource("1_o63n1")
 allLights = NodePath("Light")
 rotatingLight = NodePath("Light/WhiteLight")
@@ -43,6 +43,7 @@ size_flags_vertical = 4
 color = Color(0.169245, 0.169245, 0.169245, 1)
 
 [node name="Light" type="Node2D" parent="."]
+position = Vector2(0, -26)
 
 [node name="Occluder" type="LightOccluder2D" parent="Light"]
 occluder = SubResource("OccluderPolygon2D_mc1yl")
@@ -64,6 +65,7 @@ texture = SubResource("GradientTexture2D_cl24s")
 texture_scale = 3.0
 
 [node name="Visual" type="Node2D" parent="."]
+position = Vector2(0, -26)
 
 [node name="Sprite2D" type="Sprite2D" parent="Visual"]
 scale = Vector2(0.2, 0.2)

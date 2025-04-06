@@ -1,6 +1,7 @@
 using Com.IsartDigital.Sokovolt;
 using Com.IsartDigital.SokoVolt.GameObjects;
 using Com.IsartDigital.SokoVolt.GameObjects.Movables;
+using Com.IsartDigital.SokoVolt.Tools;
 using Godot;
 using System.Collections.Generic;
 
@@ -145,9 +146,7 @@ namespace Com.IsartDigital.SokoVolt.Managers
 				GD.Print("Level unlocked");
 			}
 
-            GD.PrintErr(lNumStar + " " + lScore + " " + lNumStep); 
-
-			await ToSignal(GetTree().CreateTimer(0.3f), "timeout");
+			await ToSignal(GetTree().CreateTimer(0.3f), ObjectProperties.TIME_OUT);
 
 			hud.displayInGame.Visible = false; 
             CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.GameFinished, lNumStar, lScore, lNumStep);

@@ -31,6 +31,7 @@ namespace Com.IsartDigital.SokoVolt
         // Level gestion signals
         [Signal] public delegate void GoToNextLevelEventHandler(int pLevel);
         [Signal] public delegate void LoadLevelEventHandler(int pLevel);
+        [Signal] public delegate void LoadingLevelEventHandler();
         [Signal] public delegate void UnLoadLevelEventHandler();
         [Signal] public delegate void LevelUnlockEventHandler(int pLevelIndex); 
         [Signal] public delegate void LevelCompletedEventHandler(int pLevelIndex, int pStars, int pTotalScore); 

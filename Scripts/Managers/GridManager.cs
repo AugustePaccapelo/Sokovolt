@@ -7,6 +7,8 @@ using Com.IsartDigital.Sokovolt;
 using System.Data;
 using System.Linq;
 using Com.IsartDigital.SokoVolt.Tools;
+using static Com.IsartDigital.SokoVolt.Tools.ObjectProperties;
+
 
 //Author : Ferlat Thibaud 
 namespace Com.IsartDigital.SokoVolt.Managers {
@@ -93,7 +95,7 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 
 		#region // ----- Load Level ----- \\
 
-		public void LoadNewLevel(int pLevelToLoad, string pLevelPath, Node2D pObjectContainer) // ==================> Charger un niveau avec son index (commence à 0)
+		public void LoadNewLevel(int pLevelToLoad, string pLevelPath, Node2D pObjectContainer) // ==================> Change Level with index(start at 0)
 		{
 			ResetStepCounter();
 			hud.Visible = true;
@@ -101,7 +103,7 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 			LevelLoader.GetInstance().LoadLevel(pLevelToLoad, pLevelPath, pObjectContainer);
 			CenterGrid(); 
 
-			if (grid == null)  // Évite d'ajouter un état vide
+			if (grid == null)  // Avoid null state 
 				return;
 
 			StockGridState();
@@ -141,15 +143,14 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 				}
 			}
 
-			// Réinitialise la grille et l'historique
+			// Reset grid history
 			grid = null;
 			gridStates.Clear();
 			actualGridStateIndex = 0;
 
-			// Rendre le HUD invisible
 			hud.Visible = false;
 
-			GD.Print("ClearGrid: Niveau supprimé !");
+			GD.Print("ClearGrid: Lvl deleted !");
 		}
 
 		#endregion
@@ -228,6 +229,8 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 			return pX < 0 || pX >= LevelLoader.levelWidth || pY < 0 || pY >= LevelLoader.levelHeight;
 		}
 
+
+        // ----- PathFinding ----- \\
         public void HandleCellClicked(Vector2 pTargetPos)
         {
             int lPosX = (int)pTargetPos.X;
@@ -340,7 +343,7 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 				{
 					Cell lCell = grid[x, y];
 
-					if (lCell == null)  // Évite le crash en cas de cellule absente
+					if (lCell == null)  // Avoid crash for null cell
 						continue;
 
 					GameObject lContent = lCell.GetContent();
@@ -436,6 +439,8 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 
 			float lBaseDelay = 0.02f; 
 			float lRandDelay; 
+			int lMaxDistancePropulsion = 1000; 
+
 			for (int i = 0; i < lObjectsToAnimate.Count; i++)
 			{
 				lRandDelay = rand.Randf()* lBaseDelay; 
@@ -444,25 +449,25 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 
 				FlashElectricEffect(lObject);  
 
-				float lRandPropulsion = rand.Randf() * 1000; 
+				float lRandPropulsion = rand.Randf() * lMaxDistancePropulsion; 
 
 				if (lObject != null)
 				{
 					Vector2 lNewObjectPos = lObject.GlobalPosition.DirectionTo(lVortexCenter) * lRandPropulsion + lObject.GlobalPosition;
 					Tween lTween = CreateTween();
-					lTween.TweenProperty(lObject, ObjectProperties.POSITION, lNewObjectPos, 1f)
+					lTween.TweenProperty(lObject, POSITION, lNewObjectPos, 1f)
 							.SetTrans(Tween.TransitionType.Elastic)
 							.SetEase(Tween.EaseType.Out);
 				}
 
-				await ToSignal(GetTree().CreateTimer(lRandDelay), ObjectProperties.TIME_OUT);
+				await ToSignal(GetTree().CreateTimer(lRandDelay), TIME_OUT);
 			}
 			AnimateVortex(vortex); 
 
 			foreach(Node2D lObject in lObjectsToAnimate)
 			{
 				Tween lTween = CreateTween(); 
-				lTween.TweenProperty(lObject, ObjectProperties.POSITION, lVortexCenter, 1.3f)
+				lTween.TweenProperty(lObject, POSITION, lVortexCenter, 1.3f)
 					.SetTrans(Tween.TransitionType.Linear)
 					.SetEase(Tween.EaseType.In); 
 
@@ -485,23 +490,23 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 			return lVortex;
 		}
 
-		//  **Animation du vortex qui grossit et aspire tout**
+		//  Vortex animation 
 		private void AnimateVortex(Node2D vortex)
 		{
 			Sprite2D lVortexSprite = vortex.GetChild<Sprite2D>(0);
 			Tween lVortexTween = CreateTween();
 
-			lVortexTween.Parallel().TweenProperty(lVortexSprite, ObjectProperties.SCALE, Vector2.One, 0.8f)
+			lVortexTween.Parallel().TweenProperty(lVortexSprite, SCALE, Vector2.One, 0.8f)
 					.SetTrans(Tween.TransitionType.Linear)
 					.SetEase(Tween.EaseType.Out);
 
-			lVortexTween.Parallel().TweenProperty(lVortexSprite, ObjectProperties.MODULATE, new Color(1, 1, 1, 1), 0.8f);
+			lVortexTween.Parallel().TweenProperty(lVortexSprite, MODULATE, new Color(1, 1, 1, 1), 0.8f);
 
-			lVortexTween.Parallel().TweenProperty(lVortexSprite, ObjectProperties.ROTATION, Mathf.DegToRad(600), 1f)
+			lVortexTween.Parallel().TweenProperty(lVortexSprite, ROTATION, Mathf.DegToRad(600), 1f)
 					.SetTrans(Tween.TransitionType.Linear)
 					.SetEase(Tween.EaseType.InOut);
 
-			lVortexTween.TweenProperty(lVortexSprite, ObjectProperties.SCALE, Vector2.Zero, 0.8f)
+			lVortexTween.TweenProperty(lVortexSprite, SCALE, Vector2.Zero, 0.8f)
 					.SetTrans(Tween.TransitionType.Linear)
 					.SetEase(Tween.EaseType.OutIn);
 
@@ -509,7 +514,7 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 		}
 
 
-		// Effet d’électricité qui s'abbat sur les tiles 
+		// Thunder effect on tiles 
 		private void FlashElectricEffect(Node2D pObject)
 		{
 			WinScreenThunder lThunderEffect = thunderEffectScene.Instantiate() as WinScreenThunder;
@@ -532,8 +537,8 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 
 
 
-		#region // ----- Provisoir pour test ----- \\
-		public void PrintGrid()	//=================================> Provisoir pour test 
+		#region // ----- Provisional for testing ----- \\
+		public void PrintGrid()	
 		{
 			string lGridString = "";
 
@@ -558,9 +563,9 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 					else if (lContent is Door)
 						lGridString += "| ";
 					else
-						lGridString += "- ";  // Case vide
+						lGridString += "- ";  //Empty tile 
 				}
-				lGridString += "\n";  // Nouvelle ligne pour chaque rangée
+				lGridString += "\n";  // New line for each row
 			}
 
 			GD.Print(lGridString);

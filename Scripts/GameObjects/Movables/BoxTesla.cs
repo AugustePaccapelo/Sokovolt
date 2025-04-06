@@ -60,14 +60,14 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
         private Tween shakeTweenRotation;
         #endregion
 
-
+        #region Range tesla gestion 
         //Range tesla gestion 
         public int range { get; private set; }
         [Export] private Label rangeLabel;
         private Vector2 lastPlayerPos;
         private List<Vector2> lastPreviewTargets = new();
         private List<LightningNode> previewLines = new();
-        
+        #endregion
 
         public override void _Ready()
         {
@@ -84,6 +84,8 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
 
             Player.GetInstance().MovableHaveFinish += (Movable _) => TryDisplayPreviewIfPlayerNearby();
 
+            #region shake
+            //Handle shaking effect if not energized
             if (!energize)
             {
                 shakeTimer += pDelta;
@@ -105,6 +107,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
                     StopShake();
                 ResetVisual();
             }
+            #endregion
         }
 
         private void Init()
@@ -177,7 +180,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
         }
 
         #region Searchin
-        // Searches for nearby connections after movement
+        //Searches for nearby connections after movement
         private void Searching(Movable pMovable)
         {
             if (LastPos != Utils.GetCellPos(this) && pMovable is BoxTesla)
@@ -188,17 +191,13 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
             }
         }
         #endregion
-        private void UpdateRayCast(Vector2 pTargetPos)
-        {
-            rayCast.TargetPosition = pTargetPos;
-        }
-
-        private void ConnectPlayer()
-        {
-            PlayerCollide += Player.GetInstance().InsideTesla;
-        }
-
         #region ConnectionSearch
+
+        /// <summary>
+        /// Searches for a direct connection between this Tesla and another GameObject.
+        /// </summary>
+        /// <param name="pObjectToConecte">The target GameObject to connect with.</param>
+        /// <returns>The distance if connected, or -1 if no connection is found.</returns>
         public float ConnectionSearch(GameObject pObjectToConecte)
         {
             Cell[,] lGrid = gridManager.grid;
@@ -210,21 +209,21 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
             {
                 for (int j = lcurentDirectionScan.Count - 1; j >= 0; j--)
                 {
-                    Vector2 scanPos = lCellPosition + lcurentDirectionScan[j] * i;
-                    int x = (int)scanPos.X;
-                    int y = (int)scanPos.Y;
+                    Vector2 lScanPos = lCellPosition + lcurentDirectionScan[j] * i;
+                    int x = (int)lScanPos.X;
+                    int y = (int)lScanPos.Y;
 
                     if (x < 0 || x >= lGrid.GetLength(0) || y < 0 || y >= lGrid.GetLength(1))
                         continue;
-                    GameObject GOToScan = lGrid[x, y].GetContent();
-                            if ( GOToScan == pObjectToConecte )
+                    GameObject lGOToScan = lGrid[x, y].GetContent();
+                            if ( lGOToScan == pObjectToConecte )
                             {
                                 Vector2 lVector2 = new Vector2(pObjectToConecte.x - this.x,pObjectToConecte.y-this.y);
                               float lLength=lVector2.Length();
 
                               return lLength ;
                             }
-                            else if (GOToScan is Wall)
+                            else if (lGOToScan is Wall)
                             {
                                 lIndicesToRemove.Add(j);
                             }
@@ -242,9 +241,18 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
 
             return -1;
         }
-        #endregion
-
+        #endregion  
+        
         #region  RayCastDetector
+        //Detects if the player is within Tesla's raycast range
+        private void UpdateRayCast(Vector2 pTargetPos)
+        {
+            rayCast.TargetPosition = pTargetPos;
+        }
+        private void ConnectPlayer()
+        {
+            PlayerCollide += Player.GetInstance().InsideTesla;
+        }
         private void RayCastDetector()
         {
             if (rayCast != null && !signalEmit && rayCast.IsColliding() && playerCanBeDetected && !GridManager.currentlyUndoRedo)
@@ -262,17 +270,17 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
         #endregion
 
         #region Line Management
-        public void LineConnection(GameObject objToConnect)
+        public void LineConnection(GameObject pObjToConnect)
         {
             energize = true;
             ClearPreviewLines(); 
             
             lightning = lightningNodeScene.Instantiate<LightningNode>();
             lightning.endPoint = connectionPoint.GlobalPosition;
-            lightning.startPoint = objToConnect.GlobalPosition;
+            lightning.startPoint = pObjToConnect.GlobalPosition;
             AddChild(lightning);
             lightning.StartLightning();
-            UpdateRayCast(ToLocal(objToConnect.GlobalPosition));
+            UpdateRayCast(ToLocal(pObjToConnect.GlobalPosition));
         }
 
 
@@ -348,6 +356,8 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
         #endregion
 
         #region TryDisplayPreviewIfPlayerNearby
+        //Triggers a preview of potential connections if the player is nearby.
+
         public void TryDisplayPreviewIfPlayerNearby()
         {
             if (energize)
@@ -368,7 +378,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
             else
                 ClearPreviewLines();
         }
-        #endregion
+        
 
         public void ClearPreviewLines()
         {
@@ -378,6 +388,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
             previewLines.Clear();
             lastPreviewTargets.Clear();
         }
+        #endregion
 
         protected override void Dispose(bool pDisposing)
         {
