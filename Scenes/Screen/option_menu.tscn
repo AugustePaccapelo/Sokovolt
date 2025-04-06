@@ -50,20 +50,17 @@ size_flags_horizontal = 4
 
 [node name="Master" type="Label" parent="Panel/HBoxContainer/VBoxContainer"]
 layout_mode = 2
-text = "Master
-"
+text = "Master"
 label_settings = ExtResource("1_6ft4g")
 
 [node name="Music" type="Label" parent="Panel/HBoxContainer/VBoxContainer"]
 layout_mode = 2
-text = "Music
-"
+text = "Music"
 label_settings = ExtResource("1_6ft4g")
 
 [node name="SFX" type="Label" parent="Panel/HBoxContainer/VBoxContainer"]
 layout_mode = 2
-text = "SFX
-"
+text = "SFX"
 label_settings = ExtResource("1_6ft4g")
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="Panel/HBoxContainer"]
