@@ -1,6 +1,7 @@
-using Godot;
+﻿using Godot;
 using System;
 using System.Collections.Generic;
+using RobotnikSokoban.Scripts.Managers;
 
 // Author : A. Dylan Montenegro Utrela
 
@@ -48,6 +49,7 @@ namespace Com.IsartDigital.SokoVolt.Managers
                 Vector2 lMousePos = pMouseEvent.Position;
                 Vector2 lTargetPos = IsoManager.IsoViewToModel(lMousePos - GridManager.gridOffset);
                 GridManager.GetInstance().HandleCellClicked(lTargetPos);
+                SongManager.Instance.ambientDict[EnumSong.AmbientSong.click].Play();
             }
 
             if (@event is InputEventKey pEventKey && pEventKey.Pressed && LevelLoader.playerCanMove)

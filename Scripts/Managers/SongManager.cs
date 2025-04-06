@@ -6,8 +6,13 @@ using Com.IsartDigital.SokoVolt.Managers;
 using Godot;
 using static EnumSong;
 // Author : Soukai William
-namespace RobotnikSokoban.Scripts.Managers;
 
+
+namespace RobotnikSokoban.Scripts.Managers;
+/// <summary>
+/// Manages all ambient songs in the game, including playback, crossfade transitions, and slow-motion FX.
+/// Uses a singleton pattern to ensure a single instance.
+/// </summary>
 public partial class SongManager : Manager
 { 
     public static SongManager Instance { get; private set; }
@@ -40,13 +45,19 @@ public partial class SongManager : Manager
         }
     }
 
-    private AudioStreamPlayer PlayRandomInListExcept(List<AmbientSong> allowedSongs, AmbientSong lastPlayed, Dictionary<AmbientSong, AudioStreamPlayer> pDict)
+    /// <summary>
+    /// Plays a random song from a provided list, excluding the last played one.
+    /// </summary>
+    /// <param name="pAllowedSongs">List of songs allowed to be played.</param>
+    /// <param name="pLastPlayed">The last song that was played (will be excluded).</param>
+    /// <param name="pDict">The dictionary of songs to search in.</param>
+    /// <returns>The AudioStreamPlayer that was played, or null if none were valid.</returns>
+    public AudioStreamPlayer PlayRandomInListExcept(List<AmbientSong> pAllowedSongs, AmbientSong pLastPlayed, Dictionary<AmbientSong, AudioStreamPlayer> pDict)
     {
-        var filteredList = allowedSongs.Where(m => m != lastPlayed).ToList();
+        var filteredList = pAllowedSongs.Where(m => m != pLastPlayed).ToList();
 
         if (filteredList.Count == 0)
         {
-            GD.Print("Pas d'autres musiques disponibles sauf la dernière jouée.");
             return null;
         }
 
@@ -57,70 +68,77 @@ public partial class SongManager : Manager
         if (pDict.ContainsKey(selected))
         {
             pDict[selected].Play();
-            GD.Print("Je joue : " + selected);
             return pDict[selected];
         }
 
-        GD.Print("La musique " + selected + " n'est pas dans le dictionnaire.");
         return null;
     }
 
 
-
-
-    public async void ResetSlowMoFX(AmbientSong musiqueType, Dictionary<AmbientSong, AudioStreamPlayer> pDict, float duration = 1.5f)
+    /// <summary>
+    /// Useful for slow-motion effects.
+    /// Smoothly resets the pitch and volume of a song back to normal over time.
+    /// </summary>
+    /// <param name="pMusiqueType">The song to reset.</param>
+    /// <param name="pDict">The song dictionary.</param>
+    /// <param name="pDuration">Time in seconds for the reset to complete.</param>
+    public async void ResetSlowMoFX(AmbientSong pMusiqueType, Dictionary<AmbientSong, AudioStreamPlayer> pDict, float pDuration = 1.5f)
     {
-        if (!pDict.ContainsKey(musiqueType)) return;
+        if (!pDict.ContainsKey(pMusiqueType)) return;
 
-        AudioStreamPlayer player = pDict[musiqueType];
+        AudioStreamPlayer lPlayer = pDict[pMusiqueType];
 
-        float startPitch = player.PitchScale;
-        float startVolumeDb = player.VolumeDb;
+        float lStartPitch = lPlayer.PitchScale;
+        float lStartVolumeDb = lPlayer.VolumeDb;
 
-        float time = 0f;
+        float lTime = 0f;
 
-        while (time < duration)
+        while (lTime < pDuration)
         {
-            time += Engine.GetProcessFrames();
-            float t = time / duration;
+            lTime += Engine.GetProcessFrames();
+            float lT = lTime / pDuration;
 
-            player.PitchScale = Mathf.Lerp(startPitch, 1f, t);
-            player.VolumeDb = Mathf.Lerp(startVolumeDb, 0f, t);
+            lPlayer.PitchScale = Mathf.Lerp(lStartPitch, 1f, lT);
+            lPlayer.VolumeDb = Mathf.Lerp(lStartVolumeDb, 0f, lT);
 
             await ToSignal(GetTree(), "process_frame");
         }
 
-        player.PitchScale = 1f;
-        player.VolumeDb = 0f;
+        lPlayer.PitchScale = 1f;
+        lPlayer.VolumeDb = 0f;
 
         GD.Print("Reset SlowMo terminé !");
     }
 
-
-    public void Crossfade(AmbientSong fromKey, AmbientSong toKey,float duration = 2f)
+    /// <summary>
+    /// Fades out one song and fades in another over a set pDuration.
+    /// </summary>
+    /// <param name="pFromKey">The currently playing song to fade out.</param>
+    /// <param name="pToKey">The target song to fade in.</param>
+    /// <param name="pDuration">The pDuration of the crossfade in seconds.</param>
+    public void Crossfade(AmbientSong pFromKey, AmbientSong pToKey,float pDuration = 2f)
     {
-        if (!ambientDict.ContainsKey(fromKey) || !ambientDict.ContainsKey(toKey))
+        if (!ambientDict.ContainsKey(pFromKey) || !ambientDict.ContainsKey(pToKey))
         {
-            GD.PrintErr("Une des musiques spécifiées n'existe pas dans le dictionnaire !");
+            GD.PrintErr("One of the specified songs doesn't exist in the dictionary!");
             return;
         }
 
-        AudioStreamPlayer from = ambientDict[fromKey];
-        AudioStreamPlayer to = ambientDict[toKey];
+        AudioStreamPlayer lFrom = ambientDict[pFromKey];
+        AudioStreamPlayer lTo = ambientDict[pToKey];
 
-        Tween tween = GetTree().CreateTween();
+        Tween lTween = GetTree().CreateTween();
 
-        to.VolumeDb = -30f;
-        to.Play();
+        lTo.VolumeDb = -30f;
+        lTo.Play();
 
-        tween.TweenProperty(from, "volume_db", -30f, duration); 
-        tween.TweenProperty(to, "volume_db", 0f, duration); 
+        lTween.TweenProperty(lFrom, "volume_db", -30f, pDuration); 
+        lTween.TweenProperty(lTo, "volume_db", 0f, pDuration); 
 
-        tween.TweenCallback(Callable.From(() =>
+        lTween.TweenCallback(Callable.From(() =>
         {
-            from.Stop();
-            from.VolumeDb = 0f; 
-            GD.Print($"Crossfade terminé : {fromKey} ➤ {toKey}");
+            lFrom.Stop();
+            lFrom.VolumeDb = 0f; 
         }));
     }
 

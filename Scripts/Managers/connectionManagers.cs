@@ -10,6 +10,10 @@ using Godot.Collections;
 // Author : Soukai William
 namespace Com.IsartDigital.SokoVolt.GameObjects
 {
+    /// <summary>
+    /// Manages all Tesla box connections and generator logic within the level.
+    /// Handles connection propagation, disconnection, and cleanup.
+    /// </summary>
     public partial class ConnectionManagers : Manager
     {
         public static List<BoxTesla> boxTeslasList = new List<BoxTesla>();
@@ -49,6 +53,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
             boxTeslasList.Clear();
         }
 
+        // Searches for Tesla boxes that can connect directly to generators.
         private void SearchGenerator()
         {
             foreach (Generator lGenerator in generatorList)
@@ -63,7 +68,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
             SearchTesla();
 
         }
-
+        //Recursively connects Tesla boxes in a chain from already energized ones.
     private void SearchTesla()
     {
         if (TeslasConnected.Count == 0)return;
@@ -81,6 +86,13 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
     }
 
 
+
+    #region Search
+     /// <summary>
+     /// Searches for the nearest unconnected Tesla box that can be connected to the given object.
+     /// </summary>
+     /// <param name="pObject">The GameObject (Generator or Tesla) to connect from.</param>
+     /// <returns>The nearest connectable BoxTesla, or null if none are found.</returns>
         private BoxTesla Search(GameObject pObject)
         {
             float lLength;
@@ -101,7 +113,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
 
             return lShortBox;
         }
-
+        #endregion
 
 
 

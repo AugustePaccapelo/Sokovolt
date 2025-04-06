@@ -14,9 +14,9 @@ namespace Com.IsartDigital.SokoVolt {
         [Export] private Button englishButton;
         [Export] private Button frenchButton;
         [Export] private Button backButton;
-        private const string sfx = "SFX";
-        private const string music = "Music";
-        private const string master = "Master";
+        private const string SFX = "SFX";
+        private const string MUSIC = "Music";
+        private const string MASTER = "Master";
 
 
         public static AudioSettings Instance { get; private set; }
@@ -50,18 +50,18 @@ namespace Com.IsartDigital.SokoVolt {
 
         private void SFXValus(double pValue)
         {
-            AudioServer.SetBusVolumeDb(AudioServer.GetBusIndex(sfx), (float)Mathf.LinearToDb(pValue));
+            AudioServer.SetBusVolumeDb(AudioServer.GetBusIndex(SFX), (float)Mathf.LinearToDb(pValue));
             SongManager.Instance.ambientDict[EnumSong.AmbientSong.RobloxDeath].Play();
         }
 
         private void MusicValue(double pValue)
         {
-            AudioServer.SetBusVolumeDb(AudioServer.GetBusIndex(music), (float)Mathf.LinearToDb(pValue));
+            AudioServer.SetBusVolumeDb(AudioServer.GetBusIndex(MUSIC), (float)Mathf.LinearToDb(pValue));
         }
 
         public void MasterValue(double pValue)
         {
-            AudioServer.SetBusVolumeDb(AudioServer.GetBusIndex(master), (float)Mathf.LinearToDb(pValue));
+            AudioServer.SetBusVolumeDb(AudioServer.GetBusIndex(MASTER), (float)Mathf.LinearToDb(pValue));
         }
 
         private void SetLanguage(string pLanguage)
