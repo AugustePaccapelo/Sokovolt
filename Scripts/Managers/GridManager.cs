@@ -260,7 +260,7 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 			// Can't walk into a closed door
 			if (content is Door door && !door.isOpen) return;
 
-			// If cell is empty or open door, move using A*
+			// If cell is empty or cell is door, move
 			if (content == null || content is Door)
 			{
 				var path = PathFinding.FindPath(start, end, grid);
