@@ -132,7 +132,7 @@ alignment = 1
 
 [node name="Label2" type="Label" parent="VBoxContainer/PersonalScore"]
 layout_mode = 2
-text = "LevelPrefix"
+text = "LEVEL :"
 label_settings = SubResource("LabelSettings_ku7ta")
 horizontal_alignment = 1
 

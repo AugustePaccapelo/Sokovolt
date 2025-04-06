@@ -1,10 +1,10 @@
-[gd_scene load_steps=54 format=3 uid="uid://dht3qeqhib1rk"]
+[gd_scene load_steps=80 format=3 uid="uid://dht3qeqhib1rk"]
 
 [ext_resource type="Script" path="res://Scripts/Controls/LevelSelector.cs" id="1_7onrw"]
 [ext_resource type="Texture2D" uid="uid://dyr30pkkewie" path="res://Assets/UI/MainMenu/LevelScreen.png" id="2_u4r7s"]
 [ext_resource type="PackedScene" uid="uid://c46bqjn4wfblh" path="res://Scenes/GameObjects/LevelSelectorObject/LevelSelectorTesla.tscn" id="3_31hu0"]
 [ext_resource type="Script" path="res://Scripts/GameObjects/ButtonTemplate.cs" id="4_tfihn"]
-[ext_resource type="PackedScene" path="res://Scenes/GameObjects/LevelSelectorObject/score_screen.tscn" id="5_1sge3"]
+[ext_resource type="PackedScene" uid="uid://dt8mu0rub45fm" path="res://Scenes/GameObjects/LevelSelectorObject/score_screen.tscn" id="5_1sge3"]
 [ext_resource type="Texture2D" uid="uid://o7dxw8nc0gvi" path="res://Assets/UI/MainMenu/CarpetBorder.png" id="5_8e1ql"]
 [ext_resource type="Texture2D" uid="uid://6ogwctw6dhxl" path="res://Assets/UI/MainMenu/Manette.png" id="6_8hpna"]
 [ext_resource type="Texture2D" uid="uid://6qajctfobfih" path="res://Assets/UI/MainMenu/CarpetBorder2.png" id="6_cobsf"]
@@ -14,14 +14,20 @@
 [ext_resource type="Texture2D" uid="uid://v4dwd3oinj6" path="res://Assets/UI/MainMenu/ManetteButtonRight.png" id="9_mhunn"]
 [ext_resource type="Texture2D" uid="uid://do5divm0ix4rl" path="res://Assets/UI/MainMenu/ButtonRightPressed.png" id="10_naqst"]
 [ext_resource type="Texture2D" uid="uid://d027gw6ax6ujo" path="res://Assets/UI/MainMenu/Carpet.png" id="11_cogra"]
-[ext_resource type="Texture2D" uid="uid://cjdpi2sp6bb4u" path="res://Assets/UI/MainMenu/LevelSelectorLampe.png" id="14_5wxcs"]
 [ext_resource type="PackedScene" uid="uid://dty5a7hnd1fve" path="res://Scenes/GameObjects/LevelSelectorObject/button_smoke_particles.tscn" id="15_53pe0"]
 [ext_resource type="Texture2D" uid="uid://dw208iyoc71pe" path="res://Assets/UI/MainMenu/LightProjection.png" id="15_cy604"]
 [ext_resource type="Texture2D" uid="uid://dc3or7fnkox6b" path="res://Assets/UI/MainMenu/Smoke.png" id="16_oywvd"]
 [ext_resource type="Texture2D" uid="uid://ct4gh1ir11uf1" path="res://Assets/UI/MainMenu/LAUNCHBUTTON.png" id="17_6ncai"]
 [ext_resource type="PackedScene" uid="uid://b0olmoqwuw54k" path="res://Scenes/GameObjects/WinScreen/rope.tscn" id="18_8m3jd"]
+[ext_resource type="Texture2D" uid="uid://cuwmy2vafhkfl" path="res://Assets/UI/MainMenu/light.png" id="18_ggq5m"]
 [ext_resource type="Texture2D" uid="uid://kulh7f8b8jlr" path="res://icon.svg" id="19_jj0lu"]
 [ext_resource type="PackedScene" uid="uid://36dp5dq6hmqq" path="res://Scenes/GameObjects/ButtonTemplate.tscn" id="20_0nxsh"]
+[ext_resource type="Texture2D" uid="uid://c7un4g41qom0x" path="res://Assets/UI/MainMenu/machine.png" id="23_835b2"]
+[ext_resource type="PackedScene" uid="uid://bs1v2cedkky8a" path="res://Scenes/GameObjects/LevelSelectorObject/wheel.tscn" id="24_kc3pk"]
+[ext_resource type="Shader" uid="uid://bum2gqlmpu2kv" path="res://Assets/Shaders/ElectricBoltShader.tres" id="25_wd3ca"]
+[ext_resource type="Texture2D" uid="uid://c66l3g8bbn3hb" path="res://Assets/Shaders/Effects/VFX Thunder.jpg" id="26_mswj5"]
+[ext_resource type="Texture2D" uid="uid://8vcio7y6idoy" path="res://Assets/Shaders/Effects/SparksParticles.PNG" id="27_nqaoa"]
+[ext_resource type="Texture2D" uid="uid://cb6qh1bno63yh" path="res://Assets/UI/MainMenu/BackMachine.png" id="27_udj1q"]
 
 [sub_resource type="Gradient" id="Gradient_byfll"]
 offsets = PackedFloat32Array(0, 0.238579, 1)
@@ -167,6 +173,131 @@ corner_radius_top_right = 25
 corner_radius_bottom_right = 25
 corner_radius_bottom_left = 25
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_y8asw"]
+shader = ExtResource("25_wd3ca")
+shader_parameter/VanishingValue = 0.0
+shader_parameter/Speed = Vector2(-2, 0)
+shader_parameter/basic_texture = ExtResource("26_mswj5")
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_hklq1"]
+blend_mode = 1
+light_mode = 1
+
+[sub_resource type="Curve" id="Curve_1w2lf"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.292683, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_euagi"]
+curve = SubResource("Curve_1w2lf")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_v8vr1"]
+particle_flag_disable_z = true
+gravity = Vector3(0, 0, 0)
+scale_min = 0.08
+scale_max = 0.3
+scale_curve = SubResource("CurveTexture_euagi")
+color = Color(0.5, 1, 1.2, 1)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_n0ler"]
+particle_flag_disable_z = true
+gravity = Vector3(0, 0, 0)
+scale_min = 0.08
+scale_max = 0.3
+scale_curve = SubResource("CurveTexture_euagi")
+color = Color(0.5, 1, 1.2, 1)
+
+[sub_resource type="Gradient" id="Gradient_iffhu"]
+colors = PackedColorArray(0.382651, 0.974019, 0.949734, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_dildd"]
+gradient = SubResource("Gradient_iffhu")
+
+[sub_resource type="Curve" id="Curve_gtcqf"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.251185, 0), 0.0, 0.0, 0, 0, Vector2(0.49763, 1), 0.0, 0.0, 0, 0, Vector2(0.758294, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 5
+
+[sub_resource type="CurveTexture" id="CurveTexture_8imnm"]
+curve = SubResource("Curve_gtcqf")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_n2gri"]
+particle_flag_disable_z = true
+initial_velocity_max = 158.73
+orbit_velocity_min = -2.0
+orbit_velocity_max = 2.0
+radial_velocity_max = 25.0
+gravity = Vector3(0, 0, 0)
+scale_min = 16.0
+scale_max = 16.0
+scale_curve = SubResource("CurveTexture_8imnm")
+color_ramp = SubResource("GradientTexture1D_dildd")
+turbulence_enabled = true
+turbulence_noise_speed_random = 2.44
+turbulence_influence_min = 0.024
+turbulence_influence_max = 0.373
+turbulence_initial_displacement_min = -53.0
+turbulence_initial_displacement_max = -34.8
+
+[sub_resource type="Gradient" id="Gradient_rvo8j"]
+colors = PackedColorArray(1, 0.866667, 0.0117647, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_pshl0"]
+gradient = SubResource("Gradient_rvo8j")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_eo3dr"]
+particle_flag_disable_z = true
+initial_velocity_max = 158.73
+orbit_velocity_min = -2.0
+orbit_velocity_max = 2.0
+radial_velocity_min = -100.0
+radial_velocity_max = 100.0
+gravity = Vector3(0, 0, 0)
+scale_min = 10.0
+scale_max = 10.0
+scale_curve = SubResource("CurveTexture_8imnm")
+color_ramp = SubResource("GradientTexture1D_pshl0")
+turbulence_enabled = true
+turbulence_noise_speed_random = 2.44
+turbulence_influence_min = 0.024
+turbulence_influence_max = 0.373
+turbulence_initial_displacement_min = -53.0
+turbulence_initial_displacement_max = -34.8
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_xa1ym"]
+blend_mode = 1
+
+[sub_resource type="Curve" id="Curve_w41vn"]
+_data = [Vector2(0, 0.549451), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_1kdmu"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_vx6to"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_a3vvu"]
+curve_x = SubResource("Curve_w41vn")
+curve_y = SubResource("Curve_1kdmu")
+curve_z = SubResource("Curve_vx6to")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_sqyed"]
+particle_flag_align_y = true
+particle_flag_disable_z = true
+emission_shape = 6
+emission_ring_axis = Vector3(0, 0, 1)
+emission_ring_height = 50.0
+emission_ring_radius = 50.0
+emission_ring_inner_radius = 0.0
+radial_velocity_min = 50.0
+radial_velocity_max = 100.0
+gravity = Vector3(0, 98, 0)
+scale_min = 0.01
+scale_max = 0.05
+scale_curve = SubResource("CurveXYZTexture_a3vvu")
+color = Color(1, 0.780392, 0, 1)
+
 [node name="LevelSelector" type="Control" node_paths=PackedStringArray("buttonRight", "buttonLaunch", "buttonLeft", "buttonUnlockAll", "buttonMainMenu", "carpetTexture", "teslaContainer", "scoreBoard")]
 layout_mode = 3
 anchors_preset = 0
@@ -185,6 +316,7 @@ scoreBoard = NodePath("ScoreScreen")
 teslaPosY = 630
 
 [node name="BackGround" type="ColorRect" parent="."]
+z_index = -2
 layout_mode = 0
 offset_left = -21.0
 offset_top = -29.0
@@ -233,6 +365,15 @@ offset_top = 756.0
 offset_right = 2048.0
 offset_bottom = 817.0
 texture = ExtResource("6_cobsf")
+
+[node name="BackMachine" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 233.0
+offset_top = 22.0
+offset_right = 526.0
+offset_bottom = 761.0
+mouse_filter = 2
+texture = ExtResource("27_udj1q")
 
 [node name="TeslaContainer" type="Node2D" parent="."]
 
@@ -334,23 +475,22 @@ color = Color(1, 0, 0, 1)
 texture = ExtResource("7_c1v7e")
 texture_scale = 0.2
 
-[node name="Lampe" type="TextureRect" parent="."]
-layout_mode = 0
-offset_left = 847.0
-offset_top = -23.0
-offset_right = 1052.0
-offset_bottom = 284.0
-texture = ExtResource("14_5wxcs")
+[node name="Light" type="Sprite2D" parent="."]
+position = Vector2(960, 5)
+scale = Vector2(0.357005, 0.357005)
+texture = ExtResource("18_ggq5m")
+offset = Vector2(0, 529.404)
 
-[node name="PointLight2D" type="PointLight2D" parent="Lampe"]
-position = Vector2(105, 566)
+[node name="PointLight2D" type="PointLight2D" parent="Light"]
+position = Vector2(5.17407, 1519.19)
+scale = Vector2(2.83037, 2.83037)
 energy = 0.5
 shadow_enabled = true
 texture = ExtResource("15_cy604")
 
-[node name="PointLight2D2" type="PointLight2D" parent="Lampe"]
-position = Vector2(99, 844)
-scale = Vector2(1.66817, 0.388393)
+[node name="PointLight2D2" type="PointLight2D" parent="Light"]
+position = Vector2(16.3783, 2309.1)
+scale = Vector2(3.02146, -1.00428)
 texture = SubResource("GradientTexture2D_a5roo")
 texture_scale = 9.44
 
@@ -364,6 +504,7 @@ speed_scale = 2.88
 fixed_fps = 60
 
 [node name="Sign" type="Node2D" parent="."]
+position = Vector2(429, 132)
 
 [node name="Rope" parent="Sign" instance=ExtResource("18_8m3jd")]
 position = Vector2(173, -338)
@@ -405,6 +546,328 @@ node_b = NodePath("../RigidBody2D")
 position = Vector2(336, 211)
 node_a = NodePath("../Rope2/RopeSegment16")
 node_b = NodePath("../RigidBody2D")
+
+[node name="FrontMachine" type="TextureRect" parent="."]
+layout_mode = 0
+offset_top = 11.0
+offset_right = 406.0
+offset_bottom = 1020.0
+mouse_filter = 2
+texture = ExtResource("23_835b2")
+
+[node name="ThunderEffects" type="Node2D" parent="FrontMachine"]
+position = Vector2(147, 889)
+scale = Vector2(0.993244, 1)
+
+[node name="Bolt" type="Line2D" parent="FrontMachine/ThunderEffects"]
+material = SubResource("ShaderMaterial_y8asw")
+position = Vector2(-399.7, -225)
+points = PackedVector2Array(399.7, 223, 397.686, -201)
+width = 50.0
+default_color = Color(0, 1.00784, 1.8, 1)
+texture_mode = 2
+
+[node name="ImpactEffect" type="Node2D" parent="FrontMachine/ThunderEffects"]
+
+[node name="Flare" type="GPUParticles2D" parent="FrontMachine/ThunderEffects/ImpactEffect"]
+material = SubResource("CanvasItemMaterial_hklq1")
+amount = 1
+process_material = SubResource("ParticleProcessMaterial_v8vr1")
+texture = ExtResource("7_c1v7e")
+lifetime = 0.15
+fixed_fps = 60
+
+[node name="PointLight2D" type="PointLight2D" parent="FrontMachine/ThunderEffects/ImpactEffect"]
+color = Color(0.231373, 1, 1, 1)
+energy = 0.5
+texture = ExtResource("7_c1v7e")
+texture_scale = 0.5
+
+[node name="Flare2" type="GPUParticles2D" parent="FrontMachine/ThunderEffects/ImpactEffect"]
+material = SubResource("CanvasItemMaterial_hklq1")
+position = Vector2(0.177069, -416)
+amount = 1
+process_material = SubResource("ParticleProcessMaterial_v8vr1")
+texture = ExtResource("7_c1v7e")
+lifetime = 0.15
+fixed_fps = 60
+
+[node name="PointLight2D2" type="PointLight2D" parent="FrontMachine/ThunderEffects/ImpactEffect"]
+position = Vector2(0.177069, -416)
+color = Color(0.231373, 1, 1, 1)
+energy = 0.5
+texture = ExtResource("7_c1v7e")
+texture_scale = 0.5
+
+[node name="PlayerParticles" type="Node2D" parent="FrontMachine"]
+position = Vector2(150, 244)
+scale = Vector2(1.09512, 1.09512)
+
+[node name="Flare" type="GPUParticles2D" parent="FrontMachine/PlayerParticles"]
+material = SubResource("CanvasItemMaterial_hklq1")
+amount = 10
+process_material = SubResource("ParticleProcessMaterial_n0ler")
+texture = ExtResource("7_c1v7e")
+lifetime = 0.15
+fixed_fps = 60
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="FrontMachine/PlayerParticles"]
+position = Vector2(-4, 0)
+amount = 40
+process_material = SubResource("ParticleProcessMaterial_n2gri")
+lifetime = 2.0
+speed_scale = 3.0
+fixed_fps = 60
+local_coords = true
+trail_enabled = true
+
+[node name="GPUParticles2D2" type="GPUParticles2D" parent="FrontMachine/PlayerParticles"]
+amount = 6
+process_material = SubResource("ParticleProcessMaterial_eo3dr")
+speed_scale = 3.0
+explosiveness = 1.0
+fixed_fps = 60
+local_coords = true
+trail_enabled = true
+
+[node name="GPUParticles2D3" type="GPUParticles2D" parent="FrontMachine/PlayerParticles"]
+material = SubResource("CanvasItemMaterial_xa1ym")
+process_material = SubResource("ParticleProcessMaterial_sqyed")
+texture = ExtResource("27_nqaoa")
+speed_scale = 5.0
+fixed_fps = 60
+
+[node name="PointLight2D" type="PointLight2D" parent="FrontMachine/PlayerParticles"]
+color = Color(0.231373, 1, 1, 1)
+energy = 0.5
+texture = ExtResource("7_c1v7e")
+texture_scale = 0.5
+
+[node name="WheelContainer" type="Node2D" parent="."]
+
+[node name="Layer1" type="Node2D" parent="WheelContainer"]
+
+[node name="Wheel" parent="WheelContainer/Layer1" instance=ExtResource("24_kc3pk")]
+
+[node name="Wheel2" parent="WheelContainer/Layer1" instance=ExtResource("24_kc3pk")]
+position = Vector2(480, 980)
+scale = Vector2(0.159918, 0.159918)
+turnRight = true
+
+[node name="Wheel3" parent="WheelContainer/Layer1" instance=ExtResource("24_kc3pk")]
+position = Vector2(518, 1101)
+scale = Vector2(0.159918, 0.159918)
+
+[node name="Wheel4" parent="WheelContainer/Layer1" instance=ExtResource("24_kc3pk")]
+position = Vector2(605, 1023)
+scale = Vector2(0.126907, 0.126907)
+turnRight = true
+
+[node name="Wheel5" parent="WheelContainer/Layer1" instance=ExtResource("24_kc3pk")]
+position = Vector2(650, 1105)
+scale = Vector2(0.104533, 0.104533)
+
+[node name="Wheel6" parent="WheelContainer/Layer1" instance=ExtResource("24_kc3pk")]
+position = Vector2(1275.61, 1084.88)
+scale = Vector2(0.210717, 0.210717)
+turnRight = true
+
+[node name="Wheel7" parent="WheelContainer/Layer1" instance=ExtResource("24_kc3pk")]
+position = Vector2(1403.61, 1005.88)
+scale = Vector2(0.157002, 0.157002)
+
+[node name="Wheel8" parent="WheelContainer/Layer1" instance=ExtResource("24_kc3pk")]
+position = Vector2(1491.61, 1122.88)
+scale = Vector2(0.210717, 0.210717)
+turnRight = true
+
+[node name="Wheel9" parent="WheelContainer/Layer1" instance=ExtResource("24_kc3pk")]
+position = Vector2(1587.61, 1003.88)
+scale = Vector2(0.175781, 0.175781)
+
+[node name="Wheel10" parent="WheelContainer/Layer1" instance=ExtResource("24_kc3pk")]
+position = Vector2(1678.61, 1126.88)
+scale = Vector2(0.210717, 0.210717)
+turnRight = true
+
+[node name="Wheel11" parent="WheelContainer/Layer1" instance=ExtResource("24_kc3pk")]
+position = Vector2(1816.61, 1041.88)
+scale = Vector2(0.19104, 0.19104)
+
+[node name="Wheel12" parent="WheelContainer/Layer1" instance=ExtResource("24_kc3pk")]
+position = Vector2(1974.61, 1033.88)
+scale = Vector2(0.19104, 0.19104)
+turnRight = true
+
+[node name="Layer2" type="Node2D" parent="WheelContainer"]
+
+[node name="Wheel" parent="WheelContainer/Layer2" instance=ExtResource("24_kc3pk")]
+position = Vector2(335, 1071)
+scale = Vector2(0.161385, 0.161385)
+
+[node name="Wheel2" parent="WheelContainer/Layer2" instance=ExtResource("24_kc3pk")]
+position = Vector2(447, 1061)
+scale = Vector2(0.107321, 0.107321)
+turnRight = true
+
+[node name="Wheel3" parent="WheelContainer/Layer2" instance=ExtResource("24_kc3pk")]
+position = Vector2(479, 978)
+scale = Vector2(0.11473, 0.11473)
+
+[node name="Wheel4" parent="WheelContainer/Layer2" instance=ExtResource("24_kc3pk")]
+position = Vector2(540, 1032)
+scale = Vector2(0.0826732, 0.0826732)
+turnRight = true
+
+[node name="Wheel5" parent="WheelContainer/Layer2" instance=ExtResource("24_kc3pk")]
+position = Vector2(596, 1091)
+rotation = 0.123732
+scale = Vector2(0.114794, 0.114794)
+
+[node name="Wheel6" parent="WheelContainer/Layer2" instance=ExtResource("24_kc3pk")]
+position = Vector2(605, 1023)
+scale = Vector2(0.0671582, 0.0671582)
+turnRight = true
+
+[node name="Wheel7" parent="WheelContainer/Layer2" instance=ExtResource("24_kc3pk")]
+position = Vector2(1276, 1086)
+scale = Vector2(0.140029, 0.140029)
+
+[node name="Wheel8" parent="WheelContainer/Layer2" instance=ExtResource("24_kc3pk")]
+position = Vector2(1328, 998)
+scale = Vector2(0.115789, 0.115789)
+turnRight = true
+
+[node name="Wheel9" parent="WheelContainer/Layer2" instance=ExtResource("24_kc3pk")]
+position = Vector2(1402, 1066)
+scale = Vector2(0.135359, 0.135359)
+
+[node name="Wheel10" parent="WheelContainer/Layer2" instance=ExtResource("24_kc3pk")]
+position = Vector2(1484, 995)
+scale = Vector2(0.135359, 0.135359)
+turnRight = true
+
+[node name="Wheel11" parent="WheelContainer/Layer2" instance=ExtResource("24_kc3pk")]
+position = Vector2(1586, 1004)
+scale = Vector2(0.122844, 0.122844)
+
+[node name="Wheel12" parent="WheelContainer/Layer2" instance=ExtResource("24_kc3pk")]
+position = Vector2(1491, 1123)
+scale = Vector2(0.122844, 0.122844)
+turnRight = true
+
+[node name="Wheel13" parent="WheelContainer/Layer2" instance=ExtResource("24_kc3pk")]
+position = Vector2(1685, 1012)
+scale = Vector2(0.122844, 0.122844)
+turnRight = true
+
+[node name="Wheel14" parent="WheelContainer/Layer2" instance=ExtResource("24_kc3pk")]
+position = Vector2(1683, 1126)
+scale = Vector2(0.157472, 0.157472)
+
+[node name="Wheel15" parent="WheelContainer/Layer2" instance=ExtResource("24_kc3pk")]
+position = Vector2(1817, 1043)
+scale = Vector2(0.110377, 0.110377)
+turnRight = true
+
+[node name="Wheel16" parent="WheelContainer/Layer2" instance=ExtResource("24_kc3pk")]
+position = Vector2(1755, 1025)
+scale = Vector2(0.0475474, 0.0475474)
+
+[node name="Wheel17" parent="WheelContainer/Layer2" instance=ExtResource("24_kc3pk")]
+position = Vector2(1902, 1063)
+scale = Vector2(0.103586, 0.103586)
+
+[node name="Wheel18" parent="WheelContainer/Layer2" instance=ExtResource("24_kc3pk")]
+position = Vector2(1889, 980)
+scale = Vector2(0.103586, 0.103586)
+turnRight = true
+
+[node name="Layer3" type="Node2D" parent="WheelContainer"]
+z_index = -1
+position = Vector2(0, -230)
+
+[node name="Wheel" parent="WheelContainer/Layer3" instance=ExtResource("24_kc3pk")]
+position = Vector2(630, 1000)
+scale = Vector2(0.161385, 0.161385)
+
+[node name="Wheel2" parent="WheelContainer/Layer3" instance=ExtResource("24_kc3pk")]
+position = Vector2(447, 1061)
+scale = Vector2(0.107321, 0.107321)
+turnRight = true
+
+[node name="Wheel3" parent="WheelContainer/Layer3" instance=ExtResource("24_kc3pk")]
+position = Vector2(479, 978)
+scale = Vector2(0.11473, 0.11473)
+
+[node name="Wheel4" parent="WheelContainer/Layer3" instance=ExtResource("24_kc3pk")]
+position = Vector2(580, 1000)
+scale = Vector2(0.0826732, 0.0826732)
+turnRight = true
+
+[node name="Wheel5" parent="WheelContainer/Layer3" instance=ExtResource("24_kc3pk")]
+position = Vector2(596, 1091)
+rotation = 0.123732
+scale = Vector2(0.114794, 0.114794)
+
+[node name="Wheel6" parent="WheelContainer/Layer3" instance=ExtResource("24_kc3pk")]
+position = Vector2(661, 996)
+scale = Vector2(0.0671582, 0.0671582)
+turnRight = true
+
+[node name="Wheel7" parent="WheelContainer/Layer3" instance=ExtResource("24_kc3pk")]
+position = Vector2(1276, 1086)
+scale = Vector2(0.140029, 0.140029)
+
+[node name="Wheel8" parent="WheelContainer/Layer3" instance=ExtResource("24_kc3pk")]
+position = Vector2(1328, 998)
+scale = Vector2(0.115789, 0.115789)
+turnRight = true
+
+[node name="Wheel9" parent="WheelContainer/Layer3" instance=ExtResource("24_kc3pk")]
+position = Vector2(1402, 1066)
+scale = Vector2(0.135359, 0.135359)
+
+[node name="Wheel10" parent="WheelContainer/Layer3" instance=ExtResource("24_kc3pk")]
+position = Vector2(1490, 1024)
+scale = Vector2(0.135359, 0.135359)
+turnRight = true
+
+[node name="Wheel11" parent="WheelContainer/Layer3" instance=ExtResource("24_kc3pk")]
+position = Vector2(1727, 996)
+scale = Vector2(0.122844, 0.122844)
+
+[node name="Wheel12" parent="WheelContainer/Layer3" instance=ExtResource("24_kc3pk")]
+position = Vector2(1154, 1009)
+scale = Vector2(0.122844, 0.122844)
+turnRight = true
+
+[node name="Wheel13" parent="WheelContainer/Layer3" instance=ExtResource("24_kc3pk")]
+position = Vector2(1685, 1012)
+scale = Vector2(0.122844, 0.122844)
+turnRight = true
+
+[node name="Wheel14" parent="WheelContainer/Layer3" instance=ExtResource("24_kc3pk")]
+position = Vector2(847, 1003)
+scale = Vector2(0.157472, 0.157472)
+
+[node name="Wheel15" parent="WheelContainer/Layer3" instance=ExtResource("24_kc3pk")]
+position = Vector2(1238, 1003)
+scale = Vector2(0.110377, 0.110377)
+turnRight = true
+
+[node name="Wheel16" parent="WheelContainer/Layer3" instance=ExtResource("24_kc3pk")]
+position = Vector2(1091, 988)
+scale = Vector2(0.0475474, 0.0475474)
+
+[node name="Wheel17" parent="WheelContainer/Layer3" instance=ExtResource("24_kc3pk")]
+position = Vector2(980, 1001)
+scale = Vector2(0.103586, 0.103586)
+
+[node name="Wheel18" parent="WheelContainer/Layer3" instance=ExtResource("24_kc3pk")]
+position = Vector2(1857, 1014)
+scale = Vector2(0.103586, 0.103586)
+turnRight = true
 
 [editable path="Sign/Rope"]
 [editable path="Sign/Rope2"]
