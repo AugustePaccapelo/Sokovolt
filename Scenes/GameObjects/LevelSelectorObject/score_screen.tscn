@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dt8mu0rub45fm"]
+[gd_scene load_steps=13 format=3 uid="uid://dt8mu0rub45fm"]
 
 [ext_resource type="Script" path="res://Scripts/GameObjects/ScoreBoard.cs" id="1_8u7hm"]
 [ext_resource type="Texture2D" uid="uid://dawl6e7442e4q" path="res://Assets/UI/MainMenu/ScoreDownScreen.png" id="1_wc5he"]
@@ -18,6 +18,36 @@ shader_parameter/lines_distance = 2.0
 shader_parameter/scan_size = 1.5
 shader_parameter/scanline_alpha = 0.9
 shader_parameter/lines_velocity = 10.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u76yg"]
+bg_color = Color(0.425152, 0.675819, 0.362361, 1)
+border_width_left = 2
+border_width_bottom = 2
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+shadow_color = Color(0, 0, 0, 1)
+shadow_size = 5
+shadow_offset = Vector2(5, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ijjgm"]
+bg_color = Color(0.558656, 0.63474, 0.424107, 1)
+border_width_left = 1
+border_width_bottom = 1
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+shadow_color = Color(0, 0, 0, 1)
+shadow_size = 5
+shadow_offset = Vector2(5, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qrs17"]
+bg_color = Color(0.168712, 0.292836, 0.137454, 1)
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+shadow_color = Color(0, 0, 0, 1)
+shadow_size = 2
+shadow_offset = Vector2(5, 0)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sxxfk"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_ku7ta"]
 font_size = 25
@@ -71,12 +101,36 @@ alignment = 1
 [node name="Button" type="Button" parent="VBoxContainer/ButtonContainer"]
 custom_minimum_size = Vector2(171.315, 50.825)
 layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_u76yg")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ijjgm")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_qrs17")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_sxxfk")
 text = "PERSONAL SCORE"
+
+[node name="PointLight2D" type="PointLight2D" parent="VBoxContainer/ButtonContainer/Button"]
+position = Vector2(88, 23)
+scale = Vector2(4.83838, -0.93599)
+color = Color(0, 0.815686, 0, 1)
+energy = 0.5
+texture = ExtResource("2_yk86b")
+texture_scale = 0.1
 
 [node name="Button2" type="Button" parent="VBoxContainer/ButtonContainer"]
 custom_minimum_size = Vector2(171.315, 50.825)
 layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_u76yg")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ijjgm")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_qrs17")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_sxxfk")
 text = "GLOBAL SCORE"
+
+[node name="PointLight2D" type="PointLight2D" parent="VBoxContainer/ButtonContainer/Button2"]
+position = Vector2(88, 23)
+scale = Vector2(4.83838, -0.93599)
+color = Color(0, 0.815686, 0, 1)
+energy = 0.5
+texture = ExtResource("2_yk86b")
+texture_scale = 0.1
 
 [node name="GlobalScore" type="HBoxContainer" parent="VBoxContainer"]
 visible = false
