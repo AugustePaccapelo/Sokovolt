@@ -93,11 +93,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\vuvu2\\Desktop\\ISART\\GDP1\\PROJET\\SOKOBAN_ROBOTNIK\\8_ROBOTNIK\\Project Godot\\SOKOBAN_ROBOTNIK\\Robotnik Sokoban.csproj",
+      "projectUniqueName": "C:\\Users\\vuvu2\\Desktop\\ISART\\GDP1\\PROJET\\SOKOBAN_ROBOTNIK\\Robotnik Sokoban.csproj",
       "projectName": "Robotnik Sokoban",
-      "projectPath": "C:\\Users\\vuvu2\\Desktop\\ISART\\GDP1\\PROJET\\SOKOBAN_ROBOTNIK\\8_ROBOTNIK\\Project Godot\\SOKOBAN_ROBOTNIK\\Robotnik Sokoban.csproj",
+      "projectPath": "C:\\Users\\vuvu2\\Desktop\\ISART\\GDP1\\PROJET\\SOKOBAN_ROBOTNIK\\Robotnik Sokoban.csproj",
       "packagesPath": "C:\\Users\\vuvu2\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\vuvu2\\Desktop\\ISART\\GDP1\\PROJET\\SOKOBAN_ROBOTNIK\\8_ROBOTNIK\\Project Godot\\SOKOBAN_ROBOTNIK\\.godot\\mono\\temp\\obj\\",
+      "outputPath": "C:\\Users\\vuvu2\\Desktop\\ISART\\GDP1\\PROJET\\SOKOBAN_ROBOTNIK\\.godot\\mono\\temp\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\vuvu2\\AppData\\Roaming\\NuGet\\NuGet.Config",

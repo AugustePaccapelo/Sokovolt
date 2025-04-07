@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Robotnik Sokoban")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+17136259951e85b9da9dd18b0884d99744e14560")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4f5785002eb68624d858fb97f9ebae4338f7f6a7")]
 [assembly: System.Reflection.AssemblyProductAttribute("Robotnik Sokoban")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Robotnik Sokoban")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

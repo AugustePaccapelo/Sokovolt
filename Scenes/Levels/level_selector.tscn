@@ -298,7 +298,7 @@ scale_max = 0.05
 scale_curve = SubResource("CurveXYZTexture_a3vvu")
 color = Color(1, 0.780392, 0, 1)
 
-[node name="LevelSelector" type="Control" node_paths=PackedStringArray("buttonRight", "buttonLaunch", "buttonLeft", "buttonUnlockAll", "buttonMainMenu", "carpetTexture", "teslaContainer", "scoreBoard")]
+[node name="LevelSelector" type="Control" node_paths=PackedStringArray("buttonRight", "buttonLaunch", "buttonLeft", "buttonUnlockAll", "buttonMainMenu", "carpetTexture", "light", "teslaContainer", "scoreBoard")]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_7onrw")
@@ -308,6 +308,7 @@ buttonLeft = NodePath("ButtonBox/Left")
 buttonUnlockAll = NodePath("ButtonBox/UnlockButton")
 buttonMainMenu = NodePath("Sign/RigidBody2D/MainMenuButton")
 carpetTexture = NodePath("Carpet")
+light = NodePath("Light")
 texture = ExtResource("2_u4r7s")
 teslaScene = ExtResource("3_31hu0")
 smokeParticlesScene = ExtResource("15_53pe0")

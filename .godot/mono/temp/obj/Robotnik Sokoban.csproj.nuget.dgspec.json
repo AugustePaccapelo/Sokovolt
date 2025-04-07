@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\USERS\\VUVU2\\DESKTOP\\ISART\\GDP1\\PROJET\\SOKOBAN_ROBOTNIK\\8_ROBOTNIK\\PROJECT GODOT\\SOKOBAN_ROBOTNIK\\Robotnik Sokoban.csproj": {}
+    "C:\\Users\\vuvu2\\Desktop\\ISART\\GDP1\\PROJET\\SOKOBAN_ROBOTNIK\\Robotnik Sokoban.csproj": {}
   },
   "projects": {
-    "C:\\USERS\\VUVU2\\DESKTOP\\ISART\\GDP1\\PROJET\\SOKOBAN_ROBOTNIK\\8_ROBOTNIK\\PROJECT GODOT\\SOKOBAN_ROBOTNIK\\Robotnik Sokoban.csproj": {
+    "C:\\Users\\vuvu2\\Desktop\\ISART\\GDP1\\PROJET\\SOKOBAN_ROBOTNIK\\Robotnik Sokoban.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\USERS\\VUVU2\\DESKTOP\\ISART\\GDP1\\PROJET\\SOKOBAN_ROBOTNIK\\8_ROBOTNIK\\PROJECT GODOT\\SOKOBAN_ROBOTNIK\\Robotnik Sokoban.csproj",
+        "projectUniqueName": "C:\\Users\\vuvu2\\Desktop\\ISART\\GDP1\\PROJET\\SOKOBAN_ROBOTNIK\\Robotnik Sokoban.csproj",
         "projectName": "Robotnik Sokoban",
-        "projectPath": "C:\\USERS\\VUVU2\\DESKTOP\\ISART\\GDP1\\PROJET\\SOKOBAN_ROBOTNIK\\8_ROBOTNIK\\PROJECT GODOT\\SOKOBAN_ROBOTNIK\\Robotnik Sokoban.csproj",
+        "projectPath": "C:\\Users\\vuvu2\\Desktop\\ISART\\GDP1\\PROJET\\SOKOBAN_ROBOTNIK\\Robotnik Sokoban.csproj",
         "packagesPath": "C:\\Users\\vuvu2\\.nuget\\packages\\",
-        "outputPath": "C:\\USERS\\VUVU2\\DESKTOP\\ISART\\GDP1\\PROJET\\SOKOBAN_ROBOTNIK\\8_ROBOTNIK\\PROJECT GODOT\\SOKOBAN_ROBOTNIK\\.godot\\mono\\temp\\obj\\",
+        "outputPath": "C:\\Users\\vuvu2\\Desktop\\ISART\\GDP1\\PROJET\\SOKOBAN_ROBOTNIK\\.godot\\mono\\temp\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\vuvu2\\AppData\\Roaming\\NuGet\\NuGet.Config",

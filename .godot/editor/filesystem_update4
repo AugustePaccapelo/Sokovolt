@@ -1,5 +1,6 @@
-res://Scenes/Levels/main.tscn
+res://Scenes/Levels/level_selector.tscn
 res://Assets/Shaders/ElectricBoltShader.tres
+res://Scenes/Levels/main.tscn
 res://Scripts/Managers/LevelManager.cs
 res://Scripts/Controls/LoginScreen.cs
 res://Scripts/GameObjects/Movables/Movable.cs
@@ -46,4 +47,3 @@ res://Scripts/Controls/Piston.cs
 res://Scripts/GameObjects/LevelSelectorTesla.cs
 res://Scripts/Controls/LevelCreator.cs
 res://Scripts/GameObjects/Door.cs
-res://Scenes/Levels/level_selector.tscn
