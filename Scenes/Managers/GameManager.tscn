@@ -1,0 +1,49 @@
+[gd_scene load_steps=6 format=3 uid="uid://cbrehv31qfb0r"]
+
+[ext_resource type="Script" path="res://Scripts/Managers/GameManager.cs" id="1_ynqeg"]
+[ext_resource type="Texture2D" uid="uid://c767fcajnj2yi" path="res://Assets/Shaders/Effects/Glow.png" id="2_oi3ve"]
+[ext_resource type="Script" path="res://Scripts/GameObjects/MenuTrans.cs" id="3_b52pp"]
+[ext_resource type="Texture2D" uid="uid://c34er6wt8ojkb" path="res://Assets/UI/MainMenu/PorteGauche.png" id="4_xpvec"]
+[ext_resource type="Texture2D" uid="uid://ouukq3txqa7a" path="res://Assets/UI/MainMenu/PorteDroite.png" id="5_m86xg"]
+
+[node name="GameManager" type="Node2D" node_paths=PackedStringArray("MenuTrans", "mouse")]
+script = ExtResource("1_ynqeg")
+MenuTrans = NodePath("MenuTrans")
+mouse = NodePath("Mouse")
+
+[node name="Mouse" type="Polygon2D" parent="."]
+z_index = 2000
+scale = Vector2(2.77778, 2.77778)
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(0, 13, 0, 0, 9, 8, 6, 10, 9, 17, 7, 19, 3, 12)
+
+[node name="PointLight2D" type="PointLight2D" parent="Mouse"]
+energy = 0.2
+range_z_max = 2001
+texture = ExtResource("2_oi3ve")
+texture_scale = 0.1
+
+[node name="Polygon2D" type="Polygon2D" parent="Mouse"]
+color = Color(1, 0.639216, 0.470588, 1)
+polygon = PackedVector2Array(0.36, 12.6, 0.36, 0.72, 8.28, 7.92, 5.4, 10.08, 8.64, 16.92, 7.2, 18.36, 3.24, 11.52)
+
+[node name="MenuTrans" type="Node2D" parent="." node_paths=PackedStringArray("rightPart", "leftPart")]
+script = ExtResource("3_b52pp")
+rightPart = NodePath("RightPart")
+leftPart = NodePath("LeftPart")
+
+[node name="LeftPart" type="Sprite2D" parent="MenuTrans"]
+light_mask = 0
+z_index = 1900
+position = Vector2(2.99376, 0)
+scale = Vector2(0.997921, 1)
+texture = ExtResource("4_xpvec")
+centered = false
+
+[node name="RightPart" type="Sprite2D" parent="MenuTrans"]
+light_mask = 0
+z_index = 1900
+position = Vector2(2.9865, -6.01113)
+scale = Vector2(0.996885, 1.00186)
+texture = ExtResource("5_m86xg")
+centered = false

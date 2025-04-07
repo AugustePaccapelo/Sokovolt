@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://baqiox1toak3m"]
+
+[ext_resource type="Shader" path="res://Assets/Shaders/Effects/crt_shader/CRTShader.gdshader" id="1_ufh0m"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_eup1i"]
+shader = ExtResource("1_ufh0m")
+shader_parameter/screen_width = 677.0
+shader_parameter/screen_height = 242.0
+shader_parameter/BarrelPower = 1.1
+shader_parameter/color_bleeding = 1.2
+shader_parameter/bleeding_range_x = 1.0
+shader_parameter/bleeding_range_y = 1.0
+shader_parameter/lines_distance = 2.0
+shader_parameter/scan_size = 1.5
+shader_parameter/scanline_alpha = 0.9
+shader_parameter/lines_velocity = 10.0
+
+[node name="ScreenEffect" type="ColorRect"]
+material = SubResource("ShaderMaterial_eup1i")
+offset_left = -347.0
+offset_top = -126.0
+offset_right = 330.0
+offset_bottom = 116.0
+color = Color(0, 0, 1, 1)

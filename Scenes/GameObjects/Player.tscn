@@ -1,0 +1,38 @@
+[gd_scene load_steps=5 format=3 uid="uid://yr5dy4bj5sby"]
+
+[ext_resource type="Script" path="res://Scripts/GameObjects/Movables/Player.cs" id="1_05ekn"]
+[ext_resource type="Texture2D" uid="uid://ddl6potg3whdy" path="res://Assets/GameObjects/IsoObjects/pngegg (3).png" id="2_x7461"]
+[ext_resource type="PackedScene" uid="uid://bpxs1w2rokllq" path="res://Scenes/GameObjects/player_particles.tscn" id="3_ibm1n"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_tsyav"]
+radius = 10.0499
+
+[node name="Player" type="Node2D" node_paths=PackedStringArray("dectetor", "inTeslaParticles")]
+script = ExtResource("1_05ekn")
+dectetor = NodePath("DetectionZone")
+inTeslaParticles = NodePath("PlayerParticles/InTeslaParticles")
+
+[node name="Visual" type="Node2D" parent="."]
+
+[node name="Polygon2D" type="Polygon2D" parent="Visual"]
+visible = false
+scale = Vector2(0.759259, 0.759259)
+skew = 0.785398
+color = Color(0.0329285, 0.4609, 0.648438, 1)
+polygon = PackedVector2Array(0, -28, 19, -19, 27, -4, 25, 9, 16, 22, -5, 27, -21, 16, -27, -4, -19, -19)
+
+[node name="Sprite2D" type="Sprite2D" parent="Visual"]
+visible = false
+modulate = Color(0.839216, 0.839216, 0.839216, 0.721569)
+position = Vector2(-9.53674e-07, 0)
+scale = Vector2(0.03, 0.03)
+texture = ExtResource("2_x7461")
+
+[node name="DetectionZone" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionZone"]
+shape = SubResource("CircleShape2D_tsyav")
+
+[node name="PlayerParticles" parent="." instance=ExtResource("3_ibm1n")]
+
+[editable path="PlayerParticles"]

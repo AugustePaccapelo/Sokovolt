@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://br3qeg3kaqfqk"]
+
+[ext_resource type="Script" path="res://Scripts/Json/UserGestion.cs" id="1_qq5vt"]
+
+[node name="UserGestion" type="Node2D"]
+script = ExtResource("1_qq5vt")

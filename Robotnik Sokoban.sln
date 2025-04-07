@@ -1,0 +1,19 @@
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Robotnik Sokoban", "Robotnik Sokoban.csproj", "{5B399AF1-3E06-47A7-8903-5F50F215F2EA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+	Debug|Any CPU = Debug|Any CPU
+	ExportDebug|Any CPU = ExportDebug|Any CPU
+	ExportRelease|Any CPU = ExportRelease|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5B399AF1-3E06-47A7-8903-5F50F215F2EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B399AF1-3E06-47A7-8903-5F50F215F2EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B399AF1-3E06-47A7-8903-5F50F215F2EA}.ExportDebug|Any CPU.ActiveCfg = ExportDebug|Any CPU
+		{5B399AF1-3E06-47A7-8903-5F50F215F2EA}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
+		{5B399AF1-3E06-47A7-8903-5F50F215F2EA}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
+		{5B399AF1-3E06-47A7-8903-5F50F215F2EA}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
+	EndGlobalSection
+EndGlobal

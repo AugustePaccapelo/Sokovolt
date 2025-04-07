@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://bs1v2cedkky8a"]
+
+[ext_resource type="Texture2D" uid="uid://lmy686ah4dge" path="res://Assets/UI/MainMenu/wheel.png" id="1_d7u63"]
+[ext_resource type="Script" path="res://Scripts/GameObjects/LevelSelectorWheel.cs" id="2_cof5j"]
+
+[node name="Wheel" type="Sprite2D"]
+position = Vector2(335, 1072)
+scale = Vector2(0.25939, 0.25939)
+texture = ExtResource("1_d7u63")
+script = ExtResource("2_cof5j")

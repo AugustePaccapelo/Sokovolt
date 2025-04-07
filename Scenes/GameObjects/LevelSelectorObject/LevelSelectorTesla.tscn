@@ -1,0 +1,326 @@
+[gd_scene load_steps=34 format=3 uid="uid://c46bqjn4wfblh"]
+
+[ext_resource type="Texture2D" uid="uid://yvrywq2jtxvd" path="res://Assets/UI/MainMenu/LevelSelectorBobine.png" id="1_mj4sl"]
+[ext_resource type="Script" path="res://Scripts/GameObjects/LevelSelectorTesla.cs" id="2_5t3fx"]
+[ext_resource type="PackedScene" uid="uid://durins5kr70i5" path="res://Scenes/GameObjects/LevelSelectorObject/LevelSelectorBolt.tscn" id="5_yysv7"]
+[ext_resource type="Script" path="res://Scripts/GameObjects/Padlock.cs" id="6_lj2er"]
+[ext_resource type="Texture2D" uid="uid://bftn23e4cud1p" path="res://Assets/UI/MainMenu/PadlockTop.png" id="6_spfcw"]
+[ext_resource type="Texture2D" uid="uid://cao2wcwn60lng" path="res://Assets/UI/MainMenu/PadlockBottom.png" id="7_q6xe4"]
+[ext_resource type="PackedScene" uid="uid://61fe0x1uwbad" path="res://Scenes/GameObjects/LevelSelectorObject/screen_view.tscn" id="7_ylws6"]
+[ext_resource type="Texture2D" uid="uid://c767fcajnj2yi" path="res://Assets/Shaders/Effects/Glow.png" id="11_fqf0e"]
+[ext_resource type="Shader" uid="uid://bum2gqlmpu2kv" path="res://Assets/Shaders/ElectricBoltShader.tres" id="11_gqgio"]
+[ext_resource type="Texture2D" uid="uid://c66l3g8bbn3hb" path="res://Assets/Shaders/Effects/VFX Thunder.jpg" id="12_7rlme"]
+[ext_resource type="Texture2D" uid="uid://ppspouewkx4r" path="res://Assets/UI/MainMenu/LeftTesla.png" id="14_jrvgw"]
+[ext_resource type="Texture2D" uid="uid://d4e73y07tth7d" path="res://Assets/UI/MainMenu/RightTesla.png" id="15_acal4"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_y8asw"]
+shader = ExtResource("11_gqgio")
+shader_parameter/VanishingValue = 0.0
+shader_parameter/Speed = Vector2(-2, 0)
+shader_parameter/basic_texture = ExtResource("12_7rlme")
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_r36vq"]
+blend_mode = 1
+light_mode = 1
+
+[sub_resource type="Curve" id="Curve_w41vn"]
+_data = [Vector2(0, 0.549451), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_1kdmu"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_vx6to"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_a3vvu"]
+curve_x = SubResource("Curve_w41vn")
+curve_y = SubResource("Curve_1kdmu")
+curve_z = SubResource("Curve_vx6to")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_cvov5"]
+particle_flag_align_y = true
+particle_flag_disable_z = true
+emission_shape = 6
+emission_ring_axis = Vector3(0, 0, 1)
+emission_ring_height = 50.0
+emission_ring_radius = 50.0
+emission_ring_inner_radius = 0.0
+initial_velocity_min = -600.0
+initial_velocity_max = -500.0
+radial_velocity_min = 400.0
+radial_velocity_max = 700.0
+gravity = Vector3(0, 98, 0)
+scale_min = 0.01
+scale_max = 0.05
+scale_curve = SubResource("CurveXYZTexture_a3vvu")
+color = Color(0.5, 1.3, 2.2, 1)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_hklq1"]
+blend_mode = 1
+light_mode = 1
+
+[sub_resource type="Curve" id="Curve_1w2lf"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.292683, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_euagi"]
+curve = SubResource("Curve_1w2lf")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_v8vr1"]
+particle_flag_disable_z = true
+gravity = Vector3(0, 0, 0)
+scale_min = 0.08
+scale_max = 0.3
+scale_curve = SubResource("CurveTexture_euagi")
+color = Color(0.5, 1, 1.2, 1)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_a1g1r"]
+blend_mode = 1
+light_mode = 1
+
+[sub_resource type="Curve" id="Curve_050mt"]
+_data = [Vector2(0, 0.549451), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_056iy"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_gdj4v"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_ods4i"]
+curve_x = SubResource("Curve_050mt")
+curve_y = SubResource("Curve_056iy")
+curve_z = SubResource("Curve_gdj4v")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_vmr1p"]
+particle_flag_align_y = true
+particle_flag_disable_z = true
+emission_shape = 6
+emission_ring_axis = Vector3(0, 0, 1)
+emission_ring_height = 50.0
+emission_ring_radius = 50.0
+emission_ring_inner_radius = 0.0
+initial_velocity_min = -600.0
+initial_velocity_max = -500.0
+radial_velocity_min = 400.0
+radial_velocity_max = 700.0
+gravity = Vector3(0, 98, 0)
+scale_min = 0.01
+scale_max = 0.05
+scale_curve = SubResource("CurveXYZTexture_ods4i")
+color = Color(0.5, 1.3, 2.2, 1)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_qriqk"]
+blend_mode = 1
+light_mode = 1
+
+[sub_resource type="Curve" id="Curve_240nr"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.292683, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_myre1"]
+curve = SubResource("Curve_240nr")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_h5gjl"]
+particle_flag_disable_z = true
+gravity = Vector3(0, 0, 0)
+scale_min = 0.08
+scale_max = 0.3
+scale_curve = SubResource("CurveTexture_myre1")
+color = Color(0.5, 1, 1.2, 1)
+
+[node name="Tesla" type="Sprite2D" node_paths=PackedStringArray("electricBolt", "electricBoltConstant", "padLock", "lightEmission")]
+modulate = Color(0.364706, 0.364706, 0.364706, 1)
+z_index = 2
+scale = Vector2(0.691801, 0.691801)
+texture = ExtResource("1_mj4sl")
+script = ExtResource("2_5t3fx")
+electricBolt = NodePath("ElectricEffect/ParticlesGroup")
+electricBoltConstant = NodePath("ElectricEffect/ParticlesGroup2")
+padLock = NodePath("Screen/Padlock")
+lightEmission = [NodePath("ImpactEffect/LightEmission"), NodePath("LeftTesla/PointLight2D"), NodePath("RightTesla/PointLight2D2")]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+offset_left = -691.0
+offset_top = -653.0
+offset_right = 918.0
+offset_bottom = 502.0
+
+[node name="Light" type="Node2D" parent="."]
+
+[node name="StageLight" type="PointLight2D" parent="Light"]
+position = Vector2(2.22223, -173.333)
+scale = Vector2(0.564986, 0.158231)
+energy = 0.0
+texture = ExtResource("11_fqf0e")
+texture_scale = 0.3
+
+[node name="LevelLight" type="PointLight2D" parent="Light"]
+position = Vector2(5.55554, 158.889)
+scale = Vector2(0.594915, 0.430208)
+energy = 0.0
+texture = ExtResource("11_fqf0e")
+texture_scale = 0.7
+
+[node name="ElectricEffect" type="Node2D" parent="."]
+
+[node name="ParticlesGroup" parent="ElectricEffect" instance=ExtResource("5_yysv7")]
+position = Vector2(52.2222, -28.8889)
+
+[node name="ParticlesGroup2" type="Node2D" parent="ElectricEffect"]
+visible = false
+position = Vector2(51.1111, -27.7778)
+scale = Vector2(0.993244, 1)
+
+[node name="Bolt" type="Line2D" parent="ElectricEffect/ParticlesGroup2"]
+material = SubResource("ShaderMaterial_y8asw")
+position = Vector2(-399.7, -225)
+points = PackedVector2Array(315.556, 223.333, 343.333, 136.667, 241.111, 125.556, 268.889, 72.2222, 334.444, 26.6667, 348.889, 24.4445, 325.556, 2.22222, 264.444, -5.55556, 311.111, -36.6667, 275.556, -85.5556, 321.111, -124.444, 350, -65.5556, 405.556, -102.222, 383.333, -46.6667, 422.222, -37.7778, 378.889, -22.2222, 411.111, 11.1111, 365.556, -4.44444, 355.556, 24.4445, 375.556, 26.6667, 432.222, 73.3333, 452.222, 127.778, 356.667, 137.778, 387.778, 223.333, 1579.5, 223)
+width = 50.0
+default_color = Color(0, 1.00784, 1.8, 1)
+texture_mode = 2
+
+[node name="ImpactEffect" type="Node2D" parent="ElectricEffect/ParticlesGroup2"]
+
+[node name="Sparks" type="GPUParticles2D" parent="ElectricEffect/ParticlesGroup2/ImpactEffect"]
+material = SubResource("CanvasItemMaterial_r36vq")
+position = Vector2(0, 1)
+amount = 15
+process_material = SubResource("ParticleProcessMaterial_cvov5")
+texture = ExtResource("11_fqf0e")
+lifetime = 0.15
+fixed_fps = 60
+
+[node name="Flare" type="GPUParticles2D" parent="ElectricEffect/ParticlesGroup2/ImpactEffect"]
+material = SubResource("CanvasItemMaterial_hklq1")
+position = Vector2(0, -1)
+amount = 1
+process_material = SubResource("ParticleProcessMaterial_v8vr1")
+texture = ExtResource("11_fqf0e")
+lifetime = 0.15
+fixed_fps = 60
+
+[node name="PointLight2D" type="PointLight2D" parent="ElectricEffect/ParticlesGroup2/ImpactEffect"]
+position = Vector2(0, -1)
+color = Color(0.231373, 1, 1, 1)
+energy = 3.0
+texture = ExtResource("11_fqf0e")
+
+[node name="ImpactEffect" type="Node2D" parent="."]
+modulate = Color(1, 1, 1, 0)
+position = Vector2(2.22222, -286.667)
+rotation = 1.29181
+
+[node name="Sparks" type="GPUParticles2D" parent="ImpactEffect"]
+material = SubResource("CanvasItemMaterial_a1g1r")
+position = Vector2(0, 1)
+rotation = -0.280304
+scale = Vector2(0.0304261, 1.15963)
+amount = 15
+process_material = SubResource("ParticleProcessMaterial_vmr1p")
+texture = ExtResource("11_fqf0e")
+lifetime = 0.15
+fixed_fps = 60
+
+[node name="Sparks2" type="GPUParticles2D" parent="ImpactEffect"]
+material = SubResource("CanvasItemMaterial_a1g1r")
+position = Vector2(0, 1)
+rotation = 0.803753
+scale = Vector2(0.0304261, 1.15963)
+amount = 15
+process_material = SubResource("ParticleProcessMaterial_vmr1p")
+texture = ExtResource("11_fqf0e")
+lifetime = 0.15
+fixed_fps = 60
+
+[node name="Flare" type="GPUParticles2D" parent="ImpactEffect"]
+material = SubResource("CanvasItemMaterial_qriqk")
+position = Vector2(0, -1)
+amount = 1
+process_material = SubResource("ParticleProcessMaterial_h5gjl")
+texture = ExtResource("11_fqf0e")
+lifetime = 0.15
+fixed_fps = 60
+
+[node name="LightEmission" type="PointLight2D" parent="ImpactEffect"]
+position = Vector2(0, -1)
+color = Color(0.231373, 1, 1, 1)
+energy = 0.0
+texture = ExtResource("11_fqf0e")
+
+[node name="Screen" type="Node2D" parent="."]
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="Screen"]
+offset_left = -142.0
+offset_top = 98.0
+offset_right = 139.0
+offset_bottom = 243.0
+
+[node name="SubViewport" type="SubViewport" parent="Screen/SubViewportContainer"]
+handle_input_locally = false
+size = Vector2i(282, 143)
+render_target_update_mode = 4
+
+[node name="ScreenView" parent="Screen/SubViewportContainer/SubViewport" instance=ExtResource("7_ylws6")]
+
+[node name="Padlock" type="Node2D" parent="Screen" node_paths=PackedStringArray("topLock", "botLock", "tesla", "light", "listLock", "listLight", "impactEffect")]
+modulate = Color(3, 3, 3, 1)
+position = Vector2(0, 175.556)
+scale = Vector2(0.3, 0.3)
+script = ExtResource("6_lj2er")
+topLock = NodePath("PadlockTop")
+botLock = NodePath("PadlockBottom")
+tesla = NodePath("../..")
+light = NodePath("../../Light/LevelLight")
+listLock = [NodePath("PadlockTop"), NodePath("PadlockBottom")]
+listLight = [NodePath("../../Light/StageLight"), NodePath("../../Light/LevelLight")]
+impactEffect = NodePath("../../ImpactEffect")
+
+[node name="PadlockTop" type="Sprite2D" parent="Screen/Padlock"]
+self_modulate = Color(0.625207, 0.107052, 0.0971844, 1)
+position = Vector2(-6.30621, -76.3286)
+texture = ExtResource("6_spfcw")
+
+[node name="PadlockBottom" type="Sprite2D" parent="Screen/Padlock"]
+self_modulate = Color(0.625207, 0.107052, 0.0971844, 1)
+position = Vector2(0.540649, 65.7433)
+texture = ExtResource("7_q6xe4")
+
+[node name="LeftTesla" type="Sprite2D" parent="."]
+z_index = 1
+z_as_relative = false
+position = Vector2(-80.9481, 151.778)
+texture = ExtResource("14_jrvgw")
+
+[node name="PointLight2D" type="PointLight2D" parent="LeftTesla"]
+position = Vector2(-7.2275, 18.7915)
+scale = Vector2(0.349856, 0.968736)
+energy = 0.0
+range_z_min = 0
+range_z_max = 1
+texture = ExtResource("11_fqf0e")
+texture_scale = 0.5
+
+[node name="RightTesla" type="Sprite2D" parent="."]
+z_index = 1
+z_as_relative = false
+position = Vector2(85.2846, 153.223)
+texture = ExtResource("15_acal4")
+
+[node name="PointLight2D2" type="PointLight2D" parent="RightTesla"]
+position = Vector2(10.1185, 40.4741)
+scale = Vector2(0.349856, 0.968736)
+energy = 0.0
+range_z_min = 0
+range_z_max = 1
+texture = ExtResource("11_fqf0e")
+texture_scale = 0.5
+
+[editable path="Screen/SubViewportContainer/SubViewport/ScreenView"]

@@ -1,0 +1,43 @@
+[gd_scene load_steps=5 format=3 uid="uid://c31ubpwdt65uw"]
+
+[ext_resource type="Script" path="res://Scripts/Controls/Piston.cs" id="1_353l5"]
+[ext_resource type="Texture2D" uid="uid://ciqd6tkmx3t7n" path="res://Assets/UI/LoginScreen/PistonHead.png" id="1_kqu2s"]
+[ext_resource type="Texture2D" uid="uid://cke54ftmmpvjp" path="res://Assets/UI/LoginScreen/PistonBody1.png" id="2_uw6aq"]
+[ext_resource type="Texture2D" uid="uid://ciev2fhwhlqqu" path="res://Assets/UI/LoginScreen/PistonBody2.png" id="3_p1n7w"]
+
+[node name="Piston" type="Control" node_paths=PackedStringArray("head", "body1", "body2")]
+layout_mode = 3
+anchor_right = 0.094
+anchor_bottom = 0.198
+offset_right = -180.48
+offset_bottom = -213.84
+script = ExtResource("1_353l5")
+head = NodePath("Head")
+body1 = NodePath("Body1")
+body2 = NodePath("Body2")
+
+[node name="Head" type="TextureRect" parent="."]
+modulate = Color(0.485703, 0.485704, 0.485703, 1)
+layout_mode = 1
+offset_right = 180.0
+offset_bottom = 10.0
+texture = ExtResource("1_kqu2s")
+metadata/_edit_use_anchors_ = true
+
+[node name="Body1" type="TextureRect" parent="."]
+modulate = Color(0.572988, 0.572988, 0.572988, 1)
+layout_mode = 0
+offset_left = 85.0
+offset_top = 10.0
+offset_right = 95.0
+offset_bottom = 110.0
+texture = ExtResource("2_uw6aq")
+
+[node name="Body2" type="TextureRect" parent="."]
+modulate = Color(0.54099, 0.54099, 0.54099, 1)
+layout_mode = 0
+offset_left = 75.0
+offset_top = 110.0
+offset_right = 105.0
+offset_bottom = 210.0
+texture = ExtResource("3_p1n7w")
