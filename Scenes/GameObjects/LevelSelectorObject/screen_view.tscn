@@ -92,14 +92,15 @@ shader_parameter/lines_velocity = 10.0
 [node name="ScreenView" type="Node2D"]
 
 [node name="TextureRect" type="TextureRect" parent="."]
-offset_left = 10.0
-offset_top = 10.0
-offset_right = 1286.0
-offset_bottom = 1001.0
+offset_left = 3.0
+offset_top = 3.0
+offset_right = 2215.0
+offset_bottom = 1124.0
 scale = Vector2(0.12477, 0.124925)
 texture = ExtResource("1_huf47")
 
 [node name="LevelLabel" type="Label" parent="."]
+visible = false
 offset_left = 166.128
 offset_top = 34.541
 offset_right = 365.128
