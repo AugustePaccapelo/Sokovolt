@@ -1,7 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://bix7hbs5g2ia3"]
-
-[ext_resource type="Script" path="res://Scripts/Managers/LevelManager.cs" id="1_s0koo"]
-
-[node name="LevelManager" type="Node2D" node_paths=PackedStringArray("objectContainer")]
-script = ExtResource("1_s0koo")
-objectContainer = NodePath(".")
