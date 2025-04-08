@@ -111,9 +111,6 @@ namespace Com.IsartDigital.SokoVolt.GameObjects {
 				.SetEase(Tween.EaseType.In);
 
 			await ToSignal(lPistonTween, FINISHED);
-			await ToSignal(GetTree().CreateTimer(1f), TIME_OUT);
-			
-			ClearMaskRecursively(topPart);
 
 			if (pTargetCell != null)
 			{
@@ -123,8 +120,10 @@ namespace Com.IsartDigital.SokoVolt.GameObjects {
 				if (content != null)
 					ClearMaskRecursively(content);
 			}
+			
 
-
+			await ToSignal(GetTree().CreateTimer(1f), TIME_OUT);
+			ClearMaskRecursively(topPart);
 			QueueFree(); 
 		}
 
