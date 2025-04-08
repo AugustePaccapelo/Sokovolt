@@ -369,8 +369,9 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 		// Resets grid to first state (restart)
 		private void Retry()
 		{
-			SetGridState(0); 
-		}
+			SetGridState(0);
+			CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.StartRecherche);
+        }
 
 
 		#endregion
