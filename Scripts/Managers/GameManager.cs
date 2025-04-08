@@ -113,7 +113,7 @@ namespace Com.IsartDigital.SokoVolt.Managers
                 }
 			}
             door?.Open();
-            if (currentLevel <= 3) gridManager.HandleCellClicked(new Vector2(door.x, door.y));
+            // if (currentLevel <= 3) gridManager.HandleCellClicked(new Vector2(door.x, door.y));
 		}
         private void PlayerHasMoved()
         {
@@ -152,7 +152,13 @@ namespace Com.IsartDigital.SokoVolt.Managers
 			hud.displayInGame.Visible = false; 
             CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.GameFinished, lNumStar, lScore, lNumStep);
         }
-		private void NewLevelLoaded(int pLevel) => currentLevel = pLevel;
+		private void NewLevelLoaded(int pLevel) => currentLevel = pLevel; 
+
+		//CamZoomInLevel
+		public void CamZoomInLevel()
+		{
+
+		}
 
         // ----- Destructor ----- \\
 

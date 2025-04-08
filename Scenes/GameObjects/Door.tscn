@@ -253,9 +253,9 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_1e8pc")
 }],
-"loop": true,
+"loop": false,
 "name": &"default",
-"speed": 20.0
+"speed": 30.0
 }]
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_1tqbt"]
@@ -275,11 +275,11 @@ turbulence_influence_max = 0.055
 turbulence_initial_displacement_min = -90.9
 turbulence_initial_displacement_max = -77.3
 
-[node name="Door" type="Node2D" node_paths=PackedStringArray("closedVisual", "openedVisual", "openedVisualParticles")]
+[node name="Door" type="Node2D" node_paths=PackedStringArray("openedVisual", "openedVisualParticles", "openCloseAnimation")]
 script = ExtResource("1_6nbkh")
-closedVisual = NodePath("Visual/Close")
 openedVisual = NodePath("Visual/Open")
 openedVisualParticles = NodePath("Visual/Open/GPUParticles2D")
+openCloseAnimation = NodePath("Visual/OpenAnimation")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 visible = false
@@ -294,26 +294,20 @@ z_index = -5
 position = Vector2(0, 8)
 scale = Vector2(1.45355, 0.8)
 
-[node name="Close" type="Node2D" parent="Visual"]
-position = Vector2(-5.96046e-08, 1.25)
-scale = Vector2(1.65, 1.65)
-
-[node name="CloseAnimation" type="AnimatedSprite2D" parent="Visual/Close"]
-position = Vector2(-2.38419e-07, -6.81818)
-scale = Vector2(0.231384, 0.369061)
+[node name="OpenAnimation" type="AnimatedSprite2D" parent="Visual"]
+position = Vector2(0.687977, -18.0469)
+scale = Vector2(0.162438, 0.28887)
 sprite_frames = SubResource("SpriteFrames_4mety")
-frame_progress = 0.204857
+frame_progress = 0.0257521
 
 [node name="Open" type="Node2D" parent="Visual"]
 visible = false
+position = Vector2(0.1452, -17.8644)
 rotation = 0.770273
 scale = Vector2(1.65, 1.65)
 
-[node name="OpenAnimation" type="AnimatedSprite2D" parent="Visual/Open"]
-
 [node name="PointLight2D" type="PointLight2D" parent="Visual/Open"]
-visible = false
-position = Vector2(-24.7482, -26.4964)
+position = Vector2(-29.5851, -30.2656)
 rotation = 2.37827
 scale = Vector2(0.725819, 0.906245)
 color = Color(1, 1, 0.278431, 1)
@@ -321,6 +315,7 @@ texture = ExtResource("2_kiik0")
 texture_scale = 0.2
 
 [node name="PointLight2D2" type="PointLight2D" parent="Visual/Open"]
+position = Vector2(-6.93566, -8.46595)
 rotation = 1.67208
 scale = Vector2(0.42923, 0.426968)
 color = Color(1, 1, 0.278431, 1)

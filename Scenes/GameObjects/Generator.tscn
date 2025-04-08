@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://dellu8bu72iut"]
+[gd_scene load_steps=35 format=3 uid="uid://dellu8bu72iut"]
 
 [ext_resource type="Script" path="res://Scripts/GameObjects/Generator.cs" id="1_3t66j"]
 [ext_resource type="Texture2D" uid="uid://deokvx6ammfci" path="res://Assets/GameObjects/IsoObjects/BatteryIso.png" id="2_wsidw"]
@@ -32,6 +32,7 @@
 [ext_resource type="Texture2D" uid="uid://dimvuguwai4k3" path="res://Assets/GameObjects/IsoObjects/GeneratorAnimation/0028.png" id="30_0aor2"]
 [ext_resource type="Texture2D" uid="uid://clfh3jmlsfppo" path="res://Assets/GameObjects/IsoObjects/GeneratorAnimation/0029.png" id="31_je0l7"]
 [ext_resource type="Texture2D" uid="uid://dml7fo1pyxgym" path="res://Assets/GameObjects/IsoObjects/GeneratorAnimation/0030.png" id="32_g25sq"]
+[ext_resource type="Texture2D" uid="uid://c767fcajnj2yi" path="res://Assets/Shaders/Effects/Glow.png" id="33_lmu0t"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_36ml4"]
 animations = [{
@@ -172,3 +173,10 @@ sprite_frames = SubResource("SpriteFrames_36ml4")
 autoplay = "default"
 frame = 24
 frame_progress = 0.00513827
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(-1, 17)
+scale = Vector2(0.700231, 0.26331)
+color = Color(0.983956, 0.699043, 0, 1)
+texture = ExtResource("33_lmu0t")
+texture_scale = 0.4

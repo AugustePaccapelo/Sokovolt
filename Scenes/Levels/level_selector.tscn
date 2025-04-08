@@ -1,4 +1,4 @@
-[gd_scene load_steps=87 format=3 uid="uid://dht3qeqhib1rk"]
+[gd_scene load_steps=86 format=3 uid="uid://dht3qeqhib1rk"]
 
 [ext_resource type="Script" path="res://Scripts/Controls/LevelSelector.cs" id="1_7onrw"]
 [ext_resource type="Texture2D" uid="uid://dyr30pkkewie" path="res://Assets/UI/MainMenu/LevelScreen.png" id="2_u4r7s"]
@@ -15,7 +15,6 @@
 [ext_resource type="Texture2D" uid="uid://dc3or7fnkox6b" path="res://Assets/UI/MainMenu/Smoke.png" id="16_oywvd"]
 [ext_resource type="Texture2D" uid="uid://cuwmy2vafhkfl" path="res://Assets/UI/MainMenu/light.png" id="18_ggq5m"]
 [ext_resource type="PackedScene" uid="uid://36dp5dq6hmqq" path="res://Scenes/GameObjects/ButtonTemplate.tscn" id="20_0nxsh"]
-[ext_resource type="FontFile" uid="uid://cnbh4yep38ewa" path="res://Assets/Font/Erindale D.otf" id="22_4q3pu"]
 [ext_resource type="Texture2D" uid="uid://c7un4g41qom0x" path="res://Assets/UI/MainMenu/machine.png" id="23_835b2"]
 [ext_resource type="PackedScene" uid="uid://bs1v2cedkky8a" path="res://Scenes/GameObjects/LevelSelectorObject/wheel.tscn" id="24_kc3pk"]
 [ext_resource type="Shader" uid="uid://bum2gqlmpu2kv" path="res://Assets/Shaders/ElectricBoltShader.tres" id="25_wd3ca"]
@@ -1069,7 +1068,6 @@ offset_top = 928.0
 offset_right = 1712.0
 offset_bottom = 1053.0
 pivot_offset = Vector2(148, 62)
-theme_override_fonts/font = ExtResource("22_4q3pu")
 theme_override_font_sizes/font_size = 60
 theme_override_styles/normal = SubResource("StyleBoxFlat_t6bik")
 theme_override_styles/hover = SubResource("StyleBoxFlat_toftg")

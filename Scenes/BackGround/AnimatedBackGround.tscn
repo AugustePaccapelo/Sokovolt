@@ -1,4 +1,4 @@
-[gd_scene load_steps=193 format=3 uid="uid://bkskxcspqook3"]
+[gd_scene load_steps=194 format=3 uid="uid://bkskxcspqook3"]
 
 [ext_resource type="Texture2D" uid="uid://bpo2rssirymdi" path="res://Assets/Background/0001_resultat.webp" id="1_5qgpg"]
 [ext_resource type="Script" path="res://Scripts/CustomMaskOcluder.cs" id="1_n7nym"]
@@ -191,6 +191,7 @@
 [ext_resource type="Texture2D" uid="uid://0jjc60ob2asl" path="res://Assets/Background/0188_resultat.webp" id="188_upg4g"]
 [ext_resource type="Texture2D" uid="uid://cq3axhhiearhd" path="res://Assets/Background/0189_resultat.webp" id="189_yyrc8"]
 [ext_resource type="Texture2D" uid="uid://btrkq8jf6auwr" path="res://Assets/Background/0190_resultat.webp" id="190_01ul6"]
+[ext_resource type="Texture2D" uid="uid://c767fcajnj2yi" path="res://Assets/Shaders/Effects/Glow.png" id="192_dw8oj"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_g7f0p"]
 animations = [{
@@ -784,6 +785,13 @@ scale = Vector2(1.01406, 1.01759)
 sprite_frames = SubResource("SpriteFrames_g7f0p")
 autoplay = "default"
 frame_progress = 0.0397409
+
+[node name="PointLight2D" type="PointLight2D" parent="AnimatedSprite2D"]
+position = Vector2(-13.3129, 73.2122)
+scale = Vector2(0.986135, 0.982714)
+color = Color(0.936701, 0.3739, 0.4333, 1)
+energy = 0.3
+texture = ExtResource("192_dw8oj")
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
 polygon = PackedVector2Array(1719, 571, 962, 1013, 218, 574, 628, 321, -285, 320, -290, 1441, 2230, 1431, 2220, 321, 1292, 323)
