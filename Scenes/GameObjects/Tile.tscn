@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scripts/GameObjects/Cell.cs" id="1_acgh3"]
 [ext_resource type="Texture2D" uid="uid://bdve04vewbuy4" path="res://Assets/GameObjects/IsoTiles/grasswatertilesjoinsflat.png" id="2_loord"]
-[ext_resource type="Texture2D" uid="uid://hljn76vjvkas" path="res://Assets/GameObjects/IsoTiles/Wall2.png" id="3_34hvt"]
+[ext_resource type="Texture2D" uid="uid://dvcfbv6wvby4o" path="res://Assets/GameObjects/IsoObjects/Tile2.png" id="3_xelrx"]
 
 [node name="Tile" type="Node2D"]
 script = ExtResource("1_acgh3")
@@ -35,4 +35,4 @@ texture = ExtResource("2_loord")
 [node name="Tile2" type="Sprite2D" parent="."]
 position = Vector2(1, 4)
 scale = Vector2(0.07, 0.07)
-texture = ExtResource("3_34hvt")
+texture = ExtResource("3_xelrx")
