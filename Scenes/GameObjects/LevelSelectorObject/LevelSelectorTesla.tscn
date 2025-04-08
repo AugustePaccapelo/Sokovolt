@@ -138,7 +138,7 @@ color = Color(0.5, 1, 1.2, 1)
 [node name="Tesla" type="Sprite2D" node_paths=PackedStringArray("electricBolt", "electricBoltConstant", "padLock", "lightEmission")]
 modulate = Color(0.364706, 0.364706, 0.364706, 1)
 z_index = 2
-scale = Vector2(0.691801, 0.691801)
+scale = Vector2(0.84344, 0.84344)
 texture = ExtResource("1_mj4sl")
 script = ExtResource("2_5t3fx")
 electricBolt = NodePath("ElectricEffect/ParticlesGroup")
@@ -254,6 +254,7 @@ position = Vector2(0, -1)
 color = Color(0.231373, 1, 1, 1)
 energy = 0.0
 texture = ExtResource("11_fqf0e")
+texture_scale = 0.7
 
 [node name="Screen" type="Node2D" parent="."]
 
@@ -322,5 +323,3 @@ range_z_min = 0
 range_z_max = 1
 texture = ExtResource("11_fqf0e")
 texture_scale = 0.5
-
-[editable path="Screen/SubViewportContainer/SubViewport/ScreenView"]

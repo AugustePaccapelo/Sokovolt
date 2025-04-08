@@ -83,7 +83,7 @@ namespace Com.IsartDigital.SokoVolt
 
         private void MainMenu()
         {
-            CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.GoToMainMenu);
+            GetTree().CreateTimer(0.5f).Timeout += () => CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.GoToMainMenu);
         }
 
         //Create Tesla for each level there are
@@ -114,6 +114,7 @@ namespace Com.IsartDigital.SokoVolt
             if (!alreadyPress)
             {
                 alreadyPress = true;
+                if(buttonLaunch.Disabled) buttonLaunch.Disabled = false;
                 EmitSignal(nameof(UnlockAllLevel));
                 GetTree().CreateTimer(1f).Timeout += () => alreadyPress = false;
             }

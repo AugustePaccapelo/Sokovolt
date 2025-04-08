@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://31ew226yj11n"]
+[gd_scene load_steps=13 format=3 uid="uid://31ew226yj11n"]
 
 [ext_resource type="Script" path="res://Scripts/Controls/LoginScreen.cs" id="1_skjs4"]
 [ext_resource type="PackedScene" uid="uid://cpnulmydq6mp6" path="res://Scenes/UI/LoginScreen/Belt.tscn" id="2_bb5nt"]
@@ -19,6 +19,13 @@ frame_2/duration = 0.2
 
 [sub_resource type="LabelSettings" id="LabelSettings_al77a"]
 font_color = Color(0.992157, 0, 0, 1)
+
+[sub_resource type="InputEventKey" id="InputEventKey_17uii"]
+device = -1
+keycode = 4194309
+
+[sub_resource type="Shortcut" id="Shortcut_t34kv"]
+events = [SubResource("InputEventKey_17uii")]
 
 [sub_resource type="LabelSettings" id="LabelSettings_cntyw"]
 font_color = Color(1, 0, 0, 1)
@@ -269,6 +276,7 @@ label_settings = SubResource("LabelSettings_al77a")
 
 [node name="ButtonConfirm" type="Button" parent="Login/VBoxScreenHolder"]
 layout_mode = 2
+shortcut = SubResource("Shortcut_t34kv")
 text = "Login"
 
 [node name="ChangeScreen" type="Button" parent="Login/VBoxScreenHolder"]

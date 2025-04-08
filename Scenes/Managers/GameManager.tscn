@@ -18,6 +18,7 @@ color = Color(0, 0, 0, 1)
 polygon = PackedVector2Array(0, 13, 0, 0, 9, 8, 6, 10, 9, 17, 7, 19, 3, 12)
 
 [node name="PointLight2D" type="PointLight2D" parent="Mouse"]
+visible = false
 energy = 0.2
 range_z_max = 2001
 texture = ExtResource("2_oi3ve")

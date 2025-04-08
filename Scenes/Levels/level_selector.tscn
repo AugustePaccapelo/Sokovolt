@@ -1,4 +1,4 @@
-[gd_scene load_steps=80 format=3 uid="uid://dht3qeqhib1rk"]
+[gd_scene load_steps=87 format=3 uid="uid://dht3qeqhib1rk"]
 
 [ext_resource type="Script" path="res://Scripts/Controls/LevelSelector.cs" id="1_7onrw"]
 [ext_resource type="Texture2D" uid="uid://dyr30pkkewie" path="res://Assets/UI/MainMenu/LevelScreen.png" id="2_u4r7s"]
@@ -9,19 +9,13 @@
 [ext_resource type="Texture2D" uid="uid://6ogwctw6dhxl" path="res://Assets/UI/MainMenu/Manette.png" id="6_8hpna"]
 [ext_resource type="Texture2D" uid="uid://6qajctfobfih" path="res://Assets/UI/MainMenu/CarpetBorder2.png" id="6_cobsf"]
 [ext_resource type="Texture2D" uid="uid://c767fcajnj2yi" path="res://Assets/Shaders/Effects/Glow.png" id="7_c1v7e"]
-[ext_resource type="Texture2D" uid="uid://cyr4o5fwatqn6" path="res://Assets/UI/MainMenu/ManetteButtonLeft.png" id="7_pfdtp"]
-[ext_resource type="Texture2D" uid="uid://cnndesag05dud" path="res://Assets/UI/MainMenu/ButtonLeftPressed.png" id="8_kmrbs"]
-[ext_resource type="Texture2D" uid="uid://v4dwd3oinj6" path="res://Assets/UI/MainMenu/ManetteButtonRight.png" id="9_mhunn"]
-[ext_resource type="Texture2D" uid="uid://do5divm0ix4rl" path="res://Assets/UI/MainMenu/ButtonRightPressed.png" id="10_naqst"]
 [ext_resource type="Texture2D" uid="uid://d027gw6ax6ujo" path="res://Assets/UI/MainMenu/Carpet.png" id="11_cogra"]
 [ext_resource type="PackedScene" uid="uid://dty5a7hnd1fve" path="res://Scenes/GameObjects/LevelSelectorObject/button_smoke_particles.tscn" id="15_53pe0"]
 [ext_resource type="Texture2D" uid="uid://dw208iyoc71pe" path="res://Assets/UI/MainMenu/LightProjection.png" id="15_cy604"]
 [ext_resource type="Texture2D" uid="uid://dc3or7fnkox6b" path="res://Assets/UI/MainMenu/Smoke.png" id="16_oywvd"]
-[ext_resource type="Texture2D" uid="uid://ct4gh1ir11uf1" path="res://Assets/UI/MainMenu/LAUNCHBUTTON.png" id="17_6ncai"]
-[ext_resource type="PackedScene" uid="uid://b0olmoqwuw54k" path="res://Scenes/GameObjects/WinScreen/rope.tscn" id="18_8m3jd"]
 [ext_resource type="Texture2D" uid="uid://cuwmy2vafhkfl" path="res://Assets/UI/MainMenu/light.png" id="18_ggq5m"]
-[ext_resource type="Texture2D" uid="uid://kulh7f8b8jlr" path="res://icon.svg" id="19_jj0lu"]
 [ext_resource type="PackedScene" uid="uid://36dp5dq6hmqq" path="res://Scenes/GameObjects/ButtonTemplate.tscn" id="20_0nxsh"]
+[ext_resource type="FontFile" uid="uid://cnbh4yep38ewa" path="res://Assets/Font/Erindale D.otf" id="22_4q3pu"]
 [ext_resource type="Texture2D" uid="uid://c7un4g41qom0x" path="res://Assets/UI/MainMenu/machine.png" id="23_835b2"]
 [ext_resource type="PackedScene" uid="uid://bs1v2cedkky8a" path="res://Scenes/GameObjects/LevelSelectorObject/wheel.tscn" id="24_kc3pk"]
 [ext_resource type="Shader" uid="uid://bum2gqlmpu2kv" path="res://Assets/Shaders/ElectricBoltShader.tres" id="25_wd3ca"]
@@ -78,38 +72,223 @@ color_ramp = SubResource("GradientTexture1D_oev6p")
 turbulence_influence_min = 0.0
 turbulence_influence_max = 0.053
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5qe13"]
-texture = ExtResource("7_pfdtp")
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8lue5"]
+bg_color = Color(0.559523, 1.27546e-06, 3.36915e-07, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 50
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 50
+corner_detail = 16
+shadow_color = Color(0, 0, 0, 0.603922)
+shadow_size = 5
+shadow_offset = Vector2(-1, 5)
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hlsy8"]
-texture = ExtResource("7_pfdtp")
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_at7ei"]
+bg_color = Color(0.442501, 9.3855e-07, 2.16588e-07, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 50
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 50
+corner_detail = 16
+shadow_color = Color(0, 0, 0, 0.603922)
+shadow_size = 5
+shadow_offset = Vector2(-1, 5)
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_q45k0"]
-texture = ExtResource("8_kmrbs")
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ck5x4"]
+bg_color = Color(0.384647, 5.83585e-07, 1.68458e-07, 1)
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 50
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 50
+corner_detail = 16
+shadow_color = Color(0, 0, 0, 0.603922)
+shadow_offset = Vector2(-1, 5)
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_58gse"]
-texture = ExtResource("9_mhunn")
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_boprf"]
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dvuri"]
-texture = ExtResource("9_mhunn")
+[sub_resource type="InputEventKey" id="InputEventKey_tv7e5"]
+device = -1
+keycode = 4194319
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_oncao"]
-texture = ExtResource("10_naqst")
+[sub_resource type="Shortcut" id="Shortcut_0fmw5"]
+events = [SubResource("InputEventKey_tv7e5")]
 
-[sub_resource type="Gradient" id="Gradient_68hqy"]
-offsets = PackedFloat32Array(0, 0.947598, 1)
-colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gjake"]
+bg_color = Color(0.559523, 1.27546e-06, 3.36915e-07, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+corner_detail = 16
+shadow_size = 5
+shadow_offset = Vector2(0, 5)
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_7xvwa"]
-gradient = SubResource("Gradient_68hqy")
-fill = 2
-fill_from = Vector2(0.517094, 0.491453)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_prcpx"]
+bg_color = Color(0.468327, 1.10099e-06, 1.68458e-07, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+corner_detail = 16
+shadow_size = 5
+shadow_offset = Vector2(0, 5)
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ufiac"]
-texture = ExtResource("17_6ncai")
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ux8s3"]
+bg_color = Color(0.423185, 9.08468e-07, 3.1285e-07, 1)
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+corner_detail = 16
+shadow_offset = Vector2(0, 5)
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_n63r8"]
-texture = ExtResource("17_6ncai")
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_oi1y7"]
+
+[sub_resource type="InputEventKey" id="InputEventKey_gko1h"]
+device = -1
+keycode = 32
+unicode = 32
+
+[sub_resource type="Shortcut" id="Shortcut_7dlpy"]
+events = [SubResource("InputEventKey_gko1h")]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6x0q0"]
+bg_color = Color(0.559523, 1.27546e-06, 3.36915e-07, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 10
+corner_detail = 16
+shadow_color = Color(0, 0, 0, 0.603922)
+shadow_size = 5
+shadow_offset = Vector2(1, 5)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jqsia"]
+bg_color = Color(0.442501, 9.3855e-07, 2.16588e-07, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 10
+corner_detail = 16
+shadow_color = Color(0, 0, 0, 0.603922)
+shadow_size = 5
+shadow_offset = Vector2(1, 5)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1moiu"]
+bg_color = Color(0.384647, 5.83585e-07, 1.68458e-07, 1)
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 10
+corner_detail = 16
+shadow_color = Color(0, 0, 0, 0.603922)
+shadow_offset = Vector2(1, 5)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hpabm"]
+
+[sub_resource type="InputEventKey" id="InputEventKey_8xy7a"]
+device = -1
+keycode = 4194321
+
+[sub_resource type="Shortcut" id="Shortcut_wplr8"]
+events = [SubResource("InputEventKey_8xy7a")]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k1ptg"]
+bg_color = Color(0.658824, 0, 0, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 40
+corner_radius_top_right = 40
+corner_radius_bottom_right = 40
+corner_radius_bottom_left = 40
+corner_detail = 16
+shadow_color = Color(0, 0, 0, 0.545098)
+shadow_size = 5
+shadow_offset = Vector2(10, 10)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yk68b"]
+bg_color = Color(0.526651, 0.000616032, 0.000337348, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 40
+corner_radius_top_right = 40
+corner_radius_bottom_right = 40
+corner_radius_bottom_left = 40
+corner_detail = 16
+shadow_color = Color(0, 0, 0, 0.545098)
+shadow_size = 2
+shadow_offset = Vector2(10, 10)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2m1jg"]
+bg_color = Color(0.4295, 0.000399251, 0.000218995, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 40
+corner_radius_top_right = 40
+corner_radius_bottom_right = 40
+corner_radius_bottom_left = 40
+corner_detail = 16
+shadow_color = Color(0, 0, 0, 0.545098)
+shadow_offset = Vector2(10, 10)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3xews"]
+bg_color = Color(0.4295, 0.000399251, 0.000218995, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 40
+corner_radius_top_right = 40
+corner_radius_bottom_right = 40
+corner_radius_bottom_left = 40
+corner_detail = 16
+shadow_color = Color(0, 0, 0, 0.545098)
+shadow_offset = Vector2(10, 10)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_e6but"]
 
 [sub_resource type="Gradient" id="Gradient_0xs26"]
 offsets = PackedFloat32Array(0, 0.703057)
@@ -155,23 +334,6 @@ scale_min = 0.2
 scale_max = 0.5
 scale_curve = SubResource("CurveXYZTexture_lgqek")
 color_ramp = SubResource("GradientTexture1D_cm1l1")
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_xrtg8"]
-size = Vector2(297, 116.5)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eukx6"]
-bg_color = Color(0.772605, 0.548351, 0.293242, 1)
-corner_radius_top_left = 25
-corner_radius_top_right = 25
-corner_radius_bottom_right = 25
-corner_radius_bottom_left = 25
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tnbgi"]
-bg_color = Color(0.542834, 0.372013, 0.173226, 1)
-corner_radius_top_left = 25
-corner_radius_top_right = 25
-corner_radius_bottom_right = 25
-corner_radius_bottom_left = 25
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_y8asw"]
 shader = ExtResource("25_wd3ca")
@@ -298,15 +460,62 @@ scale_max = 0.05
 scale_curve = SubResource("CurveXYZTexture_a3vvu")
 color = Color(1, 0.780392, 0, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t6bik"]
+bg_color = Color(0.211765, 0.494118, 0.180392, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 40
+corner_radius_top_right = 40
+corner_radius_bottom_right = 40
+corner_radius_bottom_left = 40
+corner_detail = 16
+shadow_color = Color(0, 0, 0, 0.545098)
+shadow_size = 5
+shadow_offset = Vector2(10, 10)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_toftg"]
+bg_color = Color(0.12115, 0.303284, 0.100869, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 40
+corner_radius_top_right = 40
+corner_radius_bottom_right = 40
+corner_radius_bottom_left = 40
+corner_detail = 16
+shadow_color = Color(0, 0, 0, 0.545098)
+shadow_size = 2
+shadow_offset = Vector2(10, 10)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eb3a8"]
+bg_color = Color(0.143672, 0.269625, 0.136606, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 40
+corner_radius_top_right = 40
+corner_radius_bottom_right = 40
+corner_radius_bottom_left = 40
+corner_detail = 16
+shadow_color = Color(0, 0, 0, 0.545098)
+shadow_offset = Vector2(10, 10)
+
 [node name="LevelSelector" type="Control" node_paths=PackedStringArray("buttonRight", "buttonLaunch", "buttonLeft", "buttonUnlockAll", "buttonMainMenu", "carpetTexture", "teslaContainer", "scoreBoard")]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_7onrw")
-buttonRight = NodePath("ButtonBox/Right")
-buttonLaunch = NodePath("ButtonBox/ButtonLaunch")
-buttonLeft = NodePath("ButtonBox/Left")
+buttonRight = NodePath("ButtonBox/HBoxContainer/Right")
+buttonLaunch = NodePath("ButtonBox/HBoxContainer/ButtonLaunch")
+buttonLeft = NodePath("ButtonBox/HBoxContainer/Left")
 buttonUnlockAll = NodePath("ButtonBox/UnlockButton")
-buttonMainMenu = NodePath("Sign/RigidBody2D/MainMenuButton")
+buttonMainMenu = NodePath("MainMenuButton")
 carpetTexture = NodePath("Carpet")
 texture = ExtResource("2_u4r7s")
 teslaScene = ExtResource("3_31hu0")
@@ -332,7 +541,8 @@ range_z_min = 0
 range_z_max = 50
 
 [node name="ScoreScreen" parent="." instance=ExtResource("5_1sge3")]
-position = Vector2(1588, 319)
+position = Vector2(1557, 323)
+scale = Vector2(1.17565, 1.17565)
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
 position = Vector2(12, 773)
@@ -378,6 +588,7 @@ texture = ExtResource("27_udj1q")
 [node name="TeslaContainer" type="Node2D" parent="."]
 
 [node name="ButtonBox" type="TextureRect" parent="."]
+z_index = 100
 layout_mode = 1
 offset_left = 523.0
 offset_top = 784.0
@@ -387,43 +598,82 @@ scale = Vector2(0.637772, 0.637772)
 pivot_offset = Vector2(425, 185)
 texture = ExtResource("6_8hpna")
 
-[node name="Left" type="Button" parent="ButtonBox"]
-layout_mode = 0
-offset_left = 111.058
-offset_top = 23.9537
-offset_right = 292.058
-offset_bottom = 168.954
-pivot_offset = Vector2(90, 72)
-theme_override_styles/normal = SubResource("StyleBoxTexture_5qe13")
-theme_override_styles/hover = SubResource("StyleBoxTexture_hlsy8")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_q45k0")
+[node name="HBoxContainer" type="HBoxContainer" parent="ButtonBox"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -351.723
+offset_top = -164.636
+offset_right = 351.277
+offset_bottom = 14.3643
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 40
+alignment = 1
+
+[node name="Left" type="Button" parent="ButtonBox/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0.270222, 0.270222, 0.270222, 1)
+theme_override_colors/font_hover_color = Color(0.151276, 0.151276, 0.151276, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 90
+theme_override_styles/normal = SubResource("StyleBoxFlat_8lue5")
+theme_override_styles/hover = SubResource("StyleBoxFlat_at7ei")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ck5x4")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_ck5x4")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_boprf")
+shortcut = SubResource("Shortcut_0fmw5")
+text = "<="
 icon_alignment = 1
 
-[node name="PointLight2D" type="PointLight2D" parent="ButtonBox/Left"]
+[node name="PointLight2D" type="PointLight2D" parent="ButtonBox/HBoxContainer/Left"]
 position = Vector2(97.9924, 80.5717)
 color = Color(1, 0, 0, 1)
 texture = ExtResource("7_c1v7e")
 texture_scale = 0.32
 
-[node name="Right" type="Button" parent="ButtonBox"]
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -273.933
-offset_top = -156.691
-offset_right = -92.9332
-offset_bottom = -11.6911
-grow_horizontal = 0
-grow_vertical = 2
-pivot_offset = Vector2(90, 72)
-theme_override_styles/normal = SubResource("StyleBoxTexture_58gse")
-theme_override_styles/hover = SubResource("StyleBoxTexture_dvuri")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_oncao")
+[node name="ButtonLaunch" type="Button" parent="ButtonBox/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0.270222, 0.270222, 0.270222, 1)
+theme_override_colors/font_hover_color = Color(0.151276, 0.151276, 0.151276, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 90
+theme_override_styles/normal = SubResource("StyleBoxFlat_gjake")
+theme_override_styles/hover = SubResource("StyleBoxFlat_prcpx")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ux8s3")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_gjake")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_oi1y7")
+shortcut = SubResource("Shortcut_7dlpy")
+text = "START"
 
-[node name="PointLight2D2" type="PointLight2D" parent="ButtonBox/Right"]
+[node name="PointLight2D" type="PointLight2D" parent="ButtonBox/HBoxContainer/ButtonLaunch"]
+position = Vector2(137.675, 94.0098)
+scale = Vector2(1.80304, 1.11514)
+color = Color(1, 0, 0, 1)
+texture = ExtResource("7_c1v7e")
+texture_scale = 0.2
+
+[node name="Right" type="Button" parent="ButtonBox/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0.270222, 0.270222, 0.270222, 1)
+theme_override_colors/font_hover_color = Color(0.151276, 0.151276, 0.151276, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 90
+theme_override_styles/normal = SubResource("StyleBoxFlat_6x0q0")
+theme_override_styles/hover = SubResource("StyleBoxFlat_jqsia")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_1moiu")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_1moiu")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_hpabm")
+shortcut = SubResource("Shortcut_wplr8")
+text = "=>"
+
+[node name="PointLight2D2" type="PointLight2D" parent="ButtonBox/HBoxContainer/Right"]
 position = Vector2(76.2163, 69.6836)
 color = Color(1, 0, 0, 1)
 texture = ExtResource("7_c1v7e")
@@ -442,7 +692,13 @@ offset_right = 164.5
 offset_bottom = 141.0
 grow_horizontal = 2
 grow_vertical = 2
-pivot_offset = Vector2(75, 25)
+pivot_offset = Vector2(179, 50)
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxFlat_k1ptg")
+theme_override_styles/hover = SubResource("StyleBoxFlat_yk68b")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_2m1jg")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_3xews")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_e6but")
 text = "Unlock All"
 script = ExtResource("4_tfihn")
 during = 0.2
@@ -450,47 +706,28 @@ easeType = 3
 transitionType = 7
 
 [node name="PointLight2D" type="PointLight2D" parent="ButtonBox/UnlockButton"]
-position = Vector2(174.402, 50.4595)
-scale = Vector2(1.48425, 0.460336)
-color = Color(1, 0, 0, 1)
-texture = SubResource("GradientTexture2D_7xvwa")
-texture_scale = 4.04
-
-[node name="ButtonLaunch" type="Button" parent="ButtonBox"]
-layout_mode = 1
-offset_left = 345.0
-offset_top = 24.0
-offset_right = 518.0
-offset_bottom = 194.0
-pivot_offset = Vector2(86, 85)
-theme_override_styles/normal = SubResource("StyleBoxTexture_ufiac")
-theme_override_styles/hover = SubResource("StyleBoxTexture_ufiac")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_ufiac")
-theme_override_styles/disabled = SubResource("StyleBoxTexture_n63r8")
-
-[node name="PointLight2D" type="PointLight2D" parent="ButtonBox/ButtonLaunch"]
-position = Vector2(81.5679, 88.8739)
-scale = Vector2(1.08221, 1)
+position = Vector2(178.32, 49.9416)
+scale = Vector2(5.44828, 1.6966)
 color = Color(1, 0, 0, 1)
 texture = ExtResource("7_c1v7e")
-texture_scale = 0.2
+texture_scale = 0.1
 
 [node name="Light" type="Sprite2D" parent="."]
 position = Vector2(960, 5)
-scale = Vector2(0.357005, 0.357005)
+scale = Vector2(0.257175, 0.257175)
 texture = ExtResource("18_ggq5m")
 offset = Vector2(0, 529.404)
 
 [node name="PointLight2D" type="PointLight2D" parent="Light"]
-position = Vector2(5.17407, 1519.19)
-scale = Vector2(2.83037, 2.83037)
+position = Vector2(-3.88834, 1944.2)
+scale = Vector2(4.38963, 4.38963)
 energy = 0.5
 shadow_enabled = true
 texture = ExtResource("15_cy604")
 
 [node name="PointLight2D2" type="PointLight2D" parent="Light"]
-position = Vector2(16.3783, 2309.1)
-scale = Vector2(3.02146, -1.00428)
+position = Vector2(-31.1072, 3153.49)
+scale = Vector2(5.18933, -1.31111)
 texture = SubResource("GradientTexture2D_a5roo")
 texture_scale = 9.44
 
@@ -502,50 +739,6 @@ texture = ExtResource("16_oywvd")
 lifetime = 3.0
 speed_scale = 2.88
 fixed_fps = 60
-
-[node name="Sign" type="Node2D" parent="."]
-position = Vector2(429, 132)
-
-[node name="Rope" parent="Sign" instance=ExtResource("18_8m3jd")]
-position = Vector2(173, -338)
-
-[node name="Rope2" parent="Sign" instance=ExtResource("18_8m3jd")]
-position = Vector2(335, -338)
-
-[node name="RigidBody2D" type="RigidBody2D" parent="Sign"]
-position = Vector2(265, 272)
-mass = 15.36
-
-[node name="Sprite2D" type="Sprite2D" parent="Sign/RigidBody2D"]
-modulate = Color(0, 0, 0, 1)
-scale = Vector2(2.32, 1)
-texture = ExtResource("19_jj0lu")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Sign/RigidBody2D"]
-position = Vector2(0, 1.75)
-shape = SubResource("RectangleShape2D_xrtg8")
-
-[node name="MainMenuButton" parent="Sign/RigidBody2D" instance=ExtResource("20_0nxsh")]
-offset_left = -148.0
-offset_top = -61.0
-offset_right = 148.0
-offset_bottom = 64.0
-pivot_offset = Vector2(148, 62)
-theme_override_font_sizes/font_size = 32
-theme_override_styles/normal = SubResource("StyleBoxFlat_eukx6")
-theme_override_styles/hover = SubResource("StyleBoxFlat_eukx6")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_tnbgi")
-text = "MAIN MENU"
-
-[node name="PinJoint2D" type="PinJoint2D" parent="Sign"]
-position = Vector2(173, 211)
-node_a = NodePath("../Rope/RopeSegment16")
-node_b = NodePath("../RigidBody2D")
-
-[node name="PinJoint2D2" type="PinJoint2D" parent="Sign"]
-position = Vector2(336, 211)
-node_a = NodePath("../Rope2/RopeSegment16")
-node_b = NodePath("../RigidBody2D")
 
 [node name="FrontMachine" type="TextureRect" parent="."]
 layout_mode = 0
@@ -869,5 +1062,25 @@ position = Vector2(1857, 1014)
 scale = Vector2(0.103586, 0.103586)
 turnRight = true
 
-[editable path="Sign/Rope"]
-[editable path="Sign/Rope2"]
+[node name="MainMenuButton" parent="." instance=ExtResource("20_0nxsh")]
+layout_mode = 0
+offset_left = 1416.0
+offset_top = 928.0
+offset_right = 1712.0
+offset_bottom = 1053.0
+pivot_offset = Vector2(148, 62)
+theme_override_fonts/font = ExtResource("22_4q3pu")
+theme_override_font_sizes/font_size = 60
+theme_override_styles/normal = SubResource("StyleBoxFlat_t6bik")
+theme_override_styles/hover = SubResource("StyleBoxFlat_toftg")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_eb3a8")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_eb3a8")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_e6but")
+text = "MAIN MENU"
+
+[node name="PointLight2D" type="PointLight2D" parent="MainMenuButton"]
+position = Vector2(147, 63)
+scale = Vector2(4.88936, 1.74199)
+color = Color(0, 1, 0, 1)
+texture = ExtResource("7_c1v7e")
+texture_scale = 0.1
