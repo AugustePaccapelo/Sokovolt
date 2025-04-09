@@ -1,4 +1,6 @@
 using Com.IsartDigital.SokoVolt.GameObjects;
+using Com.IsartDigital.SokoVolt.GameObjects.Movables;
+using Com.IsartDigital.SokoVolt.Managers;
 using Godot;
 using System;
 using System.Collections.Generic;
@@ -33,7 +35,7 @@ namespace Com.IsartDigital.Sokovolt {
 
                 lExploredCell.Add(lCurrent);
 
-                foreach (Vector2 pNextCell in GetNextCell(lCurrent, pGrid))
+                foreach (Vector2 pNextCell in GetNextCell(pTarget, lCurrent, pGrid))
                 {
                     if (lExploredCell.Contains(pNextCell)) continue;
 
@@ -50,6 +52,7 @@ namespace Com.IsartDigital.Sokovolt {
                     }
                 }
             }
+            InputManager.canPlayerMove = true;
             return null;
         }
 
@@ -75,7 +78,7 @@ namespace Com.IsartDigital.Sokovolt {
         }
 
 
-        private static IEnumerable<Vector2> GetNextCell(Vector2 pCell, Cell[,] pGrid) // returns walkable cells 
+        private static IEnumerable<Vector2> GetNextCell(Vector2 pTarget, Vector2 pCell, Cell[,] pGrid) // returns walkable cells 
         {
             List<Vector2> lDirections = new List<Vector2>
             {
@@ -93,7 +96,8 @@ namespace Com.IsartDigital.Sokovolt {
                 if (lPosX >= 0 && lPosY >= 0 && lPosX < pGrid.GetLength(0) && lPosY < pGrid.GetLength(1))
                 {
                     GameObject lContent = pGrid[lPosX, lPosY].GetContent();
-                    if (lContent == null || (lContent is Door lDoor && lDoor.isOpen)) // once the door is open the player can travel in it once clicked
+                    //if (lContent == null || (lContent is Door lDoor && lDoor.isOpen)) // once the door is open the player can travel in it once clicked
+                    if ((pNextCell == pTarget && lContent is BoxTesla) || lContent == null || lContent is Door)
                         yield return pNextCell;
                 }
             }

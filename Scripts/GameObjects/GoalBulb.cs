@@ -49,7 +49,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
             float lDelta = (float)pDelta;
 			
 			doAction(lDelta);
-		}
+        }
 
 		// ----- My Functions ----- \\
 

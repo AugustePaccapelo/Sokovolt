@@ -32,6 +32,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects {
 				if (originalMaterials.ContainsKey(canvasItem))
 				{
 					canvasItem.Material = originalMaterials[canvasItem]; //Reset animated objects origin material 
+					originalMaterials.Remove(canvasItem);	
 				}
 				else
 				{

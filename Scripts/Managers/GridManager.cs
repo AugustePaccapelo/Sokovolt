@@ -216,16 +216,24 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 				Cell boxTargetCell = grid[boxTargetX, boxTargetY];
 
 				// If cell behind is empty, move box + player
-				if (boxTargetCell.GetContent() == null)
+				if (boxTargetCell.GetContent() == null || boxTargetCell.GetContent() is Door)
 				{
 					box.MoveTo(boxTargetX, boxTargetY, grid);
-					player.MoveTo(newX, newY, grid);
+					Player.canTravel = false;
+					box.MovableHaveFinish += (sender) => MovableFinished(sender, box);
+                    player.MoveTo(newX, newY, grid);
 					StockGridState();
 				}
 			}
 			else return;
 
 			PrintGrid();
+		}
+
+		private void MovableFinished(Movable pSender, BoxTesla pBox)
+		{
+			Player.canTravel = true;
+			pBox.MovableHaveFinish -= (sender) => MovableFinished(sender, pBox);
 		}
 
 		// Prevents moves outside the grid
@@ -258,11 +266,12 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 			}
 
 			// Can't walk into a closed door
-			if (content is Door door && !door.isOpen) return;
+			//if (content is Door door && !door.isOpen) return;
 
 			// If cell is empty or cell is door, move
-			if (content == null || content is Door)
+			if (content == null || content is Door || content is BoxTesla)
 			{
+				InputManager.canPlayerMove = false;
 				var path = PathFinding.FindPath(start, end, grid);
 				if (path != null && path.Count > 0)
 				{
@@ -353,6 +362,7 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 		// Replaces positions of movable objects from grid content
 		private void UpdateObjectsFromGrid()
 		{
+			Player.canTravel = false;
 			for (int y = 0; y < LevelLoader.levelHeight; y++)
 			{
 				for (int x = 0; x < LevelLoader.levelWidth; x++)
@@ -423,6 +433,9 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 				Tween lTween = AnimationManager.GetInstance().CameraZoomTraveling(GameManager.GetInstance().camera, 0.3f, 0.5f, player.Position, GameManager.GetInstance().camera.Position, 2f);
 				lTween.TweenProperty(player, SCALE, new Vector2(1.5f, 1.5f), 0.4f);
 				lTween.Finished += () => LevelLoader.playerCanMove = true;
+                
+				Player.canTravel = true;
+				CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.StartRecherche);
 			};
 		}
 

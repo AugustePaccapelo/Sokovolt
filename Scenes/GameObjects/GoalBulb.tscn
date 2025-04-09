@@ -1,11 +1,12 @@
-[gd_scene load_steps=7 format=3 uid="uid://v75l4cppany"]
+[gd_scene load_steps=8 format=3 uid="uid://v75l4cppany"]
 
 [ext_resource type="Script" path="res://Scripts/GameObjects/GoalBulb.cs" id="1_o63n1"]
 [ext_resource type="Texture2D" uid="uid://dvbsdp4st47hh" path="res://Assets/GameObjects/GoalBulb/LightInBars.png" id="2_c7q4w"]
 [ext_resource type="Texture2D" uid="uid://cso1lvmegm86r" path="res://Assets/GameObjects/IsoObjects/pngtree-light-bulb-icon-isometric-vector-png-image_4979718.png" id="3_62rl4"]
+[ext_resource type="Texture2D" uid="uid://c767fcajnj2yi" path="res://Assets/Shaders/Effects/Glow.png" id="3_wg0sv"]
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_mc1yl"]
-polygon = PackedVector2Array(-10, 3, -7, 8, 0, 10, 6, 9, 10, 5, 10, 12, 11, 16, 7, 21, 6, 23, 1, 25, -6, 24, -10, 17, -11, 13)
+polygon = PackedVector2Array(-12, 5, -11, 10, -8, 12, -4, 14, 0, 14, 2, 14, 6, 13, 8, 12, 10, 10, 12, 7, 12, 5, 13, 10, 13, 12, 11, 16, 7, 21, 6, 23, 1, 25, -1, 22, -6, 18, -13, 22, -13, 14)
 
 [sub_resource type="Gradient" id="Gradient_2eqbe"]
 offsets = PackedFloat32Array(0.178571, 0.458333, 0.660714)
@@ -43,6 +44,7 @@ size_flags_vertical = 4
 color = Color(0.169245, 0.169245, 0.169245, 1)
 
 [node name="Light" type="Node2D" parent="."]
+visible = false
 position = Vector2(0, -26)
 
 [node name="Occluder" type="LightOccluder2D" parent="Light"]
@@ -58,6 +60,7 @@ texture_scale = 0.5
 
 [node name="YellowLight" type="PointLight2D" parent="Light"]
 position = Vector2(0, -11)
+energy = 2.5
 range_z_max = 49
 shadow_enabled = true
 shadow_color = Color(0, 0, 0, 1)
@@ -68,5 +71,13 @@ texture_scale = 3.0
 position = Vector2(0, -26)
 
 [node name="Sprite2D" type="Sprite2D" parent="Visual"]
+modulate = Color(0.377919, 0.377919, 0.377919, 1)
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("3_62rl4")
+
+[node name="PointLight2D" type="PointLight2D" parent="Visual"]
+position = Vector2(-0.999996, 27)
+scale = Vector2(0.42419, 0.26331)
+color = Color(0.983956, 0.699043, 0, 1)
+texture = ExtResource("3_wg0sv")
+texture_scale = 0.4

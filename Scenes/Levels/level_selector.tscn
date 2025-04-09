@@ -1,4 +1,4 @@
-[gd_scene load_steps=78 format=3 uid="uid://dht3qeqhib1rk"]
+[gd_scene load_steps=86 format=3 uid="uid://dht3qeqhib1rk"]
 
 [ext_resource type="Script" path="res://Scripts/Controls/LevelSelector.cs" id="1_7onrw"]
 [ext_resource type="Texture2D" uid="uid://dyr30pkkewie" path="res://Assets/UI/MainMenu/LevelScreen.png" id="2_u4r7s"]
@@ -960,7 +960,7 @@ offset_top = 928.0
 offset_right = 1712.0
 offset_bottom = 1053.0
 pivot_offset = Vector2(148, 62)
-theme_override_font_sizes/font_size = 40
+theme_override_font_sizes/font_size = 60
 theme_override_styles/normal = SubResource("StyleBoxFlat_t6bik")
 theme_override_styles/hover = SubResource("StyleBoxFlat_toftg")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_eb3a8")

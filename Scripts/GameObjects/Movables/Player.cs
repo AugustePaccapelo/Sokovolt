@@ -27,6 +27,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables {
 		[Export] Area2D dectetor;
 		[Export] GpuParticles2D inTeslaParticles;
 		private float timer;
+		public static bool canTravel = false;
 
 		public static bool isTraveling{get; private set;} 
 
@@ -39,7 +40,9 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables {
 			return;
 		}
 		instance = this;
-		#endregion
+			#endregion
+
+			MovableHaveFinish += (pSender) => canTravel = true;
 		}
 
 		public override void _Process(double pDelta)
@@ -53,18 +56,18 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables {
 
         public void InsideTesla(BoxTesla pTesla)
 		{
-			if (pTesla.playerCanBeDetected)
+			if (canTravel)
 			{
 				timer = 0;
 				isTraveling = true;
-				LevelLoader.playerCanMove = false;
+                InputManager.canPlayerMove = false;
                 inTeslaParticles.Show();
                 GD.Print("Player TP to NextTesla");
 				dectetor.Monitorable = false;
-				pTesla.playerCanBeDetected = false;
+                //canTravel = false;
 				MoveTo(pTesla.x, pTesla.y, GridManager.GetInstance().grid);
-				GetTree().CreateTimer(1).Timeout += () => pTesla.playerCanBeDetected = true;
-				GetTree().CreateTimer(0.5f).Timeout += () => LevelLoader.playerCanMove = true;
+				//GetTree().CreateTimer(0.f).Timeout += () => canTravel = true;
+				GetTree().CreateTimer(0.25f).Timeout += () => InputManager.canPlayerMove = true;
                 isTraveling = false;
             }
             else if (pTesla.nextBoxTesla == null) GD.Print("nextTesla est null");
@@ -84,12 +87,15 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables {
             {
                 if (IsQueuedForDeletion() || GetTree() == null) return;
 
-                MoveTo((int)pStep.X, (int)pStep.Y, GridManager.GetInstance().grid);
+				//MoveTo((int)pStep.X, (int)pStep.Y, GridManager.GetInstance().grid);
+				CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.Move, new Vector2(pStep.X - x, pStep.Y - y));
                 GridManager.GetInstance().StockGridState();
                 GridManager.GetInstance().PrintGrid();
 
                 await ToSignal(GetTree().CreateTimer(0.2f), "timeout");
             }
+
+			InputManager.canPlayerMove = true;
         }
 
 
