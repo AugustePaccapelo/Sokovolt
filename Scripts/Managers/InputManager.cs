@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using RobotnikSokoban.Scripts.Managers;
+using Com.IsartDigital.SokoVolt.GameObjects.Movables;
 
 // Author : A. Dylan Montenegro Utrela
 

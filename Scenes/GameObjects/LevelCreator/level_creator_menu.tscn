@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://bx4sq5cya6p7g"]
+[gd_scene load_steps=22 format=3 uid="uid://bx4sq5cya6p7g"]
 
 [ext_resource type="PackedScene" uid="uid://36dp5dq6hmqq" path="res://Scenes/GameObjects/ButtonTemplate.tscn" id="1_8igok"]
 [ext_resource type="Script" path="res://Scripts/Controls/LevelCreator.cs" id="1_bf11f"]
@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://dg077chl56p8g" path="res://Scenes/GameObjects/LevelCreator/player_spawn_texture.tscn" id="11_g4nve"]
 [ext_resource type="PackedScene" uid="uid://40x567524t37" path="res://Scenes/GameObjects/LevelCreator/electric_wall_texture.tscn" id="12_7rowd"]
 [ext_resource type="Texture2D" uid="uid://bprv1xwm05f87" path="res://Assets/UI/LevelCreator/LevelCreator.png" id="12_usfni"]
+[ext_resource type="FontFile" uid="uid://eycyixjjf4a7" path="res://Assets/Font/BubbleSans-Regular.otf" id="14_m0j1q"]
 [ext_resource type="Script" path="res://Scripts/GameObjects/ButtonTemplate.cs" id="14_tu8f3"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qslgl"]
@@ -40,6 +41,7 @@ shadow_offset = Vector2(5, 5)
 outline_size = 2
 
 [sub_resource type="LabelSettings" id="LabelSettings_ng5xk"]
+font = ExtResource("14_m0j1q")
 font_size = 48
 outline_size = 5
 outline_color = Color(0, 0, 0, 1)
@@ -129,7 +131,6 @@ pivot_offset = Vector2(117, 70)
 text = "MAIN MENU"
 
 [node name="NewLevelBackGround" type="Panel" parent="."]
-visible = false
 layout_mode = 1
 offset_right = 1920.0
 offset_bottom = 1080.0
@@ -220,6 +221,7 @@ offset_top = 31.0
 offset_right = 607.0
 offset_bottom = 105.0
 pivot_offset = Vector2(59, 37)
+theme_override_fonts/font = ExtResource("14_m0j1q")
 theme_override_font_sizes/font_size = 32
 text = "SAVE"
 script = ExtResource("14_tu8f3")
@@ -234,6 +236,7 @@ offset_top = 37.0
 offset_right = 406.0
 offset_bottom = 90.0
 pivot_offset = Vector2(186, 26)
+theme_override_fonts/font = ExtResource("14_m0j1q")
 theme_override_font_sizes/font_size = 32
 placeholder_text = "Name your Level"
 
@@ -253,10 +256,10 @@ vertical_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="NewLevelBackGround"]
 layout_mode = 1
-offset_left = 997.0
-offset_top = 980.0
-offset_right = 1598.0
-offset_bottom = 1051.0
+offset_left = 933.0
+offset_top = 983.0
+offset_right = 1581.0
+offset_bottom = 1054.0
 
 [node name="ApplyButton" parent="NewLevelBackGround/HBoxContainer" instance=ExtResource("1_8igok")]
 layout_mode = 2
@@ -268,6 +271,7 @@ transitionType = 7
 
 [node name="SizeXText" type="LineEdit" parent="NewLevelBackGround/HBoxContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("14_m0j1q")
 theme_override_font_sizes/font_size = 32
 placeholder_text = "X"
 alignment = 1
@@ -277,6 +281,7 @@ clear_button_enabled = true
 
 [node name="SizeYText" type="LineEdit" parent="NewLevelBackGround/HBoxContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("14_m0j1q")
 theme_override_font_sizes/font_size = 32
 placeholder_text = "Y"
 alignment = 1

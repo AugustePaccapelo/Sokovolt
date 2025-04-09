@@ -30,6 +30,7 @@ scale_curve = SubResource("CurveTexture_5v8gb")
 color_ramp = SubResource("GradientTexture1D_7mq74")
 
 [node name="ButtonSmokeParticles" type="GPUParticles2D"]
+visible = false
 emitting = false
 amount = 20
 process_material = SubResource("ParticleProcessMaterial_xi6ug")

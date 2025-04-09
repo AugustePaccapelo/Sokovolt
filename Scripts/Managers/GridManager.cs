@@ -420,7 +420,9 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 			}
 
 			GetTree().CreateTimer(lDelay + 1).Timeout += () => {
-				LevelLoader.playerCanMove = true;
+				Tween lTween = AnimationManager.GetInstance().CameraZoomTraveling(GameManager.GetInstance().camera, 0.3f, 0.5f, player.Position, GameManager.GetInstance().camera.Position, 2f);
+				lTween.TweenProperty(player, SCALE, new Vector2(1.5f, 1.5f), 0.4f);
+				lTween.Finished += () => LevelLoader.playerCanMove = true;
 			};
 		}
 
