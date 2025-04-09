@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" path="res://Scenes/GameObjects/player_particles.tscn" id="3_ibm1n"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_tsyav"]
-radius = 4.0
+radius = 10.0499
 
 [node name="Player" type="Node2D" node_paths=PackedStringArray("dectetor", "inTeslaParticles", "bodyParticles")]
 script = ExtResource("1_05ekn")
@@ -14,7 +14,6 @@ inTeslaParticles = NodePath("PlayerParticles/InTeslaParticles")
 bodyParticles = NodePath("PlayerParticles/GPUParticles2D")
 
 [node name="Visual" type="Node2D" parent="."]
-scale = Vector2(1.1, 1.1)
 
 [node name="Polygon2D" type="Polygon2D" parent="Visual"]
 visible = false
@@ -36,9 +35,5 @@ texture = ExtResource("2_x7461")
 shape = SubResource("CircleShape2D_tsyav")
 
 [node name="PlayerParticles" parent="." instance=ExtResource("3_ibm1n")]
-scale = Vector2(0.55, 0.55)
-
-[node name="GPUParticles2D" parent="PlayerParticles" index="0"]
-emitting = false
 
 [editable path="PlayerParticles"]
