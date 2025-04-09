@@ -43,7 +43,7 @@ namespace Com.IsartDigital.SokoVolt
 
         private List<Color> allColors = new List<Color>
         {
-            Colors.DeepSkyBlue, Colors.Blue, Colors.DarkBlue,
+            Colors.Yellow, Colors.YellowGreen, Colors.LightYellow,
         };
 
         private RandomNumberGenerator rand = new RandomNumberGenerator();

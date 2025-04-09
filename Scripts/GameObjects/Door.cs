@@ -1,3 +1,4 @@
+using System.Runtime.Serialization.Formatters;
 using Com.IsartDigital.SokoVolt.Managers;
 using Godot;
 
@@ -28,6 +29,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
 		[Export] private Node2D closedVisual;
         [Export] private Node2D openedVisual;
         [Export] private GpuParticles2D openedVisualParticles;
+		[Export] private AnimatedSprite2D openCloseAnimation;
 		private float globalDelta = 0;
 
         // ----- Others ----- \\
@@ -55,7 +57,8 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
 			base._Ready();
 			
 			GameManager.GetInstance().door = this;
-			visual.ZIndex -= 1;
+            openCloseAnimation.Frame = 34;
+            visual.ZIndex -= 1;
 		}
 		public override void _Process(double pDelta)
 		{
@@ -69,16 +72,18 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
 		public void Open()
 		{
 			isOpen = true;
-			openedVisual.Show();
-			closedVisual.Hide();
+			openedVisual.Visible = true; 
+			openCloseAnimation.PlayBackwards();
+			
 			Camera2D lCamera = GameManager.GetInstance().camera;
-			AnimationManager.GetInstance().CameraZoomTraveling(lCamera, 0.5f, 0.1f, Position, lCamera.Position, 1.5f);
+			AnimationManager.GetInstance().CameraZoomTraveling(lCamera, 0.5f, 0.8f, Position, lCamera.Position, 1.5f);
         }
+
         public void Close()
 		{
+			if(isOpen) openCloseAnimation.Play();
+			openedVisual.Visible = false;
 			isOpen = false;
-            openedVisual.Hide();
-            closedVisual.Show();
         }
 
         // ----- Destructor ----- \\
