@@ -25,6 +25,8 @@ namespace Com.IsartDigital.SokoVolt
         public int marginStart;
         public int width;
         public float lifeTime;
+        public float innerLineWidth;
+        public Color innerColor;
 
         public int side;
         private float currentLifeTime = 0f;
@@ -59,7 +61,8 @@ namespace Com.IsartDigital.SokoVolt
 
             currentState = Spawning;
 
-            interLine.Width = Width - 4.5f;
+            interLine.Width = innerLineWidth;
+            interLine.DefaultColor = innerColor;
         }
 
         public override void _Process(double pDelta)
@@ -113,7 +116,7 @@ namespace Com.IsartDigital.SokoVolt
 
             AddPoint(lPoint, 1);
 
-            if (lifeTime != 0 && currentLifeTime >= lifeTime)
+            if (lifeTime != -1 && currentLifeTime >= lifeTime)
             {
                 currentState = Destructing;
             }

@@ -1,4 +1,4 @@
-[gd_scene load_steps=86 format=3 uid="uid://dht3qeqhib1rk"]
+[gd_scene load_steps=78 format=3 uid="uid://dht3qeqhib1rk"]
 
 [ext_resource type="Script" path="res://Scripts/Controls/LevelSelector.cs" id="1_7onrw"]
 [ext_resource type="Texture2D" uid="uid://dyr30pkkewie" path="res://Assets/UI/MainMenu/LevelScreen.png" id="2_u4r7s"]
@@ -6,15 +6,16 @@
 [ext_resource type="Script" path="res://Scripts/GameObjects/ButtonTemplate.cs" id="4_tfihn"]
 [ext_resource type="PackedScene" uid="uid://dt8mu0rub45fm" path="res://Scenes/GameObjects/LevelSelectorObject/score_screen.tscn" id="5_1sge3"]
 [ext_resource type="Texture2D" uid="uid://o7dxw8nc0gvi" path="res://Assets/UI/MainMenu/CarpetBorder.png" id="5_8e1ql"]
-[ext_resource type="Texture2D" uid="uid://6ogwctw6dhxl" path="res://Assets/UI/MainMenu/Manette.png" id="6_8hpna"]
 [ext_resource type="Texture2D" uid="uid://6qajctfobfih" path="res://Assets/UI/MainMenu/CarpetBorder2.png" id="6_cobsf"]
 [ext_resource type="Texture2D" uid="uid://c767fcajnj2yi" path="res://Assets/Shaders/Effects/Glow.png" id="7_c1v7e"]
 [ext_resource type="Texture2D" uid="uid://d027gw6ax6ujo" path="res://Assets/UI/MainMenu/Carpet.png" id="11_cogra"]
+[ext_resource type="Texture2D" uid="uid://6ogwctw6dhxl" path="res://Assets/UI/MainMenu/Manette.png" id="11_uwiep"]
 [ext_resource type="PackedScene" uid="uid://dty5a7hnd1fve" path="res://Scenes/GameObjects/LevelSelectorObject/button_smoke_particles.tscn" id="15_53pe0"]
 [ext_resource type="Texture2D" uid="uid://dw208iyoc71pe" path="res://Assets/UI/MainMenu/LightProjection.png" id="15_cy604"]
 [ext_resource type="Texture2D" uid="uid://dc3or7fnkox6b" path="res://Assets/UI/MainMenu/Smoke.png" id="16_oywvd"]
 [ext_resource type="Texture2D" uid="uid://cuwmy2vafhkfl" path="res://Assets/UI/MainMenu/light.png" id="18_ggq5m"]
 [ext_resource type="PackedScene" uid="uid://36dp5dq6hmqq" path="res://Scenes/GameObjects/ButtonTemplate.tscn" id="20_0nxsh"]
+[ext_resource type="FontFile" uid="uid://eycyixjjf4a7" path="res://Assets/Font/BubbleSans-Regular.otf" id="22_nbaik"]
 [ext_resource type="Texture2D" uid="uid://c7un4g41qom0x" path="res://Assets/UI/MainMenu/machine.png" id="23_835b2"]
 [ext_resource type="PackedScene" uid="uid://bs1v2cedkky8a" path="res://Scenes/GameObjects/LevelSelectorObject/wheel.tscn" id="24_kc3pk"]
 [ext_resource type="Shader" uid="uid://bum2gqlmpu2kv" path="res://Assets/Shaders/ElectricBoltShader.tres" id="25_wd3ca"]
@@ -72,11 +73,11 @@ turbulence_influence_min = 0.0
 turbulence_influence_max = 0.053
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8lue5"]
-bg_color = Color(0.559523, 1.27546e-06, 3.36915e-07, 1)
-border_width_left = 5
-border_width_top = 5
-border_width_right = 5
-border_width_bottom = 5
+bg_color = Color(0.486275, 0.313726, 0.152941, 1)
+border_width_left = 20
+border_width_top = 20
+border_width_right = 20
+border_width_bottom = 20
 border_color = Color(0, 0, 0, 1)
 corner_radius_top_left = 50
 corner_radius_top_right = 10
@@ -84,15 +85,31 @@ corner_radius_bottom_right = 10
 corner_radius_bottom_left = 50
 corner_detail = 16
 shadow_color = Color(0, 0, 0, 0.603922)
-shadow_size = 5
-shadow_offset = Vector2(-1, 5)
+shadow_size = 20
+shadow_offset = Vector2(-10, 20)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_at7ei"]
-bg_color = Color(0.442501, 9.3855e-07, 2.16588e-07, 1)
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 3
+bg_color = Color(0.391309, 0.248238, 0.114569, 1)
+border_width_left = 15
+border_width_top = 15
+border_width_right = 15
+border_width_bottom = 15
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 50
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 50
+corner_detail = 16
+shadow_color = Color(0, 0, 0, 0.603922)
+shadow_size = 10
+shadow_offset = Vector2(-10, 20)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ck5x4"]
+bg_color = Color(0.391309, 0.248238, 0.114569, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
 border_color = Color(0, 0, 0, 1)
 corner_radius_top_left = 50
 corner_radius_top_right = 10
@@ -101,18 +118,7 @@ corner_radius_bottom_left = 50
 corner_detail = 16
 shadow_color = Color(0, 0, 0, 0.603922)
 shadow_size = 5
-shadow_offset = Vector2(-1, 5)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ck5x4"]
-bg_color = Color(0.384647, 5.83585e-07, 1.68458e-07, 1)
-border_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 50
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 50
-corner_detail = 16
-shadow_color = Color(0, 0, 0, 0.603922)
-shadow_offset = Vector2(-1, 5)
+shadow_offset = Vector2(-10, 20)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_boprf"]
 
@@ -138,31 +144,6 @@ corner_detail = 16
 shadow_size = 5
 shadow_offset = Vector2(0, 5)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_prcpx"]
-bg_color = Color(0.468327, 1.10099e-06, 1.68458e-07, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 20
-corner_radius_top_right = 20
-corner_radius_bottom_right = 20
-corner_radius_bottom_left = 20
-corner_detail = 16
-shadow_size = 5
-shadow_offset = Vector2(0, 5)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ux8s3"]
-bg_color = Color(0.423185, 9.08468e-07, 3.1285e-07, 1)
-border_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 20
-corner_radius_top_right = 20
-corner_radius_bottom_right = 20
-corner_radius_bottom_left = 20
-corner_detail = 16
-shadow_offset = Vector2(0, 5)
-
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_oi1y7"]
 
 [sub_resource type="InputEventKey" id="InputEventKey_gko1h"]
@@ -173,49 +154,6 @@ unicode = 32
 [sub_resource type="Shortcut" id="Shortcut_7dlpy"]
 events = [SubResource("InputEventKey_gko1h")]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6x0q0"]
-bg_color = Color(0.559523, 1.27546e-06, 3.36915e-07, 1)
-border_width_left = 5
-border_width_top = 5
-border_width_right = 5
-border_width_bottom = 5
-border_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 10
-corner_radius_top_right = 50
-corner_radius_bottom_right = 50
-corner_radius_bottom_left = 10
-corner_detail = 16
-shadow_color = Color(0, 0, 0, 0.603922)
-shadow_size = 5
-shadow_offset = Vector2(1, 5)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jqsia"]
-bg_color = Color(0.442501, 9.3855e-07, 2.16588e-07, 1)
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 3
-border_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 10
-corner_radius_top_right = 50
-corner_radius_bottom_right = 50
-corner_radius_bottom_left = 10
-corner_detail = 16
-shadow_color = Color(0, 0, 0, 0.603922)
-shadow_size = 5
-shadow_offset = Vector2(1, 5)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1moiu"]
-bg_color = Color(0.384647, 5.83585e-07, 1.68458e-07, 1)
-border_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 10
-corner_radius_top_right = 50
-corner_radius_bottom_right = 50
-corner_radius_bottom_left = 10
-corner_detail = 16
-shadow_color = Color(0, 0, 0, 0.603922)
-shadow_offset = Vector2(1, 5)
-
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hpabm"]
 
 [sub_resource type="InputEventKey" id="InputEventKey_8xy7a"]
@@ -224,68 +162,6 @@ keycode = 4194321
 
 [sub_resource type="Shortcut" id="Shortcut_wplr8"]
 events = [SubResource("InputEventKey_8xy7a")]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k1ptg"]
-bg_color = Color(0.658824, 0, 0, 1)
-border_width_left = 5
-border_width_top = 5
-border_width_right = 5
-border_width_bottom = 5
-border_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 40
-corner_radius_top_right = 40
-corner_radius_bottom_right = 40
-corner_radius_bottom_left = 40
-corner_detail = 16
-shadow_color = Color(0, 0, 0, 0.545098)
-shadow_size = 5
-shadow_offset = Vector2(10, 10)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yk68b"]
-bg_color = Color(0.526651, 0.000616032, 0.000337348, 1)
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 3
-border_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 40
-corner_radius_top_right = 40
-corner_radius_bottom_right = 40
-corner_radius_bottom_left = 40
-corner_detail = 16
-shadow_color = Color(0, 0, 0, 0.545098)
-shadow_size = 2
-shadow_offset = Vector2(10, 10)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2m1jg"]
-bg_color = Color(0.4295, 0.000399251, 0.000218995, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 40
-corner_radius_top_right = 40
-corner_radius_bottom_right = 40
-corner_radius_bottom_left = 40
-corner_detail = 16
-shadow_color = Color(0, 0, 0, 0.545098)
-shadow_offset = Vector2(10, 10)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3xews"]
-bg_color = Color(0.4295, 0.000399251, 0.000218995, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 40
-corner_radius_top_right = 40
-corner_radius_bottom_right = 40
-corner_radius_bottom_left = 40
-corner_detail = 16
-shadow_color = Color(0, 0, 0, 0.545098)
-shadow_offset = Vector2(10, 10)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_e6but"]
 
@@ -460,7 +336,7 @@ scale_curve = SubResource("CurveXYZTexture_a3vvu")
 color = Color(1, 0.780392, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t6bik"]
-bg_color = Color(0.211765, 0.494118, 0.180392, 1)
+bg_color = Color(0.229689, 0.533455, 0.195961, 1)
 border_width_left = 5
 border_width_top = 5
 border_width_right = 5
@@ -589,13 +465,13 @@ texture = ExtResource("27_udj1q")
 [node name="ButtonBox" type="TextureRect" parent="."]
 z_index = 100
 layout_mode = 1
-offset_left = 523.0
-offset_top = 784.0
-offset_right = 1374.0
-offset_bottom = 1154.0
-scale = Vector2(0.637772, 0.637772)
+offset_left = 332.0
+offset_top = 542.0
+offset_right = 3832.0
+offset_bottom = 4042.0
+scale = Vector2(0.160829, 0.135104)
 pivot_offset = Vector2(425, 185)
-texture = ExtResource("6_8hpna")
+texture = ExtResource("11_uwiep")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="ButtonBox"]
 layout_mode = 1
@@ -604,22 +480,23 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -351.723
-offset_top = -164.636
-offset_right = 351.277
-offset_bottom = 14.3643
+offset_left = -1131.0
+offset_top = -538.0
+offset_right = 1169.0
+offset_bottom = 346.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 40
+theme_override_constants/separation = 250
 alignment = 1
 
 [node name="Left" type="Button" parent="ButtonBox/HBoxContainer"]
+custom_minimum_size = Vector2(500, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0.270222, 0.270222, 0.270222, 1)
 theme_override_colors/font_hover_color = Color(0.151276, 0.151276, 0.151276, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 90
+theme_override_font_sizes/font_size = 300
 theme_override_styles/normal = SubResource("StyleBoxFlat_8lue5")
 theme_override_styles/hover = SubResource("StyleBoxFlat_at7ei")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_ck5x4")
@@ -630,51 +507,53 @@ text = "<="
 icon_alignment = 1
 
 [node name="PointLight2D" type="PointLight2D" parent="ButtonBox/HBoxContainer/Left"]
-position = Vector2(97.9924, 80.5717)
-color = Color(1, 0, 0, 1)
+position = Vector2(254.059, 445.746)
+scale = Vector2(2.5673, 4.01428)
 texture = ExtResource("7_c1v7e")
 texture_scale = 0.32
 
 [node name="ButtonLaunch" type="Button" parent="ButtonBox/HBoxContainer"]
+custom_minimum_size = Vector2(800, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0.270222, 0.270222, 0.270222, 1)
 theme_override_colors/font_hover_color = Color(0.151276, 0.151276, 0.151276, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 90
-theme_override_styles/normal = SubResource("StyleBoxFlat_gjake")
-theme_override_styles/hover = SubResource("StyleBoxFlat_prcpx")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_ux8s3")
+theme_override_fonts/font = ExtResource("22_nbaik")
+theme_override_font_sizes/font_size = 300
+theme_override_styles/normal = SubResource("StyleBoxFlat_8lue5")
+theme_override_styles/hover = SubResource("StyleBoxFlat_at7ei")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ck5x4")
 theme_override_styles/disabled = SubResource("StyleBoxFlat_gjake")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_oi1y7")
 shortcut = SubResource("Shortcut_7dlpy")
-text = "START"
+text = "PLAY"
 
 [node name="PointLight2D" type="PointLight2D" parent="ButtonBox/HBoxContainer/ButtonLaunch"]
-position = Vector2(137.675, 94.0098)
-scale = Vector2(1.80304, 1.11514)
-color = Color(1, 0, 0, 1)
+position = Vector2(386.802, 461.668)
+scale = Vector2(6.04691, -6.17173)
 texture = ExtResource("7_c1v7e")
 texture_scale = 0.2
 
 [node name="Right" type="Button" parent="ButtonBox/HBoxContainer"]
+custom_minimum_size = Vector2(500, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0.270222, 0.270222, 0.270222, 1)
 theme_override_colors/font_hover_color = Color(0.151276, 0.151276, 0.151276, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 90
-theme_override_styles/normal = SubResource("StyleBoxFlat_6x0q0")
-theme_override_styles/hover = SubResource("StyleBoxFlat_jqsia")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_1moiu")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_1moiu")
+theme_override_font_sizes/font_size = 300
+theme_override_styles/normal = SubResource("StyleBoxFlat_8lue5")
+theme_override_styles/hover = SubResource("StyleBoxFlat_at7ei")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ck5x4")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_ck5x4")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_hpabm")
 shortcut = SubResource("Shortcut_wplr8")
 text = "=>"
 
 [node name="PointLight2D2" type="PointLight2D" parent="ButtonBox/HBoxContainer/Right"]
-position = Vector2(76.2163, 69.6836)
-color = Color(1, 0, 0, 1)
+position = Vector2(232.919, 453.707)
+scale = Vector2(2.75173, 3.56041)
 texture = ExtResource("7_c1v7e")
 texture_scale = 0.32
 
@@ -685,29 +564,34 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -194.5
-offset_top = 41.0
-offset_right = 164.5
-offset_bottom = 141.0
+offset_left = -560.215
+offset_top = 581.489
+offset_right = 682.785
+offset_bottom = 964.489
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(0.903484, 0.903484)
 pivot_offset = Vector2(179, 50)
-theme_override_font_sizes/font_size = 50
-theme_override_styles/normal = SubResource("StyleBoxFlat_k1ptg")
-theme_override_styles/hover = SubResource("StyleBoxFlat_yk68b")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_2m1jg")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_3xews")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0.270222, 0.270222, 0.270222, 1)
+theme_override_colors/font_hover_color = Color(0.151276, 0.151276, 0.151276, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("22_nbaik")
+theme_override_font_sizes/font_size = 170
+theme_override_styles/normal = SubResource("StyleBoxFlat_8lue5")
+theme_override_styles/hover = SubResource("StyleBoxFlat_at7ei")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ck5x4")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_ck5x4")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_e6but")
-text = "Unlock All"
+text = "UnlockAll"
 script = ExtResource("4_tfihn")
 during = 0.2
 easeType = 3
 transitionType = 7
 
 [node name="PointLight2D" type="PointLight2D" parent="ButtonBox/UnlockButton"]
-position = Vector2(178.32, 49.9416)
-scale = Vector2(5.44828, 1.6966)
-color = Color(1, 0, 0, 1)
+position = Vector2(594.739, 191.512)
+scale = Vector2(16.8867, 6.90319)
 texture = ExtResource("7_c1v7e")
 texture_scale = 0.1
 
@@ -835,9 +719,17 @@ energy = 0.5
 texture = ExtResource("7_c1v7e")
 texture_scale = 0.5
 
+[node name="PointLight2D" type="PointLight2D" parent="FrontMachine"]
+position = Vector2(391, 151)
+scale = Vector2(1.23878, 0.524551)
+color = Color(1, 0, 0, 1)
+texture = ExtResource("7_c1v7e")
+texture_scale = 0.3
+
 [node name="WheelContainer" type="Node2D" parent="."]
 
 [node name="Layer1" type="Node2D" parent="WheelContainer"]
+modulate = Color(0.808998, 0.808998, 0.808998, 1)
 
 [node name="Wheel" parent="WheelContainer/Layer1" instance=ExtResource("24_kc3pk")]
 

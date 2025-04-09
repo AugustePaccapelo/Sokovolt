@@ -1,10 +1,11 @@
-[gd_scene load_steps=13 format=3 uid="uid://dt8mu0rub45fm"]
+[gd_scene load_steps=16 format=3 uid="uid://dt8mu0rub45fm"]
 
 [ext_resource type="Script" path="res://Scripts/GameObjects/ScoreBoard.cs" id="1_8u7hm"]
 [ext_resource type="Texture2D" uid="uid://dawl6e7442e4q" path="res://Assets/UI/MainMenu/ScoreDownScreen.png" id="1_wc5he"]
 [ext_resource type="Shader" path="res://Assets/Shaders/Effects/crt_shader/CRTShader.gdshader" id="2_8yumh"]
 [ext_resource type="Texture2D" uid="uid://c767fcajnj2yi" path="res://Assets/Shaders/Effects/Glow.png" id="2_yk86b"]
 [ext_resource type="Texture2D" uid="uid://buxvrfsirsh1j" path="res://Assets/UI/MainMenu/ScoreScreen.png" id="3_5bb7u"]
+[ext_resource type="FontFile" uid="uid://eycyixjjf4a7" path="res://Assets/Font/BubbleSans-Regular.otf" id="5_yil7i"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6h7lh"]
 shader = ExtResource("2_8yumh")
@@ -30,7 +31,7 @@ shadow_size = 5
 shadow_offset = Vector2(5, 0)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ijjgm"]
-bg_color = Color(0.558656, 0.63474, 0.424107, 1)
+bg_color = Color(0.445073, 0.512352, 0.323727, 1)
 border_width_left = 1
 border_width_bottom = 1
 corner_radius_bottom_right = 12
@@ -49,11 +50,21 @@ shadow_offset = Vector2(5, 0)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sxxfk"]
 
+[sub_resource type="LabelSettings" id="LabelSettings_lgkx2"]
+font = ExtResource("5_yil7i")
+font_size = 17
+
+[sub_resource type="LabelSettings" id="LabelSettings_w65t4"]
+font = ExtResource("5_yil7i")
+font_size = 17
+
 [sub_resource type="LabelSettings" id="LabelSettings_ku7ta"]
-font_size = 25
+font = ExtResource("5_yil7i")
+font_size = 30
 
 [sub_resource type="LabelSettings" id="LabelSettings_abuyc"]
-font_size = 48
+font = ExtResource("5_yil7i")
+font_size = 58
 outline_color = Color(0, 0.508417, 2.88785e-07, 1)
 
 [node name="ScoreScreen" type="Node2D" node_paths=PackedStringArray("nameContainer", "scoreContainer", "numberContainer", "personalScoreContainer", "globalScoreContainer", "personalScoreButton", "globalScoreButton", "scoreLabel", "levelLabel")]
@@ -101,6 +112,8 @@ alignment = 1
 [node name="Button" type="Button" parent="VBoxContainer/ButtonContainer"]
 custom_minimum_size = Vector2(171.315, 50.825)
 layout_mode = 2
+theme_override_fonts/font = ExtResource("5_yil7i")
+theme_override_font_sizes/font_size = 17
 theme_override_styles/normal = SubResource("StyleBoxFlat_u76yg")
 theme_override_styles/hover = SubResource("StyleBoxFlat_ijjgm")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_qrs17")
@@ -118,6 +131,8 @@ texture_scale = 0.1
 [node name="Button2" type="Button" parent="VBoxContainer/ButtonContainer"]
 custom_minimum_size = Vector2(171.315, 50.825)
 layout_mode = 2
+theme_override_fonts/font = ExtResource("5_yil7i")
+theme_override_font_sizes/font_size = 17
 theme_override_styles/normal = SubResource("StyleBoxFlat_u76yg")
 theme_override_styles/hover = SubResource("StyleBoxFlat_ijjgm")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_qrs17")
@@ -162,6 +177,7 @@ alignment = 1
 [node name="Label" type="Label" parent="VBoxContainer/GlobalScore/HBoxContainer/NameColumn"]
 layout_mode = 2
 text = "NAME :"
+label_settings = SubResource("LabelSettings_lgkx2")
 
 [node name="NameLabelContainer" type="VBoxContainer" parent="VBoxContainer/GlobalScore/HBoxContainer/NameColumn"]
 layout_mode = 2
@@ -175,6 +191,7 @@ alignment = 1
 [node name="Label" type="Label" parent="VBoxContainer/GlobalScore/HBoxContainer/ScoreColumn"]
 layout_mode = 2
 text = "SCORE :"
+label_settings = SubResource("LabelSettings_w65t4")
 
 [node name="ScoreLabelContainer" type="VBoxContainer" parent="VBoxContainer/GlobalScore/HBoxContainer/ScoreColumn"]
 layout_mode = 2

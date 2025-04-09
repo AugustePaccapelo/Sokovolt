@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using RobotnikSokoban.Scripts.Managers;
+using Com.IsartDigital.SokoVolt.GameObjects.Movables;
 
 // Author : A. Dylan Montenegro Utrela
 
@@ -22,6 +23,7 @@ namespace Com.IsartDigital.SokoVolt.Managers
         #endregion
 
         CustomSignals customSignals;
+        public static bool canPlayerMove = false;
 
         public override void _Ready()
         {
@@ -42,17 +44,17 @@ namespace Com.IsartDigital.SokoVolt.Managers
 
         public override void _Input(InputEvent @event) // to optimize
         {
-            if (!LevelLoader.playerCanMove) return;
+            if (!canPlayerMove) return;
 
             if(@event is InputEventMouseButton pMouseEvent && pMouseEvent.Pressed && pMouseEvent.ButtonIndex == MouseButton.Left)
             {
                 Vector2 lMousePos = pMouseEvent.Position;
                 Vector2 lTargetPos = IsoManager.IsoViewToModel(lMousePos - GridManager.gridOffset);
-                GridManager.GetInstance().HandleCellClicked(lTargetPos);
+                GridManager.GetInstance().HandleCellClicked(lTargetPos);                
                 SongManager.Instance.ambientDict[EnumSong.AmbientSong.click].Play();
             }
 
-            if (@event is InputEventKey pEventKey && pEventKey.Pressed && LevelLoader.playerCanMove)
+            if (@event is InputEventKey pEventKey && pEventKey.Pressed && canPlayerMove)
 			{
                 if (Input.IsActionJustPressed("Up")) customSignals.EmitSignal(CustomSignals.SignalName.Move, Vector2.Up);
                 if (Input.IsActionJustPressed("Down")) customSignals.EmitSignal(CustomSignals.SignalName.Move, Vector2.Down);

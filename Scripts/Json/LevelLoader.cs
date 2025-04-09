@@ -14,7 +14,6 @@ namespace Com.IsartDigital.SokoVolt {
 
 		public static int  levelHeight{get; private set;}
 		public static int levelWidth{get; private set;}
-		public static bool playerCanMove = false;	
 
 		public static int parCount{get; private set;}
 
@@ -59,7 +58,7 @@ namespace Com.IsartDigital.SokoVolt {
 		public void LoadLevel(int pLevel, string pLevelPath, Node2D pObjectContainer)
 		{
 			string lJsonContent = JsonTool.ReadFileContents(pLevelPath);
-            playerCanMove = false;
+            InputManager.canPlayerMove = false;
 
             if (!JsonTool.TryParseJson(lJsonContent, out Godot.Collections.Dictionary lRootDict))
 			{
@@ -212,8 +211,9 @@ namespace Com.IsartDigital.SokoVolt {
 							GD.PrintErr($"Error: cell is null at position ({x}, {y}) !");
 							return; // Avoid null error 
 						}
-						lCell.SetContent(lObj);
-						lObj.SetCell(lCell);
+                        //if (lObj is not Door) lCell.SetContent(lObj);
+                        lCell.SetContent(lObj);
+                        lObj.SetCell(lCell);
 						lObj.Init(x, y);
 						
 						//Set Iso ZIndex for obj 

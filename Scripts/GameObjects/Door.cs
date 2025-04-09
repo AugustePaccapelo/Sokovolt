@@ -25,6 +25,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
 		// ----- Nodes ----- \\
 		private CustomSignals signals;
 
+		[Export] private Node2D visual;
 		[Export] private Node2D closedVisual;
         [Export] private Node2D openedVisual;
         [Export] private GpuParticles2D openedVisualParticles;
@@ -56,15 +57,15 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
 			base._Ready();
 			
 			GameManager.GetInstance().door = this;
-
-			openCloseAnimation.Frame = 34; 
+            openCloseAnimation.Frame = 34;
+            visual.ZIndex -= 1;
 		}
 		public override void _Process(double pDelta)
 		{
 			float lDelta = (float)pDelta;
 			globalDelta = lDelta;
 			base._Process(lDelta);
-		}
+        }
 
 		// ----- My Functions ----- \\
 

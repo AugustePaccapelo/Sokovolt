@@ -74,7 +74,7 @@ namespace Com.IsartDigital.SokoVolt{
 		
 		private void SpawnWinScreen()
 		{
-			LevelLoader.playerCanMove = false;
+            InputManager.canPlayerMove = false;
 			Tween lTween = CreateTween();
 			winScreen = winScreenScene.Instantiate() as WinScreen;
 			AddChild(winScreen);
