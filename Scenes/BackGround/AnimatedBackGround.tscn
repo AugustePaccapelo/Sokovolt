@@ -17,7 +17,7 @@ position = Vector2(960, 540)
 scale = Vector2(0.85, 0.85)
 texture = ExtResource("2_eso1e")
 script = ExtResource("2_fq3xm")
-FrameRate = 24.0
+FrameRate = 30.0
 LoopPauseTime = 0.0
 
 [node name="PointLight2D" type="PointLight2D" parent="Sprite2D"]

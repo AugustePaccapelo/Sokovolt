@@ -41,6 +41,7 @@ size_flags_vertical = 4
 color = Color(0.169245, 0.169245, 0.169245, 1)
 
 [node name="Light" type="Node2D" parent="."]
+visible = false
 position = Vector2(0, -26)
 
 [node name="WhiteLight" type="PointLight2D" parent="Light"]
@@ -73,4 +74,5 @@ texture = ExtResource("3_swf31")
 position = Vector2(1.19209e-07, 46)
 scale = Vector2(0.42419, 0.26331)
 color = Color(0.983956, 0.699043, 0, 1)
+energy = 2.0
 texture = ExtResource("3_wg0sv")
