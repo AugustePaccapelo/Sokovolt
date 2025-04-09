@@ -25,7 +25,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables {
 		#endregion
 
 		[Export] Area2D dectetor;
-		[Export] GpuParticles2D inTeslaParticles;
+		[Export] public GpuParticles2D inTeslaParticles, bodyParticles;
 		private float timer;
 		public static bool canTravel = false;
 

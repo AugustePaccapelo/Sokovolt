@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://6ogwctw6dhxl"
-path="res://.godot/imported/manette.png-92e6d3707c9fe6aad8dda795b6250c6d.ctex"
+path="res://.godot/imported/Manette.png-3ec2872f494b2b41ba37dc4545c96bca.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/UI/MainMenu/manette.png"
-dest_files=["res://.godot/imported/manette.png-92e6d3707c9fe6aad8dda795b6250c6d.ctex"]
+source_file="res://Assets/UI/MainMenu/Manette.png"
+dest_files=["res://.godot/imported/Manette.png-3ec2872f494b2b41ba37dc4545c96bca.ctex"]
 
 [params]
 
