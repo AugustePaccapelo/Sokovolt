@@ -209,6 +209,7 @@ text = "You Win!"
 label_settings = SubResource("LabelSettings_qeci4")
 
 [node name="MainMenuButton" parent="." instance=ExtResource("5_al47o")]
+layout_mode = 0
 offset_left = 1416.0
 offset_top = 928.0
 offset_right = 1712.0

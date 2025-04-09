@@ -649,7 +649,7 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_ux8s3")
 theme_override_styles/disabled = SubResource("StyleBoxFlat_gjake")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_oi1y7")
 shortcut = SubResource("Shortcut_7dlpy")
-text = "START"
+text = "PLAY"
 
 [node name="PointLight2D" type="PointLight2D" parent="ButtonBox/HBoxContainer/ButtonLaunch"]
 position = Vector2(137.675, 94.0098)
@@ -699,7 +699,7 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_yk68b")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_2m1jg")
 theme_override_styles/disabled = SubResource("StyleBoxFlat_3xews")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_e6but")
-text = "Unlock All"
+text = "UnlockAll"
 script = ExtResource("4_tfihn")
 during = 0.2
 easeType = 3
