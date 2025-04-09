@@ -1,6 +1,7 @@
 using Godot;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 
 // Author : Auguste Paccapelo
 
@@ -39,12 +40,18 @@ namespace Com.IsartDigital.SokoVolt
         [Export] private float randomRatioLengthMin = 0.5f;
         [Export] private float randomRatioLengthMax = 2f;
 
-        [Export] public float lifeTime = 0f;
+        [Export] public float lifeTime = -1f;
 
-        private List<Color> allColors = new List<Color>
+        /*private List<Color> allColors = new List<Color>
         {
             Colors.DeepSkyBlue, Colors.Blue, Colors.DarkBlue,
-        };
+        };*/
+
+        [Export] private Color[] allColors;
+        [Export] private Color innerLineColor;
+
+        [Export] float linesWidth = 6f;
+        [Export] float innerLineWidth = 1.5f;
 
         private RandomNumberGenerator rand = new RandomNumberGenerator();
 
@@ -95,7 +102,9 @@ namespace Com.IsartDigital.SokoVolt
 
                 lSingleLightning.side = i % 2 == 0 ? 1 : -1;
 
-                lSingleLightning.DefaultColor = allColors[i % allColors.Count];
+                lSingleLightning.DefaultColor = allColors[i % allColors.Length];
+
+                lSingleLightning.Width = linesWidth;
 
                 SetVariables(lSingleLightning);
 
@@ -114,12 +123,14 @@ namespace Com.IsartDigital.SokoVolt
             pSingleLightning.marginStart = marginStart;
             pSingleLightning.width = width;
             pSingleLightning.lifeTime = lifeTime;
+            pSingleLightning.innerLineWidth = innerLineWidth;
+            pSingleLightning.innerColor = innerLineColor;
         }
         public void StopLightning()
         {
             foreach (SingleLightning lLightning in allLightningsList)
             {
-                lLightning.lifeTime = 0.01f;
+                lLightning.lifeTime = 0f;
             }
         }
         public void NewLightningSpawned()
