@@ -19,7 +19,6 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
         
         #region  Export 
         [Export] private PackedScene lightningNodeScene;
-        [Export] private RayCast2D rayCast;
         [Export] private Line2D electriLine2D;
         [Export] private Marker2D connectionPoint;
         [Export] private Node2D visual;
@@ -27,12 +26,12 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
 
         #region variables
         [Signal] public delegate void PlayerCollideEventHandler(BoxTesla lTesla);
+        private RayCast2D rayCast;
         LightningNode lightning;
         public BoxTesla nextBoxTesla = null;
         public bool energize = false;
         GridManager gridManager = GridManager.GetInstance();
         private bool signalEmit = false;
-        public bool playerCanBeDetected = true;
         Vector2 LastPos = Vector2.Zero;
         #endregion
         
@@ -171,12 +170,10 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
 
         public override void MoveTo(int pX, int pY, Cell[,] pGrid)
         {
-
             base.MoveTo(pX, pY, pGrid);
             CustomSignals lSignals = CustomSignals.GetInstance();
             lSignals.EmitSignal(CustomSignals.SignalName.BoxTeslaMoved);
             SongManager.Instance.ambientDict[EnumSong.AmbientSong.Piece].Play();
-
         }
 
         #region Searchin
@@ -245,17 +242,32 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
         
         #region  RayCastDetector
         //Detects if the player is within Tesla's raycast range
-        private void UpdateRayCast(Vector2 pTargetPos)
+        /*private void UpdateRayCast(Vector2 pTargetPos)
         {
             rayCast.TargetPosition = pTargetPos;
+        }*/
+        private void CreateRaycast(Vector2 pTargetPos)
+        {
+            rayCast = new RayCast2D();
+            AddChild(rayCast);
+            rayCast.TargetPosition = pTargetPos;
+            rayCast.CollideWithAreas = true;
+            rayCast.CollideWithBodies = false;
         }
+
+        private void DestroyRaycast()
+        {
+            rayCast?.QueueFree();
+            rayCast = null;
+        }
+
         private void ConnectPlayer()
         {
             PlayerCollide += Player.GetInstance().InsideTesla;
         }
         private void RayCastDetector()
         {
-            if (rayCast != null && !signalEmit && rayCast.IsColliding() && playerCanBeDetected && !GridManager.currentlyUndoRedo)
+            if (rayCast != null && !signalEmit && rayCast.IsColliding() && Player.canTravel && !GridManager.currentlyUndoRedo)
             {
                 GodotObject lArea = rayCast.GetCollider();
                 if (IsInstanceValid(lArea))
@@ -280,7 +292,8 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
             lightning.startPoint = pObjToConnect.GlobalPosition;
             AddChild(lightning);
             lightning.StartLightning();
-            UpdateRayCast(ToLocal(pObjToConnect.GlobalPosition));
+            //UpdateRayCast(ToLocal(pObjToConnect.GlobalPosition));
+            CreateRaycast(ToLocal(pObjToConnect.GlobalPosition));
         }
 
 
@@ -288,7 +301,8 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
         public void LineDeconnection()
         {
             energize = false;
-            UpdateRayCast(Vector2.Zero);
+            //UpdateRayCast(Vector2.Zero);
+            DestroyRaycast();
             if (lightning != null)
             {
                 lightning.StopLightning();

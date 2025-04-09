@@ -43,6 +43,7 @@ size_flags_vertical = 4
 color = Color(0.169245, 0.169245, 0.169245, 1)
 
 [node name="Light" type="Node2D" parent="."]
+visible = false
 position = Vector2(0, -26)
 
 [node name="Occluder" type="LightOccluder2D" parent="Light"]
@@ -65,6 +66,7 @@ texture = SubResource("GradientTexture2D_cl24s")
 texture_scale = 3.0
 
 [node name="Visual" type="Node2D" parent="."]
+modulate = Color(0.446777, 0.446777, 0.446777, 1)
 position = Vector2(0, -26)
 
 [node name="Sprite2D" type="Sprite2D" parent="Visual"]

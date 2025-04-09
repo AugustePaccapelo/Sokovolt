@@ -59,7 +59,7 @@ namespace Com.IsartDigital.SokoVolt.Managers
         {
             GridManager.GetInstance().ClearGrid();
             CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.UnLoadLevel);
-            LevelLoader.playerCanMove = false;
+            InputManager.canPlayerMove = false;
         }
 
         public void LevelLoaderFonc(int pLevel)
