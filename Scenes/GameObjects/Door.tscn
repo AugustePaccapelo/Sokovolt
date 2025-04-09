@@ -292,7 +292,7 @@ color = Color(0.355314, 0.355314, 0.355314, 1)
 [node name="Visual" type="Node2D" parent="."]
 z_index = -5
 position = Vector2(0, 8)
-scale = Vector2(1.45355, 0.8)
+scale = Vector2(1.599, 0.88)
 
 [node name="OpenAnimation" type="AnimatedSprite2D" parent="Visual"]
 position = Vector2(0.687977, -18.0469)

@@ -43,6 +43,7 @@ color = Color(0.169245, 0.169245, 0.169245, 1)
 [node name="Light" type="Node2D" parent="."]
 visible = false
 position = Vector2(0, -26)
+scale = Vector2(1.1, 1.1)
 
 [node name="WhiteLight" type="PointLight2D" parent="Light"]
 position = Vector2(0, -1)
@@ -62,7 +63,8 @@ texture = SubResource("GradientTexture2D_cl24s")
 texture_scale = 3.0
 
 [node name="Visual" type="Node2D" parent="."]
-position = Vector2(0, -26)
+position = Vector2(0, -43)
+scale = Vector2(1.1, 1.1)
 
 [node name="Sprite2D" type="Sprite2D" parent="Visual"]
 modulate = Color(0.377919, 0.377919, 0.377919, 1)

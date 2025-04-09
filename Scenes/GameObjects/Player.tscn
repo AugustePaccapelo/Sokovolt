@@ -13,6 +13,7 @@ dectetor = NodePath("DetectionZone")
 inTeslaParticles = NodePath("PlayerParticles/InTeslaParticles")
 
 [node name="Visual" type="Node2D" parent="."]
+scale = Vector2(1.1, 1.1)
 
 [node name="Polygon2D" type="Polygon2D" parent="Visual"]
 visible = false
@@ -34,5 +35,6 @@ texture = ExtResource("2_x7461")
 shape = SubResource("CircleShape2D_tsyav")
 
 [node name="PlayerParticles" parent="." instance=ExtResource("3_ibm1n")]
+scale = Vector2(0.55, 0.55)
 
 [editable path="PlayerParticles"]

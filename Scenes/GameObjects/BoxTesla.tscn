@@ -147,7 +147,7 @@ visual = NodePath("Visual")
 rangeLabel = NodePath("Label")
 
 [node name="Visual" type="Node2D" parent="."]
-scale = Vector2(0.8, 0.8)
+scale = Vector2(0.88, 0.88)
 
 [node name="PointLight2D" type="PointLight2D" parent="Visual"]
 position = Vector2(0, 20.625)
