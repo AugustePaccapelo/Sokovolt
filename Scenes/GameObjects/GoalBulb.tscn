@@ -68,7 +68,6 @@ texture = SubResource("GradientTexture2D_cl24s")
 texture_scale = 3.0
 
 [node name="Visual" type="Node2D" parent="."]
-modulate = Color(0.446777, 0.446777, 0.446777, 1)
 position = Vector2(0, -26)
 
 [node name="Sprite2D" type="Sprite2D" parent="Visual"]
