@@ -8,7 +8,7 @@
 script = ExtResource("1_0oqpj")
 
 [node name="Visual" type="Node2D" parent="."]
-scale = Vector2(0.8, 0.8)
+scale = Vector2(0.88, 0.88)
 
 [node name="Polygon2D" type="Polygon2D" parent="Visual"]
 visible = false
@@ -28,5 +28,5 @@ scale = Vector2(0.083478, 0.083478)
 
 [node name="Wall1" type="Sprite2D" parent="."]
 position = Vector2(0.844435, -7.4)
-scale = Vector2(0.0748148, 0.0748148)
+scale = Vector2(0.083, 0.083)
 texture = ExtResource("3_he2wh")

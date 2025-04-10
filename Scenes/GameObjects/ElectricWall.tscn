@@ -135,7 +135,7 @@ animations = [{
 script = ExtResource("1_cep36")
 
 [node name="Visual" type="Node2D" parent="."]
-scale = Vector2(0.8, 0.8)
+scale = Vector2(0.88, 0.88)
 
 [node name="Sprite2D" type="Sprite2D" parent="Visual"]
 visible = false

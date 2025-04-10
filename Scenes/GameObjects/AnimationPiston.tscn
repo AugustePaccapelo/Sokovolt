@@ -10,6 +10,7 @@ topPart = NodePath("Node2D")
 
 [node name="Node2D" type="Node2D" parent="."]
 position = Vector2(1, 359)
+scale = Vector2(1.1, 1.1)
 
 [node name="Polygon2D3" type="Polygon2D" parent="Node2D"]
 visible = false
@@ -44,5 +45,5 @@ texture = ExtResource("2_s4jqb")
 [node name="PistonBottomRender" type="Sprite2D" parent="."]
 z_index = -1
 position = Vector2(2, 473)
-scale = Vector2(0.162847, 0.162847)
+scale = Vector2(0.179, 0.179)
 texture = ExtResource("3_1g6vu")

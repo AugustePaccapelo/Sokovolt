@@ -113,7 +113,7 @@ namespace Com.IsartDigital.SokoVolt.Managers
                 }
 			}
             door?.Open();
-            if (currentLevel <= 5) gridManager.HandleCellClicked(new Vector2(door.x, door.y));
+            // if (currentLevel <= 5) gridManager.HandleCellClicked(new Vector2(door.x, door.y));
 		}
         private void PlayerHasMoved()
         {

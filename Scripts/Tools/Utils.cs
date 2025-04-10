@@ -8,8 +8,8 @@ namespace Com.IsartDigital.SokoVolt {
 	
 	public static class Utils 
 	{
-		public const int TILE_WIDTH = 117;
-		public const int TILE_HEIGHT = 68;
+		public const int TILE_WIDTH = 129;
+		public const int TILE_HEIGHT = 75;
         public static RandomNumberGenerator Random = new RandomNumberGenerator();
 
 		public static Node2D Spawner(PackedScene pScene, int pX, int pY, Node2D pParent)

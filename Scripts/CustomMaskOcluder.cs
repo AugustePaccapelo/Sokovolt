@@ -10,7 +10,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
     {
 		static public CustomMaskOcluder instance; 
         [Export] private Polygon2D maskPolygon;
-        [Export] private AnimatedSprite2D backGround; 
+        [Export] private Sprite2D backGround; 
         private ViewportTexture maskTexture;
         private Vector2 lastViewportSize;
         private const int MASK_Z_INDEX = 100;

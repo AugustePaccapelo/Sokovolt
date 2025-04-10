@@ -26,7 +26,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables {
 		#endregion
 
 		[Export] Area2D dectetor;
-		[Export] GpuParticles2D inTeslaParticles;
+		[Export] public GpuParticles2D inTeslaParticles, bodyParticles;
 		private float timer;
 		public static bool canTravel = false;
 
@@ -50,7 +50,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables {
 			float lDelta = (float)pDelta;
 			timer += lDelta;
 			if (timer > 0.2f && inTeslaParticles.Visible) inTeslaParticles.Hide();
-			if (timer > 3) timer = 0;	
+			if (timer > 3) timer = 0;
         }
 
         public void InsideTesla(BoxTesla pTesla)

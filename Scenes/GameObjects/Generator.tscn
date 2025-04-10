@@ -136,7 +136,7 @@ animations = [{
 script = ExtResource("1_3t66j")
 
 [node name="Visual" type="Node2D" parent="."]
-scale = Vector2(0.6, 0.6)
+scale = Vector2(0.66, 0.66)
 
 [node name="Polygon2D" type="Polygon2D" parent="Visual"]
 visible = false

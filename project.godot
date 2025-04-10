@@ -19,8 +19,12 @@ config/icon="res://icon.svg"
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
-window/stretch/mode="viewport"
-window/stretch/aspect="ignore"
+window/size/mode=3
+window/size/resizable=false
+window/stretch/mode="canvas_items"
+window/dpi/allow_hidpi=false
+window/vsync/vsync_mode=0
+window/ios/allow_high_refresh_rate=false
 
 [dotnet]
 
@@ -70,4 +74,26 @@ Down={
 
 [internationalization]
 
-locale/translations=PackedStringArray("res://Localisation/Localisation.en.translation", "res://Localisation/Localisation.fr.translation")
+locale/translations=PackedStringArray("res://Localisation/8_ROBOTNIK_Localisation.en.translation", "res://Localisation/8_ROBOTNIK_Localisation.fr.translation")
+
+[memory]
+
+limits/multithreaded_server/rid_pool_prealloc=120
+limits/message_queue/max_size_mb=48
+
+[physics]
+
+2d/run_on_separate_thread=true
+
+[rendering]
+
+occlusion_culling/bvh_build_quality=0
+lights_and_shadows/directional_shadow/soft_shadow_filter_quality=0
+lights_and_shadows/positional_shadow/soft_shadow_filter_quality=0
+reflections/sky_reflections/texture_array_reflections=false
+global_illumination/gi/use_half_resolution=true
+camera/depth_of_field/depth_of_field_bokeh_shape=0
+environment/ssao/quality=1
+environment/ssil/quality=0
+environment/glow/upscale_mode=0
+environment/volumetric_fog/use_filter=0

@@ -34,5 +34,5 @@ texture = ExtResource("2_loord")
 
 [node name="Tile2" type="Sprite2D" parent="."]
 position = Vector2(1, 4)
-scale = Vector2(0.07, 0.07)
+scale = Vector2(0.077, 0.077)
 texture = ExtResource("3_xelrx")

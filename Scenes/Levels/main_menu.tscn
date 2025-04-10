@@ -1,7 +1,67 @@
-[gd_scene load_steps=3 format=3 uid="uid://bsl1nyen453ty"]
+[gd_scene load_steps=25 format=3 uid="uid://bsl1nyen453ty"]
 
 [ext_resource type="Script" path="res://Scripts/Controls/MainMenu.cs" id="1_3kguo"]
+[ext_resource type="Texture2D" uid="uid://bqiw8052gbe6d" path="res://Assets/UI/bouton1.png" id="2_jh7rx"]
 [ext_resource type="Script" path="res://Scripts/GameObjects/ButtonTemplate.cs" id="2_vdray"]
+[ext_resource type="Texture2D" uid="uid://chtivnwbspj8v" path="res://Assets/UI/bouton2.png" id="3_xksed"]
+[ext_resource type="Texture2D" uid="uid://dae23dl0nh20a" path="res://Assets/UI/bouton3.png" id="4_deml2"]
+[ext_resource type="Texture2D" uid="uid://c767fcajnj2yi" path="res://Assets/Shaders/Effects/Glow.png" id="4_w4bov"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_apuvm"]
+texture = ExtResource("2_jh7rx")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_l0dk3"]
+texture = ExtResource("3_xksed")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_gujjd"]
+texture = ExtResource("4_deml2")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xk2oy"]
+
+[sub_resource type="Gradient" id="Gradient_hvmdm"]
+offsets = PackedFloat32Array(0.544379, 0.970414, 0.994083)
+colors = PackedColorArray(0.548963, 0.548963, 0.548963, 1, 0.122807, 0.122807, 0.122807, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_f82sy"]
+gradient = SubResource("Gradient_hvmdm")
+fill = 2
+fill_from = Vector2(0.48927, 0.527897)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jec2r"]
+texture = ExtResource("2_jh7rx")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qdp1k"]
+texture = ExtResource("3_xksed")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_v7tst"]
+texture = ExtResource("4_deml2")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_v2fwl"]
+texture = ExtResource("2_jh7rx")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_unyse"]
+texture = ExtResource("3_xksed")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_b77sy"]
+texture = ExtResource("4_deml2")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xgbcw"]
+texture = ExtResource("2_jh7rx")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2wo4u"]
+texture = ExtResource("3_xksed")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_57tdn"]
+texture = ExtResource("4_deml2")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_oywk5"]
+texture = ExtResource("2_jh7rx")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bcipl"]
+texture = ExtResource("3_xksed")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6nr7m"]
+texture = ExtResource("4_deml2")
 
 [node name="MainMenu" type="Control" node_paths=PackedStringArray("startButton", "levelCreatorButton", "unlogButton", "optionButton", "quitButton")]
 layout_mode = 3
@@ -32,7 +92,18 @@ offset_bottom = 63.52
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(200, 100)
+theme_override_styles/normal = SubResource("StyleBoxTexture_apuvm")
+theme_override_styles/hover = SubResource("StyleBoxTexture_l0dk3")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_gujjd")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_xk2oy")
 text = "PLAY"
+
+[node name="PointLight2D" type="PointLight2D" parent="Panel/StartButton"]
+position = Vector2(154, 67)
+scale = Vector2(4.99563, 1.97625)
+energy = 1.29
+texture = SubResource("GradientTexture2D_f82sy")
+texture_scale = 0.95
 
 [node name="LevelCreator" type="Button" parent="Panel"]
 layout_mode = 1
@@ -41,8 +112,18 @@ offset_top = 704.0
 offset_right = 1085.0
 offset_bottom = 804.0
 pivot_offset = Vector2(104, 50)
+theme_override_styles/normal = SubResource("StyleBoxTexture_jec2r")
+theme_override_styles/hover = SubResource("StyleBoxTexture_qdp1k")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_v7tst")
 text = "LevelCreator"
 script = ExtResource("2_vdray")
+
+[node name="PointLight2D2" type="PointLight2D" parent="Panel/LevelCreator"]
+position = Vector2(162, 50)
+scale = Vector2(4.99563, 1.97625)
+energy = 1.29
+texture = SubResource("GradientTexture2D_f82sy")
+texture_scale = 0.95
 
 [node name="UnlogButton" type="Button" parent="Panel"]
 layout_mode = 1
@@ -55,7 +136,17 @@ offset_left = -128.2
 offset_top = -38.8801
 offset_right = 127.8
 offset_bottom = 39.1199
+theme_override_styles/normal = SubResource("StyleBoxTexture_v2fwl")
+theme_override_styles/hover = SubResource("StyleBoxTexture_unyse")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_b77sy")
 text = "Disconnect"
+
+[node name="PointLight2D3" type="PointLight2D" parent="Panel"]
+position = Vector2(1745, 1010)
+scale = Vector2(4.99563, 1.97625)
+energy = 1.29
+texture = SubResource("GradientTexture2D_f82sy")
+texture_scale = 0.8
 
 [node name="OptionButton" type="Button" parent="Panel"]
 layout_mode = 1
@@ -68,7 +159,17 @@ offset_left = -159.36
 offset_top = -63.6401
 offset_right = 160.64
 offset_bottom = 64.3599
+theme_override_styles/normal = SubResource("StyleBoxTexture_xgbcw")
+theme_override_styles/hover = SubResource("StyleBoxTexture_2wo4u")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_57tdn")
 text = "Option"
+
+[node name="PointLight2D4" type="PointLight2D" parent="Panel"]
+position = Vector2(923, 575)
+scale = Vector2(4.99563, 1.97625)
+energy = 1.29
+texture = SubResource("GradientTexture2D_f82sy")
+texture_scale = 1.05
 
 [node name="Exit" type="Button" parent="Panel"]
 layout_mode = 1
@@ -81,4 +182,29 @@ offset_left = -127.36
 offset_top = -39.2001
 offset_right = 128.64
 offset_bottom = 38.7999
+theme_override_styles/normal = SubResource("StyleBoxTexture_oywk5")
+theme_override_styles/hover = SubResource("StyleBoxTexture_bcipl")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_6nr7m")
 text = "EXIT"
+
+[node name="PointLight2D5" type="PointLight2D" parent="Panel"]
+position = Vector2(164, 1014)
+scale = Vector2(4.99563, 1.97625)
+energy = 1.29
+texture = SubResource("GradientTexture2D_f82sy")
+texture_scale = 0.95
+
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="Panel"]
+visible = false
+position = Vector2(-2, 0)
+energy = 0.7
+blend_mode = 1
+
+[node name="PointLight2D" type="PointLight2D" parent="Panel/DirectionalLight2D"]
+visible = false
+position = Vector2(990, 512)
+scale = Vector2(3.19531, 3.0625)
+energy = 2.58
+texture = ExtResource("4_w4bov")
+texture_scale = 0.9
+height = 45.0
