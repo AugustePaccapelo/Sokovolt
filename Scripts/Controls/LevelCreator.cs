@@ -18,7 +18,6 @@ namespace Com.IsartDigital.SokoVolt
 
 	public partial class LevelCreator : Control
 	{
-
 		#region Singleton
 		static private LevelCreator instance;
 
@@ -48,6 +47,7 @@ namespace Com.IsartDigital.SokoVolt
 		public static bool inLevelCreator = false;
         private TextureRect hoveredItem;
         private float tileSize = 50, space = 5;
+        private Vector2 margin = new Vector2(370,220);
         private Node2D cellContainer;
         private int lenghtX = 11, lenghtY = 11, maxObject = 1;
         private string customLevelsFolderPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments), CUSTOM_LEVELS_PATH);
