@@ -19,7 +19,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
         public static List<BoxTesla> boxTeslasList = new List<BoxTesla>();
         public static List<Generator> generatorList = new List<Generator>();
         public static List<BoxTesla> TeslasConnected = new List<BoxTesla>();
-
+        public static List<BoxTesla> lastTeslas = new List<BoxTesla>();
 
         public override void _Ready()
         {
@@ -45,6 +45,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
                 lBox.LineDeconnection();
             Player.canTravel = false;
             TeslasConnected.Clear();
+            lastTeslas.Clear();
         }
 
         private void clearTeslas()
@@ -57,34 +58,40 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
         {
             foreach (Generator lGenerator in generatorList)
             {
-                BoxTesla lBox = Search(lGenerator);
-                if (lBox != null && !TeslasConnected.Contains(lBox))
-                {
-                    lBox.LineConnection(lGenerator);
-                    TeslasConnected.Add(lBox);
+                for (int i = 0; i < 8; i++) {
+                    BoxTesla lBox = Search(lGenerator);
+                    if (lBox != null && !TeslasConnected.Contains(lBox))
+                    {
+                        lBox.LineConnection(lGenerator);
+                        TeslasConnected.Add(lBox);
+                        lastTeslas.Add(lBox);
+                    }
                 }
             }
             SearchTesla();
-
         }
         //Recursively connects Tesla boxes in a chain from already energized ones.
     private void SearchTesla()
     {
-        if (TeslasConnected.Count == 0)return;
-        while (true)
+        int lLength = lastTeslas.Count;
+        for (int i = 0; i < lLength; i++)
         {
-            BoxTesla lBox = Search(TeslasConnected.Last());
-            if (lBox == null) break;
+            BoxTesla lLastTesla = lastTeslas[i];
+            if (TeslasConnected.Count == 0) return;
+            while (true)
+            {
+                BoxTesla lBox = Search(lLastTesla);
+                if (lBox == null) break;
 
-            lBox.LineConnection(TeslasConnected.Last());
-            TeslasConnected.Add(lBox);
+                lBox.LineConnection(lLastTesla);
+                lastTeslas[i] = lBox;
+                lLastTesla = lBox;
+                TeslasConnected.Add(lBox);
+            }
         }
-
         CustomSignals.GetInstance()?.EmitSignal(CustomSignals.SignalName.BoxTeslaCalculsDone);
         Player.canTravel = true;
     }
-
-
 
     #region Search
      /// <summary>
@@ -103,18 +110,12 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
                 lLength=box.ConnectionSearch(pObject);
                 if (lLength !=-1 && lLength<lShortLength)
                 {
-
                     lShortLength = lLength;
                     lShortBox = box;
                 }
-
             }
-
             return lShortBox;
         }
         #endregion
-
-
-
     }
 }

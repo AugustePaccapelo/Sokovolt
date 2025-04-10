@@ -430,7 +430,7 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 			}
 
 			GetTree().CreateTimer(lDelay + 1).Timeout += () => {
-				Tween lTween = AnimationManager.GetInstance().CameraZoomTraveling(GameManager.GetInstance().camera, 0.3f, 0.5f, player.Position, GameManager.GetInstance().camera.Position, 2f);
+				Tween lTween = AnimationManager.GetInstance().CameraZoomTraveling(GameManager.GetInstance().camera, 0.3f, 0.5f, player.Position, GameManager.GetInstance().cameraDefaultPos, 2f);
                 // lTween.TweenProperty(player, SCALE, new Vector2(2, 2), 0.4f);
                 
                 lTween.Finished += () =>
@@ -448,6 +448,8 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 		private async void EndLevelAnimation(int pNumStar, int pScore, int pNumStep)
 		{
 			HUD.GetInstance().mainMenuButton.Disabled = true;
+			Player.canTravel = false;
+			InputManager.canPlayerMove = false;
 			if(LevelCreator.inLevelCreator) LevelCreator.GetInstance().returnButton.Disabled = true;
             List<Node2D> lObjectsToAnimate= new List<Node2D>();
 			lObjectsToAnimate.Clear(); 

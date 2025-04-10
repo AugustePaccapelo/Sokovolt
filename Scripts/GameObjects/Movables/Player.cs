@@ -84,8 +84,8 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables {
 
             foreach (Vector2 pStep in pPath)
             {
-				//if (IsQueuedForDeletion() || GetTree() == null) return;
-				if (isTraveling) return;
+				if (IsQueuedForDeletion() || GetTree() == null) return;
+				if (isTraveling) break;
 				//MoveTo((int)pStep.X, (int)pStep.Y, GridManager.GetInstance().grid);
 				CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.Move, new Vector2(pStep.X - x, pStep.Y - y));
                 //GridManager.GetInstance().StockGridState();

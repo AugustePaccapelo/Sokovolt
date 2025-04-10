@@ -21,6 +21,8 @@ namespace Com.IsartDigital.SokoVolt.Managers {
         }
         #endregion
 
+        private bool isInCameraAnimation = false;
+
         public override void _Ready()
         {
             base._Ready();
