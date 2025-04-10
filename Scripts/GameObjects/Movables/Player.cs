@@ -2,6 +2,7 @@ using Com.IsartDigital.SokoVolt.Managers;
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.CompilerServices;
 
 //Author : Ferlat Thibaud 
@@ -41,8 +42,6 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables {
 		}
 		instance = this;
 			#endregion
-
-			MovableHaveFinish += (pSender) => canTravel = true;
 		}
 
 		public override void _Process(double pDelta)
@@ -58,25 +57,25 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables {
 		{
 			if (canTravel)
 			{
-				timer = 0;
+                timer = 0;
 				isTraveling = true;
                 InputManager.canPlayerMove = false;
                 inTeslaParticles.Show();
-                GD.Print("Player TP to NextTesla");
 				dectetor.Monitorable = false;
-                //canTravel = false;
 				MoveTo(pTesla.x, pTesla.y, GridManager.GetInstance().grid);
-				//GetTree().CreateTimer(0.f).Timeout += () => canTravel = true;
-				GetTree().CreateTimer(0.25f).Timeout += () => InputManager.canPlayerMove = true;
-                isTraveling = false;
-            }
-            else if (pTesla.nextBoxTesla == null) GD.Print("nextTesla est null");
+				if (ConnectionManagers.TeslasConnected.Last() == pTesla)
+					GetTree().CreateTimer(0.25f).Timeout += () => {
+						InputManager.canPlayerMove = true;
+						isTraveling = false;
+					};
+                    }
         }
 
         public override void MoveTo(int pX, int pY, Cell[,] pGrid)
         {
             base.MoveTo(pX, pY, pGrid);
 			CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.PlayerMoved);
+			//canTravel = false;
         }
 
         public async void MoveAlongPath(List<Vector2> pPath)
@@ -85,12 +84,12 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables {
 
             foreach (Vector2 pStep in pPath)
             {
-                if (IsQueuedForDeletion() || GetTree() == null) return;
-
+				//if (IsQueuedForDeletion() || GetTree() == null) return;
+				if (isTraveling) return;
 				//MoveTo((int)pStep.X, (int)pStep.Y, GridManager.GetInstance().grid);
 				CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.Move, new Vector2(pStep.X - x, pStep.Y - y));
-                GridManager.GetInstance().StockGridState();
-                GridManager.GetInstance().PrintGrid();
+                //GridManager.GetInstance().StockGridState();
+                //GridManager.GetInstance().PrintGrid();
 
                 await ToSignal(GetTree().CreateTimer(0.2f), "timeout");
             }

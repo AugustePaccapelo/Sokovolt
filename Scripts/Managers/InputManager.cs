@@ -53,7 +53,7 @@ namespace Com.IsartDigital.SokoVolt.Managers
                 SongManager.Instance.ambientDict[EnumSong.AmbientSong.click].Play();
             }
 
-            if (@event is InputEventKey pEventKey && pEventKey.Pressed && canPlayerMove)
+            if (@event is InputEventKey pEventKey && pEventKey.Pressed)
 			{
                 if (Input.IsActionJustPressed("Up")) customSignals.EmitSignal(CustomSignals.SignalName.Move, Vector2.Up);
                 if (Input.IsActionJustPressed("Down")) customSignals.EmitSignal(CustomSignals.SignalName.Move, Vector2.Down);

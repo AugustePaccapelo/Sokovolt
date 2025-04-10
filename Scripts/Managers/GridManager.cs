@@ -227,7 +227,7 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 			}
 			else return;
 
-			PrintGrid();
+			//PrintGrid();
 		}
 
 		private void MovableFinished(Movable pSender, BoxTesla pBox)
@@ -354,7 +354,7 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 			actualGridStateIndex = pIndexState;
 			UpdateStepLabel();
 			UpdateObjectsFromGrid();
-			PrintGrid();
+			//PrintGrid();
 		}
 
 

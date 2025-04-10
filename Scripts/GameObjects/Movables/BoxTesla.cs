@@ -71,7 +71,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
         public override void _Ready()
         {
            ConnectionManagers.boxTeslasList.Add(this);
-            Init();
+           Init();
         }
 
 
@@ -79,10 +79,8 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
         {
             float lDelta = (float)pDelta;
             base._Process(pDelta);
-            RayCastDetector(); 
-
-            Player.GetInstance().MovableHaveFinish += (Movable _) => TryDisplayPreviewIfPlayerNearby();
-
+            RayCastDetector();
+            
             #region shake
             //Handle shaking effect if not energized
             if (!energize)
@@ -112,10 +110,8 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
         private void Init()
         {
             CallDeferred(nameof(UpdateRangeLabel));
-            MovableHaveFinish += (Movable pSender) => { Searching(pSender);
-            };
+            MovableHaveFinish += (Movable pSender) => Searching(pSender);
             CallDeferred(nameof(ConnectPlayer));
-            
         }
 
         #region TeslaShake
@@ -264,6 +260,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
         private void ConnectPlayer()
         {
             PlayerCollide += Player.GetInstance().InsideTesla;
+            Player.GetInstance().MovableHaveFinish += (Movable _) => TryDisplayPreviewIfPlayerNearby();
         }
         private void RayCastDetector()
         {
@@ -273,7 +270,6 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
                 if (IsInstanceValid(lArea))
                 {
                     EmitSignal(nameof(PlayerCollide), this);
-                    GD.Print("Emit signal");
                     signalEmit = true;
                 }
             }

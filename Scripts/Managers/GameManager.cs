@@ -120,7 +120,6 @@ namespace Com.IsartDigital.SokoVolt.Managers
             Player lPlayer = Player.GetInstance();
             if (door.isOpen && lPlayer.x == door.x && lPlayer.y == door.y)
             {
-                GD.Print("Player has exited!");
                 GameFinished();
             }
         }

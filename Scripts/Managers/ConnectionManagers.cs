@@ -18,7 +18,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
     {
         public static List<BoxTesla> boxTeslasList = new List<BoxTesla>();
         public static List<Generator> generatorList = new List<Generator>();
-        public  List<BoxTesla> TeslasConnected = new List<BoxTesla>();
+        public static List<BoxTesla> TeslasConnected = new List<BoxTesla>();
 
 
         public override void _Ready()
@@ -37,14 +37,13 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
         {
             DisconnectedAll();
             SearchGenerator();
-
         }
 
         private void DisconnectedAll()
         {
             foreach (BoxTesla lBox in boxTeslasList)
                 lBox.LineDeconnection();
-            
+            Player.canTravel = false;
             TeslasConnected.Clear();
         }
 
@@ -82,7 +81,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
         }
 
         CustomSignals.GetInstance()?.EmitSignal(CustomSignals.SignalName.BoxTeslaCalculsDone);
-
+        Player.canTravel = true;
     }
 
 

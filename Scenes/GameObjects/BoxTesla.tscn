@@ -204,11 +204,5 @@ visible = false
 position = Vector2(0, -1)
 points = PackedVector2Array(0, 0)
 
-[node name="RayCast2D" type="RayCast2D" parent="."]
-position = Vector2(1, 0)
-target_position = Vector2(0, 12)
-collide_with_areas = true
-collide_with_bodies = false
-
 [node name="ConnectionPoint" type="Marker2D" parent="."]
 position = Vector2(0, -6)
