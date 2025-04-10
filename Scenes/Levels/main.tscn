@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://dkbx646vvyaig"]
+[gd_scene load_steps=43 format=3 uid="uid://dkbx646vvyaig"]
 
 [ext_resource type="PackedScene" uid="uid://dyk47lo67a1tp" path="res://Scenes/Managers/ui_manager.tscn" id="1_4603a"]
 [ext_resource type="PackedScene" uid="uid://bnv0kco0ylr0e" path="res://Scenes/Managers/GridManager.tscn" id="1_d671q"]
@@ -29,6 +29,19 @@
 [ext_resource type="AudioStream" uid="uid://bkdhsrclowwyq" path="res://Song/Shiva chess-pieces-move-close.mp3" id="26_betdd"]
 [ext_resource type="PackedScene" uid="uid://bkskxcspqook3" path="res://Scenes/BackGround/AnimatedBackGround.tscn" id="26_rfowc"]
 [ext_resource type="AudioStream" uid="uid://bxlpblj5mcaof" path="res://Song/clicksoundeffect.mp3" id="28_eg566"]
+[ext_resource type="AudioStream" uid="uid://dn32i8tby2xfr" path="res://Song/TitleCardSound/spotlight-91359.mp3" id="29_3qccr"]
+[ext_resource type="AudioStream" uid="uid://difbx1u6twx0t" path="res://Song/LevelSelectorSound/whirl-50468.mp3" id="30_asyhk"]
+[ext_resource type="AudioStream" uid="uid://bjg2slsg1c76h" path="res://Song/LevelSelectorSound/servo_2_panera-25665.mp3" id="31_lm25s"]
+[ext_resource type="AudioStream" uid="uid://biisufi33315p" path="res://Song/LevelSelectorSound/mysterious-electricity-73307.mp3" id="32_c87ih"]
+[ext_resource type="AudioStream" uid="uid://coe8bpgpdtj5o" path="res://Song/LevelSelectorSound/heater-58674.mp3" id="33_2a0qo"]
+[ext_resource type="AudioStream" uid="uid://d1a28kdxhb3ea" path="res://Song/LevelSelectorSound/elevator-noise-33064.mp3" id="34_ugr34"]
+[ext_resource type="AudioStream" uid="uid://cvsr7p0a5dymp" path="res://Song/LevelSelectorSound/treadmill.ogg" id="35_uay1f"]
+[ext_resource type="AudioStream" uid="uid://e5js8fkcbgig" path="res://Song/LevelSelectorSound/toggle-button-on-166329.mp3" id="36_3sml6"]
+[ext_resource type="AudioStream" uid="uid://beimplfj68k5l" path="res://Song/LevelCreator/pop-91931-2.ogg" id="37_trgo4"]
+[ext_resource type="AudioStream" uid="uid://ctbopfj2v5l7w" path="res://Song/LevelCreator/pop-91931-3.ogg" id="38_2gswp"]
+[ext_resource type="AudioStream" uid="uid://b5wfu3wt3k3wr" path="res://Song/LevelCreator/pop-91931-4.ogg" id="39_rkyjo"]
+[ext_resource type="AudioStream" uid="uid://biyjhsi4nkwjy" path="res://Song/LevelCreator/pop-91931-5.ogg" id="40_dmpm1"]
+[ext_resource type="AudioStream" uid="uid://bk7px1ugt8mic" path="res://Song/LevelCreator/pop-91931-6.ogg" id="41_5tewb"]
 
 [node name="MAIN" type="Node2D"]
 
@@ -114,6 +127,64 @@ bus = &"SFX"
 
 [node name="AudioStreamPlayer3" type="AudioStreamPlayer" parent="Managers/SongManager"]
 stream = ExtResource("28_eg566")
+bus = &"SFX"
+
+[node name="AudioStreamPlayer4" type="AudioStreamPlayer" parent="Managers/SongManager"]
+stream = ExtResource("29_3qccr")
+bus = &"SFX"
+
+[node name="AudioStreamPlayer5" type="AudioStreamPlayer" parent="Managers/SongManager"]
+stream = ExtResource("30_asyhk")
+volume_db = -10.0
+bus = &"SFX"
+
+[node name="AudioStreamPlayer6" type="AudioStreamPlayer" parent="Managers/SongManager"]
+stream = ExtResource("31_lm25s")
+volume_db = -10.0
+bus = &"SFX"
+
+[node name="AudioStreamPlayer7" type="AudioStreamPlayer" parent="Managers/SongManager"]
+stream = ExtResource("32_c87ih")
+bus = &"SFX"
+
+[node name="AudioStreamPlayer8" type="AudioStreamPlayer" parent="Managers/SongManager"]
+stream = ExtResource("33_2a0qo")
+volume_db = -10.0
+bus = &"SFX"
+
+[node name="AudioStreamPlayer9" type="AudioStreamPlayer" parent="Managers/SongManager"]
+stream = ExtResource("34_ugr34")
+volume_db = -10.0
+bus = &"SFX"
+
+[node name="AudioStreamPlayer10" type="AudioStreamPlayer" parent="Managers/SongManager"]
+stream = ExtResource("35_uay1f")
+volume_db = 2.0
+bus = &"SFX"
+
+[node name="AudioStreamPlayer11" type="AudioStreamPlayer" parent="Managers/SongManager"]
+stream = ExtResource("36_3sml6")
+pitch_scale = 2.18
+bus = &"SFX"
+
+[node name="AudioStreamPlayer12" type="AudioStreamPlayer" parent="Managers/SongManager"]
+stream = ExtResource("37_trgo4")
+bus = &"SFX"
+
+[node name="AudioStreamPlayer13" type="AudioStreamPlayer" parent="Managers/SongManager"]
+stream = ExtResource("38_2gswp")
+bus = &"SFX"
+
+[node name="AudioStreamPlayer14" type="AudioStreamPlayer" parent="Managers/SongManager"]
+stream = ExtResource("39_rkyjo")
+bus = &"SFX"
+
+[node name="AudioStreamPlayer15" type="AudioStreamPlayer" parent="Managers/SongManager"]
+stream = ExtResource("40_dmpm1")
+bus = &"SFX"
+
+[node name="AudioStreamPlayer16" type="AudioStreamPlayer" parent="Managers/SongManager"]
+stream = ExtResource("41_5tewb")
 bus = &"SFX"
 
 [node name="Containers" type="Node2D" parent="."]

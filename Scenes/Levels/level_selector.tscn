@@ -1,4 +1,4 @@
-[gd_scene load_steps=78 format=3 uid="uid://dht3qeqhib1rk"]
+[gd_scene load_steps=77 format=3 uid="uid://dht3qeqhib1rk"]
 
 [ext_resource type="Script" path="res://Scripts/Controls/LevelSelector.cs" id="1_7onrw"]
 [ext_resource type="Texture2D" uid="uid://dyr30pkkewie" path="res://Assets/UI/MainMenu/LevelScreen.png" id="2_u4r7s"]
@@ -128,21 +128,6 @@ keycode = 4194319
 
 [sub_resource type="Shortcut" id="Shortcut_0fmw5"]
 events = [SubResource("InputEventKey_tv7e5")]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gjake"]
-bg_color = Color(0.559523, 1.27546e-06, 3.36915e-07, 1)
-border_width_left = 5
-border_width_top = 5
-border_width_right = 5
-border_width_bottom = 5
-border_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 20
-corner_radius_top_right = 20
-corner_radius_bottom_right = 20
-corner_radius_bottom_left = 20
-corner_detail = 16
-shadow_size = 5
-shadow_offset = Vector2(0, 5)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_oi1y7"]
 
@@ -463,7 +448,7 @@ texture = ExtResource("27_udj1q")
 [node name="TeslaContainer" type="Node2D" parent="."]
 
 [node name="ButtonBox" type="TextureRect" parent="."]
-z_index = 100
+z_index = 4
 layout_mode = 1
 offset_left = 332.0
 offset_top = 542.0
@@ -524,7 +509,7 @@ theme_override_font_sizes/font_size = 300
 theme_override_styles/normal = SubResource("StyleBoxFlat_8lue5")
 theme_override_styles/hover = SubResource("StyleBoxFlat_at7ei")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_ck5x4")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_gjake")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_8lue5")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_oi1y7")
 shortcut = SubResource("Shortcut_7dlpy")
 text = "PLAY"
@@ -624,6 +609,7 @@ speed_scale = 2.88
 fixed_fps = 60
 
 [node name="FrontMachine" type="TextureRect" parent="."]
+z_index = 4
 layout_mode = 0
 offset_top = 11.0
 offset_right = 406.0

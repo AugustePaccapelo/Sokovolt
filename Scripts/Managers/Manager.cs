@@ -35,8 +35,12 @@ namespace Com.IsartDigital.SokoVolt.Managers
 		private bool IsAllMAangersReady() => numManager == allManagers.Count;
 		private void InitAllManagers()
 		{
-			foreach (Manager lManager in allManagers) lManager.Init();
-		}
+			foreach (Manager lManager in allManagers)
+			{
+                lManager.Init();
+            }
+			TitleCard.GetInstance().Init();
+        }
 
 
 		// ----- Destructor ----- \\
