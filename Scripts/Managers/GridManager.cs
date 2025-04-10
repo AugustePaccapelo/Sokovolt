@@ -407,8 +407,8 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 		{
 			foreach (Node2D lObject in gameManager.objectsContainer.GetChildren())
 				lObject.Visible = false;
-
-			float lDelay = 0f;
+            HUD.GetInstance().mainMenuButton.Disabled = true;
+            float lDelay = 0f;
 
 			for (int y = 0; y < LevelLoader.levelHeight; y++) 
 			{
@@ -431,11 +431,13 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 
 			GetTree().CreateTimer(lDelay + 1).Timeout += () => {
 				Tween lTween = AnimationManager.GetInstance().CameraZoomTraveling(GameManager.GetInstance().camera, 0.3f, 0.5f, player.Position, GameManager.GetInstance().camera.Position, 2f);
-				// lTween.TweenProperty(player, SCALE, new Vector2(2, 2), 0.4f);
-				lTween.Finished += () =>
+                // lTween.TweenProperty(player, SCALE, new Vector2(2, 2), 0.4f);
+                
+                lTween.Finished += () =>
 				{
 					player.bodyParticles.Emitting = InputManager.canPlayerMove = true;
-				};
+                    HUD.GetInstance().mainMenuButton.Disabled = false;
+                };
                 
 				Player.canTravel = true;
 				CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.StartRecherche);
