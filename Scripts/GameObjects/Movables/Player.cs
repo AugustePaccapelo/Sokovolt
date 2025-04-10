@@ -63,7 +63,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables {
                 inTeslaParticles.Show();
 				dectetor.Monitorable = false;
 				MoveTo(pTesla.x, pTesla.y, GridManager.GetInstance().grid);
-				if (ConnectionManagers.TeslasConnected.Last() == pTesla)
+				if (ConnectionManagers.lastTeslas.Contains(pTesla))
 					GetTree().CreateTimer(0.25f).Timeout += () => {
 						InputManager.canPlayerMove = true;
 						isTraveling = false;
