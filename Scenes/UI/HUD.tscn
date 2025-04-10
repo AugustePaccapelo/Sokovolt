@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://csiqphobxyguh"]
+[gd_scene load_steps=23 format=3 uid="uid://csiqphobxyguh"]
 
 [ext_resource type="Texture2D" uid="uid://bwo2d06o2b0ky" path="res://Assets/UI/HUD/UndoRedoArrow.png" id="1_8d4ph"]
 [ext_resource type="Script" path="res://Scripts/Controls/HUD.cs" id="1_ivlib"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://36dp5dq6hmqq" path="res://Scenes/GameObjects/ButtonTemplate.tscn" id="5_al47o"]
 [ext_resource type="Texture2D" uid="uid://c767fcajnj2yi" path="res://Assets/Shaders/Effects/Glow.png" id="6_nni3e"]
 [ext_resource type="FontFile" uid="uid://eycyixjjf4a7" path="res://Assets/Font/BubbleSans-Regular.otf" id="6_qhshu"]
+[ext_resource type="PackedScene" uid="uid://ca46ahn3knpuo" path="res://Scenes/FTUE/DialogueBox.tscn" id="8_5pccc"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_spsqj"]
 font = ExtResource("6_qhshu")
@@ -139,7 +140,7 @@ keycode = 4194305
 [sub_resource type="Shortcut" id="Shortcut_arctw"]
 events = [SubResource("InputEventKey_hc5vy")]
 
-[node name="Hud" type="Control" node_paths=PackedStringArray("undoButton", "redoButton", "mainMenuButton", "parLabel", "stepLabel", "winLabel", "authorLabel", "displayInGame")]
+[node name="Hud" type="Control" node_paths=PackedStringArray("undoButton", "redoButton", "mainMenuButton", "parLabel", "stepLabel", "winLabel", "authorLabel", "displayInGame", "dialogBox")]
 custom_minimum_size = Vector2(1152, 648)
 layout_mode = 3
 anchors_preset = 15
@@ -158,6 +159,7 @@ winLabel = NodePath("WinLabel")
 authorLabel = NodePath("DisplayInGame/AuthorLabel")
 winScreenScene = ExtResource("2_n24og")
 displayInGame = NodePath("DisplayInGame")
+dialogBox = NodePath("DialogBox")
 
 [node name="DisplayInGame" type="Control" parent="."]
 layout_mode = 1
@@ -302,3 +304,7 @@ color = Color(1, 0.4, 0, 1)
 energy = 0.2
 texture = ExtResource("6_nni3e")
 texture_scale = 0.1
+
+[node name="DialogBox" parent="." instance=ExtResource("8_5pccc")]
+position = Vector2(270, 598)
+scale = Vector2(0.6, 0.6)
