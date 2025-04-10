@@ -209,18 +209,16 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
                     if (x < 0 || x >= lGrid.GetLength(0) || y < 0 || y >= lGrid.GetLength(1))
                         continue;
                     GameObject lGOToScan = lGrid[x, y].GetContent();
-                            if ( lGOToScan == pObjectToConecte )
-                            {
-                                Vector2 lVector2 = new Vector2(pObjectToConecte.x - this.x,pObjectToConecte.y-this.y);
-                              float lLength=lVector2.Length();
-
-                              return lLength ;
-                            }
-                            else if (lGOToScan is Wall)
-                            {
-                                lIndicesToRemove.Add(j);
-                            }
-                    
+                    if ( lGOToScan == pObjectToConecte )
+                    {
+                        Vector2 lVector2 = new Vector2(pObjectToConecte.x - this.x,pObjectToConecte.y-this.y);
+                        float lLength=lVector2.Length();
+                        return lLength;
+                    }
+                    else if (lGOToScan is Wall)
+                    {
+                        lIndicesToRemove.Add(j);
+                    }
                 }
                 lIndicesToRemove.Sort((a, b) => b.CompareTo(a));
                 foreach (int index in lIndicesToRemove)
