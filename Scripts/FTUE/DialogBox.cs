@@ -82,6 +82,8 @@ namespace Com.IsartDigital.SokoVolt
 			currentLine = dialogues[dialogueIndex];
 			text.Text = currentLine;
 			text.VisibleCharacters = 0;
+			
+			DialogManager.GetInstance().OnDialogueLineDisplayed(dialogueIndex);
 
 			for (int i = 0; i <= currentLine.Length; i++)
 			{

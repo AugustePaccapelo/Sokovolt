@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using Com.IsartDigital.SokoVolt.Tools;
 
 //Author : Ferlat Thibaud 
 namespace Com.IsartDigital.SokoVolt.GameObjects.Movables {
@@ -42,6 +43,8 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables {
 		}
 		instance = this;
 			#endregion
+			HighlightManager.GetInstance()?.RegisterTarget("Player", this);
+
 		}
 
 		public override void _Process(double pDelta)

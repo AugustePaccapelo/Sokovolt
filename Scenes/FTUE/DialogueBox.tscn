@@ -17,6 +17,8 @@ animations = [{
 }]
 
 [node name="DialogBox" type="Node2D" node_paths=PackedStringArray("dialogBox", "dialoger", "text", "nextButton")]
+z_index = 1000
+z_as_relative = false
 script = ExtResource("1_3rsry")
 dialogBox = NodePath("MarginContainer")
 dialoger = NodePath("AnimatedSprite2D")
@@ -24,7 +26,7 @@ text = NodePath("MarginContainer/MarginContainer/RichTextLabel")
 nextButton = NodePath("Button")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
-offset_right = 798.0
+offset_right = 945.0
 offset_bottom = 617.0
 
 [node name="NinePatchRect" type="NinePatchRect" parent="MarginContainer"]
@@ -38,7 +40,7 @@ patch_margin_bottom = 249
 layout_mode = 2
 theme_override_constants/margin_left = 150
 theme_override_constants/margin_top = 160
-theme_override_constants/margin_right = 245
+theme_override_constants/margin_right = 300
 theme_override_constants/margin_bottom = 300
 
 [node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/MarginContainer"]
@@ -47,10 +49,10 @@ theme_override_fonts/normal_font = ExtResource("3_xcvit")
 theme_override_font_sizes/normal_font_size = 28
 
 [node name="Button" type="Button" parent="."]
-offset_left = 472.0
-offset_top = 270.0
-offset_right = 549.0
-offset_bottom = 329.0
+offset_left = 733.0
+offset_top = 112.0
+offset_right = 810.0
+offset_bottom = 171.0
 theme_override_font_sizes/font_size = 30
 text = ">"
 

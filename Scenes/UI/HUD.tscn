@@ -283,10 +283,10 @@ label_settings = SubResource("LabelSettings_qeci4")
 
 [node name="MainMenuButton" parent="." instance=ExtResource("5_al47o")]
 layout_mode = 0
-offset_left = 1416.0
-offset_top = 928.0
-offset_right = 1712.0
-offset_bottom = 1053.0
+offset_left = 1591.0
+offset_top = 892.0
+offset_right = 1887.0
+offset_bottom = 1017.0
 pivot_offset = Vector2(148, 62)
 theme_override_font_sizes/font_size = 50
 theme_override_styles/normal = SubResource("StyleBoxFlat_lbk83")
@@ -306,5 +306,5 @@ texture = ExtResource("6_nni3e")
 texture_scale = 0.1
 
 [node name="DialogBox" parent="." instance=ExtResource("8_5pccc")]
-position = Vector2(270, 598)
+position = Vector2(1393, 431)
 scale = Vector2(0.6, 0.6)

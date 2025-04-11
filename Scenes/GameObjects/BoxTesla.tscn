@@ -139,7 +139,7 @@ font_size = 32
 position = Vector2(0, -2)
 script = ExtResource("1_c7f4a")
 lightningNodeScene = ExtResource("2_vgo5j")
-electriLine2D = NodePath("")
+electriLine2D = NodePath("Line2D")
 connectionPoint = NodePath("ConnectionPoint")
 visual = NodePath("Visual")
 connectedLight = NodePath("Visual/ConnectedLight")
@@ -165,7 +165,7 @@ texture = ExtResource("3_dmi6p")
 texture_scale = 0.4
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Visual"]
-position = Vector2(-1.13636, -53.4091)
+position = Vector2(-1.25, -35)
 scale = Vector2(0.12, 0.12)
 sprite_frames = SubResource("SpriteFrames_pov8a")
 autoplay = "default"
@@ -189,5 +189,10 @@ text = "3"
 label_settings = SubResource("LabelSettings_4d5rh")
 horizontal_alignment = 1
 
+[node name="Line2D" type="Line2D" parent="."]
+visible = false
+position = Vector2(0, -1)
+points = PackedVector2Array(0, 0)
+
 [node name="ConnectionPoint" type="Marker2D" parent="."]
-position = Vector2(0, -24)
+position = Vector2(0, -6)

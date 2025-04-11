@@ -8,6 +8,7 @@ using System.Data;
 using System.Linq;
 using static EnumSong;
 using RobotnikSokoban.Scripts.Managers;
+using Com.IsartDigital.SokoVolt.Tools;
 
 // Author : Soukai William
 
@@ -73,6 +74,8 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
         {
            ConnectionManagers.boxTeslasList.Add(this);
            Init();
+           HighlightManager.GetInstance()?.RegisterTarget("BoxTesla", this);
+
         }
 
 
