@@ -8,6 +8,7 @@ using System.Data;
 using System.Linq;
 using static EnumSong;
 using RobotnikSokoban.Scripts.Managers;
+using Com.IsartDigital.SokoVolt.Tools;
 
 // Author : Soukai William
 
@@ -22,6 +23,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
         [Export] private Line2D electriLine2D;
         [Export] public Marker2D connectionPoint;
         [Export] private Node2D visual;
+        [Export] private PointLight2D connectedLight; 
         #endregion
 
         #region variables
@@ -72,6 +74,8 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
         {
            ConnectionManagers.boxTeslasList.Add(this);
            Init();
+           HighlightManager.GetInstance()?.RegisterTarget("BoxTesla", this);
+
         }
 
 
@@ -240,13 +244,16 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
         {
             rayCast.TargetPosition = pTargetPos;
         }*/
-        private void CreateRaycast(Vector2 pTargetPos)
+        private async void CreateRaycast(Vector2 pTargetPos)
         {
             rayCast = new RayCast2D();
             AddChild(rayCast);
             rayCast.TargetPosition = pTargetPos;
             rayCast.CollideWithAreas = true;
             rayCast.CollideWithBodies = false;
+            
+            // await ToSignal(GetTree(), "physics_frame");
+            // rayCast.ForceRaycastUpdate();
         }
 
         private void DestroyRaycast()
@@ -265,13 +272,14 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
             if (rayCast != null && !signalEmit && rayCast.IsColliding() && Player.canTravel && !GridManager.currentlyUndoRedo)
             {
                 GodotObject lArea = rayCast.GetCollider();
-                if (IsInstanceValid(lArea))
-                {
-                    EmitSignal(nameof(PlayerCollide), this);
-                    signalEmit = true;
-                }
+                EmitSignal(nameof(PlayerCollide), this);
+                signalEmit = true;
+                
             }
-            else if (rayCast != null && !rayCast.IsColliding()) signalEmit = false;
+            else if (rayCast != null && !rayCast.IsColliding())
+            {
+                signalEmit = false;
+            }
         }
         #endregion
 
@@ -279,6 +287,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
         public void LineConnection(GameObject pObjToConnect)
         {
             energize = true;
+            connectedLight.Visible = true;  
             ClearPreviewLines(); 
             
             lightning = lightningNodeScene.Instantiate<LightningNode>();
@@ -298,6 +307,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
         public void LineDeconnection()
         {
             energize = false;
+            connectedLight.Visible = false;
             //UpdateRayCast(Vector2.Zero);
             DestroyRaycast();
             if (lightning != null)

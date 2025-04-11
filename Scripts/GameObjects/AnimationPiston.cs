@@ -125,7 +125,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects {
 
 			await ToSignal(GetTree().CreateTimer(1f), TIME_OUT);
 			ClearMaskRecursively(topPart);
-			QueueFree(); 
+			QueueFree();
 		}
 
 		private static void ButtonActivation()

@@ -1,5 +1,6 @@
 ﻿using Godot;
 using System;
+using Com.IsartDigital.SokoVolt.Tools;
 
 // Author : Soukai William
 namespace Com.IsartDigital.SokoVolt.GameObjects { 
@@ -10,6 +11,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects {
 		public override void _Ready()
 		{
 			ConnectionManagers.generatorList.Add(this);
+			HighlightManager.GetInstance()?.RegisterTarget("Generator", this);
 			Init();
 		}
 

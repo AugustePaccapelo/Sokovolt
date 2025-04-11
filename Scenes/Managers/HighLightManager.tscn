@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://ea1n36xp4mo5"]
+
+[ext_resource type="Script" path="res://Scripts/Managers/HighlightManager.cs" id="1_f73sm"]
+[ext_resource type="PackedScene" uid="uid://caxpiqjbimbs5" path="res://Scenes/FTUE/HighLightFX.tscn" id="2_7uet1"]
+
+[node name="HighLightManager" type="Node2D"]
+script = ExtResource("1_f73sm")
+highlightFXScene = ExtResource("2_7uet1")

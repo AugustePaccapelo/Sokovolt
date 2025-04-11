@@ -28,6 +28,7 @@ namespace Com.IsartDigital.SokoVolt{
 		//WinScreen
 		[Export] public PackedScene winScreenScene;
 		[Export] public Control displayInGame; 
+		[Export] public DialogBox dialogBox;
 		public WinScreen winScreen;
 		private int storedNumStar, storedScore, storedNumStep;
 

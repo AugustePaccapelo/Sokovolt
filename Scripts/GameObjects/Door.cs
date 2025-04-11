@@ -1,5 +1,6 @@
 using System.Runtime.Serialization.Formatters;
 using Com.IsartDigital.SokoVolt.Managers;
+using Com.IsartDigital.SokoVolt.Tools;
 using Godot;
 
 // Author : Auguste Paccapelo
@@ -58,6 +59,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
 			GameManager.GetInstance().door = this;
             openCloseAnimation.Frame = 34;
             visual.ZIndex -= 1;
+            HighlightManager.GetInstance()?.RegisterTarget("Door", this);
 		}
 		public override void _Process(double pDelta)
 		{

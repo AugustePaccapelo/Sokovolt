@@ -1,0 +1,62 @@
+[gd_scene load_steps=6 format=3 uid="uid://ca46ahn3knpuo"]
+
+[ext_resource type="Script" path="res://Scripts/FTUE/DialogBox.cs" id="1_3rsry"]
+[ext_resource type="Texture2D" uid="uid://753up28tcx1p" path="res://Assets/FTUE/pngegg.png" id="1_rnwde"]
+[ext_resource type="Texture2D" uid="uid://bcpkbpajrocqe" path="res://Assets/FTUE/pngegg (1).png" id="3_bgt5y"]
+[ext_resource type="FontFile" uid="uid://eycyixjjf4a7" path="res://Assets/Font/BubbleSans-Regular.otf" id="3_xcvit"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_e3jtj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_bgt5y")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="DialogBox" type="Node2D" node_paths=PackedStringArray("dialogBox", "dialoger", "text", "nextButton")]
+z_index = 1000
+z_as_relative = false
+script = ExtResource("1_3rsry")
+dialogBox = NodePath("MarginContainer")
+dialoger = NodePath("AnimatedSprite2D")
+text = NodePath("MarginContainer/MarginContainer/RichTextLabel")
+nextButton = NodePath("Button")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+offset_right = 945.0
+offset_bottom = 617.0
+
+[node name="NinePatchRect" type="NinePatchRect" parent="MarginContainer"]
+self_modulate = Color(0.899613, 0.75809, 0.880871, 1)
+layout_mode = 2
+texture = ExtResource("1_rnwde")
+patch_margin_top = 68
+patch_margin_bottom = 249
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 150
+theme_override_constants/margin_top = 160
+theme_override_constants/margin_right = 300
+theme_override_constants/margin_bottom = 300
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/MarginContainer"]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("3_xcvit")
+theme_override_font_sizes/normal_font_size = 28
+
+[node name="Button" type="Button" parent="."]
+offset_left = 733.0
+offset_top = 112.0
+offset_right = 810.0
+offset_bottom = 171.0
+theme_override_font_sizes/font_size = 30
+text = ">"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(440, 610)
+scale = Vector2(0.58855, 0.58855)
+sprite_frames = SubResource("SpriteFrames_e3jtj")

@@ -183,4 +183,4 @@ texture = ExtResource("33_lmu0t")
 texture_scale = 0.4
 
 [node name="ConnectionPoint" type="Marker2D" parent="."]
-position = Vector2(0, -13)
+position = Vector2(0, -6)
