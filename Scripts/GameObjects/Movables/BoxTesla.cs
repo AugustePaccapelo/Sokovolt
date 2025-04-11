@@ -20,7 +20,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
         #region  Export 
         [Export] private PackedScene lightningNodeScene;
         [Export] private Line2D electriLine2D;
-        [Export] private Marker2D connectionPoint;
+        [Export] public Marker2D connectionPoint;
         [Export] private Node2D visual;
         [Export] private PointLight2D connectedLight; 
         #endregion
@@ -289,7 +289,10 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
             
             lightning = lightningNodeScene.Instantiate<LightningNode>();
             lightning.endPoint = connectionPoint.GlobalPosition;
-            lightning.startPoint = pObjToConnect.GlobalPosition;
+            if (pObjToConnect is BoxTesla lTesla)
+                lightning.startPoint = lTesla.connectionPoint.GlobalPosition;
+            else if (pObjToConnect is Generator lGene)
+                lightning.startPoint = lGene.connectionPoint.GlobalPosition;
             AddChild(lightning);
             lightning.StartLightning();
             //UpdateRayCast(ToLocal(pObjToConnect.GlobalPosition));
