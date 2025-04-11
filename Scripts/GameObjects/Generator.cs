@@ -6,7 +6,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects {
 	
 	public partial class Generator : GameObject
 	{
-
+		[Export] public Marker2D connectionPoint;
 		public override void _Ready()
 		{
 			ConnectionManagers.generatorList.Add(this);

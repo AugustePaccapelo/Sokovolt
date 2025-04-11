@@ -8,6 +8,7 @@ using System.Data;
 using System.Linq;
 using Com.IsartDigital.SokoVolt.Tools;
 using static Com.IsartDigital.SokoVolt.Tools.ObjectProperties;
+using System.Threading.Tasks;
 
 
 //Author : Ferlat Thibaud 
@@ -545,7 +546,7 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 					.SetTrans(Tween.TransitionType.Linear)
 					.SetEase(Tween.EaseType.OutIn);
 
-			lVortexTween.Finished += () => EndLevelAnimationFnished(); 
+			lVortexTween.Finished += () => GetTree().CreateTimer(1f).Timeout += EndLevelAnimationFnished;
 		}
 
 
@@ -561,7 +562,7 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 
 		private void EndLevelAnimationFnished()
 		{
-			vortex.QueueFree(); 
+			vortex.QueueFree();
 			CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.EndLevelAnimation); 
 			HUD.GetInstance().mainMenuButton.Disabled = false;
 			if(LevelCreator.inLevelCreator) LevelCreator.GetInstance().returnButton.Disabled = false;

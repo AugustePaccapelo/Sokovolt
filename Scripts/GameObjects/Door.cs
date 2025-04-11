@@ -30,7 +30,6 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
         [Export] private Node2D openedVisual;
         [Export] private GpuParticles2D openedVisualParticles;
 		[Export] private AnimatedSprite2D openCloseAnimation;
-		private float globalDelta = 0;
 
         // ----- Others ----- \\
 		public bool isOpen { get; private set; }
@@ -63,7 +62,6 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
 		public override void _Process(double pDelta)
 		{
 			float lDelta = (float)pDelta;
-			globalDelta = lDelta;
 			base._Process(lDelta);
         }
 

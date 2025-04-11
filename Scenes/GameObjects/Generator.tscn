@@ -132,8 +132,9 @@ animations = [{
 "speed": 20.0
 }]
 
-[node name="Generator" type="Node2D"]
+[node name="Generator" type="Node2D" node_paths=PackedStringArray("connectionPoint")]
 script = ExtResource("1_3t66j")
+connectionPoint = NodePath("ConnectionPoint")
 
 [node name="Visual" type="Node2D" parent="."]
 scale = Vector2(0.66, 0.66)
@@ -180,3 +181,6 @@ scale = Vector2(0.700231, 0.26331)
 color = Color(0.983956, 0.699043, 0, 1)
 texture = ExtResource("33_lmu0t")
 texture_scale = 0.4
+
+[node name="ConnectionPoint" type="Marker2D" parent="."]
+position = Vector2(0, -13)
