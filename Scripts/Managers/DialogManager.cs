@@ -70,15 +70,49 @@ namespace Com.IsartDigital.SokoVolt{
 					return new List<string>
 					{
 						"Bienvenue dans SokoVolt !",
-						"Utilise les flèches pour te déplacer.",
-						"Pousse les caisses Tesla pour activer les circuits."
+						"Je suis l’architecte de cette vieille usine électrique.",
+						"Tu vois ce gros bidule bleu avec des antennes ?",
+						"C’est notre générateur. Il produit de l’énergie.",
+						"Regarde cette ampoule... elle est bien triste sans lumière.",
+						"Ton objectif : lui transmettre l’énergie du générateur.",
+						"Comment ? Grâce à ces boîtes avec des antennes : les Teslas.",
+						"Approche-les les unes des autres pour faire circuler le courant.",
+						"Utilise les flèches pour te déplacer et pousser les Teslas.",
+						"Petit conseil : la dernière Tesla doit être collée à l’ampoule.",
+						"Tu remarqueras que certains éléments du système fonctionnent encore.",
+						"Inspire-toi d’eux pour comprendre comment tout ça marche.",
+						"Bonne chance... et ne me déçois pas !"
 					};
+
 
 				case 2:
 					return new List<string>
 					{
-						"Rappelle-toi, tu peux appuyer sur R pour recommencer !"
+						"Hmmm... encore un souci dans le bloc 2 de mon usine ?",
+						"Cette zone est un peu spéciale, elle est sécurisée.",
+						"Tu remarqueras ces murs électriques :",
+						"Ils bloquent le passage, mais pas le courant.",
+						"Tu peux connecter des Teslas à travers eux.",
+						"Essaie donc de rétablir l’énergie dans cette zone !"
 					};
+
+				case 3:
+					return new List<string>
+					{
+						"On dirait qu’on va devoir travailler ensemble un bon moment...",
+						"Un déséquilibre atomique a mis tous mes blocs HS.",
+						"Regarde : la porte et l’ampoule sont derrière ce mur.",
+						"Mais toi, tu as une capacité spéciale : tu peux voyager dans le courant électrique !",
+						"Essaie de connecter la première Tesla, puis traverse l’arc électrique.",
+						"Tu verras, c’est plutôt marrant.",
+						"Ah, et à propos : les Teslas peuvent se connecter à distance...",
+						"...mais seulement si elles sont **dans leur portée**.",
+						"Regarde bien les chiffres ou les lignes d’aperçu qui apparaissent : c’est leur **range électrique**.",
+						"Plus la distance est grande, plus c’est difficile de relier.",
+						"Joue bien avec ça si tu veux activer toute la zone !"
+					};
+
+
 
 				// Ajoute ici d'autres niveaux
 

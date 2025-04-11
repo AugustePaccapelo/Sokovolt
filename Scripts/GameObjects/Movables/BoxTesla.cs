@@ -22,6 +22,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
         [Export] private Line2D electriLine2D;
         [Export] private Marker2D connectionPoint;
         [Export] private Node2D visual;
+        [Export] private PointLight2D connectedLight; 
         #endregion
 
         #region variables
@@ -248,8 +249,8 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
             rayCast.CollideWithAreas = true;
             rayCast.CollideWithBodies = false;
             
-            await ToSignal(GetTree(), "physics_frame");
-            rayCast.ForceRaycastUpdate();
+            // await ToSignal(GetTree(), "physics_frame");
+            // rayCast.ForceRaycastUpdate();
         }
 
         private void DestroyRaycast()
@@ -268,7 +269,6 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
             if (rayCast != null && !signalEmit && rayCast.IsColliding() && Player.canTravel && !GridManager.currentlyUndoRedo)
             {
                 GodotObject lArea = rayCast.GetCollider();
-               
                 EmitSignal(nameof(PlayerCollide), this);
                 signalEmit = true;
                 
@@ -284,6 +284,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
         public void LineConnection(GameObject pObjToConnect)
         {
             energize = true;
+            connectedLight.Visible = true;  
             ClearPreviewLines(); 
             
             lightning = lightningNodeScene.Instantiate<LightningNode>();
@@ -300,6 +301,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
         public void LineDeconnection()
         {
             energize = false;
+            connectedLight.Visible = false;
             //UpdateRayCast(Vector2.Zero);
             DestroyRaycast();
             if (lightning != null)
