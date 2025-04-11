@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://csiqphobxyguh"]
+[gd_scene load_steps=23 format=3 uid="uid://csiqphobxyguh"]
 
 [ext_resource type="Texture2D" uid="uid://bwo2d06o2b0ky" path="res://Assets/UI/HUD/UndoRedoArrow.png" id="1_8d4ph"]
 [ext_resource type="Script" path="res://Scripts/Controls/HUD.cs" id="1_ivlib"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://36dp5dq6hmqq" path="res://Scenes/GameObjects/ButtonTemplate.tscn" id="5_al47o"]
 [ext_resource type="Texture2D" uid="uid://c767fcajnj2yi" path="res://Assets/Shaders/Effects/Glow.png" id="6_nni3e"]
 [ext_resource type="FontFile" uid="uid://eycyixjjf4a7" path="res://Assets/Font/BubbleSans-Regular.otf" id="6_qhshu"]
+[ext_resource type="PackedScene" uid="uid://ca46ahn3knpuo" path="res://Scenes/FTUE/DialogueBox.tscn" id="8_5pccc"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_spsqj"]
 font = ExtResource("6_qhshu")
@@ -139,8 +140,7 @@ keycode = 4194305
 [sub_resource type="Shortcut" id="Shortcut_arctw"]
 events = [SubResource("InputEventKey_hc5vy")]
 
-[node name="Hud" type="Control" node_paths=PackedStringArray("undoButton", "redoButton", "mainMenuButton", "parLabel", "stepLabel", "winLabel", "authorLabel", "displayInGame")]
-visible = false
+[node name="Hud" type="Control" node_paths=PackedStringArray("undoButton", "redoButton", "mainMenuButton", "parLabel", "stepLabel", "winLabel", "authorLabel", "displayInGame", "dialogBox")]
 custom_minimum_size = Vector2(1152, 648)
 layout_mode = 3
 anchors_preset = 15
@@ -159,6 +159,7 @@ winLabel = NodePath("WinLabel")
 authorLabel = NodePath("DisplayInGame/AuthorLabel")
 winScreenScene = ExtResource("2_n24og")
 displayInGame = NodePath("DisplayInGame")
+dialogBox = NodePath("DialogBox")
 
 [node name="DisplayInGame" type="Control" parent="."]
 layout_mode = 1
@@ -282,10 +283,10 @@ label_settings = SubResource("LabelSettings_qeci4")
 
 [node name="MainMenuButton" parent="." instance=ExtResource("5_al47o")]
 layout_mode = 0
-offset_left = 1416.0
-offset_top = 928.0
-offset_right = 1712.0
-offset_bottom = 1053.0
+offset_left = 1591.0
+offset_top = 892.0
+offset_right = 1887.0
+offset_bottom = 1017.0
 pivot_offset = Vector2(148, 62)
 theme_override_font_sizes/font_size = 50
 theme_override_styles/normal = SubResource("StyleBoxFlat_lbk83")
@@ -303,3 +304,7 @@ color = Color(1, 0.4, 0, 1)
 energy = 0.2
 texture = ExtResource("6_nni3e")
 texture_scale = 0.1
+
+[node name="DialogBox" parent="." instance=ExtResource("8_5pccc")]
+position = Vector2(1393, 431)
+scale = Vector2(0.6, 0.6)

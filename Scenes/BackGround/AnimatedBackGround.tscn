@@ -28,4 +28,4 @@ energy = 0.3
 texture = ExtResource("192_dw8oj")
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
-polygon = PackedVector2Array(1764, 546, 962, 1024, 141, 544, 610, 301, -285, 320, -290, 1441, 2230, 1431, 2220, 321, 1330, 303)
+polygon = PackedVector2Array(1818, 558, 959, 1055, 92, 546, 610, 301, -285, 320, -290, 1441, 2230, 1431, 2220, 321, 1330, 303)

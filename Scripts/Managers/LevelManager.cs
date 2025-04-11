@@ -67,6 +67,7 @@ namespace Com.IsartDigital.SokoVolt.Managers
 			GD.Print("Level : " + pLevel);
             CustomSignals.GetInstance()?.EmitSignal(CustomSignals.SignalName.LoadLevel, pLevel);
             LevelSelector.GetInstance()?.QueueFree();
+            DialogManager.GetInstance()?.TriggerDialogueForLevel(pLevel);
 		}
 
         protected override void Dispose(bool pDisposing)

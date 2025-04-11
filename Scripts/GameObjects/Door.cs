@@ -1,5 +1,6 @@
 using System.Runtime.Serialization.Formatters;
 using Com.IsartDigital.SokoVolt.Managers;
+using Com.IsartDigital.SokoVolt.Tools;
 using Godot;
 
 // Author : Auguste Paccapelo
@@ -30,7 +31,6 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
         [Export] private Node2D openedVisual;
         [Export] private GpuParticles2D openedVisualParticles;
 		[Export] private AnimatedSprite2D openCloseAnimation;
-		private float globalDelta = 0;
 
         // ----- Others ----- \\
 		public bool isOpen { get; private set; }
@@ -59,11 +59,11 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
 			GameManager.GetInstance().door = this;
             openCloseAnimation.Frame = 34;
             visual.ZIndex -= 1;
+            HighlightManager.GetInstance()?.RegisterTarget("Door", this);
 		}
 		public override void _Process(double pDelta)
 		{
 			float lDelta = (float)pDelta;
-			globalDelta = lDelta;
 			base._Process(lDelta);
         }
 
@@ -76,7 +76,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
 			openCloseAnimation.PlayBackwards();
 			
 			Camera2D lCamera = GameManager.GetInstance().camera;
-			AnimationManager.GetInstance().CameraZoomTraveling(lCamera, 0.5f, 0.8f, Position, lCamera.Position, 1.5f);
+			AnimationManager.GetInstance().CameraZoomTraveling(lCamera, 0.5f, 0.8f, Position, GameManager.GetInstance().cameraDefaultPos, 1.5f);
         }
 
         public void Close()

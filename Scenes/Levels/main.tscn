@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://dkbx646vvyaig"]
+[gd_scene load_steps=45 format=3 uid="uid://dkbx646vvyaig"]
 
 [ext_resource type="PackedScene" uid="uid://dyk47lo67a1tp" path="res://Scenes/Managers/ui_manager.tscn" id="1_4603a"]
 [ext_resource type="PackedScene" uid="uid://bnv0kco0ylr0e" path="res://Scenes/Managers/GridManager.tscn" id="1_d671q"]
@@ -42,6 +42,8 @@
 [ext_resource type="AudioStream" uid="uid://b5wfu3wt3k3wr" path="res://Song/LevelCreator/pop-91931-4.ogg" id="39_rkyjo"]
 [ext_resource type="AudioStream" uid="uid://biyjhsi4nkwjy" path="res://Song/LevelCreator/pop-91931-5.ogg" id="40_dmpm1"]
 [ext_resource type="AudioStream" uid="uid://bk7px1ugt8mic" path="res://Song/LevelCreator/pop-91931-6.ogg" id="41_5tewb"]
+[ext_resource type="PackedScene" uid="uid://1yhpiyc6vg65" path="res://Scenes/Managers/DialogManager.tscn" id="42_hfyqr"]
+[ext_resource type="PackedScene" uid="uid://ea1n36xp4mo5" path="res://Scenes/Managers/HighLightManager.tscn" id="43_pkf3d"]
 
 [node name="MAIN" type="Node2D"]
 
@@ -51,7 +53,6 @@
 script = ExtResource("3_3tpao")
 
 [node name="UIManager" parent="Managers" instance=ExtResource("1_4603a")]
-optionMenuScene = null
 
 [node name="LoginScreen" parent="Managers/UIManager" instance=ExtResource("6_vn404")]
 custom_minimum_size = Vector2(1152, 648)
@@ -185,6 +186,10 @@ bus = &"SFX"
 [node name="AudioStreamPlayer16" type="AudioStreamPlayer" parent="Managers/SongManager"]
 stream = ExtResource("41_5tewb")
 bus = &"SFX"
+
+[node name="DialogManager" parent="Managers" instance=ExtResource("42_hfyqr")]
+
+[node name="HighLightManager" parent="Managers" instance=ExtResource("43_pkf3d")]
 
 [node name="Containers" type="Node2D" parent="."]
 

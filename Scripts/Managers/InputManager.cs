@@ -1,8 +1,5 @@
 ﻿using Godot;
-using System;
-using System.Collections.Generic;
 using RobotnikSokoban.Scripts.Managers;
-using Com.IsartDigital.SokoVolt.GameObjects.Movables;
 
 // Author : A. Dylan Montenegro Utrela
 
@@ -24,6 +21,7 @@ namespace Com.IsartDigital.SokoVolt.Managers
 
         CustomSignals customSignals;
         public static bool canPlayerMove = false;
+        public static bool inGame = false;
 
         public override void _Ready()
         {
@@ -40,13 +38,15 @@ namespace Com.IsartDigital.SokoVolt.Managers
 
             base._Ready();
             customSignals = CustomSignals.GetInstance();
+            customSignals.LoadLevel += (pLevel) => inGame = true;
+            customSignals.GameFinished += (pStar, pScore, pStep) => inGame = false;
         }
 
         public override void _Input(InputEvent @event) // to optimize
         {
-            if (!canPlayerMove) return;
+            if (!inGame) return;
 
-            if(@event is InputEventMouseButton pMouseEvent && pMouseEvent.Pressed && pMouseEvent.ButtonIndex == MouseButton.Left)
+            if (canPlayerMove && @event is InputEventMouseButton pMouseEvent && pMouseEvent.Pressed && pMouseEvent.ButtonIndex == MouseButton.Left)
             {
                 Vector2 lMousePos = pMouseEvent.Position;
                 Vector2 lTargetPos = IsoManager.IsoViewToModel(lMousePos - GridManager.gridOffset);
@@ -56,13 +56,15 @@ namespace Com.IsartDigital.SokoVolt.Managers
 
             if (@event is InputEventKey pEventKey && pEventKey.Pressed)
 			{
+                if (Input.IsActionJustPressed("Undo")) customSignals.EmitSignal(CustomSignals.SignalName.UndoRedo, -1);
+                else if (Input.IsActionJustPressed("Redo")) customSignals.EmitSignal(CustomSignals.SignalName.UndoRedo, 1);
+                else if (Input.IsActionJustPressed("Retry")) customSignals.EmitSignal(CustomSignals.SignalName.Retry);
+
+                if (!canPlayerMove) return;
                 if (Input.IsActionJustPressed("Up")) customSignals.EmitSignal(CustomSignals.SignalName.Move, Vector2.Up);
                 if (Input.IsActionJustPressed("Down")) customSignals.EmitSignal(CustomSignals.SignalName.Move, Vector2.Down);
                 if (Input.IsActionJustPressed("Left")) customSignals.EmitSignal(CustomSignals.SignalName.Move, Vector2.Left);
                 if (Input.IsActionJustPressed("Right")) customSignals   .EmitSignal(CustomSignals.SignalName.Move, Vector2.Right);
-                if (Input.IsActionJustPressed("Undo")) customSignals.EmitSignal(CustomSignals.SignalName.UndoRedo, -1);
-                else if (Input.IsActionJustPressed("Redo")) customSignals.EmitSignal(CustomSignals.SignalName.UndoRedo, 1);
-                else if (Input.IsActionJustPressed("Retry")) customSignals.EmitSignal(CustomSignals.SignalName.Retry);
             }
         }
 

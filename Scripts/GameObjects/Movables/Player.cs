@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using Com.IsartDigital.SokoVolt.Tools;
 
 //Author : Ferlat Thibaud 
 namespace Com.IsartDigital.SokoVolt.GameObjects.Movables {
@@ -42,6 +43,8 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables {
 		}
 		instance = this;
 			#endregion
+			HighlightManager.GetInstance()?.RegisterTarget("Player", this);
+
 		}
 
 		public override void _Process(double pDelta)
@@ -63,12 +66,12 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables {
                 inTeslaParticles.Show();
 				dectetor.Monitorable = false;
 				MoveTo(pTesla.x, pTesla.y, GridManager.GetInstance().grid);
-				if (ConnectionManagers.TeslasConnected.Last() == pTesla)
+				if (ConnectionManagers.lastTeslas.Contains(pTesla))
 					GetTree().CreateTimer(0.25f).Timeout += () => {
 						InputManager.canPlayerMove = true;
 						isTraveling = false;
 					};
-                    }
+			}
         }
 
         public override void MoveTo(int pX, int pY, Cell[,] pGrid)
@@ -84,8 +87,8 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables {
 
             foreach (Vector2 pStep in pPath)
             {
-				//if (IsQueuedForDeletion() || GetTree() == null) return;
-				if (isTraveling) return;
+				if (IsQueuedForDeletion() || GetTree() == null) return;
+				if (isTraveling) break;
 				//MoveTo((int)pStep.X, (int)pStep.Y, GridManager.GetInstance().grid);
 				CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.Move, new Vector2(pStep.X - x, pStep.Y - y));
                 //GridManager.GetInstance().StockGridState();
