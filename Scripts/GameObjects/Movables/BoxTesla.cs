@@ -240,13 +240,16 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
         {
             rayCast.TargetPosition = pTargetPos;
         }*/
-        private void CreateRaycast(Vector2 pTargetPos)
+        private async void CreateRaycast(Vector2 pTargetPos)
         {
             rayCast = new RayCast2D();
             AddChild(rayCast);
             rayCast.TargetPosition = pTargetPos;
             rayCast.CollideWithAreas = true;
             rayCast.CollideWithBodies = false;
+            
+            await ToSignal(GetTree(), "physics_frame");
+            rayCast.ForceRaycastUpdate();
         }
 
         private void DestroyRaycast()
@@ -265,13 +268,15 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
             if (rayCast != null && !signalEmit && rayCast.IsColliding() && Player.canTravel && !GridManager.currentlyUndoRedo)
             {
                 GodotObject lArea = rayCast.GetCollider();
-                if (IsInstanceValid(lArea))
-                {
-                    EmitSignal(nameof(PlayerCollide), this);
-                    signalEmit = true;
-                }
+               
+                EmitSignal(nameof(PlayerCollide), this);
+                signalEmit = true;
+                
             }
-            else if (rayCast != null && !rayCast.IsColliding()) signalEmit = false;
+            else if (rayCast != null && !rayCast.IsColliding())
+            {
+                signalEmit = false;
+            }
         }
         #endregion
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://crk4bswpvlpev"]
+[gd_scene load_steps=2 format=3 uid="uid://1yhpiyc6vg65"]
 
 [ext_resource type="Script" path="res://Scripts/Managers/DialogManager.cs" id="1_6vseo"]
 

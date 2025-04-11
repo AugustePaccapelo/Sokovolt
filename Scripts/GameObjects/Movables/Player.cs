@@ -68,7 +68,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables {
 						InputManager.canPlayerMove = true;
 						isTraveling = false;
 					};
-                    }
+			}
         }
 
         public override void MoveTo(int pX, int pY, Cell[,] pGrid)
