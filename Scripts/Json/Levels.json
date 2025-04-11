@@ -1,7 +1,7 @@
 {
 	"levelDesign": [
 		{
-			"par": 7,
+			"par": 10,
 			"Author": "Auguste - Tuto",
 			"map": [
 				"#######",
@@ -15,7 +15,7 @@
 			"boxRange" : [1]
 		},
 		{
-			"par": 10,
+			"par": 21,
 			"Author": "Auguste - Tuto",
 			"map": [
 				"#########",

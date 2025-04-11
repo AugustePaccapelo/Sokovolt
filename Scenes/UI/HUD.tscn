@@ -140,6 +140,7 @@ keycode = 4194305
 events = [SubResource("InputEventKey_hc5vy")]
 
 [node name="Hud" type="Control" node_paths=PackedStringArray("undoButton", "redoButton", "mainMenuButton", "parLabel", "stepLabel", "winLabel", "authorLabel", "displayInGame")]
+visible = false
 custom_minimum_size = Vector2(1152, 648)
 layout_mode = 3
 anchors_preset = 15

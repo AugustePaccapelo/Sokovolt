@@ -186,7 +186,7 @@ namespace Com.IsartDigital.SokoVolt
                 }
                 lTween2 = CreateTween();
                 //Move Carpet
-                lTween2.TweenProperty(carpetTexture, POSITION, new Vector2(carpetTexture.Position.X + ((screenSize.X / 2) * -pDirection), carpetTexture.Position.Y), 1f).SetEase(Tween.EaseType.Out).SetTrans(Tween.TransitionType.Elastic);
+                lTween2.TweenProperty(carpetTexture, POSITION, new Vector2(carpetTexture.Position.X + ((screenSize.X / 2) * -pDirection), carpetTexture.Position.Y), 1f).SetEase(Tween.EaseType.Out).SetTrans(Tween.TransitionType.Linear);
 
                 //Add particles on witch button is pressed
                 buttonSmokeParticles = smokeParticlesScene.Instantiate() as GpuParticles2D;
