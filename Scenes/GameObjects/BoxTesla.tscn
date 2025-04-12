@@ -1,9 +1,8 @@
-[gd_scene load_steps=48 format=3 uid="uid://e1d8riptp31i"]
+[gd_scene load_steps=36 format=3 uid="uid://e1d8riptp31i"]
 
 [ext_resource type="Script" path="res://Scripts/GameObjects/Movables/BoxTesla.cs" id="1_c7f4a"]
 [ext_resource type="PackedScene" uid="uid://cfqq10c08ay30" path="res://Scenes/Lightning.tscn" id="2_vgo5j"]
 [ext_resource type="Texture2D" uid="uid://c767fcajnj2yi" path="res://Assets/Shaders/Effects/Glow.png" id="3_dmi6p"]
-[ext_resource type="PackedScene" uid="uid://bgbeo5m2g8jlw" path="res://Scenes/GameObjects/move_particles.tscn" id="3_nlchy"]
 [ext_resource type="Texture2D" uid="uid://bf7oyxyuj4yrt" path="res://Assets/GameObjects/IsoObjects/TeslaAnimation/0001.png" id="5_vpiag"]
 [ext_resource type="Texture2D" uid="uid://csb8yrnfxy4jt" path="res://Assets/GameObjects/IsoObjects/TeslaAnimation/0002.png" id="6_caefr"]
 [ext_resource type="Texture2D" uid="uid://c3snwicm3c2qq" path="res://Assets/GameObjects/IsoObjects/TeslaAnimation/0003.png" id="7_7j1vq"]
@@ -34,7 +33,6 @@
 [ext_resource type="Texture2D" uid="uid://cgnletalcge6b" path="res://Assets/GameObjects/IsoObjects/TeslaAnimation/0028.png" id="32_53o05"]
 [ext_resource type="Texture2D" uid="uid://bmog8l18jpj0" path="res://Assets/GameObjects/IsoObjects/TeslaAnimation/0029.png" id="33_vg6ru"]
 [ext_resource type="Texture2D" uid="uid://bxd0kab4achuk" path="res://Assets/GameObjects/IsoObjects/TeslaAnimation/0030.png" id="34_ac4h5"]
-[ext_resource type="FontFile" uid="uid://eycyixjjf4a7" path="res://Assets/Font/BubbleSans-Regular.otf" id="35_t6efi"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_pov8a"]
 animations = [{
@@ -135,81 +133,15 @@ animations = [{
 }]
 
 [sub_resource type="LabelSettings" id="LabelSettings_4d5rh"]
-font = ExtResource("35_t6efi")
-font_size = 48
-font_color = Color(0, 1, 0.588235, 1)
-outline_size = 10
-outline_color = Color(0, 0, 0, 1)
+font_size = 32
 
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_u13ep"]
-blend_mode = 1
-light_mode = 1
-
-[sub_resource type="Curve" id="Curve_td7l7"]
-_data = [Vector2(0, 0.549451), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="Curve" id="Curve_nh2t0"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="Curve" id="Curve_7al4h"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_a3vvu"]
-curve_x = SubResource("Curve_td7l7")
-curve_y = SubResource("Curve_nh2t0")
-curve_z = SubResource("Curve_7al4h")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_rv38a"]
-particle_flag_align_y = true
-particle_flag_disable_z = true
-emission_shape = 6
-emission_ring_axis = Vector3(0, 0, 1)
-emission_ring_height = 50.0
-emission_ring_radius = 50.0
-emission_ring_inner_radius = 0.0
-direction = Vector3(0, 1, 0)
-initial_velocity_min = -400.0
-initial_velocity_max = -200.0
-radial_velocity_min = 75.0
-radial_velocity_max = 100.0
-gravity = Vector3(0, 98, 0)
-scale_min = 0.02
-scale_max = 0.08
-scale_curve = SubResource("CurveXYZTexture_a3vvu")
-color = Color(0.917647, 0.741176, 0, 1)
-
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_yr4nd"]
-blend_mode = 1
-light_mode = 1
-
-[sub_resource type="Curve" id="Curve_38lah"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.292683, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 3
-
-[sub_resource type="CurveTexture" id="CurveTexture_euagi"]
-curve = SubResource("Curve_38lah")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_1d8wu"]
-particle_flag_disable_z = true
-gravity = Vector3(0, 0, 0)
-scale_min = 0.08
-scale_max = 0.3
-scale_curve = SubResource("CurveTexture_euagi")
-color = Color(0.917647, 0.721569, 0, 1)
-
-[node name="BoxTesla" type="Node2D" node_paths=PackedStringArray("electriLine2D", "connectionPoint", "visual", "impactEffect", "connectedLight", "rangeLabel")]
+[node name="BoxTesla" type="Node2D" node_paths=PackedStringArray("electriLine2D", "connectionPoint", "visual", "rangeLabel")]
 position = Vector2(0, -2)
 script = ExtResource("1_c7f4a")
 lightningNodeScene = ExtResource("2_vgo5j")
 electriLine2D = NodePath("Line2D")
 connectionPoint = NodePath("ConnectionPoint")
 visual = NodePath("Visual")
-impactEffect = NodePath("ImpactEffect")
-moveParticlesScene = ExtResource("3_nlchy")
-connectedLight = NodePath("Visual/ConnectedLight")
 rangeLabel = NodePath("Label")
 
 [node name="Visual" type="Node2D" parent="."]
@@ -236,6 +168,7 @@ position = Vector2(-1.25, -35)
 scale = Vector2(0.12, 0.12)
 sprite_frames = SubResource("SpriteFrames_pov8a")
 autoplay = "default"
+frame_progress = 0.321511
 
 [node name="Label" type="Label" parent="."]
 anchors_preset = 8
@@ -243,10 +176,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -18.0
-offset_top = -136.0
-offset_right = 22.0
-offset_bottom = -69.0
+offset_left = -19.0
+offset_top = -116.0
+offset_right = 21.0
+offset_bottom = -49.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
@@ -262,28 +195,3 @@ points = PackedVector2Array(0, 0)
 
 [node name="ConnectionPoint" type="Marker2D" parent="."]
 position = Vector2(0, -6)
-
-[node name="ImpactEffect" type="Node2D" parent="."]
-position = Vector2(1, -63)
-
-[node name="Sparks" type="GPUParticles2D" parent="ImpactEffect"]
-material = SubResource("CanvasItemMaterial_u13ep")
-emitting = false
-amount = 15
-process_material = SubResource("ParticleProcessMaterial_rv38a")
-texture = ExtResource("3_dmi6p")
-lifetime = 0.5
-one_shot = true
-speed_scale = 2.0
-explosiveness = 0.66
-fixed_fps = 60
-
-[node name="Flare" type="GPUParticles2D" parent="ImpactEffect"]
-material = SubResource("CanvasItemMaterial_yr4nd")
-emitting = false
-amount = 1
-process_material = SubResource("ParticleProcessMaterial_1d8wu")
-texture = ExtResource("3_dmi6p")
-lifetime = 0.5
-one_shot = true
-fixed_fps = 60
