@@ -24,6 +24,7 @@ namespace Com.IsartDigital.SokoVolt
         [Export] public float unitSize = 91.648f;
 
         [Export] public Vector2 endPoint;
+        public Vector2 realEndPoint;
         public Vector2 vectorDirector;
         [Export] public int numTurn = 3;
         private Vector2 direction;
@@ -41,11 +42,6 @@ namespace Com.IsartDigital.SokoVolt
         [Export] private float randomRatioLengthMax = 2f;
 
         [Export] public float lifeTime = -1f;
-
-        /*private List<Color> allColors = new List<Color>
-        {
-            Colors.DeepSkyBlue, Colors.Blue, Colors.DarkBlue,
-        };*/
 
         [Export] private Color[] allColors;
         [Export] private Color innerLineColor;
@@ -86,11 +82,10 @@ namespace Com.IsartDigital.SokoVolt
             numLightningDestructed = 0;
             GlobalPosition = startPoint;
             vectorDirector = (endPoint - startPoint);
-            startPoint = Vector2.Zero;
             Rotation = vectorDirector.Angle();
 
             direction = Vector2.Right;
-            endPoint = direction * vectorDirector.Length();
+            realEndPoint = direction * vectorDirector.Length();
             vectorDirector = direction * unitSize;
 
             SingleLightning lSingleLightning;
@@ -114,7 +109,7 @@ namespace Com.IsartDigital.SokoVolt
         private void SetVariables(SingleLightning pSingleLightning)
         {
             pSingleLightning.vectorDirector = vectorDirector;
-            pSingleLightning.endPoint = endPoint;
+            pSingleLightning.endPoint = realEndPoint;
 
             pSingleLightning.spawningSpeed = spawnSpeed;
             pSingleLightning.movingSpeed = movingSpeed;

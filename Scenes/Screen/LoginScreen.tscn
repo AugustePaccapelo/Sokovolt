@@ -1,21 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://31ew226yj11n"]
+[gd_scene load_steps=11 format=3 uid="uid://31ew226yj11n"]
 
 [ext_resource type="Script" path="res://Scripts/Controls/LoginScreen.cs" id="1_skjs4"]
-[ext_resource type="PackedScene" uid="uid://cpnulmydq6mp6" path="res://Scenes/UI/LoginScreen/Belt.tscn" id="2_bb5nt"]
-[ext_resource type="Texture2D" uid="uid://cjla7i48lqwna" path="res://Assets/UI/LoginScreen/BeltFrame1.png" id="3_cwno2"]
-[ext_resource type="Texture2D" uid="uid://hk68ck8cyv0p" path="res://Assets/UI/LoginScreen/BeltFrame2.png" id="4_tqmfj"]
-[ext_resource type="Texture2D" uid="uid://bujqsvb2phbee" path="res://Assets/UI/LoginScreen/BeltFrame3.png" id="5_j6h5l"]
-[ext_resource type="PackedScene" uid="uid://c31ubpwdt65uw" path="res://Scenes/UI/LoginScreen/Piston.tscn" id="6_lb3rm"]
-
-[sub_resource type="AnimatedTexture" id="AnimatedTexture_v7bw3"]
-frames = 3
-speed_scale = -1.0
-frame_0/texture = ExtResource("3_cwno2")
-frame_0/duration = 0.2
-frame_1/texture = ExtResource("4_tqmfj")
-frame_1/duration = 0.2
-frame_2/texture = ExtResource("5_j6h5l")
-frame_2/duration = 0.2
+[ext_resource type="Texture2D" uid="uid://cbfjyr1fgoolk" path="res://Assets/UI/LoginScreen/login.png" id="2_omg56"]
+[ext_resource type="Texture2D" uid="uid://75isyjfm1q4i" path="res://Assets/UI/LoginScreen/arrrow.png" id="3_gqu63"]
+[ext_resource type="Texture2D" uid="uid://c767fcajnj2yi" path="res://Assets/Shaders/Effects/Glow.png" id="4_mhpo5"]
+[ext_resource type="PackedScene" uid="uid://cfqq10c08ay30" path="res://Scenes/Lightning.tscn" id="4_yb23f"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_al77a"]
 font_color = Color(0.992157, 0, 0, 1)
@@ -33,7 +22,7 @@ font_color = Color(1, 0, 0, 1)
 [sub_resource type="LabelSettings" id="LabelSettings_g75en"]
 font_color = Color(1, 0, 0, 1)
 
-[node name="LoginScreen" type="Control" node_paths=PackedStringArray("loginNode", "quitButton", "labelLoginError", "vContLoginUser", "vContLoginPass", "loginPiston", "createNode", "labelCreateErrorPasswords", "labelCreateErrorUsername", "vBoxCreateUser", "vBoxCreatePass", "vBoxCreateConfirmPass")]
+[node name="LoginScreen" type="Control" node_paths=PackedStringArray("lightning", "lightningStartPos", "lightningEndPos", "arrowsHolder", "lightHolder", "loginNode", "labelLoginError", "vContLoginUser", "vContLoginPass", "createNode", "labelCreateErrorPasswords", "labelCreateErrorUsername", "vBoxCreateUser", "vBoxCreatePass", "vBoxCreateConfirmPass")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -41,12 +30,23 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_skjs4")
+lightning = NodePath("Node2D")
+lightningStartPos = NodePath("LightninhStartPos")
+lightningEndPos = NodePath("LightninhEndPos")
+arrowsHolder = NodePath("ArrowsHolder")
+arrowMinRotation = -128.0
+arrowMaxRotation = 49.0
+arrowMinSpeed = -100.0
+arrowMaxSpeed = 100.0
+lightHolder = NodePath("LightsHolder")
+lightsMinOnDuration = 0.25
+lightsMaxOnDuration = 2.5
+lightsMinOffDuration = 0.75
+lightsMaxOffDuration = 5.0
 loginNode = NodePath("Login")
-quitButton = NodePath("Login/PosHolder/Exit")
 labelLoginError = NodePath("Login/VBoxScreenHolder/LabelError")
 vContLoginUser = NodePath("Login/VBoxScreenHolder/VBoxUsername")
 vContLoginPass = NodePath("Login/VBoxScreenHolder/VBoxPassword")
-loginPiston = NodePath("Login/Piston")
 createNode = NodePath("Create")
 labelCreateErrorPasswords = NodePath("Create/VBoxScreenHolder/LabelErrorPasswords")
 labelCreateErrorUsername = NodePath("Create/VBoxScreenHolder/LabelErrorUsername")
@@ -54,175 +54,32 @@ vBoxCreateUser = NodePath("Create/VBoxScreenHolder/VBoxUsername")
 vBoxCreatePass = NodePath("Create/VBoxScreenHolder/VBoxPassword")
 vBoxCreateConfirmPass = NodePath("Create/VBoxScreenHolder/VBoxConfirmPassWord")
 
+[node name="Machine" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 238.0
+offset_top = -386.0
+offset_right = -213.0
+offset_bottom = 3.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_omg56")
+expand_mode = 1
+
 [node name="Login" type="Control" parent="."]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchor_left = 0.373
+anchor_top = 0.381
+anchor_right = 0.634
+anchor_bottom = 0.801
+offset_left = -711.16
+offset_top = -342.48
+offset_right = 707.72
+offset_bottom = 283.92
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="Belt" parent="Login" instance=ExtResource("2_bb5nt")]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.285
-anchor_top = 0.496
-anchor_right = 0.455
-anchor_bottom = 0.533
-offset_left = -0.200073
-offset_top = 0.319946
-offset_right = 1303.4
-offset_bottom = 158.36
-scale = Vector2(0.200021, 0.200021)
-texture = SubResource("AnimatedTexture_v7bw3")
-metadata/_edit_use_anchors_ = true
-
-[node name="Belt2" parent="Login" instance=ExtResource("2_bb5nt")]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.546
-anchor_top = 0.553
-anchor_right = 0.716
-anchor_bottom = 0.589
-offset_left = -0.320068
-offset_top = -0.23999
-offset_right = 1303.28
-offset_bottom = 158.88
-scale = Vector2(0.200021, 0.200021)
-metadata/_edit_use_anchors_ = true
-
-[node name="Belt3" parent="Login" instance=ExtResource("2_bb5nt")]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.721
-anchor_top = 0.55
-anchor_right = 0.891
-anchor_bottom = 0.587
-offset_left = 0.679932
-offset_top = 6.10352e-05
-offset_right = 1304.28
-offset_bottom = 158.04
-scale = Vector2(0.200021, 0.200021)
-metadata/_edit_use_anchors_ = true
-
-[node name="Belt4" parent="Login" instance=ExtResource("2_bb5nt")]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.897
-anchor_top = 0.553
-anchor_right = 1.067
-anchor_bottom = 0.589
-offset_left = -0.23999
-offset_top = -0.23999
-offset_right = 1303.36
-offset_bottom = 158.88
-scale = Vector2(0.200021, 0.200021)
-metadata/_edit_use_anchors_ = true
-
-[node name="Piston" parent="Login" instance=ExtResource("6_lb3rm")]
-layout_mode = 1
-anchor_left = 0.393917
-anchor_top = 0.623037
-anchor_right = 0.605917
-anchor_bottom = 1.07504
-offset_left = 0.679932
-offset_top = 0.119995
-offset_right = -406.36
-offset_bottom = -488.04
-scale = Vector2(2.26377, 2.26377)
-metadata/_edit_use_anchors_ = true
-
-[node name="PosHolder" type="Control" parent="Login"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Username" type="Control" parent="Login/PosHolder"]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Pos1" type="Control" parent="Login/PosHolder/Username"]
-layout_mode = 1
-anchor_top = 7.5
-anchor_bottom = 7.5
-offset_top = -3.05176e-05
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Pos2" type="Control" parent="Login/PosHolder/Username"]
-layout_mode = 1
-anchor_left = 15.0
-anchor_top = 7.5
-anchor_right = 15.0
-anchor_bottom = 7.5
-offset_left = -6.10352e-05
-offset_top = -3.05176e-05
-offset_right = 39.9999
-offset_bottom = 40.0
-
-[node name="Pos3" type="Control" parent="Login/PosHolder/Username"]
-layout_mode = 1
-anchor_left = 15.0
-anchor_top = 11.25
-anchor_right = 15.0
-anchor_bottom = 11.25
-offset_left = -6.10352e-05
-offset_top = -3.05176e-05
-offset_right = 39.9999
-offset_bottom = 40.0
-
-[node name="Name" type="Control" parent="Login/PosHolder"]
-layout_mode = 1
-anchor_top = 0.324
-anchor_bottom = 0.324
-offset_top = 0.0799866
-offset_right = 40.0
-offset_bottom = 40.08
-
-[node name="Create" type="Control" parent="Login/PosHolder"]
-layout_mode = 1
-anchor_left = 0.459
-anchor_top = 1.0
-anchor_right = 0.459
-anchor_bottom = 1.0
-offset_left = -0.280029
-offset_right = 39.72
-offset_bottom = 40.0
-
-[node name="Password" type="Control" parent="Login/PosHolder"]
-layout_mode = 1
-anchor_left = 1.0
-anchor_top = 0.491
-anchor_right = 1.0
-anchor_bottom = 0.491
-offset_top = -0.280029
-offset_right = 40.0
-offset_bottom = 39.72
-
-[node name="Confirm" type="Control" parent="Login/PosHolder"]
-layout_mode = 1
-anchor_top = 0.548
-anchor_bottom = 0.548
-offset_top = 0.159973
-offset_right = 40.0
-offset_bottom = 40.16
-
-[node name="Exit" type="Button" parent="Login/PosHolder"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.91
-anchor_top = 0.936
-anchor_right = 0.91
-anchor_bottom = 0.936
-offset_left = -128.2
-offset_top = -38.8801
-offset_right = 127.8
-offset_bottom = 39.1199
-text = "EXIT"
 
 [node name="VBoxScreenHolder" type="VBoxContainer" parent="Login"]
 layout_mode = 1
@@ -290,9 +147,14 @@ text = "Remember me"
 [node name="Create" type="Control" parent="."]
 visible = false
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchor_left = 0.372
+anchor_top = 0.38
+anchor_right = 0.635
+anchor_bottom = 0.794
+offset_left = -705.24
+offset_top = -329.4
+offset_right = 709.8
+offset_bottom = 303.48
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -376,3 +238,95 @@ text = "Login"
 [node name="StayLogged" type="CheckBox" parent="Create/VBoxScreenHolder"]
 layout_mode = 2
 text = "Remember me"
+
+[node name="ArrowsHolder" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Arrow1" type="TextureRect" parent="ArrowsHolder"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.668
+anchor_top = 0.563
+anchor_right = 0.668
+anchor_bottom = 0.563
+offset_left = 1249.64
+offset_top = 557.824
+offset_right = 1280.64
+offset_bottom = 588.824
+rotation = -0.0590452
+pivot_offset = Vector2(5, 28)
+texture = ExtResource("3_gqu63")
+expand_mode = 1
+
+[node name="Arrow2" type="TextureRect" parent="ArrowsHolder"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.618
+anchor_top = 0.935
+anchor_right = 0.618
+anchor_bottom = 0.935
+offset_left = 1156.28
+offset_top = 937.6
+offset_right = 1194.28
+offset_bottom = 975.6
+pivot_offset = Vector2(5, 35)
+texture = ExtResource("3_gqu63")
+expand_mode = 1
+
+[node name="LightsHolder" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1880.0
+offset_bottom = -1040.0
+
+[node name="RedLight" type="PointLight2D" parent="LightsHolder"]
+visible = false
+position = Vector2(651, 417)
+color = Color(0.989844, 5.48691e-06, 9.62615e-07, 1)
+energy = 5.0
+texture = ExtResource("4_mhpo5")
+texture_scale = 0.5
+
+[node name="YellowLight" type="PointLight2D" parent="LightsHolder"]
+visible = false
+position = Vector2(652, 516)
+color = Color(1, 1, 0, 1)
+energy = 2.0
+texture = ExtResource("4_mhpo5")
+texture_scale = 0.5
+
+[node name="LightninhStartPos" type="Control" parent="."]
+layout_mode = 1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 555.0
+offset_top = 147.0
+offset_right = -1325.0
+offset_bottom = -893.0
+
+[node name="LightninhEndPos" type="Control" parent="."]
+layout_mode = 1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1404.0
+offset_top = 165.0
+offset_right = -476.0
+offset_bottom = -875.0
+
+[node name="Node2D" parent="." instance=ExtResource("4_yb23f")]
+unitSize = 200.0
+numTurn = 1
+maxAngle = 75.0
+spawnSpeed = 5.0
+movingSpeed = 5.0
+destroyingSpeed = 5.0
+marginStart = 30
+width = 50
+randomRatioLengthMin = 0.5
+allColors = PackedColorArray(0.417465, 0.783072, 0.960851, 1, 0.467371, 0.687911, 0.988892, 1, 0.841562, 0.858411, 1.54018e-06, 1)
+linesWidth = 10.0
+innerLineWidth = 3.0

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bujqsvb2phbee"
-path="res://.godot/imported/BeltFrame3.png-774ea6bc6e4f9889d92092a9fafbd662.ctex"
+uid="uid://75isyjfm1q4i"
+path="res://.godot/imported/arrrow.png-922f2d75ab818d599c1628ca1865abc6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/UI/LoginScreen/BeltFrame3.png"
-dest_files=["res://.godot/imported/BeltFrame3.png-774ea6bc6e4f9889d92092a9fafbd662.ctex"]
+source_file="res://Assets/UI/LoginScreen/arrrow.png"
+dest_files=["res://.godot/imported/arrrow.png-922f2d75ab818d599c1628ca1865abc6.ctex"]
 
 [params]
 

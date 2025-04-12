@@ -2,6 +2,7 @@
 using Com.IsartDigital.Tools;
 using Godot;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 
 // Author : Auguste Paccapelo
 
@@ -24,9 +25,28 @@ namespace Com.IsartDigital.SokoVolt
 		#endregion
 
 		// ----- Nodes ----- \\
-		[ExportGroup("LoginScreen")]
+		[ExportGroup("Environment")]
+		[Export] private LightningNode lightning;
+		[Export] private Control lightningStartPos, lightningEndPos;
+		[Export] private Control arrowsHolder;
+		private TextureRect[] arrows;
+		[Export] private float arrowMinRotation, arrowMaxRotation;
+		[Export] private float arrowMinSpeed, arrowMaxSpeed;
+		private float[] currentArrowsSpeeds;
+		private float minTimeSpeedChange = 0.5f;
+		private float maxTimeSpeedChange = 2f;
+		private float[] nextSpeedChange;
+		private int arrowCount;
+		[Export] private Control lightHolder;
+		private PointLight2D[] allLights;
+		[Export] private float lightsMinOnDuration, lightsMaxOnDuration;
+		[Export] private float lightsMinOffDuration, lightsMaxOffDuration;
+		private int lightsCount;
+		private float[] currentLightOnDurations;
+		private float[] currentLightOffDurations;
+
+        [ExportGroup("LoginScreen")]
 		[Export] private Control loginNode;
-        [Export] private Button quitButton;
 		private VBoxContainer vBoxHolderLogin;
 		private TextEdit inputLoginUsername;
 		private LineEdit inputLoginPassword;
@@ -35,11 +55,6 @@ namespace Com.IsartDigital.SokoVolt
 		private Label labelLoginName, labelLoginUsername, labelLoginPassword;
 		private CheckBox checkLoginStayLogged;
 		[Export] private VBoxContainer vContLoginUser, vContLoginPass;
-		[Export] private Piston loginPiston;
-
-		private Control loginPosHolder;
-		private Vector2 animPosLoginName, animPosLoginButtonConfirm, animPosLoginButtonChangeScreen, animPosLoginPassword;
-		private List<Vector2> animPosLoginUserName = new List<Vector2>();
 
         [ExportGroup("CreateScreen")]
         [Export] private Control createNode;
@@ -63,10 +78,13 @@ namespace Com.IsartDigital.SokoVolt
 		private Vector2 screenSize;
 
 		public bool skipLogin;
+		private bool isAnimated = false;
+
+		private RandomNumberGenerator rand = new RandomNumberGenerator();
 
         // ---------- FUNCTIONS ---------- \\
 
-        // ----- Ready ----- \\
+        // ----- Ready & Process ----- \\
 
 		public override void _Ready()
 		{
@@ -85,10 +103,11 @@ namespace Com.IsartDigital.SokoVolt
 
 			base._Ready();
 
+			rand.Randomize();
+
 			GetLoginChilds();
 			GetCreateChilds();
 
-			GetAllLoginPos();
             screenSize = GetWindow().Size;
             Size = screenSize;
 
@@ -100,15 +119,100 @@ namespace Com.IsartDigital.SokoVolt
 			buttonCreateGoLogin.Pressed += ButtonChangeToLogin;
             buttonLoginConfirm.Pressed += ButtonPressedLogin;
 			buttonCreateConfirm.Pressed += ButtonPressedCreate;
-            quitButton.Pressed += ()=> CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.ExitGame);
 
 			CustomSignals.GetInstance().GoToLoginScreen += ButtonChangeToLogin;
+			CustomSignals.GetInstance().GoToLoginScreen += AnimationLoginEnter;
+			CustomSignals.GetInstance().GoToMainMenu += AnimationLoginExit;
 
+			lightning.startPoint = lightningStartPos.GlobalPosition;
+			lightning.endPoint = lightningEndPos.GlobalPosition;
+
+			arrowCount = arrowsHolder.GetChildCount();
+			arrows = new TextureRect[arrowCount];
+			currentArrowsSpeeds = new float[arrowCount];
+			nextSpeedChange = new float[arrowCount];
+			for (int i = 0; i < arrowCount; i++)
+			{
+				arrows[i] = arrowsHolder.GetChild<TextureRect>(i);
+			}
+
+			lightsCount = lightHolder.GetChildCount();
+			allLights = new PointLight2D[lightsCount];
+			currentLightOnDurations = new float[lightsCount];
+			currentLightOffDurations = new float[lightsCount];
+			for (int i = 0; i < lightsCount; i++)
+			{
+				allLights[i] = lightHolder.GetChild<PointLight2D>(i);
+			}
+        }
+
+        public override void _Process(double pDelta)
+        {
+            base._Process(pDelta);
+			float lDelta = (float)pDelta;
+
+			if (!isAnimated) return;
+
+			AnimateArrows(lDelta);
+			AnimateLights(lDelta);
         }
 
 		// ----- My Functions ----- \\
 
-		private void GetLoginChilds()
+		private void AnimateLights(float pDelta)
+		{
+			for (int i = 0; i < lightsCount; i++)
+			{
+				if (!allLights[i].Visible && currentLightOffDurations[i] <= 0)
+				{
+					allLights[i].Show();
+					currentLightOnDurations[i] = rand.RandfRange(lightsMinOnDuration, lightsMaxOnDuration);
+				}
+				else
+				{
+					currentLightOffDurations[i] -= pDelta;
+				}
+
+				if (allLights[i].Visible && currentLightOnDurations[i] <= 0)
+				{
+					allLights[i].Hide();
+					currentLightOffDurations[i] = rand.RandfRange(lightsMinOffDuration, lightsMaxOffDuration);
+				}
+				else
+				{
+					currentLightOnDurations[i] -= pDelta;
+				}
+			}
+		}
+
+		private void AnimateArrows(float pDelta)
+		{
+			for (int i = 0; i < arrowCount; i++)
+			{
+				if (nextSpeedChange[i] <= 0)
+				{
+					nextSpeedChange[i] = rand.RandfRange(minTimeSpeedChange, maxTimeSpeedChange);
+					currentArrowsSpeeds[i] = rand.RandfRange(arrowMinSpeed, arrowMaxSpeed);
+				}
+				else
+				{
+                    nextSpeedChange[i] -= pDelta;
+					arrows[i].RotationDegrees += currentArrowsSpeeds[i] * pDelta;
+					if (arrows[i].RotationDegrees < arrowMinRotation)
+					{
+						arrows[i].RotationDegrees = arrowMinRotation;
+						nextSpeedChange[i] = 0f;
+					}
+					if (arrows[i].RotationDegrees >= arrowMaxRotation)
+					{
+                        arrows[i].RotationDegrees = arrowMaxRotation;
+                        nextSpeedChange[i] = 0f;
+                    }
+                }
+			}
+		}
+
+        private void GetLoginChilds()
 		{
 			vBoxHolderLogin = loginNode.GetNode<VBoxContainer>(LoginScreenNames.VBOX_SCREEN_HOLDER);
 			labelLoginName = vBoxHolderLogin.GetNode<Label>(LoginScreenNames.LABEL_SCREEN_NAME);
@@ -119,8 +223,6 @@ namespace Com.IsartDigital.SokoVolt
 			buttonLoginConfirm = vBoxHolderLogin.GetNode<Button>(LoginScreenNames.BUTTON_CONFIRM);
             buttonLoginGoCreate = vBoxHolderLogin.GetNode<Button>(LoginScreenNames.BUTTON_CHANGE_SCREEN);
 			checkLoginStayLogged = vBoxHolderLogin.GetNode<CheckBox>(LoginScreenNames.CHECK_STAY_LOGGED);
-
-			loginPosHolder = loginNode.GetNode<Control>(LoginScreenNames.POS_HOLDER);
         }
 		private void GetCreateChilds()
 		{
@@ -136,37 +238,7 @@ namespace Com.IsartDigital.SokoVolt
             buttonCreateGoLogin = vBoxHolderCreate.GetNode<Button>(LoginScreenNames.BUTTON_CHANGE_SCREEN);
 			checkCreateStayLogged = vBoxHolderCreate.GetNode<CheckBox>(LoginScreenNames.CHECK_STAY_LOGGED);
         }
-		private void GetAllLoginPos()
-		{
-			foreach (Control lChild in loginPosHolder.GetChildren())
-			{
-				switch (lChild.Name)
-				{
-					case LoginScreenAnimations.LABEL_SCREEN_NAME:
-						animPosLoginName = lChild.GlobalPosition;
-                        break;
-					case LoginScreenAnimations.BUTTON_CONFIRM:
-						animPosLoginButtonConfirm = lChild.GlobalPosition;
-						break;
-					case LoginScreenAnimations.BUTTON_CHANGE_SCREEN:
-						animPosLoginButtonChangeScreen = lChild.GlobalPosition;
-						break;
-					case LoginScreenAnimations.VBOX_PASSWORD:
-						animPosLoginPassword = lChild.GlobalPosition;
-                        break;
-					case LoginScreenAnimations.VBOX_USERNAME:
-						ChildToList(lChild, animPosLoginUserName);
-						break;
-				}
-			}
-		}
-		private void ChildToList(Control pNode, List<Vector2> pList)
-		{
-			foreach (Control lChild in pNode.GetChildren())
-			{
-				pList.Add(lChild.GlobalPosition);
-			}
-		}
+
 		private void ButtonPressedLogin()
 		{
 			labelLoginError.Hide();
@@ -206,51 +278,19 @@ namespace Com.IsartDigital.SokoVolt
 			}
 			else labelCreateErrorUsername.Show();
         }
-		public void AnimationLoginEnter()
-		{
-			Tween lTween = CreateTween().SetParallel();
-
-			// Label Login animation
-			lTween.TweenProperty(labelLoginName, "global_position", labelLoginName.GlobalPosition, 0.5f).From(animPosLoginName)
-				.SetTrans(Tween.TransitionType.Quart).SetEase(Tween.EaseType.Out);
-			lTween.TweenProperty(labelLoginName, "scale", labelLoginName.Scale, 0.5f).From(new Vector2(labelLoginName.Scale.X * 0.75f, 0))
-				.SetTrans(Tween.TransitionType.Quart).SetEase(Tween.EaseType.Out);
-
-			// Button Login animation
-			lTween.TweenProperty(buttonLoginConfirm, "global_position", buttonLoginConfirm.GlobalPosition, 0.5f).From(animPosLoginButtonConfirm)
-                .SetTrans(Tween.TransitionType.Quart).SetEase(Tween.EaseType.Out);
-            lTween.TweenProperty(buttonLoginConfirm, "scale", buttonLoginConfirm.Scale, 0.5f).From(new Vector2(buttonLoginConfirm.Scale.X * 0.75f, 0))
-                .SetTrans(Tween.TransitionType.Quart).SetEase(Tween.EaseType.Out);
-
-			// Button create animation
-			lTween.TweenProperty(buttonLoginGoCreate, "global_position", buttonLoginGoCreate.GlobalPosition, 1.5f).From(animPosLoginButtonChangeScreen);
-			//lTween.TweenProperty(loginPiston, "global_position", loginPiston.GlobalPosition, 1.25f).From(new Vector2(loginPiston.GlobalPosition.X, screenSize.Y));
-			loginPiston.Extend();
-			
-
-			// Password label and input animation
-			lTween.TweenProperty(vContLoginPass, "global_position", vContLoginPass.GlobalPosition, 1.5f).From(animPosLoginPassword);
-
-			// Username label and Input animation
-			Tween lUserTween = CreateTween();
-            lUserTween.TweenProperty(vContLoginUser, "global_position", animPosLoginUserName[1], 0.5f).From(animPosLoginUserName[0]);
-            lUserTween.Chain().TweenProperty(vContLoginUser, "global_position", animPosLoginUserName[2], 0.75f).From(animPosLoginUserName[1])
-				.SetTrans(Tween.TransitionType.Bounce).SetEase(Tween.EaseType.Out);
-            lUserTween.Chain().TweenProperty(vContLoginUser, "global_position", vContLoginUser.GlobalPosition, 0.25f).From(animPosLoginUserName[2]);			
-
-            lTween.Play();
-			lUserTween.Play();
-
+		public void AnimationLoginEnter() {
+            lightning.StartLightning();
+			isAnimated = true;
         }
-		private void AnimationLoginExit() { }
-        private void AnimationCreateEnter() { }
-        private void AnimationCreateExit() { }
+		private void AnimationLoginExit() {
+			lightning.StopLightning();
+			isAnimated = false;
+		}
         private void ButtonChangeToLogin()
 		{
 			createNode.Hide();
             labelLoginError.Hide();
             loginNode.Show();
-			AnimationLoginEnter();
 		}
 		private void ButtonChangeToCreate()
 		{
