@@ -78,7 +78,6 @@ objectContainer = NodePath("../../../Containers/ObjectsContainer")
 [node name="TitleCard" parent="Managers/UIManager" instance=ExtResource("6_kcr3l")]
 
 [node name="Hud" parent="Managers/UIManager" instance=ExtResource("7_js22e")]
-visible = false
 anchors_preset = 0
 anchor_right = 0.0
 anchor_bottom = 0.0

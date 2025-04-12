@@ -16,6 +16,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects {
 		[Export] public Node2D electricBoltConstant;
 		[Export] public Padlock padLock;
 		[Export] public PointLight2D[] lightEmission;
+		[Export] public TextureRect screenImage;
 
         public LevelSelectorTesla nextTesla;
 		public bool levelUnlocked = false;
@@ -42,6 +43,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects {
         {
             await ToSignal(GetTree().CreateTimer(0.1f), TIME_OUT);
             InitLevelStateUserData();
+            GetImage();
         }
 
         private void InitLevelStateUserData()
@@ -141,6 +143,17 @@ namespace Com.IsartDigital.SokoVolt.GameObjects {
                     GD.Print($"[Tesla {level}] was locked, now unlocked via UnlockAll()");
                 }
                 allLevelAreUnlocked = false;
+            }
+        }
+
+        private void GetImage()
+        {
+            string lImagePath = "res://Assets/UI/ImageLevels/Nv" + level + ".png";
+            Texture2D lTexture = GD.Load<Texture2D>(lImagePath);
+
+            if (lTexture != null)
+            {
+                screenImage.Texture = lTexture;
             }
         }
 

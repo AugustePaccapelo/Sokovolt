@@ -11,7 +11,7 @@
 [ext_resource type="JSON" path="res://Scripts/Json/CustomLevels/CustomLevelsModels/CustomLevelsTemplate.json" id="8_kgilq"]
 [ext_resource type="PackedScene" uid="uid://cce6m5y5bqo5c" path="res://Scenes/GameObjects/LevelCreator/door_texture.tscn" id="10_av00s"]
 [ext_resource type="PackedScene" uid="uid://dg077chl56p8g" path="res://Scenes/GameObjects/LevelCreator/player_spawn_texture.tscn" id="11_g4nve"]
-[ext_resource type="Texture2D" uid="uid://dlf6nmdhvmybk" path="res://Assets/UI/LevelCreator/levelCreator.png" id="12_6r7bb"]
+[ext_resource type="Texture2D" uid="uid://dlf6nmdhvmybk" path="res://Assets/UI/LevelCreator/LevelCreator.png" id="12_6r7bb"]
 [ext_resource type="PackedScene" uid="uid://40x567524t37" path="res://Scenes/GameObjects/LevelCreator/electric_wall_texture.tscn" id="12_7rowd"]
 [ext_resource type="FontFile" uid="uid://eycyixjjf4a7" path="res://Assets/Font/BubbleSans-Regular.otf" id="14_m0j1q"]
 [ext_resource type="Script" path="res://Scripts/GameObjects/ButtonTemplate.cs" id="14_tu8f3"]
