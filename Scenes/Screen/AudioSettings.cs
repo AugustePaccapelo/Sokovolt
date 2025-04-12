@@ -18,6 +18,8 @@ namespace Com.IsartDigital.SokoVolt {
         private const string MUSIC = "Music";
         private const string MASTER = "Master";
 
+        public static bool frEN = true; 
+
 
         public static AudioSettings Instance { get; private set; }
 		public override void _Ready()
@@ -39,12 +41,14 @@ namespace Com.IsartDigital.SokoVolt {
                 SetLanguage("en");               
                 englishButton.Disabled = true;
                 frenchButton.Disabled = false;
+                frEN = true; 
             };
             frenchButton.Pressed += () =>
             {
                 SetLanguage("fr");
                 englishButton.Disabled = false;
                 frenchButton.Disabled = true;
+                frEN = false;
             };
         }
 

@@ -1,8 +1,7 @@
-[gd_scene load_steps=37 format=3 uid="uid://e1d8riptp31i"]
+[gd_scene load_steps=36 format=3 uid="uid://e1d8riptp31i"]
 
 [ext_resource type="Script" path="res://Scripts/GameObjects/Movables/BoxTesla.cs" id="1_c7f4a"]
 [ext_resource type="PackedScene" uid="uid://cfqq10c08ay30" path="res://Scenes/Lightning.tscn" id="2_vgo5j"]
-[ext_resource type="Texture2D" uid="uid://qpi7qsbhs7v0" path="res://Assets/GameObjects/IsoObjects/Tesla.png" id="2_w8akq"]
 [ext_resource type="Texture2D" uid="uid://c767fcajnj2yi" path="res://Assets/Shaders/Effects/Glow.png" id="3_dmi6p"]
 [ext_resource type="Texture2D" uid="uid://bf7oyxyuj4yrt" path="res://Assets/GameObjects/IsoObjects/TeslaAnimation/0001.png" id="5_vpiag"]
 [ext_resource type="Texture2D" uid="uid://csb8yrnfxy4jt" path="res://Assets/GameObjects/IsoObjects/TeslaAnimation/0002.png" id="6_caefr"]
@@ -136,45 +135,37 @@ animations = [{
 [sub_resource type="LabelSettings" id="LabelSettings_4d5rh"]
 font_size = 32
 
-[node name="BoxTesla" type="Node2D" node_paths=PackedStringArray("electriLine2D", "connectionPoint", "visual", "rangeLabel")]
+[node name="BoxTesla" type="Node2D" node_paths=PackedStringArray("electriLine2D", "connectionPoint", "visual", "connectedLight", "rangeLabel")]
+position = Vector2(0, -2)
 script = ExtResource("1_c7f4a")
 lightningNodeScene = ExtResource("2_vgo5j")
-electriLine2D = NodePath("")
+electriLine2D = NodePath("Line2D")
 connectionPoint = NodePath("ConnectionPoint")
 visual = NodePath("Visual")
+connectedLight = NodePath("Visual/ConnectedLight")
 rangeLabel = NodePath("Label")
 
 [node name="Visual" type="Node2D" parent="."]
 scale = Vector2(0.88, 0.88)
 
-[node name="PointLight2D" type="PointLight2D" parent="Visual"]
+[node name="BaseLight" type="PointLight2D" parent="Visual"]
 position = Vector2(0, 20.625)
 scale = Vector2(0.700231, 0.26331)
 color = Color(0.983956, 0.699043, 0, 1)
 texture = ExtResource("3_dmi6p")
 texture_scale = 0.4
 
-[node name="Polygon2D" type="Polygon2D" parent="Visual"]
+[node name="ConnectedLight" type="PointLight2D" parent="Visual"]
 visible = false
-position = Vector2(0, -15)
-color = Color(0.382813, 0.375056, 0.348419, 1)
-polygon = PackedVector2Array(0, -12.5, 31, 31, -31, 31)
-
-[node name="Polygon2D2" type="Polygon2D" parent="Visual"]
-visible = false
-position = Vector2(0, -1.90735e-06)
-scale = Vector2(0.356061, 0.278226)
-color = Color(0.771459, 0.763478, 0, 1)
-polygon = PackedVector2Array(-8, -31, 10, -31, -6, -2, 15, 12, -7, 31, -2, 16, -18, 0)
-
-[node name="Sprite2D" type="Sprite2D" parent="Visual"]
-visible = false
-position = Vector2(-5, -8.75)
-scale = Vector2(0.192, 0.192)
-texture = ExtResource("2_w8akq")
+position = Vector2(3.8147e-06, -61.3636)
+scale = Vector2(0.226221, 0.26331)
+color = Color(0.742204, 0.523587, 7.70092e-07, 1)
+energy = 2.0
+texture = ExtResource("3_dmi6p")
+texture_scale = 0.4
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Visual"]
-position = Vector2(-1.13636, -53.4091)
+position = Vector2(-1.25, -35)
 scale = Vector2(0.12, 0.12)
 sprite_frames = SubResource("SpriteFrames_pov8a")
 autoplay = "default"
@@ -198,5 +189,10 @@ text = "3"
 label_settings = SubResource("LabelSettings_4d5rh")
 horizontal_alignment = 1
 
+[node name="Line2D" type="Line2D" parent="."]
+visible = false
+position = Vector2(0, -1)
+points = PackedVector2Array(0, 0)
+
 [node name="ConnectionPoint" type="Marker2D" parent="."]
-position = Vector2(0, -24)
+position = Vector2(0, -6)

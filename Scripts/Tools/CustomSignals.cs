@@ -43,6 +43,7 @@ namespace Com.IsartDigital.SokoVolt
         [Signal] public delegate void BoxTeslaCalculsDoneEventHandler();
         [Signal] public delegate void GoalBulbStateChangedEventHandler();
         [Signal] public delegate void StartRechercheEventHandler();
+        [Signal] public delegate void DisplayDialogEventHandler();
 
         // Grid signals
         [Signal] public delegate void UndoRedoEventHandler(int pPosition);

@@ -8,6 +8,7 @@ using System.Data;
 using System.Linq;
 using static EnumSong;
 using RobotnikSokoban.Scripts.Managers;
+using Com.IsartDigital.SokoVolt.Tools;
 
 // Author : Soukai William
 
@@ -22,6 +23,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
         [Export] private Line2D electriLine2D;
         [Export] public Marker2D connectionPoint;
         [Export] private Node2D visual;
+        [Export] private PointLight2D connectedLight; 
         #endregion
 
         #region variables
@@ -33,6 +35,14 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
         GridManager gridManager = GridManager.GetInstance();
         private bool signalEmit = false;
         Vector2 LastPos = Vector2.Zero;
+        
+        //EndAnim 
+        private const float CONNECT_DURATION = 0.3f;
+        private const float DISCONNECT_DURATION = 0.3f;
+        private const float LIGHT_INTENSITY = 1.5f;
+        private const float LIGHT_OFF = 0f;
+        
+
         #endregion
         
         #region directionScan
@@ -72,6 +82,8 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
         {
            ConnectionManagers.boxTeslasList.Add(this);
            Init();
+           HighlightManager.GetInstance()?.RegisterTarget("BoxTesla", this);
+
         }
 
 
@@ -240,13 +252,16 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
         {
             rayCast.TargetPosition = pTargetPos;
         }*/
-        private void CreateRaycast(Vector2 pTargetPos)
+        private async void CreateRaycast(Vector2 pTargetPos)
         {
             rayCast = new RayCast2D();
             AddChild(rayCast);
             rayCast.TargetPosition = pTargetPos;
             rayCast.CollideWithAreas = true;
             rayCast.CollideWithBodies = false;
+            
+            // await ToSignal(GetTree(), "physics_frame");
+            // rayCast.ForceRaycastUpdate();
         }
 
         private void DestroyRaycast()
@@ -265,13 +280,14 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
             if (rayCast != null && !signalEmit && rayCast.IsColliding() && Player.canTravel && !GridManager.currentlyUndoRedo)
             {
                 GodotObject lArea = rayCast.GetCollider();
-                if (IsInstanceValid(lArea))
-                {
-                    EmitSignal(nameof(PlayerCollide), this);
-                    signalEmit = true;
-                }
+                EmitSignal(nameof(PlayerCollide), this);
+                signalEmit = true;
+                
             }
-            else if (rayCast != null && !rayCast.IsColliding()) signalEmit = false;
+            else if (rayCast != null && !rayCast.IsColliding())
+            {
+                signalEmit = false;
+            }
         }
         #endregion
 
@@ -279,6 +295,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
         public void LineConnection(GameObject pObjToConnect)
         {
             energize = true;
+            AnimateConnection(true);
             ClearPreviewLines(); 
             
             lightning = lightningNodeScene.Instantiate<LightningNode>();
@@ -298,6 +315,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
         public void LineDeconnection()
         {
             energize = false;
+            AnimateConnection(false);
             //UpdateRayCast(Vector2.Zero);
             DestroyRaycast();
             if (lightning != null)
@@ -399,6 +417,46 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
             previewLines.Clear();
             lastPreviewTargets.Clear();
         }
+        #endregion
+        
+        #region Connection Animation 
+        private void AnimateConnection(bool isConnected)
+        {
+            if (connectedLight == null || visual == null) return;
+
+            Tween tween = CreateTween();
+
+            if (isConnected)
+            {
+                connectedLight.Visible = true;
+                
+                tween.TweenProperty(connectedLight, "energy", LIGHT_INTENSITY, CONNECT_DURATION);
+                
+                tween.TweenProperty(visual, "modulate", new Color(1.0f, 1.0f, 1.0f), CONNECT_DURATION);
+                
+                Vector2 lPunchScale = visual.Scale * 1.2f;
+                tween.TweenProperty(visual, "scale", lPunchScale, 0.1f)
+                    .SetEase(Tween.EaseType.Out)
+                    .SetTrans(Tween.TransitionType.Back);
+
+                tween.TweenProperty(visual, "scale", Vector2.One, 0.15f)
+                    .SetEase(Tween.EaseType.Out)
+                    .SetTrans(Tween.TransitionType.Back);
+                
+                
+            }
+            else
+            {
+                tween.TweenProperty(connectedLight, "energy", LIGHT_OFF, DISCONNECT_DURATION);
+                
+                tween.TweenProperty(visual, "modulate", new Color(0.5f, 0.5f, 0.5f), DISCONNECT_DURATION);
+                
+                tween.TweenProperty(visual, "scale", Vector2.One, 0.2f);
+
+                tween.TweenCallback(Callable.From(() => connectedLight.Visible = false));
+            }
+        }
+
         #endregion
 
         protected override void Dispose(bool pDisposing)

@@ -396,3 +396,6 @@ FodyWeavers.xsd
 .vscode/tasks.json
 .vs
 Localisation
+.idea
+.vscode/settings.json
+.vscode

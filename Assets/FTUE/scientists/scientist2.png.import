@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dlf6nmdhvmybk"
-path="res://.godot/imported/LevelCreator.png-5da90de475e34b23eadd634e6ee5a493.ctex"
+uid="uid://dvl15mux5htsh"
+path="res://.godot/imported/scientist2.png-67b055f0ccd03a00e072e5323ddf1913.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/UI/LevelCreator/LevelCreator.png"
-dest_files=["res://.godot/imported/LevelCreator.png-5da90de475e34b23eadd634e6ee5a493.ctex"]
+source_file="res://Assets/FTUE/scientists/scientist2.png"
+dest_files=["res://.godot/imported/scientist2.png-67b055f0ccd03a00e072e5323ddf1913.ctex"]
 
 [params]
 
