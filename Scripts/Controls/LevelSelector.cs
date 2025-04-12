@@ -183,6 +183,7 @@ namespace Com.IsartDigital.SokoVolt
                     lNewPos = new Vector2((i - actualLevel) * screenSize.X + screenSize.X / 2, teslaPosY);
                     lTween = CreateTween().SetParallel(true);
                     lTween.TweenProperty(teslaDictionnary[i], POSITION, lNewPos, 1f).SetEase(Tween.EaseType.Out).SetTrans(Tween.TransitionType.Linear);//Move tesla
+                    lTween.Finished += () => LevelSelectorWheel.speed = 5f;
                 }
                 lTween2 = CreateTween();
                 //Move Carpet
@@ -202,8 +203,12 @@ namespace Com.IsartDigital.SokoVolt
                     buttonSmokeParticles.Position = new Vector2(88, 143);
                     SongManager.Instance.ambientDict[EnumSong.AmbientSong.arrowButton].Play();
                 }
-
-                GetTree().CreateTimer(0.5f).Timeout += () => alreadyPress = false;
+                LevelSelectorWheel.speed = 25f;
+                GetTree().CreateTimer(0.5f).Timeout += () =>
+                {
+                    alreadyPress = false;
+                    
+                };
                 SongManager.Instance.ambientDict[EnumSong.AmbientSong.treadmill].Play();
             }
             scoreBoard.UpdatePersonalScoreBoard(actualLevel); //Update ScoreBoard

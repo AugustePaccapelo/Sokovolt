@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=3 uid="uid://e1d8riptp31i"]
+[gd_scene load_steps=48 format=3 uid="uid://e1d8riptp31i"]
 
 [ext_resource type="Script" path="res://Scripts/GameObjects/Movables/BoxTesla.cs" id="1_c7f4a"]
 [ext_resource type="PackedScene" uid="uid://cfqq10c08ay30" path="res://Scenes/Lightning.tscn" id="2_vgo5j"]
@@ -209,7 +209,6 @@ connectionPoint = NodePath("ConnectionPoint")
 visual = NodePath("Visual")
 impactEffect = NodePath("ImpactEffect")
 moveParticlesScene = ExtResource("3_nlchy")
-connectedLight = NodePath("Visual/ConnectedLight")
 rangeLabel = NodePath("Label")
 
 [node name="Visual" type="Node2D" parent="."]
