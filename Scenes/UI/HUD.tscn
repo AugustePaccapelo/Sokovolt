@@ -140,7 +140,7 @@ keycode = 4194305
 [sub_resource type="Shortcut" id="Shortcut_arctw"]
 events = [SubResource("InputEventKey_hc5vy")]
 
-[node name="Hud" type="Control" node_paths=PackedStringArray("undoButton", "redoButton", "mainMenuButton", "parLabel", "stepLabel", "winLabel", "authorLabel", "displayInGame", "dialogBox")]
+[node name="Hud" type="Control" node_paths=PackedStringArray("undoButton", "redoButton", "mainMenuButton", "parLabel", "stepLabel", "winLabel", "authorLabel", "displayInGame")]
 custom_minimum_size = Vector2(1152, 648)
 layout_mode = 3
 anchors_preset = 15
@@ -159,7 +159,6 @@ winLabel = NodePath("WinLabel")
 authorLabel = NodePath("DisplayInGame/AuthorLabel")
 winScreenScene = ExtResource("2_n24og")
 displayInGame = NodePath("DisplayInGame")
-dialogBox = NodePath("DialogBox")
 
 [node name="DisplayInGame" type="Control" parent="."]
 layout_mode = 1

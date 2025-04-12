@@ -132,9 +132,8 @@ animations = [{
 "speed": 20.0
 }]
 
-[node name="Generator" type="Node2D" node_paths=PackedStringArray("connectionPoint")]
+[node name="Generator" type="Node2D"]
 script = ExtResource("1_3t66j")
-connectionPoint = NodePath("ConnectionPoint")
 
 [node name="Visual" type="Node2D" parent="."]
 scale = Vector2(0.66, 0.66)

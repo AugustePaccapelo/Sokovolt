@@ -27,7 +27,7 @@
 offsets = PackedFloat32Array(0, 0.238579, 1)
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_oev6p"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_otgre"]
 gradient = SubResource("Gradient_byfll")
 
 [sub_resource type="Curve" id="Curve_g6hca"]
@@ -42,7 +42,7 @@ point_count = 4
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_7r8e5"]
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_b8ed4"]
 curve_x = SubResource("Curve_g6hca")
 curve_y = SubResource("Curve_kwooq")
 curve_z = SubResource("Curve_fp82u")
@@ -52,7 +52,7 @@ max_value = 3.0
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_m24a1"]
+[sub_resource type="CurveTexture" id="CurveTexture_6qxts"]
 curve = SubResource("Curve_c2hpq")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_uwn2l"]
@@ -66,9 +66,9 @@ initial_velocity_max = 1000.0
 gravity = Vector3(0, 98, 0)
 scale_min = 0.2
 scale_max = 2.0
-scale_curve = SubResource("CurveXYZTexture_7r8e5")
-scale_over_velocity_curve = SubResource("CurveTexture_m24a1")
-color_ramp = SubResource("GradientTexture1D_oev6p")
+scale_curve = SubResource("CurveXYZTexture_b8ed4")
+scale_over_velocity_curve = SubResource("CurveTexture_6qxts")
+color_ramp = SubResource("GradientTexture1D_otgre")
 turbulence_influence_min = 0.0
 turbulence_influence_max = 0.053
 

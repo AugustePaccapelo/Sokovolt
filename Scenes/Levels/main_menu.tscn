@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://bsl1nyen453ty"]
+[gd_scene load_steps=56 format=3 uid="uid://bsl1nyen453ty"]
 
 [ext_resource type="Script" path="res://Scripts/Controls/MainMenu.cs" id="1_3kguo"]
 [ext_resource type="Texture2D" uid="uid://cjfiwjyraoqrp" path="res://Assets/main menu/Box millieu/GROS.png" id="2_0r0tr"]
@@ -24,6 +24,242 @@
 [ext_resource type="Texture2D" uid="uid://dq6x1pdo2qmpi" path="res://Assets/main menu/tuyaux/plafond/Milieu.png" id="18_pb4sg"]
 [ext_resource type="Texture2D" uid="uid://bl2w8irfsvii1" path="res://Assets/main menu/tuyaux/plafond/Premier Plan.png" id="19_u4bb6"]
 [ext_resource type="Texture2D" uid="uid://c767fcajnj2yi" path="res://Assets/Shaders/Effects/Glow.png" id="22_dginc"]
+[ext_resource type="Texture2D" uid="uid://dc3or7fnkox6b" path="res://Assets/UI/MainMenu/Smoke.png" id="25_8huo1"]
+[ext_resource type="Texture2D" uid="uid://b400ujq0huyih" path="res://Assets/main menu/Machine Gauche/jauge/Calque 7 Copie 3.png" id="26_xkip2"]
+[ext_resource type="Texture2D" uid="uid://cyu5d0kb03igg" path="res://Assets/main menu/Machine Gauche/jauge/Calque 4 Copie 3.png" id="27_p5ub1"]
+[ext_resource type="Texture2D" uid="uid://ccjxvrhqfqiwp" path="res://Assets/main menu/Machine Gauche/jauge/Calque 5 Copie 3.png" id="28_vd3jj"]
+
+[sub_resource type="Animation" id="Animation_nxg1h"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../../Calque7Copie3/Calque4Copie3:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-0.897099]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../GPUParticles2D2:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../../Calque7Copie4/Calque4Copie3:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-1.2898]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../ColorRect:material:shader_parameter/progress")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.171]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../../GPUParticles2D:emitting")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("../../PointLight2D:enabled")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("../../PointLight2D2:enabled")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_ukjwr"]
+resource_name = "mainMenuAnimation"
+length = 20.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../../Calque7Copie3/Calque4Copie3:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2, 4, 6, 6.0001, 8, 10, 12, 14, 16, 18, 20),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [-0.897099, 0.0191986, -0.798406, 0.0191986, 0.0191986, -0.798406, 0.0191986, -0.798406, 0.0191986, -0.798406, 0.0191986, -0.897099]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../GPUParticles2D2:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 4, 8, 12, 16, 20),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [true, true, true, true, true, true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../../Calque7Copie4/Calque4Copie3:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 2, 4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [-1.2898, 0.0, 1.03498]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../ColorRect:material:shader_parameter/progress")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 2, 4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.171, 0.497, 0.745]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../../GPUParticles2D:emitting")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("../../PointLight2D:enabled")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [true, false, true, false, true, false, true, false, true, false, true]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("../../PointLight2D2:enabled")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [false, true, false, true, false, true, false, true, false, true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ta02h"]
+_data = {
+"RESET": SubResource("Animation_nxg1h"),
+"mainMenuAnimation": SubResource("Animation_ukjwr")
+}
+
+[sub_resource type="Gradient" id="Gradient_fyd0c"]
+offsets = PackedFloat32Array(0, 0.238579, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_khdbv"]
+gradient = SubResource("Gradient_fyd0c")
+
+[sub_resource type="Curve" id="Curve_f3kx2"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0]
+point_count = 1
+
+[sub_resource type="Curve" id="Curve_ddjwg"]
+_data = [Vector2(0, 0.87013), 0.0, 0.0, 0, 0, Vector2(1e-05, 0.779221), 0.0, 0.0, 0, 0, Vector2(0.99999, 0.467532), 0.0, 0.0, 0, 0, Vector2(1, 0.441558), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="Curve" id="Curve_lp5vg"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_3evmf"]
+curve_x = SubResource("Curve_f3kx2")
+curve_y = SubResource("Curve_ddjwg")
+curve_z = SubResource("Curve_lp5vg")
+
+[sub_resource type="Curve" id="Curve_wqvo8"]
+max_value = 3.0
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_78k7q"]
+curve = SubResource("Curve_wqvo8")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_u1aqi"]
+emission_shape = 3
+emission_box_extents = Vector3(4, 20, 1)
+angle_min = -285.0
+angle_max = 270.0
+direction = Vector3(50, -500, 0)
+spread = 10.714
+initial_velocity_min = 304.07
+initial_velocity_max = 1000.0
+gravity = Vector3(0, 120, 0)
+scale_min = 0.1
+scale_max = 0.7
+scale_curve = SubResource("CurveXYZTexture_3evmf")
+scale_over_velocity_curve = SubResource("CurveTexture_78k7q")
+color_ramp = SubResource("GradientTexture1D_khdbv")
+turbulence_influence_min = 0.0
+turbulence_influence_max = 0.053
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_41cxo"]
 shader = ExtResource("12_s1u4e")
@@ -32,7 +268,7 @@ shader_parameter/Speed = Vector2(-2, 0)
 shader_parameter/basic_texture = ExtResource("13_bioyo")
 
 [sub_resource type="Gradient" id="Gradient_as2bn"]
-offsets = PackedFloat32Array(0.0147059, 0.573529)
+offsets = PackedFloat32Array(0.0147059, 0.808824)
 colors = PackedColorArray(0, 0, 0, 0.596078, 0.623529, 0.360784, 0.0392157, 0.737255)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_c3ikj"]
@@ -40,7 +276,7 @@ gradient = SubResource("Gradient_as2bn")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_uwp4s"]
 shader = ExtResource("7_3ppcf")
-shader_parameter/progress = 0.646
+shader_parameter/progress = 0.171
 shader_parameter/background_color = Color(0.929412, 0.768627, 0.662745, 0)
 shader_parameter/wave_amplitude = 0.02
 shader_parameter/wave_frequency = 3.0
@@ -56,25 +292,118 @@ shader_parameter/particle_scale_randomness = 0.5
 shader_parameter/particle_amount = 30
 shader_parameter/color_gradient = SubResource("GradientTexture1D_c3ikj")
 
+[sub_resource type="Gradient" id="Gradient_cjsvu"]
+offsets = PackedFloat32Array(0, 0.238579, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_oev6p"]
+gradient = SubResource("Gradient_cjsvu")
+
+[sub_resource type="Curve" id="Curve_jax2u"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0]
+point_count = 1
+
+[sub_resource type="Curve" id="Curve_0nl3a"]
+_data = [Vector2(0, 0.87013), 0.0, 0.0, 0, 0, Vector2(1e-05, 0.779221), 0.0, 0.0, 0, 0, Vector2(0.99999, 0.467532), 0.0, 0.0, 0, 0, Vector2(1, 0.441558), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="Curve" id="Curve_vri7u"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_7r8e5"]
+curve_x = SubResource("Curve_jax2u")
+curve_y = SubResource("Curve_0nl3a")
+curve_z = SubResource("Curve_vri7u")
+
+[sub_resource type="Curve" id="Curve_3lhf0"]
+max_value = 3.0
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_m24a1"]
+curve = SubResource("Curve_3lhf0")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_d7lcq"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(4, 20, 1)
+angle_min = -720.0
+angle_max = 395.3
+inherit_velocity_ratio = 0.263
+velocity_pivot = Vector3(300, 0, 0)
+direction = Vector3(50, -100, 0)
+spread = 31.875
+flatness = 0.031
+initial_velocity_min = 679.07
+initial_velocity_max = 1000.0
+gravity = Vector3(0, 98, 0)
+scale_min = 0.2
+scale_max = 2.0
+scale_curve = SubResource("CurveXYZTexture_7r8e5")
+scale_over_velocity_curve = SubResource("CurveTexture_m24a1")
+color_ramp = SubResource("GradientTexture1D_oev6p")
+turbulence_noise_scale = 5.46
+turbulence_noise_speed_random = 0.83
+turbulence_influence_min = 0.0
+turbulence_influence_max = 0.053
+
 [sub_resource type="Gradient" id="Gradient_jqeur"]
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_pnvk5"]
 gradient = SubResource("Gradient_jqeur")
 fill = 2
 
-[node name="MainMenu" type="Control" node_paths=PackedStringArray("startButton", "levelCreatorButton", "optionButton")]
+[node name="MainMenu" type="Control" node_paths=PackedStringArray("startButton", "levelCreatorButton", "unlogButton", "optionButton", "quitButton", "anime")]
 layout_mode = 3
 anchors_preset = 0
 size_flags_horizontal = 4
 script = ExtResource("1_3kguo")
 startButton = NodePath("Panel/StartButton")
 levelCreatorButton = NodePath("Panel/LevelCreator")
+unlogButton = NodePath("Panel/StartButton2")
 optionButton = NodePath("Panel/option")
+quitButton = NodePath("Panel/StartButton3")
+anime = NodePath("AnimationPlayer")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+deterministic = true
+root_node = NodePath("../Panel/StartButton3")
+libraries = {
+"": SubResource("AnimationLibrary_ta02h")
+}
+movie_quit_on_finish = true
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1
 offset_right = 1920.0
 offset_bottom = 1080.0
+
+[node name="ArrierePlan" type="Sprite2D" parent="Panel"]
+position = Vector2(-3.05176e-05, 792)
+rotation = 0.338594
+scale = Vector2(0.600943, 0.643426)
+texture = ExtResource("17_csmdp")
+
+[node name="GPUParticles2D2" type="GPUParticles2D" parent="Panel"]
+position = Vector2(184, 776)
+scale = Vector2(0.3, 0.3)
+emitting = false
+amount = 500
+process_material = SubResource("ParticleProcessMaterial_u1aqi")
+texture = ExtResource("25_8huo1")
+lifetime = 2.0
+one_shot = true
+speed_scale = 1.47
+explosiveness = 0.39
+randomness = 0.29
+fixed_fps = 60
+local_coords = true
+
+[node name="Milieu3" type="Sprite2D" parent="Panel"]
+position = Vector2(1712, 800)
+scale = Vector2(0.493273, 0.44292)
+texture = ExtResource("18_pb4sg")
 
 [node name="Bolt2" type="Line2D" parent="Panel"]
 material = SubResource("ShaderMaterial_41cxo")
@@ -154,6 +483,7 @@ offset_top = -69.0001
 offset_bottom = 58.9999
 grow_horizontal = 1
 grow_vertical = 1
+text = "Disconnect"
 
 [node name="StartButton3" parent="Panel" instance=ExtResource("2_2c73t")]
 layout_mode = 1
@@ -163,6 +493,20 @@ offset_top = -64.3201
 offset_bottom = 63.6799
 grow_horizontal = 1
 grow_vertical = 1
+text = "EXIT"
+
+[node name="Button" type="Button" parent="Panel"]
+layout_mode = 0
+offset_left = 168.0
+offset_top = 232.0
+offset_right = 358.0
+offset_bottom = 368.0
+
+[node name="PremierPlan4" type="Sprite2D" parent="."]
+position = Vector2(1560, 892)
+rotation = -0.111701
+scale = Vector2(0.29169, 0.494095)
+texture = ExtResource("19_u4bb6")
 
 [node name="Calque15Copie" type="Sprite2D" parent="."]
 position = Vector2(952, 136)
@@ -185,9 +529,10 @@ scale = Vector2(0.435185, 0.435185)
 texture = ExtResource("6_iyy6s")
 
 [node name="Wheel2" parent="." instance=ExtResource("12_bqe0v")]
-position = Vector2(266, 954)
+position = Vector2(264, 952)
 rotation = 1.34565
 scale = Vector2(0.0744818, 0.0744818)
+turnRight = true
 
 [node name="Wheel" parent="." instance=ExtResource("12_bqe0v")]
 position = Vector2(200, 968)
@@ -204,6 +549,20 @@ turnRight = true
 position = Vector2(1790, 438)
 scale = Vector2(0.772191, 0.548872)
 texture = ExtResource("8_roxkq")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+position = Vector2(1488, 416)
+scale = Vector2(0.0744818, 0.0744818)
+emitting = false
+amount = 54
+process_material = SubResource("ParticleProcessMaterial_d7lcq")
+texture = ExtResource("25_8huo1")
+lifetime = 2.0
+speed_scale = 1.47
+explosiveness = 0.53
+fixed_fps = 60
+collision_base_size = 18.14
+local_coords = true
 
 [node name="Extras" type="Sprite2D" parent="."]
 position = Vector2(1461.75, 480)
@@ -249,20 +608,45 @@ position = Vector2(264, 288)
 scale = Vector2(0.389245, 0.446844)
 texture = ExtResource("12_pj4mf")
 
-[node name="ArrierePlan" type="Sprite2D" parent="."]
-position = Vector2(1736, 120)
-scale = Vector2(0.643426, 0.643426)
+[node name="ArrierePlan2" type="Sprite2D" parent="."]
+position = Vector2(75.6905, 39.9566)
+rotation = -0.471239
+scale = Vector2(0.449423, 0.477915)
 texture = ExtResource("17_csmdp")
+
+[node name="Milieu2" type="Sprite2D" parent="."]
+position = Vector2(152, 104)
+rotation = -1.01055
+scale = Vector2(0.376105, 0.376105)
+texture = ExtResource("18_pb4sg")
+
+[node name="Milieu3" type="Sprite2D" parent="."]
+position = Vector2(2658.68, 219.405)
+scale = Vector2(0.376105, 0.376105)
+texture = ExtResource("18_pb4sg")
 
 [node name="Milieu" type="Sprite2D" parent="."]
 position = Vector2(1648, 136)
 scale = Vector2(0.613274, 0.613274)
 texture = ExtResource("18_pb4sg")
 
+[node name="PremierPlan3" type="Sprite2D" parent="."]
+position = Vector2(664, 32)
+scale = Vector2(0.242763, 0.247802)
+texture = ExtResource("19_u4bb6")
+
 [node name="PremierPlan" type="Sprite2D" parent="."]
 position = Vector2(1688, 168)
 scale = Vector2(0.478836, 0.478836)
 texture = ExtResource("19_u4bb6")
+
+[node name="PointLight2D2" type="PointLight2D" parent="."]
+position = Vector2(280, 472)
+scale = Vector2(0.395061, 0.359799)
+enabled = false
+energy = 3.0
+texture = ExtResource("22_dginc")
+texture_scale = 0.3
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
 position = Vector2(240, 472)
@@ -272,93 +656,41 @@ energy = 3.0
 texture = ExtResource("22_dginc")
 texture_scale = 0.3
 
-[node name="PointLight2D" type="PointLight2D" parent="PointLight2D"]
-position = Vector2(73.4939, -8.96454e-05)
-scale = Vector2(0.725865, 0.685918)
-energy = 3.0
-texture = ExtResource("22_dginc")
-texture_scale = 0.3
-
-[node name="PointLight2D2" type="PointLight2D" parent="."]
-position = Vector2(240, 472)
-scale = Vector2(0.544263, 0.524551)
-color = Color(1, 0, 0, 1)
-energy = 3.0
-texture = ExtResource("22_dginc")
-texture_scale = 0.3
-
-[node name="PointLight2D" type="PointLight2D" parent="PointLight2D2"]
-position = Vector2(80.8433, 753.978)
-scale = Vector2(0.317566, 0.358919)
-energy = 0.5
-texture = ExtResource("22_dginc")
-texture_scale = 0.3
-
-[node name="PointLight2D2" type="PointLight2D" parent="PointLight2D2"]
-position = Vector2(31.2347, 753.025)
-scale = Vector2(0.226833, 0.235357)
-color = Color(1, 0.779103, 0.144386, 1)
-energy = 0.5
-texture = ExtResource("22_dginc")
-texture_scale = 0.3
-
-[node name="PointLight2D5" type="PointLight2D" parent="PointLight2D2"]
-position = Vector2(2055.99, 289.772)
-scale = Vector2(0.226833, 0.235357)
-color = Color(1, 0.779103, 0.144386, 1)
-energy = 0.5
-texture = ExtResource("22_dginc")
-texture_scale = 0.3
-
-[node name="PointLight2D6" type="PointLight2D" parent="PointLight2D2"]
-position = Vector2(2112.95, 289.772)
-scale = Vector2(0.226833, 0.235357)
-color = Color(1, 0.779103, 0.144386, 1)
-energy = 0.5
-texture = ExtResource("22_dginc")
-texture_scale = 0.3
-
-[node name="PointLight2D7" type="PointLight2D" parent="PointLight2D2"]
-position = Vector2(1999.95, 333.618)
-scale = Vector2(0.175795, 0.16475)
-color = Color(0, 0.780392, 0.145098, 1)
-energy = 0.5
-texture = ExtResource("22_dginc")
-texture_scale = 0.3
-
-[node name="PointLight2D8" type="PointLight2D" parent="PointLight2D2"]
-position = Vector2(2053.24, 333.618)
-scale = Vector2(0.175795, 0.16475)
-color = Color(0, 0.780392, 0.145098, 1)
-energy = 0.5
-texture = ExtResource("22_dginc")
-texture_scale = 0.3
-
-[node name="PointLight2D9" type="PointLight2D" parent="PointLight2D2"]
-position = Vector2(2110.19, 335.525)
-scale = Vector2(0.175795, 0.16475)
-color = Color(0, 0.780392, 0.145098, 1)
-energy = 0.5
-texture = ExtResource("22_dginc")
-texture_scale = 0.3
-
-[node name="PointLight2D3" type="PointLight2D" parent="PointLight2D2"]
-position = Vector2(-20.2108, 756.838)
-scale = Vector2(0.226833, 0.235357)
-color = Color(1, 0.0086272, 0.146881, 1)
-energy = 0.5
-texture = ExtResource("22_dginc")
-texture_scale = 0.3
-
-[node name="PointLight2D4" type="PointLight2D" parent="PointLight2D2"]
-position = Vector2(2006.38, 287.865)
-scale = Vector2(0.226833, 0.235357)
-color = Color(1, 0.0086272, 0.146881, 1)
-energy = 0.5
-texture = ExtResource("22_dginc")
-texture_scale = 0.3
-
 [node name="PointLight2D3" type="PointLight2D" parent="."]
 position = Vector2(263, 300)
 scale = Vector2(2.96875, 2.125)
 texture = SubResource("GradientTexture2D_pnvk5")
+
+[node name="Calque7Copie4" type="Sprite2D" parent="."]
+position = Vector2(1358, 576)
+scale = Vector2(0.393, 0.367)
+texture = ExtResource("26_xkip2")
+
+[node name="Calque4Copie3" type="Sprite2D" parent="Calque7Copie4"]
+position = Vector2(2.72478, 25.3521)
+rotation = -1.2898
+scale = Vector2(0.87, 0.9)
+texture = ExtResource("27_p5ub1")
+offset = Vector2(1, -22)
+
+[node name="Calque5Copie3" type="Sprite2D" parent="Calque7Copie4"]
+position = Vector2(3.88416, 3.24707)
+scale = Vector2(0.967302, 1)
+texture = ExtResource("28_vd3jj")
+
+[node name="Calque7Copie3" type="Sprite2D" parent="."]
+position = Vector2(256, 544)
+scale = Vector2(0.367, 0.355)
+texture = ExtResource("26_xkip2")
+
+[node name="Calque4Copie3" type="Sprite2D" parent="Calque7Copie3"]
+position = Vector2(2.72478, 25.3521)
+rotation = -0.897099
+scale = Vector2(0.87, 0.9)
+texture = ExtResource("27_p5ub1")
+offset = Vector2(1, -22)
+
+[node name="Calque5Copie3" type="Sprite2D" parent="Calque7Copie3"]
+position = Vector2(3.88416, 3.24707)
+scale = Vector2(0.967302, 1)
+texture = ExtResource("28_vd3jj")

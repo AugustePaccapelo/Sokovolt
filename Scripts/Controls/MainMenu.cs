@@ -25,6 +25,7 @@ namespace Com.IsartDigital.SokoVolt
 		[Export] private Button unlogButton;
         [Export] private Button optionButton;
         [Export] private Button quitButton;
+        [Export] private AnimationPlayer anime;
 
 		//[Signal] public delegate void StartGameEventHandler();
 
@@ -50,6 +51,8 @@ namespace Com.IsartDigital.SokoVolt
 			unlogButton.Pressed += () => CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.GoToLoginScreen);
             optionButton.Pressed += () => CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.GoToOptionMenu);
             quitButton.Pressed += ()=> CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.ExitGame);
+			anime.Play("mainMenuAnimation");
+
         }
 
 		
