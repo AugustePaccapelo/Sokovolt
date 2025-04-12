@@ -279,7 +279,7 @@ script = ExtResource("1_tvonw")
 [node name="Bolt" type="Line2D" parent="."]
 material = SubResource("ShaderMaterial_y8asw")
 position = Vector2(-399.7, -225)
-points = PackedVector2Array(379.564, 108, 317.142, 222)
+points = PackedVector2Array(379.564, 108, 62.4214, 607)
 width = 50.0
 default_color = Color(0, 1.00784, 1.8, 1)
 texture_mode = 2
@@ -303,6 +303,7 @@ lifetime = 0.15
 fixed_fps = 60
 
 [node name="PointLight2D" type="PointLight2D" parent="ImpactEffect"]
+position = Vector2(17.1156, 30)
 color = Color(0.231373, 1, 1, 1)
 energy = 3.0
 texture = ExtResource("4_j26ax")

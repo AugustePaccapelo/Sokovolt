@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://b21gg4f1j4u3v"]
+[gd_scene load_steps=5 format=3 uid="uid://b21gg4f1j4u3v"]
 
 [ext_resource type="LabelSettings" uid="uid://dg5l0fxqe8y5b" path="res://Scenes/Screen/option_menu.tres" id="1_6ft4g"]
 [ext_resource type="Script" path="res://Scenes/Screen/AudioSettings.cs" id="1_50ryl"]
+[ext_resource type="PackedScene" uid="uid://cbf686b53xjdf" path="res://Scenes/UI/button_ui.tscn" id="3_hgxhg"]
+[ext_resource type="PackedScene" uid="uid://skkxmuo6i42b" path="res://Scenes/UI/buttonScenes.tscn" id="4_sloii"]
 
 [node name="OptionMenu" type="Control" node_paths=PackedStringArray("masterBar", "musicBar", "sfxBar", "englishButton", "frenchButton", "backButton")]
 layout_mode = 3
@@ -12,9 +14,9 @@ script = ExtResource("1_50ryl")
 masterBar = NodePath("Panel/HBoxContainer/VBoxContainer2/Master")
 musicBar = NodePath("Panel/HBoxContainer/VBoxContainer2/Music")
 sfxBar = NodePath("Panel/HBoxContainer/VBoxContainer2/SFX")
-englishButton = NodePath("Panel/FrenchButton/EnglishButton")
-frenchButton = NodePath("Panel/FrenchButton")
-backButton = NodePath("Panel/Back")
+englishButton = NodePath("ENGLISH")
+frenchButton = NodePath("FRENCH")
+backButton = NodePath("Back")
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1
@@ -92,41 +94,45 @@ max_value = 1.0
 step = 0.05
 value = 1.0
 
-[node name="FrenchButton" type="Button" parent="Panel"]
+[node name="Back" parent="." instance=ExtResource("3_hgxhg")]
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.744
-anchor_top = 0.463
-anchor_right = 0.744
-anchor_bottom = 0.463
-offset_left = -84.48
-offset_top = -44.04
-offset_right = 84.52
-offset_bottom = 44.96
+anchor_left = 0.916
+anchor_top = 0.927
+anchor_right = 0.916
+anchor_bottom = 0.927
+offset_left = -158.08
+offset_top = -65.64
+offset_right = 145.92
+offset_bottom = 46.36
+grow_horizontal = 1
+grow_vertical = 1
+text = "Back"
+
+[node name="FRENCH" parent="." instance=ExtResource("4_sloii")]
+layout_mode = 1
+anchor_left = 0.379
+anchor_top = 0.681
+anchor_right = 0.379
+anchor_bottom = 0.681
+offset_left = -159.04
+offset_top = -63.96
+offset_right = 160.96
+offset_bottom = 64.04
+grow_horizontal = 1
+grow_vertical = 1
 text = "FRENCH"
 
-[node name="EnglishButton" type="Button" parent="Panel/FrenchButton"]
+[node name="ENGLISH" parent="." instance=ExtResource("4_sloii")]
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 2.015
-anchor_top = 0.5
-anchor_right = 2.015
-anchor_bottom = 0.5
-offset_left = -84.535
-offset_top = -44.5
-offset_right = 84.465
-offset_bottom = 44.5
-text = "ENGLISH"
-
-[node name="Back" type="Button" parent="Panel"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.91
-anchor_top = 0.936
-anchor_right = 0.91
-anchor_bottom = 0.936
-offset_left = -128.2
-offset_top = -38.8801
-offset_right = 127.8
-offset_bottom = 39.1199
-text = "Back"
+anchor_left = 0.596
+anchor_top = 0.681
+anchor_right = 0.596
+anchor_bottom = 0.681
+offset_left = -159.68
+offset_top = -63.96
+offset_right = 160.32
+offset_bottom = 64.04
+grow_horizontal = 1
+grow_vertical = 1
+text = "ENGLISH
+"

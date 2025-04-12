@@ -1,4 +1,4 @@
-[gd_scene load_steps=78 format=3 uid="uid://dht3qeqhib1rk"]
+[gd_scene load_steps=80 format=3 uid="uid://dht3qeqhib1rk"]
 
 [ext_resource type="Script" path="res://Scripts/Controls/LevelSelector.cs" id="1_7onrw"]
 [ext_resource type="Texture2D" uid="uid://dyr30pkkewie" path="res://Assets/UI/MainMenu/LevelScreen.png" id="2_u4r7s"]
@@ -220,12 +220,12 @@ shader_parameter/basic_texture = ExtResource("26_mswj5")
 blend_mode = 1
 light_mode = 1
 
-[sub_resource type="Curve" id="Curve_1w2lf"]
+[sub_resource type="Curve" id="Curve_ouyvy"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.292683, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 3
 
 [sub_resource type="CurveTexture" id="CurveTexture_euagi"]
-curve = SubResource("Curve_1w2lf")
+curve = SubResource("Curve_ouyvy")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_v8vr1"]
 particle_flag_disable_z = true
@@ -235,25 +235,32 @@ scale_max = 0.3
 scale_curve = SubResource("CurveTexture_euagi")
 color = Color(0.5, 1, 1.2, 1)
 
+[sub_resource type="Curve" id="Curve_1w2lf"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.292683, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_36w7c"]
+curve = SubResource("Curve_1w2lf")
+
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_n0ler"]
 particle_flag_disable_z = true
 gravity = Vector3(0, 0, 0)
 scale_min = 0.08
 scale_max = 0.3
-scale_curve = SubResource("CurveTexture_euagi")
+scale_curve = SubResource("CurveTexture_36w7c")
 color = Color(0.5, 1, 1.2, 1)
 
 [sub_resource type="Gradient" id="Gradient_iffhu"]
 colors = PackedColorArray(0.382651, 0.974019, 0.949734, 1, 1, 1, 1, 1)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_dildd"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_654lq"]
 gradient = SubResource("Gradient_iffhu")
 
 [sub_resource type="Curve" id="Curve_gtcqf"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.251185, 0), 0.0, 0.0, 0, 0, Vector2(0.49763, 1), 0.0, 0.0, 0, 0, Vector2(0.758294, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 5
 
-[sub_resource type="CurveTexture" id="CurveTexture_8imnm"]
+[sub_resource type="CurveTexture" id="CurveTexture_kkrxb"]
 curve = SubResource("Curve_gtcqf")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_n2gri"]
@@ -265,8 +272,8 @@ radial_velocity_max = 25.0
 gravity = Vector3(0, 0, 0)
 scale_min = 16.0
 scale_max = 16.0
-scale_curve = SubResource("CurveTexture_8imnm")
-color_ramp = SubResource("GradientTexture1D_dildd")
+scale_curve = SubResource("CurveTexture_kkrxb")
+color_ramp = SubResource("GradientTexture1D_654lq")
 turbulence_enabled = true
 turbulence_noise_speed_random = 2.44
 turbulence_influence_min = 0.024
@@ -277,7 +284,7 @@ turbulence_initial_displacement_max = -34.8
 [sub_resource type="Gradient" id="Gradient_rvo8j"]
 colors = PackedColorArray(1, 0.866667, 0.0117647, 1, 1, 1, 1, 1)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_pshl0"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ubeg6"]
 gradient = SubResource("Gradient_rvo8j")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_eo3dr"]
@@ -290,8 +297,8 @@ radial_velocity_max = 100.0
 gravity = Vector3(0, 0, 0)
 scale_min = 10.0
 scale_max = 10.0
-scale_curve = SubResource("CurveTexture_8imnm")
-color_ramp = SubResource("GradientTexture1D_pshl0")
+scale_curve = SubResource("CurveTexture_kkrxb")
+color_ramp = SubResource("GradientTexture1D_ubeg6")
 turbulence_enabled = true
 turbulence_noise_speed_random = 2.44
 turbulence_influence_min = 0.024
@@ -314,7 +321,7 @@ point_count = 2
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_a3vvu"]
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_jesdu"]
 curve_x = SubResource("Curve_w41vn")
 curve_y = SubResource("Curve_1kdmu")
 curve_z = SubResource("Curve_vx6to")
@@ -332,7 +339,7 @@ radial_velocity_max = 100.0
 gravity = Vector3(0, 98, 0)
 scale_min = 0.01
 scale_max = 0.05
-scale_curve = SubResource("CurveXYZTexture_a3vvu")
+scale_curve = SubResource("CurveXYZTexture_jesdu")
 color = Color(1, 0.780392, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t6bik"]

@@ -1,210 +1,364 @@
-[gd_scene load_steps=25 format=3 uid="uid://bsl1nyen453ty"]
+[gd_scene load_steps=31 format=3 uid="uid://bsl1nyen453ty"]
 
 [ext_resource type="Script" path="res://Scripts/Controls/MainMenu.cs" id="1_3kguo"]
-[ext_resource type="Texture2D" uid="uid://bqiw8052gbe6d" path="res://Assets/UI/bouton1.png" id="2_jh7rx"]
-[ext_resource type="Script" path="res://Scripts/GameObjects/ButtonTemplate.cs" id="2_vdray"]
-[ext_resource type="Texture2D" uid="uid://chtivnwbspj8v" path="res://Assets/UI/bouton2.png" id="3_xksed"]
-[ext_resource type="Texture2D" uid="uid://dae23dl0nh20a" path="res://Assets/UI/bouton3.png" id="4_deml2"]
-[ext_resource type="Texture2D" uid="uid://c767fcajnj2yi" path="res://Assets/Shaders/Effects/Glow.png" id="4_w4bov"]
+[ext_resource type="Texture2D" uid="uid://cjfiwjyraoqrp" path="res://Assets/main menu/Box millieu/GROS.png" id="2_0r0tr"]
+[ext_resource type="PackedScene" uid="uid://skkxmuo6i42b" path="res://Scenes/UI/buttonScenes.tscn" id="2_2c73t"]
+[ext_resource type="Texture2D" uid="uid://csqx2ogx2bfh1" path="res://Assets/main menu/tuyaux/Gauche Copie 2.png" id="3_igut3"]
+[ext_resource type="Texture2D" uid="uid://duf1bxrvxgcn4" path="res://Assets/main menu/Box millieu/Calque 15 Copie.png" id="4_e6tyd"]
+[ext_resource type="Texture2D" uid="uid://cpb1lqci5jclo" path="res://Assets/main menu/Box millieu/petit/Conteneurs DROITE.png" id="5_k08xa"]
+[ext_resource type="Texture2D" uid="uid://bxrio1pdqsvyu" path="res://Assets/main menu/tuyaux/Bas Copie.png" id="5_unelv"]
+[ext_resource type="Texture2D" uid="uid://be0xtul13mqga" path="res://Assets/main menu/Box millieu/petit/menu Copie.png" id="6_iyy6s"]
+[ext_resource type="Shader" path="res://Assets/Shaders/Effects/water.gdshader" id="7_3ppcf"]
+[ext_resource type="Texture2D" uid="uid://bigh4sw0wxrbe" path="res://Assets/main menu/Box millieu/petit/EXTRAS.png" id="7_hugq5"]
+[ext_resource type="Texture2D" uid="uid://bjp5yjfnxbcqy" path="res://Assets/main menu/tuyaux/Droite Copie 2.png" id="8_roxkq"]
+[ext_resource type="Texture2D" uid="uid://bnik01g5cdv4t" path="res://Assets/main menu/Box millieu/petit/CORPS.png" id="8_yd0w4"]
+[ext_resource type="Texture2D" uid="uid://h2tih1emb30f" path="res://Assets/main menu/Machine Gauche/Gauche Copie.png" id="9_1urrm"]
+[ext_resource type="Texture2D" uid="uid://uv5e87go3uen" path="res://Assets/main menu/Ecran/Ecran Copie 3.png" id="10_tbe3u"]
+[ext_resource type="Texture2D" uid="uid://c13geelyul0cd" path="res://Assets/main menu/Ecran/Ecran Copie 2.png" id="11_bwtnt"]
+[ext_resource type="Texture2D" uid="uid://bt0dbsdepf2fd" path="res://Assets/main menu/Ecran/Ecran Copie 4.png" id="11_frbmt"]
+[ext_resource type="PackedScene" uid="uid://bs1v2cedkky8a" path="res://Scenes/GameObjects/LevelSelectorObject/wheel.tscn" id="12_bqe0v"]
+[ext_resource type="Texture2D" uid="uid://gp8ibft6axh2" path="res://Assets/main menu/Ecran/Dossier 2 Copie.png" id="12_pj4mf"]
+[ext_resource type="Shader" uid="uid://bum2gqlmpu2kv" path="res://Assets/Shaders/ElectricBoltShader.tres" id="12_s1u4e"]
+[ext_resource type="Texture2D" uid="uid://c66l3g8bbn3hb" path="res://Assets/Shaders/Effects/VFX Thunder.jpg" id="13_bioyo"]
+[ext_resource type="Texture2D" uid="uid://1ren4h203s58" path="res://Assets/main menu/tuyaux/plafond/Arriere plan.png" id="17_csmdp"]
+[ext_resource type="Texture2D" uid="uid://dq6x1pdo2qmpi" path="res://Assets/main menu/tuyaux/plafond/Milieu.png" id="18_pb4sg"]
+[ext_resource type="Texture2D" uid="uid://bl2w8irfsvii1" path="res://Assets/main menu/tuyaux/plafond/Premier Plan.png" id="19_u4bb6"]
+[ext_resource type="Texture2D" uid="uid://c767fcajnj2yi" path="res://Assets/Shaders/Effects/Glow.png" id="22_dginc"]
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_apuvm"]
-texture = ExtResource("2_jh7rx")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_41cxo"]
+shader = ExtResource("12_s1u4e")
+shader_parameter/VanishingValue = 0.0
+shader_parameter/Speed = Vector2(-2, 0)
+shader_parameter/basic_texture = ExtResource("13_bioyo")
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_l0dk3"]
-texture = ExtResource("3_xksed")
+[sub_resource type="Gradient" id="Gradient_as2bn"]
+offsets = PackedFloat32Array(0.0147059, 0.573529)
+colors = PackedColorArray(0, 0, 0, 0.596078, 0.623529, 0.360784, 0.0392157, 0.737255)
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_gujjd"]
-texture = ExtResource("4_deml2")
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_c3ikj"]
+gradient = SubResource("Gradient_as2bn")
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xk2oy"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_uwp4s"]
+shader = ExtResource("7_3ppcf")
+shader_parameter/progress = 0.646
+shader_parameter/background_color = Color(0.929412, 0.768627, 0.662745, 0)
+shader_parameter/wave_amplitude = 0.02
+shader_parameter/wave_frequency = 3.0
+shader_parameter/wave_speed = 1.344
+shader_parameter/particle_speed = 0.05
+shader_parameter/particle_lifetime = 2.719
+shader_parameter/particle_softness = 0.155
+shader_parameter/particle_spacing = 0.152
+shader_parameter/particle_offset = Vector2(0, 0)
+shader_parameter/particle_start_scale = Vector2(0.02, 0.02)
+shader_parameter/particle_end_scale = Vector2(0.01, 0.01)
+shader_parameter/particle_scale_randomness = 0.5
+shader_parameter/particle_amount = 30
+shader_parameter/color_gradient = SubResource("GradientTexture1D_c3ikj")
 
-[sub_resource type="Gradient" id="Gradient_hvmdm"]
-offsets = PackedFloat32Array(0.544379, 0.970414, 0.994083)
-colors = PackedColorArray(0.548963, 0.548963, 0.548963, 1, 0.122807, 0.122807, 0.122807, 1, 0, 0, 0, 1)
+[sub_resource type="Gradient" id="Gradient_jqeur"]
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_f82sy"]
-gradient = SubResource("Gradient_hvmdm")
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_pnvk5"]
+gradient = SubResource("Gradient_jqeur")
 fill = 2
-fill_from = Vector2(0.48927, 0.527897)
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jec2r"]
-texture = ExtResource("2_jh7rx")
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qdp1k"]
-texture = ExtResource("3_xksed")
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_v7tst"]
-texture = ExtResource("4_deml2")
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_v2fwl"]
-texture = ExtResource("2_jh7rx")
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_unyse"]
-texture = ExtResource("3_xksed")
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_b77sy"]
-texture = ExtResource("4_deml2")
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xgbcw"]
-texture = ExtResource("2_jh7rx")
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2wo4u"]
-texture = ExtResource("3_xksed")
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_57tdn"]
-texture = ExtResource("4_deml2")
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_oywk5"]
-texture = ExtResource("2_jh7rx")
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bcipl"]
-texture = ExtResource("3_xksed")
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6nr7m"]
-texture = ExtResource("4_deml2")
-
-[node name="MainMenu" type="Control" node_paths=PackedStringArray("startButton", "levelCreatorButton", "unlogButton", "optionButton", "quitButton")]
+[node name="MainMenu" type="Control" node_paths=PackedStringArray("startButton", "levelCreatorButton", "optionButton")]
 layout_mode = 3
 anchors_preset = 0
+size_flags_horizontal = 4
 script = ExtResource("1_3kguo")
 startButton = NodePath("Panel/StartButton")
 levelCreatorButton = NodePath("Panel/LevelCreator")
-unlogButton = NodePath("Panel/UnlogButton")
-optionButton = NodePath("Panel/OptionButton")
-quitButton = NodePath("Panel/Exit")
+optionButton = NodePath("Panel/option")
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1
 offset_right = 1920.0
 offset_bottom = 1080.0
 
-[node name="StartButton" type="Button" parent="Panel"]
+[node name="Bolt2" type="Line2D" parent="Panel"]
+material = SubResource("ShaderMaterial_41cxo")
+position = Vector2(154.094, 290.348)
+scale = Vector2(0.145479, 0.145479)
+points = PackedVector2Array(4274.89, -1115.95, 6749.47, -1115.95)
+width = 1000.0
+default_color = Color(0, 1.00784, 1.8, 1)
+texture_mode = 2
+
+[node name="GaucheCopie2" type="Sprite2D" parent="Panel"]
+position = Vector2(525, 569)
+scale = Vector2(0.781646, 0.443012)
+texture = ExtResource("3_igut3")
+
+[node name="Gros" type="Sprite2D" parent="Panel"]
+position = Vector2(824, 572)
+scale = Vector2(0.380319, 0.371582)
+texture = ExtResource("2_0r0tr")
+
+[node name="ColorRect" type="ColorRect" parent="Panel"]
+material = SubResource("ShaderMaterial_uwp4s")
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.483
-anchor_top = 0.356
-anchor_right = 0.483
-anchor_bottom = 0.356
-offset_left = -159.36
-offset_top = -64.48
-offset_right = 160.64
-offset_bottom = 63.52
-grow_horizontal = 2
-grow_vertical = 2
-pivot_offset = Vector2(200, 100)
-theme_override_styles/normal = SubResource("StyleBoxTexture_apuvm")
-theme_override_styles/hover = SubResource("StyleBoxTexture_l0dk3")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_gujjd")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_xk2oy")
+anchor_left = 7.623
+anchor_top = 1.206
+anchor_right = 7.623
+anchor_bottom = 1.206
+offset_left = -13236.2
+offset_top = -569.48
+offset_right = -12945.2
+offset_bottom = -419.48
+rotation = -1.57079
+color = Color(0.372355, 0.264919, 0.64515, 0)
+
+[node name="option" parent="Panel" instance=ExtResource("2_2c73t")]
+layout_mode = 1
+anchor_left = 0.479
+anchor_top = 0.496
+anchor_right = 0.479
+anchor_bottom = 0.496
+offset_left = -159.68
+offset_top = -63.6801
+offset_right = 160.32
+offset_bottom = 64.3199
+grow_horizontal = 1
+grow_vertical = 1
+text = "OPTION"
+
+[node name="LevelCreator" parent="Panel" instance=ExtResource("2_2c73t")]
+layout_mode = 1
+anchor_top = 0.63
+anchor_bottom = 0.63
+offset_top = -64.4001
+offset_bottom = 63.5999
+grow_horizontal = 1
+grow_vertical = 1
+text = "LevelCreator"
+
+[node name="StartButton" parent="Panel" instance=ExtResource("2_2c73t")]
+layout_mode = 1
+anchor_top = 0.363
+anchor_bottom = 0.363
+offset_top = -64.04
+offset_right = 160.648
+offset_bottom = 63.96
+grow_horizontal = 1
+grow_vertical = 1
+scale = Vector2(0.997672, 0.99323)
 text = "PLAY"
 
-[node name="PointLight2D" type="PointLight2D" parent="Panel/StartButton"]
-position = Vector2(154, 67)
-scale = Vector2(4.99563, 1.97625)
-energy = 1.29
-texture = SubResource("GradientTexture2D_f82sy")
-texture_scale = 0.95
-
-[node name="LevelCreator" type="Button" parent="Panel"]
+[node name="StartButton2" parent="Panel" instance=ExtResource("2_2c73t")]
 layout_mode = 1
-offset_left = 760.0
-offset_top = 704.0
-offset_right = 1085.0
-offset_bottom = 804.0
-pivot_offset = Vector2(104, 50)
-theme_override_styles/normal = SubResource("StyleBoxTexture_jec2r")
-theme_override_styles/hover = SubResource("StyleBoxTexture_qdp1k")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_v7tst")
-text = "LevelCreator"
-script = ExtResource("2_vdray")
+anchor_top = 0.775
+anchor_bottom = 0.775
+offset_top = -69.0001
+offset_bottom = 58.9999
+grow_horizontal = 1
+grow_vertical = 1
 
-[node name="PointLight2D2" type="PointLight2D" parent="Panel/LevelCreator"]
-position = Vector2(162, 50)
-scale = Vector2(4.99563, 1.97625)
-energy = 1.29
-texture = SubResource("GradientTexture2D_f82sy")
-texture_scale = 0.95
-
-[node name="UnlogButton" type="Button" parent="Panel"]
+[node name="StartButton3" parent="Panel" instance=ExtResource("2_2c73t")]
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.91
-anchor_top = 0.936
-anchor_right = 0.91
-anchor_bottom = 0.936
-offset_left = -128.2
-offset_top = -38.8801
-offset_right = 127.8
-offset_bottom = 39.1199
-theme_override_styles/normal = SubResource("StyleBoxTexture_v2fwl")
-theme_override_styles/hover = SubResource("StyleBoxTexture_unyse")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_b77sy")
-text = "Disconnect"
+anchor_top = 0.904
+anchor_bottom = 0.904
+offset_top = -64.3201
+offset_bottom = 63.6799
+grow_horizontal = 1
+grow_vertical = 1
 
-[node name="PointLight2D3" type="PointLight2D" parent="Panel"]
-position = Vector2(1745, 1010)
-scale = Vector2(4.99563, 1.97625)
-energy = 1.29
-texture = SubResource("GradientTexture2D_f82sy")
-texture_scale = 0.8
+[node name="Calque15Copie" type="Sprite2D" parent="."]
+position = Vector2(952, 136)
+scale = Vector2(0.381277, 0.384328)
+texture = ExtResource("4_e6tyd")
 
-[node name="OptionButton" type="Button" parent="Panel"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.483
-anchor_top = 0.533
-anchor_right = 0.483
-anchor_bottom = 0.533
-offset_left = -159.36
-offset_top = -63.6401
-offset_right = 160.64
-offset_bottom = 64.3599
-theme_override_styles/normal = SubResource("StyleBoxTexture_xgbcw")
-theme_override_styles/hover = SubResource("StyleBoxTexture_2wo4u")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_57tdn")
-text = "Option"
+[node name="BasCopie" type="Sprite2D" parent="."]
+position = Vector2(1752, 797)
+scale = Vector2(0.853591, 0.853591)
+texture = ExtResource("5_unelv")
 
-[node name="PointLight2D4" type="PointLight2D" parent="Panel"]
-position = Vector2(923, 575)
-scale = Vector2(4.99563, 1.97625)
-energy = 1.29
-texture = SubResource("GradientTexture2D_f82sy")
-texture_scale = 1.05
+[node name="ConteneursDroite" type="Sprite2D" parent="."]
+position = Vector2(1240, 632)
+scale = Vector2(0.536463, 0.536463)
+texture = ExtResource("5_k08xa")
 
-[node name="Exit" type="Button" parent="Panel"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.083
-anchor_top = 0.94
-anchor_right = 0.083
-anchor_bottom = 0.94
-offset_left = -127.36
-offset_top = -39.2001
-offset_right = 128.64
-offset_bottom = 38.7999
-theme_override_styles/normal = SubResource("StyleBoxTexture_oywk5")
-theme_override_styles/hover = SubResource("StyleBoxTexture_bcipl")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_6nr7m")
-text = "EXIT"
+[node name="MenuCopie" type="Sprite2D" parent="."]
+position = Vector2(1328, 920)
+scale = Vector2(0.435185, 0.435185)
+texture = ExtResource("6_iyy6s")
 
-[node name="PointLight2D5" type="PointLight2D" parent="Panel"]
-position = Vector2(164, 1014)
-scale = Vector2(4.99563, 1.97625)
-energy = 1.29
-texture = SubResource("GradientTexture2D_f82sy")
-texture_scale = 0.95
+[node name="Wheel2" parent="." instance=ExtResource("12_bqe0v")]
+position = Vector2(266, 954)
+rotation = 1.34565
+scale = Vector2(0.0744818, 0.0744818)
 
-[node name="DirectionalLight2D" type="DirectionalLight2D" parent="Panel"]
-visible = false
-position = Vector2(-2, 0)
-energy = 0.7
-blend_mode = 1
+[node name="Wheel" parent="." instance=ExtResource("12_bqe0v")]
+position = Vector2(200, 968)
+rotation = -4.93754
+scale = Vector2(0.097647, 0.097647)
 
-[node name="PointLight2D" type="PointLight2D" parent="Panel/DirectionalLight2D"]
-visible = false
-position = Vector2(990, 512)
-scale = Vector2(3.19531, 3.0625)
-energy = 2.58
-texture = ExtResource("4_w4bov")
-texture_scale = 0.9
-height = 45.0
+[node name="Wheel3" parent="." instance=ExtResource("12_bqe0v")]
+position = Vector2(256, 1024)
+rotation = -4.93754
+scale = Vector2(0.097647, 0.097647)
+turnRight = true
+
+[node name="DroiteCopie2" type="Sprite2D" parent="."]
+position = Vector2(1790, 438)
+scale = Vector2(0.772191, 0.548872)
+texture = ExtResource("8_roxkq")
+
+[node name="Extras" type="Sprite2D" parent="."]
+position = Vector2(1461.75, 480)
+scale = Vector2(0.462987, 0.385714)
+texture = ExtResource("7_hugq5")
+
+[node name="Corps" type="Sprite2D" parent="."]
+position = Vector2(1424, 608)
+scale = Vector2(0.457672, 0.457672)
+texture = ExtResource("8_yd0w4")
+
+[node name="Bolt" type="Line2D" parent="."]
+material = SubResource("ShaderMaterial_41cxo")
+position = Vector2(111.548, 210.181)
+scale = Vector2(0.381417, 0.381417)
+points = PackedVector2Array(399.7, 959.105, 399.7, 1588.34)
+width = 200.0
+default_color = Color(0, 1.00784, 1.8, 1)
+texture_mode = 2
+
+[node name="GaucheCopie" type="Sprite2D" parent="."]
+position = Vector2(256, 816)
+scale = Vector2(0.466953, 0.454839)
+texture = ExtResource("9_1urrm")
+
+[node name="EcranCopie3" type="Sprite2D" parent="."]
+position = Vector2(264, 96)
+scale = Vector2(0.345064, 0.345064)
+texture = ExtResource("10_tbe3u")
+
+[node name="EcranCopie4" type="Sprite2D" parent="."]
+position = Vector2(260, 299.484)
+scale = Vector2(0.4, 0.412483)
+texture = ExtResource("11_frbmt")
+
+[node name="EcranCopie2" type="Sprite2D" parent="."]
+position = Vector2(264, 296)
+scale = Vector2(0.381417, 0.381417)
+texture = ExtResource("11_bwtnt")
+
+[node name="Dossier2Copie" type="Sprite2D" parent="."]
+position = Vector2(264, 288)
+scale = Vector2(0.389245, 0.446844)
+texture = ExtResource("12_pj4mf")
+
+[node name="ArrierePlan" type="Sprite2D" parent="."]
+position = Vector2(1736, 120)
+scale = Vector2(0.643426, 0.643426)
+texture = ExtResource("17_csmdp")
+
+[node name="Milieu" type="Sprite2D" parent="."]
+position = Vector2(1648, 136)
+scale = Vector2(0.613274, 0.613274)
+texture = ExtResource("18_pb4sg")
+
+[node name="PremierPlan" type="Sprite2D" parent="."]
+position = Vector2(1688, 168)
+scale = Vector2(0.478836, 0.478836)
+texture = ExtResource("19_u4bb6")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(240, 472)
+scale = Vector2(0.544263, 0.524551)
+color = Color(1, 0, 0, 1)
+energy = 3.0
+texture = ExtResource("22_dginc")
+texture_scale = 0.3
+
+[node name="PointLight2D" type="PointLight2D" parent="PointLight2D"]
+position = Vector2(73.4939, -8.96454e-05)
+scale = Vector2(0.725865, 0.685918)
+energy = 3.0
+texture = ExtResource("22_dginc")
+texture_scale = 0.3
+
+[node name="PointLight2D2" type="PointLight2D" parent="."]
+position = Vector2(240, 472)
+scale = Vector2(0.544263, 0.524551)
+color = Color(1, 0, 0, 1)
+energy = 3.0
+texture = ExtResource("22_dginc")
+texture_scale = 0.3
+
+[node name="PointLight2D" type="PointLight2D" parent="PointLight2D2"]
+position = Vector2(80.8433, 753.978)
+scale = Vector2(0.317566, 0.358919)
+energy = 0.5
+texture = ExtResource("22_dginc")
+texture_scale = 0.3
+
+[node name="PointLight2D2" type="PointLight2D" parent="PointLight2D2"]
+position = Vector2(31.2347, 753.025)
+scale = Vector2(0.226833, 0.235357)
+color = Color(1, 0.779103, 0.144386, 1)
+energy = 0.5
+texture = ExtResource("22_dginc")
+texture_scale = 0.3
+
+[node name="PointLight2D5" type="PointLight2D" parent="PointLight2D2"]
+position = Vector2(2055.99, 289.772)
+scale = Vector2(0.226833, 0.235357)
+color = Color(1, 0.779103, 0.144386, 1)
+energy = 0.5
+texture = ExtResource("22_dginc")
+texture_scale = 0.3
+
+[node name="PointLight2D6" type="PointLight2D" parent="PointLight2D2"]
+position = Vector2(2112.95, 289.772)
+scale = Vector2(0.226833, 0.235357)
+color = Color(1, 0.779103, 0.144386, 1)
+energy = 0.5
+texture = ExtResource("22_dginc")
+texture_scale = 0.3
+
+[node name="PointLight2D7" type="PointLight2D" parent="PointLight2D2"]
+position = Vector2(1999.95, 333.618)
+scale = Vector2(0.175795, 0.16475)
+color = Color(0, 0.780392, 0.145098, 1)
+energy = 0.5
+texture = ExtResource("22_dginc")
+texture_scale = 0.3
+
+[node name="PointLight2D8" type="PointLight2D" parent="PointLight2D2"]
+position = Vector2(2053.24, 333.618)
+scale = Vector2(0.175795, 0.16475)
+color = Color(0, 0.780392, 0.145098, 1)
+energy = 0.5
+texture = ExtResource("22_dginc")
+texture_scale = 0.3
+
+[node name="PointLight2D9" type="PointLight2D" parent="PointLight2D2"]
+position = Vector2(2110.19, 335.525)
+scale = Vector2(0.175795, 0.16475)
+color = Color(0, 0.780392, 0.145098, 1)
+energy = 0.5
+texture = ExtResource("22_dginc")
+texture_scale = 0.3
+
+[node name="PointLight2D3" type="PointLight2D" parent="PointLight2D2"]
+position = Vector2(-20.2108, 756.838)
+scale = Vector2(0.226833, 0.235357)
+color = Color(1, 0.0086272, 0.146881, 1)
+energy = 0.5
+texture = ExtResource("22_dginc")
+texture_scale = 0.3
+
+[node name="PointLight2D4" type="PointLight2D" parent="PointLight2D2"]
+position = Vector2(2006.38, 287.865)
+scale = Vector2(0.226833, 0.235357)
+color = Color(1, 0.0086272, 0.146881, 1)
+energy = 0.5
+texture = ExtResource("22_dginc")
+texture_scale = 0.3
+
+[node name="PointLight2D3" type="PointLight2D" parent="."]
+position = Vector2(263, 300)
+scale = Vector2(2.96875, 2.125)
+texture = SubResource("GradientTexture2D_pnvk5")
