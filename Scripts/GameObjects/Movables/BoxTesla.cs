@@ -35,6 +35,14 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
         GridManager gridManager = GridManager.GetInstance();
         private bool signalEmit = false;
         Vector2 LastPos = Vector2.Zero;
+        
+        //EndAnim 
+        private const float CONNECT_DURATION = 0.3f;
+        private const float DISCONNECT_DURATION = 0.3f;
+        private const float LIGHT_INTENSITY = 1.5f;
+        private const float LIGHT_OFF = 0f;
+        
+
         #endregion
         
         #region directionScan
@@ -287,7 +295,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
         public void LineConnection(GameObject pObjToConnect)
         {
             energize = true;
-            connectedLight.Visible = true;  
+            AnimateConnection(true);
             ClearPreviewLines(); 
             
             lightning = lightningNodeScene.Instantiate<LightningNode>();
@@ -307,7 +315,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
         public void LineDeconnection()
         {
             energize = false;
-            connectedLight.Visible = false;
+            AnimateConnection(false);
             //UpdateRayCast(Vector2.Zero);
             DestroyRaycast();
             if (lightning != null)
@@ -409,6 +417,46 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
             previewLines.Clear();
             lastPreviewTargets.Clear();
         }
+        #endregion
+        
+        #region Connection Animation 
+        private void AnimateConnection(bool isConnected)
+        {
+            if (connectedLight == null || visual == null) return;
+
+            Tween tween = CreateTween();
+
+            if (isConnected)
+            {
+                connectedLight.Visible = true;
+                
+                tween.TweenProperty(connectedLight, "energy", LIGHT_INTENSITY, CONNECT_DURATION);
+                
+                tween.TweenProperty(visual, "modulate", new Color(1.0f, 1.0f, 1.0f), CONNECT_DURATION);
+                
+                Vector2 lPunchScale = visual.Scale * 1.2f;
+                tween.TweenProperty(visual, "scale", lPunchScale, 0.1f)
+                    .SetEase(Tween.EaseType.Out)
+                    .SetTrans(Tween.TransitionType.Back);
+
+                tween.TweenProperty(visual, "scale", Vector2.One, 0.15f)
+                    .SetEase(Tween.EaseType.Out)
+                    .SetTrans(Tween.TransitionType.Back);
+                
+                
+            }
+            else
+            {
+                tween.TweenProperty(connectedLight, "energy", LIGHT_OFF, DISCONNECT_DURATION);
+                
+                tween.TweenProperty(visual, "modulate", new Color(0.5f, 0.5f, 0.5f), DISCONNECT_DURATION);
+                
+                tween.TweenProperty(visual, "scale", Vector2.One, 0.2f);
+
+                tween.TweenCallback(Callable.From(() => connectedLight.Visible = false));
+            }
+        }
+
         #endregion
 
         protected override void Dispose(bool pDisposing)

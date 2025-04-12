@@ -3,6 +3,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace Com.IsartDigital.SokoVolt
 {
@@ -18,6 +19,11 @@ namespace Com.IsartDigital.SokoVolt
 		private int dialogueIndex = 0;
 		private bool isTyping = false;
 		private Vector2 lOriginalScale;
+		private int visibleTargetLength = 0;
+		
+		private CancellationTokenSource typingTokenSource;
+
+
 
 
 
@@ -77,28 +83,55 @@ namespace Com.IsartDigital.SokoVolt
 
 		private async void StartTyping()
 		{
-			isTyping = true;
 
+			isTyping = true;
 			currentLine = dialogues[dialogueIndex];
 			text.Text = currentLine;
 			text.VisibleCharacters = 0;
-			
+
 			DialogManager.GetInstance().OnDialogueLineDisplayed(dialogueIndex);
 
-			for (int i = 0; i <= currentLine.Length; i++)
+			typingTokenSource = new CancellationTokenSource();
+			CancellationToken token = typingTokenSource.Token;
+
+			try
 			{
-				text.VisibleCharacters = i;
-				await ToSignal(GetTree().CreateTimer(0.02f), ObjectProperties.TIME_OUT);
+				for (int i = 0; i <= currentLine.Length; i++)
+				{
+					text.VisibleCharacters = i;
+					await ToSignal(GetTree().CreateTimer(0.02f), ObjectProperties.TIME_OUT);
+
+					if (token.IsCancellationRequested)
+						break;
+				}
+			}
+			catch (TaskCanceledException)
+			{
+				// Optionnel : log
+				GD.Print("Typing cancelled");
 			}
 
+			text.VisibleCharacters = currentLine.Length;
 			isTyping = false;
+			
 		}
+		
+		public void SetDialogerFrame(int frameIndex)
+		{
+			if (dialoger != null)
+				dialoger.Frame = frameIndex;
+		}
+
+
+
+
 
 		private void OnNextPressed()
 		{
+			
 			if (isTyping)
 			{
-				text.VisibleCharacters = currentLine.Length;
+				typingTokenSource?.Cancel(); 
 				isTyping = false;
 				return;
 			}
@@ -111,9 +144,12 @@ namespace Com.IsartDigital.SokoVolt
 			}
 			else
 			{
-				AnimateOut(true); 
+				AnimateOut(true);
 			}
 		}
+
+
+
 
 		public void Reset(bool pAnimated = false)
 		{
