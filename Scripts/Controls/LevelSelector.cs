@@ -233,6 +233,7 @@ namespace Com.IsartDigital.SokoVolt
             instance = null;
             base.Dispose(pDisposing);
             StopSound();
+            SongManager.Instance.Crossfade(EnumSong.AmbientSong.AmbianceMenumusic, EnumSong.AmbientSong.AmbianceGamemusic, 0.5f, -8);
         }
     }
 }

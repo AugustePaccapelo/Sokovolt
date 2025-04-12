@@ -116,7 +116,7 @@ public partial class SongManager : Manager
     /// <param name="pFromKey">The currently playing song to fade out.</param>
     /// <param name="pToKey">The target song to fade in.</param>
     /// <param name="pDuration">The pDuration of the crossfade in seconds.</param>
-    public void Crossfade(AmbientSong pFromKey, AmbientSong pToKey,float pDuration = 2f)
+    public void Crossfade(AmbientSong pFromKey, AmbientSong pToKey,float pDuration = 2f, float pFinalVolume = 0f)
     {
         if (!ambientDict.ContainsKey(pFromKey) || !ambientDict.ContainsKey(pToKey))
         {
@@ -133,7 +133,7 @@ public partial class SongManager : Manager
         lTo.Play();
 
         lTween.TweenProperty(lFrom, "volume_db", -30f, pDuration); 
-        lTween.TweenProperty(lTo, "volume_db", 0f, pDuration); 
+        lTween.TweenProperty(lTo, "volume_db", pFinalVolume, pDuration); 
 
         lTween.TweenCallback(Callable.From(() =>
         {
@@ -141,5 +141,7 @@ public partial class SongManager : Manager
             lFrom.VolumeDb = 0f; 
         }));
     }
+    
+    
 
 }
