@@ -21,9 +21,10 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
         #region  Export 
         [Export] private PackedScene lightningNodeScene;
         [Export] private Line2D electriLine2D;
-        [Export] public Marker2D connectionPoint;
-        [Export] private Node2D visual;
-        [Export] private PointLight2D connectedLight; 
+        [Export] private Marker2D connectionPoint;
+        [Export] private Node2D visual, impactEffect;
+        [Export] private PackedScene moveParticlesScene;
+        [Export] private PointLight2D connectedLight;
         #endregion
 
         #region variables
@@ -175,13 +176,46 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
             range = pRange;
         }
 
+        private void ConnectionEffect()
+        {
+            foreach (var item in impactEffect.GetChildren())
+            {
+                if(item is GpuParticles2D particles) particles.Emitting = true;
+                if(item is PointLight2D light) light.Energy = 3;
+            }
+        }
+        private void DeConnectionEffect()
+        {
+            foreach (var item in impactEffect.GetChildren())
+            {
+                if (item is GpuParticles2D particles) particles.Emitting = false;
+                if (item is PointLight2D light) light.Energy = 0;
+            }
+        }
+
+        private GpuParticles2D CreateParticles()
+        {
+            GpuParticles2D lParticles = moveParticlesScene.Instantiate() as GpuParticles2D;
+            AddChild(lParticles);
+            MoveChild(lParticles, 0);
+            lParticles.Finished += lParticles.QueueFree;
+            return lParticles;
+        }
 
         public override void MoveTo(int pX, int pY, Cell[,] pGrid)
         {
+            int lX = x;
+            int lY = y;
             base.MoveTo(pX, pY, pGrid);
             CustomSignals lSignals = CustomSignals.GetInstance();
             lSignals.EmitSignal(CustomSignals.SignalName.BoxTeslaMoved);
             SongManager.Instance.ambientDict[EnumSong.AmbientSong.Piece].Play();
+            GpuParticles2D lParticles = CreateParticles();
+            if (pX > lX) lParticles.RotationDegrees = 224;
+            else if (pX < lX) lParticles.RotationDegrees = 40;
+            if (pY < lY) lParticles.RotationDegrees = 135;
+            else if (pY > lY) lParticles.RotationDegrees = 300;
+            lParticles.Emitting = true;
         }
 
         #region Searchin
@@ -295,6 +329,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
         public void LineConnection(GameObject pObjToConnect)
         {
             energize = true;
+            ConnectionEffect();
             AnimateConnection(true);
             ClearPreviewLines(); 
             
@@ -310,14 +345,14 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
             CreateRaycast(ToLocal(pObjToConnect.GlobalPosition));
         }
 
-
-
         public void LineDeconnection()
         {
             energize = false;
             AnimateConnection(false);
             //UpdateRayCast(Vector2.Zero);
             DestroyRaycast();
+            DeConnectionEffect();
+
             if (lightning != null)
             {
                 lightning.StopLightning();
