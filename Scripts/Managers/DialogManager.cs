@@ -21,6 +21,25 @@ namespace Com.IsartDigital.SokoVolt {
 
 		private int currentLevel = -1;
 		private Dictionary<(int, int), Action> dialogueTriggers = new();
+		private Dictionary<(int, int), int> expressionTriggers = new()
+		{
+			// Niveau 1
+			{ (1, 0), 0 }, { (1, 1), 0 }, { (1, 2), 1 }, { (1, 3), 1 },
+			{ (1, 4), 0 }, { (1, 5), 1 }, { (1, 6), 1 }, { (1, 7), 1 },
+			{ (1, 8), 0 }, { (1, 9), 1 }, { (1, 10), 0 }, { (1, 11), 0 },
+			{ (1, 12), 2 }, { (1, 13), 2 },
+
+			// Niveau 2
+			{ (2, 0), 2 }, { (2, 1), 0 }, { (2, 2), 1 }, { (2, 3), 1 },
+			{ (2, 4), 1 }, { (2, 5), 0 },
+
+			// Niveau 3
+			{ (3, 0), 0 }, { (3, 1), 2 }, { (3, 2), 1 }, { (3, 3), 1 },
+			{ (3, 4), 1 }, { (3, 5), 0 }, { (3, 6), 1 }, { (3, 7), 1 },
+			{ (3, 8), 0 }, { (3, 9), 2 }, { (3, 10), 2 },
+		};
+
+
 
 		public override void _Ready() {
 			if (instance != null) {
@@ -52,15 +71,7 @@ namespace Com.IsartDigital.SokoVolt {
 			}
 		}
 
-		public void OnDialogueLineDisplayed(int pLineIndex) {
-			HighlightManager.GetInstance().ClearHighlights(); // 🔥 reset avant trigger
-
-			var key = (currentLevel + 1, pLineIndex);
-
-			if (dialogueTriggers.ContainsKey(key))
-				dialogueTriggers[key].Invoke();
-			
-		}
+	
 
 
 
@@ -76,6 +87,23 @@ namespace Com.IsartDigital.SokoVolt {
 			
 			
 		}
+		
+		public void OnDialogueLineDisplayed(int pLineIndex) {
+			HighlightManager.GetInstance().ClearHighlights(); 
+
+			var key = (currentLevel + 1, pLineIndex);
+
+			if (dialogueTriggers.ContainsKey(key))
+				dialogueTriggers[key].Invoke();
+			
+			if (expressionTriggers.TryGetValue((currentLevel + 1, pLineIndex), out int frame))
+			{
+				dialogBox.SetDialogerFrame(frame);
+			}
+
+			
+		}
+
 
 		private List<string> GetDialoguesForLevel(int pLevel)
 		{

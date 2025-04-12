@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://61fe0x1uwbad"]
 
-[ext_resource type="Texture2D" uid="uid://dyr30pkkewie" path="res://Assets/UI/MainMenu/LevelScreen.png" id="1_huf47"]
+[ext_resource type="Texture2D" uid="uid://btrwo2ujfcf0t" path="res://Assets/UI/ImageLevels/Nv0.png" id="1_xdyy0"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_6nt13"]
 font_size = 52
@@ -92,12 +92,10 @@ shader_parameter/lines_velocity = 10.0
 [node name="ScreenView" type="Node2D"]
 
 [node name="TextureRect" type="TextureRect" parent="."]
-offset_left = 3.0
-offset_top = 3.0
-offset_right = 2215.0
-offset_bottom = 1124.0
+offset_right = 2252.0
+offset_bottom = 1252.0
 scale = Vector2(0.12477, 0.124925)
-texture = ExtResource("1_huf47")
+texture = ExtResource("1_xdyy0")
 
 [node name="LevelLabel" type="Label" parent="."]
 visible = false

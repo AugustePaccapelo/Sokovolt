@@ -397,4 +397,5 @@ FodyWeavers.xsd
 .vs
 Localisation
 .idea
+.vscode/settings.json
 .vscode

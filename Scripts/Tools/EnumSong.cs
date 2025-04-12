@@ -28,7 +28,9 @@ public partial class EnumSong
         pop2,
         pop3,
         pop4,
-        pop5
+        pop5, 
+        AmbianceMenumusic,
+        AmbianceGamemusic,
     }
 
 }

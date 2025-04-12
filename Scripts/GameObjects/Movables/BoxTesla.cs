@@ -21,9 +21,10 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
         #region  Export 
         [Export] private PackedScene lightningNodeScene;
         [Export] private Line2D electriLine2D;
-        [Export] public Marker2D connectionPoint;
-        [Export] private Node2D visual;
-        [Export] private PointLight2D connectedLight; 
+        [Export] private Marker2D connectionPoint;
+        [Export] private Node2D visual, impactEffect;
+        [Export] private PackedScene moveParticlesScene;
+        [Export] private PointLight2D connectedLight;
         #endregion
 
         #region variables
@@ -35,6 +36,14 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
         GridManager gridManager = GridManager.GetInstance();
         private bool signalEmit = false;
         Vector2 LastPos = Vector2.Zero;
+        
+        //EndAnim 
+        private const float CONNECT_DURATION = 0.3f;
+        private const float DISCONNECT_DURATION = 0.3f;
+        private const float LIGHT_INTENSITY = 1.5f;
+        private const float LIGHT_OFF = 0f;
+        
+
         #endregion
         
         #region directionScan
@@ -167,13 +176,46 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
             range = pRange;
         }
 
+        private void ConnectionEffect()
+        {
+            foreach (var item in impactEffect.GetChildren())
+            {
+                if(item is GpuParticles2D particles) particles.Emitting = true;
+                if(item is PointLight2D light) light.Energy = 3;
+            }
+        }
+        private void DeConnectionEffect()
+        {
+            foreach (var item in impactEffect.GetChildren())
+            {
+                if (item is GpuParticles2D particles) particles.Emitting = false;
+                if (item is PointLight2D light) light.Energy = 0;
+            }
+        }
+
+        private GpuParticles2D CreateParticles()
+        {
+            GpuParticles2D lParticles = moveParticlesScene.Instantiate() as GpuParticles2D;
+            AddChild(lParticles);
+            MoveChild(lParticles, 0);
+            lParticles.Finished += lParticles.QueueFree;
+            return lParticles;
+        }
 
         public override void MoveTo(int pX, int pY, Cell[,] pGrid)
         {
+            int lX = x;
+            int lY = y;
             base.MoveTo(pX, pY, pGrid);
             CustomSignals lSignals = CustomSignals.GetInstance();
             lSignals.EmitSignal(CustomSignals.SignalName.BoxTeslaMoved);
             SongManager.Instance.ambientDict[EnumSong.AmbientSong.Piece].Play();
+            GpuParticles2D lParticles = CreateParticles();
+            if (pX > lX) lParticles.RotationDegrees = 224;
+            else if (pX < lX) lParticles.RotationDegrees = 40;
+            if (pY < lY) lParticles.RotationDegrees = 135;
+            else if (pY > lY) lParticles.RotationDegrees = 300;
+            lParticles.Emitting = true;
         }
 
         #region Searchin
@@ -287,7 +329,8 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
         public void LineConnection(GameObject pObjToConnect)
         {
             energize = true;
-            connectedLight.Visible = true;  
+            ConnectionEffect();
+            AnimateConnection(true);
             ClearPreviewLines(); 
             
             lightning = lightningNodeScene.Instantiate<LightningNode>();
@@ -302,14 +345,14 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
             CreateRaycast(ToLocal(pObjToConnect.GlobalPosition));
         }
 
-
-
         public void LineDeconnection()
         {
             energize = false;
-            connectedLight.Visible = false;
+            AnimateConnection(false);
             //UpdateRayCast(Vector2.Zero);
             DestroyRaycast();
+            DeConnectionEffect();
+
             if (lightning != null)
             {
                 lightning.StopLightning();
@@ -409,6 +452,46 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
             previewLines.Clear();
             lastPreviewTargets.Clear();
         }
+        #endregion
+        
+        #region Connection Animation 
+        private void AnimateConnection(bool isConnected)
+        {
+            if (connectedLight == null || visual == null) return;
+
+            Tween tween = CreateTween();
+
+            if (isConnected)
+            {
+                connectedLight.Visible = true;
+                
+                tween.TweenProperty(connectedLight, "energy", LIGHT_INTENSITY, CONNECT_DURATION);
+                
+                tween.TweenProperty(visual, "modulate", new Color(1.0f, 1.0f, 1.0f), CONNECT_DURATION);
+                
+                Vector2 lPunchScale = visual.Scale * 1.2f;
+                tween.TweenProperty(visual, "scale", lPunchScale, 0.1f)
+                    .SetEase(Tween.EaseType.Out)
+                    .SetTrans(Tween.TransitionType.Back);
+
+                tween.TweenProperty(visual, "scale", Vector2.One, 0.15f)
+                    .SetEase(Tween.EaseType.Out)
+                    .SetTrans(Tween.TransitionType.Back);
+                
+                
+            }
+            else
+            {
+                tween.TweenProperty(connectedLight, "energy", LIGHT_OFF, DISCONNECT_DURATION);
+                
+                tween.TweenProperty(visual, "modulate", new Color(0.5f, 0.5f, 0.5f), DISCONNECT_DURATION);
+                
+                tween.TweenProperty(visual, "scale", Vector2.One, 0.2f);
+
+                tween.TweenCallback(Callable.From(() => connectedLight.Visible = false));
+            }
+        }
+
         #endregion
 
         protected override void Dispose(bool pDisposing)

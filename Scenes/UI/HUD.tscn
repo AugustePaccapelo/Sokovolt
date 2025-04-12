@@ -281,11 +281,18 @@ text = "You Win!"
 label_settings = SubResource("LabelSettings_qeci4")
 
 [node name="MainMenuButton" parent="." instance=ExtResource("5_al47o")]
-layout_mode = 0
-offset_left = 1591.0
-offset_top = 892.0
-offset_right = 1887.0
-offset_bottom = 1017.0
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -361.0
+offset_top = -182.0
+offset_right = -65.0
+offset_bottom = -57.0
+grow_horizontal = 0
+grow_vertical = 0
 pivot_offset = Vector2(148, 62)
 theme_override_font_sizes/font_size = 50
 theme_override_styles/normal = SubResource("StyleBoxFlat_lbk83")
@@ -305,5 +312,5 @@ texture = ExtResource("6_nni3e")
 texture_scale = 0.1
 
 [node name="DialogBox" parent="." instance=ExtResource("8_5pccc")]
-position = Vector2(1393, 431)
+position = Vector2(1393, 263)
 scale = Vector2(0.6, 0.6)

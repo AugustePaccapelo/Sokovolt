@@ -71,6 +71,12 @@ namespace Com.IsartDigital.SokoVolt
 		{
 			CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.GoToLoginScreen);
             SongManager.Instance.ambientDict[EnumSong.AmbientSong.spotLight].Stop();
+            var ambientPlayer = SongManager.Instance.ambientDict[EnumSong.AmbientSong.AmbianceMenumusic];
+            if (!ambientPlayer.Playing)
+            {
+	            ambientPlayer.Play();
+	            ambientPlayer.VolumeDb = -5;
+            }
             QueueFree();
 		}
 

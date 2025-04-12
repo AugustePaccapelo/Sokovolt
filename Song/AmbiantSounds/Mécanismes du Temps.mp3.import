@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dx04thnh847nk"
+path="res://.godot/imported/Mécanismes du Temps.mp3-c77f9a1917b570e756f0eb0b32d10945.mp3str"
+
+[deps]
+
+source_file="res://Song/AmbiantSounds/Mécanismes du Temps.mp3"
+dest_files=["res://.godot/imported/Mécanismes du Temps.mp3-c77f9a1917b570e756f0eb0b32d10945.mp3str"]
+
+[params]
+
+loop=true
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

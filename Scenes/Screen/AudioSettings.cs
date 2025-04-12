@@ -18,7 +18,7 @@ namespace Com.IsartDigital.SokoVolt {
         private const string MUSIC = "Music";
         private const string MASTER = "Master";
 
-        public static bool frEN = false; 
+        public static bool frEN = true; 
 
 
         public static AudioSettings Instance { get; private set; }
