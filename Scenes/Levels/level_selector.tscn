@@ -1,4 +1,4 @@
-[gd_scene load_steps=80 format=3 uid="uid://dht3qeqhib1rk"]
+[gd_scene load_steps=77 format=3 uid="uid://dht3qeqhib1rk"]
 
 [ext_resource type="Script" path="res://Scripts/Controls/LevelSelector.cs" id="1_7onrw"]
 [ext_resource type="Texture2D" uid="uid://dyr30pkkewie" path="res://Assets/UI/MainMenu/LevelScreen.png" id="2_u4r7s"]
@@ -129,21 +129,6 @@ keycode = 4194319
 [sub_resource type="Shortcut" id="Shortcut_0fmw5"]
 events = [SubResource("InputEventKey_tv7e5")]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gjake"]
-bg_color = Color(0.559523, 1.27546e-06, 3.36915e-07, 1)
-border_width_left = 5
-border_width_top = 5
-border_width_right = 5
-border_width_bottom = 5
-border_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 20
-corner_radius_top_right = 20
-corner_radius_bottom_right = 20
-corner_radius_bottom_left = 20
-corner_detail = 16
-shadow_size = 5
-shadow_offset = Vector2(0, 5)
-
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_oi1y7"]
 
 [sub_resource type="InputEventKey" id="InputEventKey_gko1h"]
@@ -220,12 +205,12 @@ shader_parameter/basic_texture = ExtResource("26_mswj5")
 blend_mode = 1
 light_mode = 1
 
-[sub_resource type="Curve" id="Curve_ouyvy"]
+[sub_resource type="Curve" id="Curve_1w2lf"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.292683, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 3
 
 [sub_resource type="CurveTexture" id="CurveTexture_euagi"]
-curve = SubResource("Curve_ouyvy")
+curve = SubResource("Curve_1w2lf")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_v8vr1"]
 particle_flag_disable_z = true
@@ -235,32 +220,25 @@ scale_max = 0.3
 scale_curve = SubResource("CurveTexture_euagi")
 color = Color(0.5, 1, 1.2, 1)
 
-[sub_resource type="Curve" id="Curve_1w2lf"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.292683, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 3
-
-[sub_resource type="CurveTexture" id="CurveTexture_36w7c"]
-curve = SubResource("Curve_1w2lf")
-
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_n0ler"]
 particle_flag_disable_z = true
 gravity = Vector3(0, 0, 0)
 scale_min = 0.08
 scale_max = 0.3
-scale_curve = SubResource("CurveTexture_36w7c")
+scale_curve = SubResource("CurveTexture_euagi")
 color = Color(0.5, 1, 1.2, 1)
 
 [sub_resource type="Gradient" id="Gradient_iffhu"]
 colors = PackedColorArray(0.382651, 0.974019, 0.949734, 1, 1, 1, 1, 1)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_654lq"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_dildd"]
 gradient = SubResource("Gradient_iffhu")
 
 [sub_resource type="Curve" id="Curve_gtcqf"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.251185, 0), 0.0, 0.0, 0, 0, Vector2(0.49763, 1), 0.0, 0.0, 0, 0, Vector2(0.758294, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 5
 
-[sub_resource type="CurveTexture" id="CurveTexture_kkrxb"]
+[sub_resource type="CurveTexture" id="CurveTexture_8imnm"]
 curve = SubResource("Curve_gtcqf")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_n2gri"]
@@ -272,8 +250,8 @@ radial_velocity_max = 25.0
 gravity = Vector3(0, 0, 0)
 scale_min = 16.0
 scale_max = 16.0
-scale_curve = SubResource("CurveTexture_kkrxb")
-color_ramp = SubResource("GradientTexture1D_654lq")
+scale_curve = SubResource("CurveTexture_8imnm")
+color_ramp = SubResource("GradientTexture1D_dildd")
 turbulence_enabled = true
 turbulence_noise_speed_random = 2.44
 turbulence_influence_min = 0.024
@@ -284,7 +262,7 @@ turbulence_initial_displacement_max = -34.8
 [sub_resource type="Gradient" id="Gradient_rvo8j"]
 colors = PackedColorArray(1, 0.866667, 0.0117647, 1, 1, 1, 1, 1)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_ubeg6"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_pshl0"]
 gradient = SubResource("Gradient_rvo8j")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_eo3dr"]
@@ -297,8 +275,8 @@ radial_velocity_max = 100.0
 gravity = Vector3(0, 0, 0)
 scale_min = 10.0
 scale_max = 10.0
-scale_curve = SubResource("CurveTexture_kkrxb")
-color_ramp = SubResource("GradientTexture1D_ubeg6")
+scale_curve = SubResource("CurveTexture_8imnm")
+color_ramp = SubResource("GradientTexture1D_pshl0")
 turbulence_enabled = true
 turbulence_noise_speed_random = 2.44
 turbulence_influence_min = 0.024
@@ -321,7 +299,7 @@ point_count = 2
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_jesdu"]
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_a3vvu"]
 curve_x = SubResource("Curve_w41vn")
 curve_y = SubResource("Curve_1kdmu")
 curve_z = SubResource("Curve_vx6to")
@@ -339,7 +317,7 @@ radial_velocity_max = 100.0
 gravity = Vector3(0, 98, 0)
 scale_min = 0.01
 scale_max = 0.05
-scale_curve = SubResource("CurveXYZTexture_jesdu")
+scale_curve = SubResource("CurveXYZTexture_a3vvu")
 color = Color(1, 0.780392, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t6bik"]
@@ -470,7 +448,7 @@ texture = ExtResource("27_udj1q")
 [node name="TeslaContainer" type="Node2D" parent="."]
 
 [node name="ButtonBox" type="TextureRect" parent="."]
-z_index = 100
+z_index = 4
 layout_mode = 1
 offset_left = 332.0
 offset_top = 542.0
@@ -531,7 +509,7 @@ theme_override_font_sizes/font_size = 300
 theme_override_styles/normal = SubResource("StyleBoxFlat_8lue5")
 theme_override_styles/hover = SubResource("StyleBoxFlat_at7ei")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_ck5x4")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_gjake")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_8lue5")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_oi1y7")
 shortcut = SubResource("Shortcut_7dlpy")
 text = "PLAY"
@@ -631,6 +609,7 @@ speed_scale = 2.88
 fixed_fps = 60
 
 [node name="FrontMachine" type="TextureRect" parent="."]
+z_index = 4
 layout_mode = 0
 offset_top = 11.0
 offset_right = 406.0

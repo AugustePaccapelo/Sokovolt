@@ -1,5 +1,6 @@
 using Com.IsartDigital.SokoVolt.GameObjects.Movables;
 using Com.IsartDigital.SokoVolt.Managers;
+using Com.IsartDigital.SokoVolt.Tools;
 using Godot;
 using System;
 
@@ -41,6 +42,8 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
             gridManager = GridManager.GetInstance();
 			
 			BoxTeslaMoved();
+			
+			HighlightManager.GetInstance()?.RegisterTarget("GoalBulb", this);
         }
 
 		public override void _Process(double pDelta)

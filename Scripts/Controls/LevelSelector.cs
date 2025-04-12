@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using static Com.IsartDigital.SokoVolt.Tools.ObjectProperties;
 using System.Reflection.Emit;
+using RobotnikSokoban.Scripts.Managers;
 
 // Author : Noé Sales
 
@@ -79,6 +80,34 @@ namespace Com.IsartDigital.SokoVolt
             //unlockedLevels = userGestion.GetUnlockedLevels();
             InitializeLevelAtStart();
             scoreBoard.UpdatePersonalScoreBoard(actualLevel);
+            InitSound();
+        }
+
+        public override void _Process(double delta)
+        {
+            if(!SongManager.Instance.ambientDict[EnumSong.AmbientSong.elevatorNoise].Playing) SongManager.Instance.ambientDict[EnumSong.AmbientSong.elevatorNoise].Play();
+            if(!SongManager.Instance.ambientDict[EnumSong.AmbientSong.machineBackSound].Playing) SongManager.Instance.ambientDict[EnumSong.AmbientSong.machineBackSound].Play();
+            if(!SongManager.Instance.ambientDict[EnumSong.AmbientSong.machineBackSound2].Playing) SongManager.Instance.ambientDict[EnumSong.AmbientSong.machineBackSound2].Play();
+            if(!SongManager.Instance.ambientDict[EnumSong.AmbientSong.heater].Playing) SongManager.Instance.ambientDict[EnumSong.AmbientSong.heater].Play();
+            if(!SongManager.Instance.ambientDict[EnumSong.AmbientSong.mysteriousElectricity].Playing) SongManager.Instance.ambientDict[EnumSong.AmbientSong.mysteriousElectricity].Play();
+        }
+
+        private void InitSound()
+        {
+            SongManager.Instance.ambientDict[EnumSong.AmbientSong.elevatorNoise].Play();
+            SongManager.Instance.ambientDict[EnumSong.AmbientSong.machineBackSound].Play();
+            SongManager.Instance.ambientDict[EnumSong.AmbientSong.machineBackSound2].Play();
+            SongManager.Instance.ambientDict[EnumSong.AmbientSong.heater].Play();
+            SongManager.Instance.ambientDict[EnumSong.AmbientSong.mysteriousElectricity].Play();
+        }
+
+        private void StopSound()
+        {
+            SongManager.Instance.ambientDict[EnumSong.AmbientSong.elevatorNoise].Stop();
+            SongManager.Instance.ambientDict[EnumSong.AmbientSong.machineBackSound].Stop();
+            SongManager.Instance.ambientDict[EnumSong.AmbientSong.machineBackSound2].Stop();
+            SongManager.Instance.ambientDict[EnumSong.AmbientSong.heater].Stop();
+            SongManager.Instance.ambientDict[EnumSong.AmbientSong.mysteriousElectricity].Stop();
         }
 
         private void MainMenu()
@@ -153,7 +182,7 @@ namespace Com.IsartDigital.SokoVolt
                 {
                     lNewPos = new Vector2((i - actualLevel) * screenSize.X + screenSize.X / 2, teslaPosY);
                     lTween = CreateTween().SetParallel(true);
-                    lTween.TweenProperty(teslaDictionnary[i], POSITION, lNewPos, 1f).SetEase(Tween.EaseType.Out).SetTrans(Tween.TransitionType.Elastic);//Move tesla
+                    lTween.TweenProperty(teslaDictionnary[i], POSITION, lNewPos, 1f).SetEase(Tween.EaseType.Out).SetTrans(Tween.TransitionType.Linear);//Move tesla
                 }
                 lTween2 = CreateTween();
                 //Move Carpet
@@ -165,14 +194,17 @@ namespace Com.IsartDigital.SokoVolt
                 {
                     buttonRight.AddChild(buttonSmokeParticles);
                     buttonSmokeParticles.Position = new Vector2(88, 143);
+                    SongManager.Instance.ambientDict[EnumSong.AmbientSong.arrowButton].Play();
                 }
                 if (pDirection == -1)
                 {
                     buttonLeft.AddChild(buttonSmokeParticles);
                     buttonSmokeParticles.Position = new Vector2(88, 143);
+                    SongManager.Instance.ambientDict[EnumSong.AmbientSong.arrowButton].Play();
                 }
 
                 GetTree().CreateTimer(0.5f).Timeout += () => alreadyPress = false;
+                SongManager.Instance.ambientDict[EnumSong.AmbientSong.treadmill].Play();
             }
             scoreBoard.UpdatePersonalScoreBoard(actualLevel); //Update ScoreBoard
         }
@@ -200,6 +232,7 @@ namespace Com.IsartDigital.SokoVolt
         {
             instance = null;
             base.Dispose(pDisposing);
+            StopSound();
         }
     }
 }

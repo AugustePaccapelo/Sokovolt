@@ -8,6 +8,7 @@ using System.Data;
 using System.Linq;
 using Com.IsartDigital.SokoVolt.Tools;
 using static Com.IsartDigital.SokoVolt.Tools.ObjectProperties;
+using System.Threading.Tasks;
 
 
 //Author : Ferlat Thibaud 
@@ -430,13 +431,15 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 			}
 
 			GetTree().CreateTimer(lDelay + 1).Timeout += () => {
-				Tween lTween = AnimationManager.GetInstance().CameraZoomTraveling(GameManager.GetInstance().camera, 0.3f, 0.5f, player.Position, GameManager.GetInstance().camera.Position, 2f);
+				Tween lTween = AnimationManager.GetInstance().CameraZoomTraveling(GameManager.GetInstance().camera, 0.3f, 0.5f, player.Position, GameManager.GetInstance().cameraDefaultPos, 2f);
                 // lTween.TweenProperty(player, SCALE, new Vector2(2, 2), 0.4f);
+				
                 
                 lTween.Finished += () =>
 				{
 					player.bodyParticles.Emitting = InputManager.canPlayerMove = true;
                     HUD.GetInstance().mainMenuButton.Disabled = false;
+					CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.DisplayDialog);
                 };
                 
 				Player.canTravel = true;
@@ -448,6 +451,8 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 		private async void EndLevelAnimation(int pNumStar, int pScore, int pNumStep)
 		{
 			HUD.GetInstance().mainMenuButton.Disabled = true;
+			Player.canTravel = false;
+			InputManager.canPlayerMove = false;
 			if(LevelCreator.inLevelCreator) LevelCreator.GetInstance().returnButton.Disabled = true;
             List<Node2D> lObjectsToAnimate= new List<Node2D>();
 			lObjectsToAnimate.Clear(); 
@@ -543,7 +548,7 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 					.SetTrans(Tween.TransitionType.Linear)
 					.SetEase(Tween.EaseType.OutIn);
 
-			lVortexTween.Finished += () => EndLevelAnimationFnished(); 
+			lVortexTween.Finished += () => GetTree().CreateTimer(1f).Timeout += EndLevelAnimationFnished;
 		}
 
 
@@ -559,7 +564,7 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 
 		private void EndLevelAnimationFnished()
 		{
-			vortex.QueueFree(); 
+			vortex.QueueFree();
 			CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.EndLevelAnimation); 
 			HUD.GetInstance().mainMenuButton.Disabled = false;
 			if(LevelCreator.inLevelCreator) LevelCreator.GetInstance().returnButton.Disabled = false;

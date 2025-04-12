@@ -45,6 +45,7 @@ namespace Com.IsartDigital.SokoVolt.Managers
 		// ----- Others ----- \\
 		private List<int> scorePerStar = new List<int> { 1000, 2000, 5000 };
 		private int currentLevel;
+		public Vector2 cameraDefaultPos;
 
         // ---------- FUNCTIONS ---------- \\
 
@@ -77,6 +78,7 @@ namespace Com.IsartDigital.SokoVolt.Managers
 			signals.LoadLevel += NewLevelLoaded;
             gridManager = GridManager.GetInstance();
 			TranslationServer.SetLocale("en");
+			cameraDefaultPos = camera.Position;
         }
         public override void _Process(double pDelta)
 		{

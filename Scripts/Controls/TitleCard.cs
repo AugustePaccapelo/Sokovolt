@@ -1,4 +1,5 @@
 using Godot;
+using RobotnikSokoban.Scripts.Managers;
 using System;
 
 //author : Noe Sales
@@ -39,19 +40,26 @@ namespace Com.IsartDigital.SokoVolt
 
 			instance = this;
 			#endregion
-			logoISART.Modulate = startColor;
-			Tween lTween = CreateTween();
-			lTween.SetParallel(true);
-			lTween.TweenProperty(logoISART, "modulate", finalColor, 0.7f);
-            //lTween.TweenProperty(pointLight2D, "position", new Vector2(+1200,0), 1f).AsRelative();
-            lTween.TweenProperty(pointLight2D, "energy", 3, 1f);
-            lTween.SetParallel(false);
-            lTween.TweenProperty(logoISART, "modulate", startColor, 0.7f);
-            //lTween.TweenProperty(directionalLight2D, "energy", 0, 0.1f);
-            lTween.TweenProperty(logoGame, "modulate", finalColor, 0.7f);
-            lTween.TweenProperty(logoGame, "modulate", startColor, 0.7f);
-            lTween.Finished += AnimationFinished;
 		}
+
+		public void Init()
+		{
+            logoISART.Modulate = startColor;
+            Tween lTween = CreateTween();
+            lTween.SetParallel(true);
+            lTween.TweenProperty(logoISART, "modulate", finalColor, 0.7f);
+            lTween.TweenProperty(pointLight2D, "energy", 3, 1f);
+			lTween.Finished += () =>
+			{
+				SongManager.Instance.ambientDict[EnumSong.AmbientSong.spotLight].Play();
+                Tween lTween2 = CreateTween();
+                lTween2.TweenProperty(logoISART, "modulate", startColor, 0.7f);
+                //lTween.TweenProperty(directionalLight2D, "energy", 0, 0.1f);
+                lTween2.TweenProperty(logoGame, "modulate", finalColor, 0.7f);
+                lTween2.TweenProperty(logoGame, "modulate", startColor, 0.7f);
+                lTween2.Finished += AnimationFinished;
+            };
+        }
 
         public override void _Process(double delta)
         {
@@ -62,7 +70,8 @@ namespace Com.IsartDigital.SokoVolt
         public void AnimationFinished()
 		{
 			CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.GoToLoginScreen);
-			QueueFree();
+            SongManager.Instance.ambientDict[EnumSong.AmbientSong.spotLight].Stop();
+            QueueFree();
 		}
 
         protected override void Dispose(bool pDisposing)

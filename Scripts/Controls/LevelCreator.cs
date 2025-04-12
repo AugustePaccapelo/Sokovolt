@@ -2,12 +2,14 @@ using Com.IsartDigital.SokoVolt.GameObjects;
 using Com.IsartDigital.SokoVolt.GameObjects.Movables;
 using Com.IsartDigital.SokoVolt.Managers;
 using Godot;
+using RobotnikSokoban.Scripts.Managers;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Security.Cryptography.X509Certificates;
 using System.Xml.Linq;
+using static EnumSong;
 
 // Author : Noé Sales
 
@@ -16,7 +18,6 @@ namespace Com.IsartDigital.SokoVolt
 
 	public partial class LevelCreator : Control
 	{
-
 		#region Singleton
 		static private LevelCreator instance;
 
@@ -46,9 +47,11 @@ namespace Com.IsartDigital.SokoVolt
 		public static bool inLevelCreator = false;
         private TextureRect hoveredItem;
         private float tileSize = 50, space = 5;
+        private Vector2 margin = new Vector2(370,220);
         private Node2D cellContainer;
         private int lenghtX = 11, lenghtY = 11, maxObject = 1;
         private string customLevelsFolderPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments), CUSTOM_LEVELS_PATH);
+        private AmbientSong lastPlayedSong;
         #endregion
 
         #region Const & List
@@ -515,6 +518,12 @@ namespace Com.IsartDigital.SokoVolt
                             // Update Dictionnary
                             gridDico[lGridIndex] = lTile;
 
+                            // Play random song except the last played one
+                            AudioStreamPlayer lsound = SongManager.Instance.PlayRandomInListExcept(EnumSong.popList, lastPlayedSong, SongManager.Instance.ambientDict);
+                            lsound.PitchScale = 1f;
+                            // Update last played song to the song just played
+                            lastPlayedSong = EnumSong.popList[Utils.Random.RandiRange(0, EnumSong.popList.Count - 1)];
+
                             GD.Print($"Placed {lItemType} at {lGridIndex}");
                         }
                     }
@@ -528,6 +537,12 @@ namespace Com.IsartDigital.SokoVolt
                     lTile.content.QueueFree();
                     lTile.content = null;
                     gridDico[lGridIndex] = lTile; //Update Dictionnary
+
+                    // Play random song except the last played one
+                    AudioStreamPlayer lsound = SongManager.Instance.PlayRandomInListExcept(EnumSong.popList, lastPlayedSong, SongManager.Instance.ambientDict);
+                    lsound.PitchScale = 0.8f;
+                    // Update last played song to the song just played
+                    lastPlayedSong = EnumSong.popList[Utils.Random.RandiRange(0, EnumSong.popList.Count - 1)];
                 }
             }
             else if (Input.IsMouseButtonPressed(MouseButton.Right) && lGridIndex == new Vector2(-1, -1)) //if right click out of grid deselect actual item

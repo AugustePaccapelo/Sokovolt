@@ -8,6 +8,7 @@ using System.Data;
 using System.Linq;
 using static EnumSong;
 using RobotnikSokoban.Scripts.Managers;
+using Com.IsartDigital.SokoVolt.Tools;
 
 // Author : Soukai William
 
@@ -20,8 +21,9 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
         #region  Export 
         [Export] private PackedScene lightningNodeScene;
         [Export] private Line2D electriLine2D;
-        [Export] private Marker2D connectionPoint;
+        [Export] public Marker2D connectionPoint;
         [Export] private Node2D visual;
+        [Export] private PointLight2D connectedLight; 
         #endregion
 
         #region variables
@@ -72,6 +74,8 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
         {
            ConnectionManagers.boxTeslasList.Add(this);
            Init();
+           HighlightManager.GetInstance()?.RegisterTarget("BoxTesla", this);
+
         }
 
 
@@ -209,18 +213,16 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
                     if (x < 0 || x >= lGrid.GetLength(0) || y < 0 || y >= lGrid.GetLength(1))
                         continue;
                     GameObject lGOToScan = lGrid[x, y].GetContent();
-                            if ( lGOToScan == pObjectToConecte )
-                            {
-                                Vector2 lVector2 = new Vector2(pObjectToConecte.x - this.x,pObjectToConecte.y-this.y);
-                              float lLength=lVector2.Length();
-
-                              return lLength ;
-                            }
-                            else if (lGOToScan is Wall)
-                            {
-                                lIndicesToRemove.Add(j);
-                            }
-                    
+                    if ( lGOToScan == pObjectToConecte )
+                    {
+                        Vector2 lVector2 = new Vector2(pObjectToConecte.x - this.x,pObjectToConecte.y-this.y);
+                        float lLength=lVector2.Length();
+                        return lLength;
+                    }
+                    else if (lGOToScan is Wall)
+                    {
+                        lIndicesToRemove.Add(j);
+                    }
                 }
                 lIndicesToRemove.Sort((a, b) => b.CompareTo(a));
                 foreach (int index in lIndicesToRemove)
@@ -242,13 +244,16 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
         {
             rayCast.TargetPosition = pTargetPos;
         }*/
-        private void CreateRaycast(Vector2 pTargetPos)
+        private async void CreateRaycast(Vector2 pTargetPos)
         {
             rayCast = new RayCast2D();
             AddChild(rayCast);
             rayCast.TargetPosition = pTargetPos;
             rayCast.CollideWithAreas = true;
             rayCast.CollideWithBodies = false;
+            
+            // await ToSignal(GetTree(), "physics_frame");
+            // rayCast.ForceRaycastUpdate();
         }
 
         private void DestroyRaycast()
@@ -267,13 +272,14 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
             if (rayCast != null && !signalEmit && rayCast.IsColliding() && Player.canTravel && !GridManager.currentlyUndoRedo)
             {
                 GodotObject lArea = rayCast.GetCollider();
-                if (IsInstanceValid(lArea))
-                {
-                    EmitSignal(nameof(PlayerCollide), this);
-                    signalEmit = true;
-                }
+                EmitSignal(nameof(PlayerCollide), this);
+                signalEmit = true;
+                
             }
-            else if (rayCast != null && !rayCast.IsColliding()) signalEmit = false;
+            else if (rayCast != null && !rayCast.IsColliding())
+            {
+                signalEmit = false;
+            }
         }
         #endregion
 
@@ -281,11 +287,15 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
         public void LineConnection(GameObject pObjToConnect)
         {
             energize = true;
+            connectedLight.Visible = true;  
             ClearPreviewLines(); 
             
             lightning = lightningNodeScene.Instantiate<LightningNode>();
             lightning.endPoint = connectionPoint.GlobalPosition;
-            lightning.startPoint = pObjToConnect.GlobalPosition;
+            if (pObjToConnect is BoxTesla lTesla)
+                lightning.startPoint = lTesla.connectionPoint.GlobalPosition;
+            else if (pObjToConnect is Generator lGene)
+                lightning.startPoint = lGene.connectionPoint.GlobalPosition;
             AddChild(lightning);
             lightning.StartLightning();
             //UpdateRayCast(ToLocal(pObjToConnect.GlobalPosition));
@@ -297,6 +307,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
         public void LineDeconnection()
         {
             energize = false;
+            connectedLight.Visible = false;
             //UpdateRayCast(Vector2.Zero);
             DestroyRaycast();
             if (lightning != null)
