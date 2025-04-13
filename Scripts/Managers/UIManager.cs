@@ -93,6 +93,10 @@ namespace Com.IsartDigital.SokoVolt.Managers
                 LevelCreator.GetInstance()?.QueueFree(); 
                 AudioSettings.Instance.Hide();
 				LoginScreen.GetInstance().Hide();
+				LevelManager.GetInstance()?.UnLoadLevel();
+				CustomMaskOcluder.instance.SetBackgroundVisibility(false);
+				LoginScreen.GetInstance().AnimationLoginExit();
+				LoginScreen.GetInstance().Hide();
                 mainMenu.Show();
 				LevelCreator.inLevelCreator = false;
             };

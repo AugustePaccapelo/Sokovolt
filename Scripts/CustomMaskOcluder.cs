@@ -27,7 +27,6 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
         {
 			instance = this; 
             InitializeMaskSystem();
-            CustomSignals.GetInstance().GoToMainMenu += () => SetBackgroundVisibility(false);
             CustomSignals.GetInstance().LoadLevel += (int pLevel) => SetBackgroundVisibility(true);
 
         }

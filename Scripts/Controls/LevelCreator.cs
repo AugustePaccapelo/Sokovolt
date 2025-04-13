@@ -453,8 +453,8 @@ namespace Com.IsartDigital.SokoVolt
             Vector2 lButtonSize = new Vector2(200, 200);
             Vector2 lLabelSize = new Vector2(800, 200);
 
-            Button lPlayButton = CreateButton("PLAY", lButtonSize, () => LoadLevel(pLevelName));
-            Button lDeleteButton = CreateButton("Delete Level", lButtonSize, () => DeleteLevel(pLevelName));
+            Button lPlayButton = CreateButton("PLAY", lButtonSize, pLevelName);
+            Button lDeleteButton = CreateButton("Delete Level", lButtonSize, pLevelName);
             Label lLabel = customLevelLabelScene.Instantiate<Label>();
             lLabel.CustomMinimumSize = lLabelSize;
             lLabel.Text = pLevelName;
@@ -463,14 +463,29 @@ namespace Com.IsartDigital.SokoVolt
             deleteButtonContainer.AddChild(lDeleteButton);
             labelContainer.AddChild(lLabel);
         }
-        private Button CreateButton(string pText, Vector2 pSize, Action pOnPress)
+        private Button CreateButton(string pText, Vector2 pSize, string pLevelName)
         {
             Button lButton = new Button
             {
                 CustomMinimumSize = pSize,
                 Text = pText
             };
-            lButton.Pressed += pOnPress;
+            if (pText == "PLAY")
+            {
+                lButton.Pressed += () =>
+                {
+                    Tween lTween = GameManager.GetInstance().MenuTrans.ActiveTrans(1, 0.2f);
+                    lTween.Finished += () => LoadLevel(pLevelName);
+                };
+            }
+            else if (pText == "Delete Level")
+            {
+                lButton.Pressed += () =>
+                {
+                    Tween lTween = GameManager.GetInstance().MenuTrans.ActiveTrans(1, 0.2f);
+                    lTween.Finished += () => DeleteLevel(pLevelName);
+                };
+            }
             return lButton;
         }
         #endregion

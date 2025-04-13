@@ -86,8 +86,6 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
            HighlightManager.GetInstance()?.RegisterTarget("BoxTesla", this);
 
         }
-
-
         public override void _Process(double pDelta)
         {
             float lDelta = (float)pDelta;
@@ -195,6 +193,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
 
         private GpuParticles2D CreateParticles()
         {
+            if (GridManager.currentlyUndoRedo) return null;
             GpuParticles2D lParticles = moveParticlesScene.Instantiate() as GpuParticles2D;
             AddChild(lParticles);
             MoveChild(lParticles, 0);
@@ -211,11 +210,14 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
             lSignals.EmitSignal(CustomSignals.SignalName.BoxTeslaMoved);
             SongManager.Instance.ambientDict[EnumSong.AmbientSong.Piece].Play();
             GpuParticles2D lParticles = CreateParticles();
-            if (pX > lX) lParticles.RotationDegrees = 224;
-            else if (pX < lX) lParticles.RotationDegrees = 40;
-            if (pY < lY) lParticles.RotationDegrees = 135;
-            else if (pY > lY) lParticles.RotationDegrees = 300;
-            lParticles.Emitting = true;
+            if(lParticles != null)
+            {
+                if (pX > lX) lParticles.RotationDegrees = 224;
+                else if (pX < lX) lParticles.RotationDegrees = 40;
+                if (pY < lY) lParticles.RotationDegrees = 135;
+                else if (pY > lY) lParticles.RotationDegrees = 300;
+                lParticles.Emitting = true;
+            }
         }
 
         #region Searchin

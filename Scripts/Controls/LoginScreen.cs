@@ -1,4 +1,5 @@
 ﻿using Com.IsartDigital.Sokovolt;
+using Com.IsartDigital.SokoVolt.GameObjects;
 using Com.IsartDigital.Tools;
 using Godot;
 using System.Collections.Generic;
@@ -123,7 +124,7 @@ namespace Com.IsartDigital.SokoVolt
 
 			CustomSignals.GetInstance().GoToLoginScreen += ButtonChangeToLogin;
 			CustomSignals.GetInstance().GoToLoginScreen += AnimationLoginEnter;
-			CustomSignals.GetInstance().GoToMainMenu += AnimationLoginExit;
+			CustomSignals.GetInstance().GoToLoginScreen += () => CustomMaskOcluder.instance.SetBackgroundVisibility(true);
 
 			arrowCount = arrowsHolder.GetChildCount();
 			arrows = new TextureRect[arrowCount];
@@ -254,7 +255,6 @@ namespace Com.IsartDigital.SokoVolt
 				if (checkLoginStayLogged.ButtonPressed) userGestion.SaveLastUser(userName);
 				else userGestion.SaveLastUser();
                 CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.GoToMainMenu);
-				Hide();
 			}
 			else labelLoginError.Show();
         }
@@ -278,7 +278,6 @@ namespace Com.IsartDigital.SokoVolt
 				if (checkCreateStayLogged.ButtonPressed) userGestion.SaveLastUser(userName);
 				else userGestion.SaveLastUser();
                 CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.GoToMainMenu);
-                Hide();
 			}
 			else labelCreateErrorUsername.Show();
         }
@@ -288,7 +287,7 @@ namespace Com.IsartDigital.SokoVolt
             lightning.StartLightning();
 			isAnimated = true;
         }
-		private void AnimationLoginExit() {
+		public void AnimationLoginExit() {
 			lightning.StopLightning();
 			isAnimated = false;
 		}
