@@ -127,6 +127,8 @@ offset_left = 545.0
 offset_top = 245.0
 offset_right = -534.0
 offset_bottom = 3.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("4_4icvu")
 expand_mode = 1
 
@@ -421,10 +423,10 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 1420.0
-offset_top = 158.0
-offset_right = -460.0
-offset_bottom = -882.0
+offset_left = 1460.0
+offset_top = 160.0
+offset_right = -420.0
+offset_bottom = -880.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -438,7 +440,7 @@ destroyingSpeed = 5.0
 marginStart = 30
 width = 50
 randomRatioLengthMin = 0.5
-allColors = PackedColorArray(0.417465, 0.783072, 0.960851, 1, 0.467371, 0.687911, 0.988892, 1, 0.841562, 0.858411, 1.54018e-06, 1)
+allColors = PackedColorArray(0.417465, 0.783072, 0.960851, 1, 0.467371, 0.687911, 0.988892, 1, 0.157012, 0.393939, 0.865091, 1)
 linesWidth = 10.0
 innerLineWidth = 3.0
 

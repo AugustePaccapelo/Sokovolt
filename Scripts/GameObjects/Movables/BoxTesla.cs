@@ -286,16 +286,13 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
         {
             rayCast.TargetPosition = pTargetPos;
         }*/
-        private async void CreateRaycast(Vector2 pTargetPos)
+        private void CreateRaycast(Vector2 pTargetPos)
         {
             rayCast = new RayCast2D();
             AddChild(rayCast);
             rayCast.TargetPosition = pTargetPos;
             rayCast.CollideWithAreas = true;
             rayCast.CollideWithBodies = false;
-            
-            // await ToSignal(GetTree(), "physics_frame");
-            // rayCast.ForceRaycastUpdate();
         }
 
         private void DestroyRaycast()
