@@ -200,7 +200,7 @@ scale_max = 0.3
 scale_curve = SubResource("CurveTexture_euagi")
 color = Color(0.917647, 0.721569, 0, 1)
 
-[node name="BoxTesla" type="Node2D" node_paths=PackedStringArray("electriLine2D", "connectionPoint", "visual", "impactEffect", "rangeLabel")]
+[node name="BoxTesla" type="Node2D" node_paths=PackedStringArray("electriLine2D", "connectionPoint", "visual", "impactEffect", "connectedLight", "rangeLabel")]
 position = Vector2(0, -2)
 script = ExtResource("1_c7f4a")
 lightningNodeScene = ExtResource("2_vgo5j")
@@ -209,6 +209,7 @@ connectionPoint = NodePath("ConnectionPoint")
 visual = NodePath("Visual")
 impactEffect = NodePath("ImpactEffect")
 moveParticlesScene = ExtResource("3_nlchy")
+connectedLight = NodePath("Visual/ConnectedLight")
 rangeLabel = NodePath("Label")
 
 [node name="Visual" type="Node2D" parent="."]

@@ -44,6 +44,7 @@ namespace Com.IsartDigital.SokoVolt.Managers
 
         public override void _Input(InputEvent @event) // to optimize
         {
+            
             if (!inGame) return;
 
             if (canPlayerMove && @event is InputEventMouseButton pMouseEvent && pMouseEvent.Pressed && pMouseEvent.ButtonIndex == MouseButton.Left)

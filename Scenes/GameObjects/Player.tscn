@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scripts/GameObjects/Movables/Player.cs" id="1_05ekn"]
 [ext_resource type="Texture2D" uid="uid://ddl6potg3whdy" path="res://Assets/GameObjects/IsoObjects/pngegg (3).png" id="2_x7461"]
-[ext_resource type="PackedScene" path="res://Scenes/GameObjects/player_particles.tscn" id="3_ibm1n"]
+[ext_resource type="PackedScene" uid="uid://bpxs1w2rokllq" path="res://Scenes/GameObjects/player_particles.tscn" id="3_ibm1n"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_tsyav"]
 radius = 10.0499

@@ -433,8 +433,8 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 			GetTree().CreateTimer(lDelay + 1).Timeout += () => {
 				Tween lTween = AnimationManager.GetInstance().CameraZoomTraveling(GameManager.GetInstance().camera, 0.3f, 0.5f, player.Position, GameManager.GetInstance().cameraDefaultPos, 2f);
                 // lTween.TweenProperty(player, SCALE, new Vector2(2, 2), 0.4f);
-				
-                
+                InputManager.canPlayerMove = true;
+
                 lTween.Finished += () =>
 				{
 					player.bodyParticles.Emitting = InputManager.canPlayerMove = true;
