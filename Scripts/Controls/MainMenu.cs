@@ -28,8 +28,8 @@ namespace Com.IsartDigital.SokoVolt
         [Export] private Button quitButton;
         [Export] private AnimationPlayer anime;
 		[Export] private Button teleButton;
-		[Export] private Button naigeButton;
-		[Export] private GpuParticles2D naige;
+		[Export] private Button neigeButton;
+		[Export] private GpuParticles2D neige;
 
 		//[Signal] public delegate void StartGameEventHandler();
 
@@ -57,13 +57,12 @@ namespace Com.IsartDigital.SokoVolt
             quitButton.Pressed += ()=> CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.ExitGame);
 			anime.Play("mainMenuAnimation");
             teleButton.Pressed +=() => SongManager.Instance.ambientDict[EnumSong.AmbientSong.TVsong].Play();;
-            naigeButton.Pressed += () => Naige();
-
+            neigeButton.Pressed += () => Neige();
         }
 
-        private void Naige()
+        private void Neige()
         {
-            naige.Emitting= true;
+            neige.Emitting= true;
         }
 
 

@@ -157,7 +157,6 @@ namespace Com.IsartDigital.SokoVolt
         public override void _Process(double pDelta)
 		{
 			float lDelta = (float)pDelta;
-			MouseOn();
 			PlaceItem();
             if (actualItem != null) actualItem.Position = GetLocalMousePosition();
         }
@@ -171,58 +170,6 @@ namespace Com.IsartDigital.SokoVolt
         }
 
         #region MouseFonction
-        private void MouseOn()
-        {
-            //If player canPick & is on a texture. Instanciate item under the mouse
-            if (Input.IsMouseButtonPressed(MouseButton.Left) && canPick)
-            {
-                actualItem?.QueueFree();
-                LevelCreatorItems lItem = null;
-
-                if (hoveredItem == wallTexture)
-                {
-                    lItem = wallScene.Instantiate() as LevelCreatorItems;
-                    lItem.type = WALL_TYPE;
-                }
-                else if (hoveredItem == teslaTexture)
-                {
-                    lItem = teslaScene.Instantiate() as LevelCreatorItems;
-                    if (lItem.teslaRange != null) lItem.teslaRange.Value = teslaTexture.teslaRange.Value;
-                    lItem.type = TESLA_TYPE;
-                }
-                else if (hoveredItem == bulbTexture)
-                {
-                    lItem = bulbScene.Instantiate() as LevelCreatorItems;
-                    lItem.type = BULB_TYPE;
-                }
-                else if (hoveredItem == generatorTexture)
-                {
-                    lItem = generatorScene.Instantiate() as LevelCreatorItems;
-                    lItem.type = GENERATOR_TYPE;
-                }
-                else if (hoveredItem == playerSpawnTexture)
-                {
-                    lItem = playerSpawnScene.Instantiate() as LevelCreatorItems;
-                    lItem.type = PLAYERSPAWN_TYPE;
-                }
-                else if (hoveredItem == electricWallTexture)
-                {
-                    lItem = electricWallScene.Instantiate() as LevelCreatorItems;
-                    lItem.type = ELECTRIC_WALL_TYPE;
-                }
-                else if (hoveredItem == doorTexture)
-                {
-                    lItem = doorScene.Instantiate() as LevelCreatorItems;
-                    lItem.type = DOOR_TYPE;
-                }
-
-                cellContainer.AddChild(lItem);
-                actualItem = lItem;
-                actualItem.MouseFilter = MouseFilterEnum.Ignore; //Disable collision with mouse
-                canPick = false;
-            }
-        }
-
         private void ItemPick(LevelCreatorItems pItem)
         {
             actualItem?.QueueFree();

@@ -409,9 +409,10 @@ stretch_mode = 3
 [node name="Tesla" parent="NewLevelBackGround/Inventory" instance=ExtResource("7_5weia")]
 visible = false
 layout_mode = 1
-offset_left = 3.05176e-05
-offset_top = 534.533
-offset_bottom = 821.533
+offset_left = -149.488
+offset_top = 523.208
+offset_right = 1770.51
+offset_bottom = 1603.21
 pivot_offset = Vector2(144, 143)
 stretch_mode = 2
 

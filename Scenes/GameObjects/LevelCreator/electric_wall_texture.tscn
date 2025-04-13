@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://40x567524t37"]
 
-[ext_resource type="Texture2D" uid="uid://cwb4ypc3twdp2" path="res://Assets/GameObjects/IsoTiles/basetiles.png" id="1_7grh0"]
+[ext_resource type="Texture2D" uid="uid://cbysh4syvvnj0" path="res://Assets/GameObjects/IsoObjects/ElectricWallAnimation/0001.png" id="1_oypvt"]
 [ext_resource type="Script" path="res://Scripts/GameObjects/LevelCreatorItems.cs" id="2_wnkxe"]
 
 [node name="ElectricWall" type="TextureRect"]
@@ -8,12 +8,13 @@ offset_left = 6.0
 offset_top = 863.0
 offset_right = 438.0
 offset_bottom = 1053.0
-scale = Vector2(0.707999, 0.707999)
-texture = ExtResource("1_7grh0")
+scale = Vector2(0.0947824, 0.0947824)
+texture = ExtResource("1_oypvt")
 stretch_mode = 3
 script = ExtResource("2_wnkxe")
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
+visible = false
 position = Vector2(245.763, 79.0962)
 scale = Vector2(1.70829, 1.70829)
 color = Color(0.794841, 0.839219, 0.010149, 1)
