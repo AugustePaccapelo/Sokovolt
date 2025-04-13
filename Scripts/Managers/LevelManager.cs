@@ -2,6 +2,7 @@
 using Com.IsartDigital.SokoVolt.GameObjects.Movables;
 using Godot;
 using System;
+using RobotnikSokoban.Scripts.Managers;
 
 //author : Noe Sales
 
@@ -68,6 +69,8 @@ namespace Com.IsartDigital.SokoVolt.Managers
             CustomSignals.GetInstance()?.EmitSignal(CustomSignals.SignalName.LoadLevel, pLevel);
             LevelSelector.GetInstance()?.QueueFree();
             DialogManager.GetInstance()?.TriggerDialogueForLevel(pLevel);
+	            
+
 		}
 
         protected override void Dispose(bool pDisposing)

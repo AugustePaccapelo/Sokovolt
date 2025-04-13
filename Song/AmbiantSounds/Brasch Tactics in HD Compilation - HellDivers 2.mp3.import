@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://b8wh0uhv48l0j"
+path="res://.godot/imported/Brasch Tactics in HD Compilation - HellDivers 2.mp3-ff974e5c6c0f9071b9035a6bf3c12b06.mp3str"
+
+[deps]
+
+source_file="res://Song/AmbiantSounds/Brasch Tactics in HD Compilation - HellDivers 2.mp3"
+dest_files=["res://.godot/imported/Brasch Tactics in HD Compilation - HellDivers 2.mp3-ff974e5c6c0f9071b9035a6bf3c12b06.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

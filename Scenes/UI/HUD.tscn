@@ -1,12 +1,14 @@
-[gd_scene load_steps=23 format=3 uid="uid://csiqphobxyguh"]
+[gd_scene load_steps=36 format=3 uid="uid://csiqphobxyguh"]
 
-[ext_resource type="Texture2D" uid="uid://bwo2d06o2b0ky" path="res://Assets/UI/HUD/UndoRedoArrow.png" id="1_8d4ph"]
 [ext_resource type="Script" path="res://Scripts/Controls/HUD.cs" id="1_ivlib"]
 [ext_resource type="Script" path="res://Scripts/GameObjects/ButtonTemplate.cs" id="2_hiajr"]
 [ext_resource type="PackedScene" uid="uid://cq2pq5gsrx4re" path="res://Scenes/GameObjects/WinScreen/win_screen.tscn" id="2_n24og"]
+[ext_resource type="Texture2D" uid="uid://cl7ckgiat1waw" path="res://Assets/UI/favpng_arrow-undo-button2.png" id="4_phatj"]
 [ext_resource type="PackedScene" uid="uid://36dp5dq6hmqq" path="res://Scenes/GameObjects/ButtonTemplate.tscn" id="5_al47o"]
 [ext_resource type="Texture2D" uid="uid://c767fcajnj2yi" path="res://Assets/Shaders/Effects/Glow.png" id="6_nni3e"]
 [ext_resource type="FontFile" uid="uid://eycyixjjf4a7" path="res://Assets/Font/BubbleSans-Regular.otf" id="6_qhshu"]
+[ext_resource type="Texture2D" uid="uid://8vcio7y6idoy" path="res://Assets/Shaders/Effects/SparksParticles.PNG" id="6_vq42m"]
+[ext_resource type="Texture2D" uid="uid://dch7jfadg5yla" path="res://Assets/UI/bouton4.png" id="7_olu1q"]
 [ext_resource type="PackedScene" uid="uid://ca46ahn3knpuo" path="res://Scenes/FTUE/DialogueBox.tscn" id="8_5pccc"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_spsqj"]
@@ -15,123 +17,93 @@ font_size = 40
 outline_size = 5
 outline_color = Color(0, 0, 0, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yirrl"]
-bg_color = Color(0.671983, 0.28056, 0.0161699, 1)
-border_width_left = 20
-border_width_top = 20
-border_width_right = 20
-border_width_bottom = 20
-border_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 40
-corner_radius_top_right = 40
-corner_radius_bottom_right = 40
-corner_radius_bottom_left = 40
-corner_detail = 16
-shadow_color = Color(0, 0, 0, 0.545098)
-shadow_size = 5
-shadow_offset = Vector2(10, 10)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4otn8"]
+texture = ExtResource("4_phatj")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_865a5"]
-bg_color = Color(0.538104, 0.218572, 0.00933202, 1)
-border_width_left = 10
-border_width_top = 10
-border_width_right = 10
-border_width_bottom = 10
-border_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 40
-corner_radius_top_right = 40
-corner_radius_bottom_right = 40
-corner_radius_bottom_left = 40
-corner_detail = 16
-shadow_color = Color(0, 0, 0, 0.545098)
-shadow_size = 2
-shadow_offset = Vector2(10, 10)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pjw5a"]
+texture = ExtResource("4_phatj")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4u2q3"]
-bg_color = Color(0.374366, 0.143045, 0.00429451, 1)
-border_width_left = 5
-border_width_top = 5
-border_width_right = 5
-border_width_bottom = 5
-border_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 40
-corner_radius_top_right = 40
-corner_radius_bottom_right = 40
-corner_radius_bottom_left = 40
-corner_detail = 16
-shadow_color = Color(0, 0, 0, 0.545098)
-shadow_offset = Vector2(10, 10)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_d6doi"]
+texture = ExtResource("4_phatj")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fmheg"]
-bg_color = Color(0.374366, 0.143045, 0.00429451, 1)
-border_width_left = 5
-border_width_top = 5
-border_width_right = 5
-border_width_bottom = 5
-border_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 40
-corner_radius_top_right = 40
-corner_radius_bottom_right = 40
-corner_radius_bottom_left = 40
-corner_detail = 16
-shadow_color = Color(0, 0, 0, 0.545098)
-shadow_offset = Vector2(10, 10)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_3phqh"]
+texture = ExtResource("4_phatj")
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_s0ldf"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_gtf4d"]
+texture = ExtResource("4_phatj")
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hmhqw"]
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_0y056"]
+blend_mode = 1
+
+[sub_resource type="Curve" id="Curve_cr67u"]
+_data = [Vector2(0, 0.549451), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_fie0g"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_2ixd4"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_a3vvu"]
+curve_x = SubResource("Curve_cr67u")
+curve_y = SubResource("Curve_fie0g")
+curve_z = SubResource("Curve_2ixd4")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_goree"]
+lifetime_randomness = 0.2
+particle_flag_align_y = true
+particle_flag_disable_z = true
+emission_shape = 6
+emission_ring_axis = Vector3(0, 0, 1)
+emission_ring_height = 50.0
+emission_ring_radius = 50.0
+emission_ring_inner_radius = 0.0
+radial_velocity_min = 47.4
+radial_velocity_max = 100.0
+radial_accel_min = -100.0
+radial_accel_max = -31.53
+tangential_accel_min = -45.04
+tangential_accel_max = -1.8
+scale_min = 0.01
+scale_max = 0.05
+scale_curve = SubResource("CurveXYZTexture_a3vvu")
+color = Color(1, 0.780392, 0, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_agwry"]
+texture = ExtResource("4_phatj")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wf27l"]
+texture = ExtResource("4_phatj")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2wg2d"]
+texture = ExtResource("4_phatj")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5nt8l"]
+texture = ExtResource("4_phatj")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_yg05y"]
+texture = ExtResource("4_phatj")
 
 [sub_resource type="LabelSettings" id="LabelSettings_qeci4"]
 font_size = 64
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lbk83"]
-bg_color = Color(0.671983, 0.28056, 0.0161699, 1)
-border_width_left = 5
-border_width_top = 5
-border_width_right = 5
-border_width_bottom = 5
-border_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 40
-corner_radius_top_right = 40
-corner_radius_bottom_right = 40
-corner_radius_bottom_left = 40
-corner_detail = 16
-shadow_color = Color(0, 0, 0, 0.545098)
-shadow_size = 5
-shadow_offset = Vector2(10, 10)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_48gjq"]
+texture = ExtResource("7_olu1q")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u0yhy"]
-bg_color = Color(0.538104, 0.218572, 0.00933202, 1)
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 3
-border_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 40
-corner_radius_top_right = 40
-corner_radius_bottom_right = 40
-corner_radius_bottom_left = 40
-corner_detail = 16
-shadow_color = Color(0, 0, 0, 0.545098)
-shadow_size = 2
-shadow_offset = Vector2(10, 10)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hgiqt"]
+texture = ExtResource("7_olu1q")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1gvf1"]
-bg_color = Color(0.374366, 0.143045, 0.00429451, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 40
-corner_radius_top_right = 40
-corner_radius_bottom_right = 40
-corner_radius_bottom_left = 40
-corner_detail = 16
-shadow_color = Color(0, 0, 0, 0.545098)
-shadow_offset = Vector2(10, 10)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ta3st"]
+texture = ExtResource("7_olu1q")
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_uym5s"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_b3fco"]
+texture = ExtResource("7_olu1q")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_n11bi"]
+texture = ExtResource("7_olu1q")
 
 [sub_resource type="InputEventKey" id="InputEventKey_hc5vy"]
 device = -1
@@ -140,7 +112,7 @@ keycode = 4194305
 [sub_resource type="Shortcut" id="Shortcut_arctw"]
 events = [SubResource("InputEventKey_hc5vy")]
 
-[node name="Hud" type="Control" node_paths=PackedStringArray("undoButton", "redoButton", "mainMenuButton", "parLabel", "stepLabel", "winLabel", "authorLabel", "displayInGame", "dialogBox")]
+[node name="Hud" type="Control" node_paths=PackedStringArray("undoButton", "redoButton", "mainMenuButton", "parLabel", "stepLabel", "winLabel", "authorLabel", "displayInGame")]
 custom_minimum_size = Vector2(1152, 648)
 layout_mode = 3
 anchors_preset = 15
@@ -159,7 +131,6 @@ winLabel = NodePath("WinLabel")
 authorLabel = NodePath("DisplayInGame/AuthorLabel")
 winScreenScene = ExtResource("2_n24og")
 displayInGame = NodePath("DisplayInGame")
-dialogBox = NodePath("DialogBox")
 
 [node name="DisplayInGame" type="Control" parent="."]
 layout_mode = 1
@@ -212,57 +183,79 @@ text = "Author : "
 label_settings = SubResource("LabelSettings_spsqj")
 horizontal_alignment = 1
 
-[node name="Undo" type="Button" parent="DisplayInGame"]
+[node name="Undo" type="Button" parent="DisplayInGame" node_paths=PackedStringArray("particles")]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -2052.0
-offset_top = -359.487
-offset_right = -1532.0
-offset_bottom = 160.513
+offset_left = -2044.0
+offset_top = -352.0
+offset_right = -1530.0
+offset_bottom = 160.0
 grow_horizontal = 0
 grow_vertical = 0
 scale = Vector2(0.15, 0.15)
 pivot_offset = Vector2(260, 273.333)
 focus_mode = 0
-theme_override_styles/normal = SubResource("StyleBoxFlat_yirrl")
-theme_override_styles/hover = SubResource("StyleBoxFlat_865a5")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_4u2q3")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_fmheg")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_s0ldf")
-icon = ExtResource("1_8d4ph")
+theme_override_styles/normal = SubResource("StyleBoxTexture_4otn8")
+theme_override_styles/hover = SubResource("StyleBoxTexture_pjw5a")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_d6doi")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_3phqh")
+theme_override_styles/focus = SubResource("StyleBoxTexture_gtf4d")
 script = ExtResource("2_hiajr")
 scaleMultiplicator = 0.3
 during = 0.08
+particles = NodePath("GPUParticles2D4")
 
-[node name="Redo" type="Button" parent="DisplayInGame"]
+[node name="GPUParticles2D4" type="GPUParticles2D" parent="DisplayInGame/Undo"]
+material = SubResource("CanvasItemMaterial_0y056")
+position = Vector2(253.333, 277.78)
+emitting = false
+amount = 100
+process_material = SubResource("ParticleProcessMaterial_goree")
+texture = ExtResource("6_vq42m")
+one_shot = true
+speed_scale = 5.0
+fixed_fps = 60
+
+[node name="Redo" type="Button" parent="DisplayInGame" node_paths=PackedStringArray("particles")]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -1921.0
-offset_top = -386.487
-offset_right = -1401.0
-offset_bottom = 133.513
+offset_left = -1929.0
+offset_top = -381.0
+offset_right = -1409.0
+offset_bottom = 139.0
 grow_horizontal = 0
 grow_vertical = 0
 scale = Vector2(-0.15, 0.15)
 pivot_offset = Vector2(264.881, 304.102)
 focus_mode = 0
-theme_override_styles/normal = SubResource("StyleBoxFlat_yirrl")
-theme_override_styles/hover = SubResource("StyleBoxFlat_865a5")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_4u2q3")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_fmheg")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_hmhqw")
-icon = ExtResource("1_8d4ph")
+theme_override_styles/normal = SubResource("StyleBoxTexture_agwry")
+theme_override_styles/hover = SubResource("StyleBoxTexture_wf27l")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_2wg2d")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_5nt8l")
+theme_override_styles/focus = SubResource("StyleBoxTexture_yg05y")
 script = ExtResource("2_hiajr")
 scaleMultiplicator = 0.3
 during = 0.08
+particles = NodePath("GPUParticles2D4")
+
+[node name="GPUParticles2D4" type="GPUParticles2D" parent="DisplayInGame/Redo"]
+material = SubResource("CanvasItemMaterial_0y056")
+position = Vector2(284.088, 243.422)
+emitting = false
+amount = 100
+process_material = SubResource("ParticleProcessMaterial_goree")
+texture = ExtResource("6_vq42m")
+one_shot = true
+speed_scale = 5.0
+fixed_fps = 60
 
 [node name="WinLabel" type="Label" parent="."]
 visible = false
@@ -289,11 +282,11 @@ offset_right = 1887.0
 offset_bottom = 1017.0
 pivot_offset = Vector2(148, 62)
 theme_override_font_sizes/font_size = 50
-theme_override_styles/normal = SubResource("StyleBoxFlat_lbk83")
-theme_override_styles/hover = SubResource("StyleBoxFlat_u0yhy")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_1gvf1")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_1gvf1")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_uym5s")
+theme_override_styles/normal = SubResource("StyleBoxTexture_48gjq")
+theme_override_styles/hover = SubResource("StyleBoxTexture_hgiqt")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_ta3st")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_b3fco")
+theme_override_styles/focus = SubResource("StyleBoxTexture_n11bi")
 shortcut = SubResource("Shortcut_arctw")
 text = "MAIN MENU"
 
@@ -306,5 +299,5 @@ texture = ExtResource("6_nni3e")
 texture_scale = 0.1
 
 [node name="DialogBox" parent="." instance=ExtResource("8_5pccc")]
-position = Vector2(1393, 263)
+position = Vector2(1393, 431)
 scale = Vector2(0.6, 0.6)
