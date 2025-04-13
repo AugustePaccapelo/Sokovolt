@@ -1,9 +1,10 @@
-[gd_scene load_steps=56 format=3 uid="uid://bsl1nyen453ty"]
+[gd_scene load_steps=63 format=3 uid="uid://bsl1nyen453ty"]
 
 [ext_resource type="Script" path="res://Scripts/Controls/MainMenu.cs" id="1_3kguo"]
 [ext_resource type="Texture2D" uid="uid://cjfiwjyraoqrp" path="res://Assets/main menu/Box millieu/GROS.png" id="2_0r0tr"]
 [ext_resource type="PackedScene" uid="uid://skkxmuo6i42b" path="res://Scenes/UI/buttonScenes.tscn" id="2_2c73t"]
 [ext_resource type="Texture2D" uid="uid://csqx2ogx2bfh1" path="res://Assets/main menu/tuyaux/Gauche Copie 2.png" id="3_igut3"]
+[ext_resource type="Texture2D" uid="uid://c4jxbycfeeadq" path="res://Assets/Shaders/Effects/Rectangle 1.png" id="4_7yevi"]
 [ext_resource type="Texture2D" uid="uid://duf1bxrvxgcn4" path="res://Assets/main menu/Box millieu/Calque 15 Copie.png" id="4_e6tyd"]
 [ext_resource type="Texture2D" uid="uid://cpb1lqci5jclo" path="res://Assets/main menu/Box millieu/petit/Conteneurs DROITE.png" id="5_k08xa"]
 [ext_resource type="Texture2D" uid="uid://bxrio1pdqsvyu" path="res://Assets/main menu/tuyaux/Bas Copie.png" id="5_unelv"]
@@ -268,8 +269,8 @@ shader_parameter/Speed = Vector2(-2, 0)
 shader_parameter/basic_texture = ExtResource("13_bioyo")
 
 [sub_resource type="Gradient" id="Gradient_as2bn"]
-offsets = PackedFloat32Array(0.0147059, 0.808824)
-colors = PackedColorArray(0, 0, 0, 0.596078, 0.623529, 0.360784, 0.0392157, 0.737255)
+offsets = PackedFloat32Array(0.0147059, 0.795181)
+colors = PackedColorArray(0.737103, 0.546629, 0.00183474, 0.596078, 0.858758, 0.509165, 0.0976315, 0.737255)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_c3ikj"]
 gradient = SubResource("Gradient_as2bn")
@@ -354,7 +355,19 @@ turbulence_influence_max = 0.053
 gradient = SubResource("Gradient_jqeur")
 fill = 2
 
-[node name="MainMenu" type="Control" node_paths=PackedStringArray("startButton", "levelCreatorButton", "unlogButton", "optionButton", "quitButton", "anime")]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mrw83"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_c0vcl"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pku4p"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_v57ny"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_p04hm"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2e72e"]
+
+[node name="MainMenu" type="Control" node_paths=PackedStringArray("startButton", "levelCreatorButton", "unlogButton", "optionButton", "quitButton", "anime", "teleButton", "naigeButton", "naige")]
 layout_mode = 3
 anchors_preset = 0
 size_flags_horizontal = 4
@@ -365,6 +378,9 @@ unlogButton = NodePath("Panel/StartButton2")
 optionButton = NodePath("Panel/option")
 quitButton = NodePath("Panel/StartButton3")
 anime = NodePath("AnimationPlayer")
+teleButton = NodePath("Button")
+naigeButton = NodePath("Button2")
+naige = NodePath("Panel/GPUParticles2D3")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 deterministic = true
@@ -393,6 +409,21 @@ amount = 500
 process_material = SubResource("ParticleProcessMaterial_u1aqi")
 texture = ExtResource("25_8huo1")
 lifetime = 2.0
+one_shot = true
+speed_scale = 1.47
+explosiveness = 0.39
+randomness = 0.29
+fixed_fps = 60
+local_coords = true
+
+[node name="GPUParticles2D3" type="GPUParticles2D" parent="Panel"]
+position = Vector2(184, 776)
+scale = Vector2(0.3, 0.3)
+emitting = false
+amount = 1000
+process_material = SubResource("ParticleProcessMaterial_u1aqi")
+texture = ExtResource("4_7yevi")
+lifetime = 25.62
 one_shot = true
 speed_scale = 1.47
 explosiveness = 0.39
@@ -495,12 +526,13 @@ grow_horizontal = 1
 grow_vertical = 1
 text = "EXIT"
 
-[node name="Button" type="Button" parent="Panel"]
-layout_mode = 0
-offset_left = 168.0
-offset_top = 232.0
-offset_right = 358.0
-offset_bottom = 368.0
+[node name="PointLight2D4" type="PointLight2D" parent="Panel"]
+position = Vector2(9080.27, -1980)
+scale = Vector2(1.45513, 0.868573)
+color = Color(0, 0.465631, 0.105145, 1)
+energy = 0.5
+texture = ExtResource("22_dginc")
+texture_scale = 0.2
 
 [node name="PremierPlan4" type="Sprite2D" parent="."]
 position = Vector2(1560, 892)
@@ -648,6 +680,86 @@ energy = 3.0
 texture = ExtResource("22_dginc")
 texture_scale = 0.3
 
+[node name="PointLight2D4" type="PointLight2D" parent="."]
+position = Vector2(232, 872)
+scale = Vector2(0.296222, 0.275154)
+color = Color(1, 0, 0, 1)
+energy = 0.5
+texture = ExtResource("22_dginc")
+texture_scale = 0.2
+
+[node name="PointLight2D4" type="PointLight2D" parent="PointLight2D4"]
+position = Vector2(84.3961, -14.5356)
+scale = Vector2(0.398174, 0.403816)
+color = Color(0.999191, 0.78255, 0.510164, 1)
+energy = 0.5
+texture = ExtResource("22_dginc")
+texture_scale = 0.2
+
+[node name="PointLight2D4" type="PointLight2D" parent="PointLight2D4/PointLight2D4"]
+position = Vector2(9080.27, -1980)
+scale = Vector2(1.45513, 0.868573)
+color = Color(0, 0.465631, 0.105145, 1)
+energy = 0.5
+texture = ExtResource("22_dginc")
+texture_scale = 0.2
+
+[node name="PointLight2D4" type="PointLight2D" parent="PointLight2D4/PointLight2D4/PointLight2D4"]
+position = Vector2(168.967, -0.000366211)
+scale = Vector2(1.45513, 0.868573)
+color = Color(0, 0.465631, 0.105145, 1)
+energy = 0.5
+texture = ExtResource("22_dginc")
+texture_scale = 0.2
+
+[node name="PointLight2D4" type="PointLight2D" parent="PointLight2D4/PointLight2D4/PointLight2D4/PointLight2D4"]
+position = Vector2(120.124, 11.9308)
+scale = Vector2(1.45513, 0.868573)
+color = Color(0, 0.465631, 0.105145, 1)
+energy = 0.5
+texture = ExtResource("22_dginc")
+texture_scale = 0.2
+
+[node name="PointLight2D5" type="PointLight2D" parent="PointLight2D4"]
+position = Vector2(3710.05, -904.948)
+scale = Vector2(0.537269, 0.471583)
+color = Color(1, 0, 0, 1)
+energy = 0.5
+texture = ExtResource("22_dginc")
+texture_scale = 0.2
+
+[node name="PointLight2D4" type="PointLight2D" parent="PointLight2D4/PointLight2D5"]
+position = Vector2(84.3961, -14.5356)
+scale = Vector2(0.398174, 0.403816)
+color = Color(0.999191, 0.78255, 0.510164, 1)
+energy = 0.5
+texture = ExtResource("22_dginc")
+texture_scale = 0.2
+
+[node name="PointLight2D4" type="PointLight2D" parent="PointLight2D4/PointLight2D5/PointLight2D4"]
+position = Vector2(9080.27, -1980)
+scale = Vector2(1.45513, 0.868573)
+color = Color(0, 0.465631, 0.105145, 1)
+energy = 0.5
+texture = ExtResource("22_dginc")
+texture_scale = 0.2
+
+[node name="PointLight2D4" type="PointLight2D" parent="PointLight2D4/PointLight2D5/PointLight2D4/PointLight2D4"]
+position = Vector2(168.967, -0.000366211)
+scale = Vector2(1.45513, 0.868573)
+color = Color(0, 0.465631, 0.105145, 1)
+energy = 0.5
+texture = ExtResource("22_dginc")
+texture_scale = 0.2
+
+[node name="PointLight2D4" type="PointLight2D" parent="PointLight2D4/PointLight2D5/PointLight2D4/PointLight2D4/PointLight2D4"]
+position = Vector2(120.124, 11.9308)
+scale = Vector2(1.45513, 0.868573)
+color = Color(0, 0.465631, 0.105145, 1)
+energy = 0.5
+texture = ExtResource("22_dginc")
+texture_scale = 0.2
+
 [node name="PointLight2D" type="PointLight2D" parent="."]
 position = Vector2(240, 472)
 scale = Vector2(0.544263, 0.524551)
@@ -694,3 +806,23 @@ offset = Vector2(1, -22)
 position = Vector2(3.88416, 3.24707)
 scale = Vector2(0.967302, 1)
 texture = ExtResource("28_vd3jj")
+
+[node name="Button2" type="Button" parent="."]
+layout_mode = 0
+offset_left = 216.0
+offset_top = 856.0
+offset_right = 240.0
+offset_bottom = 880.0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_mrw83")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_c0vcl")
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 168.0
+offset_top = 232.0
+offset_right = 358.0
+offset_bottom = 368.0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_pku4p")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_v57ny")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_p04hm")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_2e72e")

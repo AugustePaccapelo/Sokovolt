@@ -1,5 +1,6 @@
 ﻿using Godot;
 using System;
+using RobotnikSokoban.Scripts.Managers;
 
 // Author : William Soukai
 
@@ -25,6 +26,7 @@ namespace Com.IsartDigital.ProjectName {
         {
             if (light != null)
                 light.Hide(); 
+            SongManager.Instance.ambientDict[EnumSong.AmbientSong.ButonSong].Play();
         }
 	}
 }

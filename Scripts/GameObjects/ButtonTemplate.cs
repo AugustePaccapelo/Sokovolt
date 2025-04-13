@@ -1,4 +1,4 @@
-using Godot;
+﻿using Godot;
 using System;
 
 // Author : Noe Sales
@@ -11,6 +11,7 @@ namespace Com.IsartDigital.SokoVolt {
 		[Export] private float during = 0.5f;
 		[Export] Tween.EaseType easeType;
 		[Export] Tween.TransitionType transitionType;
+		[Export] GpuParticles2D particles;
 
 		private Vector2 initialScale; 
 
@@ -26,7 +27,9 @@ namespace Com.IsartDigital.SokoVolt {
 			Tween lTween = CreateTween();
 			lTween.TweenProperty(this, "scale", initialScale * scaleMultiplicator, during / 2).SetEase(easeType).SetTrans(transitionType);
 			lTween.TweenProperty(this, "scale", initialScale, during / 2).SetEase(easeType).SetTrans(transitionType);
+			particles.Emitting=true;
 			lTween.Finished += () => Disabled = false;
+
         }
 	}
 }

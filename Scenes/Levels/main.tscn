@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=3 uid="uid://dkbx646vvyaig"]
+[gd_scene load_steps=49 format=3 uid="uid://dkbx646vvyaig"]
 
 [ext_resource type="PackedScene" uid="uid://dyk47lo67a1tp" path="res://Scenes/Managers/ui_manager.tscn" id="1_4603a"]
 [ext_resource type="PackedScene" uid="uid://bnv0kco0ylr0e" path="res://Scenes/Managers/GridManager.tscn" id="1_d671q"]
@@ -46,6 +46,8 @@
 [ext_resource type="PackedScene" uid="uid://1yhpiyc6vg65" path="res://Scenes/Managers/DialogManager.tscn" id="42_hfyqr"]
 [ext_resource type="AudioStream" uid="uid://b7q8537k18284" path="res://Song/AmbiantSounds/Boucle Mécanique.mp3" id="42_npehw"]
 [ext_resource type="PackedScene" uid="uid://ea1n36xp4mo5" path="res://Scenes/Managers/HighLightManager.tscn" id="43_pkf3d"]
+[ext_resource type="AudioStream" uid="uid://cqupdu6pyb0p8" path="res://Song/buton/463642__alec_mackay__buton-click.mp3" id="44_1vrqk"]
+[ext_resource type="AudioStream" uid="uid://b8wh0uhv48l0j" path="res://Song/AmbiantSounds/Brasch Tactics in HD Compilation - HellDivers 2.mp3" id="45_ooqfe"]
 
 [node name="MAIN" type="Node2D"]
 
@@ -191,9 +193,18 @@ bus = &"SFX"
 
 [node name="AudioStreamPlayer17" type="AudioStreamPlayer" parent="Managers/SongManager"]
 stream = ExtResource("42_npehw")
+bus = &"Music"
 
 [node name="AudioStreamPlayer18" type="AudioStreamPlayer" parent="Managers/SongManager"]
 stream = ExtResource("42_gha0a")
+bus = &"Music"
+
+[node name="AudioStreamPlayer 19" type="AudioStreamPlayer" parent="Managers/SongManager"]
+stream = ExtResource("44_1vrqk")
+bus = &"SFX"
+
+[node name="AudioStreamPlayer 20" type="AudioStreamPlayer" parent="Managers/SongManager"]
+stream = ExtResource("45_ooqfe")
 
 [node name="DialogManager" parent="Managers" instance=ExtResource("42_hfyqr")]
 

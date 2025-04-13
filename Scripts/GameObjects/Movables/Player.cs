@@ -1,4 +1,4 @@
-using Com.IsartDigital.SokoVolt.Managers;
+﻿using Com.IsartDigital.SokoVolt.Managers;
 using Godot;
 using System;
 using System.Collections.Generic;
@@ -27,7 +27,8 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables {
 		#endregion
 
 		[Export] Area2D dectetor;
-		[Export] public GpuParticles2D inTeslaParticles, bodyParticles;
+		[Export] public GpuParticles2D inTeslaParticles, bodyParticles,
+        moveparticulr;
 		private float timer;
 		public static bool canTravel = false;
 
@@ -77,8 +78,10 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables {
         public override void MoveTo(int pX, int pY, Cell[,] pGrid)
         {
             base.MoveTo(pX, pY, pGrid);
+
 			CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.PlayerMoved);
 			//canTravel = false;
+            moveparticulr.Emitting=true;
         }
 
         public async void MoveAlongPath(List<Vector2> pPath)

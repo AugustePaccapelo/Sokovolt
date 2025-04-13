@@ -31,6 +31,8 @@ public partial class EnumSong
         pop5, 
         AmbianceMenumusic,
         AmbianceGamemusic,
+        ButonSong,
+        TVsong
     }
 
 }
