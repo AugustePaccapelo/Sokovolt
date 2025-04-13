@@ -31,6 +31,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables {
         moveparticulr;
 		private float timer;
 		public static bool canTravel = false;
+		private bool wasInTesla = false;
 
 		public static bool isTraveling{get; private set;} 
 
@@ -68,9 +69,11 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables {
 				dectetor.Monitorable = false;
 				MoveTo(pTesla.x, pTesla.y, GridManager.GetInstance().grid);
 				if (ConnectionManagers.lastTeslas.Contains(pTesla))
+					wasInTesla = true;
 					GetTree().CreateTimer(0.25f).Timeout += () => {
 						InputManager.canPlayerMove = true;
 						isTraveling = false;
+						canTravel = false;
 					};
 			}
         }
@@ -82,6 +85,10 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables {
 			CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.PlayerMoved);
 			//canTravel = false;
             moveparticulr.Emitting=true;
+			if (wasInTesla) {
+				canTravel = true;
+				wasInTesla = false;
+			}
         }
 
         public async void MoveAlongPath(List<Vector2> pPath)

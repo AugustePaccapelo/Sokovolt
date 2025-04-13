@@ -32,7 +32,8 @@ namespace Com.IsartDigital.SokoVolt
         #endregion
 
         #region Exports & Variables
-        [Export] private Button mainMenuButton, newLevelButton, loadLevelButton, menuCustomLevelButton, saveButton, applyButton;
+        [Export] private Button mainMenuButton, newLevelButton, loadLevelButton, menuCustomLevelButton, saveButton, applyButton,
+            bulbButton, doorButton, playerButton, batteryButton, teslaButton, wallButton, electricWallButton;
         [Export] public Button returnButton;
         [Export] private LineEdit loadLevelText, levelName, sizeXText, sizeYText;
         [Export] private LevelCreatorItems wallTexture, electricWallTexture, teslaTexture, bulbTexture, generatorTexture, playerSpawnTexture, doorTexture;
@@ -40,7 +41,15 @@ namespace Com.IsartDigital.SokoVolt
         [Export] private VBoxContainer buttonContainer, deleteButtonContainer, labelContainer;
         [Export] private Json customLevelTemplate;
         [Export] private Label gridSizeLabel;
-        [Export] private TextureRect backGround;
+        [Export] private TextureRect backGround, screenBorder;
+        [Export] private ColorRect screenEffect;
+        [Export] private CompressedTexture2D batteryNormal, batteryHover, batteryPressed, 
+            electricWallNormal, electricWallHover, electricWallPressed, 
+            bulbNormal, bulbHover, bulbPressed, 
+            playerNormal, playerHover, playerPressed, 
+            teslaNormal, teslaHover, teslaPressed,
+            tileNormal, tileHover, tilePressed,
+            wallNormal, wallHover, wallPressed;
         private Panel newLevelBackground, customLevelMenuBackground, backGrid, menu;
         private LevelCreatorItems actualItem;
 		private bool canPick = false;
@@ -100,6 +109,14 @@ namespace Com.IsartDigital.SokoVolt
             returnButton.Pressed += Return;
             saveButton.Pressed += CreateJSON;
             applyButton.Pressed += ChangeGridSize;
+
+            bulbButton.Pressed += () => ItemPick(bulbTexture);
+            doorButton.Pressed += () => ItemPick(doorTexture);
+            playerButton.Pressed += () => ItemPick(playerSpawnTexture);
+            batteryButton.Pressed += () => ItemPick(generatorTexture);
+            teslaButton.Pressed += () => ItemPick(teslaTexture);
+            wallButton.Pressed += () => ItemPick(wallTexture);
+            electricWallButton.Pressed += () => ItemPick(electricWallTexture);
 
             sizeXText.TextChanged += (newSize) =>
             {
@@ -205,6 +222,54 @@ namespace Com.IsartDigital.SokoVolt
                 canPick = false;
             }
         }
+
+        private void ItemPick(LevelCreatorItems pItem)
+        {
+            actualItem?.QueueFree();
+            LevelCreatorItems lItem = null;
+
+            if (pItem == wallTexture)
+            {
+                lItem = wallScene.Instantiate() as LevelCreatorItems;
+                lItem.type = WALL_TYPE;
+            }
+            else if (pItem == teslaTexture)
+            {
+                lItem = teslaScene.Instantiate() as LevelCreatorItems;
+                if (lItem.teslaRange != null) lItem.teslaRange.Value = teslaTexture.teslaRange.Value;
+                lItem.type = TESLA_TYPE;
+            }
+            else if (pItem == bulbTexture)
+            {
+                lItem = bulbScene.Instantiate() as LevelCreatorItems;
+                lItem.type = BULB_TYPE;
+            }
+            else if (pItem == generatorTexture)
+            {
+                lItem = generatorScene.Instantiate() as LevelCreatorItems;
+                lItem.type = GENERATOR_TYPE;
+            }
+            else if (pItem == playerSpawnTexture)
+            {
+                lItem = playerSpawnScene.Instantiate() as LevelCreatorItems;
+                lItem.type = PLAYERSPAWN_TYPE;
+            }
+            else if (pItem == electricWallTexture)
+            {
+                lItem = electricWallScene.Instantiate() as LevelCreatorItems;
+                lItem.type = ELECTRIC_WALL_TYPE;
+            }
+            else if (pItem == doorTexture)
+            {
+                lItem = doorScene.Instantiate() as LevelCreatorItems;
+                lItem.type = DOOR_TYPE;
+            }
+
+            cellContainer.AddChild(lItem);
+            actualItem = lItem;
+            actualItem.MouseFilter = MouseFilterEnum.Ignore; //Disable collision with mouse
+        }
+
         private void RegisterMouseSignals(params TextureRect[] pTextures)
         {
             foreach (var lTexture in pTextures)
@@ -216,7 +281,8 @@ namespace Com.IsartDigital.SokoVolt
         private void OnMouseEntered(TextureRect pTexture)
         {
             canPick = true;
-            hoveredItem = pTexture; //
+            hoveredItem = pTexture;
+
         }
         private void OnMouseExited()
         {
@@ -628,7 +694,7 @@ namespace Com.IsartDigital.SokoVolt
         #region MenuFonction
         private void Return()
         {
-            menu.Visible = mainMenuButton.Visible = true;
+            menu.Visible = mainMenuButton.Visible = screenBorder.Visible = screenEffect.Visible = true;
             returnButton.Hide();
             newLevelBackground.Visible = customLevelMenuBackground.Visible = false;
             levelName.Text = "";
@@ -643,6 +709,7 @@ namespace Com.IsartDigital.SokoVolt
             player?.QueueFree(); // Pour le retirer de la scène
             HUD.GetInstance().Hide();
             CustomSignals.GetInstance().EmitSignal(nameof(CustomSignals.UnLoadLevel));
+            InputManager.inGame = false;
             backGround.Show();
 
             actualItem?.QueueFree();
@@ -651,6 +718,7 @@ namespace Com.IsartDigital.SokoVolt
         private void CreateNewLevel()
 		{
             newLevelBackground.Visible = returnButton.Visible = true;
+            menu.Hide();
             lenghtX = lenghtY = LENGHT_MAX;
             sizeXText.Text = sizeYText.Text = null;
             ChangeGridSize();
@@ -658,15 +726,19 @@ namespace Com.IsartDigital.SokoVolt
 		private void LoadLevel(string pLevelName)
 		{
             backGround.Hide();
+            screenEffect.Hide();
+            screenBorder.Hide();
             HUD.GetInstance().Show();
             customLevelMenuBackground.Hide();
             string lPath = customLevelsFolderPath + "/" + pLevelName + ".json";
             returnButton.Visible = true;
             menu.Visible = mainMenuButton.Visible = false;
             GridManager.GetInstance().LoadNewLevel(0, lPath, GameManager.GetInstance().objectsContainer);
+            InputManager.inGame = true;
         }
 		private void OpenCustomLevelsMenu()
 		{
+            menu.Hide();
             customLevelMenuBackground.Visible = returnButton.Visible = true;
             DirContents(customLevelsFolderPath); //send folder reference to DirContents fonction
         }
@@ -690,6 +762,7 @@ namespace Com.IsartDigital.SokoVolt
             }
         }
         #endregion
+
         protected override void Dispose(bool pDisposing)
 		{
 			instance = null;
