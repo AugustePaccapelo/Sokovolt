@@ -50,7 +50,9 @@ namespace Com.IsartDigital.SokoVolt
 
 			uiManager = GetParent<UIManager>();
 
-            startButton.Pressed += () => CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.GoToLevelSelector);
+            startButton.Pressed += () => {CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.GoToLevelSelector);
+			SongManager.Instance.Crossfade(EnumSong.AmbientSong.AmbianceMenumusic, EnumSong.AmbientSong.AmbianceGamemusic, 0.5f, -8);
+			};
             levelCreatorButton.Pressed += () => CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.GoToLevelCreator);
 			unlogButton.Pressed += () => CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.GoToLoginScreen);
             optionButton.Pressed += () => CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.GoToOptionMenu);
@@ -58,6 +60,7 @@ namespace Com.IsartDigital.SokoVolt
 			anime.Play("mainMenuAnimation");
             teleButton.Pressed +=() => SongManager.Instance.ambientDict[EnumSong.AmbientSong.TVsong].Play();;
             naigeButton.Pressed += () => Naige();
+
 
         }
 

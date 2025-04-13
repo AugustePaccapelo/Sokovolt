@@ -3,6 +3,7 @@ using Com.IsartDigital.SokoVolt.GameObjects.Movables;
 using Com.IsartDigital.SokoVolt.Managers;
 using Com.IsartDigital.SokoVolt.Tools;
 using Godot;
+using RobotnikSokoban.Scripts.Managers;
 using System;
 using System.Runtime.CompilerServices;
 
@@ -93,6 +94,8 @@ namespace Com.IsartDigital.SokoVolt{
 				winScreen.QueueFree();
 			
             CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.GoToMainMenu);
+			SongManager.Instance.Crossfade(EnumSong.AmbientSong.AmbianceGamemusic, EnumSong.AmbientSong.AmbianceMenumusic, 0.5f, -5);
+
         }
 
         public override void _Process(double pDelta)
