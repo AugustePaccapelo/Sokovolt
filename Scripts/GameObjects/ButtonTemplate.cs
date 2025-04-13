@@ -27,7 +27,7 @@ namespace Com.IsartDigital.SokoVolt {
 			Tween lTween = CreateTween();
 			lTween.TweenProperty(this, "scale", initialScale * scaleMultiplicator, during / 2).SetEase(easeType).SetTrans(transitionType);
 			lTween.TweenProperty(this, "scale", initialScale, during / 2).SetEase(easeType).SetTrans(transitionType);
-			particles.Emitting=true;
+			if (particles != null) particles.Emitting=true;
 			lTween.Finished += () => Disabled = false;
 
         }
