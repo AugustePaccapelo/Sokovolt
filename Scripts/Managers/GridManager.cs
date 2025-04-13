@@ -295,16 +295,12 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 		private void UndoRedo(int pAmount)
 		{
 			int amount = pAmount;
-			currentlyUndoRedo = true;
-
+			
 			// Special case if player moved off a Tesla
 			if (!(player.curentCell.GetContent() is BoxTesla) && playerWasOnTesla)
 				amount *= 2;
 
 			SetGridState(actualGridStateIndex + amount);
-
-			// Cooldown to avoid tesla detection 
-			GetTree().CreateTimer(1).Timeout += () => currentlyUndoRedo = false;
 		}
 
 		// Creates a copy of the grid (for history)
@@ -351,12 +347,16 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 			if (pIndexState < 0 || pIndexState >= gridStates.Count)
 				return;
 
-			grid = CopyGrid(gridStates[pIndexState]);
+            currentlyUndoRedo = true;
+
+            grid = CopyGrid(gridStates[pIndexState]);
 			actualGridStateIndex = pIndexState;
 			UpdateStepLabel();
 			UpdateObjectsFromGrid();
-			//PrintGrid();
-		}
+
+            // Cooldown to avoid tesla detection 
+            GetTree().CreateTimer(1).Timeout += () => currentlyUndoRedo = false;
+        }
 
 
 

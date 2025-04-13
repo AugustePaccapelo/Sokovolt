@@ -1,10 +1,29 @@
-[gd_scene load_steps=11 format=3 uid="uid://31ew226yj11n"]
+[gd_scene load_steps=18 format=3 uid="uid://31ew226yj11n"]
 
 [ext_resource type="Script" path="res://Scripts/Controls/LoginScreen.cs" id="1_skjs4"]
 [ext_resource type="Texture2D" uid="uid://cbfjyr1fgoolk" path="res://Assets/UI/LoginScreen/login.png" id="2_omg56"]
 [ext_resource type="Texture2D" uid="uid://75isyjfm1q4i" path="res://Assets/UI/LoginScreen/arrrow.png" id="3_gqu63"]
+[ext_resource type="Texture2D" uid="uid://cpupq1503s612" path="res://Assets/UI/LoginScreen/Calque 1.png" id="4_4icvu"]
 [ext_resource type="Texture2D" uid="uid://c767fcajnj2yi" path="res://Assets/Shaders/Effects/Glow.png" id="4_mhpo5"]
 [ext_resource type="PackedScene" uid="uid://cfqq10c08ay30" path="res://Scenes/Lightning.tscn" id="4_yb23f"]
+[ext_resource type="Texture2D" uid="uid://cm3hm105j4j0y" path="res://Assets/UI/LoginScreen/Calque 2.png" id="5_61pha"]
+[ext_resource type="Texture2D" uid="uid://rv65e3k7gxvh" path="res://Assets/UI/LoginScreen/tesla.png" id="6_dwgef"]
+[ext_resource type="Shader" path="res://Assets/Shaders/Effects/crt_shader/CRTShader.gdshader" id="6_frwqp"]
+[ext_resource type="Texture2D" uid="uid://dbneakw01y1fh" path="res://Assets/UI/LoginScreen/Calque 3.png" id="6_of5ol"]
+[ext_resource type="PackedScene" uid="uid://cvbwc0wqo32ol" path="res://Scenes/UI/LoginLightParticules.tscn" id="7_kt76h"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_aylxk"]
+shader = ExtResource("6_frwqp")
+shader_parameter/screen_width = 348.0
+shader_parameter/screen_height = 400.0
+shader_parameter/BarrelPower = 1.1
+shader_parameter/color_bleeding = 3.7
+shader_parameter/bleeding_range_x = 1.0
+shader_parameter/bleeding_range_y = 1.0
+shader_parameter/lines_distance = 3.0
+shader_parameter/scan_size = 2.0
+shader_parameter/scanline_alpha = 0.9
+shader_parameter/lines_velocity = 10.0
 
 [sub_resource type="LabelSettings" id="LabelSettings_al77a"]
 font_color = Color(0.992157, 0, 0, 1)
@@ -39,10 +58,10 @@ arrowMaxRotation = 49.0
 arrowMinSpeed = -100.0
 arrowMaxSpeed = 100.0
 lightHolder = NodePath("LightsHolder")
-lightsMinOnDuration = 0.25
-lightsMaxOnDuration = 2.5
-lightsMinOffDuration = 0.75
-lightsMaxOffDuration = 5.0
+lightsMinOnDuration = 0.5
+lightsMaxOnDuration = 3.0
+lightsMinOffDuration = 0.5
+lightsMaxOffDuration = 2.5
 loginNode = NodePath("Login")
 labelLoginError = NodePath("Login/VBoxScreenHolder/LabelError")
 vContLoginUser = NodePath("Login/VBoxScreenHolder/VBoxUsername")
@@ -54,7 +73,38 @@ vBoxCreateUser = NodePath("Create/VBoxScreenHolder/VBoxUsername")
 vBoxCreatePass = NodePath("Create/VBoxScreenHolder/VBoxPassword")
 vBoxCreateConfirmPass = NodePath("Create/VBoxScreenHolder/VBoxConfirmPassWord")
 
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 97.0
+offset_top = 3.0
+offset_right = -1122.0
+offset_bottom = -376.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -0.415835
+texture = ExtResource("6_dwgef")
+expand_mode = 1
+
+[node name="TextureRect2" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1301.0
+offset_top = -287.0
+offset_right = 82.0
+offset_bottom = -666.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 0.591659
+texture = ExtResource("6_dwgef")
+expand_mode = 1
+
 [node name="Machine" type="TextureRect" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -68,16 +118,69 @@ grow_vertical = 2
 texture = ExtResource("2_omg56")
 expand_mode = 1
 
+[node name="TextureRect3" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 545.0
+offset_top = 245.0
+offset_right = -534.0
+offset_bottom = 3.0
+texture = ExtResource("4_4icvu")
+expand_mode = 1
+
+[node name="TextureRect5" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 715.0
+offset_top = 329.0
+offset_right = -703.0
+offset_bottom = -143.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_61pha")
+expand_mode = 1
+
+[node name="ScreenEffect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_aylxk")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 743.0
+offset_top = 363.0
+offset_right = -726.0
+offset_bottom = -174.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect4" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 715.0
+offset_top = 329.0
+offset_right = -703.0
+offset_bottom = -143.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("6_of5ol")
+expand_mode = 1
+
 [node name="Login" type="Control" parent="."]
 layout_mode = 1
 anchor_left = 0.373
 anchor_top = 0.381
 anchor_right = 0.634
 anchor_bottom = 0.801
-offset_left = -711.16
-offset_top = -342.48
-offset_right = 707.72
-offset_bottom = 283.92
+offset_left = -714.16
+offset_top = -334.48
+offset_right = 704.72
+offset_bottom = 291.92
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -282,6 +385,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_right = -1880.0
 offset_bottom = -1040.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="RedLight" type="PointLight2D" parent="LightsHolder"]
 visible = false
@@ -301,21 +406,27 @@ texture_scale = 0.5
 
 [node name="LightninhStartPos" type="Control" parent="."]
 layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 555.0
-offset_top = 147.0
-offset_right = -1325.0
-offset_bottom = -893.0
+offset_left = 543.0
+offset_top = 137.0
+offset_right = -1337.0
+offset_bottom = -903.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="LightninhEndPos" type="Control" parent="."]
 layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 1404.0
-offset_top = 165.0
-offset_right = -476.0
-offset_bottom = -875.0
+offset_left = 1420.0
+offset_top = 158.0
+offset_right = -460.0
+offset_bottom = -882.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Node2D" parent="." instance=ExtResource("4_yb23f")]
 unitSize = 200.0
@@ -330,3 +441,10 @@ randomRatioLengthMin = 0.5
 allColors = PackedColorArray(0.417465, 0.783072, 0.960851, 1, 0.467371, 0.687911, 0.988892, 1, 0.841562, 0.858411, 1.54018e-06, 1)
 linesWidth = 10.0
 innerLineWidth = 3.0
+
+[node name="ParticlesGroup" parent="." instance=ExtResource("7_kt76h")]
+position = Vector2(599, 264)
+
+[node name="ParticlesGroup2" parent="." instance=ExtResource("7_kt76h")]
+position = Vector2(1368, 277)
+scale = Vector2(-0.993, 1)

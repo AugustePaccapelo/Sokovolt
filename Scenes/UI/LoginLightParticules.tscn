@@ -1,38 +1,38 @@
-[gd_scene load_steps=20 format=3 uid="uid://durins5kr70i5"]
+[gd_scene load_steps=20 format=3 uid="uid://cvbwc0wqo32ol"]
 
-[ext_resource type="Script" path="res://Scripts/GameObjects/LevelSelectorBolt.cs" id="1_poe8b"]
-[ext_resource type="Shader" uid="uid://bum2gqlmpu2kv" path="res://Assets/Shaders/ElectricBoltShader.tres" id="2_8k7yt"]
-[ext_resource type="Texture2D" uid="uid://c66l3g8bbn3hb" path="res://Assets/Shaders/Effects/VFX Thunder.jpg" id="3_c3sln"]
-[ext_resource type="Texture2D" uid="uid://c767fcajnj2yi" path="res://Assets/Shaders/Effects/Glow.png" id="3_shtsl"]
+[ext_resource type="Script" path="res://Scripts/GameObjects/LevelSelectorBolt.cs" id="1_m2pga"]
+[ext_resource type="Shader" uid="uid://bum2gqlmpu2kv" path="res://Assets/Shaders/ElectricBoltShader.tres" id="2_n3bcp"]
+[ext_resource type="Texture2D" uid="uid://c66l3g8bbn3hb" path="res://Assets/Shaders/Effects/VFX Thunder.jpg" id="3_etpxr"]
+[ext_resource type="Texture2D" uid="uid://c767fcajnj2yi" path="res://Assets/Shaders/Effects/Glow.png" id="4_7jak1"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_y8asw"]
-shader = ExtResource("2_8k7yt")
+shader = ExtResource("2_n3bcp")
 shader_parameter/VanishingValue = 0.0
 shader_parameter/Speed = Vector2(-2, 0)
-shader_parameter/basic_texture = ExtResource("3_c3sln")
+shader_parameter/basic_texture = ExtResource("3_etpxr")
 
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_r36vq"]
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_l7204"]
 blend_mode = 1
 light_mode = 1
 
-[sub_resource type="Curve" id="Curve_w41vn"]
+[sub_resource type="Curve" id="Curve_pnw20"]
 _data = [Vector2(0, 0.549451), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="Curve" id="Curve_1kdmu"]
+[sub_resource type="Curve" id="Curve_a0jaj"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="Curve" id="Curve_vx6to"]
+[sub_resource type="Curve" id="Curve_6l8qo"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_658ys"]
-curve_x = SubResource("Curve_w41vn")
-curve_y = SubResource("Curve_1kdmu")
-curve_z = SubResource("Curve_vx6to")
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_a3vvu"]
+curve_x = SubResource("Curve_pnw20")
+curve_y = SubResource("Curve_a0jaj")
+curve_z = SubResource("Curve_6l8qo")
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_cvov5"]
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_7lgnd"]
 particle_flag_align_y = true
 particle_flag_disable_z = true
 emission_shape = 6
@@ -47,26 +47,26 @@ radial_velocity_max = 700.0
 gravity = Vector3(0, 98, 0)
 scale_min = 0.01
 scale_max = 0.05
-scale_curve = SubResource("CurveXYZTexture_658ys")
+scale_curve = SubResource("CurveXYZTexture_a3vvu")
 color = Color(0.5, 1.3, 2.2, 1)
 
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_hklq1"]
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_wpvld"]
 blend_mode = 1
 light_mode = 1
 
-[sub_resource type="Curve" id="Curve_1w2lf"]
+[sub_resource type="Curve" id="Curve_g4gdx"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.292683, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 3
 
-[sub_resource type="CurveTexture" id="CurveTexture_uwgy1"]
-curve = SubResource("Curve_1w2lf")
+[sub_resource type="CurveTexture" id="CurveTexture_euagi"]
+curve = SubResource("Curve_g4gdx")
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_v8vr1"]
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_br06m"]
 particle_flag_disable_z = true
 gravity = Vector3(0, 0, 0)
 scale_min = 0.08
 scale_max = 0.3
-scale_curve = SubResource("CurveTexture_uwgy1")
+scale_curve = SubResource("CurveTexture_euagi")
 color = Color(0.5, 1, 1.2, 1)
 
 [sub_resource type="Animation" id="Animation_73oql"]
@@ -147,15 +147,16 @@ _data = {
 
 [node name="ParticlesGroup" type="Node2D" node_paths=PackedStringArray("animationPlayer", "bolt", "light")]
 scale = Vector2(0.993244, 1)
-script = ExtResource("1_poe8b")
+script = ExtResource("1_m2pga")
 animationPlayer = NodePath("AnimationPlayer")
 bolt = NodePath("Bolt")
 light = NodePath("ImpactEffect/PointLight2D")
+hideBolt = false
 
 [node name="Bolt" type="Line2D" parent="."]
 material = SubResource("ShaderMaterial_y8asw")
 position = Vector2(-399.7, -225)
-points = PackedVector2Array(315.556, 223.333, 343.333, 136.667, 241.111, 125.556, 268.889, 72.2222, 334.444, 26.6667, 348.889, 24.4445, 325.556, 2.22222, 264.444, -5.55556, 311.111, -36.6667, 275.556, -85.5556, 321.111, -124.444, 350, -65.5556, 405.556, -102.222, 383.333, -46.6667, 422.222, -37.7778, 378.889, -22.2222, 411.111, 11.1111, 365.556, -4.44444, 355.556, 24.4445, 375.556, 26.6667, 432.222, 73.3333, 452.222, 127.778, 356.667, 137.778, 387.778, 223.333)
+points = PackedVector2Array(393.659, 227, 370.503, 221, 341.306, 167, 250.693, 140, 264.789, 88, 319.156, 56, 401.714, 40, 432.924, 71, 390.639, 141, 420.843, 190, 411.782, 224)
 width = 50.0
 default_color = Color(0, 1.00784, 1.8, 1)
 texture_mode = 2
@@ -164,21 +165,21 @@ texture_mode = 2
 
 [node name="Sparks" type="GPUParticles2D" parent="ImpactEffect"]
 visible = false
-material = SubResource("CanvasItemMaterial_r36vq")
+material = SubResource("CanvasItemMaterial_l7204")
 position = Vector2(0, 1)
 amount = 15
-process_material = SubResource("ParticleProcessMaterial_cvov5")
-texture = ExtResource("3_shtsl")
+process_material = SubResource("ParticleProcessMaterial_7lgnd")
+texture = ExtResource("4_7jak1")
 lifetime = 0.15
 fixed_fps = 60
 
 [node name="Flare" type="GPUParticles2D" parent="ImpactEffect"]
 visible = false
-material = SubResource("CanvasItemMaterial_hklq1")
+material = SubResource("CanvasItemMaterial_wpvld")
 position = Vector2(0, -1)
 amount = 1
-process_material = SubResource("ParticleProcessMaterial_v8vr1")
-texture = ExtResource("3_shtsl")
+process_material = SubResource("ParticleProcessMaterial_br06m")
+texture = ExtResource("4_7jak1")
 lifetime = 0.15
 fixed_fps = 60
 
@@ -187,7 +188,7 @@ visible = false
 position = Vector2(0, -1)
 color = Color(0.231373, 1, 1, 1)
 energy = 3.0
-texture = ExtResource("3_shtsl")
+texture = ExtResource("4_7jak1")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

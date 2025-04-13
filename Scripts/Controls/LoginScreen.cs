@@ -44,6 +44,7 @@ namespace Com.IsartDigital.SokoVolt
 		private int lightsCount;
 		private float[] currentLightOnDurations;
 		private float[] currentLightOffDurations;
+		private float[] lightsEnergies;
 
         [ExportGroup("LoginScreen")]
 		[Export] private Control loginNode;
@@ -124,9 +125,6 @@ namespace Com.IsartDigital.SokoVolt
 			CustomSignals.GetInstance().GoToLoginScreen += AnimationLoginEnter;
 			CustomSignals.GetInstance().GoToMainMenu += AnimationLoginExit;
 
-			lightning.startPoint = lightningStartPos.GlobalPosition;
-			lightning.endPoint = lightningEndPos.GlobalPosition;
-
 			arrowCount = arrowsHolder.GetChildCount();
 			arrows = new TextureRect[arrowCount];
 			currentArrowsSpeeds = new float[arrowCount];
@@ -140,9 +138,11 @@ namespace Com.IsartDigital.SokoVolt
 			allLights = new PointLight2D[lightsCount];
 			currentLightOnDurations = new float[lightsCount];
 			currentLightOffDurations = new float[lightsCount];
-			for (int i = 0; i < lightsCount; i++)
+			lightsEnergies = new float[lightsCount];
+            for (int i = 0; i < lightsCount; i++)
 			{
 				allLights[i] = lightHolder.GetChild<PointLight2D>(i);
+				lightsEnergies[i] = allLights[i].Energy;
 			}
         }
 
@@ -167,6 +167,10 @@ namespace Com.IsartDigital.SokoVolt
 				{
 					allLights[i].Show();
 					currentLightOnDurations[i] = rand.RandfRange(lightsMinOnDuration, lightsMaxOnDuration);
+					Tween lTween = CreateTween();
+					lTween.TweenProperty(allLights[i], "energy", lightsEnergies[i], currentLightOnDurations[i] * 0.5f).From(0f);
+					lTween.Chain().TweenProperty(allLights[i], "energy", 0f, currentLightOnDurations[i] * 0.5f).From(lightsEnergies[i]);
+					lTween.Play();
 				}
 				else
 				{
@@ -175,9 +179,9 @@ namespace Com.IsartDigital.SokoVolt
 
 				if (allLights[i].Visible && currentLightOnDurations[i] <= 0)
 				{
-					allLights[i].Hide();
-					currentLightOffDurations[i] = rand.RandfRange(lightsMinOffDuration, lightsMaxOffDuration);
-				}
+                    allLights[i].Hide();
+                    currentLightOffDurations[i] = rand.RandfRange(lightsMinOffDuration, lightsMaxOffDuration);
+                }
 				else
 				{
 					currentLightOnDurations[i] -= pDelta;
@@ -279,6 +283,8 @@ namespace Com.IsartDigital.SokoVolt
 			else labelCreateErrorUsername.Show();
         }
 		public void AnimationLoginEnter() {
+            lightning.startPoint = lightningStartPos.GlobalPosition;
+            lightning.endPoint = lightningEndPos.GlobalPosition;
             lightning.StartLightning();
 			isAnimated = true;
         }

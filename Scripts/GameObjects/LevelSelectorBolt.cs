@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Runtime.CompilerServices;
 
 // Author : Noe Sales
 
@@ -13,13 +14,14 @@ namespace Com.IsartDigital.SokoVolt.GameObjects {
         [Export] public Line2D bolt;
         [Export] public PointLight2D light;
         [Export] public bool animationActive = true;
+        [Export] public bool hideBolt = true;
 
         public override void _Ready()
         {
             //animationPlayer.Active = animationActive;
             //sparks.Emitting = false;
             //flare.Emitting = false;
-            bolt.Hide();
+            if (hideBolt) bolt.Hide();
             light.Energy = 0;
         }
     }

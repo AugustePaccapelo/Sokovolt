@@ -416,8 +416,8 @@ fixed_fps = 60
 local_coords = true
 
 [node name="Carpet" type="Sprite2D" parent="."]
-position = Vector2(5475.75, 882)
-scale = Vector2(1.03458, 1)
+position = Vector2(7656.99, 882)
+scale = Vector2(1.39331, 1)
 texture = ExtResource("11_cogra")
 
 [node name="CarpetBorder" type="TextureRect" parent="."]
