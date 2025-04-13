@@ -394,22 +394,22 @@ namespace Com.IsartDigital.SokoVolt
                 //Checking the number of elements
                 if (!lHasBulb)
                 {
-                    AnimationManager.GetInstance().BounceAnimation(bulbTexture, 0.5f, Colors.Red, 0.2f);
+                    AnimationManager.GetInstance().BounceAnimation(bulbButton, 0.5f, Colors.Red, 0.2f);
                     return;
                 }
                 if (!lHasDoor)
                 {
-                    AnimationManager.GetInstance().BounceAnimation(doorTexture, 0.5f, Colors.Red, 0.2f);
+                    AnimationManager.GetInstance().BounceAnimation(doorButton, 0.5f, Colors.Red, 0.2f);
                     return;
                 }
                 if (!lHasPlayerSpawn)
                 {
-                    AnimationManager.GetInstance().BounceAnimation(playerSpawnTexture, 0.5f, Colors.Red, 0.2f);
+                    AnimationManager.GetInstance().BounceAnimation(playerButton, 0.5f, Colors.Red, 0.2f);
                     return;
                 }
                 if (!lHasGenerator)
                 {
-                    AnimationManager.GetInstance().BounceAnimation(generatorTexture, 0.5f, Colors.Red, 0.2f);
+                    AnimationManager.GetInstance().BounceAnimation(batteryButton, 0.5f, Colors.Red, 0.2f);
                     return;
                 }
 
@@ -735,6 +735,7 @@ namespace Com.IsartDigital.SokoVolt
             menu.Visible = mainMenuButton.Visible = false;
             GridManager.GetInstance().LoadNewLevel(0, lPath, GameManager.GetInstance().objectsContainer);
             InputManager.inGame = true;
+            CustomMaskOcluder.instance.SetBackgroundVisibility(true);
         }
 		private void OpenCustomLevelsMenu()
 		{
