@@ -924,6 +924,7 @@ scale = Vector2(0.103586, 0.103586)
 turnRight = true
 
 [node name="MainMenuButton" parent="." instance=ExtResource("20_0nxsh")]
+layout_mode = 0
 offset_left = 1591.0
 offset_top = 892.0
 offset_right = 1887.0

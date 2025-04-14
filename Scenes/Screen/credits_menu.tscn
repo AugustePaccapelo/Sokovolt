@@ -104,6 +104,7 @@ label_settings = SubResource("LabelSettings_5ugp8")
 horizontal_alignment = 1
 
 [node name="MainMenuButton" parent="." instance=ExtResource("4_ylmda")]
+layout_mode = 0
 offset_left = 1591.0
 offset_top = 892.0
 offset_right = 1887.0
