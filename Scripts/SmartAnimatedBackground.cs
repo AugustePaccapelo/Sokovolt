@@ -22,7 +22,7 @@ public partial class SmartAnimatedBackground : Sprite2D
         {
             // Construction du chemin avec padding pour les numéros de fichiers
             string padded = (i + 1).ToString(); // Utilisation de "D4" pour avoir des numéros comme 0001, 0002, ...
-            string path = $"res://Assets/AnimatedBackGroundV2/0001.png00{padded}.webp";
+            string path = $"res://Assets/Background/1.png00{padded}.webp";
 
             // Chargement de la texture
             Texture2D tex = GD.Load<Texture2D>(path);
