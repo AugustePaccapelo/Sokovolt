@@ -213,6 +213,7 @@ connectedLight = NodePath("Visual/ConnectedLight")
 rangeLabel = NodePath("Label")
 
 [node name="Visual" type="Node2D" parent="."]
+position = Vector2(0, -13)
 scale = Vector2(0.88, 0.88)
 
 [node name="BaseLight" type="PointLight2D" parent="Visual"]
@@ -244,9 +245,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -18.0
-offset_top = -136.0
+offset_top = -149.0
 offset_right = 22.0
-offset_bottom = -69.0
+offset_bottom = -82.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
@@ -261,10 +262,10 @@ position = Vector2(0, -1)
 points = PackedVector2Array(0, 0)
 
 [node name="ConnectionPoint" type="Marker2D" parent="."]
-position = Vector2(0, -6)
+position = Vector2(0, -19)
 
 [node name="ImpactEffect" type="Node2D" parent="."]
-position = Vector2(1, -63)
+position = Vector2(1, -76)
 
 [node name="Sparks" type="GPUParticles2D" parent="ImpactEffect"]
 material = SubResource("CanvasItemMaterial_u13ep")

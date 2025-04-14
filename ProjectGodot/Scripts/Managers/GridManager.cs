@@ -9,6 +9,7 @@ using System.Linq;
 using Com.IsartDigital.SokoVolt.Tools;
 using static Com.IsartDigital.SokoVolt.Tools.ObjectProperties;
 using System.Threading.Tasks;
+using RobotnikSokoban.Scripts.Managers;
 
 
 //Author : Ferlat Thibaud 
@@ -535,7 +536,8 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 		private void AnimateVortex(Node2D vortex)
 		{
 			gameManager.shaker.Start();
-			Sprite2D lVortexSprite = vortex.GetChild<Sprite2D>(0);
+            SongManager.Instance.ambientDict[EnumSong.AmbientSong.vortexSound].Play();
+            Sprite2D lVortexSprite = vortex.GetChild<Sprite2D>(0);
 			Tween lVortexTween = CreateTween();
 
 			lVortexTween.Parallel().TweenProperty(lVortexSprite, SCALE, Vector2.One, 0.8f)
@@ -562,8 +564,8 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 			WinScreenThunder lThunderEffect = thunderEffectScene.Instantiate() as WinScreenThunder;
 			lThunderEffect.ZIndex = 45; 
 			gameManager.objectsContainer.AddChild(lThunderEffect);
-
-			lThunderEffect.ActiveThunder(pObject, WinScreenThunder.THUNDER_ANIMATION); 
+            SongManager.Instance.ambientDict[EnumSong.AmbientSong.vortexLight].Play();
+            lThunderEffect.ActiveThunder(pObject, WinScreenThunder.THUNDER_ANIMATION); 
 		}
 
 		private void EndLevelAnimationFnished()

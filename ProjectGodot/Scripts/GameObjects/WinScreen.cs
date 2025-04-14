@@ -1,6 +1,7 @@
 using Com.IsartDigital.SokoVolt;
 using Com.IsartDigital.SokoVolt.Managers;
 using Godot;
+using RobotnikSokoban.Scripts.Managers;
 using System;
 using System.Threading.Tasks;
 
@@ -93,6 +94,7 @@ namespace Com.IsartDigital.Sokovolt
                         WinScreenThunder lThunder = CreateThunder();
                         lThunder.ActiveThunder(batteries[counter], WinScreenThunder.THUNDER_ANIMATION);
                     }
+                    SongManager.Instance.ambientDict[EnumSong.AmbientSong.winScreenLightning].Play();
                     shaderEffect.SetShaderParameter("scanline_alpha", 3);
                     particlesGroup.Show();
                     counter++;

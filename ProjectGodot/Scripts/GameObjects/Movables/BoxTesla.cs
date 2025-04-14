@@ -129,7 +129,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
         private void ResetVisual()
         {
             visual.RotationDegrees = 0;
-            visual.Position = Vector2.Zero;
+            visual.Position = new Vector2(0,-13);
         }
         private void StartShake()
         {
@@ -179,7 +179,8 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
         {
             foreach (var item in impactEffect.GetChildren())
             {
-                if(item is GpuParticles2D particles) particles.Emitting = true;
+                SongManager.Instance.ambientDict[EnumSong.AmbientSong.teslaConnection].Play();
+                if (item is GpuParticles2D particles) particles.Emitting = true;
                 if(item is PointLight2D light) light.Energy = 3;
             }
         }
@@ -329,8 +330,11 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
         public void LineConnection(GameObject pObjToConnect)
         {
             energize = true;
-            ConnectionEffect();
-            AnimateConnection(true);
+            if (PlayerAround())
+            {
+                ConnectionEffect();
+                AnimateConnection(true);
+            }
             ClearPreviewLines(); 
             
             lightning = lightningNodeScene.Instantiate<LightningNode>();
@@ -422,6 +426,21 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
         #region TryDisplayPreviewIfPlayerNearby
         //Triggers a preview of potential connections if the player is nearby.
 
+        private bool PlayerAround()
+        {
+            Vector2 lPlayerPos = new(Player.GetInstance().x, Player.GetInstance().y);
+            Vector2 lDelta = lPlayerPos - new Vector2(x, y);
+
+            if ((Mathf.Abs(lDelta.X) == 1 && lDelta.Y == 0) || (Mathf.Abs(lDelta.Y) == 1 && lDelta.X == 0))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         public void TryDisplayPreviewIfPlayerNearby()
         {
             if (energize)
@@ -438,9 +457,13 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
             Vector2 lDelta = lPlayerPos - new Vector2(x, y);
 
             if ((Mathf.Abs(lDelta.X) == 1 && lDelta.Y == 0) || (Mathf.Abs(lDelta.Y) == 1 && lDelta.X == 0))
+            {
                 ShowPotentialConnections();
+            }
             else
+            {
                 ClearPreviewLines();
+            }
         }
         
 
