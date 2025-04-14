@@ -41,7 +41,8 @@ public partial class EnumSong
         playerMove,
         playerTravel,
         teslaConnection,
-        bulbOff
+        bulbOff,
+        winScreenLightning
     }
 
 }
