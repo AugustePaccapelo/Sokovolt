@@ -477,7 +477,7 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 
 			float lBaseDelay = 0.02f; 
 			float lRandDelay; 
-			int lMaxDistancePropulsion = 1000; 
+			int lMaxDistancePropulsion = 1000;
 
 			for (int i = 0; i < lObjectsToAnimate.Count; i++)
 			{
@@ -500,9 +500,12 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 
 				await ToSignal(GetTree().CreateTimer(lRandDelay), TIME_OUT);
 			}
-			AnimateVortex(vortex); 
 
-			foreach(Node2D lObject in lObjectsToAnimate)
+            await ToSignal(GetTree().CreateTimer(1f), "timeout");
+
+            AnimateVortex(vortex);
+
+            foreach (Node2D lObject in lObjectsToAnimate)
 			{
 				Tween lTween = CreateTween(); 
 				lTween.TweenProperty(lObject, POSITION, lVortexCenter, 1.3f)

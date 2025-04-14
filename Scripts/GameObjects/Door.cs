@@ -76,7 +76,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
 			openCloseAnimation.PlayBackwards();
 			
 			Camera2D lCamera = GameManager.GetInstance().camera;
-			AnimationManager.GetInstance().CameraZoomTraveling(lCamera, 0.5f, 0.8f, Position, GameManager.GetInstance().cameraDefaultPos, 1.5f);
+			AnimationManager.GetInstance().CameraZoomTraveling(lCamera, 0.5f, 0.8f, Position, GameManager.GetInstance().cameraDefaultPos, 1.5f).SetTrans(Tween.TransitionType.Sine);
         }
 
         public void Close()

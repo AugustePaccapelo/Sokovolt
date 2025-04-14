@@ -32,12 +32,14 @@ energy = 0.3
 texture = ExtResource("192_dw8oj")
 
 [node name="SmallGenerator1" type="Sprite2D" parent="Sprite2D"]
+visible = false
 modulate = Color(0.67069, 0.67069, 0.67069, 1)
 position = Vector2(943.529, -536.471)
 scale = Vector2(0.0667227, 0.0667227)
 texture = ExtResource("6_hgoe2")
 
 [node name="SmallGenerator2" type="Sprite2D" parent="Sprite2D"]
+visible = false
 modulate = Color(0.67069, 0.67069, 0.67069, 1)
 position = Vector2(-904.706, -530.588)
 rotation = -3.14159
@@ -45,12 +47,14 @@ scale = Vector2(0.0670588, -0.0670588)
 texture = ExtResource("8_1c8h6")
 
 [node name="Box1" type="Sprite2D" parent="Sprite2D"]
+visible = false
 modulate = Color(0.362829, 0.362829, 0.362829, 1)
 position = Vector2(-418.824, 603.529)
 scale = Vector2(0.0934454, 0.0934454)
 texture = ExtResource("5_iras0")
 
 [node name="Box2" type="Sprite2D" parent="Sprite2D"]
+visible = false
 modulate = Color(0.362829, 0.362829, 0.362829, 1)
 position = Vector2(412.941, 603.529)
 rotation = -3.14159
