@@ -42,7 +42,9 @@ public partial class EnumSong
         playerTravel,
         teslaConnection,
         bulbOff,
-        winScreenLightning
+        winScreenLightning,
+        vortexSound,
+        vortexLight
     }
 
 }

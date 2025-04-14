@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=3 uid="uid://dkbx646vvyaig"]
+[gd_scene load_steps=62 format=3 uid="uid://dkbx646vvyaig"]
 
 [ext_resource type="PackedScene" uid="uid://dyk47lo67a1tp" path="res://Scenes/Managers/ui_manager.tscn" id="1_4603a"]
 [ext_resource type="PackedScene" uid="uid://bnv0kco0ylr0e" path="res://Scenes/Managers/GridManager.tscn" id="1_d671q"]
@@ -59,6 +59,8 @@
 [ext_resource type="AudioStream" uid="uid://kh7nmegy22us" path="res://Song/SoundGameObject/TeslaConnection.ogg" id="54_2iqt8"]
 [ext_resource type="AudioStream" uid="uid://bh3yiqj3r2ege" path="res://Song/SoundGameObject/LightOff.ogg" id="55_7a4jt"]
 [ext_resource type="AudioStream" uid="uid://c6ky0milwyd86" path="res://Song/SoundGameObject/WinScreenLightning.ogg" id="56_e5c8y"]
+[ext_resource type="AudioStream" uid="uid://j366p311yw4m" path="res://Song/SoundGameObject/vortexSound.ogg" id="57_rubtt"]
+[ext_resource type="AudioStream" uid="uid://dkrhjfju5tce4" path="res://Song/SoundGameObject/vortexLightningCut.ogg" id="58_qlfj2"]
 
 [node name="MAIN" type="Node2D"]
 
@@ -260,7 +262,13 @@ volume_db = 10.0
 
 [node name="AudioStreamPlayer 30" type="AudioStreamPlayer" parent="Managers/SongManager"]
 stream = ExtResource("56_e5c8y")
-volume_db = 10.0
+
+[node name="AudioStreamPlayer 31" type="AudioStreamPlayer" parent="Managers/SongManager"]
+stream = ExtResource("57_rubtt")
+
+[node name="AudioStreamPlayer 32" type="AudioStreamPlayer" parent="Managers/SongManager"]
+stream = ExtResource("58_qlfj2")
+max_polyphony = 5
 
 [node name="DialogManager" parent="Managers" instance=ExtResource("42_hfyqr")]
 
