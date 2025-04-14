@@ -19,6 +19,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
         public static List<BoxTesla> boxTeslasList = new List<BoxTesla>();
         public static List<Generator> generatorList = new List<Generator>();
         public static List<BoxTesla> TeslasConnected = new List<BoxTesla>();
+        public static List<BoxTesla> lastTeslasConnected = new List<BoxTesla>();
         public static List<BoxTesla> lastTeslas = new List<BoxTesla>();
 
         public override void _Ready()
@@ -41,9 +42,10 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
 
         private void DisconnectedAll()
         {
-            foreach (BoxTesla lBox in boxTeslasList)
-                lBox.LineDeconnection();
+            /*foreach (BoxTesla lBox in boxTeslasList)
+                lBox.LineDeconnection();*/
             Player.canTravel = false;
+            lastTeslasConnected = new List<BoxTesla> (TeslasConnected);
             TeslasConnected.Clear();
             lastTeslas.Clear();
         }
@@ -62,7 +64,9 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
                     BoxTesla lBox = Search(lGenerator);
                     if (lBox != null && !TeslasConnected.Contains(lBox))
                     {
-                        lBox.LineConnection(lGenerator);
+                        if (!lastTeslasConnected.Contains(lBox))
+                            lBox.LineConnection(lGenerator);
+                        //lBox.LineConnection(lGenerator);
                         TeslasConnected.Add(lBox);
                         lastTeslas.Add(lBox);
                     }
@@ -83,12 +87,21 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
                 BoxTesla lBox = Search(lLastTesla);
                 if (lBox == null) break;
 
-                lBox.LineConnection(lLastTesla);
-                lastTeslas[i] = lBox;
+                    if (!lastTeslasConnected.Contains(lBox))
+                        lBox.LineConnection(lLastTesla);
+                    //lBox.LineConnection(lLastTesla);
+                    lastTeslas[i] = lBox;
                 lLastTesla = lBox;
                 TeslasConnected.Add(lBox);
             }
         }
+
+        foreach (BoxTesla lBox in lastTeslasConnected)
+            {
+                if (!TeslasConnected.Contains(lBox))
+                    lBox.LineDeconnection();
+            }
+
         CustomSignals.GetInstance()?.EmitSignal(CustomSignals.SignalName.BoxTeslaCalculsDone);
         Player.canTravel = true;
     }
