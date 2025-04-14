@@ -1,4 +1,4 @@
-[gd_scene load_steps=77 format=3 uid="uid://dht3qeqhib1rk"]
+[gd_scene load_steps=84 format=3 uid="uid://dht3qeqhib1rk"]
 
 [ext_resource type="Script" path="res://Scripts/Controls/LevelSelector.cs" id="1_7onrw"]
 [ext_resource type="Texture2D" uid="uid://dyr30pkkewie" path="res://Assets/UI/MainMenu/LevelScreen.png" id="2_u4r7s"]
@@ -6,7 +6,9 @@
 [ext_resource type="Script" path="res://Scripts/GameObjects/ButtonTemplate.cs" id="4_tfihn"]
 [ext_resource type="PackedScene" uid="uid://dt8mu0rub45fm" path="res://Scenes/GameObjects/LevelSelectorObject/score_screen.tscn" id="5_1sge3"]
 [ext_resource type="Texture2D" uid="uid://o7dxw8nc0gvi" path="res://Assets/UI/MainMenu/CarpetBorder.png" id="5_8e1ql"]
+[ext_resource type="Texture2D" uid="uid://bp2mlj6eeovtb" path="res://Assets/UI/MainMenu/BackGround/BackGroundWall.png" id="5_l1c0r"]
 [ext_resource type="Texture2D" uid="uid://6qajctfobfih" path="res://Assets/UI/MainMenu/CarpetBorder2.png" id="6_cobsf"]
+[ext_resource type="Texture2D" uid="uid://uv5e87go3uen" path="res://Assets/main menu/Ecran/Ecran Copie 3.png" id="7_7v0ew"]
 [ext_resource type="Texture2D" uid="uid://c767fcajnj2yi" path="res://Assets/Shaders/Effects/Glow.png" id="7_c1v7e"]
 [ext_resource type="Texture2D" uid="uid://d027gw6ax6ujo" path="res://Assets/UI/MainMenu/Carpet.png" id="11_cogra"]
 [ext_resource type="Texture2D" uid="uid://6ogwctw6dhxl" path="res://Assets/UI/MainMenu/Manette.png" id="11_uwiep"]
@@ -18,6 +20,7 @@
 [ext_resource type="FontFile" uid="uid://eycyixjjf4a7" path="res://Assets/Font/BubbleSans-Regular.otf" id="22_nbaik"]
 [ext_resource type="Texture2D" uid="uid://c7un4g41qom0x" path="res://Assets/UI/MainMenu/machine.png" id="23_835b2"]
 [ext_resource type="PackedScene" uid="uid://bs1v2cedkky8a" path="res://Scenes/GameObjects/LevelSelectorObject/wheel.tscn" id="24_kc3pk"]
+[ext_resource type="Texture2D" uid="uid://dch7jfadg5yla" path="res://Assets/UI/bouton4.png" id="25_hr6u5"]
 [ext_resource type="Shader" uid="uid://bum2gqlmpu2kv" path="res://Assets/Shaders/ElectricBoltShader.tres" id="25_wd3ca"]
 [ext_resource type="Texture2D" uid="uid://c66l3g8bbn3hb" path="res://Assets/Shaders/Effects/VFX Thunder.jpg" id="26_mswj5"]
 [ext_resource type="Texture2D" uid="uid://8vcio7y6idoy" path="res://Assets/Shaders/Effects/SparksParticles.PNG" id="27_nqaoa"]
@@ -320,52 +323,27 @@ scale_max = 0.05
 scale_curve = SubResource("CurveXYZTexture_a3vvu")
 color = Color(1, 0.780392, 0, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t6bik"]
-bg_color = Color(0.229689, 0.533455, 0.195961, 1)
-border_width_left = 5
-border_width_top = 5
-border_width_right = 5
-border_width_bottom = 5
-border_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 40
-corner_radius_top_right = 40
-corner_radius_bottom_right = 40
-corner_radius_bottom_left = 40
-corner_detail = 16
-shadow_color = Color(0, 0, 0, 0.545098)
-shadow_size = 5
-shadow_offset = Vector2(10, 10)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0p1kw"]
+texture = ExtResource("25_hr6u5")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_toftg"]
-bg_color = Color(0.12115, 0.303284, 0.100869, 1)
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 3
-border_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 40
-corner_radius_top_right = 40
-corner_radius_bottom_right = 40
-corner_radius_bottom_left = 40
-corner_detail = 16
-shadow_color = Color(0, 0, 0, 0.545098)
-shadow_size = 2
-shadow_offset = Vector2(10, 10)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1bxjt"]
+texture = ExtResource("25_hr6u5")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eb3a8"]
-bg_color = Color(0.143672, 0.269625, 0.136606, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 40
-corner_radius_top_right = 40
-corner_radius_bottom_right = 40
-corner_radius_bottom_left = 40
-corner_detail = 16
-shadow_color = Color(0, 0, 0, 0.545098)
-shadow_offset = Vector2(10, 10)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0oob7"]
+texture = ExtResource("25_hr6u5")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vlydo"]
+texture = ExtResource("25_hr6u5")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xin8t"]
+texture = ExtResource("25_hr6u5")
+
+[sub_resource type="InputEventKey" id="InputEventKey_hc5vy"]
+device = -1
+keycode = 4194305
+
+[sub_resource type="Shortcut" id="Shortcut_6t8uj"]
+events = [SubResource("InputEventKey_hc5vy")]
 
 [node name="LevelSelector" type="Control" node_paths=PackedStringArray("buttonRight", "buttonLaunch", "buttonLeft", "buttonUnlockAll", "buttonMainMenu", "carpetTexture", "teslaContainer", "scoreBoard")]
 layout_mode = 3
@@ -384,14 +362,15 @@ teslaContainer = NodePath("TeslaContainer")
 scoreBoard = NodePath("ScoreScreen")
 teslaPosY = 630
 
-[node name="BackGround" type="ColorRect" parent="."]
+[node name="BackGround" type="TextureRect" parent="."]
 z_index = -2
 layout_mode = 0
-offset_left = -21.0
-offset_top = -29.0
-offset_right = 1969.0
-offset_bottom = 1167.0
-color = Color(0.194349, 0.194349, 0.194349, 1)
+offset_left = -13.0
+offset_top = -45.0
+offset_right = 3487.0
+offset_bottom = 3455.0
+scale = Vector2(0.551785, 0.551785)
+texture = ExtResource("5_l1c0r")
 
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="BackGround"]
 position = Vector2(21, 29)
@@ -401,8 +380,13 @@ range_z_min = 0
 range_z_max = 50
 
 [node name="ScoreScreen" parent="." instance=ExtResource("5_1sge3")]
-position = Vector2(1557, 323)
+position = Vector2(1487, 386)
 scale = Vector2(1.17565, 1.17565)
+
+[node name="EcranCopie3" type="Sprite2D" parent="ScoreScreen"]
+position = Vector2(-4.25295, -301.11)
+scale = Vector2(0.592772, 0.345064)
+texture = ExtResource("7_7v0ew")
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
 position = Vector2(12, 773)
@@ -941,22 +925,24 @@ turnRight = true
 
 [node name="MainMenuButton" parent="." instance=ExtResource("20_0nxsh")]
 layout_mode = 0
-offset_left = 1416.0
-offset_top = 928.0
-offset_right = 1712.0
-offset_bottom = 1053.0
+offset_left = 1591.0
+offset_top = 892.0
+offset_right = 1887.0
+offset_bottom = 1017.0
 pivot_offset = Vector2(148, 62)
-theme_override_font_sizes/font_size = 60
-theme_override_styles/normal = SubResource("StyleBoxFlat_t6bik")
-theme_override_styles/hover = SubResource("StyleBoxFlat_toftg")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_eb3a8")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_eb3a8")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_e6but")
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxTexture_0p1kw")
+theme_override_styles/hover = SubResource("StyleBoxTexture_1bxjt")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_0oob7")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_vlydo")
+theme_override_styles/focus = SubResource("StyleBoxTexture_xin8t")
+shortcut = SubResource("Shortcut_6t8uj")
 text = "MAIN MENU"
 
 [node name="PointLight2D" type="PointLight2D" parent="MainMenuButton"]
 position = Vector2(147, 63)
 scale = Vector2(4.88936, 1.74199)
-color = Color(0, 1, 0, 1)
+color = Color(1, 0.4, 0, 1)
+energy = 0.83
 texture = ExtResource("7_c1v7e")
 texture_scale = 0.1

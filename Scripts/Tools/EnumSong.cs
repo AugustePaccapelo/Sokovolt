@@ -32,7 +32,9 @@ public partial class EnumSong
         AmbianceMenumusic,
         AmbianceGamemusic,
         ButonSong,
-        TVsong
+        TVsong,
+        LevelCreatorClick,
+        levelCreatorMenuClick
     }
 
 }
