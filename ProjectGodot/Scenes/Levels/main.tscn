@@ -270,7 +270,7 @@ stream = ExtResource("57_rubtt")
 
 [node name="AudioStreamPlayer 32" type="AudioStreamPlayer" parent="Managers/SongManager"]
 stream = ExtResource("58_qlfj2")
-max_polyphony = 5
+max_polyphony = 2
 
 [node name="DialogManager" parent="Managers" instance=ExtResource("42_hfyqr")]
 
