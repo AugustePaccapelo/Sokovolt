@@ -84,7 +84,11 @@ namespace Com.IsartDigital.SokoVolt{
 			winScreen.ZIndex = 50;
 			lTween.TweenProperty(winScreen, ObjectProperties.POSITION, Vector2.Zero, 1f);
 			winScreen.UpdateStats(storedScore, storedNumStep);
-			GetTree().CreateTimer(1f).Timeout += () => winScreen.StarSysteme(storedNumStar);
+			GetTree().CreateTimer(1f).Timeout += () =>
+			{
+				if (IsInstanceValid(winScreen))
+					winScreen.StarSysteme(storedNumStar);
+			};
 		}
 
 		

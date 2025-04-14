@@ -66,15 +66,18 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables {
 				isTraveling = true;
                 InputManager.canPlayerMove = false;
                 inTeslaParticles.Show();
-				dectetor.Monitorable = false;
+				//dectetor.Monitorable = false;
 				MoveTo(pTesla.x, pTesla.y, GridManager.GetInstance().grid);
 				if (ConnectionManagers.lastTeslas.Contains(pTesla))
+				{
 					wasInTesla = true;
-					GetTree().CreateTimer(0.25f).Timeout += () => {
+                    canTravel = false;
+                    GetTree().CreateTimer(0.25f).Timeout += () =>
+					{
 						InputManager.canPlayerMove = true;
 						isTraveling = false;
-						canTravel = false;
 					};
+				}
 			}
         }
 
@@ -83,12 +86,12 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables {
             base.MoveTo(pX, pY, pGrid);
 
 			CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.PlayerMoved);
-			//canTravel = false;
+			
             moveparticulr.Emitting=true;
-			if (wasInTesla) {
-				canTravel = true;
-				wasInTesla = false;
-			}
+			if (wasInTesla & !isTraveling) {
+                canTravel = true;
+                wasInTesla = false;
+            }
         }
 
         public async void MoveAlongPath(List<Vector2> pPath)

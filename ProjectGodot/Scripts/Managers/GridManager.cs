@@ -220,7 +220,7 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 				if (boxTargetCell.GetContent() == null || boxTargetCell.GetContent() is Door)
 				{
 					box.MoveTo(boxTargetX, boxTargetY, grid);
-					Player.canTravel = false;
+					//Player.canTravel = false;
 					box.MovableHaveFinish += (sender) => MovableFinished(sender, box);
                     player.MoveTo(newX, newY, grid);
 					StockGridState();
@@ -233,7 +233,7 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 
 		private void MovableFinished(Movable pSender, BoxTesla pBox)
 		{
-			Player.canTravel = true;
+			//Player.canTravel = true;
 			pBox.MovableHaveFinish -= (sender) => MovableFinished(sender, pBox);
 		}
 
@@ -363,7 +363,7 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 		// Replaces positions of movable objects from grid content
 		private void UpdateObjectsFromGrid()
 		{
-			Player.canTravel = false;
+			//Player.canTravel = false;
 			for (int y = 0; y < LevelLoader.levelHeight; y++)
 			{
 				for (int x = 0; x < LevelLoader.levelWidth; x++)
