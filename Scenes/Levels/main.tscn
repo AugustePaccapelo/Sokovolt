@@ -63,8 +63,6 @@ script = ExtResource("3_3tpao")
 custom_minimum_size = Vector2(1152, 648)
 arrowMinRotation = 0.0
 arrowMaxRotation = 0.0
-arrowMinSpeed = 0.0
-arrowMaxSpeed = 0.0
 lightsMinOnDuration = 0.0
 lightsMaxOnDuration = 0.0
 lightsMinOffDuration = 0.0
@@ -106,9 +104,8 @@ goalBulbScene = ExtResource("10_cjqye")
 generatorScene = ExtResource("11_lsk15")
 doorScene = ExtResource("12_pyytn")
 
-[node name="GameManager" parent="Managers" node_paths=PackedStringArray("objectsContainer", "shaker", "camera") instance=ExtResource("7_vkagg")]
+[node name="GameManager" parent="Managers" node_paths=PackedStringArray("objectsContainer", "camera") instance=ExtResource("7_vkagg")]
 objectsContainer = NodePath("../../Containers/ObjectsContainer")
-shaker = NodePath("Shaker")
 camera = NodePath("Camera")
 
 [node name="Camera" type="Camera2D" parent="Managers/GameManager"]

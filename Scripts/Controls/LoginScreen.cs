@@ -33,7 +33,8 @@ namespace Com.IsartDigital.SokoVolt
 		[Export] private Control arrowsHolder;
 		private TextureRect[] arrows;
 		[Export] private float arrowMinRotation, arrowMaxRotation;
-		[Export] private float arrowMinSpeed, arrowMaxSpeed;
+		[Export] private float arrowMinSpeed = -100;
+		[Export] private float arrowMaxSpeed = 100;
 		private float[] currentArrowsSpeeds;
 		private float minTimeSpeedChange = 0.5f;
 		private float maxTimeSpeedChange = 2f;
@@ -146,6 +147,15 @@ namespace Com.IsartDigital.SokoVolt
 				allLights[i] = lightHolder.GetChild<PointLight2D>(i);
 				lightsEnergies[i] = allLights[i].Energy;
 			}
+
+			arrowMinSpeed = -50;
+			arrowMaxSpeed = 50;
+			arrowMinRotation = -128;
+			arrowMaxRotation = 49;
+			lightsMinOnDuration = 0.5f;
+			lightsMaxOnDuration = 3f;
+			lightsMinOffDuration = 0.5f;
+			lightsMaxOffDuration = 2.5f;
         }
 
         public override void _Process(double pDelta)
@@ -198,18 +208,18 @@ namespace Com.IsartDigital.SokoVolt
 				if (nextSpeedChange[i] <= 0)
 				{
 					nextSpeedChange[i] = rand.RandfRange(minTimeSpeedChange, maxTimeSpeedChange);
-					currentArrowsSpeeds[i] = rand.RandfRange(arrowMinSpeed, arrowMaxSpeed);
+                    currentArrowsSpeeds[i] = rand.RandfRange(arrowMinSpeed, arrowMaxSpeed);
 				}
 				else
 				{
                     nextSpeedChange[i] -= pDelta;
-					arrows[i].RotationDegrees += currentArrowsSpeeds[i] * pDelta;
+                    arrows[i].RotationDegrees += currentArrowsSpeeds[i] * pDelta;
 					if (arrows[i].RotationDegrees < arrowMinRotation)
 					{
 						arrows[i].RotationDegrees = arrowMinRotation;
 						nextSpeedChange[i] = 0f;
 					}
-					if (arrows[i].RotationDegrees >= arrowMaxRotation)
+					if (arrows[i].RotationDegrees > arrowMaxRotation)
 					{
                         arrows[i].RotationDegrees = arrowMaxRotation;
                         nextSpeedChange[i] = 0f;

@@ -53,8 +53,6 @@ lightningEndPos = NodePath("LightninhEndPos")
 arrowsHolder = NodePath("ArrowsHolder")
 arrowMinRotation = -128.0
 arrowMaxRotation = 49.0
-arrowMinSpeed = -100.0
-arrowMaxSpeed = 100.0
 lightHolder = NodePath("LightsHolder")
 lightsMinOnDuration = 0.5
 lightsMaxOnDuration = 3.0
@@ -73,30 +71,20 @@ vBoxCreateConfirmPass = NodePath("Create/VBoxScreenHolder/VBoxConfirmPassWord")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
 offset_left = 97.0
 offset_top = 3.0
-offset_right = -1122.0
-offset_bottom = -376.0
-grow_horizontal = 2
-grow_vertical = 2
+offset_right = 798.0
+offset_bottom = 704.0
 rotation = -0.415835
 texture = ExtResource("6_dwgef")
 expand_mode = 1
 
 [node name="TextureRect2" type="TextureRect" parent="."]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
 offset_left = 1301.0
 offset_top = -287.0
-offset_right = 82.0
-offset_bottom = -666.0
-grow_horizontal = 2
-grow_vertical = 2
+offset_right = 2002.0
+offset_bottom = 414.0
 rotation = 0.591659
 texture = ExtResource("6_dwgef")
 expand_mode = 1
@@ -118,7 +106,7 @@ expand_mode = 1
 
 [node name="TextureRect3" type="TextureRect" parent="."]
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 545.0
@@ -132,7 +120,7 @@ expand_mode = 1
 
 [node name="TextureRect5" type="TextureRect" parent="."]
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 715.0
@@ -159,7 +147,7 @@ grow_vertical = 2
 
 [node name="TextureRect4" type="TextureRect" parent="."]
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 715.0
@@ -353,7 +341,7 @@ offset_left = 1249.64
 offset_top = 557.824
 offset_right = 1280.64
 offset_bottom = 588.824
-rotation = -0.0590452
+rotation = -0.0643659
 pivot_offset = Vector2(5, 28)
 texture = ExtResource("3_gqu63")
 expand_mode = 1
