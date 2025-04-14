@@ -1,0 +1,127 @@
+[gd_scene load_steps=15 format=3 uid="uid://4rkwvdch7gma"]
+
+[ext_resource type="Script" path="res://Scripts/Controls/CreditMenu.cs" id="1_mdh4b"]
+[ext_resource type="Texture2D" uid="uid://c7wojc7h5sjkq" path="res://Assets/UI/MainMenu/BackGround/FlouBackground2.png" id="2_7e5y5"]
+[ext_resource type="FontFile" uid="uid://eycyixjjf4a7" path="res://Assets/Font/BubbleSans-Regular.otf" id="3_htif1"]
+[ext_resource type="PackedScene" uid="uid://36dp5dq6hmqq" path="res://Scenes/GameObjects/ButtonTemplate.tscn" id="4_ylmda"]
+[ext_resource type="Texture2D" uid="uid://dch7jfadg5yla" path="res://Assets/UI/bouton4.png" id="5_w43b0"]
+[ext_resource type="Texture2D" uid="uid://c767fcajnj2yi" path="res://Assets/Shaders/Effects/Glow.png" id="6_6nyxb"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_5ugp8"]
+font = ExtResource("3_htif1")
+font_size = 48
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_kwove"]
+texture = ExtResource("5_w43b0")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_st4t7"]
+texture = ExtResource("5_w43b0")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_e5gf2"]
+texture = ExtResource("5_w43b0")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_m576l"]
+texture = ExtResource("5_w43b0")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bfsd5"]
+texture = ExtResource("5_w43b0")
+
+[sub_resource type="InputEventKey" id="InputEventKey_hc5vy"]
+device = -1
+keycode = 4194305
+
+[sub_resource type="Shortcut" id="Shortcut_7xv0n"]
+events = [SubResource("InputEventKey_hc5vy")]
+
+[node name="CreditsMenu" type="Control" node_paths=PackedStringArray("maiMenuButton")]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+script = ExtResource("1_mdh4b")
+maiMenuButton = NodePath("MainMenuButton")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+offset_left = 2.0
+offset_top = -457.0
+offset_right = 3502.0
+offset_bottom = 3043.0
+scale = Vector2(0.551645, 0.551645)
+texture = ExtResource("2_7e5y5")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -475.5
+offset_top = -89.5
+offset_right = 475.5
+offset_bottom = 89.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 100
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 50
+
+[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "FERLAT Thibaud"
+label_settings = SubResource("LabelSettings_5ugp8")
+horizontal_alignment = 1
+
+[node name="Label3" type="Label" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "SOUKAI WILLIAM"
+label_settings = SubResource("LabelSettings_5ugp8")
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "SALES Noe"
+label_settings = SubResource("LabelSettings_5ugp8")
+horizontal_alignment = 1
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 50
+
+[node name="Label4" type="Label" parent="HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+text = "PACCAPELO AUGUSTE"
+label_settings = SubResource("LabelSettings_5ugp8")
+horizontal_alignment = 1
+
+[node name="Label5" type="Label" parent="HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+text = "UTRELA DYLAN"
+label_settings = SubResource("LabelSettings_5ugp8")
+horizontal_alignment = 1
+
+[node name="MainMenuButton" parent="." instance=ExtResource("4_ylmda")]
+offset_left = 1591.0
+offset_top = 892.0
+offset_right = 1887.0
+offset_bottom = 1017.0
+pivot_offset = Vector2(148, 62)
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxTexture_kwove")
+theme_override_styles/hover = SubResource("StyleBoxTexture_st4t7")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_e5gf2")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_m576l")
+theme_override_styles/focus = SubResource("StyleBoxTexture_bfsd5")
+shortcut = SubResource("Shortcut_7xv0n")
+text = "MAIN MENU"
+
+[node name="PointLight2D" type="PointLight2D" parent="MainMenuButton"]
+position = Vector2(147, 63)
+scale = Vector2(4.88936, 1.74199)
+color = Color(1, 0.4, 0, 1)
+energy = 0.2
+texture = ExtResource("6_6nyxb")
+texture_scale = 0.1

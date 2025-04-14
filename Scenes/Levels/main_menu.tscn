@@ -1,8 +1,9 @@
-[gd_scene load_steps=63 format=3 uid="uid://bsl1nyen453ty"]
+[gd_scene load_steps=65 format=3 uid="uid://bsl1nyen453ty"]
 
 [ext_resource type="Script" path="res://Scripts/Controls/MainMenu.cs" id="1_3kguo"]
 [ext_resource type="Texture2D" uid="uid://cjfiwjyraoqrp" path="res://Assets/main menu/Box millieu/GROS.png" id="2_0r0tr"]
 [ext_resource type="PackedScene" uid="uid://skkxmuo6i42b" path="res://Scenes/UI/buttonScenes.tscn" id="2_2c73t"]
+[ext_resource type="Texture2D" uid="uid://bucdnkxgbroax" path="res://Assets/UI/MainMenu/BackGround/background3.png" id="2_sxvw6"]
 [ext_resource type="Texture2D" uid="uid://csqx2ogx2bfh1" path="res://Assets/main menu/tuyaux/Gauche Copie 2.png" id="3_igut3"]
 [ext_resource type="Texture2D" uid="uid://c4jxbycfeeadq" path="res://Assets/Shaders/Effects/Rectangle 1.png" id="4_7yevi"]
 [ext_resource type="Texture2D" uid="uid://duf1bxrvxgcn4" path="res://Assets/main menu/Box millieu/Calque 15 Copie.png" id="4_e6tyd"]
@@ -212,6 +213,9 @@ _data = {
 "mainMenuAnimation": SubResource("Animation_ukjwr")
 }
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7bb8a"]
+draw_center = false
+
 [sub_resource type="Gradient" id="Gradient_fyd0c"]
 offsets = PackedFloat32Array(0, 0.238579, 1)
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
@@ -367,12 +371,13 @@ fill = 2
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2e72e"]
 
-[node name="MainMenu" type="Control" node_paths=PackedStringArray("startButton", "levelCreatorButton", "unlogButton", "optionButton", "quitButton", "anime", "teleButton", "neigeButton", "neige")]
+[node name="MainMenu" type="Control" node_paths=PackedStringArray("startButton", "creditButton", "levelCreatorButton", "unlogButton", "optionButton", "quitButton", "anime", "teleButton", "neigeButton", "neige")]
 layout_mode = 3
 anchors_preset = 0
 size_flags_horizontal = 4
 script = ExtResource("1_3kguo")
 startButton = NodePath("Panel/StartButton")
+creditButton = NodePath("CreditButton")
 levelCreatorButton = NodePath("Panel/LevelCreator")
 unlogButton = NodePath("Panel/StartButton2")
 optionButton = NodePath("Panel/option")
@@ -380,7 +385,17 @@ quitButton = NodePath("Panel/StartButton3")
 anime = NodePath("AnimationPlayer")
 teleButton = NodePath("Button")
 neigeButton = NodePath("Button2")
-neige = NodePath("Panel/GPUParticles2D2")
+neige = NodePath("Panel/GPUParticles2D3")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+modulate = Color(0.473976, 0.473976, 0.473976, 1)
+layout_mode = 0
+offset_left = -145.0
+offset_top = -19.0
+offset_right = 3355.0
+offset_bottom = 3481.0
+scale = Vector2(0.622519, 0.622519)
+texture = ExtResource("2_sxvw6")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 deterministic = true
@@ -394,6 +409,7 @@ movie_quit_on_finish = true
 layout_mode = 1
 offset_right = 1920.0
 offset_bottom = 1080.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_7bb8a")
 
 [node name="ArrierePlan" type="Sprite2D" parent="Panel"]
 position = Vector2(-3.05176e-05, 792)
@@ -826,3 +842,13 @@ theme_override_styles/normal = SubResource("StyleBoxEmpty_pku4p")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_v57ny")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_p04hm")
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_2e72e")
+
+[node name="CreditButton" parent="." instance=ExtResource("2_2c73t")]
+layout_mode = 1
+offset_left = 938.0
+offset_top = 456.0
+offset_right = 1258.0
+offset_bottom = 584.0
+grow_horizontal = 1
+grow_vertical = 1
+scale = Vector2(0.191861, 0.602789)
