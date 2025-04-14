@@ -1,4 +1,4 @@
-[gd_scene load_steps=58 format=3 uid="uid://dkbx646vvyaig"]
+[gd_scene load_steps=59 format=3 uid="uid://dkbx646vvyaig"]
 
 [ext_resource type="PackedScene" uid="uid://dyk47lo67a1tp" path="res://Scenes/Managers/ui_manager.tscn" id="1_4603a"]
 [ext_resource type="PackedScene" uid="uid://bnv0kco0ylr0e" path="res://Scenes/Managers/GridManager.tscn" id="1_d671q"]
@@ -28,7 +28,7 @@
 [ext_resource type="Script" path="res://Scripts/Managers/SongManager.cs" id="24_lgxf0"]
 [ext_resource type="AudioStream" uid="uid://cbq85vvh8fln7" path="res://Song/roblox-death-sound_1.mp3" id="26_0femv"]
 [ext_resource type="PackedScene" uid="uid://bkskxcspqook3" path="res://Scenes/BackGround/AnimatedBackGround.tscn" id="26_rfowc"]
-[ext_resource type="AudioStream" uid="uid://i6cx6t334ddb" path="res://Song/SoundGameObject/BoxSlide.ogg" id="27_25bye"]
+[ext_resource type="AudioStream" uid="uid://b68bt1c4p8fa8" path="res://Song/SoundGameObject/TeslaSlide.ogg" id="27_6kt2n"]
 [ext_resource type="AudioStream" uid="uid://bxlpblj5mcaof" path="res://Song/clicksoundeffect.mp3" id="28_eg566"]
 [ext_resource type="AudioStream" uid="uid://dn32i8tby2xfr" path="res://Song/TitleCardSound/spotlight-91359.mp3" id="29_3qccr"]
 [ext_resource type="AudioStream" uid="uid://difbx1u6twx0t" path="res://Song/LevelSelectorSound/whirl-50468.mp3" id="30_asyhk"]
@@ -51,12 +51,13 @@
 [ext_resource type="AudioStream" uid="uid://b8wh0uhv48l0j" path="res://Song/AmbiantSounds/Brasch Tactics in HD Compilation - HellDivers 2.mp3" id="45_ooqfe"]
 [ext_resource type="AudioStream" uid="uid://c5ocvyd143xwi" path="res://Scripts/Managers/levelCreatorClick.ogg" id="47_g5bik"]
 [ext_resource type="AudioStream" uid="uid://bk2rbduwhbv23" path="res://Song/LevelCreator/370844__cabled_mess__ping_minimal-ui-sounds.wav" id="48_l0vam"]
-[ext_resource type="AudioStream" uid="uid://ckfj0y0otg7j7" path="res://Song/SoundGameObject/DoorOpen.ogg" id="49_1xa0b"]
-[ext_resource type="AudioStream" uid="uid://wuvtocspv4jt" path="res://Song/SoundGameObject/LightUp.ogg" id="50_utlnc"]
+[ext_resource type="AudioStream" uid="uid://hg0togxcltu6" path="res://Song/SoundGameObject/DoorOpen.ogg" id="49_1xa0b"]
+[ext_resource type="AudioStream" uid="uid://j8a0wlerg0yr" path="res://Song/SoundGameObject/LightOn.ogg" id="50_sqma4"]
 [ext_resource type="AudioStream" uid="uid://blvcd14uq6osb" path="res://Song/SoundGameObject/Piston.ogg" id="51_iilcr"]
 [ext_resource type="AudioStream" uid="uid://bwf6k5sb416ar" path="res://Song/SoundGameObject/PlayerMove.ogg" id="52_65gwj"]
 [ext_resource type="AudioStream" uid="uid://ck8gcm50f6ijp" path="res://Song/SoundGameObject/PlayerTravel.ogg" id="53_p3ggb"]
 [ext_resource type="AudioStream" uid="uid://kh7nmegy22us" path="res://Song/SoundGameObject/TeslaConnection.ogg" id="54_2iqt8"]
+[ext_resource type="AudioStream" uid="uid://bh3yiqj3r2ege" path="res://Song/SoundGameObject/LightOff.ogg" id="55_7a4jt"]
 
 [node name="MAIN" type="Node2D"]
 
@@ -135,11 +136,14 @@ script = ExtResource("22_ah2rb")
 script = ExtResource("24_lgxf0")
 
 [node name="AudioStreamPlayer1" type="AudioStreamPlayer" parent="Managers/SongManager"]
-stream = ExtResource("27_25bye")
+stream = ExtResource("27_6kt2n")
+volume_db = -8.0
+pitch_scale = 0.7
 bus = &"SFX"
 
 [node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="Managers/SongManager"]
 stream = ExtResource("26_0femv")
+volume_db = 20.0
 bus = &"SFX"
 
 [node name="AudioStreamPlayer3" type="AudioStreamPlayer" parent="Managers/SongManager"]
@@ -227,9 +231,11 @@ stream = ExtResource("48_l0vam")
 
 [node name="AudioStreamPlayer 23" type="AudioStreamPlayer" parent="Managers/SongManager"]
 stream = ExtResource("49_1xa0b")
+volume_db = 4.0
 
 [node name="AudioStreamPlayer 24" type="AudioStreamPlayer" parent="Managers/SongManager"]
-stream = ExtResource("50_utlnc")
+stream = ExtResource("50_sqma4")
+volume_db = 10.0
 
 [node name="AudioStreamPlayer 25" type="AudioStreamPlayer" parent="Managers/SongManager"]
 stream = ExtResource("51_iilcr")
@@ -244,6 +250,11 @@ stream = ExtResource("53_p3ggb")
 
 [node name="AudioStreamPlayer 28" type="AudioStreamPlayer" parent="Managers/SongManager"]
 stream = ExtResource("54_2iqt8")
+volume_db = -6.0
+
+[node name="AudioStreamPlayer 29" type="AudioStreamPlayer" parent="Managers/SongManager"]
+stream = ExtResource("55_7a4jt")
+volume_db = 10.0
 
 [node name="DialogManager" parent="Managers" instance=ExtResource("42_hfyqr")]
 

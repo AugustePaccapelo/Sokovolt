@@ -39,7 +39,9 @@ public partial class EnumSong
         bulbOn,
         piston,
         playerMove,
-        playerTravel
+        playerTravel,
+        teslaConnection,
+        bulbOff
     }
 
 }

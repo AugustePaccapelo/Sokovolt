@@ -17,6 +17,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
 		private GameManager gameManager;
 		private GridManager gridManager;
 		private CustomSignals signals;
+		private bool wasOn = false;
 
 		[Export] private Node2D allLights;
 		[Export] private Light2D rotatingLight;
@@ -59,18 +60,25 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
 
 		private void InitTurnedOff()
 		{
+			if (wasOn)
+			{
+				wasOn = false;
+                SongManager.Instance.ambientDict[EnumSong.AmbientSong.bulbOff].Play();
+            }
             doAction = TurnedOff;
 			isTurnedOn = false;
             allLights.Hide();
+            
             signals.EmitSignal(CustomSignals.SignalName.GoalBulbStateChanged);
         }
 		private void TurnedOff(float pDelta) { }
 		private void InitTurnOn()
 		{
+            if (!wasOn) SongManager.Instance.ambientDict[EnumSong.AmbientSong.bulbOn].Play();
+            wasOn = true;
             doAction = TurnedOn;
 			isTurnedOn = true;
 			allLights.Show();
-            SongManager.Instance.ambientDict[EnumSong.AmbientSong.bulbOn].Play();
             signals.EmitSignal(CustomSignals.SignalName.GoalBulbStateChanged);
         }
 		private void TurnedOn(float pDelta)
