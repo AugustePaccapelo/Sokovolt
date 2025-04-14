@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://bsl0bvhb270nq"]
+[gd_scene load_steps=7 format=3 uid="uid://bsl0bvhb270nq"]
 
 [ext_resource type="Script" path="res://Scripts/Controls/TitleCard.cs" id="1_vqp81"]
 [ext_resource type="Texture2D" uid="uid://blf1plrysetpd" path="res://Assets/UI/LogoISART.png" id="1_wxio0"]
+[ext_resource type="Texture2D" uid="uid://n1nr75fvk64" path="res://Assets/UI/logosokovolt.png" id="2_hp3x8"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_iu45x"]
 font_size = 60
@@ -31,13 +32,18 @@ offset_bottom = 1080.0
 color = Color(0, 0, 0, 1)
 
 [node name="GameLogo" type="TextureRect" parent="."]
-modulate = Color(1, 1, 1, 0)
 layout_mode = 1
-offset_right = 1920.0
-offset_bottom = 1080.0
+offset_left = 431.0
+offset_top = 121.0
+offset_right = 3043.0
+offset_bottom = 2733.0
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("2_hp3x8")
+expand_mode = 1
 stretch_mode = 3
 
 [node name="Label" type="Label" parent="GameLogo"]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5

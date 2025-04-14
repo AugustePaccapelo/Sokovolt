@@ -45,6 +45,7 @@ namespace Com.IsartDigital.SokoVolt
 		public void Init()
 		{
             logoISART.Modulate = startColor;
+			logoGame.Modulate = startColor;
             Tween lTween = CreateTween();
             lTween.SetParallel(true);
             lTween.TweenProperty(logoISART, "modulate", finalColor, 0.7f);
