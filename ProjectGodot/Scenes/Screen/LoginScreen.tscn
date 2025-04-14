@@ -43,9 +43,11 @@ font_color = Color(1, 0, 0, 1)
 
 [node name="LoginScreen" type="Control" node_paths=PackedStringArray("lightning", "lightningStartPos", "lightningEndPos", "arrowsHolder", "lightHolder", "loginNode", "labelLoginError", "vContLoginUser", "vContLoginPass", "createNode", "labelCreateErrorPasswords", "labelCreateErrorUsername", "vBoxCreateUser", "vBoxCreatePass", "vBoxCreateConfirmPass")]
 layout_mode = 3
-anchors_preset = 0
-offset_right = 1920.0
-offset_bottom = 1080.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_skjs4")
 lightning = NodePath("Node2D")
 lightningStartPos = NodePath("LightninhStartPos")
@@ -106,66 +108,46 @@ expand_mode = 1
 
 [node name="TextureRect3" type="TextureRect" parent="."]
 layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 545.0
-offset_top = 245.0
-offset_right = -534.0
-offset_bottom = 3.0
-grow_horizontal = 2
-grow_vertical = 2
+offset_left = 560.0
+offset_top = 249.0
+offset_right = 1384.0
+offset_bottom = 1088.0
 texture = ExtResource("4_4icvu")
 expand_mode = 1
 
 [node name="TextureRect5" type="TextureRect" parent="."]
 layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 715.0
-offset_top = 329.0
-offset_right = -703.0
-offset_bottom = -143.0
-grow_horizontal = 2
-grow_vertical = 2
+offset_left = 742.0
+offset_top = 358.0
+offset_right = 1188.0
+offset_bottom = 895.0
 texture = ExtResource("5_61pha")
 expand_mode = 1
 
 [node name="ScreenEffect" type="ColorRect" parent="."]
 material = SubResource("ShaderMaterial_aylxk")
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 743.0
-offset_top = 363.0
-offset_right = -726.0
-offset_bottom = -174.0
-grow_horizontal = 2
-grow_vertical = 2
+offset_left = 746.0
+offset_top = 366.0
+offset_right = 1188.0
+offset_bottom = 915.0
 
 [node name="TextureRect4" type="TextureRect" parent="."]
 layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 715.0
-offset_top = 329.0
-offset_right = -703.0
-offset_bottom = -143.0
-grow_horizontal = 2
-grow_vertical = 2
+offset_left = 714.0
+offset_top = 328.0
+offset_right = 1221.0
+offset_bottom = 940.0
 texture = ExtResource("6_of5ol")
 expand_mode = 1
 
 [node name="Login" type="Control" parent="."]
 layout_mode = 1
 anchors_preset = 0
-offset_left = 274.0
-offset_top = 296.0
-offset_right = 1692.88
-offset_bottom = 922.4
+offset_left = 975.0
+offset_top = 608.0
+offset_right = 975.0
+offset_bottom = 608.0
 
 [node name="VBoxScreenHolder" type="VBoxContainer" parent="Login"]
 layout_mode = 1
@@ -233,16 +215,11 @@ text = "Remember me"
 [node name="Create" type="Control" parent="."]
 visible = false
 layout_mode = 1
-anchor_left = 0.372
-anchor_top = 0.38
-anchor_right = 0.635
-anchor_bottom = 0.794
-offset_left = -705.24
-offset_top = -329.4
-offset_right = 709.8
-offset_bottom = 303.48
-grow_horizontal = 2
-grow_vertical = 2
+anchors_preset = 0
+offset_left = 977.0
+offset_top = 611.0
+offset_right = 977.0
+offset_bottom = 611.0
 
 [node name="VBoxScreenHolder" type="VBoxContainer" parent="Create"]
 layout_mode = 1
@@ -326,9 +303,11 @@ layout_mode = 2
 text = "Remember me"
 
 [node name="ArrowsHolder" type="Control" parent="."]
+layout_mode = 1
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 1920.0
+offset_bottom = 1080.0
+mouse_filter = 2
 
 [node name="Arrow1" type="TextureRect" parent="ArrowsHolder"]
 layout_mode = 1
@@ -337,10 +316,10 @@ anchor_left = 0.668
 anchor_top = 0.563
 anchor_right = 0.668
 anchor_bottom = 0.563
-offset_left = 1249.64
-offset_top = 557.824
-offset_right = 1280.64
-offset_bottom = 588.824
+offset_left = -4.55981
+offset_top = -24.0401
+offset_right = 26.4402
+offset_bottom = 6.9599
 rotation = -0.0643659
 pivot_offset = Vector2(5, 28)
 texture = ExtResource("3_gqu63")
@@ -353,10 +332,10 @@ anchor_left = 0.618
 anchor_top = 0.935
 anchor_right = 0.618
 anchor_bottom = 0.935
-offset_left = 1156.28
-offset_top = 937.6
-offset_right = 1194.28
-offset_bottom = 975.6
+offset_left = -4.55994
+offset_top = -30.8
+offset_right = 33.4401
+offset_bottom = 7.20001
 pivot_offset = Vector2(5, 35)
 texture = ExtResource("3_gqu63")
 expand_mode = 1

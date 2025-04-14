@@ -70,7 +70,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables {
 				//dectetor.Monitorable = false;
 				MoveTo(pTesla.x, pTesla.y, GridManager.GetInstance().grid);
                 SongManager.Instance.ambientDict[EnumSong.AmbientSong.playerTravel].Play();
-                if (ConnectionManagers.lastTeslas.Contains(pTesla))
+                if (ConnectionManagers.lastTeslas.Contains(pTesla)) {
 					wasInTesla = true;
                     canTravel = false;
                     GetTree().CreateTimer(0.25f).Timeout += () =>
