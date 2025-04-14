@@ -1,0 +1,704 @@
+[gd_scene load_steps=91 format=3 uid="uid://bx4sq5cya6p7g"]
+
+[ext_resource type="PackedScene" uid="uid://36dp5dq6hmqq" path="res://Scenes/GameObjects/ButtonTemplate.tscn" id="1_8igok"]
+[ext_resource type="Script" path="res://Scripts/Controls/LevelCreator.cs" id="1_bf11f"]
+[ext_resource type="PackedScene" uid="uid://cpdk0i0vijcdy" path="res://Scenes/GameObjects/LevelCreator/level_creator_tile.tscn" id="3_mha4c"]
+[ext_resource type="PackedScene" uid="uid://dsejj00jkjkaw" path="res://Scenes/GameObjects/LevelCreator/bulb_texture.tscn" id="5_7j68n"]
+[ext_resource type="PackedScene" uid="uid://6f6pej0whxvb" path="res://Scenes/GameObjects/LevelCreator/generator_texture.tscn" id="6_wy1dl"]
+[ext_resource type="PackedScene" uid="uid://bqdvcl5bpx284" path="res://Scenes/GameObjects/LevelCreator/tesla_texture.tscn" id="7_5weia"]
+[ext_resource type="PackedScene" uid="uid://dld6hinoxjug8" path="res://Scenes/GameObjects/LevelCreator/custom_level_label.tscn" id="7_p6ycg"]
+[ext_resource type="PackedScene" uid="uid://bvpdafbbrw7s7" path="res://Scenes/GameObjects/LevelCreator/wall_texture.tscn" id="8_gc0rv"]
+[ext_resource type="JSON" path="res://Scripts/Json/CustomLevels/CustomLevelsModels/CustomLevelsTemplate.json" id="8_kgilq"]
+[ext_resource type="PackedScene" uid="uid://cce6m5y5bqo5c" path="res://Scenes/GameObjects/LevelCreator/door_texture.tscn" id="10_av00s"]
+[ext_resource type="PackedScene" uid="uid://dg077chl56p8g" path="res://Scenes/GameObjects/LevelCreator/player_spawn_texture.tscn" id="11_g4nve"]
+[ext_resource type="Texture2D" uid="uid://dlf6nmdhvmybk" path="res://Assets/UI/LevelCreator/LevelCreator.png" id="12_6r7bb"]
+[ext_resource type="PackedScene" uid="uid://40x567524t37" path="res://Scenes/GameObjects/LevelCreator/electric_wall_texture.tscn" id="12_7rowd"]
+[ext_resource type="Texture2D" uid="uid://b5prhaim7m4lk" path="res://Assets/UI/LevelCreator/Battery/Battery2.png" id="12_fknma"]
+[ext_resource type="Texture2D" uid="uid://dh654j5kf3vqj" path="res://Assets/UI/LevelCreator/Battery/Battery1.png" id="13_vvh4u"]
+[ext_resource type="Texture2D" uid="uid://ct63a01pq5fi8" path="res://Assets/UI/LevelCreator/Battery/Battery3.png" id="14_cebhh"]
+[ext_resource type="FontFile" uid="uid://eycyixjjf4a7" path="res://Assets/Font/BubbleSans-Regular.otf" id="14_m0j1q"]
+[ext_resource type="Script" path="res://Scripts/GameObjects/ButtonTemplate.cs" id="14_tu8f3"]
+[ext_resource type="Texture2D" uid="uid://d0c1v0s7l2wrd" path="res://Assets/UI/LevelCreator/ElectricWall/ElectricWall2.png" id="15_xbq2e"]
+[ext_resource type="Texture2D" uid="uid://l8x7x8ycpagm" path="res://Assets/UI/LevelCreator/ElectricWall/ElectricWall1.png" id="16_l0ru4"]
+[ext_resource type="Texture2D" uid="uid://bp1c022baeyys" path="res://Assets/UI/LevelCreator/ElectricWall/ElectricWall3.png" id="17_r2yyh"]
+[ext_resource type="Texture2D" uid="uid://bn5w84t5s843t" path="res://Assets/UI/LevelCreator/bulb/bulb2.png" id="18_dhh2h"]
+[ext_resource type="Texture2D" uid="uid://di4rl88ofgdua" path="res://Assets/UI/LevelCreator/bulb/bulb1.png" id="19_ev5dc"]
+[ext_resource type="Texture2D" uid="uid://c5dnycnihe7o0" path="res://Assets/UI/LevelCreator/bulb/bulb3.png" id="20_uu7dv"]
+[ext_resource type="Texture2D" uid="uid://cdqydxmq8qcnq" path="res://Assets/UI/LevelCreator/playeur/playeur2.png" id="21_evxgw"]
+[ext_resource type="Texture2D" uid="uid://c7lwkw625n4u1" path="res://Assets/UI/LevelCreator/playeur/playeur.png" id="22_dpefy"]
+[ext_resource type="Texture2D" uid="uid://bsxtlqd27055d" path="res://Assets/UI/LevelCreator/playeur/playeur3.png" id="23_w76jn"]
+[ext_resource type="Texture2D" uid="uid://mp5fhd5tl86t" path="res://Assets/UI/LevelCreator/tesla/Tesla2.png" id="24_33d5n"]
+[ext_resource type="Texture2D" uid="uid://dfw73ke5u226a" path="res://Assets/UI/LevelCreator/tesla/Tesla1.png" id="25_lfgk5"]
+[ext_resource type="Texture2D" uid="uid://2itjrebrlw7x" path="res://Assets/UI/LevelCreator/tesla/Tesla3.png" id="26_gt1yy"]
+[ext_resource type="Texture2D" uid="uid://dqi1mlsm8rc4f" path="res://Assets/UI/LevelCreator/Tile/Tile2.png" id="27_tavms"]
+[ext_resource type="Texture2D" uid="uid://c01atclnnb2wa" path="res://Assets/UI/LevelCreator/Tile/Tile1.png" id="28_4xmk8"]
+[ext_resource type="Texture2D" uid="uid://b277bghn4ys2x" path="res://Assets/UI/LevelCreator/Tile/Tile3.png" id="29_5be8s"]
+[ext_resource type="Texture2D" uid="uid://dqaobjpc5y2rd" path="res://Assets/UI/LevelCreator/Wall/Wall2.png" id="30_c3phb"]
+[ext_resource type="Texture2D" uid="uid://dhg3rk7nroyel" path="res://Assets/UI/LevelCreator/Wall/Wall1.png" id="31_4j4e7"]
+[ext_resource type="Texture2D" uid="uid://cb2061gmkoprp" path="res://Assets/UI/LevelCreator/Wall/Wall3.png" id="32_o56uh"]
+[ext_resource type="PackedScene" uid="uid://baqiox1toak3m" path="res://Scenes/UI/screen_effect.tscn" id="33_g7lla"]
+[ext_resource type="Texture2D" uid="uid://djg6ubrh8t8a2" path="res://Scenes/GameObjects/LevelCreator/Doors/Door2.png" id="35_rcf32"]
+[ext_resource type="Texture2D" uid="uid://brq0h4rhf4t4f" path="res://Scenes/GameObjects/LevelCreator/Doors/Door1.png" id="36_i15wi"]
+[ext_resource type="Texture2D" uid="uid://o1w2k2staxij" path="res://Scenes/GameObjects/LevelCreator/Doors/Door3.png" id="37_22xne"]
+[ext_resource type="Shader" path="res://Assets/Shaders/Effects/crt_shader/CRTShader.gdshader" id="38_khxnc"]
+[ext_resource type="Texture2D" uid="uid://cmr3t2q3whyoa" path="res://Assets/UI/LevelCreator/LevelCreatorScreenBordur.png" id="39_hc6v5"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qslgl"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b4u64"]
+bg_color = Color(0.721569, 0.6, 0.6, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fx4pa"]
+bg_color = Color(0.608799, 0.480884, 0.481391, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vgwk0"]
+bg_color = Color(0.520255, 0.401034, 0.401713, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_timhf"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ry100"]
+draw_center = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pf3ks"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+draw_center = false
+border_color = Color(0.422258, 0.153029, 0.181139, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_3q48n"]
+texture = ExtResource("18_dhh2h")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_p3nsf"]
+texture = ExtResource("19_ev5dc")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_64tu1"]
+texture = ExtResource("20_uu7dv")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bedd4"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1k1iv"]
+texture = ExtResource("35_rcf32")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ep4ru"]
+texture = ExtResource("36_i15wi")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_np5q4"]
+texture = ExtResource("37_22xne")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gh2mp"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_fvw3b"]
+texture = ExtResource("21_evxgw")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xcqqy"]
+texture = ExtResource("22_dpefy")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_mvpp2"]
+texture = ExtResource("23_w76jn")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ndyfb"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_l8083"]
+texture = ExtResource("12_fknma")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_o07xa"]
+texture = ExtResource("13_vvh4u")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_slito"]
+texture = ExtResource("14_cebhh")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_eo1rx"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_56j2t"]
+texture = ExtResource("24_33d5n")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bk8u2"]
+texture = ExtResource("25_lfgk5")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_x2lkh"]
+texture = ExtResource("26_gt1yy")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1x3ao"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5sucq"]
+texture = ExtResource("30_c3phb")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2g010"]
+texture = ExtResource("31_4j4e7")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2gqy5"]
+texture = ExtResource("32_o56uh")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_q5yv3"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2bosd"]
+texture = ExtResource("15_xbq2e")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_f85ae"]
+texture = ExtResource("16_l0ru4")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_l4cn3"]
+texture = ExtResource("17_r2yyh")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0n02t"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wq6pk"]
+bg_color = Color(0.467584, 0.610789, 0.795028, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+shadow_size = 10
+shadow_offset = Vector2(5, 5)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_d6j05"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2wlsl"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_hcnft"]
+outline_size = 2
+
+[sub_resource type="LabelSettings" id="LabelSettings_ng5xk"]
+font = ExtResource("14_m0j1q")
+font_size = 48
+font_color = Color(0.721569, 0.6, 0.6, 1)
+outline_size = 5
+outline_color = Color(0.8, 0.8, 0.8, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_m2he3"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_f4ebe"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tfud1"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oto23"]
+draw_center = false
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jdlp8"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hmovj"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_86awx"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_v28ie"]
+shader = ExtResource("38_khxnc")
+shader_parameter/screen_width = 1400.0
+shader_parameter/screen_height = 802.0
+shader_parameter/BarrelPower = 1.03
+shader_parameter/color_bleeding = 1.2
+shader_parameter/bleeding_range_x = 1.0
+shader_parameter/bleeding_range_y = 1.0
+shader_parameter/lines_distance = 2.0
+shader_parameter/scan_size = 1.275
+shader_parameter/scanline_alpha = 0.9
+shader_parameter/lines_velocity = 12.91
+
+[node name="LevelCreatorMenu" type="Control" node_paths=PackedStringArray("mainMenuButton", "newLevelButton", "loadLevelButton", "menuCustomLevelButton", "saveButton", "applyButton", "bulbButton", "doorButton", "playerButton", "batteryButton", "teslaButton", "wallButton", "electricWallButton", "returnButton", "loadLevelText", "levelName", "sizeXText", "sizeYText", "wallTexture", "electricWallTexture", "teslaTexture", "bulbTexture", "generatorTexture", "playerSpawnTexture", "doorTexture", "buttonContainer", "deleteButtonContainer", "labelContainer", "gridSizeLabel", "backGround", "screenBorder", "screenEffect")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_bf11f")
+mainMenuButton = NodePath("Menu/MainMenuButton")
+newLevelButton = NodePath("Menu/NewLevelButton")
+loadLevelButton = NodePath("CustomLevelListBackGround/LoadLevelButton")
+menuCustomLevelButton = NodePath("Menu/MenuCustomLevelButton")
+saveButton = NodePath("NewLevelBackGround/SaveButton")
+applyButton = NodePath("NewLevelBackGround/VBoxContainer/HBoxContainer/ApplyButton")
+bulbButton = NodePath("NewLevelBackGround/Inventory/VBoxContainer/ButtonBulb")
+doorButton = NodePath("NewLevelBackGround/Inventory/VBoxContainer/ButtonDoor")
+playerButton = NodePath("NewLevelBackGround/Inventory/VBoxContainer/ButtonPlayer")
+batteryButton = NodePath("NewLevelBackGround/Inventory/VBoxContainer/ButtonBattery")
+teslaButton = NodePath("NewLevelBackGround/Inventory/VBoxContainer/ButtonTesla")
+wallButton = NodePath("NewLevelBackGround/Inventory/VBoxContainer/ButtonWall")
+electricWallButton = NodePath("NewLevelBackGround/Inventory/VBoxContainer/ButtonElectricWall")
+returnButton = NodePath("ReturnButton")
+loadLevelText = NodePath("CustomLevelListBackGround/LoadLevelText")
+levelName = NodePath("NewLevelBackGround/NameLineEdit")
+sizeXText = NodePath("NewLevelBackGround/VBoxContainer/HBoxContainer/SizeXText")
+sizeYText = NodePath("NewLevelBackGround/VBoxContainer/HBoxContainer/SizeYText")
+wallTexture = NodePath("NewLevelBackGround/Inventory/Wall")
+electricWallTexture = NodePath("NewLevelBackGround/Inventory/ElectricWall")
+teslaTexture = NodePath("NewLevelBackGround/Inventory/Tesla")
+bulbTexture = NodePath("NewLevelBackGround/Inventory/Bulb")
+generatorTexture = NodePath("NewLevelBackGround/Inventory/Generator")
+playerSpawnTexture = NodePath("NewLevelBackGround/Inventory/PlayerSpawn")
+doorTexture = NodePath("NewLevelBackGround/Inventory/Door")
+wallScene = ExtResource("8_gc0rv")
+electricWallScene = ExtResource("12_7rowd")
+teslaScene = ExtResource("7_5weia")
+bulbScene = ExtResource("5_7j68n")
+generatorScene = ExtResource("6_wy1dl")
+playerSpawnScene = ExtResource("11_g4nve")
+doorScene = ExtResource("10_av00s")
+tileScene = ExtResource("3_mha4c")
+customLevelLabelScene = ExtResource("7_p6ycg")
+buttonContainer = NodePath("CustomLevelListBackGround/MenuBar/HBoxContainer/ButtonContainer")
+deleteButtonContainer = NodePath("CustomLevelListBackGround/MenuBar/HBoxContainer/DeleteButtonContainer2")
+labelContainer = NodePath("CustomLevelListBackGround/MenuBar/HBoxContainer/LabelContainer")
+customLevelTemplate = ExtResource("8_kgilq")
+gridSizeLabel = NodePath("NewLevelBackGround/VBoxContainer/GridSizeLabel")
+backGround = NodePath("TextureRect")
+screenBorder = NodePath("TextureRect2")
+screenEffect = NodePath("ScreenEffect")
+batteryNormal = ExtResource("12_fknma")
+batteryHover = ExtResource("13_vvh4u")
+batteryPressed = ExtResource("14_cebhh")
+electricWallNormal = ExtResource("15_xbq2e")
+electricWallHover = ExtResource("16_l0ru4")
+electricWallPressed = ExtResource("17_r2yyh")
+bulbNormal = ExtResource("18_dhh2h")
+bulbHover = ExtResource("19_ev5dc")
+bulbPressed = ExtResource("20_uu7dv")
+playerNormal = ExtResource("21_evxgw")
+playerHover = ExtResource("22_dpefy")
+playerPressed = ExtResource("23_w76jn")
+teslaNormal = ExtResource("24_33d5n")
+teslaHover = ExtResource("25_lfgk5")
+teslaPressed = ExtResource("26_gt1yy")
+tileNormal = ExtResource("27_tavms")
+tileHover = ExtResource("28_4xmk8")
+tilePressed = ExtResource("29_5be8s")
+wallNormal = ExtResource("30_c3phb")
+wallHover = ExtResource("31_4j4e7")
+wallPressed = ExtResource("32_o56uh")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = -792.0
+offset_top = -1274.0
+offset_right = 2708.0
+offset_bottom = 2244.0
+scale = Vector2(0.548383, 0.54567)
+pivot_offset = Vector2(1750, 1750)
+texture = ExtResource("12_6r7bb")
+
+[node name="Menu" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -192.0
+offset_top = -48.0
+offset_right = -192.0
+offset_bottom = -48.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_qslgl")
+
+[node name="NewLevelButton" parent="Menu" instance=ExtResource("1_8igok")]
+layout_mode = 1
+offset_left = 832.0
+offset_top = 278.0
+offset_right = 1089.0
+offset_bottom = 432.0
+pivot_offset = Vector2(128, 77)
+theme_override_styles/normal = SubResource("StyleBoxFlat_b4u64")
+theme_override_styles/hover = SubResource("StyleBoxFlat_fx4pa")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_vgwk0")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_timhf")
+text = "New Level"
+
+[node name="MenuCustomLevelButton" parent="Menu" instance=ExtResource("1_8igok")]
+layout_mode = 1
+offset_left = 780.0
+offset_top = 497.0
+offset_right = 1140.0
+offset_bottom = 695.0
+pivot_offset = Vector2(180, 99)
+theme_override_styles/normal = SubResource("StyleBoxFlat_b4u64")
+theme_override_styles/hover = SubResource("StyleBoxFlat_fx4pa")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_vgwk0")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_timhf")
+text = "Custom Levels Menu"
+
+[node name="MainMenuButton" parent="Menu" instance=ExtResource("1_8igok")]
+layout_mode = 1
+offset_left = 843.0
+offset_top = 751.0
+offset_right = 1078.0
+offset_bottom = 892.0
+pivot_offset = Vector2(117, 70)
+theme_override_styles/normal = SubResource("StyleBoxFlat_b4u64")
+theme_override_styles/hover = SubResource("StyleBoxFlat_fx4pa")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_vgwk0")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_timhf")
+text = "MAIN MENU"
+
+[node name="NewLevelBackGround" type="Panel" parent="."]
+layout_mode = 1
+offset_right = 1920.0
+offset_bottom = 1080.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ry100")
+
+[node name="Inventory" type="Panel" parent="NewLevelBackGround"]
+layout_mode = 1
+offset_left = 1616.0
+offset_top = 48.0
+offset_right = 1897.0
+offset_bottom = 1126.0
+scale = Vector2(0.883014, 0.883014)
+theme_override_styles/panel = SubResource("StyleBoxFlat_pf3ks")
+
+[node name="Bulb" parent="NewLevelBackGround/Inventory" instance=ExtResource("5_7j68n")]
+visible = false
+layout_mode = 1
+offset_left = 18.0
+offset_top = -45.0
+offset_right = 306.0
+offset_bottom = 242.0
+pivot_offset = Vector2(144, 143)
+stretch_mode = 3
+
+[node name="Door" parent="NewLevelBackGround/Inventory" instance=ExtResource("10_av00s")]
+visible = false
+layout_mode = 1
+offset_left = -120.0
+offset_top = 91.0
+offset_right = 387.0
+offset_bottom = 451.0
+pivot_offset = Vector2(296, 180)
+
+[node name="PlayerSpawn" parent="NewLevelBackGround/Inventory" instance=ExtResource("11_g4nve")]
+visible = false
+layout_mode = 1
+offset_left = 9.05981
+offset_top = 271.796
+offset_right = 297.06
+offset_bottom = 558.796
+scale = Vector2(0.527, 0.527)
+pivot_offset = Vector2(144, 143)
+
+[node name="Generator" parent="NewLevelBackGround/Inventory" instance=ExtResource("6_wy1dl")]
+visible = false
+layout_mode = 1
+offset_left = 9.05988
+offset_top = 416.754
+offset_right = 297.06
+offset_bottom = 703.754
+scale = Vector2(0.54, 0.54)
+pivot_offset = Vector2(144, 143)
+stretch_mode = 3
+
+[node name="Tesla" parent="NewLevelBackGround/Inventory" instance=ExtResource("7_5weia")]
+visible = false
+layout_mode = 1
+offset_left = -149.488
+offset_top = 523.208
+offset_right = 1770.51
+offset_bottom = 1603.21
+pivot_offset = Vector2(144, 143)
+stretch_mode = 2
+
+[node name="Wall" parent="NewLevelBackGround/Inventory" instance=ExtResource("8_gc0rv")]
+visible = false
+layout_mode = 0
+offset_left = 4.57764e-05
+offset_top = 842.569
+offset_right = 288.0
+offset_bottom = 1129.57
+scale = Vector2(0.613341, 0.613341)
+pivot_offset = Vector2(144, 143)
+
+[node name="ElectricWall" parent="NewLevelBackGround/Inventory" instance=ExtResource("12_7rowd")]
+visible = false
+layout_mode = 1
+offset_left = -4.76837e-05
+offset_top = 688.551
+offset_right = 288.0
+offset_bottom = 975.551
+scale = Vector2(0.615857, 0.615857)
+pivot_offset = Vector2(144, 143)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="NewLevelBackGround/Inventory"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 14.0
+offset_right = 267.0
+offset_bottom = 1067.0
+
+[node name="ButtonBulb" type="Button" parent="NewLevelBackGround/Inventory/VBoxContainer"]
+custom_minimum_size = Vector2(40, 147.265)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_3q48n")
+theme_override_styles/hover = SubResource("StyleBoxTexture_p3nsf")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_64tu1")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_bedd4")
+
+[node name="ButtonDoor" type="Button" parent="NewLevelBackGround/Inventory/VBoxContainer"]
+custom_minimum_size = Vector2(40, 147.265)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_1k1iv")
+theme_override_styles/hover = SubResource("StyleBoxTexture_ep4ru")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_np5q4")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_gh2mp")
+
+[node name="ButtonPlayer" type="Button" parent="NewLevelBackGround/Inventory/VBoxContainer"]
+custom_minimum_size = Vector2(40, 147.265)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_fvw3b")
+theme_override_styles/hover = SubResource("StyleBoxTexture_xcqqy")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_mvpp2")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ndyfb")
+
+[node name="ButtonBattery" type="Button" parent="NewLevelBackGround/Inventory/VBoxContainer"]
+custom_minimum_size = Vector2(40, 147.265)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_l8083")
+theme_override_styles/hover = SubResource("StyleBoxTexture_o07xa")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_slito")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_eo1rx")
+
+[node name="ButtonTesla" type="Button" parent="NewLevelBackGround/Inventory/VBoxContainer"]
+custom_minimum_size = Vector2(40, 147.265)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_56j2t")
+theme_override_styles/hover = SubResource("StyleBoxTexture_bk8u2")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_x2lkh")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_1x3ao")
+
+[node name="ButtonWall" type="Button" parent="NewLevelBackGround/Inventory/VBoxContainer"]
+custom_minimum_size = Vector2(40, 147.265)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_5sucq")
+theme_override_styles/hover = SubResource("StyleBoxTexture_2g010")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_2gqy5")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_q5yv3")
+
+[node name="ButtonElectricWall" type="Button" parent="NewLevelBackGround/Inventory/VBoxContainer"]
+custom_minimum_size = Vector2(40, 147.265)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_2bosd")
+theme_override_styles/hover = SubResource("StyleBoxTexture_f85ae")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_l4cn3")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_0n02t")
+
+[node name="BackGrid" type="Panel" parent="NewLevelBackGround"]
+layout_mode = 1
+offset_left = 407.0
+offset_top = 233.0
+offset_right = 1017.0
+offset_bottom = 843.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_wq6pk")
+
+[node name="SaveButton" type="Button" parent="NewLevelBackGround"]
+layout_mode = 1
+offset_left = 875.0
+offset_top = 122.0
+offset_right = 994.0
+offset_bottom = 196.0
+pivot_offset = Vector2(59, 37)
+theme_override_fonts/font = ExtResource("14_m0j1q")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_b4u64")
+theme_override_styles/hover = SubResource("StyleBoxFlat_fx4pa")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_vgwk0")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_d6j05")
+text = "SAVE"
+script = ExtResource("14_tu8f3")
+during = 0.3
+easeType = 2
+transitionType = 6
+
+[node name="NameLineEdit" type="LineEdit" parent="NewLevelBackGround"]
+layout_mode = 1
+offset_left = 421.0
+offset_top = 128.0
+offset_right = 793.0
+offset_bottom = 181.0
+pivot_offset = Vector2(186, 26)
+theme_override_fonts/font = ExtResource("14_m0j1q")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_b4u64")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_2wlsl")
+placeholder_text = "Name your Level"
+
+[node name="Label" type="Label" parent="NewLevelBackGround/NameLineEdit"]
+visible = false
+self_modulate = Color(1, 0, 0, 1)
+layout_mode = 1
+offset_left = 5.0
+offset_top = 65.0
+offset_right = 373.0
+offset_bottom = 117.0
+pivot_offset = Vector2(184, 26)
+text = "FILE NAME ALREADY USED"
+label_settings = SubResource("LabelSettings_hcnft")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="NewLevelBackGround"]
+layout_mode = 2
+offset_left = 1076.0
+offset_top = 671.0
+offset_right = 1447.0
+offset_bottom = 787.0
+theme_override_constants/separation = 10
+
+[node name="GridSizeLabel" type="Label" parent="NewLevelBackGround/VBoxContainer"]
+layout_mode = 2
+text = "GRIDSIZE"
+label_settings = SubResource("LabelSettings_ng5xk")
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="NewLevelBackGround/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="ApplyButton" parent="NewLevelBackGround/VBoxContainer/HBoxContainer" instance=ExtResource("1_8igok")]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_b4u64")
+theme_override_styles/hover = SubResource("StyleBoxFlat_fx4pa")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_vgwk0")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_m2he3")
+text = "APPLY"
+during = 0.2
+easeType = 2
+transitionType = 7
+
+[node name="SizeXText" type="LineEdit" parent="NewLevelBackGround/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("14_m0j1q")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_b4u64")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_f4ebe")
+placeholder_text = "X"
+alignment = 1
+max_length = 2
+virtual_keyboard_type = 2
+clear_button_enabled = true
+
+[node name="SizeYText" type="LineEdit" parent="NewLevelBackGround/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("14_m0j1q")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_b4u64")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_tfud1")
+placeholder_text = "Y"
+alignment = 1
+max_length = 2
+clear_button_enabled = true
+
+[node name="CustomLevelListBackGround" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+offset_right = 1920.0
+offset_bottom = 1080.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_oto23")
+
+[node name="MenuBar" type="ScrollContainer" parent="CustomLevelListBackGround"]
+custom_minimum_size = Vector2(1012, 450)
+layout_mode = 1
+offset_left = -16.0
+offset_top = 121.0
+offset_right = 1200.0
+offset_bottom = 571.0
+scale = Vector2(0.676474, 0.676474)
+pivot_offset = Vector2(506, 225)
+horizontal_scroll_mode = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CustomLevelListBackGround/MenuBar"]
+custom_minimum_size = Vector2(1000, 0)
+layout_mode = 2
+
+[node name="ButtonContainer" type="VBoxContainer" parent="CustomLevelListBackGround/MenuBar/HBoxContainer"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+
+[node name="LabelContainer" type="VBoxContainer" parent="CustomLevelListBackGround/MenuBar/HBoxContainer"]
+custom_minimum_size = Vector2(800, 200)
+layout_mode = 2
+
+[node name="DeleteButtonContainer2" type="VBoxContainer" parent="CustomLevelListBackGround/MenuBar/HBoxContainer"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+
+[node name="LoadLevelButton" parent="CustomLevelListBackGround" instance=ExtResource("1_8igok")]
+layout_mode = 1
+offset_left = 1158.0
+offset_top = 283.0
+offset_right = 1313.0
+offset_bottom = 376.0
+pivot_offset = Vector2(77, 46)
+theme_override_styles/normal = SubResource("StyleBoxFlat_b4u64")
+theme_override_styles/hover = SubResource("StyleBoxFlat_fx4pa")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_vgwk0")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_jdlp8")
+text = "Load Level"
+
+[node name="LoadLevelText" type="LineEdit" parent="CustomLevelListBackGround"]
+layout_mode = 1
+offset_left = 995.0
+offset_top = 408.0
+offset_right = 1595.0
+offset_bottom = 508.0
+scale = Vector2(0.800108, 0.800108)
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_b4u64")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_hmovj")
+placeholder_text = "Level Name"
+
+[node name="CellContainer" type="Node2D" parent="."]
+
+[node name="ReturnButton" parent="." instance=ExtResource("1_8igok")]
+visible = false
+layout_mode = 1
+offset_left = 145.0
+offset_top = 705.0
+offset_right = 365.0
+offset_bottom = 837.0
+pivot_offset = Vector2(110, 66)
+theme_override_styles/normal = SubResource("StyleBoxFlat_b4u64")
+theme_override_styles/hover = SubResource("StyleBoxFlat_fx4pa")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_vgwk0")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_86awx")
+text = "Return"
+easeType = 2
+transitionType = 7
+
+[node name="ScreenEffect" parent="." instance=ExtResource("33_g7lla")]
+material = SubResource("ShaderMaterial_v28ie")
+layout_mode = 1
+offset_left = 101.0
+offset_top = 97.0
+offset_right = 1501.0
+offset_bottom = 911.0
+mouse_filter = 2
+
+[node name="TextureRect2" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = -766.0
+offset_top = -760.0
+offset_right = 2051.0
+offset_bottom = 945.0
+scale = Vector2(0.548383, 0.54567)
+pivot_offset = Vector2(1750, 1750)
+mouse_filter = 2
+texture = ExtResource("39_hc6v5")

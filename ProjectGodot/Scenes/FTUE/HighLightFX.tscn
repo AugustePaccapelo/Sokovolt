@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://caxpiqjbimbs5"]
+
+[ext_resource type="Texture2D" uid="uid://c767fcajnj2yi" path="res://Assets/Shaders/Effects/Glow.png" id="1_j2ugu"]
+[ext_resource type="Texture2D" uid="uid://cwmw8ody35x15" path="res://Assets/FTUE/9175941.png" id="3_oqo8t"]
+
+[node name="HighLightFx" type="Node2D"]
+z_index = 1000
+z_as_relative = false
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+color = Color(1, 0, 0, 1)
+texture = ExtResource("1_j2ugu")
+texture_scale = 0.3
+
+[node name="9175941" type="Sprite2D" parent="."]
+position = Vector2(-3.00006, -19.0001)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("3_oqo8t")

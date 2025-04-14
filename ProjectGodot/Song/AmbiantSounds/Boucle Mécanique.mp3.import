@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://b7q8537k18284"
+path="res://.godot/imported/Boucle Mécanique.mp3-5f41f1b039851edddbae5b28227f2e6b.mp3str"
+
+[deps]
+
+source_file="res://Song/AmbiantSounds/Boucle Mécanique.mp3"
+dest_files=["res://.godot/imported/Boucle Mécanique.mp3-5f41f1b039851edddbae5b28227f2e6b.mp3str"]
+
+[params]
+
+loop=true
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

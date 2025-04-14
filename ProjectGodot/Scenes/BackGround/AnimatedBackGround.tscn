@@ -1,0 +1,65 @@
+[gd_scene load_steps=9 format=3 uid="uid://bkskxcspqook3"]
+
+[ext_resource type="Script" path="res://Scripts/CustomMaskOcluder.cs" id="1_n7nym"]
+[ext_resource type="Texture2D" uid="uid://biucu7ho7tolr" path="res://Assets/Background/1.png001.webp" id="2_3crth"]
+[ext_resource type="Script" path="res://Scripts/SmartAnimatedBackground.cs" id="2_fq3xm"]
+[ext_resource type="Texture2D" uid="uid://bcrhtbtkhp5k6" path="res://Assets/BackGroundAssets/Noe/box1.png" id="5_e27au"]
+[ext_resource type="Texture2D" uid="uid://uw0wqn7eigh0" path="res://Assets/BackGroundAssets/Noe/box4.png" id="5_iras0"]
+[ext_resource type="Texture2D" uid="uid://cqi8rcyqqrjbf" path="res://Assets/BackGroundAssets/Dylan/SmallGenerator1.png" id="6_hgoe2"]
+[ext_resource type="Texture2D" uid="uid://d2cweuaxjpgqb" path="res://Assets/BackGroundAssets/Dylan/SmallGenerator5.png" id="8_1c8h6"]
+[ext_resource type="Texture2D" uid="uid://c767fcajnj2yi" path="res://Assets/Shaders/Effects/Glow.png" id="192_dw8oj"]
+
+[node name="AnimatedBackGround" type="Node2D" node_paths=PackedStringArray("maskPolygon", "backGround")]
+z_index = -100
+z_as_relative = false
+script = ExtResource("1_n7nym")
+maskPolygon = NodePath("Polygon2D")
+backGround = NodePath("Sprite2D")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(960, 540)
+scale = Vector2(0.85, 0.85)
+texture = ExtResource("2_3crth")
+script = ExtResource("2_fq3xm")
+FrameRate = 30.0
+LoopPauseTime = 0.0
+
+[node name="PointLight2D" type="PointLight2D" parent="Sprite2D"]
+position = Vector2(-2.5, 6.10352e-05)
+scale = Vector2(0.803915, 0.803915)
+color = Color(0.936701, 0.3739, 0.4333, 1)
+energy = 0.3
+texture = ExtResource("192_dw8oj")
+
+[node name="SmallGenerator1" type="Sprite2D" parent="Sprite2D"]
+visible = false
+modulate = Color(0.67069, 0.67069, 0.67069, 1)
+position = Vector2(943.529, -536.471)
+scale = Vector2(0.0667227, 0.0667227)
+texture = ExtResource("6_hgoe2")
+
+[node name="SmallGenerator2" type="Sprite2D" parent="Sprite2D"]
+visible = false
+modulate = Color(0.67069, 0.67069, 0.67069, 1)
+position = Vector2(-904.706, -530.588)
+rotation = -3.14159
+scale = Vector2(0.0670588, -0.0670588)
+texture = ExtResource("8_1c8h6")
+
+[node name="Box1" type="Sprite2D" parent="Sprite2D"]
+visible = false
+modulate = Color(0.362829, 0.362829, 0.362829, 1)
+position = Vector2(-418.824, 603.529)
+scale = Vector2(0.0934454, 0.0934454)
+texture = ExtResource("5_iras0")
+
+[node name="Box2" type="Sprite2D" parent="Sprite2D"]
+visible = false
+modulate = Color(0.362829, 0.362829, 0.362829, 1)
+position = Vector2(412.941, 603.529)
+rotation = -3.14159
+scale = Vector2(0.0929412, -0.0929412)
+texture = ExtResource("5_e27au")
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(1818, 558, 959, 1055, 92, 546, 610, 301, -285, 320, -290, 1441, 2230, 1431, 2220, 321, 1330, 303)

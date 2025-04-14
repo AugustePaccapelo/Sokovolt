@@ -1,0 +1,43 @@
+[gd_scene load_steps=8 format=3 uid="uid://dty5a7hnd1fve"]
+
+[ext_resource type="Texture2D" uid="uid://dc3or7fnkox6b" path="res://Assets/UI/MainMenu/Smoke.png" id="1_gwtvh"]
+[ext_resource type="Script" path="res://Scripts/ParticlesScripts/ButtonSmokeParticles.cs" id="2_vqujk"]
+
+[sub_resource type="Gradient" id="Gradient_mdxql"]
+colors = PackedColorArray(0.525101, 0.525101, 0.525101, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_7mq74"]
+gradient = SubResource("Gradient_mdxql")
+
+[sub_resource type="Curve" id="Curve_kr7bv"]
+_data = [Vector2(0, 0.480519), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_5v8gb"]
+curve = SubResource("Curve_kr7bv")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_xi6ug"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(100, 1, 1)
+direction = Vector3(1, -10, 0)
+spread = 55.0
+initial_velocity_max = 111.11
+gravity = Vector3(0, 0, 0)
+scale_min = 0.1
+scale_max = 0.2
+scale_curve = SubResource("CurveTexture_5v8gb")
+color_ramp = SubResource("GradientTexture1D_7mq74")
+
+[node name="ButtonSmokeParticles" type="GPUParticles2D"]
+visible = false
+emitting = false
+amount = 20
+process_material = SubResource("ParticleProcessMaterial_xi6ug")
+texture = ExtResource("1_gwtvh")
+lifetime = 2.0
+one_shot = true
+speed_scale = 4.0
+explosiveness = 1.0
+fixed_fps = 60
+script = ExtResource("2_vqujk")

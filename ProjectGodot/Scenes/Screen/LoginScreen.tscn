@@ -1,0 +1,433 @@
+[gd_scene load_steps=18 format=3 uid="uid://31ew226yj11n"]
+
+[ext_resource type="Script" path="res://Scripts/Controls/LoginScreen.cs" id="1_skjs4"]
+[ext_resource type="Texture2D" uid="uid://cbfjyr1fgoolk" path="res://Assets/UI/LoginScreen/login.png" id="2_omg56"]
+[ext_resource type="Texture2D" uid="uid://75isyjfm1q4i" path="res://Assets/UI/LoginScreen/arrrow.png" id="3_gqu63"]
+[ext_resource type="Texture2D" uid="uid://cpupq1503s612" path="res://Assets/UI/LoginScreen/Calque 1.png" id="4_4icvu"]
+[ext_resource type="Texture2D" uid="uid://c767fcajnj2yi" path="res://Assets/Shaders/Effects/Glow.png" id="4_mhpo5"]
+[ext_resource type="PackedScene" uid="uid://cfqq10c08ay30" path="res://Scenes/Lightning.tscn" id="4_yb23f"]
+[ext_resource type="Texture2D" uid="uid://cm3hm105j4j0y" path="res://Assets/UI/LoginScreen/Calque 2.png" id="5_61pha"]
+[ext_resource type="Texture2D" uid="uid://rv65e3k7gxvh" path="res://Assets/UI/LoginScreen/tesla.png" id="6_dwgef"]
+[ext_resource type="Shader" path="res://Assets/Shaders/Effects/crt_shader/CRTShader.gdshader" id="6_frwqp"]
+[ext_resource type="Texture2D" uid="uid://dbneakw01y1fh" path="res://Assets/UI/LoginScreen/Calque 3.png" id="6_of5ol"]
+[ext_resource type="PackedScene" uid="uid://cvbwc0wqo32ol" path="res://Scenes/UI/LoginLightParticules.tscn" id="7_kt76h"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_aylxk"]
+shader = ExtResource("6_frwqp")
+shader_parameter/screen_width = 348.0
+shader_parameter/screen_height = 400.0
+shader_parameter/BarrelPower = 1.1
+shader_parameter/color_bleeding = 3.7
+shader_parameter/bleeding_range_x = 1.0
+shader_parameter/bleeding_range_y = 1.0
+shader_parameter/lines_distance = 3.0
+shader_parameter/scan_size = 2.0
+shader_parameter/scanline_alpha = 0.9
+shader_parameter/lines_velocity = 10.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_al77a"]
+font_color = Color(0.992157, 0, 0, 1)
+
+[sub_resource type="InputEventKey" id="InputEventKey_17uii"]
+device = -1
+keycode = 4194309
+
+[sub_resource type="Shortcut" id="Shortcut_t34kv"]
+events = [SubResource("InputEventKey_17uii")]
+
+[sub_resource type="LabelSettings" id="LabelSettings_cntyw"]
+font_color = Color(1, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_g75en"]
+font_color = Color(1, 0, 0, 1)
+
+[node name="LoginScreen" type="Control" node_paths=PackedStringArray("lightning", "lightningStartPos", "lightningEndPos", "arrowsHolder", "lightHolder", "loginNode", "labelLoginError", "vContLoginUser", "vContLoginPass", "createNode", "labelCreateErrorPasswords", "labelCreateErrorUsername", "vBoxCreateUser", "vBoxCreatePass", "vBoxCreateConfirmPass")]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+script = ExtResource("1_skjs4")
+lightning = NodePath("Node2D")
+lightningStartPos = NodePath("LightninhStartPos")
+lightningEndPos = NodePath("LightninhEndPos")
+arrowsHolder = NodePath("ArrowsHolder")
+arrowMinRotation = -128.0
+arrowMaxRotation = 49.0
+lightHolder = NodePath("LightsHolder")
+lightsMinOnDuration = 0.5
+lightsMaxOnDuration = 3.0
+lightsMinOffDuration = 0.5
+lightsMaxOffDuration = 2.5
+loginNode = NodePath("Login")
+labelLoginError = NodePath("Login/VBoxScreenHolder/LabelError")
+vContLoginUser = NodePath("Login/VBoxScreenHolder/VBoxUsername")
+vContLoginPass = NodePath("Login/VBoxScreenHolder/VBoxPassword")
+createNode = NodePath("Create")
+labelCreateErrorPasswords = NodePath("Create/VBoxScreenHolder/LabelErrorPasswords")
+labelCreateErrorUsername = NodePath("Create/VBoxScreenHolder/LabelErrorUsername")
+vBoxCreateUser = NodePath("Create/VBoxScreenHolder/VBoxUsername")
+vBoxCreatePass = NodePath("Create/VBoxScreenHolder/VBoxPassword")
+vBoxCreateConfirmPass = NodePath("Create/VBoxScreenHolder/VBoxConfirmPassWord")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+offset_left = 97.0
+offset_top = 3.0
+offset_right = 798.0
+offset_bottom = 704.0
+rotation = -0.415835
+texture = ExtResource("6_dwgef")
+expand_mode = 1
+
+[node name="TextureRect2" type="TextureRect" parent="."]
+layout_mode = 1
+offset_left = 1301.0
+offset_top = -287.0
+offset_right = 2002.0
+offset_bottom = 414.0
+rotation = 0.591659
+texture = ExtResource("6_dwgef")
+expand_mode = 1
+
+[node name="Machine" type="TextureRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 238.0
+offset_top = -386.0
+offset_right = -213.0
+offset_bottom = 3.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_omg56")
+expand_mode = 1
+
+[node name="TextureRect3" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 545.0
+offset_top = 245.0
+offset_right = -534.0
+offset_bottom = 3.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_4icvu")
+expand_mode = 1
+
+[node name="TextureRect5" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 715.0
+offset_top = 329.0
+offset_right = -703.0
+offset_bottom = -143.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_61pha")
+expand_mode = 1
+
+[node name="ScreenEffect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_aylxk")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 743.0
+offset_top = 363.0
+offset_right = -726.0
+offset_bottom = -174.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect4" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 715.0
+offset_top = 329.0
+offset_right = -703.0
+offset_bottom = -143.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("6_of5ol")
+expand_mode = 1
+
+[node name="Login" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 0
+offset_left = 274.0
+offset_top = 296.0
+offset_right = 1692.88
+offset_bottom = 922.4
+
+[node name="VBoxScreenHolder" type="VBoxContainer" parent="Login"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LabName" type="Label" parent="Login/VBoxScreenHolder"]
+layout_mode = 2
+text = "Login"
+horizontal_alignment = 1
+
+[node name="VBoxUsername" type="VBoxContainer" parent="Login/VBoxScreenHolder"]
+layout_mode = 2
+
+[node name="LabUsername" type="Label" parent="Login/VBoxScreenHolder/VBoxUsername"]
+layout_mode = 2
+text = "Username:"
+
+[node name="InputUsername" type="TextEdit" parent="Login/VBoxScreenHolder/VBoxUsername"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+placeholder_text = "MyUsername"
+
+[node name="VBoxPassword" type="VBoxContainer" parent="Login/VBoxScreenHolder"]
+layout_mode = 2
+
+[node name="LabPassword" type="Label" parent="Login/VBoxScreenHolder/VBoxPassword"]
+layout_mode = 2
+text = "Password:"
+
+[node name="InputPassword" type="LineEdit" parent="Login/VBoxScreenHolder/VBoxPassword"]
+layout_mode = 2
+placeholder_text = "MyPassword"
+secret = true
+
+[node name="LabelError" type="Label" parent="Login/VBoxScreenHolder"]
+visible = false
+layout_mode = 2
+text = "Wrong Username 
+or Password"
+label_settings = SubResource("LabelSettings_al77a")
+
+[node name="ButtonConfirm" type="Button" parent="Login/VBoxScreenHolder"]
+layout_mode = 2
+shortcut = SubResource("Shortcut_t34kv")
+text = "Login"
+
+[node name="ChangeScreen" type="Button" parent="Login/VBoxScreenHolder"]
+layout_mode = 2
+text = "Create an Account"
+
+[node name="StayLogged" type="CheckBox" parent="Login/VBoxScreenHolder"]
+layout_mode = 2
+text = "Remember me"
+
+[node name="Create" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchor_left = 0.372
+anchor_top = 0.38
+anchor_right = 0.635
+anchor_bottom = 0.794
+offset_left = -705.24
+offset_top = -329.4
+offset_right = 709.8
+offset_bottom = 303.48
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxScreenHolder" type="VBoxContainer" parent="Create"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LabName" type="Label" parent="Create/VBoxScreenHolder"]
+layout_mode = 2
+text = "Create an Account"
+horizontal_alignment = 1
+
+[node name="VBoxUsername" type="VBoxContainer" parent="Create/VBoxScreenHolder"]
+layout_mode = 2
+
+[node name="LabUsername" type="Label" parent="Create/VBoxScreenHolder/VBoxUsername"]
+layout_mode = 2
+text = "Username:"
+
+[node name="InputUsername" type="TextEdit" parent="Create/VBoxScreenHolder/VBoxUsername"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+placeholder_text = "MyUsername"
+
+[node name="VBoxPassword" type="VBoxContainer" parent="Create/VBoxScreenHolder"]
+layout_mode = 2
+
+[node name="LabPassword" type="Label" parent="Create/VBoxScreenHolder/VBoxPassword"]
+layout_mode = 2
+text = "Password:"
+
+[node name="InputPassword" type="LineEdit" parent="Create/VBoxScreenHolder/VBoxPassword"]
+layout_mode = 2
+placeholder_text = "MyPassword"
+secret = true
+
+[node name="VBoxConfirmPassWord" type="VBoxContainer" parent="Create/VBoxScreenHolder"]
+layout_mode = 2
+
+[node name="LabConfirmPassword" type="Label" parent="Create/VBoxScreenHolder/VBoxConfirmPassWord"]
+layout_mode = 2
+text = "Confirm your Password:"
+
+[node name="InputConfirmPassword" type="LineEdit" parent="Create/VBoxScreenHolder/VBoxConfirmPassWord"]
+layout_mode = 2
+placeholder_text = "MyPassword"
+secret = true
+
+[node name="LabelErrorPasswords" type="Label" parent="Create/VBoxScreenHolder"]
+visible = false
+layout_mode = 2
+text = "Passwords does
+not match !"
+label_settings = SubResource("LabelSettings_cntyw")
+
+[node name="LabelErrorUsername" type="Label" parent="Create/VBoxScreenHolder"]
+visible = false
+layout_mode = 2
+text = "This Username
+already exist !"
+label_settings = SubResource("LabelSettings_g75en")
+
+[node name="ButtonConfirm" type="Button" parent="Create/VBoxScreenHolder"]
+layout_mode = 2
+text = "Create account"
+
+[node name="ChangeScreen" type="Button" parent="Create/VBoxScreenHolder"]
+layout_mode = 2
+text = "Login"
+
+[node name="StayLogged" type="CheckBox" parent="Create/VBoxScreenHolder"]
+layout_mode = 2
+text = "Remember me"
+
+[node name="ArrowsHolder" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Arrow1" type="TextureRect" parent="ArrowsHolder"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.668
+anchor_top = 0.563
+anchor_right = 0.668
+anchor_bottom = 0.563
+offset_left = 1249.64
+offset_top = 557.824
+offset_right = 1280.64
+offset_bottom = 588.824
+rotation = -0.0643659
+pivot_offset = Vector2(5, 28)
+texture = ExtResource("3_gqu63")
+expand_mode = 1
+
+[node name="Arrow2" type="TextureRect" parent="ArrowsHolder"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.618
+anchor_top = 0.935
+anchor_right = 0.618
+anchor_bottom = 0.935
+offset_left = 1156.28
+offset_top = 937.6
+offset_right = 1194.28
+offset_bottom = 975.6
+pivot_offset = Vector2(5, 35)
+texture = ExtResource("3_gqu63")
+expand_mode = 1
+
+[node name="LightsHolder" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1880.0
+offset_bottom = -1040.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RedLight" type="PointLight2D" parent="LightsHolder"]
+visible = false
+position = Vector2(651, 417)
+color = Color(0.989844, 5.48691e-06, 9.62615e-07, 1)
+energy = 5.0
+texture = ExtResource("4_mhpo5")
+texture_scale = 0.5
+
+[node name="YellowLight" type="PointLight2D" parent="LightsHolder"]
+visible = false
+position = Vector2(652, 516)
+color = Color(1, 1, 0, 1)
+energy = 2.0
+texture = ExtResource("4_mhpo5")
+texture_scale = 0.5
+
+[node name="LightninhStartPos" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 543.0
+offset_top = 137.0
+offset_right = -1337.0
+offset_bottom = -903.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LightninhEndPos" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1460.0
+offset_top = 160.0
+offset_right = -420.0
+offset_bottom = -880.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Node2D" parent="." instance=ExtResource("4_yb23f")]
+unitSize = 200.0
+numTurn = 1
+maxAngle = 75.0
+spawnSpeed = 5.0
+movingSpeed = 5.0
+destroyingSpeed = 5.0
+marginStart = 30
+width = 50
+randomRatioLengthMin = 0.5
+allColors = PackedColorArray(0.417465, 0.783072, 0.960851, 1, 0.467371, 0.687911, 0.988892, 1, 0.157012, 0.393939, 0.865091, 1)
+linesWidth = 10.0
+innerLineWidth = 3.0
+
+[node name="ParticlesGroup" parent="." instance=ExtResource("7_kt76h")]
+position = Vector2(599, 264)
+
+[node name="ParticlesGroup2" parent="." instance=ExtResource("7_kt76h")]
+position = Vector2(1368, 277)
+scale = Vector2(-0.993, 1)

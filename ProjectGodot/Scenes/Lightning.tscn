@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://cfqq10c08ay30"]
+
+[ext_resource type="Script" path="res://Scripts/LightningNode.cs" id="1_dme1m"]
+[ext_resource type="PackedScene" uid="uid://fcrs0icl4dct" path="res://Scenes/LightningLine2D.tscn" id="2_es1e0"]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_dme1m")
+singleLightningScene = ExtResource("2_es1e0")
+unitSize = 100.0
+numTurn = 2
+maxAngle = 90.0
+spawnSpeed = 3.5
+movingSpeed = 3.5
+destroyingSpeed = 3.5
+marginStart = 10
+width = 25
+randomRatioLengthMin = 0.25
+randomRatioLengthMax = 1.5
+allColors = PackedColorArray(0.936737, 0.718805, 0.0179678, 1, 0.49, 0.441271, 0.00174782, 1, 0.711921, 0.726334, 3.85046e-07, 1)
+innerLineColor = Color(1, 1, 1, 1)

@@ -1,0 +1,35 @@
+﻿using Godot;
+using System;
+
+// Author : Noe Sales
+
+namespace Com.IsartDigital.SokoVolt {
+	
+	public partial class ButtonTemplate : Button
+	{
+		[Export] private float scaleMultiplicator = 0.5f;
+		[Export] private float during = 0.5f;
+		[Export] Tween.EaseType easeType;
+		[Export] Tween.TransitionType transitionType;
+		[Export] GpuParticles2D particles;
+
+		private Vector2 initialScale; 
+
+        public override void _Ready()
+        {
+			Pressed += TweenInit;
+			initialScale = Scale;
+        }
+
+        private void TweenInit()
+		{
+			Disabled = true;
+			Tween lTween = CreateTween();
+			lTween.TweenProperty(this, "scale", initialScale * scaleMultiplicator, during / 2).SetEase(easeType).SetTrans(transitionType);
+			lTween.TweenProperty(this, "scale", initialScale, during / 2).SetEase(easeType).SetTrans(transitionType);
+			if (particles != null) particles.Emitting=true;
+			lTween.Finished += () => Disabled = false;
+
+        }
+	}
+}

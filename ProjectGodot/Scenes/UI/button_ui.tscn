@@ -1,0 +1,56 @@
+[gd_scene load_steps=11 format=3 uid="uid://cbf686b53xjdf"]
+
+[ext_resource type="Texture2D" uid="uid://dch7jfadg5yla" path="res://Assets/UI/bouton4.png" id="1_0qy4c"]
+[ext_resource type="Texture2D" uid="uid://cuyulc785hnks" path="res://Assets/UI/bouton5.png" id="2_pohgf"]
+[ext_resource type="Texture2D" uid="uid://bqiw8052gbe6d" path="res://Assets/UI/bouton1.png" id="3_v3xxb"]
+[ext_resource type="Script" path="res://Scripts/Controls/button.cs" id="4_eaxnp"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2ryoj"]
+texture = ExtResource("1_0qy4c")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_3i7fe"]
+texture = ExtResource("2_pohgf")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qak3m"]
+texture = ExtResource("3_v3xxb")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_52bnw"]
+
+[sub_resource type="Gradient" id="Gradient_hvmdm"]
+offsets = PackedFloat32Array(0.160714, 0.404762, 0.732143, 0.934524)
+colors = PackedColorArray(0.588235, 0.247059, 0.0627451, 1, 0.75211, 0.478639, 0.169986, 1, 0.122807, 0.122807, 0.122807, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_cksjq"]
+gradient = SubResource("Gradient_hvmdm")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.7, 0.138)
+
+[node name="Button_ui" type="Button" node_paths=PackedStringArray("light")]
+anchors_preset = -1
+anchor_left = 0.483
+anchor_top = 0.356
+anchor_right = 0.483
+anchor_bottom = 0.356
+offset_left = -151.36
+offset_top = -56.48
+offset_right = 152.64
+offset_bottom = 55.52
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.867833, 0.783333)
+pivot_offset = Vector2(200, 100)
+theme_override_styles/normal = SubResource("StyleBoxTexture_2ryoj")
+theme_override_styles/hover = SubResource("StyleBoxTexture_3i7fe")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_qak3m")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_52bnw")
+script = ExtResource("4_eaxnp")
+light = NodePath("PointLight2D2")
+
+[node name="PointLight2D2" type="PointLight2D" parent="."]
+position = Vector2(144.69, 64.2553)
+scale = Vector2(3.68356, 1.66607)
+color = Color(1, 0.498039, 0.227451, 1)
+energy = 1.86
+texture = SubResource("GradientTexture2D_cksjq")
+texture_scale = 2.98

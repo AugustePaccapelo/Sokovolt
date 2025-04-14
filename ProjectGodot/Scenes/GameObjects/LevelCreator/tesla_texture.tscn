@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=3 uid="uid://bqdvcl5bpx284"]
+
+[ext_resource type="Texture2D" uid="uid://bf7oyxyuj4yrt" path="res://Assets/GameObjects/IsoObjects/TeslaAnimation/0001.png" id="1_nwq2k"]
+[ext_resource type="Script" path="res://Scripts/GameObjects/LevelCreatorItems.cs" id="2_wbknj"]
+
+[node name="Tesla" type="TextureRect" node_paths=PackedStringArray("teslaRange")]
+offset_left = -240.0
+offset_right = 1680.0
+offset_bottom = 1080.0
+scale = Vector2(0.156129, 0.156129)
+pivot_offset = Vector2(-20, 0)
+texture = ExtResource("1_nwq2k")
+script = ExtResource("2_wbknj")
+teslaRange = NodePath("SpinBox")
+
+[node name="SpinBox" type="SpinBox" parent="."]
+layout_mode = 1
+offset_left = 546.895
+offset_top = 125.977
+offset_right = 654.895
+offset_bottom = 230.977
+scale = Vector2(8.34226, 8.34226)
+mouse_filter = 1
+min_value = 1.0
+max_value = 10.0
+value = 1.0
+alignment = 1

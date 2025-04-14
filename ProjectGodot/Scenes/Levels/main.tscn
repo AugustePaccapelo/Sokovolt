@@ -1,0 +1,231 @@
+[gd_scene load_steps=52 format=3 uid="uid://dkbx646vvyaig"]
+
+[ext_resource type="PackedScene" uid="uid://dyk47lo67a1tp" path="res://Scenes/Managers/ui_manager.tscn" id="1_4603a"]
+[ext_resource type="PackedScene" uid="uid://bnv0kco0ylr0e" path="res://Scenes/Managers/GridManager.tscn" id="1_d671q"]
+[ext_resource type="PackedScene" uid="uid://bix7hbs5g2ia3" path="res://Scenes/Managers/level_manager.tscn" id="2_g28jy"]
+[ext_resource type="Script" path="res://Scripts/Managers/InputManager.cs" id="3_3tpao"]
+[ext_resource type="Script" path="res://Scripts/Json/LevelLoader.cs" id="4_ly116"]
+[ext_resource type="PackedScene" uid="uid://b21gg4f1j4u3v" path="res://Scenes/Screen/option_menu.tscn" id="4_u7yxh"]
+[ext_resource type="PackedScene" uid="uid://bsl1nyen453ty" path="res://Scenes/Levels/main_menu.tscn" id="5_0gm45"]
+[ext_resource type="PackedScene" uid="uid://qqcyeuf0ktxk" path="res://Scenes/GameObjects/Tile.tscn" id="5_8xedd"]
+[ext_resource type="PackedScene" uid="uid://yr5dy4bj5sby" path="res://Scenes/GameObjects/Player.tscn" id="6_65akx"]
+[ext_resource type="PackedScene" uid="uid://bsl0bvhb270nq" path="res://Scenes/Screen/title_card.tscn" id="6_kcr3l"]
+[ext_resource type="PackedScene" uid="uid://31ew226yj11n" path="res://Scenes/Screen/LoginScreen.tscn" id="6_vn404"]
+[ext_resource type="PackedScene" uid="uid://e1d8riptp31i" path="res://Scenes/GameObjects/BoxTesla.tscn" id="7_i3dso"]
+[ext_resource type="PackedScene" uid="uid://csiqphobxyguh" path="res://Scenes/UI/HUD.tscn" id="7_js22e"]
+[ext_resource type="PackedScene" uid="uid://cbrehv31qfb0r" path="res://Scenes/Managers/GameManager.tscn" id="7_vkagg"]
+[ext_resource type="PackedScene" uid="uid://djcluge6is5om" path="res://Scenes/GameObjects/Wall.tscn" id="8_najj4"]
+[ext_resource type="PackedScene" uid="uid://c256fa86lg71t" path="res://Scenes/GameObjects/ElectricWall.tscn" id="9_34m77"]
+[ext_resource type="PackedScene" uid="uid://bbvc0kv5shwqo" path="res://Scenes/GameObjects/WinScreen/thunder_effects.tscn" id="9_bsoiu"]
+[ext_resource type="PackedScene" uid="uid://7fsi04q1t5ae" path="res://Scenes/GameObjects/AnimationPiston.tscn" id="9_ddww2"]
+[ext_resource type="PackedScene" uid="uid://v75l4cppany" path="res://Scenes/GameObjects/GoalBulb.tscn" id="10_cjqye"]
+[ext_resource type="PackedScene" uid="uid://dellu8bu72iut" path="res://Scenes/GameObjects/Generator.tscn" id="11_lsk15"]
+[ext_resource type="PackedScene" uid="uid://b4gnj6651gy4m" path="res://Scenes/GameObjects/Door.tscn" id="12_pyytn"]
+[ext_resource type="PackedScene" uid="uid://br3qeg3kaqfqk" path="res://Scenes/user_gestion.tscn" id="17_3ylmq"]
+[ext_resource type="PackedScene" uid="uid://h8fbgcr6chyo" path="res://Scenes/shaker.tscn" id="22_01v8u"]
+[ext_resource type="Script" path="res://Scripts/Managers/AnimationManager.cs" id="22_ah2rb"]
+[ext_resource type="Script" path="res://Scripts/Managers/ConnectionManagers.cs" id="22_alaha"]
+[ext_resource type="Script" path="res://Scripts/Managers/SongManager.cs" id="24_lgxf0"]
+[ext_resource type="AudioStream" uid="uid://cbq85vvh8fln7" path="res://Song/roblox-death-sound_1.mp3" id="26_0femv"]
+[ext_resource type="AudioStream" uid="uid://bkdhsrclowwyq" path="res://Song/Shiva chess-pieces-move-close.mp3" id="26_betdd"]
+[ext_resource type="PackedScene" uid="uid://bkskxcspqook3" path="res://Scenes/BackGround/AnimatedBackGround.tscn" id="26_rfowc"]
+[ext_resource type="AudioStream" uid="uid://bxlpblj5mcaof" path="res://Song/clicksoundeffect.mp3" id="28_eg566"]
+[ext_resource type="AudioStream" uid="uid://dn32i8tby2xfr" path="res://Song/TitleCardSound/spotlight-91359.mp3" id="29_3qccr"]
+[ext_resource type="AudioStream" uid="uid://difbx1u6twx0t" path="res://Song/LevelSelectorSound/whirl-50468.mp3" id="30_asyhk"]
+[ext_resource type="AudioStream" uid="uid://bjg2slsg1c76h" path="res://Song/LevelSelectorSound/servo_2_panera-25665.mp3" id="31_lm25s"]
+[ext_resource type="AudioStream" uid="uid://biisufi33315p" path="res://Song/LevelSelectorSound/mysterious-electricity-73307.mp3" id="32_c87ih"]
+[ext_resource type="AudioStream" uid="uid://coe8bpgpdtj5o" path="res://Song/LevelSelectorSound/heater-58674.mp3" id="33_2a0qo"]
+[ext_resource type="AudioStream" uid="uid://d1a28kdxhb3ea" path="res://Song/LevelSelectorSound/elevator-noise-33064.mp3" id="34_ugr34"]
+[ext_resource type="AudioStream" uid="uid://cvsr7p0a5dymp" path="res://Song/LevelSelectorSound/treadmill.ogg" id="35_uay1f"]
+[ext_resource type="AudioStream" uid="uid://e5js8fkcbgig" path="res://Song/LevelSelectorSound/toggle-button-on-166329.mp3" id="36_3sml6"]
+[ext_resource type="AudioStream" uid="uid://beimplfj68k5l" path="res://Song/LevelCreator/pop-91931-2.ogg" id="37_trgo4"]
+[ext_resource type="AudioStream" uid="uid://ctbopfj2v5l7w" path="res://Song/LevelCreator/pop-91931-3.ogg" id="38_2gswp"]
+[ext_resource type="AudioStream" uid="uid://b5wfu3wt3k3wr" path="res://Song/LevelCreator/pop-91931-4.ogg" id="39_rkyjo"]
+[ext_resource type="AudioStream" uid="uid://biyjhsi4nkwjy" path="res://Song/LevelCreator/pop-91931-5.ogg" id="40_dmpm1"]
+[ext_resource type="AudioStream" uid="uid://bk7px1ugt8mic" path="res://Song/LevelCreator/pop-91931-6.ogg" id="41_5tewb"]
+[ext_resource type="AudioStream" uid="uid://dx04thnh847nk" path="res://Song/AmbiantSounds/Mécanismes du Temps.mp3" id="42_gha0a"]
+[ext_resource type="PackedScene" uid="uid://1yhpiyc6vg65" path="res://Scenes/Managers/DialogManager.tscn" id="42_hfyqr"]
+[ext_resource type="AudioStream" uid="uid://b7q8537k18284" path="res://Song/AmbiantSounds/Boucle Mécanique.mp3" id="42_npehw"]
+[ext_resource type="PackedScene" uid="uid://ea1n36xp4mo5" path="res://Scenes/Managers/HighLightManager.tscn" id="43_pkf3d"]
+[ext_resource type="AudioStream" uid="uid://cqupdu6pyb0p8" path="res://Song/buton/463642__alec_mackay__buton-click.mp3" id="44_1vrqk"]
+[ext_resource type="AudioStream" uid="uid://b8wh0uhv48l0j" path="res://Song/AmbiantSounds/Brasch Tactics in HD Compilation - HellDivers 2.mp3" id="45_ooqfe"]
+[ext_resource type="AudioStream" uid="uid://c5ocvyd143xwi" path="res://Scripts/Managers/levelCreatorClick.ogg" id="47_g5bik"]
+[ext_resource type="AudioStream" uid="uid://bk2rbduwhbv23" path="res://Song/LevelCreator/370844__cabled_mess__ping_minimal-ui-sounds.wav" id="48_l0vam"]
+
+[node name="MAIN" type="Node2D"]
+
+[node name="Managers" type="Node" parent="."]
+
+[node name="InputManager" type="Node2D" parent="Managers"]
+script = ExtResource("3_3tpao")
+
+[node name="UIManager" parent="Managers" instance=ExtResource("1_4603a")]
+
+[node name="LoginScreen" parent="Managers/UIManager" instance=ExtResource("6_vn404")]
+custom_minimum_size = Vector2(1152, 648)
+arrowMinRotation = 0.0
+arrowMaxRotation = 0.0
+lightsMinOnDuration = 0.0
+lightsMaxOnDuration = 0.0
+lightsMinOffDuration = 0.0
+lightsMaxOffDuration = 0.0
+
+[node name="OptionMenu" parent="Managers/UIManager" instance=ExtResource("4_u7yxh")]
+visible = false
+
+[node name="MainMenu" parent="Managers/UIManager" instance=ExtResource("5_0gm45")]
+visible = false
+
+[node name="LevelManager" parent="Managers/UIManager" node_paths=PackedStringArray("objectContainer") instance=ExtResource("2_g28jy")]
+objectContainer = NodePath("../../../Containers/ObjectsContainer")
+
+[node name="TitleCard" parent="Managers/UIManager" instance=ExtResource("6_kcr3l")]
+
+[node name="Hud" parent="Managers/UIManager" instance=ExtResource("7_js22e")]
+visible = false
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_right = 1920.0
+offset_bottom = 1080.0
+grow_horizontal = 1
+grow_vertical = 1
+
+[node name="GridManager" parent="Managers" instance=ExtResource("1_d671q")]
+thunderEffectScene = ExtResource("9_bsoiu")
+pistonScene = ExtResource("9_ddww2")
+
+[node name="LevelLoader" type="Node2D" parent="Managers"]
+script = ExtResource("4_ly116")
+cellScene = ExtResource("5_8xedd")
+playerScene = ExtResource("6_65akx")
+boxScene = ExtResource("7_i3dso")
+wallScene = ExtResource("8_najj4")
+electricWallScene = ExtResource("9_34m77")
+goalBulbScene = ExtResource("10_cjqye")
+generatorScene = ExtResource("11_lsk15")
+doorScene = ExtResource("12_pyytn")
+
+[node name="GameManager" parent="Managers" node_paths=PackedStringArray("objectsContainer", "shaker", "camera") instance=ExtResource("7_vkagg")]
+objectsContainer = NodePath("../../Containers/ObjectsContainer")
+shaker = NodePath("Shaker")
+camera = NodePath("Camera")
+
+[node name="Camera" type="Camera2D" parent="Managers/GameManager"]
+position = Vector2(960, 540)
+
+[node name="Shaker" parent="Managers/GameManager" instance=ExtResource("22_01v8u")]
+duration = 2.6
+
+[node name="UserGestion" parent="Managers" instance=ExtResource("17_3ylmq")]
+
+[node name="ConnectionManagers" type="Node2D" parent="Managers"]
+script = ExtResource("22_alaha")
+
+[node name="AnimationManager" type="Node2D" parent="Managers"]
+script = ExtResource("22_ah2rb")
+
+[node name="SongManager" type="Node2D" parent="Managers"]
+script = ExtResource("24_lgxf0")
+
+[node name="AudioStreamPlayer1" type="AudioStreamPlayer" parent="Managers/SongManager"]
+stream = ExtResource("26_betdd")
+bus = &"SFX"
+
+[node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="Managers/SongManager"]
+stream = ExtResource("26_0femv")
+bus = &"SFX"
+
+[node name="AudioStreamPlayer3" type="AudioStreamPlayer" parent="Managers/SongManager"]
+stream = ExtResource("28_eg566")
+bus = &"SFX"
+
+[node name="AudioStreamPlayer4" type="AudioStreamPlayer" parent="Managers/SongManager"]
+stream = ExtResource("29_3qccr")
+bus = &"SFX"
+
+[node name="AudioStreamPlayer5" type="AudioStreamPlayer" parent="Managers/SongManager"]
+stream = ExtResource("30_asyhk")
+volume_db = -10.0
+bus = &"SFX"
+
+[node name="AudioStreamPlayer6" type="AudioStreamPlayer" parent="Managers/SongManager"]
+stream = ExtResource("31_lm25s")
+volume_db = -10.0
+bus = &"SFX"
+
+[node name="AudioStreamPlayer7" type="AudioStreamPlayer" parent="Managers/SongManager"]
+stream = ExtResource("32_c87ih")
+bus = &"SFX"
+
+[node name="AudioStreamPlayer8" type="AudioStreamPlayer" parent="Managers/SongManager"]
+stream = ExtResource("33_2a0qo")
+volume_db = -10.0
+bus = &"SFX"
+
+[node name="AudioStreamPlayer9" type="AudioStreamPlayer" parent="Managers/SongManager"]
+stream = ExtResource("34_ugr34")
+volume_db = -10.0
+bus = &"SFX"
+
+[node name="AudioStreamPlayer10" type="AudioStreamPlayer" parent="Managers/SongManager"]
+stream = ExtResource("35_uay1f")
+volume_db = 2.0
+bus = &"SFX"
+
+[node name="AudioStreamPlayer11" type="AudioStreamPlayer" parent="Managers/SongManager"]
+stream = ExtResource("36_3sml6")
+pitch_scale = 2.18
+bus = &"SFX"
+
+[node name="AudioStreamPlayer12" type="AudioStreamPlayer" parent="Managers/SongManager"]
+stream = ExtResource("37_trgo4")
+bus = &"SFX"
+
+[node name="AudioStreamPlayer13" type="AudioStreamPlayer" parent="Managers/SongManager"]
+stream = ExtResource("38_2gswp")
+bus = &"SFX"
+
+[node name="AudioStreamPlayer14" type="AudioStreamPlayer" parent="Managers/SongManager"]
+stream = ExtResource("39_rkyjo")
+bus = &"SFX"
+
+[node name="AudioStreamPlayer15" type="AudioStreamPlayer" parent="Managers/SongManager"]
+stream = ExtResource("40_dmpm1")
+bus = &"SFX"
+
+[node name="AudioStreamPlayer16" type="AudioStreamPlayer" parent="Managers/SongManager"]
+stream = ExtResource("41_5tewb")
+bus = &"SFX"
+
+[node name="AudioStreamPlayer17" type="AudioStreamPlayer" parent="Managers/SongManager"]
+stream = ExtResource("42_npehw")
+bus = &"Music"
+
+[node name="AudioStreamPlayer18" type="AudioStreamPlayer" parent="Managers/SongManager"]
+stream = ExtResource("42_gha0a")
+bus = &"Music"
+
+[node name="AudioStreamPlayer 19" type="AudioStreamPlayer" parent="Managers/SongManager"]
+stream = ExtResource("44_1vrqk")
+bus = &"SFX"
+
+[node name="AudioStreamPlayer 20" type="AudioStreamPlayer" parent="Managers/SongManager"]
+stream = ExtResource("45_ooqfe")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer" parent="Managers/SongManager"]
+stream = ExtResource("47_g5bik")
+
+[node name="AudioStreamPlayer2D2" type="AudioStreamPlayer" parent="Managers/SongManager"]
+stream = ExtResource("48_l0vam")
+
+[node name="DialogManager" parent="Managers" instance=ExtResource("42_hfyqr")]
+
+[node name="HighLightManager" parent="Managers" instance=ExtResource("43_pkf3d")]
+
+[node name="Containers" type="Node2D" parent="."]
+
+[node name="ObjectsContainer" type="Node2D" parent="Containers"]
+
+[node name="AnimatedBackGround" parent="." instance=ExtResource("26_rfowc")]
+position = Vector2(-10, -4)

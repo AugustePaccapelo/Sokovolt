@@ -1,0 +1,115 @@
+[gd_scene load_steps=5 format=3 uid="uid://61fe0x1uwbad"]
+
+[ext_resource type="Texture2D" uid="uid://btrwo2ujfcf0t" path="res://Assets/UI/ImageLevels/Nv0.png" id="1_xdyy0"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_6nt13"]
+font_size = 52
+font_color = Color(1, 1, 0.160784, 1)
+outline_size = 10
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="Shader" id="Shader_cslki"]
+code = "shader_type canvas_item;
+
+uniform sampler2D screen_texture : hint_screen_texture;
+uniform float screen_width = 1024;
+uniform float screen_height = 600;
+
+// Curvature
+uniform float BarrelPower =1.1;
+// Color bleeding
+uniform float color_bleeding = 1.2;
+uniform float bleeding_range_x = 3;
+uniform float bleeding_range_y = 3;
+// Scanline
+uniform float lines_distance = 4.0;
+uniform float scan_size = 2.0;
+uniform float scanline_alpha = 0.9;
+uniform float lines_velocity = 30.0;
+
+vec2 distort(vec2 p)
+{
+	float angle = p.y / p.x;
+	float theta = atan(p.y,p.x);
+	float radius = pow(length(p), BarrelPower);
+
+	p.x = radius * cos(theta);
+	p.y = radius * sin(theta);
+
+	return 0.5 * (p + vec2(1.0, 1.0));
+}
+
+void get_color_bleeding(inout vec4 current_color,inout vec4 color_left){
+	current_color = current_color * vec4(color_bleeding, 0.5, 1.0 - color_bleeding, 1);
+	color_left = color_left * vec4(1.0 - color_bleeding, 0.5, color_bleeding, 1);
+}
+
+void get_color_scanline(vec2 uv, inout vec4 c, float time){
+	float line_row = floor((uv.y * screen_height/scan_size) + mod(time * lines_velocity, lines_distance));
+	float n = 1.0 - ceil( (mod(line_row,lines_distance) / lines_distance));
+	c = c - n * c * (1.0 - scanline_alpha);
+	c.a = 1.0;
+}
+
+void fragment()
+{
+	vec2 xy = SCREEN_UV * 2.0;
+	xy.x -= 1.0;
+	xy.y -= 1.0;
+
+	float d = length(xy);
+	if(d < 1.5){
+		xy = distort(xy);
+	}
+	else{
+		xy = SCREEN_UV;
+	}
+
+	float pixel_size_x = 1.0/screen_width * bleeding_range_x;
+	float pixel_size_y = 1.0/screen_height * bleeding_range_y;
+	vec4 color_left = texture(screen_texture, xy - vec2(pixel_size_x, pixel_size_y));
+	vec4 current_color = texture(screen_texture, xy);
+	get_color_bleeding(current_color, color_left);
+	vec4 c = current_color + color_left;
+	get_color_scanline(xy,c,TIME);
+	COLOR = c;
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6e85d"]
+shader = SubResource("Shader_cslki")
+shader_parameter/screen_width = 282.0
+shader_parameter/screen_height = 146.0
+shader_parameter/BarrelPower = 1.01
+shader_parameter/color_bleeding = 1.2
+shader_parameter/bleeding_range_x = 0.3
+shader_parameter/bleeding_range_y = 0.3
+shader_parameter/lines_distance = 4.0
+shader_parameter/scan_size = 0.5
+shader_parameter/scanline_alpha = 0.7
+shader_parameter/lines_velocity = 10.0
+
+[node name="ScreenView" type="Node2D"]
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_right = 2252.0
+offset_bottom = 1252.0
+scale = Vector2(0.12477, 0.124925)
+texture = ExtResource("1_xdyy0")
+
+[node name="LevelLabel" type="Label" parent="."]
+visible = false
+offset_left = 166.128
+offset_top = 34.541
+offset_right = 365.128
+offset_bottom = 106.541
+scale = Vector2(0.573123, 0.573123)
+text = "LEVEL : "
+label_settings = SubResource("LabelSettings_6nt13")
+horizontal_alignment = 1
+
+[node name="ScreenEffect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_6e85d")
+offset_right = 282.0
+offset_bottom = 146.0
+color = Color(0, 0, 1, 1)

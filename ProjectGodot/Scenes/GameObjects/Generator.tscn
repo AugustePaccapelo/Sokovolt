@@ -1,0 +1,186 @@
+[gd_scene load_steps=35 format=3 uid="uid://dellu8bu72iut"]
+
+[ext_resource type="Script" path="res://Scripts/GameObjects/Generator.cs" id="1_3t66j"]
+[ext_resource type="Texture2D" uid="uid://deokvx6ammfci" path="res://Assets/GameObjects/IsoObjects/BatteryIso.png" id="2_wsidw"]
+[ext_resource type="Texture2D" uid="uid://j4dfugq10m2d" path="res://Assets/GameObjects/IsoObjects/GeneratorAnimation/0001.png" id="3_j4nlp"]
+[ext_resource type="Texture2D" uid="uid://bcfjcwdgcq4lo" path="res://Assets/GameObjects/IsoObjects/GeneratorAnimation/0002.png" id="4_hytj6"]
+[ext_resource type="Texture2D" uid="uid://b4rdpqyne5ahu" path="res://Assets/GameObjects/IsoObjects/GeneratorAnimation/0003.png" id="5_frs85"]
+[ext_resource type="Texture2D" uid="uid://b41hsr2b3dxyc" path="res://Assets/GameObjects/IsoObjects/GeneratorAnimation/0004.png" id="6_mus3l"]
+[ext_resource type="Texture2D" uid="uid://cgbwbnh1vvtsu" path="res://Assets/GameObjects/IsoObjects/GeneratorAnimation/0005.png" id="7_qx851"]
+[ext_resource type="Texture2D" uid="uid://b8olyfjvaodk4" path="res://Assets/GameObjects/IsoObjects/GeneratorAnimation/0006.png" id="8_q54a8"]
+[ext_resource type="Texture2D" uid="uid://bxc2q0jv7hkga" path="res://Assets/GameObjects/IsoObjects/GeneratorAnimation/0007.png" id="9_7jibh"]
+[ext_resource type="Texture2D" uid="uid://db03iylvci0ds" path="res://Assets/GameObjects/IsoObjects/GeneratorAnimation/0008.png" id="10_cab3w"]
+[ext_resource type="Texture2D" uid="uid://xvkn3j0m0s4x" path="res://Assets/GameObjects/IsoObjects/GeneratorAnimation/0009.png" id="11_im7jl"]
+[ext_resource type="Texture2D" uid="uid://2rxgafyx4u32" path="res://Assets/GameObjects/IsoObjects/GeneratorAnimation/0010.png" id="12_7nx3c"]
+[ext_resource type="Texture2D" uid="uid://bulco2gbx1aja" path="res://Assets/GameObjects/IsoObjects/GeneratorAnimation/0011.png" id="13_w7xjo"]
+[ext_resource type="Texture2D" uid="uid://6d1b0qmn7hgd" path="res://Assets/GameObjects/IsoObjects/GeneratorAnimation/0012.png" id="14_v0y5x"]
+[ext_resource type="Texture2D" uid="uid://b20eyvld7khqr" path="res://Assets/GameObjects/IsoObjects/GeneratorAnimation/0013.png" id="15_2su65"]
+[ext_resource type="Texture2D" uid="uid://7ho5h0g3cgsw" path="res://Assets/GameObjects/IsoObjects/GeneratorAnimation/0014.png" id="16_18m2m"]
+[ext_resource type="Texture2D" uid="uid://qa85mbdkmy08" path="res://Assets/GameObjects/IsoObjects/GeneratorAnimation/0015.png" id="17_mghce"]
+[ext_resource type="Texture2D" uid="uid://bpm2k1fj26kpi" path="res://Assets/GameObjects/IsoObjects/GeneratorAnimation/0016.png" id="18_3y7sb"]
+[ext_resource type="Texture2D" uid="uid://c7agifrctx55e" path="res://Assets/GameObjects/IsoObjects/GeneratorAnimation/0017.png" id="19_rktl2"]
+[ext_resource type="Texture2D" uid="uid://ec810mh221ls" path="res://Assets/GameObjects/IsoObjects/GeneratorAnimation/0018.png" id="20_wr7cl"]
+[ext_resource type="Texture2D" uid="uid://djfqgxi4wlkl7" path="res://Assets/GameObjects/IsoObjects/GeneratorAnimation/0019.png" id="21_c4k7p"]
+[ext_resource type="Texture2D" uid="uid://c0yyvhhwicq2j" path="res://Assets/GameObjects/IsoObjects/GeneratorAnimation/0020.png" id="22_c3rm4"]
+[ext_resource type="Texture2D" uid="uid://dbcwi0csm1hww" path="res://Assets/GameObjects/IsoObjects/GeneratorAnimation/0021.png" id="23_c6b3a"]
+[ext_resource type="Texture2D" uid="uid://bm5agm8jny4mh" path="res://Assets/GameObjects/IsoObjects/GeneratorAnimation/0022.png" id="24_5fdn8"]
+[ext_resource type="Texture2D" uid="uid://de5f76shn52ad" path="res://Assets/GameObjects/IsoObjects/GeneratorAnimation/0023.png" id="25_pg1sb"]
+[ext_resource type="Texture2D" uid="uid://dtqqir8temay" path="res://Assets/GameObjects/IsoObjects/GeneratorAnimation/0024.png" id="26_y3v28"]
+[ext_resource type="Texture2D" uid="uid://dxhc725oxeuee" path="res://Assets/GameObjects/IsoObjects/GeneratorAnimation/0025.png" id="27_2hm2w"]
+[ext_resource type="Texture2D" uid="uid://ddonb8qjb2bp7" path="res://Assets/GameObjects/IsoObjects/GeneratorAnimation/0026.png" id="28_y8b5c"]
+[ext_resource type="Texture2D" uid="uid://mc0c86crnxvr" path="res://Assets/GameObjects/IsoObjects/GeneratorAnimation/0027.png" id="29_db2tb"]
+[ext_resource type="Texture2D" uid="uid://dimvuguwai4k3" path="res://Assets/GameObjects/IsoObjects/GeneratorAnimation/0028.png" id="30_0aor2"]
+[ext_resource type="Texture2D" uid="uid://clfh3jmlsfppo" path="res://Assets/GameObjects/IsoObjects/GeneratorAnimation/0029.png" id="31_je0l7"]
+[ext_resource type="Texture2D" uid="uid://dml7fo1pyxgym" path="res://Assets/GameObjects/IsoObjects/GeneratorAnimation/0030.png" id="32_g25sq"]
+[ext_resource type="Texture2D" uid="uid://c767fcajnj2yi" path="res://Assets/Shaders/Effects/Glow.png" id="33_lmu0t"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_36ml4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_j4nlp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_hytj6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_frs85")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_mus3l")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_qx851")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_q54a8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_7jibh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_cab3w")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_im7jl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_7nx3c")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_w7xjo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_v0y5x")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_2su65")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_18m2m")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_mghce")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_3y7sb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_rktl2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_wr7cl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_c4k7p")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_c3rm4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_c6b3a")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_5fdn8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_pg1sb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("26_y3v28")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_2hm2w")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_y8b5c")
+}, {
+"duration": 1.0,
+"texture": ExtResource("29_db2tb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("30_0aor2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("31_je0l7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("32_g25sq")
+}],
+"loop": true,
+"name": &"default",
+"speed": 20.0
+}]
+
+[node name="Generator" type="Node2D" node_paths=PackedStringArray("connectionPoint")]
+script = ExtResource("1_3t66j")
+connectionPoint = NodePath("ConnectionPoint")
+
+[node name="Visual" type="Node2D" parent="."]
+scale = Vector2(0.66, 0.66)
+
+[node name="Polygon2D" type="Polygon2D" parent="Visual"]
+visible = false
+position = Vector2(0, -3.81443)
+scale = Vector2(1, 0.639175)
+color = Color(0.382813, 0.375056, 0.348419, 1)
+polygon = PackedVector2Array(-31.25, -17.5, 31.25, -17.5, 31, 31, -31, 31)
+
+[node name="Polygon2D3" type="Polygon2D" parent="Visual"]
+visible = false
+position = Vector2(0, -14.4097)
+scale = Vector2(1.1, 0.176586)
+color = Color(0.228699, 0.223361, 0.205046, 1)
+polygon = PackedVector2Array(-31.25, -17.5, -24.0999, -17.5, -23.8636, -24.5787, -21.0579, -24.2183, -20.4545, -17.5, 18.6855, -17.5, 19.3182, -24.5787, 21.9597, -23.0116, 21.5909, -17.5, 31.25, -17.5, 31, 31, -31, 31)
+
+[node name="Polygon2D2" type="Polygon2D" parent="Visual"]
+visible = false
+position = Vector2(0, -1.90735e-06)
+scale = Vector2(0.356061, 0.278226)
+color = Color(0.771459, 0.763478, 0, 1)
+polygon = PackedVector2Array(-8, -31, 10, -31, -6, -2, 15, 12, -7, 31, -2, 16, -18, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Visual"]
+visible = false
+modulate = Color(0.724643, 0.724643, 0.724643, 1)
+position = Vector2(-9.53674e-07, -9.53674e-07)
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("2_wsidw")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Visual"]
+position = Vector2(-7.22222, -33.75)
+scale = Vector2(0.153549, 0.153549)
+sprite_frames = SubResource("SpriteFrames_36ml4")
+autoplay = "default"
+frame = 24
+frame_progress = 0.00513827
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(-1, 17)
+scale = Vector2(0.700231, 0.26331)
+color = Color(0.983956, 0.699043, 0, 1)
+texture = ExtResource("33_lmu0t")
+texture_scale = 0.4
+
+[node name="ConnectionPoint" type="Marker2D" parent="."]
+position = Vector2(0, -6)

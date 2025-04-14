@@ -1,0 +1,948 @@
+[gd_scene load_steps=84 format=3 uid="uid://dht3qeqhib1rk"]
+
+[ext_resource type="Script" path="res://Scripts/Controls/LevelSelector.cs" id="1_7onrw"]
+[ext_resource type="Texture2D" uid="uid://dyr30pkkewie" path="res://Assets/UI/MainMenu/LevelScreen.png" id="2_u4r7s"]
+[ext_resource type="PackedScene" uid="uid://c46bqjn4wfblh" path="res://Scenes/GameObjects/LevelSelectorObject/LevelSelectorTesla.tscn" id="3_31hu0"]
+[ext_resource type="Script" path="res://Scripts/GameObjects/ButtonTemplate.cs" id="4_tfihn"]
+[ext_resource type="PackedScene" uid="uid://dt8mu0rub45fm" path="res://Scenes/GameObjects/LevelSelectorObject/score_screen.tscn" id="5_1sge3"]
+[ext_resource type="Texture2D" uid="uid://o7dxw8nc0gvi" path="res://Assets/UI/MainMenu/CarpetBorder.png" id="5_8e1ql"]
+[ext_resource type="Texture2D" uid="uid://bp2mlj6eeovtb" path="res://Assets/UI/MainMenu/BackGround/BackGroundWall.png" id="5_l1c0r"]
+[ext_resource type="Texture2D" uid="uid://6qajctfobfih" path="res://Assets/UI/MainMenu/CarpetBorder2.png" id="6_cobsf"]
+[ext_resource type="Texture2D" uid="uid://uv5e87go3uen" path="res://Assets/main menu/Ecran/Ecran Copie 3.png" id="7_7v0ew"]
+[ext_resource type="Texture2D" uid="uid://c767fcajnj2yi" path="res://Assets/Shaders/Effects/Glow.png" id="7_c1v7e"]
+[ext_resource type="Texture2D" uid="uid://d027gw6ax6ujo" path="res://Assets/UI/MainMenu/Carpet.png" id="11_cogra"]
+[ext_resource type="Texture2D" uid="uid://6ogwctw6dhxl" path="res://Assets/UI/MainMenu/Manette.png" id="11_uwiep"]
+[ext_resource type="PackedScene" uid="uid://dty5a7hnd1fve" path="res://Scenes/GameObjects/LevelSelectorObject/button_smoke_particles.tscn" id="15_53pe0"]
+[ext_resource type="Texture2D" uid="uid://dw208iyoc71pe" path="res://Assets/UI/MainMenu/LightProjection.png" id="15_cy604"]
+[ext_resource type="Texture2D" uid="uid://dc3or7fnkox6b" path="res://Assets/UI/MainMenu/Smoke.png" id="16_oywvd"]
+[ext_resource type="Texture2D" uid="uid://cuwmy2vafhkfl" path="res://Assets/UI/MainMenu/light.png" id="18_ggq5m"]
+[ext_resource type="PackedScene" uid="uid://36dp5dq6hmqq" path="res://Scenes/GameObjects/ButtonTemplate.tscn" id="20_0nxsh"]
+[ext_resource type="FontFile" uid="uid://eycyixjjf4a7" path="res://Assets/Font/BubbleSans-Regular.otf" id="22_nbaik"]
+[ext_resource type="Texture2D" uid="uid://c7un4g41qom0x" path="res://Assets/UI/MainMenu/machine.png" id="23_835b2"]
+[ext_resource type="PackedScene" uid="uid://bs1v2cedkky8a" path="res://Scenes/GameObjects/LevelSelectorObject/wheel.tscn" id="24_kc3pk"]
+[ext_resource type="Texture2D" uid="uid://dch7jfadg5yla" path="res://Assets/UI/bouton4.png" id="25_hr6u5"]
+[ext_resource type="Shader" uid="uid://bum2gqlmpu2kv" path="res://Assets/Shaders/ElectricBoltShader.tres" id="25_wd3ca"]
+[ext_resource type="Texture2D" uid="uid://c66l3g8bbn3hb" path="res://Assets/Shaders/Effects/VFX Thunder.jpg" id="26_mswj5"]
+[ext_resource type="Texture2D" uid="uid://8vcio7y6idoy" path="res://Assets/Shaders/Effects/SparksParticles.PNG" id="27_nqaoa"]
+[ext_resource type="Texture2D" uid="uid://cb6qh1bno63yh" path="res://Assets/UI/MainMenu/BackMachine.png" id="27_udj1q"]
+
+[sub_resource type="Gradient" id="Gradient_byfll"]
+offsets = PackedFloat32Array(0, 0.238579, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_otgre"]
+gradient = SubResource("Gradient_byfll")
+
+[sub_resource type="Curve" id="Curve_g6hca"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0]
+point_count = 1
+
+[sub_resource type="Curve" id="Curve_kwooq"]
+_data = [Vector2(0, 0.87013), 0.0, 0.0, 0, 0, Vector2(1e-05, 0.779221), 0.0, 0.0, 0, 0, Vector2(0.99999, 0.467532), 0.0, 0.0, 0, 0, Vector2(1, 0.441558), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="Curve" id="Curve_fp82u"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_b8ed4"]
+curve_x = SubResource("Curve_g6hca")
+curve_y = SubResource("Curve_kwooq")
+curve_z = SubResource("Curve_fp82u")
+
+[sub_resource type="Curve" id="Curve_c2hpq"]
+max_value = 3.0
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_6qxts"]
+curve = SubResource("Curve_c2hpq")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_uwn2l"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(4, 20, 1)
+direction = Vector3(50, -50, 0)
+spread = 10.714
+initial_velocity_min = 460.32
+initial_velocity_max = 1000.0
+gravity = Vector3(0, 98, 0)
+scale_min = 0.2
+scale_max = 2.0
+scale_curve = SubResource("CurveXYZTexture_b8ed4")
+scale_over_velocity_curve = SubResource("CurveTexture_6qxts")
+color_ramp = SubResource("GradientTexture1D_otgre")
+turbulence_influence_min = 0.0
+turbulence_influence_max = 0.053
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8lue5"]
+bg_color = Color(0.486275, 0.313726, 0.152941, 1)
+border_width_left = 20
+border_width_top = 20
+border_width_right = 20
+border_width_bottom = 20
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 50
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 50
+corner_detail = 16
+shadow_color = Color(0, 0, 0, 0.603922)
+shadow_size = 20
+shadow_offset = Vector2(-10, 20)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_at7ei"]
+bg_color = Color(0.391309, 0.248238, 0.114569, 1)
+border_width_left = 15
+border_width_top = 15
+border_width_right = 15
+border_width_bottom = 15
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 50
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 50
+corner_detail = 16
+shadow_color = Color(0, 0, 0, 0.603922)
+shadow_size = 10
+shadow_offset = Vector2(-10, 20)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ck5x4"]
+bg_color = Color(0.391309, 0.248238, 0.114569, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 50
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 50
+corner_detail = 16
+shadow_color = Color(0, 0, 0, 0.603922)
+shadow_size = 5
+shadow_offset = Vector2(-10, 20)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_boprf"]
+
+[sub_resource type="InputEventKey" id="InputEventKey_tv7e5"]
+device = -1
+keycode = 4194319
+
+[sub_resource type="Shortcut" id="Shortcut_0fmw5"]
+events = [SubResource("InputEventKey_tv7e5")]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_oi1y7"]
+
+[sub_resource type="InputEventKey" id="InputEventKey_gko1h"]
+device = -1
+keycode = 32
+unicode = 32
+
+[sub_resource type="Shortcut" id="Shortcut_7dlpy"]
+events = [SubResource("InputEventKey_gko1h")]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hpabm"]
+
+[sub_resource type="InputEventKey" id="InputEventKey_8xy7a"]
+device = -1
+keycode = 4194321
+
+[sub_resource type="Shortcut" id="Shortcut_wplr8"]
+events = [SubResource("InputEventKey_8xy7a")]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_e6but"]
+
+[sub_resource type="Gradient" id="Gradient_0xs26"]
+offsets = PackedFloat32Array(0, 0.703057)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_a5roo"]
+gradient = SubResource("Gradient_0xs26")
+fill = 1
+fill_from = Vector2(0.482906, 0.478632)
+
+[sub_resource type="Gradient" id="Gradient_374v8"]
+colors = PackedColorArray(100, 100, 100, 1, 1, 1, 1, 0.611765)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_cm1l1"]
+gradient = SubResource("Gradient_374v8")
+
+[sub_resource type="Curve" id="Curve_ise2k"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.792208), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_whym7"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.251185, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_j1jd6"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_lgqek"]
+curve_x = SubResource("Curve_ise2k")
+curve_y = SubResource("Curve_whym7")
+curve_z = SubResource("Curve_j1jd6")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_xgmw5"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(960, 1, 1)
+direction = Vector3(10, -100, 0)
+spread = 9.286
+initial_velocity_max = 71.43
+gravity = Vector3(0, 0, 0)
+scale_min = 0.2
+scale_max = 0.5
+scale_curve = SubResource("CurveXYZTexture_lgqek")
+color_ramp = SubResource("GradientTexture1D_cm1l1")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_y8asw"]
+shader = ExtResource("25_wd3ca")
+shader_parameter/VanishingValue = 0.0
+shader_parameter/Speed = Vector2(-2, 0)
+shader_parameter/basic_texture = ExtResource("26_mswj5")
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_hklq1"]
+blend_mode = 1
+light_mode = 1
+
+[sub_resource type="Curve" id="Curve_1w2lf"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.292683, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_euagi"]
+curve = SubResource("Curve_1w2lf")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_v8vr1"]
+particle_flag_disable_z = true
+gravity = Vector3(0, 0, 0)
+scale_min = 0.08
+scale_max = 0.3
+scale_curve = SubResource("CurveTexture_euagi")
+color = Color(0.5, 1, 1.2, 1)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_n0ler"]
+particle_flag_disable_z = true
+gravity = Vector3(0, 0, 0)
+scale_min = 0.08
+scale_max = 0.3
+scale_curve = SubResource("CurveTexture_euagi")
+color = Color(0.5, 1, 1.2, 1)
+
+[sub_resource type="Gradient" id="Gradient_iffhu"]
+colors = PackedColorArray(0.382651, 0.974019, 0.949734, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_dildd"]
+gradient = SubResource("Gradient_iffhu")
+
+[sub_resource type="Curve" id="Curve_gtcqf"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.251185, 0), 0.0, 0.0, 0, 0, Vector2(0.49763, 1), 0.0, 0.0, 0, 0, Vector2(0.758294, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 5
+
+[sub_resource type="CurveTexture" id="CurveTexture_8imnm"]
+curve = SubResource("Curve_gtcqf")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_n2gri"]
+particle_flag_disable_z = true
+initial_velocity_max = 158.73
+orbit_velocity_min = -2.0
+orbit_velocity_max = 2.0
+radial_velocity_max = 25.0
+gravity = Vector3(0, 0, 0)
+scale_min = 16.0
+scale_max = 16.0
+scale_curve = SubResource("CurveTexture_8imnm")
+color_ramp = SubResource("GradientTexture1D_dildd")
+turbulence_enabled = true
+turbulence_noise_speed_random = 2.44
+turbulence_influence_min = 0.024
+turbulence_influence_max = 0.373
+turbulence_initial_displacement_min = -53.0
+turbulence_initial_displacement_max = -34.8
+
+[sub_resource type="Gradient" id="Gradient_rvo8j"]
+colors = PackedColorArray(1, 0.866667, 0.0117647, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_pshl0"]
+gradient = SubResource("Gradient_rvo8j")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_eo3dr"]
+particle_flag_disable_z = true
+initial_velocity_max = 158.73
+orbit_velocity_min = -2.0
+orbit_velocity_max = 2.0
+radial_velocity_min = -100.0
+radial_velocity_max = 100.0
+gravity = Vector3(0, 0, 0)
+scale_min = 10.0
+scale_max = 10.0
+scale_curve = SubResource("CurveTexture_8imnm")
+color_ramp = SubResource("GradientTexture1D_pshl0")
+turbulence_enabled = true
+turbulence_noise_speed_random = 2.44
+turbulence_influence_min = 0.024
+turbulence_influence_max = 0.373
+turbulence_initial_displacement_min = -53.0
+turbulence_initial_displacement_max = -34.8
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_xa1ym"]
+blend_mode = 1
+
+[sub_resource type="Curve" id="Curve_w41vn"]
+_data = [Vector2(0, 0.549451), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_1kdmu"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_vx6to"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_a3vvu"]
+curve_x = SubResource("Curve_w41vn")
+curve_y = SubResource("Curve_1kdmu")
+curve_z = SubResource("Curve_vx6to")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_sqyed"]
+particle_flag_align_y = true
+particle_flag_disable_z = true
+emission_shape = 6
+emission_ring_axis = Vector3(0, 0, 1)
+emission_ring_height = 50.0
+emission_ring_radius = 50.0
+emission_ring_inner_radius = 0.0
+radial_velocity_min = 50.0
+radial_velocity_max = 100.0
+gravity = Vector3(0, 98, 0)
+scale_min = 0.01
+scale_max = 0.05
+scale_curve = SubResource("CurveXYZTexture_a3vvu")
+color = Color(1, 0.780392, 0, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0p1kw"]
+texture = ExtResource("25_hr6u5")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1bxjt"]
+texture = ExtResource("25_hr6u5")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0oob7"]
+texture = ExtResource("25_hr6u5")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vlydo"]
+texture = ExtResource("25_hr6u5")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xin8t"]
+texture = ExtResource("25_hr6u5")
+
+[sub_resource type="InputEventKey" id="InputEventKey_hc5vy"]
+device = -1
+keycode = 4194305
+
+[sub_resource type="Shortcut" id="Shortcut_6t8uj"]
+events = [SubResource("InputEventKey_hc5vy")]
+
+[node name="LevelSelector" type="Control" node_paths=PackedStringArray("buttonRight", "buttonLaunch", "buttonLeft", "buttonUnlockAll", "buttonMainMenu", "carpetTexture", "teslaContainer", "scoreBoard")]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_7onrw")
+buttonRight = NodePath("ButtonBox/HBoxContainer/Right")
+buttonLaunch = NodePath("ButtonBox/HBoxContainer/ButtonLaunch")
+buttonLeft = NodePath("ButtonBox/HBoxContainer/Left")
+buttonUnlockAll = NodePath("ButtonBox/UnlockButton")
+buttonMainMenu = NodePath("MainMenuButton")
+carpetTexture = NodePath("Carpet")
+texture = ExtResource("2_u4r7s")
+teslaScene = ExtResource("3_31hu0")
+smokeParticlesScene = ExtResource("15_53pe0")
+teslaContainer = NodePath("TeslaContainer")
+scoreBoard = NodePath("ScoreScreen")
+teslaPosY = 630
+
+[node name="BackGround" type="TextureRect" parent="."]
+z_index = -2
+layout_mode = 0
+offset_left = -13.0
+offset_top = -45.0
+offset_right = 3487.0
+offset_bottom = 3455.0
+scale = Vector2(0.551785, 0.551785)
+texture = ExtResource("5_l1c0r")
+
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="BackGround"]
+position = Vector2(21, 29)
+energy = 0.5
+blend_mode = 1
+range_z_min = 0
+range_z_max = 50
+
+[node name="ScoreScreen" parent="." instance=ExtResource("5_1sge3")]
+position = Vector2(1487, 386)
+scale = Vector2(1.17565, 1.17565)
+
+[node name="EcranCopie3" type="Sprite2D" parent="ScoreScreen"]
+position = Vector2(-4.25295, -301.11)
+scale = Vector2(0.592772, 0.345064)
+texture = ExtResource("7_7v0ew")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+position = Vector2(12, 773)
+amount = 40
+process_material = SubResource("ParticleProcessMaterial_uwn2l")
+texture = ExtResource("16_oywvd")
+lifetime = 5.0
+speed_scale = 1.47
+explosiveness = 0.53
+fixed_fps = 60
+local_coords = true
+
+[node name="Carpet" type="Sprite2D" parent="."]
+position = Vector2(7656.99, 882)
+scale = Vector2(1.39331, 1)
+texture = ExtResource("11_cogra")
+
+[node name="CarpetBorder" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = -46.0
+offset_top = 919.0
+offset_right = 1987.0
+offset_bottom = 1117.0
+texture = ExtResource("5_8e1ql")
+
+[node name="CarpetBorder2" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = -79.0
+offset_top = 756.0
+offset_right = 2048.0
+offset_bottom = 817.0
+texture = ExtResource("6_cobsf")
+
+[node name="BackMachine" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 233.0
+offset_top = 22.0
+offset_right = 526.0
+offset_bottom = 761.0
+mouse_filter = 2
+texture = ExtResource("27_udj1q")
+
+[node name="TeslaContainer" type="Node2D" parent="."]
+
+[node name="ButtonBox" type="TextureRect" parent="."]
+z_index = 4
+layout_mode = 1
+offset_left = 332.0
+offset_top = 542.0
+offset_right = 3832.0
+offset_bottom = 4042.0
+scale = Vector2(0.160829, 0.135104)
+pivot_offset = Vector2(425, 185)
+texture = ExtResource("11_uwiep")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ButtonBox"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -1131.0
+offset_top = -538.0
+offset_right = 1169.0
+offset_bottom = 346.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 250
+alignment = 1
+
+[node name="Left" type="Button" parent="ButtonBox/HBoxContainer"]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0.270222, 0.270222, 0.270222, 1)
+theme_override_colors/font_hover_color = Color(0.151276, 0.151276, 0.151276, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 300
+theme_override_styles/normal = SubResource("StyleBoxFlat_8lue5")
+theme_override_styles/hover = SubResource("StyleBoxFlat_at7ei")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ck5x4")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_ck5x4")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_boprf")
+shortcut = SubResource("Shortcut_0fmw5")
+text = "<="
+icon_alignment = 1
+
+[node name="PointLight2D" type="PointLight2D" parent="ButtonBox/HBoxContainer/Left"]
+position = Vector2(254.059, 445.746)
+scale = Vector2(2.5673, 4.01428)
+texture = ExtResource("7_c1v7e")
+texture_scale = 0.32
+
+[node name="ButtonLaunch" type="Button" parent="ButtonBox/HBoxContainer"]
+custom_minimum_size = Vector2(800, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0.270222, 0.270222, 0.270222, 1)
+theme_override_colors/font_hover_color = Color(0.151276, 0.151276, 0.151276, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("22_nbaik")
+theme_override_font_sizes/font_size = 300
+theme_override_styles/normal = SubResource("StyleBoxFlat_8lue5")
+theme_override_styles/hover = SubResource("StyleBoxFlat_at7ei")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ck5x4")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_8lue5")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_oi1y7")
+shortcut = SubResource("Shortcut_7dlpy")
+text = "PLAY"
+
+[node name="PointLight2D" type="PointLight2D" parent="ButtonBox/HBoxContainer/ButtonLaunch"]
+position = Vector2(386.802, 461.668)
+scale = Vector2(6.04691, -6.17173)
+texture = ExtResource("7_c1v7e")
+texture_scale = 0.2
+
+[node name="Right" type="Button" parent="ButtonBox/HBoxContainer"]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0.270222, 0.270222, 0.270222, 1)
+theme_override_colors/font_hover_color = Color(0.151276, 0.151276, 0.151276, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 300
+theme_override_styles/normal = SubResource("StyleBoxFlat_8lue5")
+theme_override_styles/hover = SubResource("StyleBoxFlat_at7ei")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ck5x4")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_ck5x4")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_hpabm")
+shortcut = SubResource("Shortcut_wplr8")
+text = "=>"
+
+[node name="PointLight2D2" type="PointLight2D" parent="ButtonBox/HBoxContainer/Right"]
+position = Vector2(232.919, 453.707)
+scale = Vector2(2.75173, 3.56041)
+texture = ExtResource("7_c1v7e")
+texture_scale = 0.32
+
+[node name="UnlockButton" type="Button" parent="ButtonBox"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -560.215
+offset_top = 581.489
+offset_right = 682.785
+offset_bottom = 964.489
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.903484, 0.903484)
+pivot_offset = Vector2(179, 50)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0.270222, 0.270222, 0.270222, 1)
+theme_override_colors/font_hover_color = Color(0.151276, 0.151276, 0.151276, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("22_nbaik")
+theme_override_font_sizes/font_size = 170
+theme_override_styles/normal = SubResource("StyleBoxFlat_8lue5")
+theme_override_styles/hover = SubResource("StyleBoxFlat_at7ei")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ck5x4")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_ck5x4")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_e6but")
+text = "UnlockAll"
+script = ExtResource("4_tfihn")
+during = 0.2
+easeType = 3
+transitionType = 7
+
+[node name="PointLight2D" type="PointLight2D" parent="ButtonBox/UnlockButton"]
+position = Vector2(594.739, 191.512)
+scale = Vector2(16.8867, 6.90319)
+texture = ExtResource("7_c1v7e")
+texture_scale = 0.1
+
+[node name="Light" type="Sprite2D" parent="."]
+position = Vector2(960, 5)
+scale = Vector2(0.257175, 0.257175)
+texture = ExtResource("18_ggq5m")
+offset = Vector2(0, 529.404)
+
+[node name="PointLight2D" type="PointLight2D" parent="Light"]
+position = Vector2(-3.88834, 1944.2)
+scale = Vector2(4.38963, 4.38963)
+energy = 0.5
+shadow_enabled = true
+texture = ExtResource("15_cy604")
+
+[node name="PointLight2D2" type="PointLight2D" parent="Light"]
+position = Vector2(-31.1072, 3153.49)
+scale = Vector2(5.18933, -1.31111)
+texture = SubResource("GradientTexture2D_a5roo")
+texture_scale = 9.44
+
+[node name="GPUParticles2D2" type="GPUParticles2D" parent="."]
+visible = false
+position = Vector2(937, 857)
+process_material = SubResource("ParticleProcessMaterial_xgmw5")
+texture = ExtResource("16_oywvd")
+lifetime = 3.0
+speed_scale = 2.88
+fixed_fps = 60
+
+[node name="FrontMachine" type="TextureRect" parent="."]
+z_index = 4
+layout_mode = 0
+offset_top = 11.0
+offset_right = 406.0
+offset_bottom = 1020.0
+mouse_filter = 2
+texture = ExtResource("23_835b2")
+
+[node name="ThunderEffects" type="Node2D" parent="FrontMachine"]
+position = Vector2(147, 889)
+scale = Vector2(0.993244, 1)
+
+[node name="Bolt" type="Line2D" parent="FrontMachine/ThunderEffects"]
+material = SubResource("ShaderMaterial_y8asw")
+position = Vector2(-399.7, -225)
+points = PackedVector2Array(399.7, 223, 397.686, -201)
+width = 50.0
+default_color = Color(0, 1.00784, 1.8, 1)
+texture_mode = 2
+
+[node name="ImpactEffect" type="Node2D" parent="FrontMachine/ThunderEffects"]
+
+[node name="Flare" type="GPUParticles2D" parent="FrontMachine/ThunderEffects/ImpactEffect"]
+material = SubResource("CanvasItemMaterial_hklq1")
+amount = 1
+process_material = SubResource("ParticleProcessMaterial_v8vr1")
+texture = ExtResource("7_c1v7e")
+lifetime = 0.15
+fixed_fps = 60
+
+[node name="PointLight2D" type="PointLight2D" parent="FrontMachine/ThunderEffects/ImpactEffect"]
+color = Color(0.231373, 1, 1, 1)
+energy = 0.5
+texture = ExtResource("7_c1v7e")
+texture_scale = 0.5
+
+[node name="Flare2" type="GPUParticles2D" parent="FrontMachine/ThunderEffects/ImpactEffect"]
+material = SubResource("CanvasItemMaterial_hklq1")
+position = Vector2(0.177069, -416)
+amount = 1
+process_material = SubResource("ParticleProcessMaterial_v8vr1")
+texture = ExtResource("7_c1v7e")
+lifetime = 0.15
+fixed_fps = 60
+
+[node name="PointLight2D2" type="PointLight2D" parent="FrontMachine/ThunderEffects/ImpactEffect"]
+position = Vector2(0.177069, -416)
+color = Color(0.231373, 1, 1, 1)
+energy = 0.5
+texture = ExtResource("7_c1v7e")
+texture_scale = 0.5
+
+[node name="PlayerParticles" type="Node2D" parent="FrontMachine"]
+position = Vector2(150, 244)
+scale = Vector2(1.09512, 1.09512)
+
+[node name="Flare" type="GPUParticles2D" parent="FrontMachine/PlayerParticles"]
+material = SubResource("CanvasItemMaterial_hklq1")
+amount = 10
+process_material = SubResource("ParticleProcessMaterial_n0ler")
+texture = ExtResource("7_c1v7e")
+lifetime = 0.15
+fixed_fps = 60
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="FrontMachine/PlayerParticles"]
+position = Vector2(-4, 0)
+amount = 40
+process_material = SubResource("ParticleProcessMaterial_n2gri")
+lifetime = 2.0
+speed_scale = 3.0
+fixed_fps = 60
+local_coords = true
+trail_enabled = true
+
+[node name="GPUParticles2D2" type="GPUParticles2D" parent="FrontMachine/PlayerParticles"]
+amount = 6
+process_material = SubResource("ParticleProcessMaterial_eo3dr")
+speed_scale = 3.0
+explosiveness = 1.0
+fixed_fps = 60
+local_coords = true
+trail_enabled = true
+
+[node name="GPUParticles2D3" type="GPUParticles2D" parent="FrontMachine/PlayerParticles"]
+material = SubResource("CanvasItemMaterial_xa1ym")
+process_material = SubResource("ParticleProcessMaterial_sqyed")
+texture = ExtResource("27_nqaoa")
+speed_scale = 5.0
+fixed_fps = 60
+
+[node name="PointLight2D" type="PointLight2D" parent="FrontMachine/PlayerParticles"]
+color = Color(0.231373, 1, 1, 1)
+energy = 0.5
+texture = ExtResource("7_c1v7e")
+texture_scale = 0.5
+
+[node name="PointLight2D" type="PointLight2D" parent="FrontMachine"]
+position = Vector2(391, 151)
+scale = Vector2(1.23878, 0.524551)
+color = Color(1, 0, 0, 1)
+texture = ExtResource("7_c1v7e")
+texture_scale = 0.3
+
+[node name="WheelContainer" type="Node2D" parent="."]
+
+[node name="Layer1" type="Node2D" parent="WheelContainer"]
+modulate = Color(0.808998, 0.808998, 0.808998, 1)
+
+[node name="Wheel" parent="WheelContainer/Layer1" instance=ExtResource("24_kc3pk")]
+
+[node name="Wheel2" parent="WheelContainer/Layer1" instance=ExtResource("24_kc3pk")]
+position = Vector2(480, 980)
+scale = Vector2(0.159918, 0.159918)
+turnRight = true
+
+[node name="Wheel3" parent="WheelContainer/Layer1" instance=ExtResource("24_kc3pk")]
+position = Vector2(518, 1101)
+scale = Vector2(0.159918, 0.159918)
+
+[node name="Wheel4" parent="WheelContainer/Layer1" instance=ExtResource("24_kc3pk")]
+position = Vector2(605, 1023)
+scale = Vector2(0.126907, 0.126907)
+turnRight = true
+
+[node name="Wheel5" parent="WheelContainer/Layer1" instance=ExtResource("24_kc3pk")]
+position = Vector2(650, 1105)
+scale = Vector2(0.104533, 0.104533)
+
+[node name="Wheel6" parent="WheelContainer/Layer1" instance=ExtResource("24_kc3pk")]
+position = Vector2(1275.61, 1084.88)
+scale = Vector2(0.210717, 0.210717)
+turnRight = true
+
+[node name="Wheel7" parent="WheelContainer/Layer1" instance=ExtResource("24_kc3pk")]
+position = Vector2(1403.61, 1005.88)
+scale = Vector2(0.157002, 0.157002)
+
+[node name="Wheel8" parent="WheelContainer/Layer1" instance=ExtResource("24_kc3pk")]
+position = Vector2(1491.61, 1122.88)
+scale = Vector2(0.210717, 0.210717)
+turnRight = true
+
+[node name="Wheel9" parent="WheelContainer/Layer1" instance=ExtResource("24_kc3pk")]
+position = Vector2(1587.61, 1003.88)
+scale = Vector2(0.175781, 0.175781)
+
+[node name="Wheel10" parent="WheelContainer/Layer1" instance=ExtResource("24_kc3pk")]
+position = Vector2(1678.61, 1126.88)
+scale = Vector2(0.210717, 0.210717)
+turnRight = true
+
+[node name="Wheel11" parent="WheelContainer/Layer1" instance=ExtResource("24_kc3pk")]
+position = Vector2(1816.61, 1041.88)
+scale = Vector2(0.19104, 0.19104)
+
+[node name="Wheel12" parent="WheelContainer/Layer1" instance=ExtResource("24_kc3pk")]
+position = Vector2(1974.61, 1033.88)
+scale = Vector2(0.19104, 0.19104)
+turnRight = true
+
+[node name="Layer2" type="Node2D" parent="WheelContainer"]
+
+[node name="Wheel" parent="WheelContainer/Layer2" instance=ExtResource("24_kc3pk")]
+position = Vector2(335, 1071)
+scale = Vector2(0.161385, 0.161385)
+
+[node name="Wheel2" parent="WheelContainer/Layer2" instance=ExtResource("24_kc3pk")]
+position = Vector2(447, 1061)
+scale = Vector2(0.107321, 0.107321)
+turnRight = true
+
+[node name="Wheel3" parent="WheelContainer/Layer2" instance=ExtResource("24_kc3pk")]
+position = Vector2(479, 978)
+scale = Vector2(0.11473, 0.11473)
+
+[node name="Wheel4" parent="WheelContainer/Layer2" instance=ExtResource("24_kc3pk")]
+position = Vector2(540, 1032)
+scale = Vector2(0.0826732, 0.0826732)
+turnRight = true
+
+[node name="Wheel5" parent="WheelContainer/Layer2" instance=ExtResource("24_kc3pk")]
+position = Vector2(596, 1091)
+rotation = 0.123732
+scale = Vector2(0.114794, 0.114794)
+
+[node name="Wheel6" parent="WheelContainer/Layer2" instance=ExtResource("24_kc3pk")]
+position = Vector2(605, 1023)
+scale = Vector2(0.0671582, 0.0671582)
+turnRight = true
+
+[node name="Wheel7" parent="WheelContainer/Layer2" instance=ExtResource("24_kc3pk")]
+position = Vector2(1276, 1086)
+scale = Vector2(0.140029, 0.140029)
+
+[node name="Wheel8" parent="WheelContainer/Layer2" instance=ExtResource("24_kc3pk")]
+position = Vector2(1328, 998)
+scale = Vector2(0.115789, 0.115789)
+turnRight = true
+
+[node name="Wheel9" parent="WheelContainer/Layer2" instance=ExtResource("24_kc3pk")]
+position = Vector2(1402, 1066)
+scale = Vector2(0.135359, 0.135359)
+
+[node name="Wheel10" parent="WheelContainer/Layer2" instance=ExtResource("24_kc3pk")]
+position = Vector2(1484, 995)
+scale = Vector2(0.135359, 0.135359)
+turnRight = true
+
+[node name="Wheel11" parent="WheelContainer/Layer2" instance=ExtResource("24_kc3pk")]
+position = Vector2(1586, 1004)
+scale = Vector2(0.122844, 0.122844)
+
+[node name="Wheel12" parent="WheelContainer/Layer2" instance=ExtResource("24_kc3pk")]
+position = Vector2(1491, 1123)
+scale = Vector2(0.122844, 0.122844)
+turnRight = true
+
+[node name="Wheel13" parent="WheelContainer/Layer2" instance=ExtResource("24_kc3pk")]
+position = Vector2(1685, 1012)
+scale = Vector2(0.122844, 0.122844)
+turnRight = true
+
+[node name="Wheel14" parent="WheelContainer/Layer2" instance=ExtResource("24_kc3pk")]
+position = Vector2(1683, 1126)
+scale = Vector2(0.157472, 0.157472)
+
+[node name="Wheel15" parent="WheelContainer/Layer2" instance=ExtResource("24_kc3pk")]
+position = Vector2(1817, 1043)
+scale = Vector2(0.110377, 0.110377)
+turnRight = true
+
+[node name="Wheel16" parent="WheelContainer/Layer2" instance=ExtResource("24_kc3pk")]
+position = Vector2(1755, 1025)
+scale = Vector2(0.0475474, 0.0475474)
+
+[node name="Wheel17" parent="WheelContainer/Layer2" instance=ExtResource("24_kc3pk")]
+position = Vector2(1902, 1063)
+scale = Vector2(0.103586, 0.103586)
+
+[node name="Wheel18" parent="WheelContainer/Layer2" instance=ExtResource("24_kc3pk")]
+position = Vector2(1889, 980)
+scale = Vector2(0.103586, 0.103586)
+turnRight = true
+
+[node name="Layer3" type="Node2D" parent="WheelContainer"]
+z_index = -1
+position = Vector2(0, -230)
+
+[node name="Wheel" parent="WheelContainer/Layer3" instance=ExtResource("24_kc3pk")]
+position = Vector2(630, 1000)
+scale = Vector2(0.161385, 0.161385)
+
+[node name="Wheel2" parent="WheelContainer/Layer3" instance=ExtResource("24_kc3pk")]
+position = Vector2(447, 1061)
+scale = Vector2(0.107321, 0.107321)
+turnRight = true
+
+[node name="Wheel3" parent="WheelContainer/Layer3" instance=ExtResource("24_kc3pk")]
+position = Vector2(479, 978)
+scale = Vector2(0.11473, 0.11473)
+
+[node name="Wheel4" parent="WheelContainer/Layer3" instance=ExtResource("24_kc3pk")]
+position = Vector2(580, 1000)
+scale = Vector2(0.0826732, 0.0826732)
+turnRight = true
+
+[node name="Wheel5" parent="WheelContainer/Layer3" instance=ExtResource("24_kc3pk")]
+position = Vector2(596, 1091)
+rotation = 0.123732
+scale = Vector2(0.114794, 0.114794)
+
+[node name="Wheel6" parent="WheelContainer/Layer3" instance=ExtResource("24_kc3pk")]
+position = Vector2(661, 996)
+scale = Vector2(0.0671582, 0.0671582)
+turnRight = true
+
+[node name="Wheel7" parent="WheelContainer/Layer3" instance=ExtResource("24_kc3pk")]
+position = Vector2(1276, 1086)
+scale = Vector2(0.140029, 0.140029)
+
+[node name="Wheel8" parent="WheelContainer/Layer3" instance=ExtResource("24_kc3pk")]
+position = Vector2(1328, 998)
+scale = Vector2(0.115789, 0.115789)
+turnRight = true
+
+[node name="Wheel9" parent="WheelContainer/Layer3" instance=ExtResource("24_kc3pk")]
+position = Vector2(1402, 1066)
+scale = Vector2(0.135359, 0.135359)
+
+[node name="Wheel10" parent="WheelContainer/Layer3" instance=ExtResource("24_kc3pk")]
+position = Vector2(1490, 1024)
+scale = Vector2(0.135359, 0.135359)
+turnRight = true
+
+[node name="Wheel11" parent="WheelContainer/Layer3" instance=ExtResource("24_kc3pk")]
+position = Vector2(1727, 996)
+scale = Vector2(0.122844, 0.122844)
+
+[node name="Wheel12" parent="WheelContainer/Layer3" instance=ExtResource("24_kc3pk")]
+position = Vector2(1154, 1009)
+scale = Vector2(0.122844, 0.122844)
+turnRight = true
+
+[node name="Wheel13" parent="WheelContainer/Layer3" instance=ExtResource("24_kc3pk")]
+position = Vector2(1685, 1012)
+scale = Vector2(0.122844, 0.122844)
+turnRight = true
+
+[node name="Wheel14" parent="WheelContainer/Layer3" instance=ExtResource("24_kc3pk")]
+position = Vector2(847, 1003)
+scale = Vector2(0.157472, 0.157472)
+
+[node name="Wheel15" parent="WheelContainer/Layer3" instance=ExtResource("24_kc3pk")]
+position = Vector2(1238, 1003)
+scale = Vector2(0.110377, 0.110377)
+turnRight = true
+
+[node name="Wheel16" parent="WheelContainer/Layer3" instance=ExtResource("24_kc3pk")]
+position = Vector2(1091, 988)
+scale = Vector2(0.0475474, 0.0475474)
+
+[node name="Wheel17" parent="WheelContainer/Layer3" instance=ExtResource("24_kc3pk")]
+position = Vector2(980, 1001)
+scale = Vector2(0.103586, 0.103586)
+
+[node name="Wheel18" parent="WheelContainer/Layer3" instance=ExtResource("24_kc3pk")]
+position = Vector2(1857, 1014)
+scale = Vector2(0.103586, 0.103586)
+turnRight = true
+
+[node name="MainMenuButton" parent="." instance=ExtResource("20_0nxsh")]
+layout_mode = 0
+offset_left = 1591.0
+offset_top = 892.0
+offset_right = 1887.0
+offset_bottom = 1017.0
+pivot_offset = Vector2(148, 62)
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxTexture_0p1kw")
+theme_override_styles/hover = SubResource("StyleBoxTexture_1bxjt")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_0oob7")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_vlydo")
+theme_override_styles/focus = SubResource("StyleBoxTexture_xin8t")
+shortcut = SubResource("Shortcut_6t8uj")
+text = "MAIN MENU"
+
+[node name="PointLight2D" type="PointLight2D" parent="MainMenuButton"]
+position = Vector2(147, 63)
+scale = Vector2(4.88936, 1.74199)
+color = Color(1, 0.4, 0, 1)
+energy = 0.83
+texture = ExtResource("7_c1v7e")
+texture_scale = 0.1
