@@ -19,6 +19,7 @@ namespace Com.IsartDigital.SokoVolt {
 
         #endregion
 
+        [Export] Button maiMenuButton;
         public override void _Ready()
 		{
             #region Singelton
@@ -31,6 +32,7 @@ namespace Com.IsartDigital.SokoVolt {
 
             instance = this;
             #endregion
+            maiMenuButton.Pressed += () => CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.GoToMainMenu);
         }
 
         public override void _Process(double pDelta)

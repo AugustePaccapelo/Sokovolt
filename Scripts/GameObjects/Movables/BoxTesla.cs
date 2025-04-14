@@ -165,7 +165,8 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
 
         private void UpdateRangeLabel()
         {
-            rangeLabel.Text = range.ToString();
+            int lRange = range + 1;
+            rangeLabel.Text = lRange.ToString();
         }
 
 

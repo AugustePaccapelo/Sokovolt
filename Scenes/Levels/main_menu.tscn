@@ -1,8 +1,9 @@
-[gd_scene load_steps=63 format=3 uid="uid://bsl1nyen453ty"]
+[gd_scene load_steps=65 format=3 uid="uid://bsl1nyen453ty"]
 
 [ext_resource type="Script" path="res://Scripts/Controls/MainMenu.cs" id="1_3kguo"]
 [ext_resource type="Texture2D" uid="uid://cjfiwjyraoqrp" path="res://Assets/main menu/Box millieu/GROS.png" id="2_0r0tr"]
 [ext_resource type="PackedScene" uid="uid://skkxmuo6i42b" path="res://Scenes/UI/buttonScenes.tscn" id="2_2c73t"]
+[ext_resource type="Texture2D" uid="uid://bucdnkxgbroax" path="res://Assets/UI/MainMenu/BackGround/background3.png" id="2_sxvw6"]
 [ext_resource type="Texture2D" uid="uid://csqx2ogx2bfh1" path="res://Assets/main menu/tuyaux/Gauche Copie 2.png" id="3_igut3"]
 [ext_resource type="Texture2D" uid="uid://c4jxbycfeeadq" path="res://Assets/Shaders/Effects/Rectangle 1.png" id="4_7yevi"]
 [ext_resource type="Texture2D" uid="uid://duf1bxrvxgcn4" path="res://Assets/main menu/Box millieu/Calque 15 Copie.png" id="4_e6tyd"]
@@ -212,6 +213,9 @@ _data = {
 "mainMenuAnimation": SubResource("Animation_ukjwr")
 }
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7bb8a"]
+draw_center = false
+
 [sub_resource type="Gradient" id="Gradient_fyd0c"]
 offsets = PackedFloat32Array(0, 0.238579, 1)
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
@@ -381,7 +385,17 @@ quitButton = NodePath("Panel/StartButton3")
 anime = NodePath("AnimationPlayer")
 teleButton = NodePath("Button")
 neigeButton = NodePath("Button2")
-neige = NodePath("Panel/GPUParticles2D2")
+neige = NodePath("Panel/GPUParticles2D3")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+modulate = Color(0.473976, 0.473976, 0.473976, 1)
+layout_mode = 0
+offset_left = -145.0
+offset_top = -19.0
+offset_right = 3355.0
+offset_bottom = 3481.0
+scale = Vector2(0.622519, 0.622519)
+texture = ExtResource("2_sxvw6")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 deterministic = true
@@ -395,6 +409,7 @@ movie_quit_on_finish = true
 layout_mode = 1
 offset_right = 1920.0
 offset_bottom = 1080.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_7bb8a")
 
 [node name="ArrierePlan" type="Sprite2D" parent="Panel"]
 position = Vector2(-3.05176e-05, 792)

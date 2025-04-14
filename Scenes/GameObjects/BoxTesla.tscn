@@ -137,7 +137,7 @@ animations = [{
 [sub_resource type="LabelSettings" id="LabelSettings_4d5rh"]
 font = ExtResource("35_t6efi")
 font_size = 48
-font_color = Color(0, 1, 0.588235, 1)
+font_color = Color(0.955484, 0.847924, 0, 1)
 outline_size = 10
 outline_color = Color(0, 0, 0, 1)
 

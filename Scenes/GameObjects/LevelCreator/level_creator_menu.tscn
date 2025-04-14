@@ -351,7 +351,6 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_timhf")
 text = "MAIN MENU"
 
 [node name="NewLevelBackGround" type="Panel" parent="."]
-visible = false
 layout_mode = 1
 offset_right = 1920.0
 offset_bottom = 1080.0
