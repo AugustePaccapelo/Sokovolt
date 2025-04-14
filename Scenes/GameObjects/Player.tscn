@@ -7,12 +7,11 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_tsyav"]
 radius = 10.0499
 
-[node name="Player" type="Node2D" node_paths=PackedStringArray("dectetor", "inTeslaParticles", "bodyParticles", "moveparticulr")]
+[node name="Player" type="Node2D" node_paths=PackedStringArray("dectetor", "inTeslaParticles", "bodyParticles")]
 script = ExtResource("1_05ekn")
 dectetor = NodePath("DetectionZone")
 inTeslaParticles = NodePath("PlayerParticles/InTeslaParticles")
 bodyParticles = NodePath("PlayerParticles/GPUParticles2D")
-moveparticulr = NodePath("PlayerParticles/GPUParticles2D4")
 
 [node name="Visual" type="Node2D" parent="."]
 

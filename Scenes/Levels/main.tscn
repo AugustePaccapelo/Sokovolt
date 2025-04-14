@@ -67,6 +67,14 @@ offset_right = 1920.0
 offset_bottom = 1080.0
 grow_horizontal = 1
 grow_vertical = 1
+arrowMinRotation = 0.0
+arrowMaxRotation = 0.0
+arrowMinSpeed = 0.0
+arrowMaxSpeed = 0.0
+lightsMinOnDuration = 0.0
+lightsMaxOnDuration = 0.0
+lightsMinOffDuration = 0.0
+lightsMaxOffDuration = 0.0
 
 [node name="OptionMenu" parent="Managers/UIManager" instance=ExtResource("4_u7yxh")]
 visible = false

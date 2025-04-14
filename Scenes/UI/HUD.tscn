@@ -112,7 +112,7 @@ keycode = 4194305
 [sub_resource type="Shortcut" id="Shortcut_arctw"]
 events = [SubResource("InputEventKey_hc5vy")]
 
-[node name="Hud" type="Control" node_paths=PackedStringArray("undoButton", "redoButton", "mainMenuButton", "parLabel", "stepLabel", "winLabel", "authorLabel", "displayInGame", "dialogBox")]
+[node name="Hud" type="Control" node_paths=PackedStringArray("undoButton", "redoButton", "mainMenuButton", "parLabel", "stepLabel", "winLabel", "authorLabel", "displayInGame")]
 custom_minimum_size = Vector2(1152, 648)
 layout_mode = 3
 anchors_preset = 15
@@ -131,7 +131,6 @@ winLabel = NodePath("WinLabel")
 authorLabel = NodePath("DisplayInGame/AuthorLabel")
 winScreenScene = ExtResource("2_n24og")
 displayInGame = NodePath("DisplayInGame")
-dialogBox = NodePath("DialogBox")
 
 [node name="DisplayInGame" type="Control" parent="."]
 layout_mode = 1
@@ -184,7 +183,7 @@ text = "Author : "
 label_settings = SubResource("LabelSettings_spsqj")
 horizontal_alignment = 1
 
-[node name="Undo" type="Button" parent="DisplayInGame" node_paths=PackedStringArray("particles")]
+[node name="Undo" type="Button" parent="DisplayInGame"]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -208,7 +207,6 @@ theme_override_styles/focus = SubResource("StyleBoxTexture_gtf4d")
 script = ExtResource("2_hiajr")
 scaleMultiplicator = 0.3
 during = 0.08
-particles = NodePath("GPUParticles2D4")
 
 [node name="GPUParticles2D4" type="GPUParticles2D" parent="DisplayInGame/Undo"]
 material = SubResource("CanvasItemMaterial_0y056")
@@ -221,7 +219,7 @@ one_shot = true
 speed_scale = 5.0
 fixed_fps = 60
 
-[node name="Redo" type="Button" parent="DisplayInGame" node_paths=PackedStringArray("particles")]
+[node name="Redo" type="Button" parent="DisplayInGame"]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -245,7 +243,6 @@ theme_override_styles/focus = SubResource("StyleBoxTexture_yg05y")
 script = ExtResource("2_hiajr")
 scaleMultiplicator = 0.3
 during = 0.08
-particles = NodePath("GPUParticles2D4")
 
 [node name="GPUParticles2D4" type="GPUParticles2D" parent="DisplayInGame/Redo"]
 material = SubResource("CanvasItemMaterial_0y056")
