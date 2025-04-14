@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using Com.IsartDigital.SokoVolt.Tools;
+using RobotnikSokoban.Scripts.Managers;
 
 //Author : Ferlat Thibaud 
 namespace Com.IsartDigital.SokoVolt.GameObjects.Movables {
@@ -66,15 +67,18 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables {
 				isTraveling = true;
                 InputManager.canPlayerMove = false;
                 inTeslaParticles.Show();
-				dectetor.Monitorable = false;
+				//dectetor.Monitorable = false;
 				MoveTo(pTesla.x, pTesla.y, GridManager.GetInstance().grid);
-				if (ConnectionManagers.lastTeslas.Contains(pTesla))
+                SongManager.Instance.ambientDict[EnumSong.AmbientSong.playerTravel].Play();
+                if (ConnectionManagers.lastTeslas.Contains(pTesla))
 					wasInTesla = true;
-					GetTree().CreateTimer(0.25f).Timeout += () => {
+                    canTravel = false;
+                    GetTree().CreateTimer(0.25f).Timeout += () =>
+					{
 						InputManager.canPlayerMove = true;
 						isTraveling = false;
-						canTravel = false;
 					};
+				}
 			}
         }
 
@@ -82,13 +86,14 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables {
         {
             base.MoveTo(pX, pY, pGrid);
 
-			CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.PlayerMoved);
+			if(!GridManager.currentlyUndoRedo) SongManager.Instance.ambientDict[EnumSong.AmbientSong.playerMove].Play();
+            CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.PlayerMoved);
 			//canTravel = false;
             moveparticulr.Emitting=true;
-			if (wasInTesla) {
-				canTravel = true;
-				wasInTesla = false;
-			}
+			if (wasInTesla & !isTraveling) {
+                canTravel = true;
+                wasInTesla = false;
+            }
         }
 
         public async void MoveAlongPath(List<Vector2> pPath)
@@ -99,8 +104,9 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables {
             {
 				if (IsQueuedForDeletion() || GetTree() == null) return;
 				if (isTraveling) break;
-				//MoveTo((int)pStep.X, (int)pStep.Y, GridManager.GetInstance().grid);
-				CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.Move, new Vector2(pStep.X - x, pStep.Y - y));
+                SongManager.Instance.ambientDict[EnumSong.AmbientSong.playerMove].Play();
+                //MoveTo((int)pStep.X, (int)pStep.Y, GridManager.GetInstance().grid);
+                CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.Move, new Vector2(pStep.X - x, pStep.Y - y));
                 //GridManager.GetInstance().StockGridState();
                 //GridManager.GetInstance().PrintGrid();
 

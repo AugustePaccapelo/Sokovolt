@@ -2,6 +2,7 @@ using System.Runtime.Serialization.Formatters;
 using Com.IsartDigital.SokoVolt.Managers;
 using Com.IsartDigital.SokoVolt.Tools;
 using Godot;
+using RobotnikSokoban.Scripts.Managers;
 
 // Author : Auguste Paccapelo
 
@@ -74,8 +75,8 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
 			isOpen = true;
 			openedVisual.Visible = true; 
 			openCloseAnimation.PlayBackwards();
-			
-			Camera2D lCamera = GameManager.GetInstance().camera;
+            SongManager.Instance.ambientDict[EnumSong.AmbientSong.doorOpen].Play();
+            Camera2D lCamera = GameManager.GetInstance().camera;
 			AnimationManager.GetInstance().CameraZoomTraveling(lCamera, 0.5f, 0.8f, Position, GameManager.GetInstance().cameraDefaultPos, 1.5f).SetTrans(Tween.TransitionType.Sine);
         }
 
