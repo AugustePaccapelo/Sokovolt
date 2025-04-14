@@ -1,4 +1,4 @@
-[gd_scene load_steps=65 format=3 uid="uid://bsl1nyen453ty"]
+[gd_scene load_steps=67 format=3 uid="uid://bsl1nyen453ty"]
 
 [ext_resource type="Script" path="res://Scripts/Controls/MainMenu.cs" id="1_3kguo"]
 [ext_resource type="Texture2D" uid="uid://cjfiwjyraoqrp" path="res://Assets/main menu/Box millieu/GROS.png" id="2_0r0tr"]
@@ -22,6 +22,7 @@
 [ext_resource type="Texture2D" uid="uid://gp8ibft6axh2" path="res://Assets/main menu/Ecran/Dossier 2 Copie.png" id="12_pj4mf"]
 [ext_resource type="Shader" uid="uid://bum2gqlmpu2kv" path="res://Assets/Shaders/ElectricBoltShader.tres" id="12_s1u4e"]
 [ext_resource type="Texture2D" uid="uid://c66l3g8bbn3hb" path="res://Assets/Shaders/Effects/VFX Thunder.jpg" id="13_bioyo"]
+[ext_resource type="FontFile" uid="uid://eycyixjjf4a7" path="res://Assets/Font/BubbleSans-Regular.otf" id="13_qw33r"]
 [ext_resource type="Texture2D" uid="uid://1ren4h203s58" path="res://Assets/main menu/tuyaux/plafond/Arriere plan.png" id="17_csmdp"]
 [ext_resource type="Texture2D" uid="uid://dq6x1pdo2qmpi" path="res://Assets/main menu/tuyaux/plafond/Milieu.png" id="18_pb4sg"]
 [ext_resource type="Texture2D" uid="uid://bl2w8irfsvii1" path="res://Assets/main menu/tuyaux/plafond/Premier Plan.png" id="19_u4bb6"]
@@ -30,6 +31,7 @@
 [ext_resource type="Texture2D" uid="uid://b400ujq0huyih" path="res://Assets/main menu/Machine Gauche/jauge/Calque 7 Copie 3.png" id="26_xkip2"]
 [ext_resource type="Texture2D" uid="uid://cyu5d0kb03igg" path="res://Assets/main menu/Machine Gauche/jauge/Calque 4 Copie 3.png" id="27_p5ub1"]
 [ext_resource type="Texture2D" uid="uid://ccjxvrhqfqiwp" path="res://Assets/main menu/Machine Gauche/jauge/Calque 5 Copie 3.png" id="28_vd3jj"]
+[ext_resource type="Texture2D" uid="uid://dg21k8am1uh2" path="res://Assets/UI/MainMenu/CreditLogo.png" id="31_au67f"]
 
 [sub_resource type="Animation" id="Animation_nxg1h"]
 length = 0.001
@@ -498,6 +500,7 @@ offset_right = 168.32
 offset_bottom = 64.32
 grow_horizontal = 1
 grow_vertical = 1
+theme_override_font_sizes/font_size = 48
 text = "OPTION"
 
 [node name="LevelCreator" parent="Panel" instance=ExtResource("2_2c73t")]
@@ -508,6 +511,8 @@ offset_top = -64.4001
 offset_bottom = 63.5999
 grow_horizontal = 1
 grow_vertical = 1
+theme_override_fonts/font = ExtResource("13_qw33r")
+theme_override_font_sizes/font_size = 35
 text = "LevelCreator"
 
 [node name="StartButton" parent="Panel" instance=ExtResource("2_2c73t")]
@@ -520,6 +525,8 @@ offset_bottom = 63.96
 grow_horizontal = 1
 grow_vertical = 1
 scale = Vector2(0.997672, 0.99323)
+theme_override_fonts/font = ExtResource("13_qw33r")
+theme_override_font_sizes/font_size = 48
 text = "PLAY"
 
 [node name="StartButton2" parent="Panel" instance=ExtResource("2_2c73t")]
@@ -530,7 +537,9 @@ offset_top = -69.0001
 offset_bottom = 58.9999
 grow_horizontal = 1
 grow_vertical = 1
-text = "Disconnect"
+theme_override_fonts/font = ExtResource("13_qw33r")
+theme_override_font_sizes/font_size = 40
+text = "DISCONNECT"
 
 [node name="StartButton3" parent="Panel" instance=ExtResource("2_2c73t")]
 layout_mode = 1
@@ -540,6 +549,8 @@ offset_top = -64.3201
 offset_bottom = 63.6799
 grow_horizontal = 1
 grow_vertical = 1
+theme_override_fonts/font = ExtResource("13_qw33r")
+theme_override_font_sizes/font_size = 48
 text = "EXIT"
 
 [node name="PointLight2D4" type="PointLight2D" parent="Panel"]
@@ -852,3 +863,12 @@ offset_bottom = 584.0
 grow_horizontal = 1
 grow_vertical = 1
 scale = Vector2(0.191861, 0.602789)
+
+[node name="TextureRect" type="TextureRect" parent="CreditButton"]
+layout_mode = 0
+offset_left = 74.9094
+offset_top = 22.0291
+offset_right = 566.909
+offset_bottom = 314.029
+scale = Vector2(0.332555, 0.285787)
+texture = ExtResource("31_au67f")

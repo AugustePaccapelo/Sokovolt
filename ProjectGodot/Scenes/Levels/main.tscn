@@ -114,8 +114,7 @@ camera = NodePath("Camera")
 [node name="Camera" type="Camera2D" parent="Managers/GameManager"]
 position = Vector2(960, 540)
 
-[node name="Shaker" parent="Managers/GameManager" node_paths=PackedStringArray("_targets") instance=ExtResource("22_01v8u")]
-_targets = [NodePath("../Camera")]
+[node name="Shaker" parent="Managers/GameManager" instance=ExtResource("22_01v8u")]
 duration = 2.6
 
 [node name="UserGestion" parent="Managers" instance=ExtResource("17_3ylmq")]

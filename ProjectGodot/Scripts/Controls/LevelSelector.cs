@@ -25,6 +25,7 @@ namespace Com.IsartDigital.SokoVolt
 
         private int actualLevel = 0;
         public static int levelNumbMax = 11;
+        public static int currentLevel = 0;
         private int newTeslaPointPosY = 223;
 
         private Vector2 buttonSize = new Vector2(60, 100);
@@ -81,6 +82,8 @@ namespace Com.IsartDigital.SokoVolt
             InitializeLevelAtStart();
             scoreBoard.UpdatePersonalScoreBoard(actualLevel);
             InitSound();
+            SwitchLevel(1*currentLevel);
+            buttonLaunch.Disabled = false;
         }
 
         public override void _Process(double delta)
@@ -155,6 +158,7 @@ namespace Com.IsartDigital.SokoVolt
             {
                 Tween lTween = GameManager.GetInstance().MenuTrans.ActiveTrans(2f, 0.4f);
                 lTween.Finished += () => LevelManager.GetInstance().LevelLoaderFonc(actualTesla.level);
+                currentLevel = actualTesla.level;
             }
         }
 

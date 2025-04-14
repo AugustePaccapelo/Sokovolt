@@ -1,7 +1,7 @@
 keys,en,fr
 TITLE,SOKOVOLT,SOKOVOLT
 PLAY,PLAY,JOUER
-Disconnect,Disconnect,Déconnection
+DISCONNECT,DISCONNECT,DECONNECTION
 LevelCreator,LevelCreator,Créateur de Niveaux
 LevelPrefix,Level : ,Niveau : 
 MAIN MENU,MAIN MENU,MENU PRINCIPAL
@@ -27,7 +27,7 @@ GRIDSIZE,GRIDSIZE,TAILLE
 MyPassword,MyPassword,MonMotDePasse
 MyUsername,MyUsername,Identifiant
 LockAll,Lock All,Tout Bloquer
-EXIT,Exit,Quitter
+EXIT,EXIT,QUITTER
 Master,Master,General
 Music,Music,Musique
 SFX,Sound Effects,Effets Sonore
@@ -36,3 +36,4 @@ YOUR BEST SCORE,YOUR BEST SCORE,TON MEILLEUR SCORE
 PERSONAL SCORE,PERSONAL SCORE,SCORE PERSONNEL
 GLOBAL SCORE,GLOBAL SCORE,SCORE GLOBAL
 NAME :,NAME :,NOM :
+OPTION,SETTINGS,OPTIONS
