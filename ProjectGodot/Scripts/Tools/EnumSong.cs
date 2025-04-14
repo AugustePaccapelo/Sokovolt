@@ -34,7 +34,12 @@ public partial class EnumSong
         ButonSong,
         TVsong,
         LevelCreatorClick,
-        levelCreatorMenuClick
+        levelCreatorMenuClick,
+        doorOpen,
+        bulbOn,
+        piston,
+        playerMove,
+        playerTravel
     }
 
 }

@@ -1,5 +1,6 @@
 using Com.IsartDigital.SokoVolt.Tools;
 using Godot;
+using RobotnikSokoban.Scripts.Managers;
 using System;
 using static Com.IsartDigital.SokoVolt.Tools.ObjectProperties;
 
@@ -11,6 +12,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects {
 	{
         [Export] public Node2D topPart;
 		private const int START_POS = 600; 
+		RandomNumberGenerator rand = new RandomNumberGenerator();
 
 
 		private void ApplyMaskRecursively(Node pNode)
@@ -51,14 +53,13 @@ namespace Com.IsartDigital.SokoVolt.GameObjects {
 
      	public async void Launch(Cell pTargetCell, Vector2 pFinalPosition, float pDelay)
 		{
-		
-
-
-			topPart.GlobalPosition = new Vector2(GlobalPosition.X, pFinalPosition.Y + START_POS);
+			rand.Randomize();
+			int lRand = rand.RandiRange(1, 5);
+            topPart.GlobalPosition = new Vector2(GlobalPosition.X, pFinalPosition.Y + START_POS);
 			ZIndex -= 40; 
 			if (pTargetCell == null) return;
 
-			if (CustomMaskOcluder.instance != null)
+            if (CustomMaskOcluder.instance != null)
 			{
 				ApplyMaskRecursively(topPart);
 				ApplyMaskRecursively(GetChild(1)); 
@@ -110,8 +111,9 @@ namespace Com.IsartDigital.SokoVolt.GameObjects {
 			lTileTween.Parallel().TweenProperty(this, POSITION_Y, GlobalPosition.Y + 250, 0.3f)
 				.SetTrans(Tween.TransitionType.Back)
 				.SetEase(Tween.EaseType.In);
+            if (lRand == 5) SongManager.Instance.ambientDict[EnumSong.AmbientSong.piston].Play();
 
-			await ToSignal(lPistonTween, FINISHED);
+            await ToSignal(lPistonTween, FINISHED);
 
 			if (pTargetCell != null)
 			{
@@ -121,9 +123,9 @@ namespace Com.IsartDigital.SokoVolt.GameObjects {
 				if (content != null)
 					ClearMaskRecursively(content);
 			}
-			
 
-			await ToSignal(GetTree().CreateTimer(1f), TIME_OUT);
+            
+            await ToSignal(GetTree().CreateTimer(1f), TIME_OUT);
 			ClearMaskRecursively(topPart);
 			QueueFree();
 		}

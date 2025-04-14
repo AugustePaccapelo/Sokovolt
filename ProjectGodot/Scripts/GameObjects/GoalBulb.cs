@@ -2,6 +2,7 @@ using Com.IsartDigital.SokoVolt.GameObjects.Movables;
 using Com.IsartDigital.SokoVolt.Managers;
 using Com.IsartDigital.SokoVolt.Tools;
 using Godot;
+using RobotnikSokoban.Scripts.Managers;
 using System;
 
 // Author : Auguste Paccapelo
@@ -69,6 +70,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects
             doAction = TurnedOn;
 			isTurnedOn = true;
 			allLights.Show();
+            SongManager.Instance.ambientDict[EnumSong.AmbientSong.bulbOn].Play();
             signals.EmitSignal(CustomSignals.SignalName.GoalBulbStateChanged);
         }
 		private void TurnedOn(float pDelta)
