@@ -367,12 +367,13 @@ fill = 2
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2e72e"]
 
-[node name="MainMenu" type="Control" node_paths=PackedStringArray("startButton", "levelCreatorButton", "unlogButton", "optionButton", "quitButton", "anime", "teleButton", "neigeButton", "neige")]
+[node name="MainMenu" type="Control" node_paths=PackedStringArray("startButton", "creditButton", "levelCreatorButton", "unlogButton", "optionButton", "quitButton", "anime", "teleButton", "neigeButton", "neige")]
 layout_mode = 3
 anchors_preset = 0
 size_flags_horizontal = 4
 script = ExtResource("1_3kguo")
 startButton = NodePath("Panel/StartButton")
+creditButton = NodePath("CreditButton")
 levelCreatorButton = NodePath("Panel/LevelCreator")
 unlogButton = NodePath("Panel/StartButton2")
 optionButton = NodePath("Panel/option")
@@ -826,3 +827,13 @@ theme_override_styles/normal = SubResource("StyleBoxEmpty_pku4p")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_v57ny")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_p04hm")
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_2e72e")
+
+[node name="CreditButton" parent="." instance=ExtResource("2_2c73t")]
+layout_mode = 1
+offset_left = 938.0
+offset_top = 456.0
+offset_right = 1258.0
+offset_bottom = 584.0
+grow_horizontal = 1
+grow_vertical = 1
+scale = Vector2(0.191861, 0.602789)

@@ -22,6 +22,7 @@ namespace Com.IsartDigital.SokoVolt
 		#endregion
 
 		[Export] private Button startButton;
+		[Export] private Button creditButton;
 		[Export] private Button levelCreatorButton;
 		[Export] private Button unlogButton;
         [Export] private Button optionButton;
@@ -55,6 +56,7 @@ namespace Com.IsartDigital.SokoVolt
 			unlogButton.Pressed += () => CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.GoToLoginScreen);
             optionButton.Pressed += () => CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.GoToOptionMenu);
             quitButton.Pressed += ()=> CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.ExitGame);
+            creditButton.Pressed += ()=> CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.GoToCreditMenu);
 			anime.Play("mainMenuAnimation");
             teleButton.Pressed +=() => SongManager.Instance.ambientDict[EnumSong.AmbientSong.TVsong].Play();;
             neigeButton.Pressed += () => Neige();

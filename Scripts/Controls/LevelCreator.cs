@@ -260,6 +260,8 @@ namespace Com.IsartDigital.SokoVolt
         {
             string lFileName = CreateCustomLevelsFolder() + levelName.Text + ".json";
 
+            SongManager.Instance.ambientDict[EnumSong.AmbientSong.LevelCreatorClick].Play();
+
             if (!Godot.FileAccess.FileExists(lFileName) && levelName.Text.Length > 0) //Check if a file with the same name already exist
             {
                 string[] lMap = new string[lenghtY]; //Stock all the JsonKeys
@@ -674,6 +676,8 @@ namespace Com.IsartDigital.SokoVolt
             InputManager.inGame = false;
             backGround.Show();
 
+            SongManager.Instance.ambientDict[EnumSong.AmbientSong.levelCreatorMenuClick].Play();
+
             actualItem?.QueueFree();
             actualItem = null;
         }
@@ -683,10 +687,13 @@ namespace Com.IsartDigital.SokoVolt
             menu.Hide();
             lenghtX = lenghtY = LENGHT_MAX;
             sizeXText.Text = sizeYText.Text = null;
+            SongManager.Instance.ambientDict[EnumSong.AmbientSong.levelCreatorMenuClick].Play();
             ChangeGridSize();
         }
 		private void LoadLevel(string pLevelName)
 		{
+            if(pLevelName.Length == 0) return;
+            SongManager.Instance.ambientDict[EnumSong.AmbientSong.levelCreatorMenuClick].Play();
             backGround.Hide();
             screenEffect.Hide();
             screenBorder.Hide();
@@ -702,11 +709,13 @@ namespace Com.IsartDigital.SokoVolt
 		private void OpenCustomLevelsMenu()
 		{
             menu.Hide();
+            SongManager.Instance.ambientDict[EnumSong.AmbientSong.levelCreatorMenuClick].Play();
             customLevelMenuBackground.Visible = returnButton.Visible = true;
             DirContents(customLevelsFolderPath); //send folder reference to DirContents fonction
         }
         private void DeleteLevel(string pLevelName)
         {
+            SongManager.Instance.ambientDict[EnumSong.AmbientSong.levelCreatorMenuClick].Play();
             string lFileName = customLevelsFolderPath + "/" + pLevelName + ".json";
             GD.PrintErr($"Suppression de {lFileName}");
 

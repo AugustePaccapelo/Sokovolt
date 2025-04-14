@@ -23,6 +23,7 @@ namespace Com.IsartDigital.SokoVolt.Managers
 		[Export] PackedScene levelCreatorScene;
 		[Export] PackedScene mainMenuScene;
         [Export] PackedScene optionMenuScene;
+        [Export] PackedScene creditMenuScene;
 
 		private LevelSelector levelSelector;
 		private LevelCreator levelCreator;
@@ -54,6 +55,7 @@ namespace Com.IsartDigital.SokoVolt.Managers
             lCustomSignals.GoToLoginScreen += GoToLoginScreen;
 			lCustomSignals.GoToOptionMenu += GoToOptionMenu;
             lCustomSignals.ExitGame += OnQuitButtonPressed;
+            lCustomSignals.GoToCreditMenu += GoToCreditMenu;
         }
 
 		public void GameStart() //Execute when StartButton is press in MainMenu
@@ -96,6 +98,7 @@ namespace Com.IsartDigital.SokoVolt.Managers
 				LevelManager.GetInstance()?.UnLoadLevel();
 				CustomMaskOcluder.instance.SetBackgroundVisibility(false);
 				LoginScreen.GetInstance().AnimationLoginExit();
+				CreditMenu.GetInstance()?.QueueFree();
 				LoginScreen.GetInstance().Hide();
                 mainMenu.Show();
 				LevelCreator.inLevelCreator = false;
@@ -112,8 +115,18 @@ namespace Com.IsartDigital.SokoVolt.Managers
                 optionMenu.Show();
             };
         }
+        private void GoToCreditMenu()
+        {
+            Tween lTween = GameManager.GetInstance().MenuTrans.ActiveTrans(1f, 0.2f);
+            lTween.Finished += () =>
+            {
+                mainMenu.Hide();
+				CreditMenu lCreditMenu = creditMenuScene.Instantiate() as CreditMenu;
+				AddChild(lCreditMenu);
+            };
+        }
 
-		private void GoToLoginScreen()
+        private void GoToLoginScreen()
 		{
 			LoginScreen lLoginScreen = LoginScreen.GetInstance();
 
