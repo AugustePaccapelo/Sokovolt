@@ -501,7 +501,7 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 				await ToSignal(GetTree().CreateTimer(lRandDelay), TIME_OUT);
 			}
 
-            await ToSignal(GetTree().CreateTimer(1f), "timeout");
+            await ToSignal(GetTree().CreateTimer(0.3f), "timeout");
 
             AnimateVortex(vortex);
 
