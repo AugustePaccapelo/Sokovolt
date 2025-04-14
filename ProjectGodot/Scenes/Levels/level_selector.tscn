@@ -1,4 +1,4 @@
-[gd_scene load_steps=84 format=3 uid="uid://dht3qeqhib1rk"]
+[gd_scene load_steps=90 format=3 uid="uid://dht3qeqhib1rk"]
 
 [ext_resource type="Script" path="res://Scripts/Controls/LevelSelector.cs" id="1_7onrw"]
 [ext_resource type="Texture2D" uid="uid://dyr30pkkewie" path="res://Assets/UI/MainMenu/LevelScreen.png" id="2_u4r7s"]
@@ -12,9 +12,11 @@
 [ext_resource type="Texture2D" uid="uid://c767fcajnj2yi" path="res://Assets/Shaders/Effects/Glow.png" id="7_c1v7e"]
 [ext_resource type="Texture2D" uid="uid://d027gw6ax6ujo" path="res://Assets/UI/MainMenu/Carpet.png" id="11_cogra"]
 [ext_resource type="Texture2D" uid="uid://6ogwctw6dhxl" path="res://Assets/UI/MainMenu/Manette.png" id="11_uwiep"]
+[ext_resource type="Texture2D" uid="uid://dklc0ngq8x3g1" path="res://Assets/UI/MainMenu/ArrowButtonLeft.png" id="14_kdgne"]
 [ext_resource type="PackedScene" uid="uid://dty5a7hnd1fve" path="res://Scenes/GameObjects/LevelSelectorObject/button_smoke_particles.tscn" id="15_53pe0"]
 [ext_resource type="Texture2D" uid="uid://dw208iyoc71pe" path="res://Assets/UI/MainMenu/LightProjection.png" id="15_cy604"]
 [ext_resource type="Texture2D" uid="uid://dc3or7fnkox6b" path="res://Assets/UI/MainMenu/Smoke.png" id="16_oywvd"]
+[ext_resource type="Texture2D" uid="uid://6flt3c7or6rw" path="res://Assets/UI/MainMenu/ArrowButtonRight.png" id="17_l0wk0"]
 [ext_resource type="Texture2D" uid="uid://cuwmy2vafhkfl" path="res://Assets/UI/MainMenu/light.png" id="18_ggq5m"]
 [ext_resource type="PackedScene" uid="uid://36dp5dq6hmqq" path="res://Scenes/GameObjects/ButtonTemplate.tscn" id="20_0nxsh"]
 [ext_resource type="FontFile" uid="uid://eycyixjjf4a7" path="res://Assets/Font/BubbleSans-Regular.otf" id="22_nbaik"]
@@ -141,6 +143,70 @@ unicode = 32
 
 [sub_resource type="Shortcut" id="Shortcut_7dlpy"]
 events = [SubResource("InputEventKey_gko1h")]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wjp8j"]
+bg_color = Color(0.486275, 0.313726, 0.152941, 1)
+border_width_left = 20
+border_width_top = 20
+border_width_right = 20
+border_width_bottom = 20
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 10
+corner_detail = 16
+shadow_color = Color(0, 0, 0, 0.603922)
+shadow_size = 20
+shadow_offset = Vector2(-10, 20)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ixmd5"]
+bg_color = Color(0.391309, 0.248238, 0.114569, 1)
+border_width_left = 15
+border_width_top = 15
+border_width_right = 15
+border_width_bottom = 15
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 10
+corner_detail = 16
+shadow_color = Color(0, 0, 0, 0.603922)
+shadow_size = 10
+shadow_offset = Vector2(-10, 20)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_47jew"]
+bg_color = Color(0.391309, 0.248238, 0.114569, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 10
+corner_detail = 16
+shadow_color = Color(0, 0, 0, 0.603922)
+shadow_size = 5
+shadow_offset = Vector2(-10, 20)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qwmm2"]
+bg_color = Color(0.391309, 0.248238, 0.114569, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 10
+corner_detail = 16
+shadow_color = Color(0, 0, 0, 0.603922)
+shadow_size = 5
+shadow_offset = Vector2(-10, 20)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hpabm"]
 
@@ -367,7 +433,7 @@ z_index = -2
 layout_mode = 0
 offset_left = -13.0
 offset_top = -45.0
-offset_right = 3487.0
+offset_right = 3490.0
 offset_bottom = 3455.0
 scale = Vector2(0.551785, 0.551785)
 texture = ExtResource("5_l1c0r")
@@ -472,7 +538,7 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_ck5x4")
 theme_override_styles/disabled = SubResource("StyleBoxFlat_ck5x4")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_boprf")
 shortcut = SubResource("Shortcut_0fmw5")
-text = "<="
+icon = ExtResource("14_kdgne")
 icon_alignment = 1
 
 [node name="PointLight2D" type="PointLight2D" parent="ButtonBox/HBoxContainer/Left"]
@@ -512,13 +578,14 @@ theme_override_colors/font_pressed_color = Color(0.270222, 0.270222, 0.270222, 1
 theme_override_colors/font_hover_color = Color(0.151276, 0.151276, 0.151276, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 300
-theme_override_styles/normal = SubResource("StyleBoxFlat_8lue5")
-theme_override_styles/hover = SubResource("StyleBoxFlat_at7ei")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_ck5x4")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_ck5x4")
+theme_override_styles/normal = SubResource("StyleBoxFlat_wjp8j")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ixmd5")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_47jew")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_qwmm2")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_hpabm")
 shortcut = SubResource("Shortcut_wplr8")
-text = "=>"
+icon = ExtResource("17_l0wk0")
+icon_alignment = 1
 
 [node name="PointLight2D2" type="PointLight2D" parent="ButtonBox/HBoxContainer/Right"]
 position = Vector2(232.919, 453.707)

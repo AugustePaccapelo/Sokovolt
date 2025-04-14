@@ -112,6 +112,7 @@ alignment = 1
 [node name="Button" type="Button" parent="VBoxContainer/ButtonContainer"]
 custom_minimum_size = Vector2(171.315, 50.825)
 layout_mode = 2
+theme_override_colors/font_color = Color(0.252028, 0.252028, 0.252028, 1)
 theme_override_fonts/font = ExtResource("5_yil7i")
 theme_override_font_sizes/font_size = 17
 theme_override_styles/normal = SubResource("StyleBoxFlat_u76yg")
@@ -131,6 +132,7 @@ texture_scale = 0.1
 [node name="Button2" type="Button" parent="VBoxContainer/ButtonContainer"]
 custom_minimum_size = Vector2(171.315, 50.825)
 layout_mode = 2
+theme_override_colors/font_color = Color(0.252028, 0.252028, 0.252028, 1)
 theme_override_fonts/font = ExtResource("5_yil7i")
 theme_override_font_sizes/font_size = 17
 theme_override_styles/normal = SubResource("StyleBoxFlat_u76yg")
