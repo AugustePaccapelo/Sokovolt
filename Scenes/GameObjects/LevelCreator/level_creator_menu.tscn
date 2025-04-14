@@ -1,4 +1,4 @@
-[gd_scene load_steps=85 format=3 uid="uid://bx4sq5cya6p7g"]
+[gd_scene load_steps=91 format=3 uid="uid://bx4sq5cya6p7g"]
 
 [ext_resource type="PackedScene" uid="uid://36dp5dq6hmqq" path="res://Scenes/GameObjects/ButtonTemplate.tscn" id="1_8igok"]
 [ext_resource type="Script" path="res://Scripts/Controls/LevelCreator.cs" id="1_bf11f"]
@@ -37,6 +37,9 @@
 [ext_resource type="Texture2D" uid="uid://dhg3rk7nroyel" path="res://Assets/UI/LevelCreator/Wall/Wall1.png" id="31_4j4e7"]
 [ext_resource type="Texture2D" uid="uid://cb2061gmkoprp" path="res://Assets/UI/LevelCreator/Wall/Wall3.png" id="32_o56uh"]
 [ext_resource type="PackedScene" uid="uid://baqiox1toak3m" path="res://Scenes/UI/screen_effect.tscn" id="33_g7lla"]
+[ext_resource type="Texture2D" uid="uid://djg6ubrh8t8a2" path="res://Scenes/GameObjects/LevelCreator/Doors/Door2.png" id="35_rcf32"]
+[ext_resource type="Texture2D" uid="uid://brq0h4rhf4t4f" path="res://Scenes/GameObjects/LevelCreator/Doors/Door1.png" id="36_i15wi"]
+[ext_resource type="Texture2D" uid="uid://o1w2k2staxij" path="res://Scenes/GameObjects/LevelCreator/Doors/Door3.png" id="37_22xne"]
 [ext_resource type="Shader" path="res://Assets/Shaders/Effects/crt_shader/CRTShader.gdshader" id="38_khxnc"]
 [ext_resource type="Texture2D" uid="uid://cmr3t2q3whyoa" path="res://Assets/UI/LevelCreator/LevelCreatorScreenBordur.png" id="39_hc6v5"]
 
@@ -95,6 +98,15 @@ texture = ExtResource("19_ev5dc")
 texture = ExtResource("20_uu7dv")
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bedd4"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1k1iv"]
+texture = ExtResource("35_rcf32")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ep4ru"]
+texture = ExtResource("36_i15wi")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_np5q4"]
+texture = ExtResource("37_22xne")
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gh2mp"]
 
@@ -279,9 +291,9 @@ wallPressed = ExtResource("32_o56uh")
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 0
 offset_left = -792.0
-offset_top = -1264.0
+offset_top = -1274.0
 offset_right = 2708.0
-offset_bottom = 2236.0
+offset_bottom = 2244.0
 scale = Vector2(0.548383, 0.54567)
 pivot_offset = Vector2(1750, 1750)
 texture = ExtResource("12_6r7bb")
@@ -339,7 +351,6 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_timhf")
 text = "MAIN MENU"
 
 [node name="NewLevelBackGround" type="Panel" parent="."]
-visible = false
 layout_mode = 1
 offset_right = 1920.0
 offset_bottom = 1080.0
@@ -398,9 +409,10 @@ stretch_mode = 3
 [node name="Tesla" parent="NewLevelBackGround/Inventory" instance=ExtResource("7_5weia")]
 visible = false
 layout_mode = 1
-offset_left = 3.05176e-05
-offset_top = 534.533
-offset_bottom = 821.533
+offset_left = -149.488
+offset_top = 523.208
+offset_right = 1770.51
+offset_bottom = 1603.21
 pivot_offset = Vector2(144, 143)
 stretch_mode = 2
 
@@ -442,8 +454,10 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_bedd4")
 [node name="ButtonDoor" type="Button" parent="NewLevelBackGround/Inventory/VBoxContainer"]
 custom_minimum_size = Vector2(40, 147.265)
 layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_1k1iv")
+theme_override_styles/hover = SubResource("StyleBoxTexture_ep4ru")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_np5q4")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_gh2mp")
-text = "DOOR"
 
 [node name="ButtonPlayer" type="Button" parent="NewLevelBackGround/Inventory/VBoxContainer"]
 custom_minimum_size = Vector2(40, 147.265)
@@ -673,7 +687,7 @@ transitionType = 7
 material = SubResource("ShaderMaterial_v28ie")
 layout_mode = 1
 offset_left = 101.0
-offset_top = 109.0
+offset_top = 97.0
 offset_right = 1501.0
 offset_bottom = 911.0
 mouse_filter = 2
@@ -681,9 +695,9 @@ mouse_filter = 2
 [node name="TextureRect2" type="TextureRect" parent="."]
 layout_mode = 0
 offset_left = -766.0
-offset_top = -752.0
+offset_top = -760.0
 offset_right = 2051.0
-offset_bottom = 938.0
+offset_bottom = 945.0
 scale = Vector2(0.548383, 0.54567)
 pivot_offset = Vector2(1750, 1750)
 mouse_filter = 2

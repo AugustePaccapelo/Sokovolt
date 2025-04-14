@@ -1,12 +1,14 @@
 [gd_scene load_steps=3 format=3 uid="uid://bvpdafbbrw7s7"]
 
-[ext_resource type="Texture2D" uid="uid://cwb4ypc3twdp2" path="res://Assets/GameObjects/IsoTiles/basetiles.png" id="1_hdvwr"]
+[ext_resource type="Texture2D" uid="uid://dtxnq7w3s51u2" path="res://Assets/GameObjects/IsoObjects/Wall1.png" id="1_pynqw"]
 [ext_resource type="Script" path="res://Scripts/GameObjects/LevelCreatorItems.cs" id="2_ti4es"]
 
 [node name="Wall" type="TextureRect"]
-offset_right = 262.0
-offset_bottom = 190.0
-scale = Vector2(0.707999, 0.707999)
-texture = ExtResource("1_hdvwr")
+offset_left = -8.0
+offset_top = -3.0
+offset_right = 1912.0
+offset_bottom = 1077.0
+scale = Vector2(0.103206, 0.103206)
+texture = ExtResource("1_pynqw")
 stretch_mode = 3
 script = ExtResource("2_ti4es")

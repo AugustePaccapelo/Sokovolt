@@ -138,6 +138,8 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = 10.0
+offset_bottom = 10.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
@@ -184,7 +186,7 @@ text = "Author : "
 label_settings = SubResource("LabelSettings_spsqj")
 horizontal_alignment = 1
 
-[node name="Undo" type="Button" parent="DisplayInGame" node_paths=PackedStringArray("particles")]
+[node name="Undo" type="Button" parent="DisplayInGame"]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -208,7 +210,6 @@ theme_override_styles/focus = SubResource("StyleBoxTexture_gtf4d")
 script = ExtResource("2_hiajr")
 scaleMultiplicator = 0.3
 during = 0.08
-particles = NodePath("GPUParticles2D4")
 
 [node name="GPUParticles2D4" type="GPUParticles2D" parent="DisplayInGame/Undo"]
 material = SubResource("CanvasItemMaterial_0y056")
@@ -221,7 +222,7 @@ one_shot = true
 speed_scale = 5.0
 fixed_fps = 60
 
-[node name="Redo" type="Button" parent="DisplayInGame" node_paths=PackedStringArray("particles")]
+[node name="Redo" type="Button" parent="DisplayInGame"]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -245,7 +246,6 @@ theme_override_styles/focus = SubResource("StyleBoxTexture_yg05y")
 script = ExtResource("2_hiajr")
 scaleMultiplicator = 0.3
 during = 0.08
-particles = NodePath("GPUParticles2D4")
 
 [node name="GPUParticles2D4" type="GPUParticles2D" parent="DisplayInGame/Redo"]
 material = SubResource("CanvasItemMaterial_0y056")
@@ -300,5 +300,5 @@ texture = ExtResource("6_nni3e")
 texture_scale = 0.1
 
 [node name="DialogBox" parent="." instance=ExtResource("8_5pccc")]
-position = Vector2(1371, 137)
+position = Vector2(1366, 263)
 scale = Vector2(0.6, 0.6)

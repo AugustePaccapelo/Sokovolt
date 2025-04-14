@@ -157,7 +157,6 @@ namespace Com.IsartDigital.SokoVolt
         public override void _Process(double pDelta)
 		{
 			float lDelta = (float)pDelta;
-			MouseOn();
 			PlaceItem();
             if (actualItem != null) actualItem.Position = GetLocalMousePosition();
         }
@@ -171,58 +170,6 @@ namespace Com.IsartDigital.SokoVolt
         }
 
         #region MouseFonction
-        private void MouseOn()
-        {
-            //If player canPick & is on a texture. Instanciate item under the mouse
-            if (Input.IsMouseButtonPressed(MouseButton.Left) && canPick)
-            {
-                actualItem?.QueueFree();
-                LevelCreatorItems lItem = null;
-
-                if (hoveredItem == wallTexture)
-                {
-                    lItem = wallScene.Instantiate() as LevelCreatorItems;
-                    lItem.type = WALL_TYPE;
-                }
-                else if (hoveredItem == teslaTexture)
-                {
-                    lItem = teslaScene.Instantiate() as LevelCreatorItems;
-                    if (lItem.teslaRange != null) lItem.teslaRange.Value = teslaTexture.teslaRange.Value;
-                    lItem.type = TESLA_TYPE;
-                }
-                else if (hoveredItem == bulbTexture)
-                {
-                    lItem = bulbScene.Instantiate() as LevelCreatorItems;
-                    lItem.type = BULB_TYPE;
-                }
-                else if (hoveredItem == generatorTexture)
-                {
-                    lItem = generatorScene.Instantiate() as LevelCreatorItems;
-                    lItem.type = GENERATOR_TYPE;
-                }
-                else if (hoveredItem == playerSpawnTexture)
-                {
-                    lItem = playerSpawnScene.Instantiate() as LevelCreatorItems;
-                    lItem.type = PLAYERSPAWN_TYPE;
-                }
-                else if (hoveredItem == electricWallTexture)
-                {
-                    lItem = electricWallScene.Instantiate() as LevelCreatorItems;
-                    lItem.type = ELECTRIC_WALL_TYPE;
-                }
-                else if (hoveredItem == doorTexture)
-                {
-                    lItem = doorScene.Instantiate() as LevelCreatorItems;
-                    lItem.type = DOOR_TYPE;
-                }
-
-                cellContainer.AddChild(lItem);
-                actualItem = lItem;
-                actualItem.MouseFilter = MouseFilterEnum.Ignore; //Disable collision with mouse
-                canPick = false;
-            }
-        }
-
         private void ItemPick(LevelCreatorItems pItem)
         {
             actualItem?.QueueFree();
@@ -394,22 +341,22 @@ namespace Com.IsartDigital.SokoVolt
                 //Checking the number of elements
                 if (!lHasBulb)
                 {
-                    AnimationManager.GetInstance().BounceAnimation(bulbTexture, 0.5f, Colors.Red, 0.2f);
+                    AnimationManager.GetInstance().BounceAnimation(bulbButton, 0.5f, Colors.Red, 0.2f);
                     return;
                 }
                 if (!lHasDoor)
                 {
-                    AnimationManager.GetInstance().BounceAnimation(doorTexture, 0.5f, Colors.Red, 0.2f);
+                    AnimationManager.GetInstance().BounceAnimation(doorButton, 0.5f, Colors.Red, 0.2f);
                     return;
                 }
                 if (!lHasPlayerSpawn)
                 {
-                    AnimationManager.GetInstance().BounceAnimation(playerSpawnTexture, 0.5f, Colors.Red, 0.2f);
+                    AnimationManager.GetInstance().BounceAnimation(playerButton, 0.5f, Colors.Red, 0.2f);
                     return;
                 }
                 if (!lHasGenerator)
                 {
-                    AnimationManager.GetInstance().BounceAnimation(generatorTexture, 0.5f, Colors.Red, 0.2f);
+                    AnimationManager.GetInstance().BounceAnimation(batteryButton, 0.5f, Colors.Red, 0.2f);
                     return;
                 }
 
@@ -506,8 +453,8 @@ namespace Com.IsartDigital.SokoVolt
             Vector2 lButtonSize = new Vector2(200, 200);
             Vector2 lLabelSize = new Vector2(800, 200);
 
-            Button lPlayButton = CreateButton("PLAY", lButtonSize, () => LoadLevel(pLevelName));
-            Button lDeleteButton = CreateButton("Delete Level", lButtonSize, () => DeleteLevel(pLevelName));
+            Button lPlayButton = CreateButton("PLAY", lButtonSize, pLevelName);
+            Button lDeleteButton = CreateButton("Delete Level", lButtonSize, pLevelName);
             Label lLabel = customLevelLabelScene.Instantiate<Label>();
             lLabel.CustomMinimumSize = lLabelSize;
             lLabel.Text = pLevelName;
@@ -516,14 +463,29 @@ namespace Com.IsartDigital.SokoVolt
             deleteButtonContainer.AddChild(lDeleteButton);
             labelContainer.AddChild(lLabel);
         }
-        private Button CreateButton(string pText, Vector2 pSize, Action pOnPress)
+        private Button CreateButton(string pText, Vector2 pSize, string pLevelName)
         {
             Button lButton = new Button
             {
                 CustomMinimumSize = pSize,
                 Text = pText
             };
-            lButton.Pressed += pOnPress;
+            if (pText == "PLAY")
+            {
+                lButton.Pressed += () =>
+                {
+                    Tween lTween = GameManager.GetInstance().MenuTrans.ActiveTrans(1, 0.2f);
+                    lTween.Finished += () => LoadLevel(pLevelName);
+                };
+            }
+            else if (pText == "Delete Level")
+            {
+                lButton.Pressed += () =>
+                {
+                    Tween lTween = GameManager.GetInstance().MenuTrans.ActiveTrans(1, 0.2f);
+                    lTween.Finished += () => DeleteLevel(pLevelName);
+                };
+            }
             return lButton;
         }
         #endregion
@@ -735,6 +697,7 @@ namespace Com.IsartDigital.SokoVolt
             menu.Visible = mainMenuButton.Visible = false;
             GridManager.GetInstance().LoadNewLevel(0, lPath, GameManager.GetInstance().objectsContainer);
             InputManager.inGame = true;
+            CustomMaskOcluder.instance.SetBackgroundVisibility(true);
         }
 		private void OpenCustomLevelsMenu()
 		{

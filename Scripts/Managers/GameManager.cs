@@ -27,6 +27,7 @@ namespace Com.IsartDigital.SokoVolt.Managers
 
         // ----- Nodes ----- \\
         [Export] public Node2D objectsContainer;
+        [Export] public Shaker shaker;
         [Export] public MenuTrans MenuTrans;
         [Export] public Camera2D camera;
         [Export] private Polygon2D mouse;

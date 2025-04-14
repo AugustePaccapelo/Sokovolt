@@ -45,7 +45,7 @@ namespace Com.IsartDigital.SokoVolt.Managers
         {
             base.Init();
 
-            CustomSignals.GetInstance().GoToMainMenu += UnLoadLevel; 
+            //CustomSignals.GetInstance().GoToMainMenu += UnLoadLevel; 
             CustomSignals.GetInstance().GoToNextLevel += NextLevel;
         }
 
@@ -56,7 +56,7 @@ namespace Com.IsartDigital.SokoVolt.Managers
             lTween.Finished += () => LevelLoaderFonc(pLevel);
         }
 
-        private void UnLoadLevel()
+        public void UnLoadLevel()
         {
             GridManager.GetInstance().ClearGrid();
             CustomSignals.GetInstance().EmitSignal(CustomSignals.SignalName.UnLoadLevel);

@@ -44,7 +44,7 @@ centered = false
 [node name="RightPart" type="Sprite2D" parent="MenuTrans"]
 light_mask = 0
 z_index = 1900
-position = Vector2(2.9865, -6.01113)
-scale = Vector2(0.996885, 1.00186)
+position = Vector2(2.9865, -2)
+scale = Vector2(0.996885, 1.00185)
 texture = ExtResource("5_m86xg")
 centered = false

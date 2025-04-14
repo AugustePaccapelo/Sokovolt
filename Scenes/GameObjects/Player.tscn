@@ -12,7 +12,7 @@ script = ExtResource("1_05ekn")
 dectetor = NodePath("DetectionZone")
 inTeslaParticles = NodePath("PlayerParticles/InTeslaParticles")
 bodyParticles = NodePath("PlayerParticles/GPUParticles2D")
-moveparticulr = NodePath("PlayerParticles/GPUParticles2D4")
+moveparticulr = NodePath("PlayerParticles/MoveParticle")
 
 [node name="Visual" type="Node2D" parent="."]
 
