@@ -531,6 +531,7 @@ namespace Com.IsartDigital.SokoVolt.Managers {
 		//  Vortex animation 
 		private void AnimateVortex(Node2D vortex)
 		{
+			gameManager.shaker.Start();
 			Sprite2D lVortexSprite = vortex.GetChild<Sprite2D>(0);
 			Tween lVortexTween = CreateTween();
 

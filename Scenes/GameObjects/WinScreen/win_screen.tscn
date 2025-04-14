@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://cq2pq5gsrx4re"]
+[gd_scene load_steps=35 format=3 uid="uid://cq2pq5gsrx4re"]
 
 [ext_resource type="Script" path="res://Scripts/GameObjects/WinScreen.cs" id="1_753qv"]
 [ext_resource type="PackedScene" uid="uid://b0olmoqwuw54k" path="res://Scenes/GameObjects/WinScreen/rope.tscn" id="2_j1ab3"]
@@ -112,11 +112,53 @@ scale_max = 0.08
 scale_curve = SubResource("CurveTexture_wll2f")
 color_ramp = SubResource("GradientTexture1D_76wag")
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4n1es"]
+bg_color = Color(0.443137, 0.32549, 0.160784, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uryiw"]
+bg_color = Color(0.584001, 0.435794, 0.229552, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3j20f"]
+bg_color = Color(0.477412, 0.352074, 0.176796, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iofa4"]
+bg_color = Color(0.381729, 0.278119, 0.132837, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0cxt8"]
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j8a2c"]
 size = Vector2(391, 141)
 
 [node name="WinScreen" type="Node2D" node_paths=PackedStringArray("area", "clockwises", "screen", "nextButton", "starCountLabel", "stepsCountLabel", "scoreLabel", "screenEffect", "particlesGroup", "nextLevelButton", "batteries")]
-visible = false
 script = ExtResource("1_753qv")
 area = NodePath("Area2D")
 thunderScene = ExtResource("7_itdbi")
@@ -509,6 +551,7 @@ offset_left = 755.0
 offset_top = 866.0
 offset_right = 1146.0
 offset_bottom = 1007.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_4n1es")
 
 [node name="Button" type="Button" parent="ScreenContainer/NextButton"]
 offset_left = 782.0
@@ -516,9 +559,14 @@ offset_top = 892.0
 offset_right = 1121.0
 offset_bottom = 985.0
 theme_override_font_sizes/font_size = 48
+theme_override_styles/normal = SubResource("StyleBoxFlat_uryiw")
+theme_override_styles/hover = SubResource("StyleBoxFlat_3j20f")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_iofa4")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_0cxt8")
 text = "Next Level"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ScreenContainer/NextButton"]
+visible = false
 position = Vector2(950.5, 936.5)
 shape = SubResource("RectangleShape2D_j8a2c")
 

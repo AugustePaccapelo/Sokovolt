@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://h8fbgcr6chyo"]
+
+[ext_resource type="Script" path="res://Scripts/Tools/Shaker.cs" id="1_liryl"]
+
+[node name="Shaker" type="Node2D" node_paths=PackedStringArray("_targets")]
+script = ExtResource("1_liryl")
+_targets = []
+noise = 0.261799

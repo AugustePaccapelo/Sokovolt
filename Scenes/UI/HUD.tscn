@@ -112,7 +112,7 @@ keycode = 4194305
 [sub_resource type="Shortcut" id="Shortcut_arctw"]
 events = [SubResource("InputEventKey_hc5vy")]
 
-[node name="Hud" type="Control" node_paths=PackedStringArray("undoButton", "redoButton", "mainMenuButton", "parLabel", "stepLabel", "winLabel", "authorLabel", "displayInGame")]
+[node name="Hud" type="Control" node_paths=PackedStringArray("undoButton", "redoButton", "mainMenuButton", "parLabel", "stepLabel", "winLabel", "authorLabel", "displayInGame", "dialogBox")]
 custom_minimum_size = Vector2(1152, 648)
 layout_mode = 3
 anchors_preset = 15
@@ -131,12 +131,15 @@ winLabel = NodePath("WinLabel")
 authorLabel = NodePath("DisplayInGame/AuthorLabel")
 winScreenScene = ExtResource("2_n24og")
 displayInGame = NodePath("DisplayInGame")
+dialogBox = NodePath("DialogBox")
 
 [node name="DisplayInGame" type="Control" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = 10.0
+offset_bottom = 10.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
@@ -297,5 +300,5 @@ texture = ExtResource("6_nni3e")
 texture_scale = 0.1
 
 [node name="DialogBox" parent="." instance=ExtResource("8_5pccc")]
-position = Vector2(1371, 137)
+position = Vector2(1366, 263)
 scale = Vector2(0.6, 0.6)

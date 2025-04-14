@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=3 uid="uid://dkbx646vvyaig"]
+[gd_scene load_steps=50 format=3 uid="uid://dkbx646vvyaig"]
 
 [ext_resource type="PackedScene" uid="uid://dyk47lo67a1tp" path="res://Scenes/Managers/ui_manager.tscn" id="1_4603a"]
 [ext_resource type="PackedScene" uid="uid://bnv0kco0ylr0e" path="res://Scenes/Managers/GridManager.tscn" id="1_d671q"]
@@ -22,6 +22,7 @@
 [ext_resource type="PackedScene" uid="uid://dellu8bu72iut" path="res://Scenes/GameObjects/Generator.tscn" id="11_lsk15"]
 [ext_resource type="PackedScene" uid="uid://b4gnj6651gy4m" path="res://Scenes/GameObjects/Door.tscn" id="12_pyytn"]
 [ext_resource type="PackedScene" uid="uid://br3qeg3kaqfqk" path="res://Scenes/user_gestion.tscn" id="17_3ylmq"]
+[ext_resource type="PackedScene" uid="uid://h8fbgcr6chyo" path="res://Scenes/shaker.tscn" id="22_01v8u"]
 [ext_resource type="Script" path="res://Scripts/Managers/AnimationManager.cs" id="22_ah2rb"]
 [ext_resource type="Script" path="res://Scripts/Managers/ConnectionManagers.cs" id="22_alaha"]
 [ext_resource type="Script" path="res://Scripts/Managers/SongManager.cs" id="24_lgxf0"]
@@ -112,12 +113,16 @@ goalBulbScene = ExtResource("10_cjqye")
 generatorScene = ExtResource("11_lsk15")
 doorScene = ExtResource("12_pyytn")
 
-[node name="GameManager" parent="Managers" node_paths=PackedStringArray("objectsContainer", "camera") instance=ExtResource("7_vkagg")]
+[node name="GameManager" parent="Managers" node_paths=PackedStringArray("objectsContainer", "shaker", "camera") instance=ExtResource("7_vkagg")]
 objectsContainer = NodePath("../../Containers/ObjectsContainer")
+shaker = NodePath("Shaker")
 camera = NodePath("Camera")
 
 [node name="Camera" type="Camera2D" parent="Managers/GameManager"]
 position = Vector2(960, 540)
+
+[node name="Shaker" parent="Managers/GameManager" instance=ExtResource("22_01v8u")]
+duration = 2.6
 
 [node name="UserGestion" parent="Managers" instance=ExtResource("17_3ylmq")]
 
