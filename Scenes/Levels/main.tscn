@@ -61,13 +61,6 @@ script = ExtResource("3_3tpao")
 
 [node name="LoginScreen" parent="Managers/UIManager" instance=ExtResource("6_vn404")]
 custom_minimum_size = Vector2(1152, 648)
-anchors_preset = 0
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_right = 1920.0
-offset_bottom = 1080.0
-grow_horizontal = 1
-grow_vertical = 1
 arrowMinRotation = 0.0
 arrowMaxRotation = 0.0
 arrowMinSpeed = 0.0

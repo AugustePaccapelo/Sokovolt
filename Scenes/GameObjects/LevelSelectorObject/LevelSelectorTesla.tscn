@@ -135,7 +135,7 @@ scale_max = 0.3
 scale_curve = SubResource("CurveTexture_myre1")
 color = Color(0.5, 1, 1.2, 1)
 
-[node name="Tesla" type="Sprite2D" node_paths=PackedStringArray("electricBolt", "electricBoltConstant", "padLock", "lightEmission")]
+[node name="Tesla" type="Sprite2D" node_paths=PackedStringArray("electricBolt", "electricBoltConstant", "padLock", "lightEmission", "screenImage")]
 modulate = Color(0.364706, 0.364706, 0.364706, 1)
 z_index = 2
 scale = Vector2(0.84344, 0.84344)
@@ -145,6 +145,7 @@ electricBolt = NodePath("ElectricEffect/ParticlesGroup")
 electricBoltConstant = NodePath("ElectricEffect/ParticlesGroup2")
 padLock = NodePath("Screen/Padlock")
 lightEmission = [NodePath("ImpactEffect/LightEmission"), NodePath("LeftTesla/PointLight2D"), NodePath("RightTesla/PointLight2D2")]
+screenImage = NodePath("Screen/SubViewportContainer/SubViewport/ScreenView/TextureRect")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 visible = false
@@ -266,6 +267,7 @@ offset_bottom = 243.0
 
 [node name="SubViewport" type="SubViewport" parent="Screen/SubViewportContainer"]
 handle_input_locally = false
+scaling_3d_scale = 1.0
 size = Vector2i(282, 143)
 render_target_update_mode = 4
 

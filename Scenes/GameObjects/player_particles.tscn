@@ -149,13 +149,14 @@ local_coords = true
 trail_enabled = true
 
 [node name="GPUParticles2D3" type="GPUParticles2D" parent="."]
+visible = false
 material = SubResource("CanvasItemMaterial_xa1ym")
 process_material = SubResource("ParticleProcessMaterial_k6j6s")
 texture = ExtResource("1_j014i")
 speed_scale = 5.0
 fixed_fps = 60
 
-[node name="GPUParticles2D4" type="GPUParticles2D" parent="."]
+[node name="MoveParticle" type="GPUParticles2D" parent="."]
 material = SubResource("CanvasItemMaterial_xa1ym")
 emitting = false
 amount = 100
