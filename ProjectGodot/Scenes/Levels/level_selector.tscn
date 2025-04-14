@@ -1,4 +1,4 @@
-[gd_scene load_steps=87 format=3 uid="uid://dht3qeqhib1rk"]
+[gd_scene load_steps=90 format=3 uid="uid://dht3qeqhib1rk"]
 
 [ext_resource type="Script" path="res://Scripts/Controls/LevelSelector.cs" id="1_7onrw"]
 [ext_resource type="Texture2D" uid="uid://dyr30pkkewie" path="res://Assets/UI/MainMenu/LevelScreen.png" id="2_u4r7s"]
@@ -158,6 +158,54 @@ corner_radius_bottom_left = 10
 corner_detail = 16
 shadow_color = Color(0, 0, 0, 0.603922)
 shadow_size = 20
+shadow_offset = Vector2(-10, 20)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ixmd5"]
+bg_color = Color(0.391309, 0.248238, 0.114569, 1)
+border_width_left = 15
+border_width_top = 15
+border_width_right = 15
+border_width_bottom = 15
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 10
+corner_detail = 16
+shadow_color = Color(0, 0, 0, 0.603922)
+shadow_size = 10
+shadow_offset = Vector2(-10, 20)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_47jew"]
+bg_color = Color(0.391309, 0.248238, 0.114569, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 10
+corner_detail = 16
+shadow_color = Color(0, 0, 0, 0.603922)
+shadow_size = 5
+shadow_offset = Vector2(-10, 20)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qwmm2"]
+bg_color = Color(0.391309, 0.248238, 0.114569, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 10
+corner_detail = 16
+shadow_color = Color(0, 0, 0, 0.603922)
+shadow_size = 5
 shadow_offset = Vector2(-10, 20)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hpabm"]
@@ -385,7 +433,7 @@ z_index = -2
 layout_mode = 0
 offset_left = -13.0
 offset_top = -45.0
-offset_right = 3487.0
+offset_right = 3490.0
 offset_bottom = 3455.0
 scale = Vector2(0.551785, 0.551785)
 texture = ExtResource("5_l1c0r")
@@ -531,9 +579,9 @@ theme_override_colors/font_hover_color = Color(0.151276, 0.151276, 0.151276, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 300
 theme_override_styles/normal = SubResource("StyleBoxFlat_wjp8j")
-theme_override_styles/hover = SubResource("StyleBoxFlat_at7ei")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_ck5x4")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_ck5x4")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ixmd5")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_47jew")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_qwmm2")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_hpabm")
 shortcut = SubResource("Shortcut_wplr8")
 icon = ExtResource("17_l0wk0")
