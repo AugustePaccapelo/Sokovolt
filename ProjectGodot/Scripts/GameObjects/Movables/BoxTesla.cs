@@ -301,6 +301,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
 
         private void DestroyRaycast()
         {
+            if (rayCast.IsQueuedForDeletion()) return;
             rayCast?.QueueFree();
             rayCast = null;
         }
@@ -330,11 +331,13 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
         public void LineConnection(GameObject pObjToConnect)
         {
             energize = true;
-            if (PlayerAround())
+            /*if (PlayerAround())
             {
                 ConnectionEffect();
                 AnimateConnection(true);
-            }
+            }*/
+            ConnectionEffect();
+            AnimateConnection(true);
             ClearPreviewLines(); 
             
             lightning = lightningNodeScene.Instantiate<LightningNode>();
@@ -480,7 +483,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
         #region Connection Animation 
         private void AnimateConnection(bool isConnected)
         {
-            if (connectedLight == null || visual == null) return;
+            if (connectedLight == null || visual == null || !IsInsideTree()) return;
 
             Tween tween = CreateTween();
 
