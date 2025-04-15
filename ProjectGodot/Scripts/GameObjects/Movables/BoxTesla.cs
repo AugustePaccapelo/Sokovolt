@@ -301,7 +301,7 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
 
         private void DestroyRaycast()
         {
-            if (rayCast.IsQueuedForDeletion()) return;
+            //if (rayCast.IsQueuedForDeletion()) return;
             rayCast?.QueueFree();
             rayCast = null;
         }
@@ -483,7 +483,8 @@ namespace Com.IsartDigital.SokoVolt.GameObjects.Movables
         #region Connection Animation 
         private void AnimateConnection(bool isConnected)
         {
-            if (connectedLight == null || visual == null || !IsInsideTree()) return;
+            //if (connectedLight == null || visual == null || !IsInsideTree()) return;
+            if (connectedLight == null || visual == null) return;
 
             Tween tween = CreateTween();
 
